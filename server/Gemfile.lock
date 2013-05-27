@@ -38,6 +38,8 @@ GEM
     bootstrap-sass (2.3.1.2)
       sass (~> 3.2)
     bson (1.8.6)
+    bson_ext (1.8.6)
+      bson (~> 1.8.6)
     builder (3.1.4)
     cancan (1.6.10)
     coffee-rails (4.0.0)
@@ -137,6 +139,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass
+  bson_ext
   cancan
   coffee-rails (~> 4.0.0)
   devise
