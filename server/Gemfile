@@ -42,7 +42,7 @@ gem 'bootstrap-sass'
 gem 'font-awesome-rails', :git => 'https://github.com/bokmann/font-awesome-rails.git'
 
 # User authentication and registration.
-gem 'devise'
+gem 'devise', :git => 'https://github.com/plataformatec/devise.git'
 
 # User permissions.
 gem 'cancan'

@@ -1,0 +1,24 @@
+<h3>Consilium</h3>
+
+<hr class="soften small-margin" />
+
+<% if params.has_key?(:error) %>
+  <div class="alert alert-error">
+    <a class="close" data-dismiss="alert">×</a>
+    <%= params[:notice] %>
+  </div>
+  <br />
+<% end %>
+
+<% if params.has_key?(:success) %>
+  <div class="alert alert-success">
+    <a class="close" data-dismiss="alert">×</a>
+    <%= params[:success] %>
+  </div>
+  <br />
+<% end %>
+
+<div class="buttons">
+  <%= link_to 'Create New Client', new_user_registration_path, :class => 'btn btn-primary btn-menu' %><br />
+  <%= link_to 'Find Existing Client', find_user_registration_path, :class => 'btn btn-menu' %><br />
+</div>
