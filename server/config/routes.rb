@@ -3,6 +3,8 @@ Consilium::Application.routes.draw do
     :registrations => 'users/registrations'
   }
 
+  resources :users
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

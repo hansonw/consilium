@@ -3,46 +3,22 @@
   <%= link_to 'Home', root_path, :class => 'btn btn-danger' %>
 <% end %>
 
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
-aasjdkhfkahsdf<br>
+<%= form_for @user do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br>
+
+  <%= f.label :address %>
+  <%= f.text_field :address %><br>
+
+  <%= f.label :city %>
+  <%= f.text_field :city %><br>
+
+  <%= f.label :province %>
+  <%= f.text_field :province %><br>
+
+  <%= f.label :country %>
+  <%= f.text_field :country %><br>
+
+  <%= f.label :phone %>
+  <%= f.text_field :phone %><br>
+<% end %>
