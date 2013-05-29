@@ -1,5 +1,8 @@
 body {
-  padding: 20px;
+  #page {
+    margin-top: 40px;
+    padding: 20px;
+  }
 
   input {
     padding: 4px 6px;
@@ -25,7 +28,7 @@ body {
   .btn-menu {
     min-width: 350px;
     width: 50%;
-    margin: 20px auto;
+    margin: 10px auto;
   }
 
   .small-margin {
