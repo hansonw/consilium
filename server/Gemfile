@@ -29,7 +29,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.0.1'
 
 # MongoDB object mapper.
-gem 'mongoid'
+gem 'mongoid', :git => 'https://github.com/mongoid/mongoid.git'
 
 # BSON extension for Mongoid.
 gem 'bson_ext'
