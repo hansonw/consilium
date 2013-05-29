@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Consilium::Application.config.secret_key_base = 'e0d1fc7fd137f55101528988312d626e7064b0c1e873813654968c66ec9b2aa3be1f46d816bd1adf5135cd410382c3a429d3a3e324a45718801f780db9bd01f4'
+Consilium::Application.config.secret_key_base = '4141866bbea48cb3ca7c6acfa399bfe825eb140d70df020b105f1951144dba9b2023f1b75f1b234f41a72f711b705f307a1decfa5bd807086c6afa4526e34654'
