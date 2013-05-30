@@ -1,6 +1,6 @@
-<h1>Consilium</h1>
-
-<hr class="soften small-margin" />
+<% content_for :navbar do %>
+  <div class="title">Consilium</div>
+<% end %>
 
 <% if params.has_key?(:error) %>
   <div class="alert alert-error">
