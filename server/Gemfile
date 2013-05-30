@@ -39,7 +39,7 @@ gem 'bootstrap-sass'
 
 # FontAwesome for Twitter Bootstrap.
 # Need GitHub version for this to work. Likely an issue with Rails 4.0.
-gem 'font-awesome-sass-rails', :git => 'https://github.com/littlebtc/font-awesome-sass-rails.git'
+gem 'font-awesome-rails', :git => 'https://github.com/bokmann/font-awesome-rails.git'
 
 # User authentication and registration.
 gem 'devise', :git => 'https://github.com/plataformatec/devise.git'

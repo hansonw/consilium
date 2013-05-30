@@ -1,10 +1,9 @@
 GIT
-  remote: https://github.com/littlebtc/font-awesome-sass-rails.git
-  revision: ef72d282529af501067963b0a2a89311de929b0e
+  remote: https://github.com/bokmann/font-awesome-rails.git
+  revision: 8c60b7b54d838e6ea891a65ced1b1d09a2d537a1
   specs:
-    font-awesome-sass-rails (3.0.2.2)
-      railties (>= 3.1.1)
-      sass-rails (>= 3.1.1)
+    font-awesome-rails (3.1.1.2)
+      railties (>= 3.2, < 5.0)
 
 GIT
   remote: https://github.com/mongoid/mongoid.git
@@ -153,7 +152,7 @@ DEPENDENCIES
   cancan
   coffee-rails (~> 4.0.0)
   devise!
-  font-awesome-sass-rails!
+  font-awesome-rails!
   jbuilder (~> 1.0.1)
   jquery-rails
   mongoid!
