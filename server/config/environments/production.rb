@@ -2,7 +2,8 @@ Consilium::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
-  config.cache_classes = true
+  # XXX: Re-enable this later.
+  config.cache_classes = false
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both thread web servers
@@ -27,7 +28,8 @@ Consilium::Application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  # XXX: Disable this later.
+  config.assets.compile = true
 
   # Generate digests for assets URLs.
   config.assets.digest = true
