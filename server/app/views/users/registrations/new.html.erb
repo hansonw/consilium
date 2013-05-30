@@ -854,7 +854,8 @@
     </div>
 
     <div id="saveAndSubmit" class="text-right">
-      <%= link_to 'Save and Submit', '#saveAndSubmitModal', :class => 'btn btn-large btn-success', :data => {:toggle => 'modal'} %>
+      <% #link_to 'Save and Submit', '#saveAndSubmitModal', :class => 'btn btn-large btn-success', :data => {:toggle => 'modal'} %>
+      <%= link_to 'Save and Submit', '/done', :class => 'btn btn-large btn-success' %>
       <a class="btn btn-large btn-danger">Cancel</a>
     </div>
 
