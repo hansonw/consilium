@@ -12,42 +12,117 @@
   :phone
 ] %>
 
+<h2>Create New Client</h2>
+
+<hr class="soften" />
+
 <%= form_for @user, :html => {:class => 'form-horizontal'} do |f| %>
-  <div class="row">
-    <div class="span6">
-      <%= render :partial => 'users/registrations/new_form_field',
-                 :locals => {:f => f, :field => :first_name} %>
+  <div class="well">
+    <h3>Basic Information</h3>
+
+    <div class="row">
+      <div class="span6">
+        <%= render :partial => 'users/registrations/new_form_field',
+                   :locals => {:f => f, :field => :first_name} %>
+      </div>
+      <div class="span6">
+        <%= render :partial => 'users/registrations/new_form_field',
+                   :locals => {:f => f, :field => :last_name} %>
+      </div>
     </div>
-    <div class="span6">
-      <%= render :partial => 'users/registrations/new_form_field',
-                 :locals => {:f => f, :field => :last_name} %>
+    <div class="row">
+      <div class="span12">
+        <%= render :partial => 'users/registrations/new_form_field',
+                   :locals => {:f => f, :field => :address} %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span4">
+        <%= render :partial => 'users/registrations/new_form_field',
+                   :locals => {:f => f, :field => :city} %>
+      </div>
+      <div class="span4">
+        <%= render :partial => 'users/registrations/new_form_field',
+                   :locals => {:f => f, :field => :province} %>
+      </div>
+      <div class="span4">
+        <%= render :partial => 'users/registrations/new_form_field',
+                   :locals => {:f => f, :field => :country, :value => 'Canada'} %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12">
+        <%= render :partial => 'users/registrations/new_form_field',
+                   :locals => {:f => f, :field => :phone} %>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <div class="span12">
-      <%= render :partial => 'users/registrations/new_form_field',
-                 :locals => {:f => f, :field => :address} %>
+  <div id="clientContacts" class="well">
+    <div id="popoverAddClientContact" class="hide">
+      <%= form_for @user, :html => {:class => 'form-horizontal'} do |f| %>
+        <h4 class="center">Add Client Contact</h4>
+        <hr class="soften" />
+        <%= render :partial => 'users/registrations/new_form_field',
+                   :locals => {:f => f, :field => :first_name} %>
+        <%= render :partial => 'users/registrations/new_form_field',
+                   :locals => {:f => f, :field => :last_name} %>
+        <%= render :partial => 'users/registrations/new_form_field',
+                   :locals => {:f => f, :field => :last_name, :text => 'Mr./Mrs./Dr.'} %>
+        <%= render :partial => 'users/registrations/new_form_field',
+                   :locals => {:f => f, :field => :last_name, :text => 'Position'} %>
+        <%= render :partial => 'users/registrations/new_form_field',
+                   :locals => {:f => f, :field => :last_name, :text => 'Phone'} %>
+        <%= render :partial => 'users/registrations/new_form_field',
+                   :locals => {:f => f, :field => :last_name, :text => 'Email'} %>
+        <%= render :partial => 'users/registrations/new_form_field',
+                   :locals => {:f => f, :field => :last_name, :text => 'Other'} %>
+        <%= f.submit 'Cancel', :class => 'btn btn-danger pull-right' %>
+        <%= f.submit 'Save', :class => 'btn btn-success pull-right', :style => 'margin-right: 10px;', :id => 'btnSaveAddClientContact' %>
+        <br>
+      <% end %>
     </div>
-  </div>
-  <div class="row">
-    <div class="span4">
-      <%= render :partial => 'users/registrations/new_form_field',
-                 :locals => {:f => f, :field => :city} %>
-    </div>
-    <div class="span4">
-      <%= render :partial => 'users/registrations/new_form_field',
-                 :locals => {:f => f, :field => :province} %>
-    </div>
-    <div class="span4">
-      <%= render :partial => 'users/registrations/new_form_field',
-                 :locals => {:f => f, :field => :country} %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="span12">
-      <%= render :partial => 'users/registrations/new_form_field',
-                 :locals => {:f => f, :field => :phone} %>
-    </div>
+
+    <h3>
+      Client Contacts
+      <a id="btnAddClientContact" data-toggle="popover" class="btn btn-success pull-right"><i class="icon-plus"></i> Add Client Contact</a>
+    </h3>
+
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>Mr./Ms./Dr.</th>
+          <th>Position</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Other</th>
+          <th style="text-align: right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="clientContactsEmptyRecord">
+          <td><em>None</em></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr id="clientContactsSampleRecord" class="hide">
+          <td>Jenkins</td>
+          <td>Leroy</td>
+          <td>Mr.</td>
+          <td>CEO</td>
+          <td>1-800-555-1818</td>
+          <td>leroy.jenkins@company.com</td>
+          <td></td>
+          <td style="text-align: right"><a class="btn"><i class="icon-edit"></i> Edit</a> <a class="btn btn-danger"><i class="icon-trash"></i> Delete</a></td>
+        </tr>
+      </body>
+    </table>
   </div>
 <% end %>
 

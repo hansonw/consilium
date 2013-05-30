@@ -1,11 +1,22 @@
 body {
-  .form-horizontal .control-group {
-    .control-label {
-      width: 100px;
+  .center {
+    text-align: center;
+  }
+
+  .form-horizontal {
+    .control-group {
+      .control-label {
+        width: 100px;
+      }
+
+      .controls {
+        margin-left: 120px;
+      }
     }
 
-    .controls {
-      margin-left: 120px;
+    .well {
+      padding-top: 5px;
+      padding-bottom: 5px;
     }
   }
 }

@@ -1,6 +1,10 @@
 <div class="control-group">
-  <%= f.label field, :class => 'control-label' %>
+  <% if defined?(text) %>
+    <%= f.label field, text, :class => 'control-label' %>
+  <% else %>
+    <%= f.label field, :class => 'control-label' %>
+  <% end %>
   <div class="controls">
-    <%= f.text_field field %><br>
+    <%= f.text_field field, :value => defined?(value) ? value : nil %><br>
   </div>
 </div>
