@@ -5,7 +5,11 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  def name
+  def first_name
+
+  end
+
+  def last_name
 
   end
 
