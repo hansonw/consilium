@@ -14,5 +14,8 @@ $(document).on 'ready page:load', () ->
     $('#btnAddClientContact').popover('hide')
   )
 
-  $('#form-nav a').click (e) ->
-    $('#form-nav .nav').css(top: 50)
+  #$('#form-nav a').click (e) ->
+  #  $('#form-nav .nav').css(top: 50)
+
+  $(window).scroll (e) ->
+    $('#form-nav .nav').css(top: 60)

@@ -1,4 +1,9 @@
 body {
+  $fontSize: 16px;
+
+  font-size: $fontSize;
+  label { font-size: $fontSize; }
+
   .center {
     text-align: center;
   }
@@ -18,5 +23,9 @@ body {
   .well {
     padding-top: 5px;
     padding-bottom: 5px;
+  }
+
+  .table td {
+    vertical-align: middle;
   }
 }
