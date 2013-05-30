@@ -2,4 +2,14 @@ body {
   .btn-xlarge {
     font-size: 20px;
   }
+
+  .form-horizontal .control-group {
+    .control-label {
+      width: 100px;
+    }
+
+    .controls {
+      margin-left: 120px;
+    }
+  }
 }
