@@ -1,0 +1,27 @@
+<% content_for :navbar do %>
+  <%= link_to 'Home', root_path, :class => 'btn btn-danger' %>
+<% end %>
+
+<div class="alert alert-success">
+  <i class="icon-check-sign"></i> Client 'Leroy Jenkins' has been saved on this device. This client will be synced once you are connected to the internet again.
+</div>
+
+<br>
+
+<div id="generatePolicyRequestModal" class="modal fade hide">
+  <div class="modal-header">
+    <h3>Policy Request will be Generated</h3>
+  </div>
+  <div class="modal-body">
+    A generated policy request form for 'Leroy Jenkins' will be emailed to you once this device connects to the internet again.
+  </div>
+  <div class="modal-footer">
+    <%= link_to 'OK', '#generatePolicyRequestModal', :class => 'btn btn-large btn-primary', :data => {:dismiss => 'modal'} %>
+  </div>
+</div>
+
+<div class="buttons">
+  <p>Click below to generate a policy request from this client's data. It will be emailed to you.</p>
+  <%= link_to 'Generate Policy Request', '#generatePolicyRequestModal', :class => 'btn btn-primary btn-large btn-menu', :data => {:toggle => 'modal'} %><br>
+  <%= link_to 'Home', root_path, :class => 'btn btn-danger btn-large btn-menu' %>
+</div>

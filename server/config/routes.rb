@@ -10,6 +10,8 @@ Consilium::Application.routes.draw do
 
   get 'users/find' => 'users/registrations#find', :as => 'find_user_registration'
 
+  get 'done', :controller => 'welcome', :action => 'done'
+
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 

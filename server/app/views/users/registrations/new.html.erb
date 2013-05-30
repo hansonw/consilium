@@ -841,8 +841,20 @@
 
     <hr class="soften" />
 
+    <div id="saveAndSubmitModal" class="modal fade hide">
+      <div class="modal-header">
+        <h3>Not Connected to the Internet</h3>
+      </div>
+      <div class="modal-body">
+        You are currently offline. Your changes will be synced next time you are online.
+      </div>
+      <div class="modal-footer">
+        <%= link_to 'OK', '#saveAndSubmitModal', :class => 'btn btn-large btn-primary', :data => {:dismiss => 'modal'} %>
+      </div>
+    </div>
+
     <div id="saveAndSubmit" class="text-right">
-      <a class="btn btn-large btn-success">Save and Submit</a>
+      <%= link_to 'Save and Submit', '#saveAndSubmitModal', :class => 'btn btn-large btn-success', :data => {:toggle => 'modal'} %>
       <a class="btn btn-large btn-danger">Cancel</a>
     </div>
 
