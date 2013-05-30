@@ -13,3 +13,6 @@ $(document).on 'ready page:load', () ->
     $('#clientContactsSampleRecord').show(500)
     $('#btnAddClientContact').popover('hide')
   )
+
+  $('#form-nav a').click (e) ->
+    $('#form-nav .nav').css(top: 50)
