@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/mongoid/mongoid.git
-  revision: e1fa17295bfbc048f613a070e67bd433ccec256f
+  revision: 11e45e5a30a45458b83db99ab6c9d9ccc337e66f
   specs:
     mongoid (4.0.0)
       activemodel (~> 4.0.0.rc1)
@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/plataformatec/devise.git
-  revision: 2ead747be656eaf23b6590126ae5ed3e4f9b6a55
+  revision: ae4448403c1070313dd18fa9589000c0fa07877a
   specs:
     devise (3.0.0.rc)
       bcrypt-ruby (~> 3.0)
@@ -87,6 +87,7 @@ GEM
     minitest (4.7.4)
     moped (1.5.0)
     multi_json (1.7.4)
+    normalize-rails (2.1.1)
     origin (1.1.0)
     orm_adapter (0.4.0)
     polyglot (0.3.3)
@@ -156,6 +157,7 @@ DEPENDENCIES
   jbuilder (~> 1.0.1)
   jquery-rails
   mongoid!
+  normalize-rails
   rails (= 4.0.0.rc1)
   sass-rails (~> 4.0.0.rc1)
   sdoc
