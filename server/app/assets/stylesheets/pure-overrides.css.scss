@@ -1,6 +1,7 @@
+@import 'constants';
+
 body {
   #nav {
-    $nav-width: 200px;
     margin-left: -$nav-width;
     width: $nav-width;
     position: fixed;
@@ -44,5 +45,9 @@ body {
         padding: 0.6em 0 0.6em 0.6em;
       }
     }
+  }
+
+  form input {
+    max-width: 600px;
   }
 }

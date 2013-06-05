@@ -1,9 +1,15 @@
-body {
-  .form-tabs li {
-    width: 200px;
-  }
+@import 'constants';
 
-  .form-content {
-    margin-left: 220px;
+body {
+  form.new-client {
+    $new-client-form-width: 800px;
+    margin-left: $nav-width;
+
+    min-width: $nav-width + $new-client-form-width;
+
+    .new-client-inner {
+      width: $new-client-form-width;
+      margin: auto;
+    }
   }
 }
