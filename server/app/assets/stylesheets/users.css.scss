@@ -2,14 +2,18 @@
 
 body {
   form.new-client {
-    $new-client-form-width: 800px;
+    $new-client-form-width: $form-input-width + 155px;
     margin-left: $nav-width;
 
-    min-width: $nav-width + $new-client-form-width;
+    min-width: 100px + $new-client-form-width;
 
     .new-client-inner {
       width: $new-client-form-width;
       margin: auto;
+
+      .new-client-section div {
+        text-align: right;
+      }
     }
   }
 }

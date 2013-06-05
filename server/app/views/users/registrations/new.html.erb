@@ -27,7 +27,7 @@
 
 <%= form_for @user, :html => {:class => 'pure-form pure-form-aligned new-client'} do |f| %>
   <%= field_set_tag nil, :class => 'new-client-inner' do %>
-    <div id="basicInformation">
+    <div id="basicInformation" class="new-client-section">
       <h3>Basic Info.</h3>
 
       <%= render :partial => 'users/registrations/new_form_field',
@@ -42,8 +42,8 @@
       <%= render :partial => 'users/registrations/new_form_field',
                  :locals => {:f => f, :field => :phone, :placeholder => 'Area code-phone number'} %>
     </div>
-    <div id="clientContacts" class="well">
-      <div id="popoverAddClientContact" class="hide">
+    <div id="clientContacts">
+      <div id="popoverAddClientContact" class="hide" style="display: none;">
         <%= form_for @user, :html => {:class => 'form-horizontal'} do |f| %>
           <h4 class="center">Add Client Contact</h4>
           <hr class="soften" />
@@ -67,9 +67,9 @@
         <% end %>
       </div>
 
+      <a id="btnAddClientContact" class="pull-right pure-button pure-button-primary"><i class="icon-plus"></i> Add Client Contact</a>
       <h3>
         Client Contacts
-        <a id="btnAddClientContact" data-toggle="popover" class="btn btn-success pull-right"><i class="icon-plus"></i> Add Client Contact</a>
       </h3>
 
       <table class="table table-striped">
@@ -92,6 +92,7 @@
       </table>
     </div>
 
+    <!-- !!!!
     <div id="businessOperations" class="well">
       <h3>
         Business Operations
@@ -847,5 +848,6 @@
     </div>
 
     <br>
+    -->
   <% end %>
 <% end %>

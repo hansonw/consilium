@@ -48,6 +48,6 @@ body {
   }
 
   form input {
-    max-width: 600px;
+    max-width: $form-input-width;
   }
 }
