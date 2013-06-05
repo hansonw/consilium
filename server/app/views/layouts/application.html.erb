@@ -6,37 +6,28 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title><%= content_for?(:title) ? yield(:title) : "Consilium" %></title>
-    <%= stylesheet_link_tag "application", :media => "all" %>
-    <%= javascript_include_tag "application" %>
+    <title><%= content_for?(:title) ? yield(:title) : 'Consilium' %></title>
+    <%= stylesheet_link_tag 'application', :media => 'all' %>
+    <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
     <%= yield(:head) %>
   </head>
-  <% if content_for?(:body) %>
-    <%= yield (:body) %>
-  <% else %>
-    <body>
-  <% end %>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="position: fixed">
-      <div class="navbar-inner">
-        <div class="container">
-          <div class="btn btn-inverse pull-right">Settings</div>
-          <% if content_for?(:navbar) %>
-            <%= yield(:navbar) %>
-          <% end %>
-        </div>
-      </div>
-    </div>
+  <body>
     <div id="main" role="main">
-      <div class="container">
-        <div class="content">
-          <div id="page" class="row-fluid">
-            <%= yield %>
-          </div>
-          <footer>
-          </footer>
+      <div id="nav" class="pure-u">
+        <div class="pure-menu pure-menu-open">
+          <%= link_to 'Consilium', root_path, :class => 'pure-menu-heading' %>
+          <ul>
+            <li><%= link_to 'Base', root_path %></li>
+            <li><%= link_to 'Test', root_path %></li>
+          </ul>
         </div>
       </div>
+      <div class="content">
+        <%= yield %>
+      </div>
+      <footer>
+      </footer>
     </div>
   </body>
 </html>

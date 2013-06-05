@@ -1,0 +1,38 @@
+body {
+  #nav {
+    margin-left: -150px;
+    width: 150px;
+    position: fixed;
+    top: 0;
+    left: 150px;
+    bottom: 0;
+    z-index: 1000;
+    background: #191818;
+    overflow-y: auto;
+    -webkit-overflow-scroll: touch;
+
+    .pure-menu {
+      ul {
+        border-top: 1px solid #333;
+      }
+    }
+
+    .pure-menu-open {
+      background: transparent;
+      border: 0;
+
+      .pure-menu-heading {
+        font-weight: bold;
+        font-size: 110%;
+        color: #fff;
+      }
+
+      a {
+        color: #999;
+        border: none;
+        white-space: normal;
+        padding: 0.6em 0 0.6em 0.6em;
+      }
+    }
+  }
+}
