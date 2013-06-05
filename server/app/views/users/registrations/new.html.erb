@@ -27,6 +27,16 @@
 
 <%= form_for @user, :html => {:class => 'pure-form pure-form-aligned new-client'} do |f| %>
   <%= field_set_tag nil, :class => 'new-client-inner' do %>
+    <div class="page-header">
+      <h2>New Client</h2>
+      <div class="breadcrumbs">
+        <%= link_to 'Home', root_path %>
+        <span class="divider">&gt;</span>
+        <%= link_to 'New Client', new_user_registration_path %>
+      </div>
+      <hr class="soften" />
+    </div>
+
     <div id="basicInformation" class="new-client-section">
       <h3>Basic Info.</h3>
 
@@ -44,10 +54,9 @@
     </div>
 
     <div id="clientContacts" class="new-client-section">
-      <div id="popoverAddClientContact" class="hide" style="display: none;">
-        <%= form_for @user, :html => {:class => 'form-horizontal'} do |f| %>
+      <div id="popoverAddClientContact" class="hide">
+        <%= form_for @user, :html => {:class => 'pure-form pure-form-aligned'} do |f| %>
           <h4 class="center">Add Client Contact</h4>
-          <hr class="soften" />
           <%= render :partial => 'users/registrations/new_form_field',
                      :locals => {:f => f, :field => :first_name} %>
           <%= render :partial => 'users/registrations/new_form_field',

@@ -2,6 +2,7 @@
 
 body {
   #nav {
+    padding-top: $body-margin;
     margin-left: -$nav-width;
     width: $nav-width;
     position: fixed;

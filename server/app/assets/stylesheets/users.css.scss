@@ -10,7 +10,7 @@ body {
       margin: auto;
 
       .new-client-section {
-        &:not(:first-child) {
+        &:not(:first-child):not(:nth-child(2)) {
           margin-top: 50px;
         }
 
