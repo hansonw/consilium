@@ -18,6 +18,33 @@ body {
     font-weight: 200;
   }
 
+  .alert {
+    background: #cce1ef;
+    padding: 20px;
+    color: #163246;
+
+    .alert-inner {
+      display: table;
+
+      * {
+        display: table-cell;
+      }
+
+      i {
+        padding-right: 20px;
+        vertical-align: middle;
+      }
+
+      p {
+        overflow: auto;
+      }
+    }
+  }
+
+  #main {
+    overflow-x: hidden;
+  }
+
   .center {
     text-align: center;
   }
@@ -62,7 +89,7 @@ body {
     $popover-width: $form-input-width + 155px;
 
     min-width: $popover-width;
-    padding-top: 20px;
+    padding: 20px;
     top: 0;
     /** Hack. Not sure why we need to /4. */
     left: $nav-width/3;

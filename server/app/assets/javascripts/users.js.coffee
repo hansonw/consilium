@@ -22,3 +22,13 @@ $(document).on 'ready page:load', () ->
     else
       $('#popoverAddClientContact').show('slide')
     gToggle = !gToggle
+
+  $('#btnGeneratePolicyRequest').click (e) ->
+    e.preventDefault()
+    $('#popoverGeneratePolicyRequest').show('slide')
+
+  $('#btnGeneratePolicyRequestOk').click (e) ->
+    e.preventDefault()
+    $('#btnGeneratePolicyRequest').html('<i class="icon-ok"></i> Generate Policy Request')
+                                  .addClass('pure-button-disabled')
+    $('#popoverGeneratePolicyRequest').hide('slide')

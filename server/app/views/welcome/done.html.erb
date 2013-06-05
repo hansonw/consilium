@@ -1,27 +1,20 @@
-<% content_for :navbar do %>
-  <%= link_to 'Home', root_path, :class => 'btn btn-danger' %>
-<% end %>
+<div class="alert">
+  <div class="alert-inner">
+    <i class="icon-ok icon-large"></i><p>Client 'John Romero' has been saved on this device. This client will be synced once you are connected to the internet again.</p>
+  </div>
+</div>
 
-<div class="alert alert-success">
-  <i class="icon-check-sign"></i> Client 'Leroy Jenkins' has been saved on this device. This client will be synced once you are connected to the internet again.
+<div id="popoverGeneratePolicyRequest" class="popover hide">
+  <div class="popover-inner">
+    <h3>Policy Request will be Generated</h3>
+    <p>A generated policy request form for 'John Romero' will be emailed to you once this device connects to the internet again.</p>
+    <%= link_to 'OK', '', :id => 'btnGeneratePolicyRequestOk', :class => 'pure-button pure-button-primary' %>
+  </div>
 </div>
 
 <br>
 
-<div id="generatePolicyRequestModal" class="modal fade hide">
-  <div class="modal-header">
-    <h3>Policy Request will be Generated</h3>
-  </div>
-  <div class="modal-body">
-    A generated policy request form for 'Leroy Jenkins' will be emailed to you once this device connects to the internet again.
-  </div>
-  <div class="modal-footer">
-    <%= link_to 'OK', '#generatePolicyRequestModal', :class => 'btn btn-large btn-primary', :data => {:dismiss => 'modal'} %>
-  </div>
-</div>
-
 <div class="buttons">
-  <p>Click below to generate a policy request from this client's data. It will be emailed to you.</p>
-  <%= link_to 'Generate Policy Request', '#generatePolicyRequestModal', :class => 'btn btn-primary btn-large btn-menu', :data => {:toggle => 'modal'} %><br>
-  <%= link_to 'Home', root_path, :class => 'btn btn-danger btn-large btn-menu' %>
+  <%= link_to 'Generate Policy Request', '', :id => 'btnGeneratePolicyRequest', :class => 'pure-button pure-button-primary pure-button-large pure-button-fixed-width' %><br><br>
+  <%= link_to 'Home', root_path, :class => 'pure-button pure-button-large pure-button-fixed-width' %>
 </div>
