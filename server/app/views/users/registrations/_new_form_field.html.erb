@@ -1,10 +1,8 @@
-<div class="control-group">
+<div class="pure-control-group">
   <% if defined?(text) %>
-    <%= f.label field, text, :class => 'control-label' %>
+    <%= f.label field, text %>
   <% else %>
-    <%= f.label field, :class => 'control-label' %>
+    <%= f.label field %>
   <% end %>
-  <div class="controls">
-    <%= f.text_field field, :value => defined?(value) ? value : nil, :placeholder => defined?(placeholder) ? placeholder : nil %><br>
-  </div>
+  <%= f.text_field field, :value => defined?(value) ? value : nil, :placeholder => defined?(placeholder) ? placeholder : nil %><br>
 </div>

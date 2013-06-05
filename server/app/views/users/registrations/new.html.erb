@@ -1,12 +1,3 @@
-<% content_for :body do %>
-  <body data-spy="scroll" data-target="#form-nav" data-offset="100">
-<% end %>
-
-<% content_for :navbar do %>
-  <%= link_to raw('<i class="icon-chevron-left icon-fixed-width"></i>'), '#', :class => 'btn btn-danger' %>
-  <%= link_to 'Home', root_path, :class => 'btn btn-danger' %>
-<% end %>
-
 <% fields = [
   :name,
   :address,
@@ -16,11 +7,7 @@
   :phone
 ] %>
 
-<h2>Create New Client</h2>
-
-<hr class="soften" />
-
-<div id="form-nav" class="form-tabs">
+<div id="form-nav" class="form-tabs" style="display: none;">
   <ul class="nav nav-pills nav-stacked affix">
     <li><a href="#basicInformation">Basic Info.</a></li>
     <li><a href="#clientContacts">Client Contacts</a></li>
@@ -38,9 +25,9 @@
   </ul>
 </div>
 
-<div class="form-content">
-  <%= form_for @user, :html => {:class => 'form-horizontal'} do |f| %>
-    <div id="basicInformation" class="well">
+<%= form_for @user, :html => {:class => 'pure-form pure-form-aligned new-client'} do |f| %>
+  <%= field_set_tag nil, :class => 'new-client-inner' do %>
+    <div id="basicInformation" class="new-client-section">
       <h3>Basic Info.</h3>
 
       <%= render :partial => 'users/registrations/new_form_field',
@@ -55,8 +42,8 @@
       <%= render :partial => 'users/registrations/new_form_field',
                  :locals => {:f => f, :field => :phone, :placeholder => 'Area code-phone number'} %>
     </div>
-    <div id="clientContacts" class="well">
-      <div id="popoverAddClientContact" class="hide">
+    <div id="clientContacts">
+      <div id="popoverAddClientContact" class="hide" style="display: none;">
         <%= form_for @user, :html => {:class => 'form-horizontal'} do |f| %>
           <h4 class="center">Add Client Contact</h4>
           <hr class="soften" />
@@ -80,9 +67,9 @@
         <% end %>
       </div>
 
+      <a id="btnAddClientContact" class="pull-right pure-button pure-button-primary"><i class="icon-plus"></i> Add Client Contact</a>
       <h3>
         Client Contacts
-        <a id="btnAddClientContact" data-toggle="popover" class="btn btn-success pull-right"><i class="icon-plus"></i> Add Client Contact</a>
       </h3>
 
       <table class="table table-striped">
@@ -105,6 +92,7 @@
       </table>
     </div>
 
+    <!-- !!!!
     <div id="businessOperations" class="well">
       <h3>
         Business Operations
@@ -860,5 +848,6 @@
     </div>
 
     <br>
+    -->
   <% end %>
-</div>
+<% end %>
