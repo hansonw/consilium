@@ -1,11 +1,7 @@
 $(document).on 'ready page:load', () ->
   #$('[data-toggle~="popover"]').popover()
-  $('#btnAddClientContact').popover(
-    html: true
-    placement: 'left'
-    content: ->
-      $('#popoverAddClientContact').html()
-  )
+  $('#btnAddClientContact').click (e) ->
+    $('#popoverAddClientContact').slideDown('slow', 'linear')
 
   $('#clientContacts').on('click', '#btnSaveAddClientContact', (e) ->
     e.preventDefault()

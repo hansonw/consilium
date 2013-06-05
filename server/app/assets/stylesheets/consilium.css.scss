@@ -59,17 +59,19 @@ body {
   }
 
   .popover {
+    $popover-width: $form-input-width + 155px;
+
+    min-width: $popover-width;
     padding-top: 20px;
-    overflow: hidden;
     top: 0;
-    left: 0;
+    /** Hack. Not sure why we need to /4. */
+    left: $nav-width/3;
     width: 100%;
     height: 100%;
     position: fixed;
     background-color: #fff;
 
     .popover-inner {
-      $popover-width: $form-input-width + 155px;
       width: $popover-width;
       margin: auto;
     }
