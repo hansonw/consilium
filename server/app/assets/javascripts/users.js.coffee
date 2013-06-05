@@ -1,14 +1,21 @@
+gToggle = false
+
 $(document).on 'ready page:load', () ->
   #$('[data-toggle~="popover"]').popover()
-  $('#btnAddClientContact').click (e) ->
-    $('#popoverAddClientContact').slideDown('slow', 'linear')
-
-  $('#clientContacts').on('click', '#btnSaveAddClientContact', (e) ->
+  $('#btnAddClientContact, #btnSaveAddClientContact, #btnCancelAddClientContact').click (e) ->
+    if gToggle
+      $('#popoverAddClientContact').hide('slide')
+    else
+      $('#popoverAddClientContact').show('slide')
+    gToggle = !gToggle
     e.preventDefault()
-    $('#clientContactsEmptyRecord').remove()
-    $('#clientContactsSampleRecord').show(500)
-    $('#btnAddClientContact').popover('hide')
-  )
+
+# $('#clientContacts').on('click', '#btnSaveAddClientContact', (e) ->
+#   e.preventDefault()
+#   $('#clientContactsEmptyRecord').remove()
+#   $('#clientContactsSampleRecord').show(500)
+#   $('#btnAddClientContact').popover('hide')
+# )
 
   $(window).scroll (e) ->
     $('#form-nav .nav').css(top: 60)

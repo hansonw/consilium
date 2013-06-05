@@ -73,8 +73,8 @@
             <%= render :partial => 'users/registrations/new_form_field',
                        :locals => {:f => f, :field => :last_name, :text => 'Other'} %>
             <br>
-            <%= link_to 'Save', '', :class => 'pure-button pure-button-primary', :id => 'btnSaveAddClientContact' %>
-            <%= link_to 'Cancel', '', :class => 'pure-button' %>
+            <%= link_to 'Save', '', :id => 'btnSaveAddClientContact', :class => 'pure-button pure-button-primary' %>
+            <%= link_to 'Cancel', '', :id => 'btnCancelAddClientContact', :class => 'pure-button' %>
           <% end %>
         </div>
       </div>
