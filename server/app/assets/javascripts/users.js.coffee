@@ -1,7 +1,15 @@
 gToggle = false
 
 $(document).on 'ready page:load', () ->
-  #$('[data-toggle~="popover"]').popover()
+  $('#btnSaveAndSubmit').click (e) ->
+    e.preventDefault()
+    $('#popoverNotConnected').show('slide')
+
+  $('#btnSaveAndSubmitOk').click (e) ->
+    e.preventDefault()
+    $('#popoverNotConnected').hide('slide', ->
+      Turbolinks.visit('/done')
+    )
 
   $('#btnSaveAddClientContact').click (e) ->
     $('#clientContactsEmptyRecord').remove()
@@ -14,7 +22,3 @@ $(document).on 'ready page:load', () ->
     else
       $('#popoverAddClientContact').show('slide')
     gToggle = !gToggle
-
-  $('#saveAndSubmitModal').on('hidden', ->
-    Turbolinks.visit('/done')
-  )

@@ -84,7 +84,7 @@
         Client Contacts
       </h3>
 
-      <table class="pure-table pure-table-horizontal" style="width: 100%;">
+      <table class="pure-table pure-table-horizontal pure-table-full-width">
         <thead>
           <tr>
             <th>Name</th>
@@ -104,14 +104,13 @@
       </table>
     </div>
 
-    <!-- !!!!
-    <div id="businessOperations" class="well">
+    <div id="businessOperations" class="new-client-section">
+      <a class="pull-right pure-button pure-button-primary"><i class="icon-plus"></i> Add Business Op.</a>
       <h3>
         Business Operations
-        <a id="btnAddClientContact" data-toggle="popover" class="btn btn-success pull-right"><i class="icon-plus"></i> Add Business Op.</a>
       </h3>
 
-      <table class="table table-striped">
+      <table class="pure-table pure-table-horizontal pure-table-full-width">
         <thead>
           <tr>
             <th>Description of Operations</th>
@@ -125,13 +124,13 @@
       </table>
     </div>
 
-    <div id="claimsInformation" class="well">
+    <div id="claimsInformation" class="new-client-section">
+      <a class="pull-right pure-button pure-button-primary"><i class="icon-plus"></i> Add Claims Info.</a>
       <h3>
         Claims Info.
-        <a id="btnAddClientContact" data-toggle="popover" class="btn btn-success pull-right"><i class="icon-plus"></i> Add Claim Info.</a>
       </h3>
 
-      <table class="table table-striped">
+      <table class="pure-table pure-table-horizontal pure-table-full-width">
         <thead>
           <tr>
             <th>Loss Date</th>
@@ -153,37 +152,13 @@
       </table>
     </div>
 
-    <div id="previousPolicyInformation" class="well">
-      <div id="popoverAddClientContact" class="hide">
-        <%= form_for @user, :html => {:class => 'form-horizontal'} do |f| %>
-          <h4 class="center">Add Client Contact</h4>
-          <hr class="soften" />
-          <%= render :partial => 'users/registrations/new_form_field',
-                     :locals => {:f => f, :field => :first_name} %>
-          <%= render :partial => 'users/registrations/new_form_field',
-                     :locals => {:f => f, :field => :last_name} %>
-          <%= render :partial => 'users/registrations/new_form_field',
-                     :locals => {:f => f, :field => :last_name, :text => 'Mr./Mrs./Dr.'} %>
-          <%= render :partial => 'users/registrations/new_form_field',
-                     :locals => {:f => f, :field => :last_name, :text => 'Position'} %>
-          <%= render :partial => 'users/registrations/new_form_field',
-                     :locals => {:f => f, :field => :last_name, :text => 'Phone'} %>
-          <%= render :partial => 'users/registrations/new_form_field',
-                     :locals => {:f => f, :field => :last_name, :text => 'Email'} %>
-          <%= render :partial => 'users/registrations/new_form_field',
-                     :locals => {:f => f, :field => :last_name, :text => 'Other'} %>
-          <%= f.submit 'Cancel', :class => 'btn btn-danger pull-right' %>
-          <%= f.submit 'Save', :class => 'btn btn-success pull-right', :style => 'margin-right: 10px;', :id => 'btnSaveAddClientContact' %>
-          <br>
-        <% end %>
-      </div>
-
+    <div id="previousPolicyInformation" class="new-client-section">
+      <a class="pull-right pure-button pure-button-primary"><i class="icon-plus"></i> Add Prev. Policy Info.</a>
       <h3>
         Previous Policy Info.
-        <a id="btnAddClientContact" data-toggle="popover" class="btn btn-success pull-right"><i class="icon-plus"></i> Add Client Contact</a>
       </h3>
 
-      <table class="table table-striped">
+      <table class="pure-table pure-table-horizontal pure-table-full-width">
         <thead>
           <tr>
             <th>Position</th>
@@ -206,660 +181,185 @@
             <td></td>
             <td></td>
             <td></td>
-            <td style="text-align: right"><a class="btn"><i class="icon-edit icon-large"></i></a> <a class="btn btn-danger"><i class="icon-trash icon-large"></i></a></td>
+            <td style="text-align: right"><a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a> <a class="pure-button pure-button-small"><i class="icon-trash icon-large"></i></a></td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div id="liabilityInformation" class="well">
-      <h3>
-        Liability Info.
-        <a id="btnAddClientContact" data-toggle="popover" class="btn btn-success pull-right"><i class="icon-plus"></i> Add Business Operation</a>
-      </h3>
+  <div id="liabilityInformation" class="new-client-section">
+    <a class="pull-right pure-button pure-button-primary"><i class="icon-plus"></i> Add Liability Info.</a>
+    <h3>
+      Liability Info.
+    </h3>
 
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Description of Operations</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><em>None</em></td>
-          </tr>
-        </tbody>
-      </table>
+    <table class="pure-table pure-table-horizontal pure-table-full-width">
+      <thead>
+        <tr>
+          <th>Description of Operations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><em>None</em></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="misc" class="new-client-section">
+    <a class="pure-button pure-button-primary pull-right"><i class="icon-plus"></i> Add Misc.</a>
+    <h3>
+      Misc
+    </h3>
+
+    <table class="pure-table pure-table-horizontal pure-table-full-width">
+      <thead>
+        <tr>
+          <th>Loss Date</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Amount Paid</th>
+          <th>Reserve</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><em>None</em></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="coverageSchedule" class="new-client-section">
+    <a class="pure-button pure-button-primary pull-right"><i class="icon-plus"></i> Add Coverage</a>
+    <h3>
+      Coverage Schedule
+    </h3>
+
+    <table class="pure-table pure-table-horizontal pure-table-full-width">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th style="text-align: right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Office Contents</td>
+          <td style="text-align: right"><a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a> <a class="pure-button pure-button-small"><i class="icon-trash icon-large"></i></a></td>
+        </tr>
+        <tr>
+          <td>Accounts Receivable (Broad)</td>
+          <td style="text-align: right"><a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a> <a class="pure-button pure-button-small"><i class="icon-trash icon-large"></i></a></td>
+        </tr>
+        <tr>
+          <td>Trip Transit (Broad)</td>
+          <td style="text-align: right"><a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a> <a class="pure-button pure-button-small"><i class="icon-trash icon-large"></i></a></td>
+        </tr>
+        <tr>
+          <td>Installation Floater</td>
+          <td style="text-align: right"><a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a> <a class="pure-button pure-button-small"><i class="icon-trash icon-large"></i></a></td>
+        </tr>
+        <tr>
+          <td>Heavy Equipment in Use</td>
+          <td style="text-align: right"><a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a> <a class="pure-button pure-button-small"><i class="icon-trash icon-large"></i></a></td>
+        </tr>
+        <tr>
+          <td>Real Property</td>
+          <td style="text-align: right"><a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a> <a class="pure-button pure-button-small"><i class="icon-trash icon-large"></i></a></td>
+        </tr>
+        <tr>
+          <td>Other Transportation</td>
+          <td style="text-align: right"><a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a> <a class="pure-button pure-button-small"><i class="icon-trash icon-large"></i></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="property" class="new-client-section">
+    <a class="pull-right pure-button pure-button-primary"><i class="icon-plus"></i> Add Property</a>
+    <h3>
+      Property
+    </h3>
+
+    <table class="pure-table pure-table-horizontal pure-table-full-width">
+      <thead>
+        <tr>
+          <th>Make &amp; Model</th>
+          <th style="text-align: right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Aurora Manufacturing Plant</td>
+          <td style="text-align: right"><a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a> <a class="pure-button pure-button-small"><i class="icon-trash icon-large"></i></a></td>
+        </tr>
+        <tr>
+          <td>Toronto Head Office</td>
+          <td style="text-align: right"><a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a> <a class="pure-button pure-button-small"><i class="icon-trash icon-large"></i></a></td>
+        </tr>
+        <tr>
+          <td>Mississauga Distributor</td>
+          <td style="text-align: right"><a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a> <a class="pure-button pure-button-small"><i class="icon-trash icon-large"></i></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="umbrellaMachinery" class="new-client-section">
+    <a class="pull-right pure-button pure-button-primary"><i class="icon-plus"></i> Add Umbrella/Machinery</a>
+    <h3>
+      Umbrella/Machinery
+    </h3>
+
+    <table class="pure-table pure-table-horizontal pure-table-full-width">
+      <thead>
+        <tr>
+          <th>Make &amp; Model</th>
+          <th style="text-align: right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ford F150</td>
+          <td style="text-align: right"><a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a> <a class="pure-button pure-button-small"><i class="icon-trash icon-large"></i></a></td>
+        </tr>
+        <tr>
+          <td>John Deere Garbage Compactor</td>
+          <td style="text-align: right"><a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a> <a class="pure-button pure-button-small"><i class="icon-trash icon-large"></i></a></td>
+        </tr>
+        <tr>
+          <td>Magna Metal Mill</td>
+          <td style="text-align: right"><a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a> <a class="pure-button pure-button-small"><i class="icon-trash icon-large"></i></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="popoverNotConnected" class="popover hide">
+    <div class="popover-inner">
+      <h3>Not Connected to the Internet</h3>
+      <p>You are currently offline. Your changes will be synced next time you are online.</p>
+      <%= link_to 'OK', '', :id => 'btnSaveAndSubmitOk', :class => 'pure-button pure-button-primary' %>
     </div>
+  </div>
 
-    <div id="misc" class="well">
-      <h3>
-        Misc
-        <a id="btnAddClientContact" data-toggle="popover" class="btn btn-success pull-right"><i class="icon-plus"></i> Add Claim Info.</a>
-      </h3>
-
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Loss Date</th>
-            <th>Type</th>
-            <th>Description</th>
-            <th>Amount Paid</th>
-            <th>Reserve</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><em>None</em></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    asdfasdfasdf<br>
-    <br>
-
-    <div id="coverageSchedule" class="well">
-      <h3>
-        Coverage Schedule
-        <a id="btnCoverageSchedule" data-toggle="popover" class="btn btn-success pull-right"><i class="icon-plus"></i> Add Coverage</a>
-      </h3>
-
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Property</th>
-            <th style="text-align: right">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Office Contents</td>
-            <td style="text-align: right"><a class="btn"><i class="icon-edit icon-large"></i></a> <a class="btn btn-danger"><i class="icon-trash icon-large"></i></a></td>
-          </tr>
-          <tr>
-            <td>Accounts Receivable (Broad)</td>
-            <td style="text-align: right"><a class="btn"><i class="icon-edit icon-large"></i></a> <a class="btn btn-danger"><i class="icon-trash icon-large"></i></a></td>
-          </tr>
-          <tr>
-            <td>Trip Transit (Broad)</td>
-            <td style="text-align: right"><a class="btn"><i class="icon-edit icon-large"></i></a> <a class="btn btn-danger"><i class="icon-trash icon-large"></i></a></td>
-          </tr>
-          <tr>
-            <td>Installation Floater</td>
-            <td style="text-align: right"><a class="btn"><i class="icon-edit icon-large"></i></a> <a class="btn btn-danger"><i class="icon-trash icon-large"></i></a></td>
-          </tr>
-          <tr>
-            <td>Heavy Equipment in Use</td>
-            <td style="text-align: right"><a class="btn"><i class="icon-edit icon-large"></i></a> <a class="btn btn-danger"><i class="icon-trash icon-large"></i></a></td>
-          </tr>
-          <tr>
-            <td>Real Property</td>
-            <td style="text-align: right"><a class="btn"><i class="icon-edit icon-large"></i></a> <a class="btn btn-danger"><i class="icon-trash icon-large"></i></a></td>
-          </tr>
-          <tr>
-            <td>Other Transportation</td>
-            <td style="text-align: right"><a class="btn"><i class="icon-edit icon-large"></i></a> <a class="btn btn-danger"><i class="icon-trash icon-large"></i></a></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div id="property" class="well">
-      <h3>
-        Property
-        <a id="btnAddClientContact" data-toggle="popover" class="btn btn-success pull-right"><i class="icon-plus"></i> Add Property</a>
-      </h3>
-
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Make &amp; Model</th>
-            <th style="text-align: right">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Aurora Manufacturing Plant</td>
-            <td style="text-align: right"><a class="btn"><i class="icon-edit icon-large"></i></a> <a class="btn btn-danger"><i class="icon-trash icon-large"></i></a></td>
-          </tr>
-          <tr>
-            <td>Toronto Head Office</td>
-            <td style="text-align: right"><a class="btn"><i class="icon-edit icon-large"></i></a> <a class="btn btn-danger"><i class="icon-trash icon-large"></i></a></td>
-          </tr>
-          <tr>
-            <td>Mississauga Distributor</td>
-            <td style="text-align: right"><a class="btn"><i class="icon-edit icon-large"></i></a> <a class="btn btn-danger"><i class="icon-trash icon-large"></i></a></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div id="umbrellaMachinery" class="well">
-      <h3>
-        Umbrella/Machinery
-        <a id="btnAddClientContact" data-toggle="popover" class="btn btn-success pull-right"><i class="icon-plus"></i> Add Umbrella/Machinery</a>
-      </h3>
-
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Make &amp; Model</th>
-            <th style="text-align: right">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Ford F150</td>
-            <td style="text-align: right"><a class="btn"><i class="icon-edit icon-large"></i></a> <a class="btn btn-danger"><i class="icon-trash icon-large"></i></a></td>
-          </tr>
-          <tr>
-            <td>John Deere Garbage Compactor</td>
-            <td style="text-align: right"><a class="btn"><i class="icon-edit icon-large"></i></a> <a class="btn btn-danger"><i class="icon-trash icon-large"></i></a></td>
-          </tr>
-          <tr>
-            <td>Magna Metal Mill</td>
-            <td style="text-align: right"><a class="btn"><i class="icon-edit icon-large"></i></a> <a class="btn btn-danger"><i class="icon-trash icon-large"></i></a></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
+  <div class="new-client-section">
     <hr class="soften" />
 
-    <div id="saveAndSubmitModal" class="modal fade hide">
-      <div class="modal-header">
-        <h3>Not Connected to the Internet</h3>
-      </div>
-      <div class="modal-body">
-        You are currently offline. Your changes will be synced next time you are online.
-      </div>
-      <div class="modal-footer">
-        <%= link_to 'OK', '#saveAndSubmitModal', :class => 'btn btn-large btn-primary', :data => {:dismiss => 'modal'} %>
+    <div id="saveAndSubmit">
+      <div class="align-right">
+        <%= link_to 'Save and Submit', '', :id => 'btnSaveAndSubmit', :class => 'pure-button pure-button-large pure-button-primary' %>
+        <a class="pure-button pure-button-large">Cancel</a>
       </div>
     </div>
+  </div>
 
-    <div id="saveAndSubmit" class="text-right">
-      <% #link_to 'Save and Submit', '#saveAndSubmitModal', :class => 'btn btn-large btn-success', :data => {:toggle => 'modal'} %>
-      <%= link_to 'Save and Submit', '/done', :class => 'btn btn-large btn-success' %>
-      <a class="btn btn-large btn-danger">Cancel</a>
-    </div>
-
-    <br>
-    -->
-  <% end %>
+  <br>
+<% end %>
 <% end %>
