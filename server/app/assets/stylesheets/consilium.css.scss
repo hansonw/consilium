@@ -59,13 +59,20 @@ body {
   }
 
   .popover {
-    position: absolute;
-    background-color: rgb(250, 250, 250);
-    color: #333;
-    padding: 0 20px 20px 0;
-    width: 460px;
-    border: 1px solid #cbcbcb;
-    border-radius: 5px;
+    padding-top: 20px;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: #fff;
+
+    .popover-inner {
+      $popover-width: $form-input-width + 155px;
+      width: $popover-width;
+      margin: auto;
+    }
   }
 
   .content {

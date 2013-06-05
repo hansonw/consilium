@@ -54,27 +54,29 @@
     </div>
 
     <div id="clientContacts" class="new-client-section">
-      <div id="popoverAddClientContact" class="hide">
-        <%= form_for @user, :html => {:class => 'pure-form pure-form-aligned'} do |f| %>
-          <h4 class="center">Add Client Contact</h4>
-          <%= render :partial => 'users/registrations/new_form_field',
-                     :locals => {:f => f, :field => :first_name} %>
-          <%= render :partial => 'users/registrations/new_form_field',
-                     :locals => {:f => f, :field => :last_name} %>
-          <%= render :partial => 'users/registrations/new_form_field',
-                     :locals => {:f => f, :field => :last_name, :text => 'Mr./Mrs./Dr.'} %>
-          <%= render :partial => 'users/registrations/new_form_field',
-                     :locals => {:f => f, :field => :last_name, :text => 'Position'} %>
-          <%= render :partial => 'users/registrations/new_form_field',
-                     :locals => {:f => f, :field => :last_name, :text => 'Phone'} %>
-          <%= render :partial => 'users/registrations/new_form_field',
-                     :locals => {:f => f, :field => :last_name, :text => 'Email'} %>
-          <%= render :partial => 'users/registrations/new_form_field',
-                     :locals => {:f => f, :field => :last_name, :text => 'Other'} %>
-          <%= f.submit 'Cancel', :class => 'btn btn-danger pull-right' %>
-          <%= f.submit 'Save', :class => 'btn btn-success pull-right', :style => 'margin-right: 10px;', :id => 'btnSaveAddClientContact' %>
-          <br>
-        <% end %>
+      <div id="popoverAddClientContact" class="popover">
+        <div class="popover-inner">
+          <%= form_for @user, :html => {:class => 'pure-form pure-form-aligned'} do |f| %>
+            <h3>Add Client Contact</h3>
+            <%= render :partial => 'users/registrations/new_form_field',
+                       :locals => {:f => f, :field => :first_name} %>
+            <%= render :partial => 'users/registrations/new_form_field',
+                       :locals => {:f => f, :field => :last_name} %>
+            <%= render :partial => 'users/registrations/new_form_field',
+                       :locals => {:f => f, :field => :last_name, :text => 'Mr./Mrs./Dr.'} %>
+            <%= render :partial => 'users/registrations/new_form_field',
+                       :locals => {:f => f, :field => :last_name, :text => 'Position'} %>
+            <%= render :partial => 'users/registrations/new_form_field',
+                       :locals => {:f => f, :field => :last_name, :text => 'Phone'} %>
+            <%= render :partial => 'users/registrations/new_form_field',
+                       :locals => {:f => f, :field => :last_name, :text => 'Email'} %>
+            <%= render :partial => 'users/registrations/new_form_field',
+                       :locals => {:f => f, :field => :last_name, :text => 'Other'} %>
+            <br>
+            <%= link_to 'Save', '', :class => 'pure-button pure-button-primary', :id => 'btnSaveAddClientContact' %>
+            <%= link_to 'Cancel', '', :class => 'pure-button' %>
+          <% end %>
+        </div>
       </div>
 
       <a id="btnAddClientContact" class="pull-right pure-button pure-button-primary"><i class="icon-plus"></i> Add Client Contact</a>
