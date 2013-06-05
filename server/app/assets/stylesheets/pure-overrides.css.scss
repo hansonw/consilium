@@ -25,6 +25,13 @@ body {
           &.menu-item-divided {
             border-top: 1px solid #333;
           }
+
+          &.pure-menu-selected, &.pure-menu-selected a:hover {
+            background: #1f8dd6;
+            a {
+              color: #fff;
+            }
+          }
         }
       }
     }
