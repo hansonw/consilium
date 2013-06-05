@@ -9,8 +9,14 @@ body {
       width: $new-client-form-width;
       margin: auto;
 
-      .new-client-section div {
-        text-align: right;
+      .new-client-section {
+        &:not(:first-child) {
+          margin-top: 50px;
+        }
+
+        div {
+          text-align: right;
+        }
       }
 
       input {

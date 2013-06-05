@@ -42,7 +42,8 @@
       <%= render :partial => 'users/registrations/new_form_field',
                  :locals => {:f => f, :field => :phone, :placeholder => 'Area code-phone number'} %>
     </div>
-    <div id="clientContacts">
+
+    <div id="clientContacts" class="new-client-section">
       <div id="popoverAddClientContact" class="hide" style="display: none;">
         <%= form_for @user, :html => {:class => 'form-horizontal'} do |f| %>
           <h4 class="center">Add Client Contact</h4>
@@ -72,7 +73,7 @@
         Client Contacts
       </h3>
 
-      <table class="table table-striped">
+      <table class="pure-table pure-table-horizontal" style="width: 100%;">
         <thead>
           <tr>
             <th>Name</th>
