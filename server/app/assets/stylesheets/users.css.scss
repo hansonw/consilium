@@ -3,8 +3,6 @@
 body {
   form.new-client {
     $new-client-form-width: $form-input-width + 155px;
-    margin-left: $nav-width;
-
     min-width: 100px + $new-client-form-width;
 
     .new-client-inner {
@@ -13,6 +11,10 @@ body {
 
       .new-client-section div {
         text-align: right;
+      }
+
+      input {
+        max-width: $form-input-width;
       }
     }
   }

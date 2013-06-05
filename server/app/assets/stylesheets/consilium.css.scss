@@ -1,3 +1,5 @@
+@import 'constants';
+
 body {
   h1 {
     font-size: 40px;
@@ -16,5 +18,9 @@ body {
 
   .center {
     text-align: center;
+  }
+
+  .content {
+    margin-left: $nav-width;
   }
 }
