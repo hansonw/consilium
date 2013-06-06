@@ -32,3 +32,14 @@ $(document).on 'ready page:load', () ->
     $('#btnGeneratePolicyRequest').html('<i class="icon-ok"></i> Generate Policy Request')
                                   .addClass('pure-button-disabled')
     $('#popoverGeneratePolicyRequest').hide('slide')
+
+  $('#btnSaveAddMiscNote').click (e) ->
+    $('#miscNoteEmptyRecord').remove()
+    $('#miscNoteSampleRecord').show(500)
+
+  $('#btnAddMiscNote, #btnSaveAddMiscNote, #btnCancelAddClientContact').click (e) ->
+    if gToggle
+      $('#popoverAddMiscNote').hide('slide')
+    else
+      $('#popoverAddMiscNote').show('slide')
+    gToggle = !gToggle

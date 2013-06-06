@@ -193,9 +193,22 @@
   </div>
 
   <div id="misc" class="center-content-section">
-    <a class="pure-button pure-button-primary pull-right"><i class="icon-plus"></i> Add Misc.</a>
+    <div id="popoverAddMiscNote" class="popover hide">
+      <div class="popover-inner">
+        <%= form_for @user, :html => {:class => 'pure-form pure-form-aligned'} do |f| %>
+          <h3>Add Misc. Note</h3>
+          <%= render :partial => 'users/registrations/new_form_field',
+                     :locals => {:f => f, :field => :last_name, :text => 'Description'} %>
+          <br>
+          <%= link_to 'Save', '', :id => 'btnSaveAddMiscNote', :class => 'pure-button pure-button-primary' %>
+          <%= link_to 'Cancel', '', :id => 'btnCancelAddMiscNote', :class => 'pure-button' %>
+        <% end %>
+      </div>
+    </div>
+
+    <a id="btnAddMiscNote" class="pure-button pure-button-primary pull-right"><i class="icon-plus"></i> Add Misc. Note</a>
     <h3>
-      Misc
+      Misc. Notes
     </h3>
 
     <table class="pure-table pure-table-horizontal pure-table-full-width">
@@ -206,9 +219,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr id="miscNoteEmptyRecord">
           <td><em>None</em></td>
           <td class="align-right"></td>
+        </tr>
+        <tr id="miscNoteSampleRecord" class="hide">
+          <td>Office will be renovated ...</td>
+          <td class="align-right"><a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a> <a class="pure-button pure-button-small"><i class="icon-trash icon-large"></i></a></td>
         </tr>
       </tbody>
     </table>
