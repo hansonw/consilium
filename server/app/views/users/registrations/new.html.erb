@@ -25,8 +25,8 @@
   </ul>
 </div>
 
-<%= form_for @user, :html => {:class => 'pure-form pure-form-aligned new-client'} do |f| %>
-  <%= field_set_tag nil, :class => 'new-client-inner' do %>
+<%= form_for @user, :html => {:class => 'pure-form pure-form-aligned center-content'} do |f| %>
+  <%= field_set_tag nil, :class => 'center-content-inner' do %>
     <div class="page-header">
       <h2>New Client</h2>
       <div class="breadcrumbs">
@@ -37,7 +37,7 @@
       <hr class="soften" />
     </div>
 
-    <div id="basicInformation" class="new-client-section">
+    <div id="basicInformation" class="center-content-section">
       <h3>Basic Info.</h3>
 
       <%= render :partial => 'users/registrations/new_form_field',
@@ -53,7 +53,7 @@
                  :locals => {:f => f, :field => :phone, :placeholder => 'Area code-phone number'} %>
     </div>
 
-    <div id="clientContacts" class="new-client-section">
+    <div id="clientContacts" class="center-content-section">
       <div id="popoverAddClientContact" class="popover hide">
         <div class="popover-inner">
           <%= form_for @user, :html => {:class => 'pure-form pure-form-aligned'} do |f| %>
@@ -104,7 +104,7 @@
       </table>
     </div>
 
-    <div id="businessOperations" class="new-client-section">
+    <div id="businessOperations" class="center-content-section">
       <a class="pull-right pure-button pure-button-primary"><i class="icon-plus"></i> Add Business Op.</a>
       <h3>
         Business Operations
@@ -124,7 +124,7 @@
       </table>
     </div>
 
-    <div id="claimsInformation" class="new-client-section">
+    <div id="claimsInformation" class="center-content-section">
       <a class="pull-right pure-button pure-button-primary"><i class="icon-plus"></i> Add Claims Info.</a>
       <h3>
         Claims Info.
@@ -150,7 +150,7 @@
       </table>
     </div>
 
-    <div id="previousPolicyInformation" class="new-client-section">
+    <div id="previousPolicyInformation" class="center-content-section">
       <a class="pull-right pure-button pure-button-primary"><i class="icon-plus"></i> Add Prev. Policy Info.</a>
       <h3>
         Previous Policy Info.
@@ -185,7 +185,7 @@
       </table>
     </div>
 
-  <div id="liabilityInformation" class="new-client-section">
+  <div id="liabilityInformation" class="center-content-section">
     <a class="pull-right pure-button pure-button-primary"><i class="icon-plus"></i> Add Liability Info.</a>
     <h3>
       Liability Info.
@@ -205,7 +205,7 @@
     </table>
   </div>
 
-  <div id="misc" class="new-client-section">
+  <div id="misc" class="center-content-section">
     <a class="pure-button pure-button-primary pull-right"><i class="icon-plus"></i> Add Misc.</a>
     <h3>
       Misc
@@ -231,7 +231,7 @@
     </table>
   </div>
 
-  <div id="coverageSchedule" class="new-client-section">
+  <div id="coverageSchedule" class="center-content-section">
     <a class="pure-button pure-button-primary pull-right"><i class="icon-plus"></i> Add Coverage</a>
     <h3>
       Coverage Schedule
@@ -277,7 +277,7 @@
     </table>
   </div>
 
-  <div id="property" class="new-client-section">
+  <div id="property" class="center-content-section">
     <a class="pull-right pure-button pure-button-primary"><i class="icon-plus"></i> Add Property</a>
     <h3>
       Property
@@ -307,7 +307,7 @@
     </table>
   </div>
 
-  <div id="umbrellaMachinery" class="new-client-section">
+  <div id="umbrellaMachinery" class="center-content-section">
     <a class="pull-right pure-button pure-button-primary"><i class="icon-plus"></i> Add Umbrella/Machinery</a>
     <h3>
       Umbrella/Machinery
@@ -345,7 +345,7 @@
     </div>
   </div>
 
-  <div class="new-client-section">
+  <div class="center-content-section">
     <hr class="soften" />
 
     <div id="saveAndSubmit">

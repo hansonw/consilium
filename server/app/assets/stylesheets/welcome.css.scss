@@ -32,6 +32,7 @@ body {
   }
 
   .buttons {
+    margin-top: 35px;
     text-align: center;
   }
 
@@ -53,5 +54,11 @@ body {
     background-color: transparent;
     width: 100%;
     color: red;
+  }
+
+  .loggedInAs {
+    position: absolute;
+    top: 8px;
+    right: 8px;
   }
 }

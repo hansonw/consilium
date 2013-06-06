@@ -18,8 +18,12 @@
   <br />
 <% end %>
 
-<h1 class="center">Consilium</h1>
-<div class="buttons">
-  <%= link_to 'Create New Client', new_user_registration_path, :class => 'pure-button' %><br />
-  <%= link_to 'Find Existing Client', find_user_registration_path, :class => 'pure-button' %><br />
+<div class="page-header">
+  <div class="loggedInAs">Welcome back, David Jones.</div><br>
+
+  <div class="buttons">
+    <%= link_to 'Create New Client', new_user_registration_path, :class => 'pure-button pure-button-large pure-button-primary pure-button-fixed-width' %><br><br>
+    <%= link_to 'Find Existing Client', find_user_registration_path, :class => 'pure-button pure-button-large pure-button-fixed-width' %><br><br>
+    <%= link_to 'Document History', root_path, :class => 'pure-button pure-button-large pure-button-fixed-width' %><br>
+  </div>
 </div>

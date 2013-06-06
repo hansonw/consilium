@@ -1,15 +1,15 @@
 @import 'constants';
 
 body {
-  form.new-client {
-    $new-client-form-width: $form-input-width + 155px;
-    min-width: 100px + $new-client-form-width;
+  .center-content {
+    $center-content-form-width: $form-input-width + 155px;
+    min-width: 100px + $center-content-form-width;
 
-    .new-client-inner {
-      width: $new-client-form-width;
+    .center-content-inner {
+      width: $center-content-form-width;
       margin: auto;
 
-      .new-client-section {
+      .center-content-section {
         &:not(:first-child):not(:nth-child(2)) {
           margin-top: 50px;
         }

@@ -42,8 +42,10 @@ body {
       border: 0;
 
       .pure-menu-heading {
-        font-size: 110%;
+        font-size: 125%;
         color: #fff;
+        text-transform: none;
+        padding-left: 0.45em;
       }
 
       a {
