@@ -8,7 +8,7 @@ $(document).on 'ready page:load', () ->
   $('#btnSaveAndSubmitOk').click (e) ->
     e.preventDefault()
     $('#popoverNotConnected').hide('slide', ->
-      Turbolinks.visit('/done')
+      Turbolinks.visit('/users/done')
     )
 
   $('#btnSaveAddClientContact').click (e) ->

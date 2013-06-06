@@ -1,16 +1,13 @@
 Consilium::Application.routes.draw do
-  devise_for :users, :controllers => {
-    :registrations => 'users/registrations'
-  }
+  devise_for :users, :controllers => {:registrations => 'users/registrations'} do
+    get 'users/find', :to => 'users/registrations#find', :as => 'find_user_registration'
+    get 'users/done', :to => 'users/registrations#done', :as => 'done_user_registration'
+  end
 
   resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-
-  get 'users/find' => 'users/registrations#find', :as => 'find_user_registration'
-
-  get 'done', :controller => 'welcome', :action => 'done'
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'

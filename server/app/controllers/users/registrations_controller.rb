@@ -6,4 +6,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def show
 
   end
+
+  def find
+
+  end
 end
