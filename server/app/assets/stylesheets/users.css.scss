@@ -1,8 +1,8 @@
 @import 'constants';
 
 body {
+  $center-content-form-width: $form-input-width + 155px;
   .center-content {
-    $center-content-form-width: $form-input-width + 155px;
     min-width: 100px + $center-content-form-width;
 
     .center-content-inner {
@@ -23,5 +23,10 @@ body {
         max-width: $form-input-width;
       }
     }
+  }
+
+  img.camera {
+    max-width: $center-content-form-width;
+    margin-bottom: 10px;
   }
 }

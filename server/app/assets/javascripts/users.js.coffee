@@ -34,12 +34,23 @@ $(document).on 'ready page:load', () ->
     $('#popoverGeneratePolicyRequest').hide('slide')
 
   $('#btnSaveAddMiscNote').click (e) ->
-    $('#miscNoteEmptyRecord').remove()
-    $('#miscNoteSampleRecord').show(500)
+    $('#photoEmptyRecord').remove()
+    $('#photoSampleRecord').show(500)
 
-  $('#btnAddMiscNote, #btnSaveAddMiscNote, #btnCancelAddClientContact').click (e) ->
+  $('#btnAddMiscNote, #btnSaveAddMiscNote, #btnCancelAddMiscNote').click (e) ->
     if gToggle
       $('#popoverAddMiscNote').hide('slide')
     else
       $('#popoverAddMiscNote').show('slide')
+    gToggle = !gToggle
+
+  $('#btnSaveAddPhoto').click (e) ->
+    $('#photoEmptyRecord').remove()
+    $('#photoSampleRecord').show(500)
+
+  $('#btnAddPhoto, #btnSaveAddPhoto, #btnCancelAddPhoto').click (e) ->
+    if gToggle
+      $('#popoverAddPhoto').hide('slide')
+    else
+      $('#popoverAddPhoto').show('slide')
     gToggle = !gToggle

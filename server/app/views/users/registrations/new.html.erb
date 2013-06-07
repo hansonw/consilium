@@ -337,6 +337,51 @@
     </table>
   </div>
 
+  <div id="photos" class="center-content-section">
+    <div id="popoverAddPhoto" class="popover hide">
+      <div class="popover-inner">
+        <%= form_for @user, :html => {:class => 'pure-form pure-form-aligned'} do |f| %>
+          <h3>Add Photo</h3>
+          <%= image_tag('building.jpg', :class => 'camera') %>
+          <div style="width: 100%; text-align: center !important">
+            <%= link_to raw('<i class="icon-camera"></i> Take Picture'), '', :id => 'btnTakePicture', :class => 'pure-button pure-button-success pure-button-fixed-width' %>
+          </div>
+          <br>
+          <br>
+          <%= render :partial => 'users/registrations/new_form_field',
+                     :locals => {:f => f, :field => :last_name, :text => 'Description'} %>
+          <br>
+          <%= link_to 'Save', '', :id => 'btnSaveAddPhoto', :class => 'pure-button pure-button-primary' %>
+          <%= link_to 'Cancel', '', :id => 'btnCancelAddPhoto', :class => 'pure-button' %>
+        <% end %>
+      </div>
+    </div>
+
+    <a id="btnAddPhoto" class="pure-button pure-button-primary pull-right"><i class="icon-plus"></i> Add Photo</a>
+    <h3>
+      Photos
+    </h3>
+
+    <table class="pure-table pure-table-horizontal pure-table-full-width">
+      <thead>
+        <tr>
+          <th>Thumbnail</th>
+          <th class="align-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="photoEmptyRecord">
+          <td><em>None</em></td>
+          <td class="align-right"></td>
+        </tr>
+        <tr id="photoSampleRecord" class="hide">
+          <td><%= image_tag('building.jpg', :width => 80, :height => 60) %></td>
+          <td class="align-right"><a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a> <a class="pure-button pure-button-small"><i class="icon-trash icon-large"></i></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <div id="popoverNotConnected" class="popover hide">
     <div class="popover-inner">
       <h3>Not Connected to the Internet</h3>
