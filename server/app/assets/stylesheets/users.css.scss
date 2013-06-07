@@ -26,7 +26,7 @@ body {
   }
 
   img.camera {
-    max-width: $center-content-form-width;
+    max-width: $form-input-width + 100px;
     margin-bottom: 10px;
   }
 }

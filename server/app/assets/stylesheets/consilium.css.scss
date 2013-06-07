@@ -100,7 +100,7 @@ body {
   }
 
   .popover {
-    $popover-width: $form-input-width + 155px;
+    $popover-width: $form-input-width + 100px;
     $popover-padding: 20px;
 
     min-width: $popover-width;
@@ -115,6 +115,10 @@ body {
     .popover-inner {
       width: $popover-width;
       margin: auto;
+
+      label {
+        width: 80px;
+      }
     }
   }
 
