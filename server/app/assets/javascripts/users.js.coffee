@@ -38,8 +38,8 @@ $(document).on 'ready page:load', () ->
     $('body').removeClass('popover-active')
 
   $('#btnSaveAddMiscNote').click (e) ->
-    $('#photoEmptyRecord').remove()
-    $('#photoSampleRecord').show(500)
+    $('#miscNoteEmptyRecord').remove()
+    $('#miscNoteSampleRecord').show(500)
 
   $('#btnAddMiscNote, #btnSaveAddMiscNote, #btnCancelAddMiscNote').click (e) ->
     if gToggle
