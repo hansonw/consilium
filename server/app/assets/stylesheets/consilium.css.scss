@@ -1,6 +1,20 @@
 @import 'constants';
 
+/**
+ * Utilities / mixins.
+ */
+@mixin calc($property, $expression) {
+  #{$property}: -moz-calc(#{$expression});
+  #{$property}: -o-calc(#{$expression});
+  #{$property}: -webkit-calc(#{$expression});
+  #{$property}: calc(#{$expression});
+}
+
 body {
+  &.popover-active {
+    overflow: hidden;
+  }
+
   margin-top: $body-margin;
 
   h1 {
@@ -89,11 +103,10 @@ body {
     $popover-width: $form-input-width + 155px;
 
     min-width: $popover-width;
+    @include calc(width, "100% - #{$nav-width}");
     padding: 20px;
     top: 0;
-    /** Hack. Not sure why we need to /4. */
-    left: $nav-width/3;
-    width: 100%;
+    left: $nav-width;
     height: 100%;
     position: fixed;
     background-color: #fff;
