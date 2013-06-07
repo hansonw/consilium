@@ -101,10 +101,11 @@ body {
 
   .popover {
     $popover-width: $form-input-width + 155px;
+    $popover-padding: 20px;
 
     min-width: $popover-width;
-    @include calc(width, "100% - #{$nav-width}");
-    padding: 20px;
+    @include calc(width, "100% - #{$nav-width + 2*$popover-padding}");
+    padding: $popover-padding;
     top: 0;
     left: $nav-width;
     height: 100%;
