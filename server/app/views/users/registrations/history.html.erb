@@ -1,0 +1,9 @@
+<%= form_for @user, :html => {:class => 'pure-form pure-form-aligned center-content'} do |f| %>
+  <%= field_set_tag nil, :class => 'center-content-inner' do %>
+    <div class="center">
+    <h2>Search for a Client</h2>
+      <input type="text" class="pure-input">
+      <button type="submit" class="pure-button">Search</button>
+    </div>
+  <% end %>
+<% end %>

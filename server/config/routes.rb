@@ -2,6 +2,7 @@ Consilium::Application.routes.draw do
   devise_for :users, :controllers => {:registrations => 'users/registrations'} do
     get 'users/find', :to => 'users/registrations#find', :as => 'find_user_registration'
     get 'users/done', :to => 'users/registrations#done', :as => 'done_user_registration'
+    get 'users/history', :to => 'users/registrations#history', :as => 'history_user_registration'
   end
 
   resources :users

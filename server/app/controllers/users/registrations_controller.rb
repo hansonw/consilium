@@ -7,7 +7,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   end
 
-  def find
-
+  def history
+    @user = User.new
   end
 end
