@@ -62,3 +62,6 @@ $(document).on 'ready page:load', () ->
       $('body').addClass('popover-active')
       $('#popoverAddPhoto').show('slide')
     gToggle = !gToggle
+
+  $('#search').keypress (e) ->
+    $('#results').show('fade')

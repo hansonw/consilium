@@ -3,6 +3,7 @@ Consilium::Application.routes.draw do
     get 'users/find', :to => 'users/registrations#find', :as => 'find_user_registration'
     get 'users/done', :to => 'users/registrations#done', :as => 'done_user_registration'
     get 'users/history', :to => 'users/registrations#history', :as => 'history_user_registration'
+    get 'users/history2', :to => 'users/registrations#history2', :as => 'history2_user_registration'
   end
 
   resources :users

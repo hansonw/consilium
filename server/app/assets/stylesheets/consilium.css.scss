@@ -129,4 +129,23 @@ body {
   .align-right {
     text-align: right;
   }
+
+  .search button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: -7px;
+  }
+
+  .centered {
+    margin: auto;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .container {
+    margin: auto;
+    width: 920px;
+  }
 }
