@@ -1,8 +1,0 @@
-<div class="pure-control-group">
-  <% if defined?(text) %>
-    <%= f.label field, text %>
-  <% else %>
-    <%= f.label field %>
-  <% end %>
-  <%= f.text_field field, :value => defined?(value) ? value : nil, :placeholder => defined?(placeholder) ? placeholder : nil %><br>
-</div>
