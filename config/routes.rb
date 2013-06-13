@@ -3,7 +3,7 @@ Consilium::Application.routes.draw do
 
   get "home/index"
 
-  scope :path => "api" do
+  scope :api do
     resources :clients
   end
 
