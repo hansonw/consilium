@@ -1,7 +1,9 @@
 <div ng-controller="ClientsCtrl">
-  <h1>Message: {{message}}</h1>
-  <label>Name:</label>
-  <input type="text" ng-model="yourName" placeholder="Enter a name here">
-  <hr>
-  <h1>Hello {{yourName}}!</h1>
+  <div id="clients-list-container">
+    <ul>
+      <li ng-repeat="client in clients">
+      <h3>{{client.id}} <small>({{client.name}})</small></h3>
+      </li>
+    </ul>
+  </div>
 </div>

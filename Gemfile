@@ -23,7 +23,7 @@ gem 'jbuilder', '~> 1.0.1'
 gem 'mongoid', :git => 'https://github.com/mongoid/mongoid.git'
 
 # BSON extension for Mongoid.
-gem 'bson_ext'
+#gem 'bson_ext'
 
 # Normalize (foundation for Pure.CSS)
 gem 'normalize-rails'
