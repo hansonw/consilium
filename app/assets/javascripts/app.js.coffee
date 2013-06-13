@@ -1,1 +1,1 @@
-window.App = angular.module('AngularCasts', ['ngResource'])
+window.App = angular.module('Consilium', ['ngResource'])
