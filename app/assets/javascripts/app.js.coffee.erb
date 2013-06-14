@@ -1,10 +1,16 @@
 window.App = angular.module('Consilium', ['ngResource'])
 
 App.config(['$routeProvider', ($routeProvider) ->
+  <%
+    def templateUrl(path)
+      basePath = 'angular/templates/'
+      asset_path(basePath + path)
+    end
+  %>
   $routeProvider.when '/',
-    templateUrl: '/templates/index.html'
+    templateUrl: '<%= templateUrl('index.html') %>'
     controller: 'HomeController'
   $routeProvider.when '/clients',
-    templateUrl: '/templates/clients/index.html'
+    templateUrl: '<%= templateUrl('clients/index.html') %>'
     controller: 'ClientsController'
 ])
