@@ -1,3 +1,4 @@
-App.controller 'ClientsCtrl', ['$scope', 'Client', ($scope, Client) ->
+App.controller 'ClientsController', ['$scope', 'Client', ($scope, Client) ->
   $scope.clients = Client.query()
+  $scope.test = 'test it works?'
 ]

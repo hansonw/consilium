@@ -1,0 +1,11 @@
+<h1>Test</h1>
+<div ng-controller="ClientsController">
+  <div id="clients-list-container">
+    <ul>
+      <li ng-repeat="client in clients">
+      <h3>{{client._id}} <a ng-href="#/clients">({{client.name}})</a></h3>
+      </li>
+    </ul>
+  </div>
+  {{test}}
+</div>

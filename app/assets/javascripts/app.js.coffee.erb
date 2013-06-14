@@ -1,0 +1,10 @@
+window.App = angular.module('Consilium', ['ngResource'])
+
+App.config(['$routeProvider', ($routeProvider) ->
+  $routeProvider.when '/',
+    templateUrl: '/templates/index.html'
+    controller: 'HomeController'
+  $routeProvider.when '/clients',
+    templateUrl: '/templates/clients/index.html'
+    controller: 'ClientsController'
+])
