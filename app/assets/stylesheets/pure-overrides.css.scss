@@ -1,0 +1,108 @@
+@import 'constants';
+
+body {
+  #nav {
+    padding-top: $body-margin;
+    margin-left: -$nav-width;
+    width: $nav-width;
+    position: fixed;
+    top: 0;
+    left: $nav-width;
+    bottom: 0;
+    z-index: 1000;
+    background: #191818;
+    overflow-y: auto;
+    -webkit-overflow-scroll: touch;
+
+    .pure-menu {
+      ul {
+        border-top: 1px solid #333;
+
+        li {
+          a:hover {
+            background-color: #333;
+          }
+
+          &.menu-item-divided {
+            border-top: 1px solid #333;
+          }
+
+          &.pure-menu-selected, &.pure-menu-selected a:hover {
+            background: #1f8dd6;
+            a {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+
+    .pure-menu-open {
+      background: transparent;
+      border: 0;
+
+      .pure-menu-heading {
+        font-size: 125%;
+        color: #fff;
+        text-transform: none;
+        padding-left: 0.45em;
+      }
+
+      a {
+        color: #999;
+        border: none;
+        white-space: normal;
+        padding: 0.6em 0 0.6em 0.6em;
+      }
+    }
+  }
+
+  .pure-button-xsmall {
+    font-size: 70%;
+  }
+
+  .pure-button-small {
+    font-size: 85%;
+  }
+
+  .pure-button-large {
+    font-size: 110%;
+  }
+
+  .pure-button-xlarge {
+    font-size: 125%;
+  }
+
+  .pure-button-fixed-width {
+    width: 300px;
+  }
+
+  .pure-table-full-width {
+    width: 100%;
+  }
+
+  .pure-button-success,
+  .pure-button-error,
+  .pure-button-warning,
+  .pure-button-secondary {
+      color: white;
+      border-radius: 4px;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  .pure-button-success {
+      background: rgb(76, 201, 71); /* this is a green */
+  }
+
+  .pure-button-error {
+      background: rgb(202, 60, 60); /* this is a maroon */
+  }
+
+  .pure-button-warning {
+      background: orange;
+  }
+
+  .pure-button-secondary {
+      background: rgb(95, 198, 218); /* this is a light blue */
+  }
+}
