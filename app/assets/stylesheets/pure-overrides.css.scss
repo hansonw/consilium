@@ -1,13 +1,17 @@
 @import 'constants';
 
 body {
-  #nav {
+  .subnav.active {
+    left: $nav-width*2;
+  }
+
+  .nav, .subnav {
     padding-top: $body-margin;
     margin-left: -$nav-width;
     width: $nav-width;
     position: fixed;
-    top: 0;
     left: $nav-width;
+    top: 0;
     bottom: 0;
     z-index: 1000;
     background: #191818;

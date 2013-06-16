@@ -3,25 +3,34 @@
 <head>
   <title>Consilium</title>
   <%= stylesheet_link_tag "application", media: "all" %>
-  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div id="main" role="main">
-    <div id="nav" class="pure-u">
-      <div class="pure-menu pure-menu-open">
-        <a href="#/" class="pure-menu-heading">Consilium</a>
-        <ul>
-          <li><a href="#/clients">Clients</a></li>
-        </ul>
+  <header>
+    <div id="main" role="main" data-ng-controller="HomeController">
+      <div class="nav pure-u">
+        <div class="pure-menu pure-menu-open">
+          <a href="#/" class="pure-menu-heading">Consilium</a>
+          <ul>
+            <li><a href="#/clients" data-ng-click="menuOpen = 'clients'">Clients</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="subnav pure-u" data-ng-hide="menuOpen != 'clients'" data-ng-animate="'slide'">
+        <div class="pure-menu pure-menu-open">
+          <ul>
+            <li><a href="#/clients" data-ng-click="menuOpen = 'blah'">Test</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="content">
-      <div data-ng-view=""></div>
+  </header>
+  <div class="content">
+    <div data-ng-view="">
     </div>
-    <footer>
-    </footer>
   </div>
+  <footer>
+  </footer>
 
   <%= javascript_include_tag "application" %>
 </body>
