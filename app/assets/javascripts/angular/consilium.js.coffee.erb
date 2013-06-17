@@ -7,12 +7,23 @@ App.config(['$routeProvider', ($routeProvider) ->
       asset_path(basePath + path)
     end
   %>
+  
+  #############
+  # Home routes
+  #############
   $routeProvider.when '/',
     templateUrl: '<%= templateUrl('index.html') %>'
     controller: 'HomeCtrl'
+
+  ################
+  # Clients routes
+  ################
   $routeProvider.when '/clients',
     templateUrl: '<%= templateUrl('clients/index.html') %>'
     controller: 'ClientsCtrl'
+    $routeProvider.when '/clients/new',
+      templateUrl: '<%= templateUrl('clients/new.html') %>'
+      controller: 'ClientsCtrl'
 ])
 
 App.run ($rootScope, $location) ->

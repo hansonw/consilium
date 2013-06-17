@@ -16,20 +16,21 @@ body {
     overflow: hidden;
   }
 
-  margin-top: $body-margin;
-
   h1 {
     font-size: 40px;
+    @include respond-to(handhelds) { font-size: 32px; }
     font-weight: 100;
   }
 
   h2 {
     font-size: 32px;
+    @include respond-to(handhelds) { font-size: 22px; }
     font-weight: 200;
   }
 
   h3 {
     font-size: 22px;
+    @include respond-to(handhelds) { font-size: 18px; }
     font-weight: 200;
   }
 
@@ -125,7 +126,8 @@ body {
 
   .content {
     margin-left: $nav-width-handhelds;
-    @include respond-to(handhelds) { margin-left: $nav-width-handhelds; }
+    padding: 10px 30px;
+    @include respond-to(handhelds) { padding: 17px 20px; margin-left: $nav-width-handhelds; }
     @include respond-to(tablets) { margin-left: $nav-width-tablets; }
     @include respond-to(desktops) { margin-left: $nav-width-desktops; }
   }
