@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 </head>
-<body data-ng-click="selectMenuItem('')" data-ng-controller="HomeController">
+<body data-ng-click="selectMenuItem('')">
   <header>
     <div id="main" role="main">
       <div class="nav pure-u">
@@ -17,23 +17,22 @@
           <a href="#/" class="pure-menu-heading">Consilium</a>
           <ul>
             <li data-ng-repeat="menuItem in menuItems"
-                data-ng-class="{'pure-menu-selected': menuItemIsSelected(menuItem.name)}">
-              <a href="#{{ menuItem.link }}" data-ng-click="selectMenuItem(menuItem.name)" eat-click>
+                data-ng-class="{'pure-menu-selected': menuItemIsSelected(menuItem.link)}">
+              <a href="#{{ menuItem.link }}">
                 {{ menuItem.name }} 
-                <i data-ng-class="{'icon-caret-down': menuItemIsSelected(menuItem.name), 'icon-caret-right': !menuItemIsSelected(menuItem.name)}"></i>
+                <i data-ng-class="{'icon-caret-down': menuItemIsSelected(menuItem.link), 'icon-caret-right': !menuItemIsSelected(menuItem.link)}"></i>
               </a>
             </li>
           </ul>
         </div>
       </div>
       <div class="subnav pure-u" data-ng-repeat="menuItem in menuItems"
-           data-ng-show="menuItemIsSelected(menuItem.name)" data-ng-animate="'slide'">
+           data-ng-show="menuItemIsSelected(menuItem.link)" data-ng-animate="'slide'">
         <div class="pure-menu pure-menu-open">
           <ul>
             <li data-ng-repeat="subMenuItem in menuItem.subMenuItems"
-                data-ng-class="{'pure-menu-selected': subMenuItemIsSelected(subMenuItem.name)}">
-              <a data-ng-click="selectSubMenuItem(subMenuItem.name)"
-                 href="#{{ menuItem.link }}{{ subMenuItem.link }}">{{ subMenuItem.name }}</a>
+                data-ng-class="{'pure-menu-selected': subMenuItemIsSelected(menuItem.link + subMenuItem.link)}">
+              <a href="#{{ menuItem.link }}{{ subMenuItem.link }}">{{ subMenuItem.name }}</a>
             </li>
           </ul>
         </div>

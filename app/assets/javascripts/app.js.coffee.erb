@@ -9,8 +9,43 @@ App.config(['$routeProvider', ($routeProvider) ->
   %>
   $routeProvider.when '/',
     templateUrl: '<%= templateUrl('index.html') %>'
-    #controller: 'HomeController'
+    controller: 'HomeController'
   $routeProvider.when '/clients',
     templateUrl: '<%= templateUrl('clients/index.html') %>'
     controller: 'ClientsController'
 ])
+
+App.run ($rootScope, $location) ->
+  $rootScope.menuItems = [
+    name: 'Clients'
+    link: '/clients'
+    subMenuItems: [
+      name: 'Create Client'
+      link: '/new'
+    ,
+      name: 'Find Client'
+      link: '/find'
+    ,
+      name: 'Remove Client'
+      link: '/delete'
+    ]
+  ,
+    name: 'Documents'
+    link: '/documents'
+    subMenuItems: [
+      name: 'Recent Changes'
+      link: '/recent'
+    ,
+      name: 'Client Document History'
+      link: '/history'
+    ,
+      name: 'Generate Policy Request'
+      link: '/request'
+    ]
+  ]
+
+  $rootScope.menuItemIsSelected = (path) ->
+    $location.path().substr(0, path.length) == path
+
+  $rootScope.subMenuItemIsSelected = (path) ->
+    $location.path().substr(0, path.length) == path
