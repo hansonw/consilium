@@ -44,8 +44,32 @@ App.run ($rootScope, $location) ->
     ]
   ]
 
+  $rootScope._curMenuItem = null
+  $rootScope._curSubMenuItem = null
+  $rootScope._showSubMenu = false
+
+  $rootScope.menuItemIsCaretExpanded = (path) ->
+    return $rootScope._curMenuItem == path and $rootScope._showSubMenu
+
+  $rootScope.menuItemSelect = (path) ->
+    if $rootScope._curMenuItem == path and $rootScope._showSubMenu
+      $rootScope._curMenuItem = null
+    else
+      $rootScope._curMenuItem = path
+    $rootScope._showSubMenu = true
+
   $rootScope.menuItemIsSelected = (path) ->
-    $location.path().substr(0, path.length) == path
+    return $rootScope._curMenuItem == path
+
+  $rootScope.subMenuItemSelect = (path) ->
+    $rootScope._showSubMenu = false
+    if $rootScope._curSubMenuItem == path
+      $rootScope._curSubMenuItem = null
+    else
+      $rootScope._curSubMenuItem = path
+
+  $rootScope.subMenuShouldShow = (path) ->
+    return $rootScope._curMenuItem == path and $rootScope._showSubMenu
 
   $rootScope.subMenuItemIsSelected = (path) ->
-    $location.path().substr(0, path.length) == path
+    return $location.path().substr(0, path.length) == path

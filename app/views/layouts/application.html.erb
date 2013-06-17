@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 </head>
-<body data-ng-click="selectMenuItem('')">
+<body data-ng-click="menuItemSelect(null)">
   <header>
     <div id="main" role="main">
       <div class="nav pure-u">
@@ -18,21 +18,24 @@
           <ul>
             <li data-ng-repeat="menuItem in menuItems"
                 data-ng-class="{'pure-menu-selected': menuItemIsSelected(menuItem.link)}">
-              <a href="#{{ menuItem.link }}">
+              <a href="" data-ng-click="menuItemSelect(menuItem.link)" eat-click>
                 {{ menuItem.name }} 
-                <i data-ng-class="{'icon-caret-down': menuItemIsSelected(menuItem.link), 'icon-caret-right': !menuItemIsSelected(menuItem.link)}"></i>
+                <i data-ng-class="{'icon-caret-down': menuItemIsCaretExpanded(menuItem.link), 'icon-caret-right': !menuItemIsCaretExpanded(menuItem.link)}"></i>
               </a>
             </li>
           </ul>
         </div>
       </div>
       <div class="subnav pure-u" data-ng-repeat="menuItem in menuItems"
-           data-ng-show="menuItemIsSelected(menuItem.link)" data-ng-animate="'slide'">
+           data-ng-show="subMenuShouldShow(menuItem.link)" data-ng-animate="'slide'">
         <div class="pure-menu pure-menu-open">
           <ul>
             <li data-ng-repeat="subMenuItem in menuItem.subMenuItems"
                 data-ng-class="{'pure-menu-selected': subMenuItemIsSelected(menuItem.link + subMenuItem.link)}">
-              <a href="#{{ menuItem.link }}{{ subMenuItem.link }}">{{ subMenuItem.name }}</a>
+              <a href="#{{ menuItem.link }}{{ subMenuItem.link }}"
+                 data-ng-click="subMenuItemSelect(menuItem.link + subMenuItem.link)" eat-click>
+                {{ subMenuItem.name }}
+              </a>
             </li>
           </ul>
         </div>
