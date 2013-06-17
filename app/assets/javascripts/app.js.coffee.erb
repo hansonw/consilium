@@ -59,7 +59,7 @@ App.run ($rootScope, $location) ->
     $rootScope._showSubMenu = true
 
   $rootScope.menuItemIsSelected = (path) ->
-    return $rootScope._curMenuItem == path
+    return $location.path().substr(0, path.length) == path
 
   $rootScope.subMenuItemSelect = (path) ->
     $rootScope._showSubMenu = false
