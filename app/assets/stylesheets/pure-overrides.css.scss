@@ -1,26 +1,40 @@
 @import 'constants';
+@import 'utilities';
 
 .subnav {
-  padding-top: 81px;
+  padding-top: 85px;
   z-index: 1000;
-  left: $nav-width*2;
-  background: #1f1e1e;
+  left: 2*$nav-width-handhelds;
+  background: #212020;
+
+  @include respond-to(handhelds) { left: 2*$nav-width-handhelds; }
+  @include respond-to(tablets) { left: 2*$nav-width-tablets; }
+  @include respond-to(desktops) { left: 2*$nav-width-desktops; }
 }
 
 .nav {
   padding-top: $body-margin;
   z-index: 1001;
-  left: $nav-width;
+  left: $nav-width-handhelds;
   background: #191818;
 
   .pure-menu ul {
     border-top: 1px solid #333;
   }
+
+  @include respond-to(handhelds) { left: $nav-width-handhelds; }
+  @include respond-to(tablets) { left: $nav-width-tablets; }
+  @include respond-to(desktops) { left: $nav-width-desktops; }
 }
 
 .nav, .subnav {
-  margin-left: -$nav-width;
-  width: $nav-width;
+  margin-left: -$nav-width-handhelds;
+  width: $nav-width-handhelds;
+
+  @include respond-to(handhelds) { width: $nav-width-handhelds; margin-left: -$nav-width-handhelds; }
+  @include respond-to(tablets) { width: $nav-width-tablets; margin-left: -$nav-width-tablets; }
+  @include respond-to(desktops) { width: $nav-width-desktops; margin-left: -$nav-width-desktops }
+
   position: fixed;
   top: 0;
   bottom: 0;
@@ -30,6 +44,9 @@
   .pure-menu {
     ul {
       li {
+        font-size: 125%;
+        @include respond-to(handhelds) { font-size: 100%; }
+
         a:hover {
           background-color: #333;
         }
@@ -48,6 +65,7 @@
         i {
           float: right;
           margin-right: 0.6em;
+          line-height: inherit;
         }
       }
     }
@@ -58,7 +76,9 @@
     border: 0;
 
     .pure-menu-heading {
-      font-size: 125%;
+      font-size: 140%;
+      @include respond-to(handhelds) { font-size: 125%; }
+
       color: #fff;
       text-transform: none;
       padding-left: 0.45em;

@@ -1,4 +1,5 @@
 @import 'constants';
+@import 'utilities';
 
 /**
  * Utilities / mixins.
@@ -99,31 +100,34 @@ body {
     border: 0;
   }
 
-  .popover {
-    $popover-width: $form-input-width + 100px;
-    $popover-padding: 20px;
+//.popover {
+//  $popover-width: $form-input-width + 100px;
+//  $popover-padding: 20px;
 
-    min-width: $popover-width;
-    @include calc(width, "100% - #{$nav-width + 2*$popover-padding}");
-    padding: $popover-padding;
-    top: 0;
-    left: $nav-width;
-    height: 100%;
-    position: fixed;
-    background-color: #fff;
+//  min-width: $popover-width;
+//  @include calc(width, "100% - #{$nav-width + 2*$popover-padding}");
+//  padding: $popover-padding;
+//  top: 0;
+//  left: $nav-width;
+//  height: 100%;
+//  position: fixed;
+//  background-color: #fff;
 
-    .popover-inner {
-      width: $popover-width;
-      margin: auto;
+//  .popover-inner {
+//    width: $popover-width;
+//    margin: auto;
 
-      label {
-        width: 80px;
-      }
-    }
-  }
+//    label {
+//      width: 80px;
+//    }
+//  }
+//}
 
   .content {
-    margin-left: $nav-width;
+    margin-left: $nav-width-handhelds;
+    @include respond-to(handhelds) { margin-left: $nav-width-handhelds; }
+    @include respond-to(tablets) { margin-left: $nav-width-tablets; }
+    @include respond-to(desktops) { margin-left: $nav-width-desktops; }
   }
 
   .align-right {

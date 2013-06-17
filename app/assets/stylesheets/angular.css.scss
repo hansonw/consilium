@@ -1,27 +1,26 @@
 @import 'constants';
+@import 'utilities';
 
 body {
   .slide-show, .slide-hide {
-    $animation-duration: 0.4s;
+    $animation-duration: 0.5s;
     -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) $animation-duration;
     -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) $animation-duration;
     -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) $animation-duration;
     transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) $animation-duration;
   }
 
-  .slide-show {
-    left: $nav-width;
+  .slide-show, .slide-hide.slide-hide-active {
+    left: $nav-width-handhelds;
+    @include respond-to(handhelds) { left: $nav-width-handhelds; }
+    @include respond-to(tablets) { left: $nav-width-tablets; }
+    @include respond-to(desktops) { left: $nav-width-desktops; }
   }
 
-  .slide-show.slide-show-active {
-    left: 2*$nav-width;
-  }
-
-  .slide-hide {
-    left: 2*$nav-width;
-  }
-
-  .slide-hide.slide-hide-active {
-    left: $nav-width;
+  .slide-show.slide-show-active, .slide-hide {
+    left: 2*$nav-width-handhelds;
+    @include respond-to(handhelds) { left: 2*$nav-width-handhelds; }
+    @include respond-to(tablets) { left: 2*$nav-width-tablets; }
+    @include respond-to(desktops) { left: 2*$nav-width-desktops; }
   }
 }
