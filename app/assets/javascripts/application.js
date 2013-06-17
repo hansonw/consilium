@@ -14,5 +14,4 @@
 //= require jquery_ujs
 //= require unstable/angular
 //= require unstable/angular-resource
-//= require app
 //= require_tree .
