@@ -1,7 +1,7 @@
 @import 'constants';
 
 body {
-  .slide-enter, .slide-leave {
+  .slide-show, .slide-hide {
     $animation-duration: 0.4s;
     -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) $animation-duration;
     -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) $animation-duration;
@@ -9,19 +9,19 @@ body {
     transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) $animation-duration;
   }
 
-  .slide-enter {
+  .slide-show {
     left: $nav-width;
   }
 
-  .slide-enter.slide-enter-active {
+  .slide-show.slide-show-active {
     left: 2*$nav-width;
   }
 
-  .slide-leave {
+  .slide-hide {
     left: 2*$nav-width;
   }
 
-  .slide-leave.slide-leave-active {
+  .slide-hide.slide-hide-active {
     left: $nav-width;
   }
 }

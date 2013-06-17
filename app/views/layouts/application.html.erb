@@ -5,21 +5,32 @@
   <%= stylesheet_link_tag "application", media: "all" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body data-ng-click="selectMenuItem('')" data-ng-controller="HomeController">
   <header>
-    <div id="main" role="main" data-ng-controller="HomeController">
+    <div id="main" role="main">
       <div class="nav pure-u">
         <div class="pure-menu pure-menu-open">
           <a href="#/" class="pure-menu-heading">Consilium</a>
           <ul>
-            <li><a href="#/clients" data-ng-click="menuOpen = 'clients'">Clients</a></li>
+            <li data-ng-repeat="menuItem in menuItems"
+                data-ng-class="{'pure-menu-selected': menuItemIsSelected(menuItem.name)}">
+              <a href="#{{ menuItem.link }}" data-ng-click="selectMenuItem(menuItem.name)" eat-click>
+                {{ menuItem.name }} 
+                <i data-ng-class="{'icon-caret-down': menuItemIsSelected(menuItem.name), 'icon-caret-right': !menuItemIsSelected(menuItem.name)}"></i>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
-      <div class="subnav pure-u" data-ng-show="menuOpen == 'clients'" data-ng-animate="{show:'slide-enter',hide:'slide-leave'}">
+      <div class="subnav pure-u" data-ng-repeat="menuItem in menuItems"
+           data-ng-show="menuItemIsSelected(menuItem.name)" data-ng-animate="'slide'">
         <div class="pure-menu pure-menu-open">
           <ul>
-            <li><a href="#/clients" data-ng-click="menuOpen = 'blah'">Test</a></li>
+            <li data-ng-repeat="subMenuItem in menuItem.subMenuItems"
+                data-ng-class="{'pure-menu-selected': subMenuItemIsSelected(subMenuItem.name)}">
+              <a data-ng-click="selectSubMenuItem(subMenuItem.name)"
+                 href="#{{ menuItem.link }}{{ subMenuItem.link }}">{{ subMenuItem.name }}</a>
+            </li>
           </ul>
         </div>
       </div>
