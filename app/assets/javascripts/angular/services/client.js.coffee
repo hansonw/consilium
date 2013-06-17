@@ -1,3 +1,3 @@
 App.factory 'Client', ['$resource', ($resource) ->
-    $resource '/api/clients/:id', id: '@id'
+    $resource '/api/clients/:id', format: 'json', id: '@id'
 ]

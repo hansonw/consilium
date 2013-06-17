@@ -14,6 +14,5 @@
 //= require jquery_ujs
 //= require unstable/angular
 //= require unstable/angular-resource
-//= require breeze
 //= require app
 //= require_tree .
