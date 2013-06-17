@@ -16,7 +16,7 @@
           </ul>
         </div>
       </div>
-      <div class="subnav pure-u" data-ng-hide="menuOpen != 'clients'" data-ng-animate="'slide'">
+      <div class="subnav pure-u" data-ng-show="menuOpen == 'clients'" data-ng-animate="{show:'slide-enter',hide:'slide-leave'}">
         <div class="pure-menu pure-menu-open">
           <ul>
             <li><a href="#/clients" data-ng-click="menuOpen = 'blah'">Test</a></li>
