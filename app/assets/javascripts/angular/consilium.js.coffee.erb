@@ -9,10 +9,10 @@ App.config(['$routeProvider', ($routeProvider) ->
   %>
   $routeProvider.when '/',
     templateUrl: '<%= templateUrl('index.html') %>'
-    controller: 'HomeController'
+    controller: 'HomeCtrl'
   $routeProvider.when '/clients',
     templateUrl: '<%= templateUrl('clients/index.html') %>'
-    controller: 'ClientsController'
+    controller: 'ClientsCtrl'
 ])
 
 App.run ($rootScope, $location) ->

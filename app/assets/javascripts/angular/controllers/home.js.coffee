@@ -1,3 +1,3 @@
-App.controller 'HomeController', ['$scope', ($scope) ->
+App.controller 'HomeCtrl', ['$scope', ($scope) ->
 
 ]
