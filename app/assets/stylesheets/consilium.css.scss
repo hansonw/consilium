@@ -155,19 +155,9 @@ body {
     $content-margin-tablets: 150px;
     width: 70%;
     margin: auto;
-    /** Note special case below. */
     @include respond-to(handhelds) { @include calc(width, '100% - #{$content-margin-handhelds}'); margin-right: 20px; }
     @include respond-to(tablets) { @include calc(width, '100% - #{$content-margin-tablets}'); }
     @include respond-to(widescreens) { width: 80%; }
-  }
-
-  /** Special case for content. */
-  #layout.active .content {
-    $content-margin-handhelds-menu-open: 50px;
-    @include respond-to(handhelds) {
-      margin-right: auto;
-      @include calc(width, '100% - #{$content-margin-handhelds-menu-open}');
-    }
   }
 
   .align-right {

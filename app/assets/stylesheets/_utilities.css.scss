@@ -25,7 +25,7 @@ $break-xlarge: 1200px;
 }
 
 @mixin transition() {
-  $transition-duration: 0.2s;
+  $transition-duration: 0.4s;
   -webkit-transition: all $transition-duration ease-out;
   -moz-transition: all $transition-duration ease-out;
   -ms-transition: all $transition-duration ease-out;
