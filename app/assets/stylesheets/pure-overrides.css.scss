@@ -100,15 +100,14 @@
   $label-width: 6em;
   $label-margin: 1em;
   // XXX: Where does this come from? Oh well.
-  $comfort-margin: 0.2em;
+  $comfort-margin: 1em;
 
   label {
-    width: $label-width;
-    margin: 0 $label-margin 0 0;
+    @include respond-to(tablets) { width: $label-width; margin: 0 $label-margin 0 0; }
   }
 
   input {
-    width: 300px;
+    width: 350px;
     @include respond-to(handhelds) { width: 100%; }
     @include respond-to(tablets) { @include calc(width, "100% - #{$label-width + 2*$label-margin + $comfort-margin}"); }
   }
