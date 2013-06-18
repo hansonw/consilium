@@ -119,6 +119,15 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
         else if !serverIds[id]
           @storage.delete(id, true) # Server already deleted these.
 
+    wrapper.sync = (success, error) ->
+      if online()
+        resource.query((data) =>
+          @syncAllWithLocal(data, [])
+          success() if success
+        , error || angular.noop)
+      else
+        @defer(error) if error
+
     wrapper.get = (params, success, error) ->
       res = new OfflineResource(new resource(), @storage)
       queryLocal = (data, header) =>
