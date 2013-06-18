@@ -109,19 +109,21 @@
 }
 
 .pure-form-aligned .pure-control-group {
-  $label-width: 6em;
+  $label-width: 10em;
+  $label-width-lowres: 6em;
   $label-margin: 1em;
   // XXX: Where does this come from? Oh well.
   $comfort-margin: 1em;
 
   label {
-    @include respond-to(tablets) { width: $label-width; margin: 0 $label-margin 0 0; }
+    @include respond-to(tablets) { width: $label-width-lowres; margin: 0 $label-margin 0 0; }
   }
 
   input {
     width: 350px;
+    @include calc(width, "100% - #{$label-width + 2*$label-margin + $comfort-margin}");
+    @include respond-to(tablets) { @include calc(width, "100% - #{$label-width-lowres + 2*$label-margin + $comfort-margin}"); }
     @include respond-to(handhelds) { width: 100%; }
-    @include respond-to(tablets) { @include calc(width, "100% - #{$label-width + 2*$label-margin + $comfort-margin}"); }
   }
 }
 
