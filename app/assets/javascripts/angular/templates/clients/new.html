@@ -16,7 +16,7 @@
         <ul>
           <li><a href="" data-ng-click="scrollTo('basicInfo')">Basic Info.</a></li>
           <li><a href="" data-ng-click="scrollTo('clientContacts')">Client Contacts</a></li>
-          <li><a href="" data-ng-click="scrollTo('businessOperations')">Business Operations</a></li>
+          <li><a href="" data-ng-click="scrollTo('businessOps')">Business Ops.</a></li>
           <li><a href="" data-ng-click="scrollTo('claimsInfo')">Claims Info.</a></li>
           <li><a href="" data-ng-click="scrollTo('previousPolicyInfo')">Previous Policy Info.</a></li>
           <li><a href="" data-ng-click="scrollTo('liabilityInfo')">Liability Info.</a></li>
@@ -29,8 +29,12 @@
     </div>
     <div class="client-form-content">
       <form name="newClient" class="pure-form pure-form-aligned" data-ng-submit="submitNewClient()">
-        <h3 id="basicInfo" class="no-top-margin">Basic Info.</h3>
+        <div class="section">
+          <h3 id="basicInfo" class="no-top-margin">Basic Info.</h3>
+        </div>
+
         <div class="separator-xsmall"></div>
+
         <div class="pure-control-group">
           <label for="name">Name</label>
           <input name="name" type="text" ng-model="client.name" placeholder="First name Last name" required />
@@ -48,25 +52,41 @@
           <input name="phone" ng-model="client.phone" placeholder="Area code-phone number" required />
         </div>
 
-        <a class="pull-right pure-button pure-button-primary">
-          <i class="icon-plus"></i> Add Client Contact
-        </a>
-        <h3 id="clientContacts">Client Contacts</h3>
+        <div class="separator"></div>
 
-        <table class="pure-table pure-table-horizontal pure-table-full-width">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th class="align-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><em>None</em></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="section">
+          <a class="pull-right pure-button pure-button-primary">
+            <i class="icon-plus"></i> Add<span class="verbose-desc"> Client Contact</span>
+          </a>
+          <h3 id="clientContacts">Client Contacts</h3>
+        </div>
+
+        <div data-ng-include="'templates/clients/_form_table.html'"
+             data-ng-repeat="items in [clientContacts]"></div>
+
+        <div class="separator"></div>
+
+        <div class="section">
+          <a class="pull-right pure-button pure-button-primary">
+            <i class="icon-plus"></i> Add<span class="verbose-desc"> Business Op.</span>
+          </a>
+          <h3 id="businessOps">Business Ops.</h3>
+        </div>
+
+        <div data-ng-include="'templates/clients/_form_table.html'"
+             data-ng-repeat="items in [businessOps]"></div>
+
+        <div class="separator"></div>
+
+        <div class="section">
+          <a class="pull-right pure-button pure-button-primary">
+            <i class="icon-plus"></i> Add<span class="verbose-desc"> Claims Info.</span>
+          </a>
+          <h3 id="claimsInfo">Claims Info.</h3>
+        </div>
+
+        <div data-ng-include="'templates/clients/_form_table.html'"
+             data-ng-repeat="items in [claimsInfo]"></div>
       </form>
     </div>
   </div>

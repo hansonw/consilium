@@ -191,6 +191,10 @@ body {
     width: 70%;
   }
 
+  .separator {
+    margin: 40px 0;
+  }
+
   .separator-small {
     margin: 30px 0;
   }
@@ -224,6 +228,16 @@ body {
       left: $nav-width-handhelds;
       @include respond-to(handhelds) { left: $nav-width-handhelds; }
       @include respond-to(tablets) { left: $nav-width-tablets; }
+    }
+  }
+
+  .section {
+    position: relative;
+
+    > a {
+      position: absolute;
+      bottom: 0;
+      right: 0;
     }
   }
 }
