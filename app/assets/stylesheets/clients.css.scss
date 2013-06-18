@@ -3,6 +3,7 @@
 
 .client-form {
   $client-form-nav-width: 300px;
+  @include respond-to(widescreens) { padding-top: 20px; }
 
   .client-form-content {
     @include transition();
@@ -22,7 +23,6 @@
     display: none;
     width: $client-form-nav-width - $client-form-nav-padding;
     vertical-align: top;
-    padding-top: 20px;
     padding-right: $client-form-nav-padding;
     @include respond-to(widescreens) { display: inline-block; }
   }
