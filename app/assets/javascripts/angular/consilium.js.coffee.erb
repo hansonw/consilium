@@ -26,7 +26,13 @@ App.config(['$routeProvider', ($routeProvider) ->
       controller: 'ClientsCtrl'
 ])
 
-App.run ($rootScope, $location) ->
+App.run ($rootScope, $location, $anchorScroll) ->
+  $rootScope.scrollTo = (id) ->
+    old = $location.hash()
+    $location.hash(id)
+    $anchorScroll()
+    $location.hash(old)
+
   $rootScope.menuItems = [
     name: 'Clients'
     link: '/clients'
