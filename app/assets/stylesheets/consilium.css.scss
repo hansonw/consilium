@@ -17,7 +17,9 @@ body {
   }
 
   h1, h2, h3, h4, h5, h6 {
-    margin: 0;
+    &.no-bottom-margin {
+      margin-bottom: 0;
+    }
   }
 
   h1 {
@@ -61,8 +63,11 @@ body {
     }
   }
 
-  #main {
-    overflow-x: hidden;
+  #layout {
+    padding-left: $nav-width-handhelds;
+    @include respond-to(handhelds) { padding-left: $nav-width-handhelds; }
+    @include respond-to(tablets) { padding-left: $nav-width-tablets; }
+    @include respond-to(desktops) { padding-left: $nav-width-desktops; }
   }
 
   .center {
@@ -73,25 +78,20 @@ body {
     display: none;
   }
 
-  .page-header {
-    margin-top: 10px;
-    margin-bottom: 30px;
+  .header {
+    min-height: 60px;
+    padding: 1em 1em 0 1em;
 
-    * {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-  }
+    .breadcrumbs {
+      .divider {
+        color: #ccc;
+        font-weight: 200;
+      }
 
-  .breadcrumbs {
-    .divider {
-      color: #ccc;
-      font-weight: 200;
-    }
-
-    a, a:link, a:visited, a:hover, a:active {
-      color: #08c;
-      text-decoration: none;
+      a, a:link, a:visited, a:hover, a:active {
+        color: #08c;
+        text-decoration: none;
+      }
     }
   }
 
@@ -128,12 +128,16 @@ body {
 //  }
 //}
 
+  #main {
+    width: 100%;
+  }
+
   .content {
-    margin-left: $nav-width-handhelds;
-    padding: 35px;
-    @include respond-to(handhelds) { padding: 40px 15px; margin-left: $nav-width-handhelds; }
-    @include respond-to(tablets) { margin-left: $nav-width-tablets; }
-    @include respond-to(desktops) { margin-left: $nav-width-desktops; }
+    $content-margin-lowres: 40px;
+    width: 70%;
+    margin: auto;
+    @include respond-to(handhelds) { @include calc(width, '100% - #{$content-margin-lowres}'); }
+    @include respond-to(tablets) { @include calc(width, '100% - #{$content-margin-lowres}'); }
   }
 
   .align-right {
@@ -156,7 +160,7 @@ body {
 
   .container {
     margin: auto;
-    width: 920px;
+    width: 70%;
   }
 
   .separator-small {
