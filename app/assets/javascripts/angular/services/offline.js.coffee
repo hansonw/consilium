@@ -1,62 +1,80 @@
+getData = (resource) ->
+  data = {}
+  for own key, val of resource
+    data[key] = val
+  return data
+
 # Wraps the localstorage class.
 class LocalStorage
   constructor: (@key) ->
-  insert: (_value) ->
-    value = {}
-    for own key, val of _value
-      value[key] = val
-    value.id = 1
 
-    console.log(window.localStorage)
-    console.log(@key)
-    console.log(window.localStorage.getItem(@key))
-    stored_value = JSON.parse(window.localStorage.getItem(@key)) || {}    
-    if value.id in stored_value
-      existing = stored_value[value.id]
-      console.log(existing)
+  get_db: ->
+    JSON.parse(window.localStorage.getItem(@key))
+
+  save_db: (db) ->
+    window.localStorage.setItem(@key, JSON.stringify(db))
+
+  insert: (resource) ->
+    data = getData(resource)
+
+    db = @get_db() || {}
+    if db[data.id]
+      existing = db[data.id]
       # If our version is newer than the inserted one, an update is in order
-      if existing.updated_at > value.updated_at
+      if existing.updated_at > data.updated_at
         return existing
-    store[value.id] = value
-    window.localStorage.setItem(@key, JSON.stringify(stored_value))
+    db[data.id] = data
+    @save_db(db)
     return null
+
+  delete: (id) ->
+    db = @get_db() || {}
+    delete db[id]
+    @save_db(db)
+
   get: (params) ->
-    window.localStorage.getItem(@key)[params.id]
+    @get_db()?[params.id]
+
   get_all: ->
-    window.localStorage.getItem(@key)
+    @get_db()? && (key for val, key of @get_db())
 
 # Wraps an instance of a HTTP resource with offline functionality.
 class OfflineResource
-  constructor: (@resource, @storage) ->
-    angular.copy(@resource, this)
-    @$save = () =>
-      @storage.insert()
-      @resource.$save()
-    @$delete = () =>
-      @storage.delete(@resource.id)
-      @resource.$delete()
+  constructor: (resource, storage) ->
+    # Hack: use functions so the internal resource won't think they're data
+    @resource = () -> resource
+    @storage = () -> storage
+    angular.extend(this, resource)
+    @_save = resource.$save
+    @_delete = resource.$delete
+  $save: ->
+    @updated_at = Date.now() # Estimate. Will be updated by the server
+    @storage().insert(this)
+    @_save()
+  $delete: ->
+    @storage().delete(@id)
+    @_delete()
 
 # Wraps an angular HTTP resource with offline functionality.
 App.factory 'Offline', () -> {
   # Must provide name to use as the local storage key
   wrap: (key, resource) -> {
-    resource: resource,
-    storage: new LocalStorage(key),
-    # Only supports lookup by ID right now.
+    storage: new LocalStorage(key)
+
     get: (params, success, error) ->
       res = new OfflineResource(resource.get(params,
         (data, header) =>
           updated = @storage.insert(data)
           if updated?
-            copy(updated, res)
-            @resource.Resource(data).$save()
-          success(data, header)
+            angular.extend(res, updated)
+            res.$save()
+          success(data, header) if success
       , (data, header) =>
           ret = @storage.get(params)
           if ret?
             success(ret)
           else
-            error(data, header)
+            error(data, header) if error
       ), @storage)
 
     query: (success, error) ->
@@ -65,20 +83,23 @@ App.factory 'Offline', () -> {
           for val, i in data
             updated = @storage.insert(val)
             if updated?
-              console.log(updated)
-              copy(updated, res[i])
-              @resource.Resource(updated).$save()
+              angular.extend(res[i], updated)
+              res[i].$save()
           for val, i in res
             res[i] = new OfflineResource(val, @storage)
-          success(data, header)
-      , (data, header) =>
+          res[0].$save()
+          success(data, header) if success
+        , (data, header) =>
           ret = @storage.get_all()
-          if ret?
+          if ret != false
             for val in ret
-              res.push new OfflineResource(@resource.Resource(val), @storage)
-            success(ret)
+              rsrc = {}
+              angular.extend(rsrc, resource, val)
+              res.push(new OfflineResource(rsrc, @storage))
+            console.log(res)
+            success(ret) if success
           else
-            error(data, header)
+            error(data, header) if error
       )
   }
 }
