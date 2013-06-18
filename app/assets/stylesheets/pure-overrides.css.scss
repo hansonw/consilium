@@ -4,7 +4,7 @@
 .subnav {
   padding-top: 85px;
   z-index: 1000;
-  left: 2*$nav-width-handhelds;
+  left: 2*$nav-width-desktops;
   background: #212020;
 
   @include respond-to(handhelds) { padding-top: 74px; left: 2*$nav-width-handhelds; }
@@ -17,7 +17,7 @@
 
   padding-top: $body-margin;
   z-index: 1001;
-  left: $nav-width-handhelds;
+  left: $nav-width-desktops;
   background: #191818;
 
   .pure-menu ul {
@@ -42,8 +42,8 @@
 }
 
 .nav, .subnav {
-  margin-left: -$nav-width-handhelds;
-  width: $nav-width-handhelds;
+  margin-left: -$nav-width-desktops;
+  width: $nav-width-desktops;
 
   @include respond-to(handhelds) { width: $nav-width-handhelds; margin-left: -$nav-width-handhelds; }
   @include respond-to(tablets) { width: $nav-width-tablets; margin-left: -$nav-width-tablets; }
@@ -58,9 +58,8 @@
   .pure-menu {
     ul {
       li {
-        font-size: 125%;
-        @include respond-to(handhelds) { font-size: 100%; }
-        @include respond-to(desktops) { font-size: 100%; }
+        font-size: 100%;
+        @include respond-to(tablets) { font-size: 125%; }
 
         a:hover {
           background-color: #333;
@@ -91,9 +90,8 @@
     border: 0;
 
     .pure-menu-heading {
-      font-size: 140%;
-      @include respond-to(handhelds) { font-size: 125%; }
-      @include respond-to(desktops) { font-size: 125%; }
+      font-size: 125%;
+      @include respond-to(tablets) { font-size: 140%; }
 
       color: #fff;
       text-transform: none;

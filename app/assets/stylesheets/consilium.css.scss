@@ -66,7 +66,7 @@ body {
   #layout {
     @include transition();
 
-    padding-left: $nav-width-handhelds;
+    padding-left: $nav-width-desktops;
     @include respond-to(handhelds) {
       padding-left: 0;
       &.active {
@@ -79,7 +79,6 @@ body {
         padding-left: $nav-width-tablets;
       }
     }
-    @include respond-to(desktops) { padding-left: $nav-width-desktops; }
   }
 
   .center {
@@ -154,6 +153,7 @@ body {
     /** Note special case below. */
     @include respond-to(handhelds) { @include calc(width, '100% - #{$content-margin-handhelds}'); margin-right: 20px; }
     @include respond-to(tablets) { @include calc(width, '100% - #{$content-margin-tablets}'); }
+    @include respond-to(widescreens) { width: 80%; }
   }
 
   /** Special case for content. */
