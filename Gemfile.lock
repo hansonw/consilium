@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/bokmann/font-awesome-rails.git
-  revision: 80078b3d484d10eaab4905fe3f4a251b8eb8f2a5
+  revision: bcac102e1b005d9e14a61aa8a1399e3cf7f806be
   specs:
-    font-awesome-rails (3.2.0.0)
+    font-awesome-rails (3.2.1.0)
       railties (>= 3.2, < 5.0)
 
 GIT
@@ -83,7 +83,7 @@ GEM
     mime-types (1.23)
     minitest (4.7.4)
     moped (1.5.0)
-    multi_json (1.7.6)
+    multi_json (1.7.7)
     normalize-rails (2.1.1)
     origin (1.1.0)
     orm_adapter (0.4.0)
