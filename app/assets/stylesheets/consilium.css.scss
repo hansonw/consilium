@@ -71,15 +71,17 @@ body {
 
     padding-left: $nav-width-desktops;
     @include respond-to(handhelds) {
+      position: relative;
       padding-left: 0;
       &.active {
-        padding-left: $nav-width-handhelds;
+        left: $nav-width-handhelds;
       }
     }
     @include respond-to(tablets) {
+      position: relative;
       padding-left: 0;
       &.active {
-        padding-left: $nav-width-tablets;
+        left: $nav-width-tablets;
       }
     }
   }
