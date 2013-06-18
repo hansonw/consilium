@@ -13,9 +13,10 @@
 <body data-ng-click="menuItemSelect(null)">
   <header>
   </header>
-  <div class="pure-g-r" id="layout">
-    <a id="mainMenuLink" href="#mainMenu" class="pure-menu-link"><i class="icon-reorder icon-2x icon-fixed-width"></i></a>
-    <div class="nav pure-u">
+  <div class="pure-g-r" id="layout" data-ng-class="{'active': menuShouldShow()}">
+    <a id="mainMenuLink" class="pure-menu-link" data-ng-click="mainMenuLinkClick()" data-ng-class="{'active': menuShouldShow()}">
+      <i class="icon-reorder icon-2x icon-fixed-width"></i></a>
+    <div class="nav pure-u" data-ng-class="{'active': menuShouldShow()}">
       <div class="pure-menu pure-menu-open">
         <a href="#/" class="pure-menu-heading">Consilium</a>
         <ul>

@@ -24,9 +24,21 @@
     border-top: 1px solid #333;
   }
 
-  @include respond-to(handhelds) { left: 0; }
-  @include respond-to(tablets) { left: 0; }
-  @include respond-to(desktops) { left: $nav-width-desktops; }
+  @include respond-to(handhelds) {
+    left: 0;
+    &.active {
+      left: $nav-width-handhelds;
+    }
+  }
+  @include respond-to(tablets) {
+    left: 0;
+    &.active {
+      left: $nav-width-tablets;
+    }
+  }
+  @include respond-to(desktops) {
+    left: $nav-width-desktops;
+  }
 }
 
 .nav, .subnav {

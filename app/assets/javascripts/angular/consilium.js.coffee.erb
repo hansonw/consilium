@@ -7,7 +7,7 @@ App.config(['$routeProvider', ($routeProvider) ->
       asset_path(basePath + path)
     end
   %>
-  
+
   #############
   # Home routes
   #############
@@ -57,10 +57,14 @@ App.run ($rootScope, $location) ->
 
   $rootScope._curMenuItem = null
   $rootScope._curSubMenuItem = null
+  $rootScope._showMenu = false
   $rootScope._showSubMenu = false
 
   $rootScope.menuItemIsCaretExpanded = (path) ->
     return $rootScope._curMenuItem == path and $rootScope._showSubMenu
+
+  $rootScope.menuShouldShow = ->
+    return $rootScope._showMenu
 
   $rootScope.menuItemSelect = (path) ->
     if $rootScope._curMenuItem == path and $rootScope._showSubMenu
@@ -74,6 +78,7 @@ App.run ($rootScope, $location) ->
 
   $rootScope.subMenuItemSelect = (path) ->
     $rootScope._showSubMenu = false
+    $rootScope._showMenu = false
     if $rootScope._curSubMenuItem == path
       $rootScope._curSubMenuItem = null
     else
@@ -84,3 +89,6 @@ App.run ($rootScope, $location) ->
 
   $rootScope.subMenuItemIsSelected = (path) ->
     return $location.path().substr(0, path.length) == path
+
+  $rootScope.mainMenuLinkClick = ->
+    $rootScope._showMenu = !$rootScope._showMenu

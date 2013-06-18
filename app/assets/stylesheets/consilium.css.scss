@@ -67,8 +67,18 @@ body {
     @include transition();
 
     padding-left: $nav-width-handhelds;
-    @include respond-to(handhelds) { padding-left: 0; }
-    @include respond-to(tablets) { padding-left: 0; }
+    @include respond-to(handhelds) {
+      padding-left: 0;
+      &.active {
+        padding-left: $nav-width-handhelds;
+      }
+    }
+    @include respond-to(tablets) {
+      padding-left: 0;
+      &.active {
+        padding-left: $nav-width-tablets;
+      }
+    }
     @include respond-to(desktops) { padding-left: $nav-width-desktops; }
   }
 
@@ -141,8 +151,18 @@ body {
     $content-margin-tablets: 150px;
     width: 70%;
     margin: auto;
+    /** Note special case below. */
     @include respond-to(handhelds) { @include calc(width, '100% - #{$content-margin-handhelds}'); margin-right: 20px; }
     @include respond-to(tablets) { @include calc(width, '100% - #{$content-margin-tablets}'); }
+  }
+
+  /** Special case for content. */
+  #layout.active .content {
+    $content-margin-handhelds-menu-open: 50px;
+    @include respond-to(handhelds) {
+      margin-right: auto;
+      @include calc(width, '100% - #{$content-margin-handhelds-menu-open}');
+    }
   }
 
   .align-right {
@@ -177,6 +197,8 @@ body {
   }
 
   #mainMenuLink {
+    @include transition();
+
     &:link, &:visited, &:hover, &:active {
       color: #eee;
       text-decoration: none;
