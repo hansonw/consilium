@@ -1,3 +1,29 @@
-// Place all the styles related to the clients controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'constants';
+@import 'utilities';
+
+.client-form {
+  $client-form-nav-width: 300px;
+
+  .client-form-content {
+    @include transition();
+
+    width: 100%;
+    display: inline-block;
+    @include respond-to(widescreens) {
+      @include calc(width, '100% - #{$client-form-nav-width + 5px}');
+    }
+  }
+
+  .client-form-nav {
+    $client-form-nav-padding: 50px;
+
+    @include transition();
+
+    display: none;
+    width: $client-form-nav-width - $client-form-nav-padding;
+    vertical-align: top;
+    padding-top: 20px;
+    padding-right: $client-form-nav-padding;
+    @include respond-to(widescreens) { display: inline-block; }
+  }
+}
