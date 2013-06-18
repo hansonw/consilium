@@ -1,5 +1,5 @@
 App.controller 'ClientsCtrl', ['$scope', 'Client', ($scope, Client) ->
-  $scope.clients = Client.query()
-  test = new Client({name: 'test'})
-  test.$save()
+  window.clients = Client.query()
+  #window.test = new Client({name: 'test'})
+  #window.test.$save()
 ]

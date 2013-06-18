@@ -33,9 +33,10 @@ class ClientsController < ApplicationController
     if existing = Client.where(:id => params[:id]).first
       @client._id = existing._id
     end
+    @client.updated_at = (Time.now.to_f * 1000).to_i
 
     respond_to do |format|
-      if @client.save
+      if @client.upsert
         format.json { render action: 'show', location: @client }
       else
         format.json { render json: @client.errors, status: :unprocessable_entity }
