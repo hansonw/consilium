@@ -29,8 +29,8 @@
     </div>
     <div class="client-form-content">
       <form name="newClient" class="pure-form pure-form-aligned" data-ng-submit="submitNewClient()">
-        <div class="section">
-          <h3 id="basicInfo" class="no-top-margin">Basic Info.</h3>
+        <div class="section" id="basicInfo">
+          <h3 class="no-top-margin">Basic Info.</h3>
         </div>
 
         <div class="separator-xsmall"></div>
@@ -54,11 +54,11 @@
 
         <div class="separator"></div>
 
-        <div class="section">
+        <div id="clientContacts" class="section">
           <a class="pull-right pure-button pure-button-primary">
             <i class="icon-plus"></i> Add<span class="verbose-desc"> Client Contact</span>
           </a>
-          <h3 id="clientContacts">Client Contacts</h3>
+          <h3>Client Contacts</h3>
         </div>
 
         <div data-ng-include="'templates/clients/_form_table.html'"
@@ -66,11 +66,11 @@
 
         <div class="separator"></div>
 
-        <div class="section">
+        <div id="businessOps" class="section">
           <a class="pull-right pure-button pure-button-primary">
             <i class="icon-plus"></i> Add<span class="verbose-desc"> Business Op.</span>
           </a>
-          <h3 id="businessOps">Business Ops.</h3>
+          <h3>Business Ops.</h3>
         </div>
 
         <div data-ng-include="'templates/clients/_form_table.html'"
@@ -78,15 +78,99 @@
 
         <div class="separator"></div>
 
-        <div class="section">
+        <div id="claimsInfo" class="section">
           <a class="pull-right pure-button pure-button-primary">
             <i class="icon-plus"></i> Add<span class="verbose-desc"> Claims Info.</span>
           </a>
-          <h3 id="claimsInfo">Claims Info.</h3>
+          <h3>Claims Info.</h3>
         </div>
 
         <div data-ng-include="'templates/clients/_form_table.html'"
              data-ng-repeat="items in [claimsInfo]"></div>
+
+        <div class="separator"></div>
+
+        <div id="previousPolicyInfo" class="section">
+          <a class="pull-right pure-button pure-button-primary">
+            <i class="icon-plus"></i> Add<span class="verbose-desc"> Previous Policy Info.</span>
+          </a>
+          <h3>Previous Policy Info.</h3>
+        </div>
+
+        <div data-ng-include="'templates/clients/_form_table.html'"
+             data-ng-repeat="items in [previousPolicyInfo]"></div>
+
+        <div class="separator"></div>
+
+        <div id="liabilityInfo" class="section">
+          <a class="pull-right pure-button pure-button-primary">
+            <i class="icon-plus"></i> Add<span class="verbose-desc"> Liability Info.</span>
+          </a>
+          <h3>Liability Info.</h3>
+        </div>
+
+        <div data-ng-include="'templates/clients/_form_table.html'"
+             data-ng-repeat="items in [liabilityInfo]"></div>
+
+        <div class="separator"></div>
+
+        <div id="miscNotes" class="section">
+          <a class="pull-right pure-button pure-button-primary">
+            <i class="icon-plus"></i> Add<span class="verbose-desc"> Misc. Note</span>
+          </a>
+          <h3>Misc. Notes</h3>
+        </div>
+
+        <div data-ng-include="'templates/clients/_form_table.html'"
+             data-ng-repeat="items in [miscNotes]"></div>
+
+        <div class="separator"></div>
+
+        <div id="coverageSchedule" class="section">
+          <a class="pull-right pure-button pure-button-primary">
+            <i class="icon-plus"></i> Add<span class="verbose-desc"> Coverage Schedule</span>
+          </a>
+          <h3>Coverage Schedule</h3>
+        </div>
+
+        <div data-ng-include="'templates/clients/_form_table.html'"
+             data-ng-repeat="items in [coverageSchedule]"></div>
+
+        <div class="separator"></div>
+
+        <div id="property" class="section">
+          <a class="pull-right pure-button pure-button-primary">
+            <i class="icon-plus"></i> Add<span class="verbose-desc"> Property</span>
+          </a>
+          <h3>Property</h3>
+        </div>
+
+        <div data-ng-include="'templates/clients/_form_table.html'"
+             data-ng-repeat="items in [property]"></div>
+
+        <div class="separator"></div>
+
+        <div id="umbrellaMachinery" class="section">
+          <a class="pull-right pure-button pure-button-primary">
+            <i class="icon-plus"></i> Add<span class="verbose-desc"> Umbrella / Machinery</span>
+          </a>
+          <h3>Umbrella / Machinery</h3>
+        </div>
+
+        <div data-ng-include="'templates/clients/_form_table.html'"
+             data-ng-repeat="items in [umbrellaMachinery]"></div>
+
+        <div class="separator"></div>
+
+        <div id="photos" class="section">
+          <a class="pull-right pure-button pure-button-primary">
+            <i class="icon-plus"></i> Add<span class="verbose-desc"> Photo</span>
+          </a>
+          <h3>Photos</h3>
+        </div>
+
+        <div data-ng-include="'templates/clients/_form_table.html'"
+             data-ng-repeat="items in [umbrellaMachinery]"></div>
       </form>
     </div>
   </div>
