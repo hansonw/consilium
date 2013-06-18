@@ -16,6 +16,10 @@ body {
     overflow: hidden;
   }
 
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+  }
+
   h1 {
     font-size: 40px;
     @include respond-to(handhelds) { font-size: 32px; }
@@ -77,17 +81,17 @@ body {
       margin-top: 0;
       margin-bottom: 0;
     }
+  }
 
-    .breadcrumbs {
-      .divider {
-        color: #ccc;
-        font-weight: 200;
-      }
+  .breadcrumbs {
+    .divider {
+      color: #ccc;
+      font-weight: 200;
+    }
 
-      a, a:link, a:visited, a:hover, a:active {
-        color: #08c;
-        text-decoration: none;
-      }
+    a, a:link, a:visited, a:hover, a:active {
+      color: #08c;
+      text-decoration: none;
     }
   }
 
@@ -126,8 +130,8 @@ body {
 
   .content {
     margin-left: $nav-width-handhelds;
-    padding: 10px 30px;
-    @include respond-to(handhelds) { padding: 17px 20px; margin-left: $nav-width-handhelds; }
+    padding: 35px;
+    @include respond-to(handhelds) { padding: 40px 15px; margin-left: $nav-width-handhelds; }
     @include respond-to(tablets) { margin-left: $nav-width-tablets; }
     @include respond-to(desktops) { margin-left: $nav-width-desktops; }
   }
@@ -153,5 +157,13 @@ body {
   .container {
     margin: auto;
     width: 920px;
+  }
+
+  .separator-small {
+    margin: 30px 0;
+  }
+
+  .separator-xsmall {
+    margin: 20px 0;
   }
 }

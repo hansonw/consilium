@@ -12,3 +12,10 @@ $break-large: 800px;
     @media only screen and (min-width: $break-large) { @content; }
   }
 }
+
+@mixin calc($property, $expression) {
+  #{$property}: -moz-calc(#{$expression});
+  #{$property}: -o-calc(#{$expression});
+  #{$property}: -webkit-calc(#{$expression});
+  #{$property}: calc(#{$expression});
+}

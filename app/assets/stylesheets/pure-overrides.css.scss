@@ -46,6 +46,7 @@
       li {
         font-size: 125%;
         @include respond-to(handhelds) { font-size: 100%; }
+        @include respond-to(desktops) { font-size: 100%; }
 
         a:hover {
           background-color: #333;
@@ -78,6 +79,7 @@
     .pure-menu-heading {
       font-size: 140%;
       @include respond-to(handhelds) { font-size: 125%; }
+      @include respond-to(desktops) { font-size: 125%; }
 
       color: #fff;
       text-transform: none;
@@ -91,6 +93,24 @@
       white-space: normal;
       padding: 0.6em 0 0.6em 0.6em;
     }
+  }
+}
+
+.pure-form-aligned .pure-control-group {
+  $label-width: 6em;
+  $label-margin: 1em;
+  // XXX: Where does this come from? Oh well.
+  $comfort-margin: 0.2em;
+
+  label {
+    width: $label-width;
+    margin: 0 $label-margin 0 0;
+  }
+
+  input {
+    width: 300px;
+    @include respond-to(handhelds) { width: 100%; }
+    @include respond-to(tablets) { @include calc(width, "100% - #{$label-width + 2*$label-margin + $comfort-margin}"); }
   }
 }
 
