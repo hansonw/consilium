@@ -13,6 +13,8 @@
 }
 
 .nav {
+  @include transition();
+
   padding-top: $body-margin;
   z-index: 1001;
   left: $nav-width-handhelds;
@@ -22,8 +24,8 @@
     border-top: 1px solid #333;
   }
 
-  @include respond-to(handhelds) { left: $nav-width-handhelds; }
-  @include respond-to(tablets) { left: $nav-width-tablets; }
+  @include respond-to(handhelds) { left: 0; }
+  @include respond-to(tablets) { left: 0; }
   @include respond-to(desktops) { left: $nav-width-desktops; }
 }
 

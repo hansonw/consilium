@@ -19,3 +19,12 @@ $break-large: 800px;
   #{$property}: -webkit-calc(#{$expression});
   #{$property}: calc(#{$expression});
 }
+
+@mixin transition() {
+  $transition-duration: 0.2s;
+  -webkit-transition: all $transition-duration ease-out;
+  -moz-transition: all $transition-duration ease-out;
+  -ms-transition: all $transition-duration ease-out;
+  -o-transition: all $transition-duration ease-out;
+  transition: all $transition-duration ease-out;
+}

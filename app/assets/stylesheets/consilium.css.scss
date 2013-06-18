@@ -64,9 +64,11 @@ body {
   }
 
   #layout {
+    @include transition();
+
     padding-left: $nav-width-handhelds;
-    @include respond-to(handhelds) { padding-left: $nav-width-handhelds; }
-    @include respond-to(tablets) { padding-left: $nav-width-tablets; }
+    @include respond-to(handhelds) { padding-left: 0; }
+    @include respond-to(tablets) { padding-left: 0; }
     @include respond-to(desktops) { padding-left: $nav-width-desktops; }
   }
 
@@ -81,6 +83,8 @@ body {
   .header {
     min-height: 60px;
     padding: 1em 1em 0 1em;
+
+    @include respond-to(handhelds) { padding: 0; }
 
     .breadcrumbs {
       .divider {
@@ -133,11 +137,12 @@ body {
   }
 
   .content {
-    $content-margin-lowres: 40px;
+    $content-margin-handhelds: 85px;
+    $content-margin-tablets: 150px;
     width: 70%;
     margin: auto;
-    @include respond-to(handhelds) { @include calc(width, '100% - #{$content-margin-lowres}'); }
-    @include respond-to(tablets) { @include calc(width, '100% - #{$content-margin-lowres}'); }
+    @include respond-to(handhelds) { @include calc(width, '100% - #{$content-margin-handhelds}'); margin-right: 20px; }
+    @include respond-to(tablets) { @include calc(width, '100% - #{$content-margin-tablets}'); }
   }
 
   .align-right {
@@ -169,5 +174,31 @@ body {
 
   .separator-xsmall {
     margin: 20px 0;
+  }
+
+  #mainMenuLink {
+    &:link, &:visited, &:hover, &:active {
+      color: #eee;
+      text-decoration: none;
+    }
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.9);
+    }
+
+    position: fixed;
+    padding: 10px;
+    left: 0;
+    background: rgba(0, 0, 0, 0.75);
+
+    i {
+      width: auto;
+    }
+
+    &.active {
+      left: $nav-width-handhelds;
+      @include respond-to(handhelds) { left: $nav-width-handhelds; }
+      @include respond-to(tablets) { left: $nav-width-tablets; }
+    }
   }
 }
