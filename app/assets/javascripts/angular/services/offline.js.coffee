@@ -4,6 +4,9 @@ getData = (resource) ->
     data[key] = val
   return data
 
+online = () ->
+  navigator.onLine # temporary, doesn't actually work
+
 # Wraps the localstorage class.
 class LocalStorage
   constructor: (@key) ->
@@ -29,7 +32,9 @@ class LocalStorage
 
   delete: (id) ->
     db = @get_db() || {}
-    delete db[id]
+    # Mark for deletion. Can't actually delete, or we won't be able to sync it
+    db[data.id].id = null
+    db[data.id].updated_at = Date.now()
     @save_db(db)
 
   get: (params) ->
@@ -50,24 +55,37 @@ class OfflineResource
   $save: ->
     @updated_at = Date.now() # Estimate. Will be updated by the server
     @storage().insert(this)
-    @_save()
+    @_save() if online()
   $delete: ->
     @storage().delete(@id)
-    @_delete()
+    @_delete() if online()
 
 # Wraps an angular HTTP resource with offline functionality.
 App.factory 'Offline', () -> {
+  counter: 0
   # Must provide name to use as the local storage key
-  wrap: (key, resource) -> {
-    storage: new LocalStorage(key)
+  wrap: (key, resource) ->
+    storage = new LocalStorage(key)
 
-    get: (params, success, error) ->
+    wrapper = (data) ->
+      new_data = {}
+      angular.extend(new_data, data)
+      if !new_data.id
+        # Generate an almost certainly unique ID
+        new_data.id = 'local-' + Date.now() + '-' + Math.floor(Math.random()*1e9)
+      angular.copy(new OfflineResource(new resource(new_data), wrapper.storage), this)
+      return this
+
+    wrapper.storage = storage
+
+    # TODO: sync deletes
+    wrapper.get = (params, success, error) ->
       res = new OfflineResource(resource.get(params,
         (data, header) =>
           updated = @storage.insert(data)
           if updated?
             angular.extend(res, updated)
-            res.$save()
+            res.$save() if online()
           success(data, header) if success
       , (data, header) =>
           ret = @storage.get(params)
@@ -77,14 +95,15 @@ App.factory 'Offline', () -> {
             error(data, header) if error
       ), @storage)
 
-    query: (success, error) ->
+    # TODO: sync everything
+    wrapper.query = (success, error) ->
       res = resource.query(
         (data, header) =>
           for val, i in data
             updated = @storage.insert(val)
             if updated?
               angular.extend(res[i], updated)
-              res[i].$save()
+              res[i].$save() if online()
           for val, i in res
             res[i] = new OfflineResource(val, @storage)
           res[0].$save()
@@ -93,13 +112,11 @@ App.factory 'Offline', () -> {
           ret = @storage.get_all()
           if ret != false
             for val in ret
-              rsrc = {}
-              angular.extend(rsrc, resource, val)
-              res.push(new OfflineResource(rsrc, @storage))
-            console.log(res)
+              res.push(new OfflineResource(new resource(val), @storage))
             success(ret) if success
           else
             error(data, header) if error
       )
-  }
+
+    return wrapper
 }

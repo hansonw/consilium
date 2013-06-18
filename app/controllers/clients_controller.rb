@@ -1,5 +1,6 @@
 class ClientsController < ApplicationController
-  before_action :set_client, only: [:show, :edit, :update, :destroy]
+  before_action :set_client, only: [:show, :edit, :destroy]
+  skip_before_filter :verify_authenticity_token
 
   respond_to :json
 
@@ -12,7 +13,6 @@ class ClientsController < ApplicationController
   # GET /clients/1
   # GET /clients/1.json
   def show
-    @client = Client.find(params[:id])
   end
 
   # GET /clients/new
@@ -24,26 +24,19 @@ class ClientsController < ApplicationController
   def edit
   end
 
-  # POST /clients
-  # POST /clients.json
-  def create
+  # PUT /clients/:id
+  # PUT /clients/:id.json
+  # Creates if a non-existent ID is provided.
+  def update
     @client = Client.new(client_params)
+    # If an ID is provided, try looking it up first
+    if existing = Client.where(:id => params[:id]).first
+      @client._id = existing._id
+    end
 
     respond_to do |format|
       if @client.save
-        format.json { render action: 'show', status: :created, location: @client }
-      else
-        format.json { render json: @client.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /clients/1
-  # PATCH/PUT /clients/1.json
-  def update
-    respond_to do |format|
-      if @client.update(client_params)
-        format.json { head :no_content }
+        format.json { render action: 'show', location: @client }
       else
         format.json { render json: @client.errors, status: :unprocessable_entity }
       end
