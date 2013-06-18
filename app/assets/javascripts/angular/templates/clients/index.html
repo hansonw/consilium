@@ -3,7 +3,7 @@
   <div id="clients-list-container">
     <ul>
       <li data-ng-repeat="client in clients">
-        <h3>{{client._id}} <a ng-href="#/clients">({{client.name}})</a></h3>
+        <h3><a ng-href="#/clients">{{client.name}}</a><input type="text" ng-model="client.name" value="{{ client.name }}" /></h3>
       </li>
     </ul>
   </div>
