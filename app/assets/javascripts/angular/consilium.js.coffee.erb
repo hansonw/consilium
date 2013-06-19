@@ -1,28 +1,23 @@
+<% require 'angular_assets' %>
+
 window.App = angular.module('Consilium', ['ngResource'])
 
 App.config(['$routeProvider', ($routeProvider) ->
-  <%
-    def templateUrl(path)
-      basePath = 'angular/templates/'
-      asset_path(basePath + path)
-    end
-  %>
-
   #############
   # Home routes
   #############
   $routeProvider.when '/',
-    templateUrl: '<%= templateUrl('index.html') %>'
+    templateUrl: '<%= AngularAssets::templateUrl('index.html') %>'
     controller: 'HomeCtrl'
 
   ################
   # Clients routes
   ################
   $routeProvider.when '/clients',
-    templateUrl: '<%= templateUrl('clients/index.html') %>'
+    templateUrl: '<%= AngularAssets::templateUrl('clients/index.html') %>'
     controller: 'ClientsCtrl'
     $routeProvider.when '/clients/new',
-      templateUrl: '<%= templateUrl('clients/new.html') %>'
+      templateUrl: '<%= AngularAssets::templateUrl('clients/new.html') %>'
       controller: 'ClientsCtrl'
 ])
 
