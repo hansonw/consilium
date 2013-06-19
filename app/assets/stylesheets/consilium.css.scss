@@ -150,6 +150,7 @@ body {
 
   #main {
     width: 100%;
+    position: relative;
   }
 
   .content {
@@ -205,6 +206,8 @@ body {
   #mainMenuLink {
     @include transition();
 
+    z-index: 1000;
+
     &:link, &:visited, &:hover, &:active {
       color: #eee;
       text-decoration: none;
@@ -238,5 +241,27 @@ body {
       bottom: 0;
       right: 0;
     }
+  }
+}
+
+/**
+ * Must be used below a position:absolute element that you want to center it in.
+ */
+.modal {
+  @include transition();
+
+  opacity: 0;
+  top: 0;
+  left: -100%;
+  position: absolute;
+  height: 100%;
+  background: white;
+  right: 100%;
+  z-index: 1000;
+
+  &.active {
+    opacity: 1;
+    left: 0;
+    right: 0;
   }
 }

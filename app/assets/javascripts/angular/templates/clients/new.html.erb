@@ -1,5 +1,23 @@
 <% require 'angular_assets' %>
 
+<div id="addClientContact" class="modal">
+  <div class="header content pure-u-1">
+    <h2 class="no-bottom-margin">Add Client Contact</h2>
+    <div class="breadcrumbs">
+      <a data-ng-href="#/">Home</a>
+      <span class="divider">&gt;</span>
+      <a data-ng-href="#/clients/new">New Client</a>
+      <span class="divider">&gt;</span>
+      <a data-ng-href="#/clients/new">Add Client Contact</a>
+      <hr class="soften" />
+    </div>
+  </div>
+
+  <div class="content">
+    <a modal-toggle href="#addClientContact" class="pure-button pure-button-primary">Close</a>
+  </div>
+</div>
+
 <div data-ng-controller="ClientsCtrl">
   <div class="content header pure-u-1">
     <h2 class="no-bottom-margin">Create Client</h2>
@@ -57,13 +75,8 @@
 
           <div class="separator"></div>
 
-          <a modal-toggle href="#test" text="fagets">test?</a>
-          <div id="test" class="modal hide">
-            blah
-          </div>
-
           <div id="clientContacts" class="section">
-            <a class="pull-right pure-button pure-button-primary">
+            <a class="pull-right pure-button pure-button-primary" href="#addClientContact" modal-toggle>
               <i class="icon-plus"></i> Add<span class="verbose-desc"> Client Contact</span>
             </a>
             <h3>Client Contacts</h3>
