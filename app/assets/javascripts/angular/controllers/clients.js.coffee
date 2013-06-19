@@ -9,6 +9,9 @@ App.controller 'ClientsCtrl', ['$scope', 'Client', '$timeout', ($scope, Client, 
   # watch actually gets called.
   $scope._watchAdded = false
 
+  $scope.client = new Client()
+  window.client = $scope.client
+
   # Detect if it's been over _saveTimeout seconds since the last change to the model.
   # If it has been, save the form progress now.
   $scope.$watch 'client', ( ->

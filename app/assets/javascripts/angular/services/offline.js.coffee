@@ -47,130 +47,118 @@ class LocalStorage
   get_all: ->
     @get_db()? && (key for val, key of @get_db())
 
-# Wraps an instance of a HTTP resource with offline functionality.
-class OfflineResource
-  constructor: (resource, storage) ->
-    # Hack: use functions so the internal resource won't think they're data
-    @resource = () -> resource
-    @storage = () -> storage
-    angular.extend(this, resource)
-    @_save = resource.$save.bind(this)
-    @_delete = resource.$delete.bind(this)
-  $save: ->
-    @updated_at = Date.now() # Estimate. Will be updated by the server
-    @storage().insert(this)
-    @_save((data, header) =>
-      # Delete the temporary model from the local DB if it exists.
-      if @id.indexOf('local') == 0
-        @storage().delete(@id, true)
-      angular.extend(this, data)
-      @storage().insert(data)
-    ) if online()
-  $delete: ->
-    @storage().delete(@id)
-    @_delete((data, header) =>
-      @storage().delete(@id, true)) if online()
-
 # Wraps an angular HTTP resource with offline functionality.
 App.factory 'Offline', ['$timeout', ($timeout) -> {
   # Must provide name to use as the local storage key
   wrap: (key, resource) ->
     storage = new LocalStorage(key)
+    class OfflineResource
+      constructor: (data = {}) ->
+        rsrc = new resource(data)
+        angular.extend(this, rsrc)
+        if !@id
+          # Generate a nearly guaranteed unique id.
+          @id = 'local-' + Date.now() + '-' + Math.floor(Math.random() * 1e9)
+        @_save = rsrc.$save.bind(this)
+        @_delete = rsrc.$delete.bind(this)
 
-    wrapper = (data) ->
-      new_data = {}
-      angular.extend(new_data, data)
-      if !new_data.id
-        # Generate an almost certainly unique ID
-        new_data.id = 'local-' + Date.now() + '-' + Math.floor(Math.random()*1e9)
-      angular.copy(new OfflineResource(new resource(new_data), wrapper.storage), this)
-      return this
+      $save: ->
+        @updated_at = Date.now() # Estimate. Will be updated by the server
+        storage.insert(this)
+        @_save((data, header) =>
+          # Delete the temporary model from the local DB if it exists.
+          if @id.indexOf('local') == 0
+            storage.delete(@id, true)
+          angular.extend(this, data)
+          storage.insert(data)
+        ) if online()
+        
+      $delete: ->
+        storage.delete(@id)
+        @_delete((data, header) =>
+          storage.delete(@id, true)) if online()
 
-    wrapper.storage = storage
+      @defer: (fn) ->
+        $timeout(fn, 0)
 
-    wrapper.defer = (fn) ->
-      $timeout(fn, 0)
-
-    wrapper.syncWithLocal = (data) ->
-      existing = @storage.insert(data)
-      if existing?
-        if existing.id != null
-          angular.extend(data, existing)
-          data.$save() if online()
-          offline = new OfflineResource(new resource(existing), @storage)
+      @syncWithLocal: (data) ->
+        existing = storage.insert(data)
+        if existing?
+          if existing.id != null
+            angular.extend(data, existing)
+            data.$save() if online()
+            offline = new OfflineResource(existing)
+          else
+            data.$delete() if online()
+            return null
         else
-          data.$delete() if online()
-          return null
-      else
-        offline = new OfflineResource(data, @storage)
-      return offline
+          offline = new OfflineResource(getData(data))
+        return offline
 
-    wrapper.syncAllWithLocal = (dataSet, result) ->
-      serverIds = {}
-      for data in dataSet
-        serverIds[data.id] = true
-        if offline = @syncWithLocal(data)
-          result.push(offline)
-      for id, val of @storage.get_db()
-        if val.id.indexOf('local') == 0
-          offline = new OfflineResource(new resource(val), @storage)
-          result.push(offline)
-          offline.$save()
-        else if !serverIds[id]
-          @storage.delete(id, true) # Server already deleted these.
+      @syncAllWithLocal: (dataSet, result) ->
+        serverIds = {}
+        for data in dataSet
+          serverIds[data.id] = true
+          if offline = @syncWithLocal(data)
+            result.push(offline)
+        for id, val of storage.get_db()
+          if val.id.indexOf('local') == 0
+            offline = new OfflineResource(val)
+            result.push(offline)
+            offline.$save()
+          else if !serverIds[id]
+            storage.delete(id, true) # Server already deleted these.
 
-    wrapper.sync = (success, error) ->
-      if online()
-        resource.query((data) =>
-          @syncAllWithLocal(data, [])
-          success() if success
-        , error || angular.noop)
-      else
-        @defer(error) if error
-
-    wrapper.get = (params, success, error) ->
-      res = new OfflineResource(new resource(), @storage)
-      queryLocal = (data, header) =>
-        # TODO: differentiate between server deletion/error
-        ret = @storage.get(params)
-        if ret?
-          angular.copy(res, ret)
-          @defer(=> success(res, header)) if success
+      @sync: (success, error) ->
+        if online()
+          resource.query((data) =>
+            @syncAllWithLocal(data, [])
+            success() if success
+          , error || angular.noop)
         else
-          @defer(=> error(data, header)) if error
+          @defer(error) if error
 
-      if online()
-        resource.get(params,
-          (data, header) =>
-            @syncWithLocal(data)
-            queryLocal()
-          , queryLocal)
-      else
-        queryLocal()
+      @get: (params, success, error) ->
+        res = new OfflineResource()
+        queryLocal = (data, header) =>
+          # TODO: differentiate between server deletion/error
+          ret = storage.get(params)
+          if ret?
+            angular.copy(res, ret)
+            @defer(=> success(res, header)) if success
+          else
+            @defer(=> error(data, header)) if error
 
-      return res
-
-    wrapper.query = (success, error) ->
-      res = []
-      queryLocal = (data, header) =>
-        ret = @storage.get_all()
-        if ret != false
-          for val in ret
-            res.push(new OfflineResource(new resource(val), @storage))
-          @defer(=> success(res, header)) if success
+        if online()
+          resource.get(params,
+            (data, header) =>
+              @syncWithLocal(data)
+              queryLocal()
+            , queryLocal)
         else
-          @defer(=> error(data, header)) if error
+          queryLocal()
 
-      if online()
-        resource.query(
-          (data, header) =>
-            @syncAllWithLocal(data, res)
-            success(res, header) if success
-          , queryLocal)
-      else
-        queryLocal()
+        return res
 
-      return res
+      @query: (success, error) ->
+        res = []
+        queryLocal = (data, header) =>
+          ret = storage.get_all()
+          if ret != false
+            for val in ret
+              res.push(new OfflineResource(val))
+            @defer(=> success(res, header)) if success
+          else
+            @defer(=> error(data, header)) if error
 
-    return wrapper
+        if online()
+          resource.query(
+            (data, header) =>
+              @syncAllWithLocal(data, res)
+              success(res, header) if success
+            , queryLocal)
+        else
+          queryLocal()
+
+        return res
 }]
