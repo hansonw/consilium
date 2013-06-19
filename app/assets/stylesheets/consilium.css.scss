@@ -166,10 +166,15 @@ body {
     text-align: right;
   }
 
-  .search button {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    margin-left: -7px;
+  .search {
+    input {
+      width: $form-input-width;
+    }
+    button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      margin-left: -7px;
+    }
   }
 
   .centered {

@@ -19,7 +19,14 @@ App.config(['$routeProvider', ($routeProvider) ->
     $routeProvider.when '/clients/new',
       templateUrl: '<%= AngularAssets::templateUrl('clients/new.html') %>'
       controller: 'ClientsCtrl'
+    $routeProvider.when '/clients/find',
+      templateUrl: '<%= AngularAssets::templateUrl('clients/find.html') %>'
+      controller: 'ClientsCtrl'
 ])
+
+App.config(["$httpProvider", (provider) ->
+  provider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
+]);
 
 App.run ($rootScope, $location, $anchorScroll) ->
   $rootScope.scrollTo = (id) ->

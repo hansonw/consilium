@@ -1,6 +1,5 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :destroy]
-  skip_before_filter :verify_authenticity_token
 
   respond_to :json
 

@@ -68,3 +68,27 @@
     }
   }
 }
+
+$center-content-form-width: $form-input-width + 155px;
+.center-content {
+  min-width: 100px + $center-content-form-width;
+
+  .center-content-inner {
+    width: $center-content-form-width;
+    margin: auto;
+
+    .center-content-section {
+      &:not(:first-child):not(:nth-child(2)) {
+        margin-top: 50px;
+      }
+
+      div {
+        text-align: right;
+      }
+    }
+
+    input {
+      max-width: $form-input-width;
+    }
+  }
+}
