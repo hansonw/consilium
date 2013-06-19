@@ -40,22 +40,26 @@
 
           <div class="pure-control-group">
             <label for="name">Name</label>
-            <input name="name" type="text" ng-model="client.name" placeholder="First name Last name" required />
+            <input name="name" type="text" ng-model="client.name.value" placeholder="First name Last name" required />
           </div>
           <div class="pure-control-group">
             <label for="address">Address</label>
-            <input name="name" type="text" ng-model="client.address" placeholder="Address (apt., suite, bldg.)" required />
+            <input name="name" type="text" ng-model="client.address.value" placeholder="Address (apt., suite, bldg.)" required />
           </div>
           <div class="pure-control-group">
             <label for="city_and_province">City and Province</label>
-            <input name="city_and_province" ng-model="client.city_and_province" placeholder="City, Province" required />
+            <input name="city_and_province" ng-model="client.city_and_province.value" placeholder="City, Province" required />
           </div>
           <div class="pure-control-group">
             <label for="phone">Phone</label>
-            <input name="phone" ng-model="client.phone" placeholder="Area code-phone number" required />
+            <input name="phone" ng-model="client.phone.value" placeholder="Area code-phone number" required />
           </div>
 
           <div class="separator"></div>
+
+          <div class="popover hide">
+            blah
+          </div>
 
           <div id="clientContacts" class="section">
             <a class="pull-right pure-button pure-button-primary">
@@ -65,7 +69,7 @@
           </div>
 
           <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-               data-ng-repeat="items in [clientContacts]"></div>
+               data-ng-repeat="items in [client.clientContacts]"></div>
 
           <div class="separator"></div>
 
@@ -77,7 +81,7 @@
           </div>
 
           <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-               data-ng-repeat="items in [businessOps]"></div>
+               data-ng-repeat="items in [client.businessOps]"></div>
 
           <div class="separator"></div>
 
@@ -89,7 +93,7 @@
           </div>
 
           <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-               data-ng-repeat="items in [claimsInfo]"></div>
+               data-ng-repeat="items in [client.claimsInfo]"></div>
 
           <div class="separator"></div>
 
@@ -101,7 +105,7 @@
           </div>
 
           <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-               data-ng-repeat="items in [previousPolicyInfo]"></div>
+               data-ng-repeat="items in [client.previousPolicyInfo]"></div>
 
           <div class="separator"></div>
 
@@ -113,7 +117,7 @@
           </div>
 
           <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-               data-ng-repeat="items in [liabilityInfo]"></div>
+               data-ng-repeat="items in [client.liabilityInfo]"></div>
 
           <div class="separator"></div>
 
@@ -125,7 +129,7 @@
           </div>
 
           <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-               data-ng-repeat="items in [miscNotes]"></div>
+               data-ng-repeat="items in [client.miscNotes]"></div>
 
           <div class="separator"></div>
 
@@ -137,7 +141,7 @@
           </div>
 
           <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-               data-ng-repeat="items in [coverageSchedule]"></div>
+               data-ng-repeat="items in [client.coverageSchedule]"></div>
 
           <div class="separator"></div>
 
@@ -149,7 +153,7 @@
           </div>
 
           <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-               data-ng-repeat="items in [property]"></div>
+               data-ng-repeat="items in [client.property]"></div>
 
           <div class="separator"></div>
 
@@ -161,7 +165,7 @@
           </div>
 
           <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-               data-ng-repeat="items in [umbrellaMachinery]"></div>
+               data-ng-repeat="items in [client.umbrellaMachinery]"></div>
 
           <div class="separator"></div>
 
@@ -173,7 +177,7 @@
           </div>
 
           <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-               data-ng-repeat="items in [umbrellaMachinery]"></div>
+               data-ng-repeat="items in [client.umbrellaMachinery]"></div>
         </form>
       </div>
     </div>
