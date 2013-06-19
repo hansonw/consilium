@@ -33,7 +33,7 @@
   @include respond-to(handhelds) { display: none; }
 }
 
-#status {
+#toolbar {
   @include transition();
 
   position: fixed;
@@ -43,9 +43,13 @@
   background: #eee;
   color: #666;
   left: $nav-width-desktops;
-  text-align: center;
+  text-align: right;
   padding: 10px 0;
   border-top: 1px solid #ddd;
+
+  .pure-button {
+    margin-left: 10px;
+  }
 
   @include respond-to(handhelds) {
     left: 0;
