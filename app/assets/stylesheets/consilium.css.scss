@@ -68,7 +68,7 @@ body {
     }
   }
 
-  #layout {
+  .layout {
     @include transition();
 
     padding-left: $nav-width-desktops;
@@ -242,26 +242,30 @@ body {
       right: 0;
     }
   }
-}
 
-/**
- * Must be used below a position:absolute element that you want to center it in.
- */
-.modal {
-  @include transition();
+  /**
+   * Must be used below a position:absolute element that you want to center it in.
+   */
+  .modal {
+    @include transition();
 
-  opacity: 0;
-  top: 0;
-  left: -100%;
-  position: absolute;
-  height: 100%;
-  background: white;
-  right: 100%;
-  z-index: 1000;
+    opacity: 0;
+    top: 0;
+    left: -100%;
+    position: fixed;
+    height: 100%;
+    background: white;
+    right: 100%;
+    z-index: 1000;
 
-  &.active {
-    opacity: 1;
-    left: 0;
-    right: 0;
+    &.active {
+      opacity: 1;
+      left: 0;
+      right: 0;
+    }
+  }
+
+  &.modal-active {
+    overflow: hidden;
   }
 }
