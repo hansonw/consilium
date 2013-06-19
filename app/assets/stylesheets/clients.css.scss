@@ -32,3 +32,35 @@
   @include respond-to(tablets) { display: none; }
   @include respond-to(handhelds) { display: none; }
 }
+
+#status {
+  @include transition();
+
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 999;
+  background: #eee;
+  color: #666;
+  left: $nav-width-desktops;
+  text-align: center;
+  padding: 10px 0;
+  border-top: 1px solid #ddd;
+
+  @include respond-to(handhelds) {
+    left: 0;
+    right: 0;
+    &.active {
+      left: $nav-width-handhelds;
+      right: -$nav-width-handhelds;
+    }
+  }
+  @include respond-to(tablets) {
+    left: 0;
+    right: 0;
+    &.active {
+      left: $nav-width-tablets;
+      right: -$nav-width-tablets;
+    }
+  }
+}

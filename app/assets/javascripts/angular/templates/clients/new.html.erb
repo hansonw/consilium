@@ -1,179 +1,186 @@
 <% require 'angular_assets' %>
 
-<div class="content header pure-u-1">
-  <h2 class="no-bottom-margin">Create Client</h2>
-  <div class="breadcrumbs">
-    <a data-ng-href="#/">Home</a>
-    <span class="divider">&gt;</span>
-    <a data-ng-href="#/clients/new">New Client</a>
-    <hr class="soften" />
+<div data-ng-controller="ClientsCtrl">
+  <div class="content header pure-u-1">
+    <h2 class="no-bottom-margin">Create Client</h2>
+    <div class="breadcrumbs">
+      <a data-ng-href="#/">Home</a>
+      <span class="divider">&gt;</span>
+      <a data-ng-href="#/clients/new">New Client</a>
+      <hr class="soften" />
+    </div>
   </div>
-</div>
 
-<div class="content">
-  <div class="client-form">
-    <div class="client-form-nav">
-      <div class="pure-menu pure-menu-open">
-        <a class="pure-menu-heading">Sections</a>
-        <ul>
-          <li><a href="" data-ng-click="scrollTo('basicInfo')">Basic Info.</a></li>
-          <li><a href="" data-ng-click="scrollTo('clientContacts')">Client Contacts</a></li>
-          <li><a href="" data-ng-click="scrollTo('businessOps')">Business Ops.</a></li>
-          <li><a href="" data-ng-click="scrollTo('claimsInfo')">Claims Info.</a></li>
-          <li><a href="" data-ng-click="scrollTo('previousPolicyInfo')">Previous Policy Info.</a></li>
-          <li><a href="" data-ng-click="scrollTo('liabilityInfo')">Liability Info.</a></li>
-          <li><a href="" data-ng-click="scrollTo('miscInfo')">Misc Info.</a></li>
-          <li><a href="" data-ng-click="scrollTo('coverageSchedule')">Coverage Schedule</a></li>
-          <li><a href="" data-ng-click="scrollTo('umbrellaMachinery')">Umbrella/Machinery</a></li>
-          <li><a href="" data-ng-click="scrollTo('photos')">Photos</a></li>
-        </ul>
+  <div class="content">
+    <div class="client-form">
+      <div class="client-form-nav">
+        <div class="pure-menu pure-menu-open">
+          <a class="pure-menu-heading">Sections</a>
+          <ul>
+            <li><a href="" data-ng-click="scrollTo('basicInfo')">Basic Info.</a></li>
+            <li><a href="" data-ng-click="scrollTo('clientContacts')">Client Contacts</a></li>
+            <li><a href="" data-ng-click="scrollTo('businessOps')">Business Ops.</a></li>
+            <li><a href="" data-ng-click="scrollTo('claimsInfo')">Claims Info.</a></li>
+            <li><a href="" data-ng-click="scrollTo('previousPolicyInfo')">Previous Policy Info.</a></li>
+            <li><a href="" data-ng-click="scrollTo('liabilityInfo')">Liability Info.</a></li>
+            <li><a href="" data-ng-click="scrollTo('miscInfo')">Misc Info.</a></li>
+            <li><a href="" data-ng-click="scrollTo('coverageSchedule')">Coverage Schedule</a></li>
+            <li><a href="" data-ng-click="scrollTo('umbrellaMachinery')">Umbrella/Machinery</a></li>
+            <li><a href="" data-ng-click="scrollTo('photos')">Photos</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="client-form-content">
+        <form name="newClient" class="pure-form pure-form-aligned" data-ng-submit="submitNewClient()">
+          <div class="section" id="basicInfo">
+            <h3 class="no-top-margin">Basic Info.</h3>
+          </div>
+
+          <div class="separator-xsmall"></div>
+
+          <div class="pure-control-group">
+            <label for="name">Name</label>
+            <input name="name" type="text" ng-model="client.name" placeholder="First name Last name" required />
+          </div>
+          <div class="pure-control-group">
+            <label for="address">Address</label>
+            <input name="name" type="text" ng-model="client.address" placeholder="Address (apt., suite, bldg.)" required />
+          </div>
+          <div class="pure-control-group">
+            <label for="city_and_province">City and Province</label>
+            <input name="city_and_province" ng-model="client.city_and_province" placeholder="City, Province" required />
+          </div>
+          <div class="pure-control-group">
+            <label for="phone">Phone</label>
+            <input name="phone" ng-model="client.phone" placeholder="Area code-phone number" required />
+          </div>
+
+          <div class="separator"></div>
+
+          <div id="clientContacts" class="section">
+            <a class="pull-right pure-button pure-button-primary" data-ng-click="saveTest()">
+              <i class="icon-plus"></i> Add<span class="verbose-desc"> Client Contact</span>
+            </a>
+            <h3>Client Contacts</h3>
+          </div>
+
+          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+               data-ng-repeat="items in [clientContacts]"></div>
+
+          <div class="separator"></div>
+
+          <div id="businessOps" class="section">
+            <a class="pull-right pure-button pure-button-primary">
+              <i class="icon-plus"></i> Add<span class="verbose-desc"> Business Op.</span>
+            </a>
+            <h3>Business Ops.</h3>
+          </div>
+
+          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+               data-ng-repeat="items in [businessOps]"></div>
+
+          <div class="separator"></div>
+
+          <div id="claimsInfo" class="section">
+            <a class="pull-right pure-button pure-button-primary">
+              <i class="icon-plus"></i> Add<span class="verbose-desc"> Claims Info.</span>
+            </a>
+            <h3>Claims Info.</h3>
+          </div>
+
+          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+               data-ng-repeat="items in [claimsInfo]"></div>
+
+          <div class="separator"></div>
+
+          <div id="previousPolicyInfo" class="section">
+            <a class="pull-right pure-button pure-button-primary">
+              <i class="icon-plus"></i> Add<span class="verbose-desc"> Previous Policy Info.</span>
+            </a>
+            <h3>Previous Policy Info.</h3>
+          </div>
+
+          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+               data-ng-repeat="items in [previousPolicyInfo]"></div>
+
+          <div class="separator"></div>
+
+          <div id="liabilityInfo" class="section">
+            <a class="pull-right pure-button pure-button-primary">
+              <i class="icon-plus"></i> Add<span class="verbose-desc"> Liability Info.</span>
+            </a>
+            <h3>Liability Info.</h3>
+          </div>
+
+          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+               data-ng-repeat="items in [liabilityInfo]"></div>
+
+          <div class="separator"></div>
+
+          <div id="miscNotes" class="section">
+            <a class="pull-right pure-button pure-button-primary">
+              <i class="icon-plus"></i> Add<span class="verbose-desc"> Misc. Note</span>
+            </a>
+            <h3>Misc. Notes</h3>
+          </div>
+
+          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+               data-ng-repeat="items in [miscNotes]"></div>
+
+          <div class="separator"></div>
+
+          <div id="coverageSchedule" class="section">
+            <a class="pull-right pure-button pure-button-primary">
+              <i class="icon-plus"></i> Add<span class="verbose-desc"> Coverage Schedule</span>
+            </a>
+            <h3>Coverage Schedule</h3>
+          </div>
+
+          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+               data-ng-repeat="items in [coverageSchedule]"></div>
+
+          <div class="separator"></div>
+
+          <div id="property" class="section">
+            <a class="pull-right pure-button pure-button-primary">
+              <i class="icon-plus"></i> Add<span class="verbose-desc"> Property</span>
+            </a>
+            <h3>Property</h3>
+          </div>
+
+          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+               data-ng-repeat="items in [property]"></div>
+
+          <div class="separator"></div>
+
+          <div id="umbrellaMachinery" class="section">
+            <a class="pull-right pure-button pure-button-primary">
+              <i class="icon-plus"></i> Add<span class="verbose-desc"> Umbrella / Machinery</span>
+            </a>
+            <h3>Umbrella / Machinery</h3>
+          </div>
+
+          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+               data-ng-repeat="items in [umbrellaMachinery]"></div>
+
+          <div class="separator"></div>
+
+          <div id="photos" class="section">
+            <a class="pull-right pure-button pure-button-primary">
+              <i class="icon-plus"></i> Add<span class="verbose-desc"> Photo</span>
+            </a>
+            <h3>Photos</h3>
+          </div>
+
+          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+               data-ng-repeat="items in [umbrellaMachinery]"></div>
+        </form>
       </div>
     </div>
-    <div class="client-form-content">
-      <form name="newClient" class="pure-form pure-form-aligned" data-ng-submit="submitNewClient()">
-        <div class="section" id="basicInfo">
-          <h3 class="no-top-margin">Basic Info.</h3>
-        </div>
+  </div>
 
-        <div class="separator-xsmall"></div>
-
-        <div class="pure-control-group">
-          <label for="name">Name</label>
-          <input name="name" type="text" ng-model="client.name" placeholder="First name Last name" required />
-        </div>
-        <div class="pure-control-group">
-          <label for="address">Address</label>
-          <input name="name" type="text" ng-model="client.address" placeholder="Address (apt., suite, bldg.)" required />
-        </div>
-        <div class="pure-control-group">
-          <label for="city_and_province">City and Province</label>
-          <input name="city_and_province" ng-model="client.city_and_province" placeholder="City, Province" required />
-        </div>
-        <div class="pure-control-group">
-          <label for="phone">Phone</label>
-          <input name="phone" ng-model="client.phone" placeholder="Area code-phone number" required />
-        </div>
-
-        <div class="separator"></div>
-
-        <div id="clientContacts" class="section">
-          <a class="pull-right pure-button pure-button-primary">
-            <i class="icon-plus"></i> Add<span class="verbose-desc"> Client Contact</span>
-          </a>
-          <h3>Client Contacts</h3>
-        </div>
-
-        <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-             data-ng-repeat="items in [clientContacts]"></div>
-
-        <div class="separator"></div>
-
-        <div id="businessOps" class="section">
-          <a class="pull-right pure-button pure-button-primary">
-            <i class="icon-plus"></i> Add<span class="verbose-desc"> Business Op.</span>
-          </a>
-          <h3>Business Ops.</h3>
-        </div>
-
-        <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-             data-ng-repeat="items in [businessOps]"></div>
-
-        <div class="separator"></div>
-
-        <div id="claimsInfo" class="section">
-          <a class="pull-right pure-button pure-button-primary">
-            <i class="icon-plus"></i> Add<span class="verbose-desc"> Claims Info.</span>
-          </a>
-          <h3>Claims Info.</h3>
-        </div>
-
-        <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-             data-ng-repeat="items in [claimsInfo]"></div>
-
-        <div class="separator"></div>
-
-        <div id="previousPolicyInfo" class="section">
-          <a class="pull-right pure-button pure-button-primary">
-            <i class="icon-plus"></i> Add<span class="verbose-desc"> Previous Policy Info.</span>
-          </a>
-          <h3>Previous Policy Info.</h3>
-        </div>
-
-        <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-             data-ng-repeat="items in [previousPolicyInfo]"></div>
-
-        <div class="separator"></div>
-
-        <div id="liabilityInfo" class="section">
-          <a class="pull-right pure-button pure-button-primary">
-            <i class="icon-plus"></i> Add<span class="verbose-desc"> Liability Info.</span>
-          </a>
-          <h3>Liability Info.</h3>
-        </div>
-
-        <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-             data-ng-repeat="items in [liabilityInfo]"></div>
-
-        <div class="separator"></div>
-
-        <div id="miscNotes" class="section">
-          <a class="pull-right pure-button pure-button-primary">
-            <i class="icon-plus"></i> Add<span class="verbose-desc"> Misc. Note</span>
-          </a>
-          <h3>Misc. Notes</h3>
-        </div>
-
-        <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-             data-ng-repeat="items in [miscNotes]"></div>
-
-        <div class="separator"></div>
-
-        <div id="coverageSchedule" class="section">
-          <a class="pull-right pure-button pure-button-primary">
-            <i class="icon-plus"></i> Add<span class="verbose-desc"> Coverage Schedule</span>
-          </a>
-          <h3>Coverage Schedule</h3>
-        </div>
-
-        <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-             data-ng-repeat="items in [coverageSchedule]"></div>
-
-        <div class="separator"></div>
-
-        <div id="property" class="section">
-          <a class="pull-right pure-button pure-button-primary">
-            <i class="icon-plus"></i> Add<span class="verbose-desc"> Property</span>
-          </a>
-          <h3>Property</h3>
-        </div>
-
-        <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-             data-ng-repeat="items in [property]"></div>
-
-        <div class="separator"></div>
-
-        <div id="umbrellaMachinery" class="section">
-          <a class="pull-right pure-button pure-button-primary">
-            <i class="icon-plus"></i> Add<span class="verbose-desc"> Umbrella / Machinery</span>
-          </a>
-          <h3>Umbrella / Machinery</h3>
-        </div>
-
-        <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-             data-ng-repeat="items in [umbrellaMachinery]"></div>
-
-        <div class="separator"></div>
-
-        <div id="photos" class="section">
-          <a class="pull-right pure-button pure-button-primary">
-            <i class="icon-plus"></i> Add<span class="verbose-desc"> Photo</span>
-          </a>
-          <h3>Photos</h3>
-        </div>
-
-        <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
-             data-ng-repeat="items in [umbrellaMachinery]"></div>
-      </form>
-    </div>
+  <div id="status" data-ng-class="{'active': menuShouldShow()}">
+    <div data-ng-show="saving"><i class="icon-spinner icon-spin"></i> Saving...</div>
+    <div data-ng-show="!saving">Saved</div>
   </div>
 </div>
