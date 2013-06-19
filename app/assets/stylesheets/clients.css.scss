@@ -5,6 +5,8 @@
   $client-form-nav-width: 300px;
   @include respond-to(widescreens) { padding-top: 20px; }
 
+  padding-bottom: 100px;
+
   .client-form-content {
     @include transition();
 
