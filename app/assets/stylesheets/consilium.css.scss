@@ -261,9 +261,9 @@ body {
     height: 100%;
     background: white;
     right: 100%;
-    z-index: 1006;
 
     &.active {
+      z-index: 1006;
       opacity: 1;
       left: 0;
       right: 0;

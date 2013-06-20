@@ -32,7 +32,7 @@
       </div>
     </div>
     <div class="subnav pure-u" data-ng-repeat="menuItem in menuItems"
-         data-ng-class="{'active': subMenuShouldShow(menuItem.link)}">
+         data-ng-class="{'nav-active': menuShouldShow(), 'active': subMenuShouldShow(menuItem.link)}">
       <div class="pure-menu pure-menu-open">
         <ul>
           <li data-ng-repeat="subMenuItem in menuItem.subMenuItems"

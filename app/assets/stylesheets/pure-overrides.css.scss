@@ -19,14 +19,19 @@
   }
 
   @include respond-to(handhelds) {
-    padding-top: 74px;
-    left: $nav-width-handhelds;
+    left: 0;
+    &.nav-active {
+      left: $nav-width-handhelds;
+    }
     &.active {
       left: 2*$nav-width-handhelds;
     }
   }
   @include respond-to(tablets) {
     left: $nav-width-tablets;
+    &.nav-active {
+      left: $nav-width-tablets;
+    }
     &.active {
       left: 2*$nav-width-tablets;
     }
