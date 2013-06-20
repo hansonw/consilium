@@ -1,11 +1,13 @@
 Consilium::Application.routes.draw do
   root 'home#index'
 
-  get "home/index"
+  get 'home/index'
 
   scope :api do
     resources :clients
   end
+
+  get 'templates/:path.html' => 'templates#page', :constraints => { :path => /.+/ }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

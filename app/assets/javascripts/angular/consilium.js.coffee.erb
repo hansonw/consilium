@@ -1,5 +1,3 @@
-<% require 'angular_assets' %>
-
 window.App = angular.module('Consilium', ['ngResource'])
 
 App.config(['$routeProvider', ($routeProvider) ->
@@ -7,20 +5,20 @@ App.config(['$routeProvider', ($routeProvider) ->
   # Home routes
   #############
   $routeProvider.when '/',
-    templateUrl: '<%= AngularAssets::templateUrl('index.html') %>'
+    templateUrl: '/templates/index.html'
     controller: 'HomeCtrl'
 
   ################
   # Clients routes
   ################
   $routeProvider.when '/clients',
-    templateUrl: '<%= AngularAssets::templateUrl('clients/index.html') %>'
+    templateUrl: '/templates/clients.html'
     controller: 'ClientsCtrl'
     $routeProvider.when '/clients/new',
-      templateUrl: '<%= AngularAssets::templateUrl('clients/new.html') %>'
+      templateUrl: '/templates/clients/new.html'
       controller: 'ClientsCtrl'
     $routeProvider.when '/clients/find',
-      templateUrl: '<%= AngularAssets::templateUrl('clients/find.html') %>'
+      templateUrl: '/templates/clients/find.html'
       controller: 'ClientsCtrl'
 ])
 

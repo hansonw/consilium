@@ -1,6 +1,4 @@
-<% require 'angular_assets' %>
-
-<div data-ng-include="'<%= AngularAssets::templateUrl('clients/_modal_clientContacts.html') %>'"></div>
+<div data-ng-include="'/templates/clients/_modal_clientContacts.html'"></div>
 
 <div data-ng-controller="ClientsCtrl">
   <div class="content header pure-u-1">
@@ -68,7 +66,7 @@
             <h3>Client Contacts</h3>
           </div>
 
-          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+          <div data-ng-include="'/templates/clients/_form_table.html'"
                data-ng-repeat="items in [client.clientContacts]"></div>
 
           <div class="separator"></div>
@@ -80,7 +78,7 @@
             <h3>Business Ops.</h3>
           </div>
 
-          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+          <div data-ng-include="'/templates/clients/_form_table.html'"
                data-ng-repeat="items in [client.businessOps]"></div>
 
           <div class="separator"></div>
@@ -92,7 +90,7 @@
             <h3>Claims Info.</h3>
           </div>
 
-          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+          <div data-ng-include="'/templates/clients/_form_table.html'"
                data-ng-repeat="items in [client.claimsInfo]"></div>
 
           <div class="separator"></div>
@@ -104,7 +102,7 @@
             <h3>Previous Policy Info.</h3>
           </div>
 
-          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+          <div data-ng-include="'/templates/clients/_form_table.html'"
                data-ng-repeat="items in [client.previousPolicyInfo]"></div>
 
           <div class="separator"></div>
@@ -116,7 +114,7 @@
             <h3>Liability Info.</h3>
           </div>
 
-          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+          <div data-ng-include="'/templates/clients/_form_table.html'"
                data-ng-repeat="items in [client.liabilityInfo]"></div>
 
           <div class="separator"></div>
@@ -128,7 +126,7 @@
             <h3>Misc. Notes</h3>
           </div>
 
-          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+          <div data-ng-include="'/templates/clients/_form_table.html'"
                data-ng-repeat="items in [client.miscNotes]"></div>
 
           <div class="separator"></div>
@@ -140,7 +138,7 @@
             <h3>Coverage Schedule</h3>
           </div>
 
-          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+          <div data-ng-include="'/templates/clients/_form_table.html'"
                data-ng-repeat="items in [client.coverageSchedule]"></div>
 
           <div class="separator"></div>
@@ -152,7 +150,7 @@
             <h3>Property</h3>
           </div>
 
-          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+          <div data-ng-include="'/templates/clients/_form_table.html'"
                data-ng-repeat="items in [client.property]"></div>
 
           <div class="separator"></div>
@@ -164,7 +162,7 @@
             <h3>Umbrella / Machinery</h3>
           </div>
 
-          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+          <div data-ng-include="'/templates/clients/_form_table.html'"
                data-ng-repeat="items in [client.umbrellaMachinery]"></div>
 
           <div class="separator"></div>
@@ -176,7 +174,7 @@
             <h3>Photos</h3>
           </div>
 
-          <div data-ng-include="'<%= AngularAssets::templateUrl('clients/_form_table.html') %>'"
+          <div data-ng-include="'/templates/clients/_form_table.html'"
                data-ng-repeat="items in [client.umbrellaMachinery]"></div>
         </form>
       </div>
