@@ -130,7 +130,7 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
 
       @sync: (success, error) ->
         if online()
-          resource.query((data) =>
+          resource.query({}, (data) =>
             @syncAllWithLocal(data, [])
             success() if success
           , error || angular.noop)
@@ -159,21 +159,28 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
 
         return res
 
-      @query: (success, error) ->
+      @query: (params, success, error) ->
         res = []
         queryLocal = (data, header) =>
           ret = storage.get_all()
           if ret != false
             for val in ret
-              res.push(new OfflineResource(val))
+              if !params.query? ||
+                 val.name?.value?.indexOf?(params.query) >= 0 ||
+                 val.company?.value?.indexOf?(params.query) >= 0 ||
+                 val.email?.value?.indexOf?(params.query) >= 0
+                res.push(new OfflineResource(val))
+            start = params.start || 0
+            res = res.slice(start, params.limit && start + params.limit)
             @defer(=> success(res, header)) if success
           else
             @defer(=> error(data, header)) if error
 
         if online()
-          resource.query(
+          resource.query(params || {},
             (data, header) =>
-              @syncAllWithLocal(data, res)
+              for result in data
+                res.push(@syncWithLocal(result))
               success(res, header) if success
             , queryLocal)
         else

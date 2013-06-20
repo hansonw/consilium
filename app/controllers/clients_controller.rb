@@ -18,7 +18,17 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.all
+    sleep(2)
+    @clients = Client.any_of(
+      {"name.value" => /#{Regexp.escape(params[:query] || '')}/},
+      {"company.value" => /#{Regexp.escape(params[:query] || '')}/},
+      {"email.value" => /#{Regexp.escape(params[:query] || '')}/},
+    ).skip(params[:start] || 0).limit(params[:limit] || 0)
+
+    if params[:short]
+      @clients.only(:id, :name, :company)
+    end
+
     respond_to do |format|
       format.json { render json: @clients.map{ |c| get_json(c) } }
     end

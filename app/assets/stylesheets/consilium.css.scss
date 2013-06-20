@@ -171,6 +171,11 @@ body {
     input {
       width: $form-input-width;
     }
+    .loading {
+      position: absolute;
+      margin-left: -30px;
+      margin-top: 5px;
+    }
     button {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;

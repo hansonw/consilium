@@ -93,4 +93,12 @@ $center-content-form-width: $form-input-width + 155px;
       max-width: $form-input-width;
     }
   }
+
+  #results {
+    margin-bottom: 20px;
+    #loading {
+      border-top: 1px solid #cbc;
+      text-align: center;
+    }
+  }
 }

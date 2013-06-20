@@ -12,8 +12,7 @@ App.controller 'ClientsNewCtrl', ['$scope', 'Client', '$timeout', ($scope, Clien
   $scope.client = new Client()
   $scope.client.clientContacts = []
   window.client = $scope.client
-  $scope.clients = Client.query()
-
+  
   $scope.clientContact = {}
 
   # Detect if it's been over _saveTimeout seconds since the last change to the model.
