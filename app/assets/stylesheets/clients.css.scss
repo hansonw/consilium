@@ -71,31 +71,52 @@
   }
 }
 
-$center-content-form-width: $form-input-width + 155px;
-.center-content {
-  min-width: 100px + $center-content-form-width;
+.client-search {
+  $form-input-width: 300px;
+  @include respond-to(widescreens) { padding-top: 20px; }
+  @include transition();
 
-  .center-content-inner {
-    width: $center-content-form-width;
-    margin: auto;
+  padding-bottom: 100px;
 
-    .center-content-section {
-      &:not(:first-child):not(:nth-child(2)) {
-        margin-top: 50px;
-      }
+  width: 100%;
+  display: inline-block;
 
-      div {
-        text-align: right;
-      }
-    }
+  .search {
+    $button-width: 55px;
+    padding-bottom: 20px;
 
+    text-align: center;
     input {
-      max-width: $form-input-width;
+      @include calc(width, '100% - #{$button-width}');
+      display: inline-block;
+    }
+    .loading {
+      position: absolute;
+      margin-left: -30px;
+      margin-top: 5px;
+    }
+    button {
+      width: $button-width;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      margin-left: -7px;
+      display: inline-block;
     }
   }
 
   #results {
+    table-layout: fixed;
+    word-wrap: break-word;  
     margin-bottom: 50px;
+    .name {
+    }
+    .company {
+      width: 30%;
+    }
+    .actions {
+      width: 50px;
+      text-align: center;
+    }
     #loading {
       border-top: 1px solid #cbc;
       text-align: center;

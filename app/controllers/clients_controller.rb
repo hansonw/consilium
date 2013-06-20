@@ -19,9 +19,9 @@ class ClientsController < ApplicationController
   # GET /clients.json
   def index
     @clients = Client.any_of(
-      {"name.value" => /#{Regexp.escape(params[:query] || '')}/},
-      {"company.value" => /#{Regexp.escape(params[:query] || '')}/},
-      {"email.value" => /#{Regexp.escape(params[:query] || '')}/},
+      {"name.value" => /#{Regexp.escape(params[:query] || '')}/i},
+      {"company.value" => /#{Regexp.escape(params[:query] || '')}/i},
+      {"email.value" => /#{Regexp.escape(params[:query] || '')}/i},
     ).skip(params[:start] || 0).limit(params[:limit] || 0)
 
     if params[:short]

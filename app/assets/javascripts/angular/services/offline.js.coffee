@@ -166,9 +166,9 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
           if ret != false
             for val in ret
               if !params.query? ||
-                 val.name?.value?.indexOf?(params.query) >= 0 ||
-                 val.company?.value?.indexOf?(params.query) >= 0 ||
-                 val.email?.value?.indexOf?(params.query) >= 0
+                 val.name?.value?.match?(///#{params.query}///i)? ||
+                 val.company?.value?.match?(///#{params.query}///i)? ||
+                 val.email?.value?.match?(/#{params.query}/i)?
                 res.push(new OfflineResource(val))
             start = params.start || 0
             res = res.slice(start, params.limit && start + params.limit)

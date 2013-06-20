@@ -15,7 +15,6 @@ App.controller 'ClientsIndexCtrl', ['$scope', 'Client', ($scope, Client) ->
     $scope.loading = true
     $scope.error = false
     $scope.resultStart = if more then $scope.resultStart + results_per_page else 0
-    console.log('query')
     clients = Client.query({short: true, query: $scope.query, start: $scope.resultStart, limit: results_per_page+1},
         ->
           $scope.moreResults = clients.length > results_per_page
