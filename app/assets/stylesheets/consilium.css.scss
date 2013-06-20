@@ -245,6 +245,8 @@ body {
     height: 100%;
     background: white;
     right: 100%;
+    // XXX: This is prone to problems in the future.
+    z-index: 1001;
 
     &.active {
       z-index: 1006;

@@ -28,7 +28,7 @@
     }
   }
   @include respond-to(tablets) {
-    left: $nav-width-tablets;
+    left: 0;
     &.nav-active {
       left: $nav-width-tablets;
     }
