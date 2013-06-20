@@ -1,4 +1,4 @@
-App.controller 'ClientsCtrl', ['$scope', 'Client', '$timeout', ($scope, Client, $timeout) ->
+App.controller 'ClientsNewCtrl', ['$scope', 'Client', '$timeout', ($scope, Client, $timeout) ->
   $scope._saveTimeout = 10000
   $scope._lastChange = new Date().getTime()
   $scope.saving = false

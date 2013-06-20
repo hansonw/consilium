@@ -12,14 +12,14 @@ App.config(['$routeProvider', ($routeProvider) ->
   # Clients routes
   ################
   $routeProvider.when '/clients',
-    templateUrl: '/templates/clients.html'
-    controller: 'ClientsCtrl'
+    templateUrl: '/templates/clients/index.html'
+    controller: 'ClientsIndexCtrl'
     $routeProvider.when '/clients/new',
       templateUrl: '/templates/clients/new.html'
-      controller: 'ClientsCtrl'
-    $routeProvider.when '/clients/find',
-      templateUrl: '/templates/clients/find.html'
-      controller: 'ClientsCtrl'
+      controller: 'ClientsNewCtrl'
+    $routeProvider.when '/clients/index',
+      templateUrl: '/templates/clients/index.html'
+      controller: 'ClientsIndexCtrl'
 ])
 
 App.config(["$httpProvider", (provider) ->
@@ -41,7 +41,7 @@ App.run ($rootScope, $location, $anchorScroll) ->
       link: '/new'
     ,
       name: 'Find Client'
-      link: '/find'
+      link: '/index'
     ,
       name: 'Remove Client'
       link: '/delete'
