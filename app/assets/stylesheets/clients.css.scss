@@ -72,7 +72,6 @@
 }
 
 .client-search {
-  $form-input-width: 300px;
   @include respond-to(widescreens) { padding-top: 20px; }
   @include transition();
 
@@ -82,25 +81,33 @@
   display: inline-block;
 
   .search {
-    $button-width: 55px;
-    padding-bottom: 20px;
+    $search-button-width: 55px;
 
+    height: 30px;
+    padding-bottom: 20px;
     text-align: center;
+
     input {
-      @include calc(width, '100% - #{$button-width}');
+      vertical-align: top;
       display: inline-block;
+      height: inherit;
+      @include calc(width, '100% - #{$search-button-width}');
     }
+
     .loading {
       position: absolute;
       margin-left: -30px;
       margin-top: 5px;
     }
+
     button {
-      width: $button-width;
+      vertical-align: top;
+      width: $search-button-width;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
       margin-left: -7px;
       display: inline-block;
+      height: inherit;
     }
   }
 
@@ -108,15 +115,19 @@
     table-layout: fixed;
     word-wrap: break-word;  
     margin-bottom: 50px;
+
     .name {
     }
+
     .company {
       width: 30%;
     }
+
     .actions {
       width: 50px;
       text-align: center;
     }
+
     #loading {
       border-top: 1px solid #cbc;
       text-align: center;
