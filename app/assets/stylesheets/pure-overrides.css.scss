@@ -3,7 +3,7 @@
 
 .subnav {
   padding-top: 85px;
-  z-index: 1000;
+  z-index: 1004;
   left: 2*$nav-width-desktops;
   background: #212020;
 
@@ -16,7 +16,7 @@
   @include transition();
 
   padding-top: $body-margin;
-  z-index: 1001;
+  z-index: 1005;
   left: $nav-width-desktops;
   background: #191818;
 
