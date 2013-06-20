@@ -18,7 +18,6 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    sleep(2)
     @clients = Client.any_of(
       {"name.value" => /#{Regexp.escape(params[:query] || '')}/},
       {"company.value" => /#{Regexp.escape(params[:query] || '')}/},
