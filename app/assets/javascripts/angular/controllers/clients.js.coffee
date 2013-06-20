@@ -11,6 +11,7 @@ App.controller 'ClientsCtrl', ['$scope', 'Client', '$timeout', ($scope, Client, 
 
   $scope.client = new Client()
   window.client = $scope.client
+  $scope.clients = Client.query()
 
   # Detect if it's been over _saveTimeout seconds since the last change to the model.
   # If it has been, save the form progress now.

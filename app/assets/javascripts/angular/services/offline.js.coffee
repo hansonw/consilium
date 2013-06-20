@@ -1,11 +1,11 @@
 getData = (resource) ->
   data = {}
   for own key, val of resource
-    data[key] = val
+    if key[0] != '$' # angular variable
+      data[key] = val
   return data
 
 online = () ->
-  #return false
   navigator.onLine # temporary, doesn't actually work
 
 # Wraps the localstorage class.
@@ -24,9 +24,25 @@ class LocalStorage
     db = @get_db() || {}
     if db[data.id]
       existing = db[data.id]
-      # If our version is newer than the inserted one, an update is in order
-      if existing.updated_at > data.updated_at
+      # Prioritize local deletions over changes (for now)
+      if existing.id == null
         return existing
+
+      need_update = false
+      # Check each field individually, and update
+      for key, val in data
+        if val.updated_at?
+          if !existing[key]?.updated_at? || existing[key].updated_at < val.updated_at
+            existing[key] = val
+      for key, val in existing
+        if val.updated_at?
+          if !data[key]?.updated_at? || data[key].updated_at < val.updated_at
+            data[key] = val
+            need_update = true
+
+    if need_update
+      return data
+
     db[data.id] = data
     @save_db(db)
     return null
@@ -38,11 +54,10 @@ class LocalStorage
     else
       # Mark for deletion. Can't actually delete, or we won't be able to sync it
       db[id].id = null
-      db[id].updated_at = Date.now()
     @save_db(db)
 
-  get: (params) ->
-    @get_db()?[params.id]
+  get: (id) ->
+    @get_db()?[id]
 
   get_all: ->
     @get_db()? && (key for val, key of @get_db())
@@ -63,7 +78,11 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
         @_delete = rsrc.$delete.bind(this)
 
       $save: ->
-        @updated_at = Date.now() # Estimate. Will be updated by the server
+        existing = storage.get(@id)
+        for key, val of getData(this)
+          if val.value? && val.value != existing?[key]?.value
+            @[key].updated_at = Date.now() # Estimate. Will be updated by the server
+
         storage.insert(this)
         @_save((data, header) =>
           # Delete the temporary model from the local DB if it exists.
@@ -122,7 +141,7 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
         res = new OfflineResource()
         queryLocal = (data, header) =>
           # TODO: differentiate between server deletion/error
-          ret = storage.get(params)
+          ret = storage.get(params.id)
           if ret?
             angular.copy(res, ret)
             @defer(=> success(res, header)) if success

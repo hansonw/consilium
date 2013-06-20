@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_action :set_client, only: [:show, :edit, :destroy]
+  before_action :set_client, only: [:edit, :destroy]
 
   respond_to :json
 
@@ -27,6 +27,12 @@ class ClientsController < ApplicationController
   # GET /clients/1
   # GET /clients/1.json
   def show
+    @client = Client.where(:id => params[:id]).first
+    if @client.nil?
+      render json: '', status: :gone
+      return
+    end
+
     respond_to do |format|
       format.json { render json: get_json(@client) }
     end
@@ -50,8 +56,18 @@ class ClientsController < ApplicationController
     # If an ID is provided, try looking it up first
     if existing = Client.where(:id => params[:id]).first
       @client._id = existing._id
+      # Sync all fields
+      existing.attributes.each do |key, val|
+        if defined?(val['updated_at']) &&
+           (!defined?(@client[key]['updated_at']) || val['updated_at'] > @client[key]['updated_at'])
+          @client[key] = val
+        end
+      end
+    elsif !params[:id].starts_with?('local')
+      # Must have been deleted by someone else.
+      render json: '', status: :gone
+      return
     end
-    @client[:updated_at] = (Time.now.to_f * 1000).to_i
 
     respond_to do |format|
       if @client.upsert
