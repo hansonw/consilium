@@ -2,11 +2,13 @@ App.directive 'scrollFix', ->
   ($scope, $elem, $attr) ->
     domElem = $($elem[0])
     win = $(window)
-    offset = domElem.offset().top
     scrollMargin = parseInt($attr.scrollMargin) || 30
+    offset = domElem.offset().top if domElem.is(':visible')
 
     win.bind 'scroll', ->
       return if not domElem.is(':visible')
+
+      offset = domElem.offset().top if !offset
 
       scrollTop = win.scrollTop()
 
