@@ -162,17 +162,8 @@
 
           <% sections.each do |section| %>
             <% if not section[:fields].nil? %>
-              <div id="<%= section[:model] %>" class="section">
-                <a class="pull-right pure-button pure-button-primary" href="#modalAdd<%= section[:name].singularize.classify.gsub(/\s/,'') %>" modal-toggle>
-                  <i class="icon-plus"></i> <span class="verbose-desc">Add <%= section[:name].singularize %></span>
-                </a>
-                <h3><%= section[:name] %></h3>
-              </div>
-
-              <div data-ng-include="'/templates/clients/_form_table.html'"
-                   data-ng-repeat="items in [client.<%= section[:model] %>]"></div>
-
-              <div class="separator"></div>
+              <%= render :partial => 'templates/clients/field_table',
+                         :locals => { :section => section } %>
             <% end %>
           <% end %>
 
@@ -183,8 +174,7 @@
             <h3>Photos</h3>
           </div>
 
-          <div data-ng-include="'/templates/clients/_form_table.html'"
-               data-ng-repeat="items in [client.umbrellaMachinery]"></div>
+          <p>Your code goes here.</p>
         </form>
       </div>
     </div>

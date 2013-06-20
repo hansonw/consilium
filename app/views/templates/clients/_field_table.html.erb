@@ -1,0 +1,31 @@
+<div id="<%= section[:model] %>" class="section">
+  <a class="pull-right pure-button pure-button-primary" href="#modalAdd<%= section[:name].singularize.classify.gsub(/\s/,'') %>" modal-toggle>
+    <i class="icon-plus"></i> <span class="verbose-desc">Add <%= section[:name].singularize %></span>
+  </a>
+  <h3><%= section[:name] %></h3>
+</div>
+
+<table class="pure-table pure-table-horizontal pure-table-full-width">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th class="align-right">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr data-ng-show="!client.<%= section[:model] %>.length">
+      <td><em>None</em></td>
+      <td></td>
+    </tr>
+    <tr data-ng-repeat="<%= section[:model].singularize %> in client.<%= section[:model] %>">
+      <td>{{ <%= section[:model].singularize %>.name.value }}</td>
+      <td class="align-right">
+        <a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a>
+        <a class="pure-button pure-button-small pure-button-error"><i class="icon-trash icon-large"></i></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="separator"></div>
+

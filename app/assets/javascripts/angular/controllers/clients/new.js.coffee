@@ -14,8 +14,6 @@ App.controller 'ClientsNewCtrl', ['$scope', 'Client', '$timeout', ($scope, Clien
   window.client = $scope.client
   $scope.clients = Client.query()
 
-  $scope.clientContact = {}
-
   # Detect if it's been over _saveTimeout seconds since the last change to the model.
   # If it has been, save the form progress now.
   $scope.$watch 'client', ( ->
