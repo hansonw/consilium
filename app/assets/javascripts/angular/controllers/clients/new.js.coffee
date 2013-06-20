@@ -14,6 +14,8 @@ App.controller 'ClientsNewCtrl', ['$scope', 'Client', '$timeout', ($scope, Clien
   window.client = $scope.client
   $scope.clients = Client.query()
 
+  $scope.clientContact = {}
+
   # Detect if it's been over _saveTimeout seconds since the last change to the model.
   # If it has been, save the form progress now.
   $scope.$watch 'client', ( ->
@@ -36,7 +38,17 @@ App.controller 'ClientsNewCtrl', ['$scope', 'Client', '$timeout', ($scope, Clien
       $scope.dirty = false
     ), 2000
 
-  $scope.addClientContact = ->
-    client.clientContacts.push($scope.clientContact)
-    $scope.clientContact = {}
+  $scope.addObjectToClient = (objName) ->
+    obj = eval '$scope.' + objName
+    collection = eval 'client.' + objName + 's'
+    eval 'collection = (client.' + objName + 's = [])' if !collection?
+
+    # Evaluation, validation code, etc. should go here.
+    # collection -- the collection of objects getting pushed to
+    # obj -- the object being pushed
+
+    collection.push(obj)
+
+    obj = null
+    eval '$scope.' + objName + ' = {}'
 ]

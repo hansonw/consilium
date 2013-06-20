@@ -17,7 +17,7 @@
     <div class="content">
       <div class="client-form">
         <div class="client-form-content">
-          <form class="pure-form pure-form-aligned" data-ng-submit="add<%= modalName %>()">
+          <form class="pure-form pure-form-aligned" data-ng-submit="addObjectToClient('<%= modalName.camelize(:lower) %>')">
             <% section[:fields].each do |field| %>
               <div class="pure-control-group">
                 <label for="<%= field[:name] %>"><%= field[:label] %></label>
