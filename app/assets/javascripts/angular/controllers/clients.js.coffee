@@ -1,4 +1,6 @@
 App.controller 'ClientsCtrl', ['$scope', 'Client', '$timeout', ($scope, Client, $timeout) ->
+  $scope.client = new Client()
+
   $scope._saveTimeout = 10000
   $scope._lastChange = new Date().getTime()
   $scope.saving = false
@@ -34,4 +36,9 @@ App.controller 'ClientsCtrl', ['$scope', 'Client', '$timeout', ($scope, Client, 
       $scope.saving = false
       $scope.dirty = false
     ), 2000
+
+  $scope.addClientContact = ->
+    form = $('form[name="addClientContact"]')
+    $scope.client.clientContacts.push(form.serializeObject)
+    #form.trigger('reset')
 ]
