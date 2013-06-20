@@ -1,0 +1,38 @@
+<% modalName = section[:name].singularize.classify.gsub(/\s/,'') %>
+
+<div id="modalAdd<%= modalName %>" class="modal">
+  <div class="layout" data-ng-class="{'active': menuShouldShow()}">
+    <div class="header content pure-u-1">
+      <h2 class="no-bottom-margin">Add <%= section[:name].singularize %></h2>
+      <div class="breadcrumbs">
+        <a data-ng-href="#/">Home</a>
+        <span class="divider">&gt;</span>
+        <a data-ng-href="#/clients/new">New Client</a>
+        <span class="divider">&gt;</span>
+        <a data-ng-href="#/clients/new">Add <%= section[:name].singularize %></a>
+        <hr class="soften" />
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="client-form">
+        <div class="client-form-content">
+          <form class="pure-form pure-form-aligned" data-ng-submit="add<%= modalName %>()">
+            <% section[:fields].each do |field| %>
+              <div class="pure-control-group">
+                <label for="<%= field[:name] %>"><%= field[:label] %></label>
+                <input id="<%= field[:name] %>" name="<%= field[:name] %>" type="<%= field[:type] %>" ng-model="<%= section[:model] %>.<%= field[:name] %>.value" placeholder="<%= field[:placeholder] %>" />
+              </div>
+            <% end %>
+            <div class="separator"></div>
+            <div class="pull-right">
+              <button type="submit" class="pure-button pure-button-primary">Save</button>
+              <button href="#modalAdd<%= modalName %>" class="pure-button" modal-toggle>Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

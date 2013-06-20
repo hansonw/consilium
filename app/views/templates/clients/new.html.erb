@@ -1,5 +1,3 @@
-<div data-ng-include="'/templates/clients/_modal_clientContacts.html'"></div>
-
 <%
   sections = [
     {
@@ -103,6 +101,13 @@
   ]
 %>
 
+<% sections.each do |section| %>
+  <% if not section[:fields].nil? %>
+    <%= render :partial => 'templates/clients/field_modal',
+               :locals => { :section => section } %>
+  <% end %>
+<% end %>
+
 <div data-ng-controller="ClientsNewCtrl">
   <div class="content header pure-u-1">
     <h2 class="no-bottom-margin">Create Client</h2>
@@ -156,7 +161,7 @@
           <div class="separator"></div>
 
           <% sections.each do |section| %>
-            <% if !section[:fields].nil? %>
+            <% if not section[:fields].nil? %>
               <div id="<%= section[:model] %>" class="section">
                 <a class="pull-right pure-button pure-button-primary" href="#modalAdd<%= section[:name].singularize.classify.gsub(/\s/,'') %>" modal-toggle>
                   <i class="icon-plus"></i> <span class="verbose-desc">Add <%= section[:name].singularize %></span>
