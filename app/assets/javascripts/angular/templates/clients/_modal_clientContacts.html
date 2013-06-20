@@ -1,4 +1,4 @@
-<div id="addClientContact" class="modal">
+<div id="modalAddClientContact" class="modal">
   <div class="layout">
     <div class="header content pure-u-1">
       <h2 class="no-bottom-margin">Add Client Contact</h2>
@@ -15,19 +15,19 @@
     <div class="content">
       <div class="client-form">
         <div class="client-form-content">
-          <form name="addClientContact" class="pure-form pure-form-aligned" data-ng-submit="addClientContact()">
+          <form class="pure-form pure-form-aligned" data-ng-submit="addClientContact()">
             <div class="pure-control-group">
               <label for="name">Name</label>
-              <input id="name" name="name" type="text" ng-model="clientContact.name.value" placeholder="First name Last name" required />
+              <input id="name" name="name" type="text" ng-model="$parent.clientContact.name.value" placeholder="First name Last name" required />
             </div>
             <div class="pure-control-group">
               <label for="title">Title</label>
-              <input id="title" name="title" type="text" ng-model="clientContact.name.title" placeholder="Mr./Ms./Dr. (etc)" />
+              <input id="title" name="title" type="text" ng-model="$parent.clientContact.title.value" placeholder="Mr./Ms./Dr. (etc)" />
             </div>
             <div class="separator"></div>
             <div class="pull-right">
               <button type="submit" class="pure-button pure-button-primary">Save</button>
-              <button href="#addClientContact" class="pure-button" modal-toggle>Close</button>
+              <button href="#modalAddClientContact" class="pure-button" modal-toggle>Close</button>
             </div>
           </form>
         </div>

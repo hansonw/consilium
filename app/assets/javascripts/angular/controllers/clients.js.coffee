@@ -1,6 +1,4 @@
 App.controller 'ClientsCtrl', ['$scope', 'Client', '$timeout', ($scope, Client, $timeout) ->
-  $scope.client = new Client()
-
   $scope._saveTimeout = 10000
   $scope._lastChange = new Date().getTime()
   $scope.saving = false
@@ -12,8 +10,11 @@ App.controller 'ClientsCtrl', ['$scope', 'Client', '$timeout', ($scope, Client, 
   $scope._watchAdded = false
 
   $scope.client = new Client()
+  $scope.client.clientContacts = []
   window.client = $scope.client
   $scope.clients = Client.query()
+
+  $scope.clientContact = {}
 
   # Detect if it's been over _saveTimeout seconds since the last change to the model.
   # If it has been, save the form progress now.
@@ -38,7 +39,6 @@ App.controller 'ClientsCtrl', ['$scope', 'Client', '$timeout', ($scope, Client, 
     ), 2000
 
   $scope.addClientContact = ->
-    form = $('form[name="addClientContact"]')
-    $scope.client.clientContacts.push(form.serializeObject)
-    #form.trigger('reset')
+    client.clientContacts.push($scope.clientContact)
+    $scope.clientContact = {}
 ]
