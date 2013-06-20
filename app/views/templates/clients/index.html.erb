@@ -20,13 +20,13 @@
           <th class="align-right">Actions</th>
         </tr>
       </thead>
-      <tr data-ng-show="error">
-        <td colspan="3">Could not load results. Please try again later</td>
-      </tr>
-      <tr data-ng-show="!error && !clients.length && !loading">
-        <td colspan="3">No clients matching your search criteria.</td>
-      </tr>
       <tbody>
+        <tr data-ng-show="error">
+          <td colspan="3">Could not load results. Please try again later</td>
+        </tr>
+        <tr data-ng-show="!error && !clients.length && !loading">
+          <td colspan="3">No clients matching your search criteria.</td>
+        </tr>
         <tr data-ng-repeat="client in clients">
           <td>{{ client.name.value }}</td>
           <td>{{ client.company.value }}</td>
@@ -36,10 +36,10 @@
             </a>
           </td>
         </tr>
+        <tr id="loading" data-ng-show="loading && (!clients.length || moreResults)">
+          <td colspan="3"><i class="icon-spinner icon-spin icon-large"></i> Loading results...</td>
+        </tr>
       </tbody>
-      <tr id="loading" data-ng-show="loading && (!clients.length || moreResults)">
-        <td colspan="3"><i class="icon-spinner icon-spin"></i> Loading results...</td>
-      </tr>
     </table>
   </div>
 </div>
