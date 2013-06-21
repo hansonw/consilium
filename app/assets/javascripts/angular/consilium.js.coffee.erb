@@ -13,13 +13,14 @@ App.config(['$routeProvider', ($routeProvider) ->
   ################
   $routeProvider.when '/clients',
     templateUrl: '/templates/clients/index.html'
-    controller: 'ClientsIndexCtrl'
     $routeProvider.when '/clients/new',
-      templateUrl: '/templates/clients/new.html'
-      controller: 'ClientsNewCtrl'
+      templateUrl: '/templates/clients/edit.html'
     $routeProvider.when '/clients/index',
       templateUrl: '/templates/clients/index.html'
-      controller: 'ClientsIndexCtrl'
+    $routeProvider.when '/clients/view/:clientId',
+      templateUrl: '/templates/clients/view.html'
+    $routeProvider.when '/clients/edit/:clientId',
+      templateUrl: '/templates/clients/edit.html'
 ])
 
 App.config(["$httpProvider", (provider) ->

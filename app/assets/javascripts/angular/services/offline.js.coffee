@@ -77,20 +77,24 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
         @_save = rsrc.$save.bind(this)
         @_delete = rsrc.$delete.bind(this)
 
-      $save: ->
+      $save: (success, error) ->
         existing = storage.get(@id)
         for key, val of getData(this)
           if val.value? && val.value != existing?[key]?.value
             @[key].updated_at = Date.now() # Estimate. Will be updated by the server
 
         storage.insert(this)
-        @_save((data, header) =>
-          # Delete the temporary model from the local DB if it exists.
-          if @id.indexOf('local') == 0
-            storage.delete(@id, true)
-          angular.extend(this, data)
-          storage.insert(data)
-        ) if online()
+        if online()
+          @_save((data, header) =>
+            # Delete the temporary model from the local DB if it exists.
+            if @id.indexOf('local') == 0
+              storage.delete(@id, true)
+            angular.extend(this, data)
+            storage.insert(data)
+            success()
+          , error)
+        else
+          success()
         
       $delete: ->
         storage.delete(@id)
@@ -138,12 +142,12 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
           @defer(error) if error
 
       @get: (params, success, error) ->
-        res = new OfflineResource()
+        res = new OfflineResource(params)
         queryLocal = (data, header) =>
           # TODO: differentiate between server deletion/error
           ret = storage.get(params.id)
           if ret?
-            angular.copy(res, ret)
+            angular.extend(res, ret)
             @defer(=> success(res, header)) if success
           else
             @defer(=> error(data, header)) if error

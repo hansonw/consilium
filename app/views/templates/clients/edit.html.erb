@@ -108,13 +108,13 @@
   <% end %>
 <% end %>
 
-<div data-ng-controller="ClientsNewCtrl">
+<div data-ng-controller="ClientsEditCtrl">
   <div class="content header pure-u-1">
-    <h2 class="no-bottom-margin">Create Client</h2>
+    <h2 class="no-bottom-margin">{{ title }}</h2>
     <div class="breadcrumbs">
       <a data-ng-href="#/">Home</a>
       <span class="divider">&gt;</span>
-      <a data-ng-href="#/clients/new">New Client</a>
+      <a data-ng-href="#/clients/{{ !clientId ? 'new' : 'edit/' + clientId }}">{{ title }}</a>
       <hr class="soften" />
     </div>
   </div>

@@ -72,7 +72,6 @@
 }
 
 .client-search {
-  @include respond-to(widescreens) { padding-top: 20px; }
   @include transition();
 
   padding-bottom: 100px;
@@ -131,6 +130,31 @@
     #loading {
       border-top: 1px solid #cbc;
       text-align: center;
+    }
+  }
+}
+
+.client-view {
+  @include respond-to(widescreens) {
+    padding-top: 20px;
+  }
+
+  .client-info {
+    @include respond-to(widescreens) {
+      width: 35%;
+      float: left;
+    }
+    margin-bottom: 20px;
+
+    .value {
+      vertical-align: middle;
+    }
+  }
+
+  .client-docs {
+    @include respond-to(widescreens) {
+      width: 55%;
+      float: right;
     }
   }
 }

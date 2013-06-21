@@ -1,15 +1,20 @@
-App.controller 'ClientsNewCtrl', ['$scope', 'Client', '$timeout', ($scope, Client, $timeout) ->
+# This doubles as the new client view (if no client ID is provided)
+App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout', ($scope, $routeParams, Client, $timeout) ->
   $scope._saveTimeout = 10000
   $scope._lastChange = new Date().getTime()
   $scope.saving = false
   $scope.dirty = false
+
+  $scope.clientId = $routeParams.clientId
+  $scope.title = if $scope.clientId then 'Edit Client' else 'Create Client'
 
   # Adding a watch triggers the watch (yo dawg).
   # Thus we gate the whole dirty check on this flag, and flip it the first time the
   # watch actually gets called.
   $scope._watchAdded = false
 
-  $scope.client = new Client()
+  # TODO: show error if this id doesn't exist
+  $scope.client = if $scope.clientId then Client.get(id: $scope.clientId) else (new Client())
   $scope.client.clientContacts = []
   window.client = $scope.client
   
@@ -32,10 +37,10 @@ App.controller 'ClientsNewCtrl', ['$scope', 'Client', '$timeout', ($scope, Clien
   $scope.saveForm = ->
     return if !$scope.dirty || $scope.saving
     $scope.saving = true
-    $timeout (->
-      $scope.saving = false
-      $scope.dirty = false
-    ), 2000
+    $scope.client.$save(
+      (-> $scope.saving = $scope.dirty = false), # success
+      (-> $scope.saving = false) # failure (TODO: do something if it keeps failing)
+    )
 
   $scope.addObjectToClient = (objName) ->
     obj = eval '$scope.' + objName
