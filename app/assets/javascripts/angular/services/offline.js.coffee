@@ -40,8 +40,8 @@ class LocalStorage
             data[key] = val
             need_update = true
 
-    if need_update
-      return data
+      if need_update
+        return data
 
     db[data.id] = data
     @save_db(db)
@@ -83,7 +83,6 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
           if val.value? && !angular.equals(val.value, existing?[key]?.value)
             @[key].updated_at = Date.now() # Estimate. Will be updated by the server
 
-        storage.insert(this)
         if online()
           @_save((data, header) =>
             # Delete the temporary model from the local DB if it exists.
@@ -93,7 +92,16 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
             storage.insert(data)
             angular.extend(this, storage.get(@id))
             success() if success
-          , error)
+          , (data, header) =>
+              if data.status == 410 # GONE; deleted from the server
+                storage.delete(@id, true)
+              else if data.status == 422 # Validation failed for some reason. Don't save
+              else # can't reach the server, we'll just leave it as is
+                storage.insert(this)
+                OfflineResource.defer(=> success(data, header)) if success
+                return
+              OfflineResource.defer(=> error(data, header)) if error
+          )
         else
           success() if success
         
@@ -102,6 +110,7 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
         @_delete((data, header) =>
           storage.delete(@id, true)) if online()
 
+      # Ensures a function is called after the current method returns.
       @defer: (fn) ->
         $timeout(fn, 0)
 
@@ -158,7 +167,14 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
             (data, header) =>
               @syncWithLocal(data)
               queryLocal()
-            , queryLocal)
+          , (data, header) =>
+              if data.status == 410 # GONE; this means it was deleted
+                res.id = null
+                storage.delete(params.id, true)
+                @defer(=> error(data, header)) if error
+              else # the server is unreachable; use the cache
+                queryLocal()
+          )
         else
           queryLocal()
 
