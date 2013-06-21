@@ -1,15 +1,15 @@
-<% modalName = section[:name].singularize.classify.gsub(/\s/,'') %>
+<% modalName = field[:name].singularize.classify.gsub(/\s/,'') %>
 
 <div id="modalAdd<%= modalName %>" class="modal">
   <div class="layout" data-ng-class="{'active': menuShouldShow()}">
     <div class="header content pure-u-1">
-      <h2 class="no-bottom-margin">Add <%= section[:name].singularize %></h2>
+      <h2 class="no-bottom-margin">Add <%= field[:name].singularize %></h2>
       <div class="breadcrumbs">
         <a data-ng-href="#/">Home</a>
         <span class="divider">&gt;</span>
         <a data-ng-href="#/clients/new">New Client</a>
         <span class="divider">&gt;</span>
-        <a data-ng-href="#/clients/new">Add <%= section[:name].singularize %></a>
+        <a data-ng-href="#/clients/new">Add <%= field[:name].singularize %></a>
         <hr class="soften" />
       </div>
     </div>
@@ -18,11 +18,11 @@
       <div class="client-form">
         <div class="form-content">
           <form class="pure-form pure-form-aligned" data-ng-submit="addObjectToClient('<%= modalName.camelize(:lower) %>')">
-            <% section[:fields].each do |field| %>
+            <% field[:type].each do |subfield| %>
               <div class="pure-control-group">
-                <label for="<%= field[:name] %>"><%= field[:label] %></label>
-                <input id="<%= field[:name] %>" name="<%= field[:name] %>" type="<%= field[:type] %>"
-                       ng-model="<%= section[:model].singularize %>.<%= field[:name] %>" placeholder="<%= field[:placeholder] %>" />
+                <label for="<%= subfield[:id] %>"><%= subfield[:name] %></label>
+                <input id="<%= subfield[:id] %>" name="<%= subfield[:id] %>" type="<%= subfield[:type] %>"
+                       ng-model="<%= field[:id].singularize %>.<%= subfield[:id] %>" placeholder="<%= subfield[:placeholder] %>" <%= subfield[:required] && 'required' %> />
               </div>
             <% end %>
             <div class="separator"></div>

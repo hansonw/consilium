@@ -1,8 +1,8 @@
-<div id="<%= section[:model] %>" class="section">
-  <a class="pull-right pure-button pure-button-primary" href="#modalAdd<%= section[:name].singularize.classify.gsub(/\s/,'') %>" modal-toggle>
-    <i class="icon-plus"></i> <span class="verbose-desc">Add <%= section[:name].singularize %></span>
+<div id="<%= field[:id] %>" class="section">
+  <a class="pull-right pure-button pure-button-primary" href="#modalAdd<%= field[:name].singularize.classify.gsub(/\s/,'') %>" modal-toggle>
+    <i class="icon-plus"></i> <span class="verbose-desc">Add <%= field[:name].singularize %></span>
   </a>
-  <h3><%= section[:name] %></h3>
+  <h3><%= field[:name] %></h3>
 </div>
 
 <table class="pure-table pure-table-horizontal pure-table-full-width">
@@ -13,11 +13,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr data-ng-show="!client.<%= section[:model] %>.value.length">
+    <tr data-ng-show="!client.<%= field[:id] %>.value.length">
       <td><em>None</em></td>
       <td></td>
     </tr>
-    <tr data-ng-repeat="item in client.<%= section[:model] %>.value">
+    <tr data-ng-repeat="item in client.<%= field[:id] %>.value">
       <td>{{ item.name }}</td>
       <td class="align-right">
         <a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a>

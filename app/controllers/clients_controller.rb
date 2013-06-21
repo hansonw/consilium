@@ -62,7 +62,7 @@ class ClientsController < ApplicationController
   def update
     @client = Client.new(client_params)
     
-    # Force server timestamp
+    # Don't allow client timestamps to exceed the server time
     # (otherwise client can provide an arbitrarily large one to prevent future editing)
     cur_time = (Time.now.to_f * 1000).to_i
 
@@ -73,7 +73,7 @@ class ClientsController < ApplicationController
         if defined?(val['updated_at']) &&
            (!defined?(existing[key]['updated_at']) || val['updated_at'] > existing[key]['updated_at'])
           existing[key] = val
-          existing[key]['updated_at'] = cur_time
+          existing[key]['updated_at'] = [val['updated_at'], cur_time].min
         end
       end
       @client = existing
@@ -84,7 +84,7 @@ class ClientsController < ApplicationController
     else
       @client.attributes.each do |key, val|
         if defined?(val['updated_at'])
-          @client[key]['updated_at'] = cur_time
+          val['updated_at'] = [val['updated_at'], cur_time].min
         end
       end
     end
@@ -113,6 +113,16 @@ class ClientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
-      params.permit(:name => [:value, :updated_at])
+      permitted = {}
+      Client::FIELDS.each do |field|
+        permitted[field[:id]] = [:updated_at]
+        if field[:type].is_a? Array
+          values = [field[:type].map { |sf| sf[:id] }]
+          permitted[field[:id]] << {:value => values}
+        else
+          permitted[field[:id]] << :value
+        end
+      end
+      params.permit(permitted)
     end
 end

@@ -1,111 +1,8 @@
-<%
-  sections = [
-    {
-      :name => 'Basic Info',
-      :model => 'basicInfo',
-      :fields => nil,
-    },
-    {
-      :name => 'Client Contacts',
-      :model => 'clientContacts',
-      :fields => [
-        {
-          :name => 'name',
-          :label => 'Name',
-          :placeholder => 'First name Last name',
-          :type => 'text',
-        },
-        {
-          :name => 'title',
-          :label => 'Title',
-          :placeholder => 'Mr./Mrs./Dr. (etc)',
-          :type => 'text',
-        },
-      ],
-    },
-    {
-      :name => 'Business Ops',
-      :model => 'businessOps',
-      :fields => [
-        {
-          :name => 'name',
-          :label => 'Name',
-          :placeholder => 'test',
-          :type => 'text',
-        },
-      ],
-    },
-    {
-      :name => 'Claims Info',
-      :model => 'claimsInfos',
-      :fields => [
-        {
-        },
-      ],
-    },
-    {
-      :name => 'Prev. Policy Info',
-      :model => 'prevPolicyInfos',
-      :fields => [
-        {
-        },
-      ],
-    },
-    {
-      :name => 'Liability Info',
-      :model => 'liabilityInfos',
-      :fields => [
-        {
-        },
-      ],
-    },
-    {
-      :name => 'Misc. Notes',
-      :model => 'miscNotes',
-      :fields => [
-        {
-
-        },
-      ],
-    },
-    {
-      :name => 'Coverage Schedule',
-      :model => 'coverageSchedules',
-      :fields => [
-        {
-
-        },
-      ],
-    },
-    {
-      :name => 'Properties',
-      :model => 'properties',
-      :fields => [
-        {
-        },
-      ],
-    },
-    {
-      :name => 'Umbrella/Machinery',
-      :model => 'umbrellaMachinery',
-      :fields => [
-        {
-        },
-      ],
-    },
-    {
-      :name => 'Photos',
-      :model => 'photos',
-      :fields => nil,
-    },
-  ]
-%>
-
 <div data-ng-controller="ClientsEditCtrl">
-  <% sections.each do |section| %>
-    <% if not section[:fields].nil? %>
+  <% Client::FIELDS.each do |field| %>
+    <% if field[:type].is_a? Array %>
       <%= render :partial => 'templates/clients/field_modal',
-                 :locals => { :section => section } %>
+                 :locals => { :field => field } %>
     <% end %>
   <% end %>
 
@@ -126,8 +23,15 @@
           <div class="pure-menu pure-menu-open">
             <a class="pure-menu-heading">Sections</a>
             <ul>
-              <% sections.each do |section| %>
-                <li><a href="" data-ng-click="scrollTo('<%= section[:model] %>')"><%= section[:name] %></a></li>
+              <li><a href="" data-ng-click="scrollTo('basicInfo')">Basic Info</a></li>
+              <% Client::FIELDS.each do |field| %>
+                <% if field[:type].is_a? Array %>
+                  <li>
+                    <a href="" data-ng-click="scrollTo('<%= field[:id] %>')">
+                      <%= field[:name] %>
+                    </a>
+                  </li>
+                <% end %>
               <% end %>
             </ul>
           </div>
@@ -141,29 +45,21 @@
 
           <div class="separator-xsmall"></div>
 
-          <div class="pure-control-group">
-            <label for="name">Name</label>
-            <input name="name" type="text" ng-model="client.name.value" placeholder="First name Last name" required />
-          </div>
-          <div class="pure-control-group">
-            <label for="address">Address</label>
-            <input name="name" type="text" ng-model="client.address.value" placeholder="Address (apt., suite, bldg.)" required />
-          </div>
-          <div class="pure-control-group">
-            <label for="city_and_province">City and Province</label>
-            <input name="city_and_province" ng-model="client.city_and_province.value" placeholder="City, Province" required />
-          </div>
-          <div class="pure-control-group">
-            <label for="phone">Phone</label>
-            <input name="phone" ng-model="client.phone.value" placeholder="Area code-phone number" required />
-          </div>
+          <% Client::FIELDS.each do |field| %>
+            <% if not field[:type].is_a? Array %>
+              <div class="pure-control-group">
+                <label for="<%= field[:id] %>"><%= field[:name] %></label>
+                <input name="<%= field[:id] %>" ng-model="client.<%= field[:id] %>.value" placeholder="<%= field[:placeholder] %>" <%= field[:required] && 'required' %> />
+              </div>
+            <% end %>
+          <% end %>
 
           <div class="separator"></div>
 
-          <% sections.each do |section| %>
-            <% if not section[:fields].nil? %>
+          <% Client::FIELDS.each do |field| %>
+            <% if field[:type].is_a? Array %>
               <%= render :partial => 'templates/clients/field_table',
-                         :locals => { :section => section } %>
+                         :locals => { :field => field } %>
             <% end %>
           <% end %>
 
@@ -182,7 +78,7 @@
 
   <div id="toolbar" data-ng-class="{'active': menuShouldShow()}">
     <div class="content">
-      <a class="pure-button pure-button-secondary pure-button-large" data-ng-class="{'pure-button-disabled': !dirty}"
+      <a class="pure-button pure-button-secondary pure-button-large" data-ng-class="{'pure-button-disabled': !saving && !dirty}"
          data-ng-click="saveForm()">
         <span data-ng-if="saving">
           <i class="icon-spinner icon-spin"></i> Saving...

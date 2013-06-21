@@ -80,7 +80,7 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
       $save: (success, error) ->
         existing = storage.get(@id)
         for key, val of getData(this)
-          if val.value? && val.value != existing?[key]?.value
+          if val.value? && !angular.equals(val.value, existing?[key]?.value)
             @[key].updated_at = Date.now() # Estimate. Will be updated by the server
 
         storage.insert(this)
@@ -91,10 +91,11 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
               storage.delete(@id, true)
             angular.extend(this, data)
             storage.insert(data)
-            success()
+            angular.extend(this, storage.get(@id))
+            success() if success
           , error)
         else
-          success()
+          success() if success
         
       $delete: ->
         storage.delete(@id)
