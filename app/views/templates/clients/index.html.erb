@@ -11,12 +11,51 @@
 
   <div class="content">
     <div class="client-search">
-      <div class="search">
-        <input id="search" type="text" class="pure-input" placeholder="Name, email, or company" autocomplete="off" data-ng-model="query">
-        <span data-ng-show="loading" class="loading"><i class="icon-spinner icon-spin"></i></span>
-        <button class="pure-button pure-button-small pure-button-primary"><i class="icon-search icon-fixed-width"></i></button>
+      <div class="search-client-form">
+        <div class="form-nav">
+          <div class="search">
+            <div class="search-controls">
+              <input id="search" type="text" class="pure-input" placeholder="Name, email, or company" autocomplete="off" data-ng-model="query">
+              <span data-ng-show="loading" class="loading"><i class="icon-spinner icon-spin"></i></span>
+              <button id="btnSearch" class="pure-button pure-button-small pure-button-primary"><i class="icon-search icon-fixed-width"></i></button>
+            </div>
+            <div class="advanced-search">
+              <a href="#" class="pretty">Advanced Search <i class="icon-caret-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="form-content">
+          <table data-infinite-scroll data-update="updateResults(true)" id="results" class="pure-table pure-table-horizontal pure-table-full-width">
+            <thead>
+              <tr>
+                <th class="name">Name</th>
+                <th class="company">Company</th>
+                <th class="actions lign-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-ng-show="error">
+                <td colspan="3">Could not load results. Please try again later</td>
+              </tr>
+              <tr data-ng-show="!error && !clients.length && !loading">
+                <td colspan="3">No clients matching your search criteria.</td>
+              </tr>
+              <tr data-ng-repeat="client in clients">
+                <td class="name">{{ client.name.value }}</td>
+                <td class="company">{{ client.company.value }}</td>
+                <td class="actions align-right">
+                  <a data-ng-href="#/clients/{{ client.id }}" class="pure-button pure-button-small pure-button-success">
+                    <i class="icon-share-alt"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr id="loading" data-ng-show="loading && (!clients.length || moreResults)">
+                <td colspan="3"><i class="icon-spinner icon-spin icon-large"></i> Loading results...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-
       <table data-infinite-scroll data-update="updateResults(true)" id="results" class="pure-table pure-table-horizontal pure-table-full-width">
         <thead>
           <tr>

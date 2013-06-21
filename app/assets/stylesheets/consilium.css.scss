@@ -125,28 +125,14 @@ body {
     border: 0;
   }
 
-//.popover {
-//  $popover-width: 300px + 100px;
-//  $popover-padding: 20px;
-
-//  min-width: $popover-width;
-//  @include calc(width, "100% - #{$nav-width + 2*$popover-padding}");
-//  padding: $popover-padding;
-//  top: 0;
-//  left: $nav-width;
-//  height: 100%;
-//  position: fixed;
-//  background-color: #fff;
-
-//  .popover-inner {
-//    width: $popover-width;
-//    margin: auto;
-
-//    label {
-//      width: 80px;
-//    }
-//  }
-//}
+  a {
+    &, &:link, &:visited, &:hover, &:active {
+      text-decoration: none;
+      &.pretty {
+        color: #08c;
+      }
+    }
+  }
 
   #main {
     width: 100%;
