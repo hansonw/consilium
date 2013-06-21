@@ -101,14 +101,14 @@
   ]
 %>
 
-<% sections.each do |section| %>
-  <% if not section[:fields].nil? %>
-    <%= render :partial => 'templates/clients/field_modal',
-               :locals => { :section => section } %>
-  <% end %>
-<% end %>
-
 <div data-ng-controller="ClientsEditCtrl">
+  <% sections.each do |section| %>
+    <% if not section[:fields].nil? %>
+      <%= render :partial => 'templates/clients/field_modal',
+                 :locals => { :section => section } %>
+    <% end %>
+  <% end %>
+
   <div class="content header pure-u-1">
     <h2 class="no-bottom-margin">{{ title }}</h2>
     <div class="breadcrumbs">
