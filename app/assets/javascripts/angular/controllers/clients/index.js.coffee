@@ -6,6 +6,7 @@ App.controller 'ClientsIndexCtrl', ['$scope', 'Client', ($scope, Client) ->
   $scope.query = ''
   $scope.resultStart = 0
   $scope.moreResults = false
+  $scope.showAdvancedSearch = false
 
   $scope.updateResults = (more) ->
     if more && ($scope.loading || !$scope.moreResults)

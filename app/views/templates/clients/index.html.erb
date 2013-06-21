@@ -19,8 +19,25 @@
               <span data-ng-show="loading" class="loading"><i class="icon-spinner icon-spin"></i></span>
               <button id="btnSearch" class="pure-button pure-button-small pure-button-primary"><i class="icon-search icon-fixed-width"></i></button>
             </div>
-            <div class="advanced-search">
-              <a href="#" class="pretty">Advanced Search <i class="icon-caret-right"></i></a>
+            <div class="advanced-search" advanced-search>
+              <div class="advanced-search-inner">
+                <div class="advanced-search-fields">
+                  <hr class="soften" />
+                  <div class="advanced-search-field">
+                    <%= label_tag 'name', 'Name' %>
+                    <%= text_field_tag 'name', nil, :placeholder => 'First name, last name, etc.', :data => {:ng_model => 'filter_name'} %>
+                  </div>
+                  <div class="advanced-search-field">
+                    <%= label_tag 'email', 'Email' %>
+                    <%= text_field_tag 'email', nil, :placeholder => 'Email address', :data => {:ng_model => 'filter_email'} %>
+                  </div>
+                  <div class="advanced-search-field">
+                    <%= label_tag 'company', 'Company' %>
+                    <%= text_field_tag 'company', nil, :placeholder => 'Company', :data => {:ng_model => 'filter_company'} %>
+                  </div>
+                </div>
+                <a href="" class="pretty advanced-search-btn">Advanced Search <i class="icon-caret-right"></i></a>
+              </div>
             </div>
           </div>
         </div>

@@ -137,14 +137,47 @@
     }
 
     .advanced-search {
+      @include transition();
+
       margin-top: 10px;
       text-align: right;
+      position: relative;
+      height: 16px;
+      overflow: hidden;
+
+      &.active {
+        height: 170px;
+      }
+
+      .advanced-search-inner {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+
+        .advanced-search-fields {
+          $advanced-search-label-width: 80px;
+
+          margin-bottom: 15px;
+
+          .advanced-search-field {
+            margin: 10px 0;
+            label {
+              width: $advanced-search-label-width;
+              margin-right: 5px;
+            }
+            input {
+              @include calc(width, '100% - #{$advanced-search-label-width}');
+            }
+          }
+        }
+      }
     }
   }
 
   #results {
     table-layout: fixed;
-    word-wrap: break-word;  
+    word-wrap: break-word;
     margin-bottom: 50px;
 
     .name {
