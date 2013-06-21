@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="form-content">
-        <form name="newClient" class="pure-form pure-form-aligned" data-ng-submit="submitNewClient()">
+        <form name="newClient" class="pure-form pure-form-aligned" data-ng-submit="saveForm()">
           <div class="section" id="basicInfo">
             <h3 class="no-top-margin">Basic Info.</h3>
           </div>
@@ -69,28 +69,26 @@
             </a>
             <h3>Photos</h3>
           </div>
-
-          <p>Your code goes here.</p>
+                  
+          <div id="toolbar" data-ng-class="{'active': menuShouldShow()}">
+            <div class="content">
+              <button class="pure-button pure-button-secondary pure-button-large" data-ng-class="{'pure-button-disabled': !saving && !dirty}"
+                      type="submit">
+                <span data-ng-if="saving">
+                  <i class="icon-spinner icon-spin"></i> Saving...
+                </span>
+                <span data-ng-if="!saving && !dirty">
+                  Saved
+                </span>
+                <span data-ng-if="!saving && dirty">
+                  Save
+                </span>
+              </button>
+              <a class="pure-button pure-button-primary pure-button-large">Done</a>
+            </div>
+          </div>
         </form>
       </div>
-    </div>
-  </div>
-
-  <div id="toolbar" data-ng-class="{'active': menuShouldShow()}">
-    <div class="content">
-      <a class="pure-button pure-button-secondary pure-button-large" data-ng-class="{'pure-button-disabled': !saving && !dirty}"
-         data-ng-click="saveForm()">
-        <span data-ng-if="saving">
-          <i class="icon-spinner icon-spin"></i> Saving...
-        </span>
-        <span data-ng-if="!saving && !dirty">
-          Saved
-        </span>
-        <span data-ng-if="!saving && dirty">
-          Save
-        </span>
-      </a>
-      <a class="pure-button pure-button-primary pure-button-large">Done</a>
     </div>
   </div>
 </div>
