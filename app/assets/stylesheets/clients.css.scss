@@ -1,10 +1,9 @@
 @import 'constants';
 @import 'utilities';
 
-$client-form-nav-width: 300px;
-$client-form-nav-padding: 50px;
-
 .client-form {
+  $client-form-nav-width: 300px;
+
   @include respond-to(widescreens) { padding-top: 20px; }
 
   padding-bottom: 100px;
@@ -20,6 +19,8 @@ $client-form-nav-padding: 50px;
   }
 
   .form-nav {
+    $client-form-nav-padding: 50px;
+
     @include transition();
 
     display: none;
@@ -31,12 +32,23 @@ $client-form-nav-padding: 50px;
 }
 
 .search-client-form {
+  $search-client-form-nav-width: 400px;
+
   @extend .client-form;
 
+  .form-content {
+    @include respond-to(widescreens) {
+      @include calc(width, '100% - #{$search-client-form-nav-width + 5px}');
+    }
+  }
+
   .form-nav {
+    $search-client-form-nav-padding: 50px;
+
     width: 100%;
     display: inline-block;
-    @include respond-to(widescreens) { width: $client-form-nav-width - $client-form-nav-padding; }
+
+    @include respond-to(widescreens) { width: $search-client-form-nav-width - $search-client-form-nav-padding; }
   }
 }
 
