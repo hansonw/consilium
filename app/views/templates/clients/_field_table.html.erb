@@ -13,12 +13,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr data-ng-show="!client.<%= section[:model] %>.length">
+    <tr data-ng-show="!client.<%= section[:model] %>.value.length">
       <td><em>None</em></td>
       <td></td>
     </tr>
-    <tr data-ng-repeat="<%= section[:model].singularize %> in client.<%= section[:model] %>">
-      <td>{{ <%= section[:model].singularize %>.name.value }}</td>
+    <tr data-ng-repeat="item in client.<%= section[:model] %>.value">
+      <td>{{ item.name }}</td>
       <td class="align-right">
         <a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a>
         <a class="pure-button pure-button-small pure-button-error"><i class="icon-trash icon-large"></i></a>

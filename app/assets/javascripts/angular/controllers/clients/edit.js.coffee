@@ -15,7 +15,6 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
 
   # TODO: show error if this id doesn't exist
   $scope.client = if $scope.clientId then Client.get(id: $scope.clientId) else (new Client())
-  $scope.client.clientContacts = []
   window.client = $scope.client
   
   $scope.clientContact = {}
@@ -43,16 +42,13 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
     )
 
   $scope.addObjectToClient = (objName) ->
-    obj = eval '$scope.' + objName
-    collection = eval 'client.' + objName + 's'
-    eval 'collection = (client.' + objName + 's = [])' if !collection?
+    obj = $scope[objName]
+    collection = (($scope.client[objName + 's'] ||= {}).value ||= [])
 
     # Evaluation, validation code, etc. should go here.
     # collection -- the collection of objects getting pushed to
     # obj -- the object being pushed
 
     collection.push(obj)
-
-    obj = null
-    eval '$scope.' + objName + ' = {}'
+    $scope[objName] = {}
 ]

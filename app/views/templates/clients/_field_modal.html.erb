@@ -21,7 +21,8 @@
             <% section[:fields].each do |field| %>
               <div class="pure-control-group">
                 <label for="<%= field[:name] %>"><%= field[:label] %></label>
-                <input id="<%= field[:name] %>" name="<%= field[:name] %>" type="<%= field[:type] %>" ng-model="<%= section[:model].singularize %>.<%= field[:name] %>.value" placeholder="<%= field[:placeholder] %>" />
+                <input id="<%= field[:name] %>" name="<%= field[:name] %>" type="<%= field[:type] %>"
+                       ng-model="<%= section[:model].singularize %>.<%= field[:name] %>" placeholder="<%= field[:placeholder] %>" />
               </div>
             <% end %>
             <div class="separator"></div>

@@ -61,21 +61,32 @@ class ClientsController < ApplicationController
   # Creates if a non-existent ID is provided.
   def update
     @client = Client.new(client_params)
+    
+    # Force server timestamp
+    # (otherwise client can provide an arbitrarily large one to prevent future editing)
+    cur_time = (Time.now.to_f * 1000).to_i
 
-    # If an ID is provided, try looking it up first
+    # If an ID is provided, try looking it up first    
     if existing = Client.where(:id => params[:id]).first
-      @client._id = existing._id
       # Sync all fields
-      existing.attributes.each do |key, val|
+      @client.attributes.each do |key, val|
         if defined?(val['updated_at']) &&
-           (!defined?(@client[key]['updated_at']) || val['updated_at'] > @client[key]['updated_at'])
-          @client[key] = val
+           (!defined?(existing[key]['updated_at']) || val['updated_at'] > existing[key]['updated_at'])
+          existing[key] = val
+          existing[key]['updated_at'] = cur_time
         end
       end
+      @client = existing
     elsif !params[:id].starts_with?('local')
       # Must have been deleted by someone else.
       render json: '', status: :gone
       return
+    else
+      @client.attributes.each do |key, val|
+        if defined?(val['updated_at'])
+          @client[key]['updated_at'] = cur_time
+        end
+      end
     end
 
     respond_to do |format|
