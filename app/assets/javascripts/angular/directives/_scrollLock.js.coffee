@@ -2,31 +2,37 @@ App.directive 'scrollFix', ->
   ($scope, $elem, $attr) ->
     domElem = $($elem[0])
     win = $(window)
-    scrollMargin = parseInt($attr.scrollMargin) || 30
-    scrollFixMaxWidth = parseInt($attr.scrollFixMaxWidth) || 400
-    offset = domElem.offset().top if domElem.is(':visible') and domElem.width() <= scrollFixMaxWidth
+    scrollFixMargin = parseInt($attr.scrollFixMargin) || 30
+    offset = domElem.offset().top if domElem.is(':visible')
 
-    win.bind 'scroll', ->
-      return if not domElem.is(':visible') or domElem.width() > scrollFixMaxWidth
+    win.bind 'scroll resize', ->
+      return if not domElem.is(':visible')
+      scrollFixCondition = Modernizr.mq($attr.scrollFixCondition || 'screen and (min-width:0)')
+      wasScrollFixCondition = domElem.data 'scroll-fix-condition'
 
       offset = domElem.offset().top if !offset
 
       scrollTop = win.scrollTop()
 
-      if scrollMargin + scrollTop >= offset and not domElem.data 'scroll-fixed'
-        domElem.data 'scroll-fixed', true
-        domElem.data 'scroll-fix-top', domElem.css 'top'
-        domElem.data 'scroll-fix-right', domElem.css 'right'
-        domElem.data 'scroll-fix-left', domElem.css 'left'
-        paddingLeft = parseInt domElem.css 'padding-left'
-        paddingRight = parseInt domElem.css 'padding-right'
-        domElem.css 'top', scrollMargin
-        domElem.css 'right', win.width() - domElem.offset().left - domElem.width() - paddingLeft - paddingRight
-        domElem.css 'left', domElem.offset().left
-        domElem.css 'position', 'fixed'
-      else if scrollMargin + scrollTop < offset and domElem.data 'scroll-fixed'
+      if not scrollFixCondition and domElem.data 'scroll-fixed'
         domElem.data 'scroll-fixed', false
-        domElem.css 'top', domElem.data 'scroll-fix-top'
-        domElem.css 'right', domElem.data 'scroll-fix-right'
-        domElem.css 'left', domElem.data 'scroll-fix-left'
-        domElem.css 'position', 'static'
+        domElem.removeAttr 'style'
+      else if scrollFixCondition and scrollFixMargin + scrollTop >= offset and not domElem.data 'scroll-fixed'
+        scrollFixTime = 500 if not wasScrollFixCondition
+
+        setTimeout ( ->
+          domElem.data 'scroll-fixed', true
+
+          paddingLeft = parseInt(domElem.css 'padding-left')
+          paddingRight = parseInt(domElem.css 'padding-right')
+
+          domElem.css 'top', scrollFixMargin
+          domElem.css 'width', domElem.parent().width() - paddingLeft - paddingRight
+          domElem.css 'left', domElem.offset().left
+          domElem.css 'position', 'fixed'
+        ), scrollFixTime
+      else if scrollFixMargin + scrollTop < offset and domElem.data 'scroll-fixed'
+        domElem.data 'scroll-fixed', false
+        domElem.removeAttr 'style'
+
+      domElem.data 'scroll-fix-condition', scrollFixCondition
