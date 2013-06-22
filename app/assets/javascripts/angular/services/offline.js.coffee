@@ -71,11 +71,13 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
       constructor: (data = {}) ->
         rsrc = new resource(data)
         angular.extend(this, rsrc)
-        if !@id
-          # Generate a nearly guaranteed unique id.
-          @id = 'local-' + Date.now() + '-' + Math.floor(Math.random() * 1e9)
+        # Generate a nearly guaranteed unique id.
+        @generate_id() if !@id
         @_save = rsrc.$save.bind(this)
         @_delete = rsrc.$delete.bind(this)
+
+      generate_id: ->
+        @id = 'local-' + Date.now() + '-' + Math.floor(Math.random() * 1e9)
 
       $save: (success, error) ->
         existing = storage.get(@id)

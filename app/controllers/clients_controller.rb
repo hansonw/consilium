@@ -61,7 +61,7 @@ class ClientsController < ApplicationController
   # Creates if a non-existent ID is provided.
   def update
     @client = Client.new(client_params)
-    
+
     # Don't allow client timestamps to exceed the server time
     # (otherwise client can provide an arbitrarily large one to prevent future editing)
     cur_time = (Time.now.to_f * 1000).to_i

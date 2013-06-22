@@ -1,5 +1,5 @@
 # This doubles as the new client view (if no client ID is provided)
-App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout', ($scope, $routeParams, Client, $timeout) ->
+App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout', '$location', ($scope, $routeParams, Client, $timeout, $location) ->
   $scope._saveTimeout = 10000
   $scope._lastChange = new Date().getTime()
   $scope.saving = false
@@ -37,8 +37,23 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
     return if !$scope.dirty || $scope.saving
     $scope.saving = true
     $scope.client.$save(
-      (-> $scope.saving = $scope.dirty = false), # success
-      (-> $scope.saving = false) # failure (TODO: do something if it keeps failing)
+      (-> $scope.saving = $scope.dirty = false),
+      (data, header) ->
+        $scope.saving = false
+        # TODO: these should be modals or something.
+        if data.status == 410 # Deleted on the server
+          if confirm('This document was deleted by another user. Continue working on it?')
+            $scope.client.generate_id()
+            $timeout($scope.saveForm, 0) # defer
+          else
+            $location.path('/clients')
+          # TODO: change the id in the address bar? not too important for mobile
+        else if data.status == 422
+          error_str = ''
+          for name, errors of data.data
+            for error in errors
+              error_str += ' - ' + name + ' ' + error + "\n"
+          alert("Please fix the following errors:\n" + error_str)
     )
 
   $scope.addObjectToClient = (objName) ->
