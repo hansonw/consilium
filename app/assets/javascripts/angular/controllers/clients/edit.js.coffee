@@ -13,8 +13,12 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
   # watch actually gets called.
   $scope._watchAdded = false
 
-  # TODO: show error if this id doesn't exist
-  $scope.client = if $scope.clientId then Client.get(id: $scope.clientId) else (new Client())
+  # TODO: error should be modal
+  $scope.client = if $scope.clientId \
+    then Client.get(id: $scope.clientId, angular.noop, (data, header) ->
+      alert('The requested client was not found.')
+      $location.path('/clients')) \
+    else new Client()
   window.client = $scope.client
   
   $scope.clientContact = {}
