@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/bokmann/font-awesome-rails.git
-  revision: bcac102e1b005d9e14a61aa8a1399e3cf7f806be
+  revision: 5d69652b358c32e4192b1671ef6138328a5efe0a
   specs:
-    font-awesome-rails (3.2.1.0)
+    font-awesome-rails (3.2.1.1)
       railties (>= 3.2, < 5.0)
 
 GIT
@@ -81,7 +81,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.23)
-    minitest (4.7.4)
+    minitest (4.7.5)
     modernizr-rails (2.6.2.3)
     moped (1.5.0)
     multi_json (1.7.7)
@@ -145,6 +145,7 @@ PLATFORMS
 
 DEPENDENCIES
   angularjs-rails
+  bcrypt-ruby (~> 3.0.0)
   cancan
   coffee-rails (~> 4.0.0)
   devise!
