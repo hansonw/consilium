@@ -49,8 +49,7 @@
             <% if not field[:type].is_a? Array %>
               <div class="pure-control-group">
                 <label for="<%= field[:id] %>"><%= field[:name] %></label>
-                <input name="<%= field[:id] %>" ng-model="client.<%= field[:id] %>.value" placeholder="<%= field[:placeholder] %>"
-                       <%= field[:required] && 'required' %> />
+                <%= ng_input(field, "client.#{field[:id]}.value") %>
               </div>
             <% end %>
           <% end %>
@@ -81,8 +80,11 @@
                 <span data-ng-if="!saving && !dirty">
                   Saved
                 </span>
-                <span data-ng-if="!saving && dirty">
+                <span data-ng-if="!saving && dirty && newClient.$valid">
                   Save
+                </span>
+                <span data-ng-if="!saving && dirty && !newClient.$valid">
+                  Save (errors)
                 </span>
               </button>
               <a class="pure-button pure-button-primary pure-button-large">Done</a>

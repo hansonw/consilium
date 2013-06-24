@@ -67,58 +67,42 @@ class Client
       :name => 'Claims Info',
       :id => 'claimsInfos',
       :type => [
-        {
-        },
       ],
     },
     {
       :name => 'Prev. Policy Info',
       :id => 'prevPolicyInfos',
       :type => [
-        {
-        },
       ],
     },
     {
       :name => 'Liability Info',
       :id => 'liabilityInfos',
       :type => [
-        {
-        },
       ],
     },
     {
       :name => 'Misc. Notes',
       :id => 'miscNotes',
       :type => [
-        {
-
-        },
       ],
     },
     {
       :name => 'Coverage Schedule',
       :id => 'coverageSchedules',
       :type => [
-        {
-
-        },
       ],
     },
     {
       :name => 'Properties',
       :id => 'properties',
       :type => [
-        {
-        },
       ],
     },
     {
       :name => 'Umbrella/Machinery',
       :id => 'umbrellaMachinery',
       :type => [
-        {
-        },
       ],
     },
     {
@@ -142,7 +126,7 @@ class Client
       if field_desc[:minlength] && value.length < field_desc[:minlength]
         errors[field_name] << 'is too short'
       end
-    elsif field_desc[:type] == 'int'
+    elsif field_desc[:type] == 'number'
       begin
         value = Integer(value)
       rescue

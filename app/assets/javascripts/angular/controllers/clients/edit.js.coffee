@@ -1,7 +1,5 @@
 # This doubles as the new client view (if no client ID is provided)
 App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout', '$location', ($scope, $routeParams, Client, $timeout, $location) ->
-  window.scope = $scope;
-
   $scope._saveTimeout = 10000
   $scope._lastChange = new Date().getTime()
   $scope.saving = false
@@ -15,9 +13,6 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
   # watch actually gets called.
   $scope._watchAdded = false
 
-  # Sometimes the act of saving changes the model. We don't really want to mark it as dirty in those cases.
-  $scope.lastSaved = if $scope.clientId then null else {}
-
   # TODO: error should be modal
   $scope.client = if $scope.clientId \
     then Client.get(id: $scope.clientId, (-> $scope.lastSaved = $scope.client.getData()),
@@ -25,6 +20,9 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
         alert('The requested client was not found.')
         $location.path('/clients')) \
     else new Client()
+
+  # Sometimes the act of saving changes the model. We don't really want to mark it as dirty in those cases.
+  $scope.lastSaved = $scope.client.getData()
   
   $scope.clientContact = {}
 
@@ -33,20 +31,39 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
   $scope.$watch 'client', ( ->
     return $scope._watchAdded = true if not $scope._watchAdded
 
-    if $scope.lastSaved == null || angular.equals($scope.client.getData(), $scope.lastSaved)
+    if angular.equals($scope.client.getData(), $scope.lastSaved)
       return
 
     $scope.dirty = true
     $timeout (->
       time = new Date().getTime()
       if time - $scope._lastChange >= $scope._saveTimeout
-        $scope.saveForm()
+        $scope.saveForm(false)
     ), $scope._saveTimeout
     $scope._lastChange = new Date().getTime()
   ), true
 
-  $scope.saveForm = ->
-    return if !$scope.newClient.$valid || !$scope.dirty || $scope.saving
+  $scope.saveForm = (manual = true)->
+    return if !$scope.dirty || $scope.saving
+
+    if !$scope.newClient.$valid
+      if manual
+        error_str = ''
+        for key, val of $scope.newClient.$error
+          if val != false
+            for err in val
+              errors = {
+                "minlength": "too short",
+                "maxlength": "too long",
+                "required": "required",
+                "min": "too small",
+                "max": "too large",
+                "pattern": "in the wrong format",
+              }
+              error_str += " - #{err.$name} is #{errors[key]}\n"
+        alert("Please fix the following errors:\n" + error_str)
+      return
+
     $scope.saving = true
     $scope.client.$save(
       ->

@@ -21,9 +21,7 @@
             <% field[:type].each do |subfield| %>
               <div class="pure-control-group">
                 <label for="<%= subfield[:id] %>"><%= subfield[:name] %></label>
-                <input id="<%= subfield[:id] %>" name="<%= subfield[:id] %>" type="<%= subfield[:type] %>"
-                       ng-model="<%= field[:id].singularize %>.<%= subfield[:id] %>" placeholder="<%= subfield[:placeholder] %>"
-                       <%= subfield[:required] && 'required' %> />
+                <%= ng_input(subfield, field[:id].singularize + '.' + subfield[:id])  %>
               </div>
             <% end %>
             <div class="separator"></div>
