@@ -1,7 +1,10 @@
 class HomeController < ApplicationController
-  #before_filter :authenticate_user!
+  layout 'server'
 
   def index
-    render :layout => 'angular'
+    if user_signed_in?
+      # AngularJS entry point. Angular should take over from here.
+      render nil, :layout => 'angular'
+    end
   end
 end
