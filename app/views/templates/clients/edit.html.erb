@@ -49,7 +49,8 @@
             <% if not field[:type].is_a? Array %>
               <div class="pure-control-group">
                 <label for="<%= field[:id] %>"><%= field[:name] %></label>
-                <input name="<%= field[:id] %>" ng-model="client.<%= field[:id] %>.value" placeholder="<%= field[:placeholder] %>" <%= field[:required] && 'required' %> />
+                <input name="<%= field[:id] %>" ng-model="client.<%= field[:id] %>.value" placeholder="<%= field[:placeholder] %>"
+                       <%= field[:required] && 'required' %> />
               </div>
             <% end %>
           <% end %>

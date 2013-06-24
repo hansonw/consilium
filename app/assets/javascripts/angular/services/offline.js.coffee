@@ -1,8 +1,12 @@
 getData = (resource) ->
   data = {}
   for own key, val of resource
-    if key[0] != '$' # angular variable
-      data[key] = val
+    if key[0] != '$' && # angular variable
+       key[0] != '_'    # our own internal variable
+      if typeof(val) == 'object'
+        data[key] = angular.copy(val)
+      else
+        data[key] = val
   return data
 
 online = () ->
@@ -79,37 +83,40 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
       generate_id: ->
         @id = 'local-' + Date.now() + '-' + Math.floor(Math.random() * 1e9)
 
+      getData: ->
+        getData(this)
+
       $save: (success, error) ->
         existing = storage.get(@id)
-        for key, val of getData(this)
+        for key, val of @getData()
           if val.value? && !angular.equals(val.value, existing?[key]?.value)
             @[key].updated_at = Date.now() # Estimate. Will be updated by the server
 
         if online()
-          @_save((data, header) =>
+          @_save((data) =>
             # Delete the temporary model from the local DB if it exists.
             if @id.indexOf('local') == 0
               storage.delete(@id, true)
             angular.extend(this, data)
             storage.insert(data)
             angular.extend(this, storage.get(@id))
-            success() if success
-          , (data, header) =>
+            success(data) if success
+          , (data) =>
               if data.status == 410 # GONE; deleted from the server
                 storage.delete(@id, true)
               else if data.status == 422 # Validation failed for some reason. Don't save
               else # can't reach the server, we'll just leave it as is
                 storage.insert(this)
-                OfflineResource.defer(=> success(data, header)) if success
+                OfflineResource.defer(=> success(data)) if success
                 return
-              OfflineResource.defer(=> error(data, header)) if error
+              OfflineResource.defer(=> error(data)) if error
           )
         else
           success() if success
         
       $delete: ->
         storage.delete(@id)
-        @_delete((data, header) =>
+        @_delete((data) =>
           storage.delete(@id, true)) if online()
 
       # Ensures a function is called after the current method returns.
@@ -148,32 +155,32 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
         if online()
           resource.query({}, (data) =>
             @syncAllWithLocal(data, [])
-            success() if success
+            success(data) if success
           , error || angular.noop)
         else
           @defer(error) if error
 
       @get: (params, success, error) ->
         res = new OfflineResource(params)
-        queryLocal = (data, header) =>
+        queryLocal = (data) =>
           # TODO: differentiate between server deletion/error
           ret = storage.get(params.id)
           if ret?
             angular.extend(res, ret)
-            @defer(=> success(res, header)) if success
+            @defer(=> success(res)) if success
           else
-            @defer(=> error(data, header)) if error
+            @defer(=> error(data)) if error
 
         if online()
           resource.get(params,
-            (data, header) =>
+            (data) =>
               @syncWithLocal(data)
               queryLocal()
-          , (data, header) =>
+          , (data) =>
               if data.status == 410 # GONE; this means it was deleted
                 res.id = null
                 storage.delete(params.id, true)
-                @defer(=> error(data, header)) if error
+                @defer(=> error(data)) if error
               else # the server is unreachable; use the cache
                 queryLocal()
           )
@@ -184,7 +191,7 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
 
       @query: (params, success, error) ->
         res = []
-        queryLocal = (data, header) =>
+        queryLocal = (data) =>
           ret = storage.get_all()
           if ret != false
             for val in ret
@@ -195,16 +202,16 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
                 res.push(new OfflineResource(val))
             start = params.start || 0
             res = res.slice(start, params.limit && start + params.limit)
-            @defer(=> success(res, header)) if success
+            @defer(=> success(res)) if success
           else
-            @defer(=> error(data, header)) if error
+            @defer(=> error(data)) if error
 
         if online()
           resource.query(params || {},
-            (data, header) =>
+            (data) =>
               for result in data
                 res.push(@syncWithLocal(result))
-              success(res, header) if success
+              success(res) if success
             , queryLocal)
         else
           queryLocal()

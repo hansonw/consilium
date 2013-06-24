@@ -1,5 +1,7 @@
 # This doubles as the new client view (if no client ID is provided)
 App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout', '$location', ($scope, $routeParams, Client, $timeout, $location) ->
+  window.scope = $scope;
+
   $scope._saveTimeout = 10000
   $scope._lastChange = new Date().getTime()
   $scope.saving = false
@@ -13,13 +15,16 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
   # watch actually gets called.
   $scope._watchAdded = false
 
+  # Sometimes the act of saving changes the model. We don't really want to mark it as dirty in those cases.
+  $scope.lastSaved = if $scope.clientId then null else {}
+
   # TODO: error should be modal
   $scope.client = if $scope.clientId \
-    then Client.get(id: $scope.clientId, angular.noop, (data, header) ->
-      alert('The requested client was not found.')
-      $location.path('/clients')) \
+    then Client.get(id: $scope.clientId, (-> $scope.lastSaved = $scope.client.getData()),
+      (data) ->
+        alert('The requested client was not found.')
+        $location.path('/clients')) \
     else new Client()
-  window.client = $scope.client
   
   $scope.clientContact = {}
 
@@ -27,6 +32,9 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
   # If it has been, save the form progress now.
   $scope.$watch 'client', ( ->
     return $scope._watchAdded = true if not $scope._watchAdded
+
+    if $scope.lastSaved == null || angular.equals($scope.client.getData(), $scope.lastSaved)
+      return
 
     $scope.dirty = true
     $timeout (->
@@ -38,11 +46,13 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
   ), true
 
   $scope.saveForm = ->
-    return if !$scope.dirty || $scope.saving
+    return if !$scope.newClient.$valid || !$scope.dirty || $scope.saving
     $scope.saving = true
     $scope.client.$save(
-      (-> $scope.saving = $scope.dirty = false),
-      (data, header) ->
+      ->
+        $scope.saving = $scope.dirty = false
+        $scope.lastSaved = $scope.client.getData()
+    , (data) ->
         $scope.saving = false
         # TODO: these should be modals or something.
         if data.status == 410 # Deleted on the server
