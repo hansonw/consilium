@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html data-ng-app="Consilium">
+<head>
+  <title>Consilium</title>
+  <%= stylesheet_link_tag "application", media: "all" %>
+  <%= csrf_meta_tags %>
+  <%= javascript_include_tag "application" %>
+  <meta name="HandheldFriendly" content="true" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="description" content="">
+  <meta name="author" content="">
+</head>
+<body data-ng-click="menuItemSelect(null)">
+  <header>
+  </header>
+  <div class="pure-g-r layout" data-ng-class="{'active': menuShouldShow()}">
+    <a href="" id="mainMenuLink" class="pure-menu-link" data-ng-click="mainMenuLinkClick()" data-ng-class="{'active': menuShouldShow()}">
+      <i class="icon-reorder icon-2x icon-fixed-width"></i></a>
+    <div class="nav pure-u" data-ng-class="{'active': menuShouldShow()}">
+      <div class="pure-menu pure-menu-open">
+        <a href="#/" class="pure-menu-heading">Consilium</a>
+        <ul>
+          <li data-ng-repeat="menuItem in menuItems"
+              data-ng-class="{'pure-menu-selected': menuItemIsSelected(menuItem.link)}">
+            <a href="" data-ng-click="menuItemSelect(menuItem.link)" eat-click>
+              {{ menuItem.name }} 
+              <i data-ng-class="{'icon-caret-down': menuItemIsCaretExpanded(menuItem.link), 'icon-caret-right': !menuItemIsCaretExpanded(menuItem.link)}"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="subnav pure-u" data-ng-repeat="menuItem in menuItems"
+         data-ng-class="{'nav-active': menuShouldShow(), 'active': subMenuShouldShow(menuItem.link)}">
+      <div class="pure-menu pure-menu-open">
+        <ul>
+          <li data-ng-repeat="subMenuItem in menuItem.subMenuItems"
+              data-ng-class="{'pure-menu-selected': subMenuItemIsSelected(menuItem.link + subMenuItem.link)}">
+            <a href="#{{ menuItem.link }}{{ subMenuItem.link }}"
+               data-ng-click="subMenuItemSelect(menuItem.link + subMenuItem.link)" eat-click>
+              {{ subMenuItem.name }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div id="main" class="pure-u">
+      <div data-ng-view="">
+      </div>
+    </div>
+  </div>
+  <footer>
+  </footer>
+</body>
+</html>
