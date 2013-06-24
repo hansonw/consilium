@@ -43,24 +43,28 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
     $scope._lastChange = new Date().getTime()
   ), true
 
+  $scope.errorText = (error) ->
+    error_str = ''
+    for key, val of error
+      if val != false
+        for err in val
+          errors = {
+            "minlength": "too short",
+            "maxlength": "too long",
+            "required": "required",
+            "min": "too small",
+            "max": "too large",
+            "pattern": "in the wrong format",
+          }
+          error_str += " - #{err.$name} is #{errors[key]}\n"
+    return error_str
+
   $scope.saveForm = (manual = true)->
     return if !$scope.dirty || $scope.saving
 
     if !$scope.newClient.$valid
       if manual
-        error_str = ''
-        for key, val of $scope.newClient.$error
-          if val != false
-            for err in val
-              errors = {
-                "minlength": "too short",
-                "maxlength": "too long",
-                "required": "required",
-                "min": "too small",
-                "max": "too large",
-                "pattern": "in the wrong format",
-              }
-              error_str += " - #{err.$name} is #{errors[key]}\n"
+        error_str = $scope.errorText($scope.newClient.$error)
         alert("Please fix the following errors:\n" + error_str)
       return
 
@@ -89,7 +93,12 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
 
   $scope.addObjectToClient = (objName) ->
     obj = $scope[objName]
-    collection = (($scope.client[objName + 's'] ||= {}).value ||= [])
+    collection = (($scope.client[objName] ||= {}).value ||= [])
+
+    form = $scope['form' + objName]
+    if !form.$valid
+      alert("Please fix the following errors:\n" + $scope.errorText(form.$error))
+      return
 
     # Evaluation, validation code, etc. should go here.
     # collection -- the collection of objects getting pushed to
@@ -97,4 +106,6 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
 
     collection.push(obj)
     $scope[objName] = {}
+    $('#modalAdd' + objName).toggleClass('active')
+    $('body').toggleClass('modal-active')
 ]

@@ -1,5 +1,5 @@
 <div id="<%= field[:id] %>" class="section">
-  <a class="pull-right pure-button pure-button-primary" href="#modalAdd<%= field[:name].singularize.classify.gsub(/\s/,'') %>" modal-toggle>
+  <a class="pull-right pure-button pure-button-primary" href="#modalAdd<%= field[:id] %>" modal-toggle>
     <i class="icon-plus"></i> <span class="verbose-desc">Add <%= field[:name].singularize %></span>
   </a>
   <h3><%= field[:name] %></h3>

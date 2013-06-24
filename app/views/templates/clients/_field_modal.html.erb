@@ -1,6 +1,4 @@
-<% modalName = field[:name].singularize.classify.gsub(/\s/,'') %>
-
-<div id="modalAdd<%= modalName %>" class="modal">
+<div id="modalAdd<%= field[:id] %>" class="modal">
   <div class="layout" data-ng-class="{'active': menuShouldShow()}">
     <div class="header content pure-u-1">
       <h2 class="no-bottom-margin">Add <%= field[:name].singularize %></h2>
@@ -17,17 +15,19 @@
     <div class="content">
       <div class="client-form">
         <div class="form-content">
-          <form class="pure-form pure-form-aligned" data-ng-submit="addObjectToClient('<%= modalName.camelize(:lower) %>')">
+          <form name="form<%= field[:id] %>"
+                class="pure-form pure-form-aligned"
+                data-ng-submit="addObjectToClient('<%= field[:id] %>')">
             <% field[:type].each do |subfield| %>
               <div class="pure-control-group">
                 <label for="<%= subfield[:id] %>"><%= subfield[:name] %></label>
-                <%= ng_input(subfield, field[:id].singularize + '.' + subfield[:id])  %>
+                <%= ng_input(subfield, field[:id] + '.' + subfield[:id])  %>
               </div>
             <% end %>
             <div class="separator"></div>
             <div class="pull-right">
               <button type="submit" class="pure-button pure-button-primary">Save</button>
-              <button href="#modalAdd<%= modalName %>" class="pure-button" modal-toggle>Close</button>
+              <button href="#modalAdd<%= field[:id] %>" class="pure-button" modal-toggle>Close</button>
             </div>
           </form>
         </div>
