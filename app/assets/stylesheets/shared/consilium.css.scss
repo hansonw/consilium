@@ -1,16 +1,6 @@
 @import 'constants';
 @import 'utilities';
 
-/**
- * Utilities / mixins.
- */
-@mixin calc($property, $expression) {
-  #{$property}: -moz-calc(#{$expression});
-  #{$property}: -o-calc(#{$expression});
-  #{$property}: -webkit-calc(#{$expression});
-  #{$property}: calc(#{$expression});
-}
-
 body {
   overflow-x: hidden;
 

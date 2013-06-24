@@ -1,5 +1,5 @@
-@import 'constants';
-@import 'utilities';
+@import '../shared/constants';
+@import '../shared/utilities';
 
 .client-form {
   $client-form-nav-width: 300px;
