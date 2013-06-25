@@ -17,11 +17,23 @@
   <div class="pure-g-r">
     <div id="main" class="pure-u">
       <div class="pure-g-r">
-        <div class="pure-u">
-
+        <div class="pure-u navbar">
+          <div class="content">
+            <span class="title pull-left">Consilium</span>
+            <span class="nav-sections">
+              <a class="pure-button pure-button-light">Section</a>
+              <a class="pure-button pure-button-light">Topics</a>
+            </span>
+            <a class="pure-button">Contact Us</a>
+            <%= link_to 'Login', new_user_session_path, :class => 'pure-button pure-button-secondary' %>
+          </div>
         </div>
       </div>
-      <%= yield %>
+      <div id="layout">
+        <div class="content">
+          <%= yield %>
+        </div>
+      </div>
     </div>
   </div>
   <footer>

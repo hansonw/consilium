@@ -1,0 +1,36 @@
+@import '../shared/constants';
+@import '../shared/utilities';
+
+body {
+  .title {
+    color: white;
+    font-size: 26px;
+    font-weight: 100;
+  }
+
+  #layout {
+    padding-top: 50px;
+  }
+
+  .content {
+    margin: auto;
+    width: 70%;
+  }
+
+  .navbar {
+    $navbar-padding: 10px;
+
+    position: fixed;
+    text-align: right;
+    padding: $navbar-padding 0;
+    background: #222;
+    width: 100%;
+
+    .nav-sections {
+      margin: 0 20px;
+      > a {
+        margin: 0 20px;
+      }
+    }
+  }
+}

@@ -2,12 +2,6 @@
 @import 'utilities';
 
 body {
-  overflow-x: hidden;
-
-  &.popover-active {
-    overflow: hidden;
-  }
-
   h1, h2, h3, h4, h5, h6 {
     &.no-bottom-margin {
       margin-bottom: 0;
@@ -19,19 +13,16 @@ body {
 
   h1 {
     font-size: 40px;
-    @include respond-to(handhelds) { font-size: 32px; }
     font-weight: 100;
   }
 
   h2 {
     font-size: 32px;
-    @include respond-to(handhelds) { font-size: 22px; }
     font-weight: 200;
   }
 
   h3 {
     font-size: 22px;
-    @include respond-to(handhelds) { font-size: 18px; }
     font-weight: 200;
   }
 
@@ -58,51 +49,12 @@ body {
     }
   }
 
-  .layout {
-    @include transition();
-
-    padding-left: $nav-width-desktops;
-    @include respond-to(handhelds) {
-      position: relative;
-      padding-left: 0;
-      &.active {
-        left: $nav-width-handhelds;
-      }
-    }
-    @include respond-to(tablets) {
-      position: relative;
-      padding-left: 0;
-      &.active {
-        left: $nav-width-tablets;
-      }
-    }
-  }
-
   .center {
     text-align: center;
   }
 
   .hide {
     display: none;
-  }
-
-  .header {
-    min-height: 60px;
-    padding: 1em 1em 0 1em;
-
-    @include respond-to(handhelds) { padding: 0; }
-
-    .breadcrumbs {
-      .divider {
-        color: #ccc;
-        font-weight: 200;
-      }
-
-      a, a:link, a:visited, a:hover, a:active {
-        color: #08c;
-        text-decoration: none;
-      }
-    }
   }
 
   hr.soften {
@@ -127,16 +79,6 @@ body {
   #main {
     width: 100%;
     position: relative;
-  }
-
-  .content {
-    $content-margin-handhelds: 85px;
-    $content-margin-tablets: 150px;
-    width: 70%;
-    margin: auto;
-    @include respond-to(handhelds) { @include calc(width, '100% - #{$content-margin-handhelds}'); margin-right: 20px; }
-    @include respond-to(tablets) { @include calc(width, '100% - #{$content-margin-tablets}'); }
-    @include respond-to(widescreens) { width: 80%; }
   }
 
   .align-right {
@@ -166,36 +108,6 @@ body {
 
   .separator-xsmall {
     margin: 20px 0;
-  }
-
-  #mainMenuLink {
-    @include transition();
-
-    z-index: 1004;
-
-    &:link, &:visited, &:hover, &:active {
-      color: #eee;
-      text-decoration: none;
-    }
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.9);
-    }
-
-    position: fixed;
-    padding: 10px;
-    left: 0;
-    background: rgba(0, 0, 0, 0.75);
-
-    i {
-      width: auto;
-    }
-
-    &.active {
-      left: $nav-width-handhelds;
-      @include respond-to(handhelds) { left: $nav-width-handhelds; }
-      @include respond-to(tablets) { left: $nav-width-tablets; }
-    }
   }
 
   .section {

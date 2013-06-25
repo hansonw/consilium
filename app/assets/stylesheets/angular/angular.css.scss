@@ -2,6 +2,12 @@
 @import '../shared/utilities';
 
 body {
+  overflow-x: hidden;
+
+  &.popover-active {
+    overflow: hidden;
+  }
+
   .slide-show, .slide-hide {
     @include transition();
   }
@@ -18,5 +24,96 @@ body {
     @include respond-to(handhelds) { left: 2*$nav-width-handhelds; }
     @include respond-to(tablets) { left: 2*$nav-width-tablets; }
     @include respond-to(desktops) { left: 2*$nav-width-desktops; }
+  }
+
+  .content {
+    $content-margin-handhelds: 85px;
+    $content-margin-tablets: 150px;
+    width: 70%;
+    margin: auto;
+    @include respond-to(handhelds) { @include calc(width, '100% - #{$content-margin-handhelds}'); margin-right: 20px; }
+    @include respond-to(tablets) { @include calc(width, '100% - #{$content-margin-tablets}'); }
+    @include respond-to(widescreens) { width: 80%; }
+  }
+
+  .layout {
+    @include transition();
+
+    padding-left: $nav-width-desktops;
+    @include respond-to(handhelds) {
+      position: relative;
+      padding-left: 0;
+      &.active {
+        left: $nav-width-handhelds;
+      }
+    }
+    @include respond-to(tablets) {
+      position: relative;
+      padding-left: 0;
+      &.active {
+        left: $nav-width-tablets;
+      }
+    }
+  }
+
+  h1 {
+    @include respond-to(handhelds) { font-size: 32px; }
+  }
+
+  h2 {
+    @include respond-to(handhelds) { font-size: 22px; }
+  }
+
+  h3 {
+    @include respond-to(handhelds) { font-size: 18px; }
+  }
+
+  #mainMenuLink {
+    @include transition();
+
+    z-index: 1004;
+
+    &:link, &:visited, &:hover, &:active {
+      color: #eee;
+      text-decoration: none;
+    }
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.9);
+    }
+
+    position: fixed;
+    padding: 10px;
+    left: 0;
+    background: rgba(0, 0, 0, 0.75);
+
+    i {
+      width: auto;
+    }
+
+    &.active {
+      left: $nav-width-handhelds;
+      @include respond-to(handhelds) { left: $nav-width-handhelds; }
+      @include respond-to(tablets) { left: $nav-width-tablets; }
+    }
+  }
+
+  .header {
+    min-height: 60px;
+    padding: 1em 1em 0 1em;
+
+    @include respond-to(handhelds) { padding: 0; }
+
+    .breadcrumbs {
+      .divider {
+        color: #ccc;
+        font-weight: 200;
+      }
+
+      a, a:link, a:visited, a:hover, a:active {
+        color: #08c;
+        text-decoration: none;
+      }
+    }
   }
 }
