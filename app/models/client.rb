@@ -59,7 +59,7 @@ class Client
           :id => 'phone',
           :placeholder => 'Area code - phone #, ext #',
           :type => 'text',
-          :phone => true,
+          :validatePhone => true,
         },
         {
           :name => 'Email',

@@ -1,4 +1,4 @@
-App.directive 'phone', ->
+App.directive 'validatePhone', ->
   require: 'ngModel'
   link: ($scope, $elem, $attr, $ctrl) ->
       phoneValidator = (viewValue)->

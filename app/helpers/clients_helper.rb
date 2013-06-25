@@ -3,7 +3,7 @@ module ClientsHelper
     raw "<input name='#{field[:id]}' type='#{field[:type]}'
             ng-model='#{model}' placeholder='#{field[:placeholder]}'
             #{field[:required] && 'required'}
-            #{field[:phone] && 'phone'}
+            #{field[:validatePhone] && 'validate-phone'}
             ng-minlength='#{field[:minlength]}'
             ng-maxlength='#{field[:maxlength]}'
             ng-min='#{field[:min]}'
