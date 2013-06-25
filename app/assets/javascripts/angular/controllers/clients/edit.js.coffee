@@ -59,6 +59,8 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
             "minlength": "too short",
             "maxlength": "too long",
             "required": "required",
+            "phone": "not a valid phone number",
+            "email": "not a valid email",
             "min": "too small",
             "max": "too large",
             "pattern": "in the wrong format",
