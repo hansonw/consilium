@@ -10,7 +10,8 @@ getData = (resource) ->
   return data
 
 online = () ->
-  navigator.onLine # temporary, doesn't actually work
+  connection_type = navigator.network?.connection?.type
+  return !connection_type? || connection_type != Connection?.NONE
 
 # Wraps the localstorage class.
 class LocalStorage
