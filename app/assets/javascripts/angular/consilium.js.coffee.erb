@@ -35,7 +35,7 @@ App.config(["$httpProvider", (provider) ->
   provider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
 ])
 
-App.run ($rootScope, $location, $anchorScroll) ->
+App.run ($rootScope, $location, $anchorScroll, $timeout, Client, Offline) ->
   $rootScope.isLoggedIn = true
 
   $rootScope.$watch 'isLoggedIn', ->
@@ -43,6 +43,20 @@ App.run ($rootScope, $location, $anchorScroll) ->
 
   $rootScope.$on '$routeChangeStart', ($rootScope, $currView, $prevView) ->
     return true
+
+  $rootScope.online_status = true
+
+  $rootScope.checkOnline = ->
+    online = Offline.online()
+    if online != $rootScope.online_status
+      if $rootScope.online_status = online
+        # User just came online, so we should sync everything now.
+        Client.sync()
+    $timeout($rootScope.checkOnline, 2000)
+
+  $rootScope.checkOnline()
+  # Also sync every time we navigate to a different page.
+  $rootScope.$on('$routeChangeSuccess', -> Client.sync())
 
   $rootScope.scrollTo = (id) ->
     old = $location.hash()

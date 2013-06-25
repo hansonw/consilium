@@ -35,7 +35,7 @@ class ClientsController < ApplicationController
       @clients = Client.where(select)
     end
 
-    @clients = @clients.skip(params[:start] || 0).limit(params[:limit] || 0)
+    @clients = @clients.skip(params[:start] || 0).limit(params[:limit] || 0).asc("name.value")
 
     if params[:short]
       @clients.only(:id, :name, :company)

@@ -9,7 +9,8 @@ getData = (resource) ->
         data[key] = val
   return data
 
-online = () ->
+# Checks if a mobile device has a connection (always true on desktop)
+online = ->
   connection_type = navigator.network?.connection?.type
   return !connection_type? || connection_type != Connection?.NONE
 
@@ -35,22 +36,15 @@ class LocalStorage
 
       need_update = false
       # Check each field individually, and update
-      for key, val in data
-        if val.updated_at?
-          if !existing[key]?.updated_at? || existing[key].updated_at < val.updated_at
-            existing[key] = val
-      for key, val in existing
+      for key, val of existing
         if val.updated_at?
           if !data[key]?.updated_at? || data[key].updated_at < val.updated_at
             data[key] = val
             need_update = true
 
-      if need_update
-        return data
-
     db[data.id] = data
     @save_db(db)
-    return null
+    return if need_update then data else null
 
   delete: (id, permanent = false) ->
     db = @get_db() || {}
@@ -69,6 +63,8 @@ class LocalStorage
 
 # Wraps an angular HTTP resource with offline functionality.
 App.factory 'Offline', ['$timeout', ($timeout) -> {
+  online: online,
+
   # Must provide name to use as the local storage key
   wrap: (key, resource) ->
     storage = new LocalStorage(key)
@@ -116,6 +112,7 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
               OfflineResource.defer(=> error(data)) if error
           )
         else
+          storage.insert(this)
           success() if success
 
       $delete: ->
@@ -142,11 +139,13 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
         return offline
 
       @sync: (success, error) ->
+        # Super simple sync function that checks everything. Can easily be made more efficient
         if online()
           resource.query({}, (data) =>
             serverIds = {}
             for item in data
               serverIds[item.id] = true
+              @syncWithLocal(item)
 
             for id, val of storage.get_db()
               if !val.id?
