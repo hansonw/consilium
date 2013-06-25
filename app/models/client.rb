@@ -77,7 +77,7 @@ class Client
       ],
     },
     {
-      :name => 'Business Ops',
+      :name => 'Business Operations',
       :id => 'businessOps',
       :type => [
         {
