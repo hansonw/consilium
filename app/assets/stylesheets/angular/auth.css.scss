@@ -1,0 +1,23 @@
+@import '../shared/constants';
+@import '../shared/utilities';
+
+body {
+  .login {
+    $login-padding: 50px;
+
+    padding: 0 $login-padding;
+    margin: auto;
+    width: 600px;
+
+    @include respond-to(tablets) { width: 80%; }
+    @include respond-to(handhelds) {
+      width: 100%;
+      @include calc(width, '100% - #{2*$login-padding}');
+    }
+
+    .login-buttons {
+      margin-top: 15px;
+      float: right;
+    }
+  }
+}
