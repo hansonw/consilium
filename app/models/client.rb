@@ -11,6 +11,13 @@ class Client
       :required => true,
     },
     {
+      :name => 'Company',
+      :id => 'company',
+      :placeholder => 'Name of Company',
+      :type => 'text',
+      :required => false,
+    },
+    {
       :name => 'Address',
       :id => 'address',
       :placeholder => 'Address (apt., suite, bldg.)',

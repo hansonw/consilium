@@ -1,4 +1,4 @@
-App.controller 'ClientsIndexCtrl', ['$scope', 'Client', ($scope, Client) ->
+App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', ($scope, $location, Client) ->
   results_per_page = 20
 
   $scope.loading = false
@@ -7,6 +7,9 @@ App.controller 'ClientsIndexCtrl', ['$scope', 'Client', ($scope, Client) ->
   $scope.resultStart = 0
   $scope.moreResults = false
   $scope.showAdvancedSearch = false
+
+  $scope.clientClick = (clnt) ->
+    $location.path('/clients/view/' + clnt )
 
   $scope.updateResults = (more) ->
     if more && ($scope.loading || !$scope.moreResults)
