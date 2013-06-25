@@ -26,8 +26,11 @@
     display: none;
     width: $client-form-nav-width - $client-form-nav-padding;
     vertical-align: top;
-    padding-right: $client-form-nav-padding;
-    @include respond-to(widescreens) { display: inline-block; }
+
+    @include respond-to(widescreens) {
+      display: inline-block;
+      padding-right: $client-form-nav-padding;
+    }
   }
 }
 
@@ -96,8 +99,6 @@
 .client-search {
   @include transition();
 
-  padding-bottom: 100px;
-
   width: 100%;
   display: inline-block;
 
@@ -165,9 +166,12 @@
             label {
               width: $advanced-search-label-width;
               margin-right: 5px;
+              display: inline-block;
             }
             input {
-              @include calc(width, '100% - #{$advanced-search-label-width}');
+              width: 30px;
+              display: inline-block;
+              @include calc(width, '100% - #{$advanced-search-label-width} - 10px');
             }
           }
         }
@@ -178,7 +182,6 @@
   #results {
     table-layout: fixed;
     word-wrap: break-word;
-    margin-bottom: 50px;
 
     .name {
     }
