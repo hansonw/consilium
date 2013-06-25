@@ -13,16 +13,18 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
   # watch actually gets called.
   $scope._watchAdded = false
 
+  # Sometimes the act of saving changes the model. We don't really want to mark it as dirty in those cases.
+  $scope.lastSaved = null
+
   # TODO: error should be modal
-  $scope.client = if $scope.clientId \
-    then Client.get(id: $scope.clientId, (-> $scope.lastSaved = $scope.client.getData()),
+  if $scope.clientId
+    $scope.client = Client.get(id: $scope.clientId, (-> $scope.lastSaved = $scope.client.getData()),
       (data) ->
         alert('The requested client was not found.')
-        $location.path('/clients')) \
-    else new Client()
-
-  # Sometimes the act of saving changes the model. We don't really want to mark it as dirty in those cases.
-  $scope.lastSaved = $scope.client.getData()
+        $location.path('/clients'))
+  else
+    $scope.client = new Client()
+    $scope.lastSaved = $scope.client.getData()
 
   $scope.clientContact = {}
 
@@ -31,17 +33,25 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
   $scope.$watch 'client', ( ->
     return $scope._watchAdded = true if not $scope._watchAdded
 
-    if angular.equals($scope.client.getData(), $scope.lastSaved)
+    if $scope.lastSaved == null || angular.equals($scope.client.getData(), $scope.lastSaved)
       return
 
     $scope.dirty = true
-    $timeout (->
+    if !$scope.newClient.$valid
+      return
+
+    $scope._saveTimer = $timeout (->
       time = new Date().getTime()
       if time - $scope._lastChange >= $scope._saveTimeout
         $scope.saveForm(false)
     ), $scope._saveTimeout
     $scope._lastChange = new Date().getTime()
   ), true
+
+  $scope.$on('$destroy', ->
+    if $scope._saveTimer?
+      $timeout.cancel($scope._saveTimer)
+  )
 
   $scope.errorCount = ->
     ret = 0
@@ -135,4 +145,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
     collection = (($scope.client[objName] ||= {}).value ||= [])
     if index < collection.length
       collection.splice(index, 1)
+
+  $scope.done = ->
+    window.history.back()
 ]
