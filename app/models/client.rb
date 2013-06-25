@@ -48,6 +48,14 @@ class Client
           :placeholder => 'Mr./Mrs./Dr. (etc)',
           :type => 'text',
         },
+        {
+          :name => 'Phone',
+          :id => 'phone',
+          :placeholder => 'Area code - phone #, ext #',
+          :type => 'text',
+          :phone => true,
+          #:required => true,
+        },
       ],
     },
     {
