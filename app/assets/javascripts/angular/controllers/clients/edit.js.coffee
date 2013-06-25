@@ -60,6 +60,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
             "maxlength": "too long",
             "required": "required",
             "phone": "not a valid phone number",
+            "email": "not a valid email",
             "min": "too small",
             "max": "too large",
             "pattern": "in the wrong format",
@@ -102,6 +103,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
   $scope.addToField = (objName) ->
     obj = $scope[objName]
     collection = (($scope.client[objName] ||= {}).value ||= [])
+    
     form = $scope['form' + objName]
     if !form.$valid
       alert("Please fix the following errors:\n" + $scope.errorText(form.$error))

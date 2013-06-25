@@ -49,13 +49,31 @@ class Client
           :type => 'text',
         },
         {
+          :name => 'Position',
+          :id => 'position',
+          :placeholder => 'Accountant CEO Insured Manager Owner President Principal/Partner Secretart Vice President',
+          :type => 'text',
+        },
+        {
           :name => 'Phone',
           :id => 'phone',
           :placeholder => 'Area code - phone #, ext #',
           :type => 'text',
           :phone => true,
-          #:required => true,
         },
+        {
+          :name => 'Email',
+          :id => 'email',
+          :placeholder => 'john@consilium.ca',
+          :type => 'email',
+        },
+          {
+          :name => 'Other',
+          :id => 'other',
+          :placeholder => 'Main, Direct, Toll, Fax, Pager, Cell, Home',
+          :type => 'text',
+        },
+
       ],
     },
     {
