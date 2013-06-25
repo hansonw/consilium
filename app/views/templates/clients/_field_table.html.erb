@@ -20,8 +20,8 @@
     <tr data-ng-repeat="item in client.<%= field[:id] %>.value">
       <td>{{ item.name }}</td>
       <td class="align-right">
-        <a class="pure-button pure-button-small"><i class="icon-edit icon-large"></i></a>
-        <a class="pure-button pure-button-small pure-button-error"><i class="icon-trash icon-large"></i></a>
+        <a class="pure-button pure-button-small" data-ng-click="editInField('<%= field[:id] %>', $index)"><i class="icon-edit icon-large"></i></a>
+        <a class="pure-button pure-button-small pure-button-error" data-ng-click="deleteFromField('<%= field[:id] %>', $index)"><i class="icon-trash icon-large"></i></a>
       </td>
     </tr>
   </tbody>

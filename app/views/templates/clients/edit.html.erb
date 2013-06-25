@@ -69,7 +69,7 @@
             </a>
             <h3>Photos</h3>
           </div>
-                  
+
           <div id="toolbar" data-ng-class="{'active': menuShouldShow()}">
             <div class="content">
               <button class="pure-button pure-button-secondary pure-button-large" data-ng-class="{'pure-button-disabled': !saving && !dirty}"
@@ -77,14 +77,17 @@
                 <span data-ng-if="saving">
                   <i class="icon-spinner icon-spin"></i> Saving...
                 </span>
-                <span data-ng-if="!saving && !dirty">
+                <span data-ng-if="!saving && !dirty && client.isNew()">
+                  No changes
+                </span>
+                <span data-ng-if="!saving && !dirty && !client.isNew()">
                   Saved
                 </span>
                 <span data-ng-if="!saving && dirty && newClient.$valid">
                   Save
                 </span>
                 <span data-ng-if="!saving && dirty && !newClient.$valid">
-                  Save (errors)
+                  Save ({{ errorCount() }})
                 </span>
               </button>
               <a class="pure-button pure-button-primary pure-button-large">Done</a>

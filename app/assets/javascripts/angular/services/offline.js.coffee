@@ -86,6 +86,9 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
       getData: ->
         getData(this)
 
+      isNew: ->
+        @id.indexOf('local') == 0
+
       $save: (success, error) ->
         existing = storage.get(@id)
         for key, val of @getData()
@@ -95,7 +98,7 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
         if online()
           @_save((data) =>
             # Delete the temporary model from the local DB if it exists.
-            if @id.indexOf('local') == 0
+            if @isNew()
               storage.delete(@id, true)
             angular.extend(this, data)
             storage.insert(data)

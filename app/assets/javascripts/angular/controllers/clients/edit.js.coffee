@@ -23,7 +23,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
 
   # Sometimes the act of saving changes the model. We don't really want to mark it as dirty in those cases.
   $scope.lastSaved = $scope.client.getData()
-  
+
   $scope.clientContact = {}
 
   # Detect if it's been over _saveTimeout seconds since the last change to the model.
@@ -42,6 +42,13 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
     ), $scope._saveTimeout
     $scope._lastChange = new Date().getTime()
   ), true
+
+  $scope.errorCount = ->
+    ret = 0
+    for key, val of $scope.newClient.$error
+      ret += val?.length || 0
+    plural = if ret == 1 then '' else 's'
+    return "#{ret} error#{plural}"
 
   $scope.errorText = (error) ->
     error_str = ''
@@ -91,7 +98,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
           alert("Please fix the following errors:\n" + error_str)
     )
 
-  $scope.addObjectToClient = (objName) ->
+  $scope.addToField = (objName) ->
     obj = $scope[objName]
     collection = (($scope.client[objName] ||= {}).value ||= [])
 
@@ -104,8 +111,26 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
     # collection -- the collection of objects getting pushed to
     # obj -- the object being pushed
 
-    collection.push(obj)
+    if obj.$index?
+      # It's already tied to the one in the collection; just remove the index field
+      delete obj.$index
+    else
+      collection.push(obj)
+
     $scope[objName] = {}
     $('#modalAdd' + objName).toggleClass('active')
     $('body').toggleClass('modal-active')
+
+  $scope.editInField = (objName, index) ->
+    collection = (($scope.client[objName] ||= {}).value ||= [])
+    if index < collection.length
+      $scope[objName] = collection[index]
+      $scope[objName].$index = index
+      $('#modalAdd' + objName).toggleClass('active')
+      $('body').toggleClass('modal-active')
+
+  $scope.deleteFromField = (objName, index) ->
+    collection = (($scope.client[objName] ||= {}).value ||= [])
+    if index < collection.length
+      collection.splice(index, 1)
 ]
