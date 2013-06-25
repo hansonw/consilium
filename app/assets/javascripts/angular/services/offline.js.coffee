@@ -116,7 +116,7 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
           )
         else
           success() if success
-        
+
       $delete: ->
         storage.delete(@id)
         @_delete((data) =>
@@ -195,16 +195,24 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
       @query: (params, success, error) ->
         res = []
         queryLocal = (data) =>
-          ret = storage.get_all()
-          if ret != false
-            for val in ret
-              if !params.query? ||
-                 val.name?.value?.match?(///#{params.query}///i)? ||
-                 val.company?.value?.match?(///#{params.query}///i)? ||
-                 val.email?.value?.match?(/#{params.query}/i)?
-                res.push(new OfflineResource(val))
+          stored = storage.get_all()
+          if stored != false
             start = params.start || 0
-            res = res.slice(start, params.limit && start + params.limit)
+            limit = params.limit || 1e9
+            index = 0
+            for val in stored
+              ok = true
+              if params.query?
+                ok = val.name?.value?.match?(///#{params.query}///i)? ||
+                     val.company?.value?.match?(///#{params.query}///i)? ||
+                     val.email?.value?.match?(/#{params.query}/i)?
+              else if params.filter?
+                for key, str of params.filter
+                  ok &= val[key]?.value?.match?(///#{str}///i)?
+              if ok
+                if index >= start && index < start + limit
+                  res.push(new OfflineResource(val))
+                index++
             @defer(=> success(res)) if success
           else
             @defer(=> error(data)) if error

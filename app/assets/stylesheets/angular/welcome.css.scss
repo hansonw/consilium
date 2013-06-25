@@ -1,4 +1,6 @@
 body {
+  overflow-y: scroll;
+
   $fontAwesomePath: "font" !default;
   @font-face {
     font-family: 'FontAwesome';
