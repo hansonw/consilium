@@ -36,11 +36,13 @@ App.config(["$httpProvider", (provider) ->
 ])
 
 App.run ($rootScope, $location, $anchorScroll) ->
+  $rootScope.isLoggedIn = true
+
+  $rootScope.$watch 'isLoggedIn', ->
+    $location.path('/auth/login') if not $rootScope.isLoggedIn
+
   $rootScope.$on '$routeChangeStart', ($rootScope, $currView, $prevView) ->
     return true
-
-  $rootScope.logout = ->
-    $location.path('/login')
 
   $rootScope.scrollTo = (id) ->
     old = $location.hash()

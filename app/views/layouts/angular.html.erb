@@ -14,10 +14,11 @@
 <body data-ng-click="menuItemSelect(null)">
   <header>
   </header>
-  <div class="pure-g-r layout" data-ng-class="{'active': menuShouldShow()}">
-    <a href="" id="mainMenuLink" class="pure-menu-link" data-ng-click="mainMenuLinkClick()" data-ng-class="{'active': menuShouldShow()}">
+  <div class="pure-g-r" data-ng-class="{'active': menuShouldShow(), 'layout': isLoggedIn}">
+    <a href="" id="mainMenuLink" class="pure-menu-link" data-ng-click="mainMenuLinkClick()"
+       data-ng-class="{'active': menuShouldShow()}" data-ng-show="isLoggedIn">
       <i class="icon-reorder icon-2x icon-fixed-width"></i></a>
-    <div class="nav pure-u" data-ng-class="{'active': menuShouldShow()}">
+    <div class="nav pure-u" data-ng-class="{'active': menuShouldShow()}" data-ng-show="isLoggedIn">
       <div class="pure-menu pure-menu-open">
         <a href="#/" class="pure-menu-heading">Consilium</a>
         <ul>
@@ -28,12 +29,13 @@
               <i data-ng-class="{'icon-caret-down': menuItemIsCaretExpanded(menuItem.link), 'icon-caret-right': !menuItemIsCaretExpanded(menuItem.link)}"></i>
             </a>
           </li>
-          <li class="menu-item-divided"><a href="" data-ng-click="logout()" eat-click>Logout</a></li>
+          <li class="menu-item-divided"><a href="" data-ng-click="isLoggedIn = false" eat-click>Logout</a></li>
         </ul>
       </div>
     </div>
     <div class="subnav pure-u" data-ng-repeat="menuItem in menuItems"
-         data-ng-class="{'nav-active': menuShouldShow(), 'active': subMenuShouldShow(menuItem.link)}">
+         data-ng-class="{'nav-active': menuShouldShow(), 'active': subMenuShouldShow(menuItem.link)}"
+         data-ng-show="isLoggedIn">
       <div class="pure-menu pure-menu-open">
         <ul>
           <li data-ng-repeat="subMenuItem in menuItem.subMenuItems"
