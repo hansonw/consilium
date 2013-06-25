@@ -21,6 +21,14 @@ App.config(['$routeProvider', ($routeProvider) ->
       templateUrl: '/templates/clients/view.html'
     $routeProvider.when '/clients/edit/:clientId',
       templateUrl: '/templates/clients/edit.html'
+
+  #############
+  # Auth routes
+  #############
+  $routeProvider.when '/auth/login',
+    templateUrl: '/templates/auth/login.html'
+    $routeProvider.when '/auth',
+      templateUrl: '/templates/auth/login.html'
 ])
 
 App.config(["$httpProvider", (provider) ->
@@ -28,6 +36,12 @@ App.config(["$httpProvider", (provider) ->
 ])
 
 App.run ($rootScope, $location, $anchorScroll) ->
+  $rootScope.$on '$routeChangeStart', ($rootScope, $currView, $prevView) ->
+    return true
+
+  $rootScope.logout = ->
+    $location.path('/login')
+
   $rootScope.scrollTo = (id) ->
     old = $location.hash()
     $location.hash(id)
