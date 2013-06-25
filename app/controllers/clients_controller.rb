@@ -1,5 +1,6 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:edit, :destroy]
+  before_filter :json_authenticate
 
   respond_to :json
 
@@ -137,4 +138,11 @@ class ClientsController < ApplicationController
       end
       params.permit(permitted)
     end
+
+    def json_authenticate
+      unless @user = warden.authenticate
+        render json: '', :status => :forbidden
+      end
+    end
+
 end

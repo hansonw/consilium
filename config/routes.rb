@@ -7,6 +7,8 @@ Consilium::Application.routes.draw do
 
   scope :api do
     resources :clients
+    get 'auth/login' => 'auth#login'
+    get 'auth/logout' => 'auth#logout'
   end
 
   get 'templates/:path.html' => 'templates#page', :constraints => { :path => /.+/ }
