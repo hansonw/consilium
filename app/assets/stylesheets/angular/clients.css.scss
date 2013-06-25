@@ -211,19 +211,33 @@
 }
 
 .client-view {
-  @include respond-to(widescreens) {
-    padding-top: 20px;
-  }
+  padding-top: 20px;
 
   .client-info {
-    @include respond-to(widescreens) {
-      width: 35%;
-      float: left;
-    }
     margin-bottom: 30px;
+
+    .client-buttons {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
 
     .value {
       vertical-align: middle;
+    }
+
+    @include respond-to(widescreens) {
+      width: 35%;
+      float: left;
+      .desc {
+        display: none;
+      }
+    }
+
+    @include respond-to(handhelds) {
+      .desc {
+        display: none;
+      }
     }
   }
 
