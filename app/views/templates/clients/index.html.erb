@@ -25,15 +25,15 @@
                   <hr class="soften" />
                   <div class="advanced-search-field">
                     <%= label_tag 'name', 'Name' %>
-                    <%= text_field_tag 'name', nil, :placeholder => 'First name, last name, etc.', :data => {:ng_model => 'filter_name'} %>
+                    <%= text_field_tag 'name', nil, :placeholder => 'First name, last name, etc.', :data => {:ng_model => 'filter.name'} %>
                   </div>
                   <div class="advanced-search-field">
                     <%= label_tag 'email', 'Email' %>
-                    <%= text_field_tag 'email', nil, :placeholder => 'Email address', :data => {:ng_model => 'filter_email'} %>
+                    <%= text_field_tag 'email', nil, :placeholder => 'Email address', :data => {:ng_model => 'filter.email'} %>
                   </div>
                   <div class="advanced-search-field">
                     <%= label_tag 'company', 'Company' %>
-                    <%= text_field_tag 'company', nil, :placeholder => 'Company', :data => {:ng_model => 'filter_company'} %>
+                    <%= text_field_tag 'company', nil, :placeholder => 'Company', :data => {:ng_model => 'filter.company'} %>
                   </div>
                 </div>
                 <a href="" class="pretty advanced-search-btn">Advanced Search <i class="icon-caret-right"></i></a>

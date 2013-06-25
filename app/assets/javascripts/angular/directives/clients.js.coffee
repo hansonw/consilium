@@ -4,4 +4,5 @@ App.directive 'advancedSearch', ->
     domElem.find('a.advanced-search-btn').bind 'click', (e) ->
       domElem.toggleClass 'active'
       domElem.find('i').toggleClass('icon-caret-right icon-caret-down')
-
+      $scope.showAdvancedSearch = !$scope.showAdvancedSearch
+      $scope.$apply

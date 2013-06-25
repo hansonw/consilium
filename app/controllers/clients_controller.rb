@@ -18,11 +18,24 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.any_of(
-      {"name.value" => /#{Regexp.escape(params[:query] || '')}/i},
-      {"company.value" => /#{Regexp.escape(params[:query] || '')}/i},
-      {"email.value" => /#{Regexp.escape(params[:query] || '')}/i},
-    ).skip(params[:start] || 0).limit(params[:limit] || 0)
+    if params[:filter].nil?
+      @clients = Client.any_of(
+        {"name.value" => /#{Regexp.escape(params[:query] || '')}/i},
+        {"company.value" => /#{Regexp.escape(params[:query] || '')}/i},
+        {"email.value" => /#{Regexp.escape(params[:query] || '')}/i},
+      )
+    else
+      filter = JSON.parse(params[:filter])
+      select = {}
+      filter.each do |key, val|
+        if !val.empty?
+          select[key + '.value'] = /#{Regexp.escape(val)}/i
+        end
+      end
+      @clients = Client.where(select)
+    end
+
+    @clients = @clients.skip(params[:start] || 0).limit(params[:limit] || 0)
 
     if params[:short]
       @clients.only(:id, :name, :company)
@@ -66,7 +79,7 @@ class ClientsController < ApplicationController
     # (otherwise client can provide an arbitrarily large one to prevent future editing)
     cur_time = (Time.now.to_f * 1000).to_i
 
-    # If an ID is provided, try looking it up first    
+    # If an ID is provided, try looking it up first
     if existing = Client.where(:id => params[:id]).first
       # Sync all fields
       @client.attributes.each do |key, val|

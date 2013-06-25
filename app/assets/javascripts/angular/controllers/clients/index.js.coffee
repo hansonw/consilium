@@ -16,7 +16,17 @@ App.controller 'ClientsIndexCtrl', ['$scope', 'Client', ($scope, Client) ->
     $scope.loading = true
     $scope.error = false
     $scope.resultStart = if more then $scope.resultStart + results_per_page else 0
-    clients = Client.query({short: true, query: $scope.query, start: $scope.resultStart, limit: results_per_page+1},
+    query_params =
+      short: true, # indicates we should only fetch id/name/company
+      start: $scope.resultStart,
+      limit: results_per_page+1
+
+    if $scope.showAdvancedSearch
+      query_params.filter = $scope.filter
+    else
+      query_params.query = $scope.query
+
+    clients = Client.query(query_params,
         ->
           $scope.moreResults = clients.length > results_per_page
           if more
@@ -31,4 +41,6 @@ App.controller 'ClientsIndexCtrl', ['$scope', 'Client', ($scope, Client) ->
 
   # Can't pass updateResults directly: $watch passes other arguments automatically
   $scope.$watch('query', -> $scope.updateResults(false))
+  $scope.$watch('showAdvancedSearch', -> $scope.updateResults(false))
+  $scope.$watch('filter', (-> $scope.updateResults(false)), true)
 ]
