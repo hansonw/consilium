@@ -140,24 +140,24 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
           offline = new OfflineResource(getData(data))
         return offline
 
-      @syncAllWithLocal: (dataSet, result) ->
-        serverIds = {}
-        for data in dataSet
-          serverIds[data.id] = true
-          if offline = @syncWithLocal(data)
-            result.push(offline)
-        for id, val of storage.get_db()
-          if val.id.indexOf('local') == 0
-            offline = new OfflineResource(val)
-            result.push(offline)
-            offline.$save()
-          else if !serverIds[id]
-            storage.delete(id, true) # Server already deleted these.
-
       @sync: (success, error) ->
         if online()
           resource.query({}, (data) =>
-            @syncAllWithLocal(data, [])
+            serverIds = {}
+            for item in data
+              serverIds[item.id] = true
+
+            for id, val of storage.get_db()
+              if !val.id?
+                offline = new OfflineResource(val)
+                offline.id = id
+                offline.$delete()
+                storage.delete(id, true)
+              else if val.id.indexOf('local') == 0
+                offline = new OfflineResource(val)
+                offline.$save()
+              else if !serverIds[id]
+                storage.delete(id, true) # Server already deleted these.
             success(data) if success
           , error || angular.noop)
         else
@@ -168,7 +168,7 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
         queryLocal = (data) =>
           # TODO: differentiate between server deletion/error
           ret = storage.get(params.id)
-          if ret?
+          if ret?.id?
             angular.extend(res, ret)
             @defer(=> success(res)) if success
           else
@@ -201,6 +201,8 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
             limit = params.limit || 1e9
             index = 0
             for val in stored
+              if !val.id?
+                continue
               ok = true
               if params.query?
                 ok = val.name?.value?.match?(///#{params.query}///i)? ||

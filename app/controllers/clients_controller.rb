@@ -115,7 +115,7 @@ class ClientsController < ApplicationController
   # DELETE /clients/1.json
   def destroy
     @client.destroy
-    respond_with head :no_content
+    render json: ''
   end
 
   private

@@ -12,10 +12,16 @@
   <div class="content client-view">
     <div class="client-info pure-form pure-form-aligned">
       <div class="section" id="basicInfo">
-        <a class="pull-right pure-button pure-button-primary"
-           data-ng-href="#/clients/edit/{{ clientId }}">
-          <i class="icon-edit"></i> Edit</span>
-        </a>
+        <div class="pull-right">
+          <a class="pure-button pure-button-primary"
+             data-ng-href="#/clients/edit/{{ clientId }}">
+            <i class="icon-edit"></i><span class="verbose-desc"> View and</span> Edit
+          </a>
+          <a class="pure-button pure-button-error"
+             data-ng-click="deleteClient()">
+            <i class="icon-trash"></i> Delete
+          </a>
+        </div>
         <h3 class="no-top-margin">Client Info.</h3>
       </div>
 
