@@ -1,3 +1,13 @@
-App.factory 'AuthToken', ['$resource', 'Offline', ($resource, Offline) ->
-  Offline.wrap('AuthToken', $resource('/api/auth', {format: 'json', username: '@username', password: '@password'}, {'save': {method: 'PUT'}}))
+App.factory 'AuthToken', ['$resource', ($resource) ->
+  get: ->
+    localStorage.getItem('authToken')
+  set: (authToken) ->
+    localStorage.setItem('authToken', authToken)
+  remove: ->
+    localStorage.removeItem('authToken')
+  addAuthTokenToJSONRequest: (obj) ->
+    authToken = $.parseJSON(@get() || {})
+    obj.email = authToken.email
+    obj.auth_token = authToken.auth_token
+    obj
 ]

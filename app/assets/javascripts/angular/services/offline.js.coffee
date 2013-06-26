@@ -64,7 +64,7 @@ class LocalStorage
     @get_db()? && (key for val, key of @get_db())
 
 # Wraps an angular HTTP resource with offline functionality.
-App.factory 'Offline', ['$timeout', ($timeout) -> {
+App.factory 'Offline', ['$timeout', 'AuthToken', ($timeout, AuthToken) -> {
   online: online,
 
   # key - index to use for local storage DB
@@ -97,7 +97,7 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
             @[key].updated_at = Date.now() # Estimate. Will be updated by the server
 
         if online()
-          @_save((data) =>
+          @_save(AuthToken.addAuthTokenToJSONRequest({}), (data) =>
             # Delete the temporary model from the local DB if it exists.
             if @isNew()
               storage.delete(@id, true)
@@ -121,7 +121,7 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
 
       $delete: ->
         storage.delete(@id)
-        @_delete((data) =>
+        @_delete(AuthToken.addAuthTokenToJSONRequest({}), (data) =>
           storage.delete(@id, true)) if online()
 
       # Ensures a function is called after the current method returns.
@@ -145,7 +145,7 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
       @sync: (success, error) ->
         # Super simple sync function that checks everything. Can easily be made more efficient
         if online()
-          resource.query({}, (data) =>
+          resource.query(AuthToken.addAuthTokenToJSONRequest({}), (data) =>
             serverIds = {}
             for item in data
               serverIds[item.id] = true
@@ -185,7 +185,7 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
                 return
 
         if online()
-          resource.get(params,
+          resource.get(AuthToken.addAuthTokenToJSONRequest(params),
             (data) =>
               @syncWithLocal(data)
               queryLocal()
