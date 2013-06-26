@@ -16,8 +16,9 @@
           <div class="search" scroll-fix scroll-fix-condition="screen and (min-width:1200px)">
             <div class="search-controls">
               <input id="search" type="text" class="pure-input" placeholder="Name, email, or company" autocomplete="off" data-ng-model="query">
+              <i class="icon-spinner icon-spin spinner" data-ng-class="loading && 'loading'"></i>
               <button id="btnSearch" class="pure-button pure-button-small pure-button-primary">
-                <i data-ng-class="loading ? 'icon-spinner icon-spin' : 'icon-search'"></i>
+                <i class="icon-search"></i>
               </button>
             </div>
             <div class="advanced-search" advanced-search>

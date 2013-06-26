@@ -132,11 +132,15 @@
         @include calc(width, '100% - #{$search-button-width}');
       }
 
-      .loading {
+      .spinner {
         position: absolute;
         display: inline-block;
         margin-left: -30px;
-        margin-top: 5px;
+        margin-top: 7px;
+        opacity: 0;
+        &.loading {
+          opacity: 1;
+        }
       }
 
       button#btnSearch {
