@@ -114,7 +114,6 @@ body {
     position: relative;
 
     > a {
-      // position: absolute;
       bottom: 0;
       right: 0;
     }
@@ -125,6 +124,12 @@ body {
    */
   .modal {
     @include transition();
+
+    .modal-inside {
+      padding-left: 0;
+      overflow-y: scroll;
+      height: 101%;
+  }
 
     opacity: 0;
     top: 0;

@@ -52,6 +52,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
     if $scope._saveTimer?
       $timeout.cancel($scope._saveTimer)
   )
+  $("body").removeClass("modal-active");
 
   $scope.errorCount = ->
     ret = 0
