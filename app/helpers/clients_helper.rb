@@ -12,13 +12,14 @@ module ClientsHelper
       raw dropdownString
     when 'checkbox'
       checkboxString = ""
-      field[:options].each do |option, key|
-        checkboxString += "<div class='checkbox'><input name='#{field[:id]}' type='#{field[:type]}'
-                                    ng-model='#{model}.#{option.camelize(:lower)}'
-                                    id='#{field[:id]}'
-                                    value='#{option}'
-                                    #{field[:required] && 'required'}
-                                  /><div class='checkbox-label'>#{key}</div></div>"
+      field[:options].each do |key, option|
+        checkboxString += "<div class='checkbox-field'><input name='#{field[:id]}' type='#{field[:type]}'
+                              ng-click=\"#{model} = (#{model}=='#{key}')?'':'#{key}'\"
+                              id='#{key}'
+                              value='#{key}'
+                              ng-checked=\"#{model} == '#{key}'\"
+                              #{field[:required] && 'required'}
+                            /><div class='checkbox-label'>#{option}</div></div>"
       end
       raw checkboxString
     else
