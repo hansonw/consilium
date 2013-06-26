@@ -68,6 +68,13 @@ body {
     @include respond-to(handhelds) { font-size: 18px; }
   }
 
+  .insidemodal {
+    padding-left: 0;
+    right: 0;
+    overflow-y: scroll;
+    height: 101%;
+  }
+
   #mainMenuLink {
     @include transition();
 
