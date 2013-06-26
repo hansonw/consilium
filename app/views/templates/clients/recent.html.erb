@@ -10,7 +10,7 @@
       <hr class="soften" />
     </div>
 
-    <table id="results" class="pure-table pure-table-horizontal pure-table-full-width">
+    <table class="client-table pure-table pure-table-horizontal pure-table-full-width">
       <thead>
         <tr>
           <th class="name">Name</th>
@@ -19,11 +19,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-show="error">
-          <td colspan="3">Could not load results. Please try again later</td>
-        </tr>
-        <tr data-ng-show="!error && !clients.length && !loading">
-          <td colspan="3">No clients matching your search criteria.</td>
+        <tr data-ng-show="!clients.length">
+          <td colspan="3">You haven't viewed any clients recently.</td>
         </tr>
         <tr data-ng-repeat="client in clients" data-ng-click="clientClick(client.id)">
           <td class="name">{{ client.name }}</td>
@@ -33,9 +30,6 @@
               <i class="icon-share-alt"></i>
             </a>
           </td>
-        </tr>
-        <tr id="loading" data-ng-show="loading && (!clients.length || moreResults)">
-          <td colspan="3"><i class="icon-spinner icon-spin icon-large"></i> Loading results...</td>
         </tr>
       </tbody>
     </table>

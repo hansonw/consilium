@@ -195,34 +195,6 @@
       }
     }
   }
-
-  #results {
-    table-layout: fixed;
-    word-wrap: break-word;
-
-    .name {
-    }
-
-    .company {
-      width: 30%;
-    }
-
-    .actions {
-      width: 50px;
-      text-align: center;
-    }
-
-    #loading {
-      border-top: 1px solid #cbc;
-      text-align: center;
-    }
-
-    .ng-scope:hover {
-      cursor: pointer;
-      cursor: hand;
-      background-color: #e0e0e0;
-    }
-  }
 }
 
 .client-view {
@@ -261,5 +233,33 @@
       width: 55%;
       float: right;
     }
+  }
+}
+
+.client-table {
+  table-layout: fixed;
+  word-wrap: break-word;
+
+  .name {
+  }
+
+  .company {
+    width: 30%;
+  }
+
+  .actions {
+    width: 50px;
+    text-align: center;
+  }
+
+  #loading {
+    border-top: 1px solid #cbc;
+    text-align: center;
+  }
+
+  .ng-scope:hover {
+    cursor: pointer;
+    cursor: hand;
+    background-color: #e0e0e0;
   }
 }
