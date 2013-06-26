@@ -144,7 +144,7 @@
     @include respond-to(tablets) { width: $label-width-lowres; margin: 0 $label-margin 0 0; }
   }
 
-  input[type="text"] {
+  input[type="text"], input[type="email"], input[type="password"] {
     width: 350px;
     @include calc(width, "100% - #{$label-width + 2*$label-margin + $comfort-margin}");
     @include respond-to(tablets) { @include calc(width, "100% - #{$label-width-lowres + 2*$label-margin + $comfort-margin}"); }
