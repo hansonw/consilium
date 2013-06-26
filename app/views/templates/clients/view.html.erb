@@ -1,8 +1,10 @@
 <div data-ng-controller="ClientsViewCtrl" class="pure-form">
   <div class="content header pure-u-1">
-    <h2 class="no-bottom-margin">View Client</h2>
+    <h2 class="no-bottom-margin">{{ client.name.value }}</h2>
     <div class="breadcrumbs">
       <a data-ng-href="#/">Home</a>
+      <span class="divider">&gt;</span>
+      <a data-ng-href="#/clients/">Clients</a>
       <span class="divider">&gt;</span>
       <a data-ng-href="#/clients/view/{{ clientId }}">View Client</a>
       <hr class="soften" />
