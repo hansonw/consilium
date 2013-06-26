@@ -16,7 +16,9 @@ App.config(['$routeProvider', ($routeProvider) ->
     $routeProvider.when '/clients/new',
       templateUrl: '/templates/clients/edit.html'
     $routeProvider.when '/clients/index',
-      templateUrl: '/templates/clients/index.html'
+      templateUrl: '/templates/clients/index.html',
+    $routeProvider.when '/clients/recent',
+      templateUrl: '/templates/clients/recent.html'
     $routeProvider.when '/clients/view/:clientId',
       templateUrl: '/templates/clients/view.html'
     $routeProvider.when '/clients/edit/:clientId',
@@ -81,28 +83,14 @@ App.run ($rootScope, $location, $anchorScroll, $timeout, $http, Client, Offline)
     $location.hash(old)
 
   $rootScope.menuItems = [
-    name: 'Clients'
-    link: '/clients'
-    subMenuItems: [
-      name: 'Create Client'
-      link: '/new'
-    ,
-      name: 'Find Client'
-      link: '/index'
-    ]
+    name: 'Create Client'
+    link: '/clients/new',
   ,
-    name: 'Documents'
-    link: '/documents'
-    subMenuItems: [
-      name: 'Recent Changes'
-      link: '/recent'
-    ,
-      name: 'Client Document History'
-      link: '/history'
-    ,
-      name: 'Generate Policy Request'
-      link: '/request'
-    ]
+    name: 'Search Clients'
+    link: '/clients/index'
+  ,
+    name: 'Recent Clients'
+    link: '/clients/recent'
   ]
 
   $rootScope._curMenuItem = null
@@ -116,12 +104,14 @@ App.run ($rootScope, $location, $anchorScroll, $timeout, $http, Client, Offline)
   $rootScope.menuShouldShow = ->
     return $rootScope._showMenu
 
-  $rootScope.menuItemSelect = (path) ->
+  $rootScope.menuItemSelect = (path, subMenu) ->
     if $rootScope._curMenuItem == path and $rootScope._showSubMenu
       $rootScope._curMenuItem = null
     else
       $rootScope._curMenuItem = path
-    $rootScope._showSubMenu = true
+    if not $rootScope._showSubMenu = subMenu?
+      $rootScope._showMenu = false if path?
+      $location.path(path) if path?
 
   $rootScope.menuItemIsSelected = (path) ->
     return $location.path().substr(0, path.length) == path

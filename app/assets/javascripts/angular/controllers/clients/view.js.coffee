@@ -1,7 +1,9 @@
-App.controller 'ClientsViewCtrl', ['$scope', '$routeParams', '$location', 'Client', ($scope, $routeParams, $location, Client) ->
+App.controller 'ClientsViewCtrl', ['$scope', '$routeParams', '$location', 'Client', 'RecentClients', ($scope, $routeParams, $location, Client, RecentClients) ->
   $scope.clientId = $routeParams.clientId
   $scope.client = Client.get({id: $scope.clientId},
-    angular.noop, (data, header) ->
+    (->
+      RecentClients.logClientView($scope.client)),
+    (data, header) ->
       # TODO: should be a modal
       alert('The requested client was not found.')
       $location.path('/clients'))

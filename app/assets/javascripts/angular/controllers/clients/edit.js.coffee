@@ -1,5 +1,5 @@
 # This doubles as the new client view (if no client ID is provided)
-App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout', '$location', ($scope, $routeParams, Client, $timeout, $location) ->
+App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$location', 'Client', 'RecentClients', ($scope, $routeParams, $timeout, $location, Client, RecentClients) ->
   $scope._saveTimeout = 10000
   $scope._lastChange = new Date().getTime()
   $scope.saving = false
@@ -18,7 +18,10 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
 
   # TODO: error should be modal
   if $scope.clientId
-    $scope.client = Client.get(id: $scope.clientId, (-> $scope.lastSaved = $scope.client.getData()),
+    $scope.client = Client.get(id: $scope.clientId,
+      (->
+        $scope.lastSaved = $scope.client.getData()
+        RecentClients.logClientView($scope.client)),
       (data) ->
         alert('The requested client was not found.')
         $location.path('/clients'))
@@ -92,6 +95,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
     $scope.client.$save(
       ->
         $scope.saving = $scope.dirty = false
+        RecentClients.logClientView($scope.client)
         $scope.lastSaved = $scope.client.getData()
     , (data) ->
         $scope.saving = false

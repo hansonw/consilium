@@ -24,9 +24,11 @@
         <ul>
           <li data-ng-repeat="menuItem in menuItems"
               data-ng-class="{'pure-menu-selected': menuItemIsSelected(menuItem.link)}">
-            <a href="" data-ng-click="menuItemSelect(menuItem.link)" eat-click>
-              {{ menuItem.name }} 
-              <i data-ng-class="{'icon-caret-down': menuItemIsCaretExpanded(menuItem.link), 'icon-caret-right': !menuItemIsCaretExpanded(menuItem.link)}"></i>
+            <a href="" data-ng-click="menuItemSelect(menuItem.link, menuItem.subMenuItems)" eat-click>
+              {{ menuItem.name }}
+              <i data-ng-class="{'icon-caret-down': menuItemIsCaretExpanded(menuItem.link), 'icon-caret-right': !menuItemIsCaretExpanded(menuItem.link)}"
+                 data-ng-show="menuItem.subMenuItems != null">
+              </i>
             </a>
           </li>
           <li class="menu-item-divided"><a href="" data-ng-click="isLoggedIn = false" eat-click>Logout</a></li>

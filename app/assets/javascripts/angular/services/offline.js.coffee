@@ -21,10 +21,13 @@ class LocalStorage
   constructor: (@key) ->
 
   get_db: ->
-    JSON.parse(window.localStorage.getItem(@key))
+    try
+      return angular.fromJson(window.localStorage.getItem(@key))
+    catch err
+      return {}
 
   save_db: (db) ->
-    window.localStorage.setItem(@key, JSON.stringify(db))
+    window.localStorage.setItem(@key, angular.toJson(db))
 
   insert: (resource) ->
     data = getData(resource)
