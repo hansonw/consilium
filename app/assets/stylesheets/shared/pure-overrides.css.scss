@@ -144,11 +144,19 @@
     @include respond-to(tablets) { width: $label-width-lowres; margin: 0 $label-margin 0 0; }
   }
 
-  input {
+  input[type="text"] {
     width: 350px;
     @include calc(width, "100% - #{$label-width + 2*$label-margin + $comfort-margin}");
     @include respond-to(tablets) { @include calc(width, "100% - #{$label-width-lowres + 2*$label-margin + $comfort-margin}"); }
     @include respond-to(handhelds) { width: 100%; }
+  }
+  .checkbox {
+    display:inline-block;
+    margin: 0px 4px;
+    .checkbox-label {
+      display:inline-block;
+      margin: 0px 2px 0px 4px;
+    }
   }
 }
 

@@ -59,6 +59,7 @@ class Client
           :name => 'Position',
           :id => 'position',
           :type => 'dropdown',
+          :placeholder => '',
           :options => [
               'Accountant',
               'CEO',
@@ -68,7 +69,8 @@ class Client
               'President',
               'Principal',
               'Secretary',
-              'Vice President'
+              'Vice President',
+              'Other',
             ],
         },
         {
@@ -84,13 +86,12 @@ class Client
           :placeholder => 'john@consilium.ca',
           :type => 'email',
         },
-          {
+        {
           :name => 'Other',
           :id => 'other',
           :placeholder => 'Main, Direct, Toll, Fax, Pager, Cell, Home',
           :type => 'text',
         },
-
       ],
     },
     {
@@ -122,6 +123,20 @@ class Client
       :name => 'Liability Info',
       :id => 'liabilityInfos',
       :type => [
+      ],
+    },
+    {
+      :name => 'Location Information',
+      :id => 'locationInformation',
+      :type => [
+        {
+          :name => 'Inspection',
+          :id => 'inspection',
+          :type => 'checkbox',
+          :options => {
+              'notInspected' => 'This risk was not inspected',
+            },
+        },
       ],
     },
     {
