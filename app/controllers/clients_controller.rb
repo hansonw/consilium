@@ -18,13 +18,12 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    if params[:filter].nil?
-      @clients = Client.any_of(
-        {"name.value" => /#{Regexp.escape(params[:query] || '')}/i},
-        {"company.value" => /#{Regexp.escape(params[:query] || '')}/i},
-        {"email.value" => /#{Regexp.escape(params[:query] || '')}/i},
-      )
-    else
+    @clients = Client.any_of(
+      {"name.value" => /#{Regexp.escape(params[:query] || '')}/i},
+      {"company.value" => /#{Regexp.escape(params[:query] || '')}/i},
+      {"email.value" => /#{Regexp.escape(params[:query] || '')}/i},
+    )
+    if params[:filter]
       filter = JSON.parse(params[:filter])
       select = {}
       filter.each do |key, val|
@@ -32,7 +31,7 @@ class ClientsController < ApplicationController
           select[key + '.value'] = /#{Regexp.escape(val)}/i
         end
       end
-      @clients = Client.where(select)
+      @clients = @clients.where(select)
     end
 
     @clients = @clients.skip(params[:start] || 0).limit(params[:limit] || 0).asc("name.value")

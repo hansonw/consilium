@@ -11,7 +11,6 @@ App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', ($scope, $l
   $scope.clientClick = (client) ->
     $location.path('/clients/view/' + client)
 
-  $scope.whichFilter = 'query'
   $scope.updateResults = (more) ->
     if more && ($scope.loading || !$scope.moreResults)
       return # Nothing to do here.
@@ -26,10 +25,9 @@ App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', ($scope, $l
       start: $scope.resultStart,
       limit: results_per_page+1
 
-    if $scope.whichFilter == 'filter'
+    query_params.query = $scope.query
+    if $scope.showAdvancedSearch
       query_params.filter = $scope.filter
-    else
-      query_params.query = $scope.query
 
     clients = Client.query(query_params,
         ->
@@ -45,13 +43,7 @@ App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', ($scope, $l
     )
 
   # Can't pass updateResults directly: $watch passes other arguments automatically
-  $scope.$watch('query', ->
-    $scope.whichFilter = 'query'
-    $scope.updateResults(false))
-  $scope.$watch('showAdvancedSearch', ->
-    $scope.whichFilter = if $scope.showAdvancedSearch then 'filter' else 'query'
-    $scope.updateResults(false))
-  $scope.$watch('filter', (->
-    $scope.whichFilter = 'filter'
-    $scope.updateResults(false)), true)
+  $scope.$watch('query', -> $scope.updateResults(false))
+  $scope.$watch('showAdvancedSearch', -> $scope.updateResults(false))
+  $scope.$watch('filter', (-> $scope.updateResults(false)), true)
 ]
