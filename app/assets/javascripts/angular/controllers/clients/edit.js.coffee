@@ -147,6 +147,9 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', 'Client', '$timeout
     if index < collection.length
       collection.splice(index, 1)
 
+  $scope.closeModal = (objName) ->
+    $scope[objName] = {}
+
   $scope.done = ->
     window.history.back()
 ]

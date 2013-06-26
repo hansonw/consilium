@@ -27,7 +27,7 @@
             <div class="separator"></div>
             <div class="pull-right">
               <button type="submit" class="pure-button pure-button-primary">Save</button>
-              <button href="#modalAdd<%= field[:id] %>" class="pure-button" modal-toggle>Close</button>
+              <button href="#modalAdd<%= field[:id] %>" class="pure-button" data-ng-click="closeModal('<%= field[:id] %>')" modal-toggle>Close</button>
             </div>
           </form>
         </div>
