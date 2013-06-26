@@ -58,8 +58,18 @@ class Client
         {
           :name => 'Position',
           :id => 'position',
-          :placeholder => 'Accountant CEO Insured Manager Owner President Principal/Partner Secretart Vice President',
-          :type => 'text',
+          :type => 'dropdown',
+          :options => [
+              'Accountant',
+              'CEO',
+              'Insured',
+              'Manager',
+              'Owner',
+              'President',
+              'Principal',
+              'Secretary',
+              'Vice President'
+            ],
         },
         {
           :name => 'Phone',
