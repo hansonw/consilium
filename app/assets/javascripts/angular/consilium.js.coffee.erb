@@ -45,13 +45,22 @@ App.run ($rootScope, $location, $anchorScroll, $timeout, Client, Offline) ->
     return true
 
   $rootScope.online_status = true
+  $rootScope.last_sync_success = true
 
   $rootScope.checkOnline = ->
     online = Offline.online()
     if online != $rootScope.online_status
       if $rootScope.online_status = online
         # User just came online, so we should sync everything now.
-        Client.sync()
+        Client.sync(
+          (-> $rootScope.last_sync_success = true),
+          (-> $rootScope.last_sync_success = false)
+        )
+    else if !$rootScope.last_sync_success
+      Client.sync(
+        (-> $rootScope.last_sync_success = true),
+        (-> $rootScope.last_sync_success = false)
+      )
     $timeout($rootScope.checkOnline, 2000)
 
   $rootScope.checkOnline()

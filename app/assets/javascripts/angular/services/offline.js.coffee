@@ -12,7 +12,9 @@ getData = (resource) ->
 # Checks if a mobile device has a connection (always true on desktop)
 online = ->
   connection_type = navigator.network?.connection?.type
-  return !connection_type? || connection_type != Connection?.NONE
+  if connection_type?
+    return connection_type != Connection?.NONE
+  return navigator.onLine
 
 # Wraps the localstorage class.
 class LocalStorage
