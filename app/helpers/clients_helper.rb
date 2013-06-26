@@ -4,7 +4,7 @@ module ClientsHelper
     when 'dropdown'
       dropdownString = "<select name='#{field[:id]}' ng-model='#{model}'
                           #{field[:required] && 'required'}>
-                        <option value='#{field[:placeholder]}'></option>"
+                        <option value=''>#{field[:placeholder]}</option>"
       field[:options].each do |option|
         dropdownString += "<option value='#{option}'>#{option}</option>"
       end
