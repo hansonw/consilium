@@ -11,12 +11,14 @@ App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', ($scope, $l
   $scope.clientClick = (clnt) ->
     $location.path('/clients/view/' + clnt )
 
+  $scope.whichFilter = 'query'
   $scope.updateResults = (more) ->
     if more && ($scope.loading || !$scope.moreResults)
       return # Nothing to do here.
 
     # Query for one more than is required; if an extra exists, then a 'show more' needs to be displayed
     $scope.loading = true
+    searchIcon = $('#btnSearch i')
     $scope.error = false
     $scope.resultStart = if more then $scope.resultStart + results_per_page else 0
     query_params =
@@ -24,7 +26,7 @@ App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', ($scope, $l
       start: $scope.resultStart,
       limit: results_per_page+1
 
-    if $scope.showAdvancedSearch
+    if $scope.whichFilter == 'filter'
       query_params.filter = $scope.filter
     else
       query_params.query = $scope.query
@@ -43,7 +45,13 @@ App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', ($scope, $l
     )
 
   # Can't pass updateResults directly: $watch passes other arguments automatically
-  $scope.$watch('query', -> $scope.updateResults(false))
-  $scope.$watch('showAdvancedSearch', -> $scope.updateResults(false))
-  $scope.$watch('filter', (-> $scope.updateResults(false)), true)
+  $scope.$watch('query', ->
+    $scope.whichFilter = 'query'
+    $scope.updateResults(false))
+  $scope.$watch('showAdvancedSearch', ->
+    $scope.whichFilter = if $scope.showAdvancedSearch then 'filter' else 'query'
+    $scope.updateResults(false))
+  $scope.$watch('filter', (->
+    $scope.whichFilter = 'filter'
+    $scope.updateResults(false)), true)
 ]

@@ -16,8 +16,9 @@
           <div class="search" scroll-fix scroll-fix-condition="screen and (min-width:1200px)">
             <div class="search-controls">
               <input id="search" type="text" class="pure-input" placeholder="Name, email, or company" autocomplete="off" data-ng-model="query">
-              <span data-ng-show="loading" class="loading"><i class="icon-spinner icon-spin"></i></span>
-              <button id="btnSearch" class="pure-button pure-button-small pure-button-primary"><i class="icon-search icon-fixed-width"></i></button>
+              <button id="btnSearch" class="pure-button pure-button-small pure-button-primary">
+                <i data-ng-class="loading ? 'icon-spinner icon-spin' : 'icon-search'"></i>
+              </button>
             </div>
             <div class="advanced-search" advanced-search>
               <div class="advanced-search-inner">
@@ -36,7 +37,7 @@
                     <%= text_field_tag 'company', nil, :placeholder => 'Company', :data => {:ng_model => 'filter.company'} %>
                   </div>
                 </div>
-                <a href="" class="pretty advanced-search-btn">Advanced Search <i class="icon-caret-right"></i></a>
+                <a href="" class="pretty advanced-search-btn">Advanced Search <i class="icon-caret-down"></i></a>
               </div>
             </div>
           </div>
