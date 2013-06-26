@@ -1,7 +1,7 @@
 Consilium::Application.routes.draw do
   root 'home#index'
 
-  get 'home/index'
+  get 'home/index' => 'home#index'
 
   devise_for :users
 
@@ -11,7 +11,10 @@ Consilium::Application.routes.draw do
     post 'auth/logout' => 'api/auth#logout'
   end
 
-  get 'templates/:path.html' => 'templates#page', :constraints => { :path => /.+/ }
+  scope :app do
+    get '' => 'home#app', :as => 'app_root'
+    get 'templates/:path.html' => 'app/templates#page', :constraints => { :path => /.+/ }
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

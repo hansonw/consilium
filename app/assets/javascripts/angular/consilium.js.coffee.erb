@@ -5,32 +5,32 @@ App.config(['$routeProvider', ($routeProvider) ->
   # Home routes
   #############
   $routeProvider.when '/',
-    templateUrl: '/templates/index.html'
+    templateUrl: '/app/templates/index.html'
     controller: 'HomeCtrl'
 
   ################
   # Clients routes
   ################
   $routeProvider.when '/clients',
-    templateUrl: '/templates/clients/index.html'
+    templateUrl: '/app/templates/clients/index.html'
     $routeProvider.when '/clients/new',
-      templateUrl: '/templates/clients/edit.html'
+      templateUrl: '/app/templates/clients/edit.html'
     $routeProvider.when '/clients/index',
-      templateUrl: '/templates/clients/index.html',
+      templateUrl: '/app/templates/clients/index.html',
     $routeProvider.when '/clients/recent',
-      templateUrl: '/templates/clients/recent.html'
+      templateUrl: '/app/templates/clients/recent.html'
     $routeProvider.when '/clients/view/:clientId',
-      templateUrl: '/templates/clients/view.html'
+      templateUrl: '/app/templates/clients/view.html'
     $routeProvider.when '/clients/edit/:clientId',
-      templateUrl: '/templates/clients/edit.html'
+      templateUrl: '/app/templates/clients/edit.html'
 
   #############
   # Auth routes
   #############
   $routeProvider.when '/auth/login',
-    templateUrl: '/templates/auth/login.html'
+    templateUrl: '/app/templates/auth/login.html'
     $routeProvider.when '/auth',
-      templateUrl: '/templates/auth/login.html'
+      templateUrl: '/app/templates/auth/login.html'
 ])
 
 App.config(["$httpProvider", (provider) ->
