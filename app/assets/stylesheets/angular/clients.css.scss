@@ -199,20 +199,8 @@
     .name {
     }
 
-    .name a {
-    width: 100%;
-    height: 100%;
-    display: block;
-    }
-
     .company {
       width: 30%;
-    }
-
-    .company a {
-    width: 100%;
-    height: 100%;
-    display: block;
     }
 
     .actions {
@@ -223,6 +211,12 @@
     #loading {
       border-top: 1px solid #cbc;
       text-align: center;
+    }
+
+    .ng-scope:hover {
+      cursor: pointer;
+      cursor: hand;
+      background-color: #E0E0E0;
     }
   }
 }

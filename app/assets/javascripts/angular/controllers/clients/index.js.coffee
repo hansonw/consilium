@@ -8,8 +8,8 @@ App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', ($scope, $l
   $scope.moreResults = false
   $scope.showAdvancedSearch = false
 
-  $scope.clientClick = (clnt) ->
-    $location.path('/clients/view/' + clnt )
+  $scope.clientClick = (client) ->
+    $location.path('/clients/view/' + client )
 
   $scope.whichFilter = 'query'
   $scope.updateResults = (more) ->
