@@ -67,8 +67,10 @@ class LocalStorage
 App.factory 'Offline', ['$timeout', ($timeout) -> {
   online: online,
 
-  # Must provide name to use as the local storage key
-  wrap: (key, resource) ->
+  # key - index to use for local storage DB
+  # resource - base angular HTTP resource
+  # match_fn - select function (for query/get)
+  wrap: (key, resource, match_fn) ->
     storage = new LocalStorage(key)
     class OfflineResource
       constructor: (data = {}) ->
@@ -168,13 +170,19 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
       @get: (params, success, error) ->
         res = new OfflineResource(params)
         queryLocal = (data) =>
-          # TODO: differentiate between server deletion/error
-          ret = storage.get(params.id)
-          if ret?.id?
-            angular.extend(res, ret)
-            @defer(=> success(res)) if success
-          else
-            @defer(=> error(data)) if error
+          if params.id
+            ret = storage.get(params.id)
+            if ret?.id?
+              angular.extend(res, ret)
+              @defer(=> success(res)) if success
+            else
+              @defer(=> error(data)) if error
+          else if match_fn
+            for val in storage.get_all()
+              if val.id? && match_fn(params, val)
+                angular.extend(res, val)
+                @defer(=> success(res)) if success
+                return
 
         if online()
           resource.get(params,
@@ -205,15 +213,7 @@ App.factory 'Offline', ['$timeout', ($timeout) -> {
             for val in stored
               if !val.id?
                 continue
-              ok = true
-              if params.query?
-                ok = val.name?.value?.match?(///#{params.query}///i)? ||
-                     val.company?.value?.match?(///#{params.query}///i)? ||
-                     val.email?.value?.match?(/#{params.query}/i)?
-              else if params.filter?
-                for key, str of params.filter
-                  ok &= val[key]?.value?.match?(///#{str}///i)?
-              if ok
+              if !match_fn || match_fn(params, val)
                 if index >= start && index < start + limit
                   res.push(new OfflineResource(val))
                 index++
