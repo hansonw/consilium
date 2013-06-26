@@ -184,7 +184,12 @@ class Client
       elsif val['updated_at'].nil?
         errors[field[:id]] << 'must contain "updated_at"'
       elsif val['value'].nil?
-        errors[field[:id]] << 'must contain "value"'
+        if field[:type].is_a?(Array)
+          # Rails parses empty arrays as nil. Assume that's what happened
+          val['value'] = []
+        else
+          errors[field[:id]] << 'must contain "value"'
+        end
       elsif field[:type].is_a?(Array)
         if !val['value'].is_a?(Array)
           errors[field[:id]] << 'must be an array'
