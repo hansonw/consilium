@@ -2,14 +2,16 @@
 # Note: This is distinct from the Devise controllers in that it allows authtoken-based authentication.
 ##
 
-class AuthController < ApplicationController
+class Api::AuthController < Api::ApiController
+  skip_before_filter :json_authenticate, :only => [:login]
+
   respond_to :json
 
   # POST api/auth/login
   # params: username, password
   def login
-    username = params[:username]
-    resource = User.where(:email => username).first
+    email = params[:email]
+    resource = User.where(:email => email).first
 
     if !resource.nil? && resource.valid_password?(params[:password])
       sign_in(resource)
@@ -21,5 +23,12 @@ class AuthController < ApplicationController
     else
       render json: '', :status => :forbidden
     end
+  end
+
+  # POST api/auth/logout
+  # params:
+  def logout
+    sign_out(current_user)
+    render json: '', :status => :ok
   end
 end

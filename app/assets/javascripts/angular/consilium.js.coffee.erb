@@ -35,11 +35,18 @@ App.config(["$httpProvider", (provider) ->
   provider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
 ])
 
-App.run ($rootScope, $location, $anchorScroll, $timeout, Client, Offline) ->
+App.run ($rootScope, $location, $anchorScroll, $timeout, $http, Client, Offline) ->
   $rootScope.isLoggedIn = true
 
   $rootScope.$watch 'isLoggedIn', ->
-    $location.path('/auth/login') if not $rootScope.isLoggedIn
+    if not $rootScope.isLoggedIn
+      $http.post(
+        '/api/auth/logout',
+        ''
+      ).success((data, status, headers, config) ->
+      ).error((data, status, headers, config) ->
+      )
+      $location.path('/auth/login')
 
   $rootScope.$on '$routeChangeStart', ($rootScope, $currView, $prevView) ->
     return true

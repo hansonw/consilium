@@ -6,9 +6,9 @@ Consilium::Application.routes.draw do
   devise_for :users
 
   scope :api do
-    resources :clients
-    get 'auth/login' => 'auth#login'
-    get 'auth/logout' => 'auth#logout'
+    resources :clients, :controller => 'api/clients'
+    post 'auth/login' => 'api/auth#login'
+    post 'auth/logout' => 'api/auth#logout'
   end
 
   get 'templates/:path.html' => 'templates#page', :constraints => { :path => /.+/ }
