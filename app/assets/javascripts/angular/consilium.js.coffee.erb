@@ -35,36 +35,23 @@ App.config(['$routeProvider', ($routeProvider) ->
     templateUrl: '/app/templates/index.html'
 ])
 
-App.config(["$httpProvider", (provider) ->
-  provider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
+App.config(["$httpProvider", ($httpProvider) ->
+  $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
+  $httpProvider.responseInterceptors.push('AuthHttpInterceptor')
 ])
 
-App.run ($rootScope, $location, $anchorScroll, $timeout, $http, Client, Offline, AuthToken) ->
+App.run ($rootScope, $location, $anchorScroll, $timeout, $http, Client, Offline, Auth, AuthToken) ->
+
+  # Initialize Auth service.
+  Auth.init()
+
+  # NOTE: This is for presentation purposes only. The flag indicating whether or not the user
+  # is functionally logged in or not is in the Auth service.
   $rootScope.isLoggedIn = true
-
-  $rootScope.logout = ->
-    $http.post(
-      '/api/auth/logout',
-      AuthToken.addAuthTokenToJSONRequest({}),
-    ).success((data, status, headers, config) ->
-      AuthToken.remove()
-      $rootScope.isLoggedIn = false
-    )
-
-  $rootScope.$watch 'isLoggedIn', ->
-    $location.path('/auth/login') if not $rootScope.isLoggedIn
-
-  $rootScope.$on '$routeChangeStart', ($rootScope, $currView, $prevView) ->
-    $http.get(
-      '/api/auth/challenge',
-      AuthToken.addAuthTokenToJSONRequest({}),
-    ).success((data, status, headers, config) ->
-    ).error((data, status, headers, config) ->
-      # Not sheriff srs. This can't be the proper way to do this.
-      $rootScope.targetScope.isLoggedIn = false if status == 403
-    )
-
-  $rootScope.$on '$routeChangeSuccess', ($rootScope, $currView, $prevView) ->
+  $rootScope.logout = -> Auth.logout()
+  Auth.watch (isLoggedIn) ->
+    $rootScope.isLoggedIn = isLoggedIn
+    $location.path(if isLoggedIn then '/' else '/auth/login')
 
   $rootScope.online_status = true
   $rootScope.last_sync_success = true

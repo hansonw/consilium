@@ -10,7 +10,6 @@ Consilium::Application.routes.draw do
     resources :documents, :controller => 'api/documents'
     post 'auth/login' => 'api/auth#login'
     post 'auth/logout' => 'api/auth#logout'
-    get 'auth/challenge' => 'api/auth#challenge'
   end
 
   scope :app do

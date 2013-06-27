@@ -31,12 +31,4 @@ class Api::AuthController < Api::ApiController
     sign_out(current_user)
     render json: '', :status => :ok
   end
-
-  # GET api/auth/challenge
-  # params:
-  #
-  # Checks if the user is logged in or not.
-  def challenge
-    render json: '', :status => user_signed_in? ? :ok : :forbidden
-  end
 end

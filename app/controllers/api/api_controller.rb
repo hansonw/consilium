@@ -6,7 +6,7 @@ class Api::ApiController < ApplicationController
   private
     def json_authenticate
       unless @user = warden.authenticate
-        render json: '', :status => :forbidden
+        render json: '', :status => :unauthorized
       end
     end
 
