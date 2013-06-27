@@ -16,6 +16,16 @@ online = ->
     return connection_type != Connection?.NONE
   return navigator.onLine
 
+# By default, just try to match all given keys exactly.
+defaultMatch = (params, data) ->
+  for key, val of params
+    if val instanceof RegExp
+      if !data[key]?.match?(val)?
+        return false
+    else if !angular.equals(data[key], val)
+      return false
+  return true
+
 # Wraps the localstorage class.
 class LocalStorage
   constructor: (@key) ->
@@ -73,7 +83,7 @@ App.factory 'Offline', ['$timeout', 'AuthToken', ($timeout, AuthToken) -> {
   # key - index to use for local storage DB
   # resource - base angular HTTP resource
   # match_fn - select function (for query/get)
-  wrap: (key, resource, match_fn) ->
+  wrap: (key, resource, match_fn = defaultMatch) ->
     storage = new LocalStorage(key)
     class OfflineResource
       constructor: (data = {}) ->
