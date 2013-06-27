@@ -6,7 +6,6 @@ App.config(['$routeProvider', ($routeProvider) ->
   #############
   $routeProvider.when '/',
     templateUrl: '/app/templates/index.html'
-    controller: 'HomeCtrl'
 
   ################
   # Clients routes
@@ -31,6 +30,9 @@ App.config(['$routeProvider', ($routeProvider) ->
     templateUrl: '/app/templates/auth/login.html'
     $routeProvider.when '/auth',
       templateUrl: '/app/templates/auth/login.html'
+
+  $routeProvider.otherwise
+    templateUrl: '/app/templates/index.html'
 ])
 
 App.config(["$httpProvider", (provider) ->
