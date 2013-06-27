@@ -24,7 +24,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       (->
         $scope.loading = false
         $scope.lastSaved = $scope.client.getData()
-        RecentClients.logClientView($scope.client)),
+        RecentClients.logClientShow($scope.client)),
       (data) ->
         alert('The requested client was not found.')
         $location.path('/clients'))
@@ -99,7 +99,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     $scope.client.$save(
       ->
         $scope.saving = $scope.dirty = false
-        RecentClients.logClientView($scope.client)
+        RecentClients.logClientShow($scope.client)
         $scope.lastSaved = $scope.client.getData()
     , (data) ->
         $scope.saving = false
