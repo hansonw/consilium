@@ -59,7 +59,7 @@
               <tr data-ng-show="!error && !clients.length && !loading">
                 <td colspan="3">No clients matching your search criteria.</td>
               </tr>
-              <tr data-ng-repeat="client in clients" data-ng-click="clientClick(client.id)" class="client-found">
+              <tr data-ng-repeat="client in clients" data-ng-click="clientClick(client.id)">
                 <td class="name">{{ client.name.value }}</td>
                 <td class="company">{{ client.company.value }}</td>
                 <td class="actions align-right">

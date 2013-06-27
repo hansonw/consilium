@@ -1,18 +1,8 @@
 <div id="<%= field[:id] %>" class="section">
-  <div class="lable-box">
-    <table>
-      <tr>
-        <td>
-        <h3 class="no-top-margin no-bottom-margin"><%= field[:name] %></h3>
-      </td>
-        <td>
-          <a class="pull-right pure-button pure-button-primary level" href="#modalAdd<%= field[:id] %>" modal-toggle>
-            <i class="icon-plus"></i> <span class="verbose-desc">Add <%= field[:name].singularize %></span>
-          </a>
-        </td>
-      </tr>
-    </table>
-  </div>
+  <a class="pull-right pure-button pure-button-primary" href="#modalAdd<%= field[:id] %>" modal-toggle>
+    <i class="icon-plus"></i> <span class="verbose-desc">Add <%= field[:name].singularize %></span>
+  </a>
+  <h3><%= field[:name] %></h3>
 </div>
 
 <table class="pure-table pure-table-horizontal pure-table-full-width">

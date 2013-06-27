@@ -113,24 +113,10 @@ body {
   .section {
     position: relative;
 
-    .lable-box {
-      position: relative;
-      margin-bottom: 1px;
-      float: right; 
+    > a {
+      bottom: 0;
+      right: 0;
     }
-
-      table, th, td {
-        width: 100%;
-        vertical-align: bottom;
-        margin-bottom: 15px;
-      }
-      .level {
-        margin-bottom: .3em;
-      }
-
-      h3 {
-        margin-right: 5px;
-      }
   }
 
   /**
@@ -140,13 +126,10 @@ body {
     @include transition();
 
     .modal-inside {
-      @include respond-to(desktops) {
-        padding-left: 0;
-      }
-      height: 100%; 
-      //I dont know why this has to be here but if i remove the 100% it does not work.
-      overflow: auto;
-    }
+      padding-left: 0;
+      overflow-y: scroll;
+      height: 101%;
+  }
 
     opacity: 0;
     top: 0;

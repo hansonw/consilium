@@ -13,30 +13,23 @@
       <hr class="soften" />
     </div>
   </div>
+
   <div class="content client-view">
     <div class="client-info pure-form pure-form-aligned">
       <div class="section" id="basicInfo">
-        <div class="label-box">
-          <table>
-            <tr>
-              <td>
-                <h3 class="no-top-margin no-bottom-margin">Client Info.</h3>
-              </td>
-              <td>
-                <a class="pure-button pure-button-primary level" data-ng-href="#/clients/edit/{{ clientId }}">
-                  <i class="icon-edit"></i><span class="desc"><span class="verbose-desc"> View and</span> Edit</span>
-                </a>
-              </td>
-              <td>
-                <a class="pure-button pure-button-error level"
-                   data-ng-click="deleteClient()">
-                  <i class="icon-trash"></i><span class="desc"> Delete</span>
-                </a>
-              </td>
-            </tr>
-          </table>
+        <div class="client-buttons pull-right">
+          <a class="pure-button pure-button-primary"
+             data-ng-href="#/clients/edit/{{ clientId }}">
+            <i class="icon-edit"></i><span class="desc"><span class="verbose-desc"> View and</span> Edit</span>
+          </a>
+          <a class="pure-button pure-button-error"
+             data-ng-click="deleteClient()">
+            <i class="icon-trash"></i><span class="desc"> Delete</span>
+          </a>
         </div>
+        <h3 class="no-top-margin">Client Info.</h3>
       </div>
+
       <div class="pure-control-group">
         <label for="name">Name</label>
         <span class="value">{{ client.name.value }}</span>
@@ -54,22 +47,13 @@
         <span class="value">{{ client.phone.value }}</span>
       </div>
     </div>
+
     <div class="client-docs">
       <div class="section" id="basicInfo">
-        <div class="lable-box">
-          <table>
-            <tr>
-              <td>
-              <h3 class="no-top-margin no-bottom-margin">Documents</h3>
-              </td>
-              <td>
-                <a class="pull-right pure-button pure-button-primary level">
-                  <i class="icon-plus"></i> Generate<span class="verbose-desc"> Policy Request</span>
-                </a>
-              </td>
-            </tr>
-          </table>
-        </div>
+        <a class="pull-right pure-button pure-button-primary">
+          <i class="icon-plus"></i> Generate<span class="verbose-desc"> Policy Request</span>
+        </a>
+        <h3 class="no-top-margin">Documents</h3>
       </div>
     </div>
   </div>
