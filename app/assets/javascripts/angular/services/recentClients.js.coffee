@@ -5,7 +5,7 @@ App.service 'RecentClients', [->
   return {
     limit: 10,
     clients: clients,
-    logClientView: (client) ->
+    logClientShow: (client) ->
       for val, index in @clients
         if val.id == client.id
           @clients.splice(index, 1)

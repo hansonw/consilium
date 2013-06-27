@@ -9,7 +9,7 @@ App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', ($scope, $l
   $scope.showAdvancedSearch = false
 
   $scope.clientClick = (client) ->
-    $location.path('/clients/view/' + client)
+    $location.path('/clients/show/' + client)
 
   $scope.updateResults = (more) ->
     if more && ($scope.loading || !$scope.moreResults)
