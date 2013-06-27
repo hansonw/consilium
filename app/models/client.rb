@@ -72,6 +72,7 @@ class Client
             'Vice President',
             'Other',
           ],
+          :otherPlaceholder => 'Specify',
         },
         {
           :name => 'Phone',
@@ -126,8 +127,20 @@ class Client
       ],
     },
     {
+      :name => 'Policy Info',
+      :id => 'policyInfos',
+      :type => [
+      ],
+    },
+    {
+      :name => 'Payment Info',
+      :id => 'paymentInfos',
+      :type => [
+      ],
+    },    
+    {
       :name => 'Location Information',
-      :id => 'locationInformation',
+      :id => 'locationInfos',
       :type => [
         {
           :name => 'Inspection',
@@ -150,6 +163,12 @@ class Client
             'poor' => 'Poor',
           },
         },
+      ],
+    },
+    {
+      :name => 'Risk Info',
+      :id => 'riskInfos',
+      :type => [
       ],
     },
     {
@@ -204,8 +223,17 @@ class Client
         errors[field_name] << 'must be an integer'
         return nil
       end
+    elsif field_desc[:type] == 'phone'
+      value = value.to_s
+      if !(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/i.match(value))
+        errors[field_name] << 'not valid phone number'
+      end
+    elsif field_desc[:type] == 'email'
+      value = value.to_s
+      if !( /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.match(value))
+        errors[field_name] << 'not valid email'
+      end
     end
-
     return value
   end
 
