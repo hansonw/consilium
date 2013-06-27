@@ -1,8 +1,8 @@
 <div data-ng-controller="ClientsViewCtrl" class="pure-form">
   <div class="content header pure-u-1">
     <h2 class="no-bottom-margin">
-      <i data-ng-show="!client.name" class="icon-spinner icon-spin"></i>
-      <span data-ng-show="client.name">{{ client.name.value }}</span>
+      <i data-ng-show="loading" class="icon-spinner icon-spin"></i>
+      <span data-ng-show="!loading">{{ client.name.value }}</span>
     </h2>
     <div class="breadcrumbs">
       <a data-ng-href="#/">Home</a>

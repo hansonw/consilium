@@ -17,9 +17,12 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   $scope.lastSaved = null
 
   # TODO: error should be modal
+  $scope.loading = false
   if $scope.clientId
+    $scope.loading = true
     $scope.client = Client.get(id: $scope.clientId,
       (->
+        $scope.loading = false
         $scope.lastSaved = $scope.client.getData()
         RecentClients.logClientView($scope.client)),
       (data) ->

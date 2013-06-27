@@ -1,7 +1,9 @@
 App.controller 'ClientsViewCtrl', ['$scope', '$routeParams', '$location', 'Client', 'RecentClients', ($scope, $routeParams, $location, Client, RecentClients) ->
   $scope.clientId = $routeParams.clientId
+  $scope.loading = true
   $scope.client = Client.get({id: $scope.clientId},
     (->
+      $scope.loading = false
       RecentClients.logClientView($scope.client)),
     (data, header) ->
       # TODO: should be a modal

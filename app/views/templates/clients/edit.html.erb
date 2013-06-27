@@ -39,7 +39,10 @@
           </div>
         </div>
       </div>
-      <div class="form-content">
+      <div data-ng-show="loading" class="form-content">
+        <h3 class="no-top-margin"><i class="icon-spinner icon-spin icon-large"></i> Loading...</h3>
+      </div>
+      <div data-ng-show="!loading" class="form-content">
         <form name="newClient" class="pure-form pure-form-aligned" data-ng-submit="saveForm()">
           <div class="section" id="basicInfo">
             <h3 class="no-top-margin">Basic Info.</h3>
