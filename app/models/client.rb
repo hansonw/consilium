@@ -119,6 +119,38 @@ class Client
       :name => 'Claims Info',
       :id => 'claimsInfos',
       :type => [
+        {
+          :name => 'Loss Date',
+          :id => 'name',
+          :placeholder => 'dd/mm/yy',
+          :type => 'text',
+          :required => true,
+        },
+        {
+          :name => 'Type',
+          :id => 'type',
+          :placeholder => '',
+          :type => 'text',
+        },
+        {
+          :name => 'Description',
+          :id => 'description',
+          :placeholder => '',
+          :type => 'textbox',
+          :boxRows => 2,
+        },
+        {
+          :name => 'Amount Paid',
+          :id => 'amountPaid',
+          :placeholder => '',
+          :type => 'text',
+        },
+        {
+          :name => 'Reserve',
+          :id => 'reserve',
+          :placeholder => '',
+          :type => 'text',
+        },
       ],
     },
     {
