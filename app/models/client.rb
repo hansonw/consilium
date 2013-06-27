@@ -137,7 +137,7 @@ class Client
       :id => 'paymentInfos',
       :type => [
       ],
-    },    
+    },
     {
       :name => 'Location Information',
       :id => 'locationInfos',
@@ -208,32 +208,36 @@ class Client
       if field_desc[:required]
         errors[field_name] << 'is required'
       end
-    elsif field_desc[:type] == 'text'
-      value = value.to_s
-      if field_desc[:maxlength] && value.length > field_desc[:maxlength]
-        errors[field_name] << 'is too long'
-      end
-      if field_desc[:minlength] && value.length < field_desc[:minlength]
-        errors[field_name] << 'is too short'
-      end
-    elsif field_desc[:type] == 'number'
-      begin
-        value = Integer(value)
-      rescue
-        errors[field_name] << 'must be an integer'
-        return nil
-      end
-    elsif field_desc[:type] == 'phone'
-      value = value.to_s
-      if !(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/i.match(value))
-        errors[field_name] << 'not valid phone number'
-      end
-    elsif field_desc[:type] == 'email'
-      value = value.to_s
-      if !( /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.match(value))
-        errors[field_name] << 'not valid email'
+    else
+      case field_desc[:type]  
+      when 'text'
+        value = value.to_s
+        if field_desc[:maxlength] && value.length > field_desc[:maxlength]
+          errors[field_name] << 'is too long'
+        end
+        if field_desc[:minlength] && value.length < field_desc[:minlength]
+          errors[field_name] << 'is too short'
+        end
+      when 'number'
+        begin
+          value = Integer(value)
+        rescue
+          errors[field_name] << 'must be an integer'
+          return nil
+        end
+      when 'phone'
+        value = value.to_s
+        if !(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/i.match(value))
+          errors[field_name] << 'not valid phone number'
+        end
+      when 'email'
+        value = value.to_s
+        if !( /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.match(value))
+          errors[field_name] << 'not valid email'
+        end
       end
     end
+    
     return value
   end
 
