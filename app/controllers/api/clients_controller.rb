@@ -37,7 +37,7 @@ class Api::ClientsController < Api::ApiController
     @clients = @clients.skip(params[:start] || 0).limit(params[:limit] || 0).asc("name.value")
 
     if params[:short]
-      @clients.only(:id, :name, :company)
+      @clients = @clients.only(:id, :name, :company)
     end
 
     respond_to do |format|
