@@ -39,6 +39,12 @@ module ClientsHelper
                           </div>"
       end
       raw checkboxString
+    when 'textbox'
+      raw "<textarea name='#{field[:id]}' ng-model='#{model}'
+                placeholder='#{field[:placeholder]}'
+                #{field[:required] && 'required'}
+                rows = '#{field[:boxRows]}'
+            /></textarea>"
     else
       raw "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='#{model}' placeholder='#{field[:placeholder]}'

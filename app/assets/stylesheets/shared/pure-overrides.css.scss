@@ -141,6 +141,7 @@
   // XXX: Where does this come from? Oh well.
   $label-comfort-margin: 1em;
   $dropdown-comfort-margin: 0.6em;
+  // TODO: This is bad and we should look into it.
   $dropdown-comfort-antimargin-lowres: 0.2em;
 
   label {
@@ -154,6 +155,21 @@
     @include respond-to(handhelds) { width: 100%; }
   }
 
+  textarea {
+    resize:none;
+    border: 1px solid #ccc;
+    font-size: 0.8em;
+    box-shadow: inset 0 1px 3px #ddd;
+    border-radius: 4px;
+    -webkit-transition: .3s linear border;
+    transition: .3s linear border;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    @include calc(width, "100% - #{$label-width + 2*$label-margin + $label-comfort-margin}");
+    @include respond-to(tablets) { @include calc(width, "100% - #{$label-width-lowres + 2*$label-margin + $label-comfort-margin}"); }
+    @include respond-to(handhelds) { width: 100%; }
+  }
+
   .dropdown-list {
     width: $dropdown-width;
     margin: 4.5px 0;
@@ -161,7 +177,7 @@
   .dropdown-field {
     display: inline-block;
     width: 350px;
-    @include calc(width, "100% + #{$dropdown-comfort-margin} - #{$label-width + $label-comfort-margin}");
+    @include calc(width, "100% - #{$label-width + $label-comfort-margin - $dropdown-comfort-margin}");
     @include respond-to(tablets) { @include calc(width, "100% - #{$label-width-lowres + $label-comfort-margin + $dropdown-comfort-antimargin-lowres}"); }
     @include respond-to(handhelds) { width: 100%; }
 

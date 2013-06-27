@@ -100,11 +100,18 @@ class Client
       :id => 'businessOps',
       :type => [
         {
-          :name => 'Name',
+          :name => 'Industry Code',
           :id => 'name',
-          :placeholder => 'Firstname Lastname',
+          :placeholder => '000000',
           :type => 'text',
           :required => true,
+        },
+        {
+          :name => 'Description of operations:',
+          :id => 'descriptionOperations',
+          :placeholder => 'Description of operations',
+          :type => 'textbox',
+          :boxRows => 5,
         },
       ],
     },
@@ -209,7 +216,7 @@ class Client
         errors[field_name] << 'is required'
       end
     else
-      case field_desc[:type]  
+      case field_desc[:type]
       when 'text'
         value = value.to_s
         if field_desc[:maxlength] && value.length > field_desc[:maxlength]
@@ -237,7 +244,7 @@ class Client
         end
       end
     end
-    
+
     return value
   end
 
