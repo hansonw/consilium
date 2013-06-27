@@ -8,15 +8,15 @@
 
   <div class="content header pure-u-1">
     <h2 class="no-bottom-margin">{{ title }}</h2>
-    <div class="breadcrumbs">
-      <a data-ng-href="#/">Home</a>
-      <span class="divider">&gt;</span>
-      <a data-ng-href="#/clients/">Clients</a>
-      <span class="divider">&gt;</span>
-      <a data-ng-href="#/clients/{{ !clientId ? 'new' : 'edit/' + clientId }}">{{ title }}</a>
-      <hr class="soften" />
-    </div>
+    <%= render :partial => 'templates/breadcrumbs',
+               :locals => { :paths => {
+          "Home" => "#/",
+          "Clients" => "#/clients/",
+          "{{ title }}" => "#/clients/{{ !clientId ? 'new' : 'edit/' + clientId }}",
+        }}
+     %>
   </div>
+  <hr class="soften" />
 
   <div class="content">
     <div class="client-form">

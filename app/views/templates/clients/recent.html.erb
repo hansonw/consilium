@@ -1,15 +1,17 @@
 <div data-ng-controller="ClientsRecentCtrl">
   <div class="content header pure-u-1">
     <h2 class="no-bottom-margin">Recent Clients</h2>
-    <div class="breadcrumbs">
-      <a data-ng-href="#/">Home</a>
-      <span class="divider">&gt;</span>
-      <a data-ng-href="#/clients/">Clients</a>
-      <span class="divider">&gt;</span>
-      <a data-ng-href="#/clients/recent">Recent Clients</a>
-      <hr class="soften" />
-    </div>
+    <%= render :partial => 'templates/breadcrumbs',
+               :locals => { :paths => {
+          "Home" => "#/",
+          "Clients" => "#/clients/",
+          "Recent Clients" => "#/clients/recent",
+        }}
+     %>
+  </div>
+  <hr class="soften" />
 
+  <div class="content">
     <table class="client-table pure-table pure-table-horizontal pure-table-full-width">
       <thead>
         <tr>

@@ -1,13 +1,15 @@
 <div data-ng-controller="ClientsIndexCtrl" class="pure-form">
   <div class="content header pure-u-1">
     <h2 class="no-bottom-margin">Search Clients</h2>
-    <div class="breadcrumbs">
-      <a data-ng-href="#/">Home</a>
-      <span class="divider">&gt;</span>
-      <a data-ng-href="#/clients/index">Search Clients</a>
-      <hr class="soften" />
-    </div>
+    <%= render :partial => 'templates/breadcrumbs',
+               :locals => { :paths => {
+          "Home" => "#/",
+          "Clients" => "#/clients/",
+          "Search Clients" => "#/clients/index",
+        }}
+     %>
   </div>
+  <hr class="soften" />
 
   <div class="content">
     <div class="client-search">

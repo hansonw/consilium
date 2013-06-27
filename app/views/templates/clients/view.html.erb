@@ -33,15 +33,15 @@
       <i data-ng-show="loading" class="icon-spinner icon-spin"></i>
       <span data-ng-show="!loading">{{ client.name.value }}</span>
     </h2>
-    <div class="breadcrumbs">
-      <a data-ng-href="#/">Home</a>
-      <span class="divider">&gt;</span>
-      <a data-ng-href="#/clients/">Clients</a>
-      <span class="divider">&gt;</span>
-      <a data-ng-href="#/clients/view/{{ clientId }}">View Client</a>
-      <hr class="soften" />
-    </div>
+    <%= render :partial => 'templates/breadcrumbs',
+               :locals => { :paths => {
+          "Home" => "#/",
+          "Clients" => "#/clients/",
+          "View Client" => "#/clients/{{ clientId }}",
+        }}
+     %>
   </div>
+  <hr class="soften" />
 
   <div class="content client-view">
     <div class="client-info pure-form pure-form-aligned">

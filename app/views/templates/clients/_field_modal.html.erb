@@ -2,15 +2,16 @@
   <div class="layout modal-inside" data-ng-class="{'active': menuShouldShow()}">
     <div class="header content pure-u-1">
       <h2 class="no-bottom-margin">Add <%= field[:name].singularize %></h2>
-      <div class="breadcrumbs">
-        <a data-ng-href="#/">Home</a>
-        <span class="divider">&gt;</span>
-        <a data-ng-href="#/clients/new">New Client</a>
-        <span class="divider">&gt;</span>
-        <a data-ng-href="#/clients/new">Add <%= field[:name].singularize %></a>
-        <hr class="soften" />
-      </div>
+      <%= render :partial => 'templates/breadcrumbs',
+                 :locals => { :paths => {
+            "Home" => "#/",
+            "Clients" => "#/clients/",
+            "{{ title }}" => "#/clients/{{ !clientId ? 'new' : 'edit/' + clientId }}",
+            "Add " + field[:name].singularize => "#/clients/{{ !clientId ? 'new' : 'edit/' + clientId }}",
+          }}
+       %>
     </div>
+    <hr class="soften" />
 
     <div class="content">
       <div class="client-form">
