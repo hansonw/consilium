@@ -102,6 +102,9 @@
           <tr data-ng-show="!docLoading && !docError && !documents.length">
             <td colspan="2">No documents generated for this client yet.</td>
           </tr>
+          <tr data-ng-show="generating">
+            <td colspan="2"><i class="icon-spinner icon-spin icon-large"></i> Generating new document...</td>
+          </tr>
           <tr data-ng-repeat="document in documents">
             <td class="description">
               {{ document.description }}

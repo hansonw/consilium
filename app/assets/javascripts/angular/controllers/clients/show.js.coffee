@@ -25,11 +25,17 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', 'Clien
       $scope.client.$delete()
       $location.path('/clients')
 
+  $scope.generating = false
   $scope.generateDocument = ->
     d = new Document($scope.genDocument)
     d.client_id = $scope.clientId
+    $scope.generating = true
     d.$save((data, header) ->
       $scope.documents.splice(0, 0, d)
+      $scope.generating = false
+    , (data, header) ->
+      $scope.generating = false
+      alert('Error occurred generating document.')
     )
 
     $scope.genDocument = {}
