@@ -6,6 +6,7 @@ App.factory 'AuthToken', ['$resource', ($resource) ->
   remove: ->
     localStorage.removeItem('authToken')
   addAuthTokenToJSONRequest: (obj) ->
+    return if not @get()
     authToken = $.parseJSON(@get() || {})
     obj.email = authToken.email
     obj.auth_token = authToken.auth_token

@@ -39,21 +39,32 @@ App.config(["$httpProvider", (provider) ->
   provider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
 ])
 
-App.run ($rootScope, $location, $anchorScroll, $timeout, $http, Client, Offline) ->
+App.run ($rootScope, $location, $anchorScroll, $timeout, $http, Client, Offline, AuthToken) ->
   $rootScope.isLoggedIn = true
 
+  $rootScope.logout = ->
+    $http.post(
+      '/api/auth/logout',
+      AuthToken.addAuthTokenToJSONRequest({}),
+    ).success((data, status, headers, config) ->
+      AuthToken.remove()
+      $rootScope.isLoggedIn = false
+    )
+
   $rootScope.$watch 'isLoggedIn', ->
-    if not $rootScope.isLoggedIn
-      $http.post(
-        '/api/auth/logout',
-        ''
-      ).success((data, status, headers, config) ->
-      ).error((data, status, headers, config) ->
-      )
-      $location.path('/auth/login')
+    $location.path('/auth/login') if not $rootScope.isLoggedIn
 
   $rootScope.$on '$routeChangeStart', ($rootScope, $currView, $prevView) ->
-    return true
+    $http.get(
+      '/api/auth/challenge',
+      AuthToken.addAuthTokenToJSONRequest({}),
+    ).success((data, status, headers, config) ->
+    ).error((data, status, headers, config) ->
+      # Not sheriff srs. This can't be the proper way to do this.
+      $rootScope.currentScope.$parent.isLoggedIn = false if status == 403
+    )
+
+  $rootScope.$on '$routeChangeSuccess', ($rootScope, $currView, $prevView) ->
 
   $rootScope.online_status = true
   $rootScope.last_sync_success = true
