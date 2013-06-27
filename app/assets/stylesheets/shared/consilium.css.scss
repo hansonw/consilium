@@ -112,10 +112,13 @@ body {
 
   .section {
     position: relative;
+    margin-bottom: 15px;
 
     > a {
+      position: absolute;
       bottom: 0;
       right: 0;
+      // margin-bottom: .3em
     }
   }
 
@@ -124,16 +127,6 @@ body {
    */
   .modal {
     @include transition();
-
-    .modal-inside {
-      @include respond-to(desktops) {
-        padding-left: 0;
-      }
-      height: 100%; 
-      //I dont know why this has to be here but if i remove the 100% it does not work.
-      overflow: auto;
-    }
-
 
     opacity: 0;
     top: 0;
@@ -150,6 +143,15 @@ body {
       opacity: 1;
       left: 0;
       right: 0;
+    }
+
+    .modal-inside {
+      overflow: auto;
+      height: 100%; 
+      //I dont know why this has to be here but if i remove the 100% it does not work.
+      @include respond-to(desktops) {
+        padding-left: 0;
+      }
     }
   }
 

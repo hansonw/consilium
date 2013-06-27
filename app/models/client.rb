@@ -96,7 +96,7 @@ class Client
       ],
     },
     {
-      :name => 'Business Operations',
+      :name => 'Business Ops',
       :id => 'businessOps',
       :type => [
         {
@@ -139,7 +139,7 @@ class Client
       ],
     },
     {
-      :name => 'Location Information',
+      :name => 'Location Info',
       :id => 'locationInfos',
       :type => [
         {
@@ -178,8 +178,8 @@ class Client
       ],
     },
     {
-      :name => 'Coverage Schedule',
-      :id => 'coverageSchedules',
+      :name => 'Coverage',
+      :id => 'coverages',
       :type => [
       ],
     },

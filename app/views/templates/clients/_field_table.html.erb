@@ -1,10 +1,13 @@
 <div id="<%= field[:id] %>" class="section">
+  <!-- <div class="hello"> -->
   <a class="pull-right pure-button pure-button-primary" href="#modalAdd<%= field[:id] %>" modal-toggle>
     <i class="icon-plus"></i> <span class="verbose-desc">Add <%= field[:name].singularize %></span>
   </a>
-  <h3><%= field[:name] %></h3>
+<!-- </div> -->
+<!-- <div class="hello2"> -->
+  <h3 class="no-top-margin no-bottom-margin"><%= field[:name] %></h3>
+<!-- </div> -->
 </div>
-
 <table class="pure-table pure-table-horizontal pure-table-full-width">
   <thead>
     <tr>

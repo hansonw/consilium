@@ -59,6 +59,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       $timeout.cancel($scope._saveTimer)
     $("body").removeClass("modal-active")
   )
+  # // TODO: Extend the modal directive to be possible to hide from Angular code.
 
   $scope.errorCount = ->
     ret = 0
