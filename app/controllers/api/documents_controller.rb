@@ -11,6 +11,9 @@ class Api::DocumentsController < Api::ApiController
       elsif key == "user_id"
         ret[:user_id] = val.to_s
         ret[:user_email] = obj.user.email
+      elsif key == "created_at"
+        # convert to milliseconds, Javascript's default format
+        ret[key] = (val.to_f * 1000).to_i
       else
         ret[key] = val
       end
@@ -23,7 +26,7 @@ class Api::DocumentsController < Api::ApiController
   def index
     @documents = Document.all
     if params[:client_id]
-      @documents = @documents.where('client.id' => params[:client_id])
+      @documents = @documents.where('client._id' => Moped::BSON::ObjectId(params[:client_id]))
     end
     @documents = @documents.desc(:created_at)
 
@@ -59,7 +62,10 @@ class Api::DocumentsController < Api::ApiController
       success = @document.update_attributes(document_params)
     else
       @document = Document.new(document_params)
-      success = @document.save
+      @document.user_id = @user.id
+      @document.client = Client.find(params[:client_id])
+      # TODO: should generate the actual document here.
+      success = @document.save!
     end
 
     respond_to do |format|
@@ -86,6 +92,6 @@ class Api::DocumentsController < Api::ApiController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
-      params.permit(:client, :description)
+      params.permit(:description)
     end
 end

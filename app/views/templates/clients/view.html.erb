@@ -1,4 +1,33 @@
 <div data-ng-controller="ClientsViewCtrl" class="pure-form">
+ <%= render :partial => 'templates/clients/field_modal',
+            :locals => {
+              :field => {
+                :name => 'Generated Documents',
+                :id => 'genDocument',
+                :required => true,
+                :type => [
+                  {
+                    :name => 'Description',
+                    :id => 'description',
+                    :placeholder => 'Enter a description here...',
+                    :required => true,
+                    :type => 'text'
+                  },
+                  {
+                    :name => 'Template',
+                    :id => 'template',
+                    :placeholder => 'Default',
+                    :type => 'dropdown',
+                    :options => [
+                      'Building Insurance',
+                      'Farm Insurance',
+                    ]
+                  }
+                ]
+              },
+              :submit_callback => 'generateDocument()'
+            } %>
+
   <div class="content header pure-u-1">
     <h2 class="no-bottom-margin">
       <i data-ng-show="loading" class="icon-spinner icon-spin"></i>
@@ -50,11 +79,47 @@
 
     <div class="client-docs">
       <div class="section" id="basicInfo">
-        <a class="pull-right pure-button pure-button-primary">
+        <a data-ng-href="#modalAddgenDocument" class="pull-right pure-button pure-button-primary" modal-toggle>
           <i class="icon-plus"></i> Generate<span class="verbose-desc"> Policy Request</span>
         </a>
         <h3 class="no-top-margin">Documents</h3>
       </div>
+      <table class="document-table pure-table pure-table-horizontal pure-table-full-width">
+        <thead>
+          <tr>
+            <th class="name">Description</th>
+            <th class="actions align-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-ng-show="docLoading">
+            <td colspan="2"><i class="icon-spinner icon-spin icon-large"></i> Loading...</td>
+          </tr>
+          <tr data-ng-show="!docLoading && docError">
+            <td colspan="2">Must be online to view and generate documents.</td>
+          </tr>
+          <tr data-ng-show="!docLoading && !docError && !documents.length">
+            <td colspan="2">No documents generated for this client yet.</td>
+          </tr>
+          <tr data-ng-repeat="document in documents">
+            <td class="description">
+              {{ document.description }}
+              <div class="detail">
+                Created by <span class="email">{{ document.user_email }}</span> on
+                <span class="date">{{ document.created_at | date: 'medium'}}</span>
+              </div>
+            </td>
+            <td class="actions align-right">
+              <a data-ng-href="/api/documents/{{ document.id }}" class="pure-button pure-button-small pure-button-success">
+                <i class="icon-download-alt icon-large"></i>
+              </a>
+              <a data-ng-click="deleteDocument($index)" class="pure-button pure-button-small pure-button-error">
+                <i class="icon-trash icon-large"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

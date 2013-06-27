@@ -17,7 +17,7 @@
         <div class="form-content">
           <form name="form<%= field[:id] %>"
                 class="pure-form pure-form-aligned"
-                data-ng-submit="addToField('<%= field[:id] %>')">
+                data-ng-submit="<%= submit_callback %>">
             <% field[:type].each do |subfield| %>
               <div class="pure-control-group">
                 <label for="<%= subfield[:id] %>"><%= subfield[:name] %></label>

@@ -2,7 +2,7 @@
   <% Client::FIELDS.each do |field| %>
     <% if field[:type].is_a? Array %>
       <%= render :partial => 'templates/clients/field_modal',
-                 :locals => { :field => field } %>
+                 :locals => { :field => field, :submit_callback => "addToField('#{field[:id]}')" } %>
     <% end %>
   <% end %>
 

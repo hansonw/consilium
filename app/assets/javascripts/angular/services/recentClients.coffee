@@ -1,6 +1,6 @@
 App.service 'RecentClients', [->
   clients = []
-  try clients = angular.fromJson(window.localStorage.getItem('RecentClients'))
+  try clients = angular.fromJson(window.localStorage.getItem('RecentClients')) || []
 
   return {
     limit: 10,
