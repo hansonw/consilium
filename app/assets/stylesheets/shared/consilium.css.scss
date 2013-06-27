@@ -126,10 +126,14 @@ body {
     @include transition();
 
     .modal-inside {
-      padding-left: 0;
-      overflow-y: scroll;
-      height: 101%;
-  }
+      @include respond-to(desktops) {
+        padding-left: 0;
+      }
+      height: 100%; 
+      //I dont know why this has to be here but if i remove the 100% it does not work.
+      overflow: auto;
+    }
+
 
     opacity: 0;
     top: 0;
