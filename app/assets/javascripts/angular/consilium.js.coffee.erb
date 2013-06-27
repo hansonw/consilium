@@ -61,7 +61,7 @@ App.run ($rootScope, $location, $anchorScroll, $timeout, $http, Client, Offline,
     ).success((data, status, headers, config) ->
     ).error((data, status, headers, config) ->
       # Not sheriff srs. This can't be the proper way to do this.
-      $rootScope.currentScope.$parent.isLoggedIn = false if status == 403
+      $rootScope.targetScope.isLoggedIn = false if status == 403
     )
 
   $rootScope.$on '$routeChangeSuccess', ($rootScope, $currView, $prevView) ->
