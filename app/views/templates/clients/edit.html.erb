@@ -21,10 +21,10 @@
   <div class="content">
     <div class="client-form">
       <div class="form-nav">
-        <div scroll-fix>
-          <div class="pure-menu pure-menu-open">
+        <div scroll-fix id="seb-test">
+          <div class="pure-menu pure-menu-open" style="height: 100%;">
             <a class="pure-menu-heading">Sections</a>
-            <ul>
+            <ul style="height: 90%; overflow: auto;">
               <li><a href="" data-ng-click="scrollTo('basicInfo')">Basic Info</a></li>
               <% Client::FIELDS.each do |field| %>
                 <% if field[:type].is_a? Array %>

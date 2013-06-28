@@ -81,6 +81,11 @@ body {
     position: relative;
   }
 
+  #seb-test{
+    height: 70%;
+    border: 3px solid red;
+  }
+
   .align-right {
     text-align: right;
   }
@@ -122,13 +127,14 @@ body {
   }
 
   .well {
-    @include gradient(237, 255);
+    @include gradient(237, 255, 1, 0%, 100%);
     
     padding-right: 10px;
     padding-left: 10px;
-    padding-top: 20px;
+    padding-top: 15px;
     min-height: 180px;
-    border-radius:1%;
+    max-height: 380px;
+    border-radius:2px;
   }
 
   /**
