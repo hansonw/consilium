@@ -15,7 +15,17 @@ Consilium::Application.routes.draw do
 
   scope :app do
     get '' => 'home#app', :as => 'app_root'
-    get 'templates/:path.html' => 'app/templates#page', :constraints => { :path => /.+/ }
+    get 'templates/:path.html' => 'app/templates#page', :constraints => { :path => /.+/, :autogen => false }, :as => 'app_templates_show'
+
+    scope :templates do
+      get '' => 'home#app', :as => 'app_templates_root'
+
+      # Don't include "template" in these paths as it is overly verbose.
+      scope :clients do
+        get '/' => 'home#app', :as => 'app_clients'
+        get '/new' => 'home#app', :as => 'app_clients_new'
+      end
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
