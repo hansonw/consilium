@@ -18,6 +18,13 @@ class Client
       :required => false,
     },
     {
+      :name => 'Account Number',
+      :id => 'accountNumber',
+      :placeholder => 'Account Number',
+      :type => 'text',
+      :required => false,
+    },
+    {
       :name => 'Address',
       :id => 'address',
       :placeholder => 'Address (apt., suite, bldg.)',
@@ -32,11 +39,33 @@ class Client
       :required => true,
     },
     {
+      :name => 'Web Site',
+      :id => 'website',
+      :placeholder => 'www.consilium.com',
+      :type => 'text',
+      :required => false,
+    },
+    {
       :name => 'Phone',
       :id => 'phone',
       :placeholder => 'Area code - phone #, ext #',
       :type => 'text',
       :required => true,
+    },
+    {
+      :name => 'Fax',
+      :id => 'fax',
+      :placeholder => 'Area code - phone #, ext #',
+      :type => 'text',
+      :required => false,
+    },
+    {
+      :name => 'Email',
+      # TODO: if id is set to email, the text resets after it is saved. 
+      :id => 'emailAddess',
+      :placeholder => 'john@consilium.ca',
+      :type => 'email',
+      :required => false,
     },
     {
       :name => 'Client Contacts',
@@ -101,7 +130,7 @@ class Client
       :type => [
         {
           :name => 'Industry Code',
-          :id => 'name',
+          :id => 'industryCode',
           :placeholder => '000000',
           :type => 'text',
           :required => true,
@@ -121,7 +150,7 @@ class Client
       :type => [
         {
           :name => 'Loss Date',
-          :id => 'name',
+          :id => 'lossDate',
           :placeholder => 'dd/mm/yy',
           :type => 'text',
           :required => true,
@@ -157,6 +186,44 @@ class Client
       :name => 'Prev. Policy Info',
       :id => 'prevPolicyInfos',
       :type => [
+        {
+          :name => 'Insurer',
+          :id => 'insurer',
+          :placeholder => '',
+          :type => 'text',
+          :required => true,
+        },
+        {
+          :name => 'Broker',
+          :id => 'broker',
+          :placeholder => '',
+          :type => 'text',
+        },
+        {
+          :name => 'Policy #',
+          :id => 'policyNumber',
+          :placeholder => '',
+          :type => 'text',
+        },
+        {
+          :name => 'Premium',
+          :id => 'premium',
+          :placeholder => '',
+          :type => 'text',
+        },
+        {
+          :name => 'Prev. Term',
+          :id => 'previousTerm',
+          :placeholder => 'Start date - End date',
+          :type => 'text',
+        },
+        {
+          :name => 'If renewal was not offered, explain here',
+          :id => 'renewalExplination',
+          :placeholder => '',
+          :type => 'textbox',
+          :boxRows => 6,
+        },
       ],
     },
     {
