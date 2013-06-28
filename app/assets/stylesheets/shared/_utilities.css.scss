@@ -32,3 +32,26 @@ $break-xlarge: 1200px;
   -o-transition: all $transition-duration ease-out;
   transition: all $transition-duration ease-out;
 }
+
+
+
+
+@mixin gradient($start, $finish) {
+  $color-start: rgb($start, $start, $start);
+  $color-finish: rgb($finish, $finish, $finish);
+  background: rgb($start,$start,$start); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba($start,$start,$start,1) 0%, rgba($finish,$finish,$finish,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba($start,$start,$start,1)), color-stop(100%,rgba($finish,$finish,$finish,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba($start,$start,$start,1) 0%,rgba($finish,$finish,$finish,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba($start,$start,$start,1) 0%,rgba($finish,$finish,$finish,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba($start,$start,$start,1) 0%,rgba($finish,$finish,$finish,1) 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba($start,$start,$start,1) 0%,rgba($finish,$finish,$finish,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
+
+
+
+
+
+
+
