@@ -15,15 +15,25 @@ Consilium::Application.routes.draw do
 
   scope :app do
     get '' => 'home#app', :as => 'app_root'
-    get 'templates/:path.html' => 'app/templates#page', :constraints => { :path => /.+/, :autogen => false }, :as => 'app_templates_show'
+
+    get 'templates/:path.html' => 'app/templates#page', :constraints => { :path => /.+/ }, :as => 'app_templates_show'
 
     scope :templates do
       get '' => 'home#app', :as => 'app_templates_root'
 
-      # Don't include "template" in these paths as it is overly verbose.
+      # Don't include "template" in these :as paths as it is overly verbose.
+
       scope :clients do
-        get '/' => 'home#app', :as => 'app_clients'
-        get '/new' => 'home#app', :as => 'app_clients_new'
+        get '' => 'home#app', :as => 'app_clients'
+        get 'new' => 'home#app', :as => 'app_clients_new'
+        get 'recent' => 'home#app', :as => 'app_clients_recent'
+        get 'show/:clientId' => 'home#app', :as => 'app_clients_show'
+        get 'edit/:clientId' => 'home#app', :as => 'app_clients_edit'
+      end
+
+      scope :auth do
+        get '' => 'home#app', :as => 'app_auth'
+        get 'login' => 'home#app', :as => 'app_auth_login'
       end
     end
   end

@@ -6,17 +6,17 @@ window.App = angular.module('Consilium', ['ngResource'])
 
 App.config(['$routeProvider', ($routeProvider) ->
   $routeProvider.when '/',
-    templateUrl: '/app/templates/index.html'
-  <% Rails.application.routes.routes.each do |route| %>
-    <% path = route.path.spec.to_s.raw_path %>
-    <% puts path %>
-    <% if path.start_with?(app_root_path) && path != (app_templates_root_path + '/:path.html') && path != app_root_path && path != app_templates_root_path %>
-  $routeProvider.when '<%= path.app_path.sub '#', '' %>',
-    templateUrl: '<%= path.app_file_path %>'
-    <% end %>
-  <% end %>
-  $routeProvider.otherwise
-    templateUrl: '/app/templates/index.html'
+    templateUrl: '<%= app_templates_root_path.app_file_path %>'
+# <% Rails.application.routes.routes.each do |route| %>
+#   <% path = route.path.spec.to_s.raw_path %>
+#   <% puts path %>
+#   <% if path.start_with?(app_root_path) && path != (app_templates_root_path + '/:path.html') && path != app_root_path && path != app_templates_root_path %>
+# $routeProvider.when '<%= path.app_path.sub '#', '' %>',
+#   templateUrl: '<%= path.app_file_path %>'
+#   <% end %>
+# <% end %>
+# $routeProvider.otherwise
+#   templateUrl: '<%= app_templates_root_path.app_file_path %>'
 ])
 
 App.config(["$httpProvider", ($httpProvider) ->
