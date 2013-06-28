@@ -1,22 +1,17 @@
 <% environment.context_class.instance_eval { include ActionView::Helpers } %>
+<% environment.context_class.instance_eval { include AngularRoutingHelper } %>
 <% environment.context_class.instance_eval { include ActionDispatch::Routing } %>
 <% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
 
 window.App = angular.module('Consilium', ['ngResource'])
 
 App.config(['$routeProvider', ($routeProvider) ->
-  $routeProvider.when '/',
-    templateUrl: '/app/templates/index.html'
-  <% Rails.application.routes.routes.each do |route| %>
-    <% path = route.path.spec.to_s.raw_path %>
-    <% puts path %>
-    <% if path.start_with?(app_root_path) && path != (app_templates_root_path + '/:path.html') && path != app_root_path && path != app_templates_root_path %>
-  $routeProvider.when '<%= path.app_path.sub '#', '' %>',
-    templateUrl: '<%= path.app_file_path %>'
-    <% end %>
+  <% getAllAngularRoutes().each do |route| %>
+  $routeProvider.when '<%= angularRouteAppPath(route).sub '#', '' %>',
+    templateUrl: '<%= angularRouteFilePath(route) %>'
   <% end %>
   $routeProvider.otherwise
-    templateUrl: '/app/templates/index.html'
+    templateUrl: '<%= angularRouteFilePath(app_templates_path) %>'
 ])
 
 App.config(["$httpProvider", ($httpProvider) ->

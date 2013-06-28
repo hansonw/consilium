@@ -19,7 +19,7 @@ Consilium::Application.routes.draw do
     get 'templates/:path.html' => 'app/templates#page', :constraints => { :path => /.+/ }, :as => 'app_templates_show'
 
     scope :templates do
-      get '' => 'home#app', :as => 'app_templates_root'
+      get '' => 'home#app', :as => 'app_templates'
 
       # Don't include "template" in these :as paths as it is overly verbose.
 
