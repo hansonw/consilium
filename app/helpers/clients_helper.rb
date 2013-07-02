@@ -29,10 +29,25 @@ module ClientsHelper
         checkboxString += "<div class='checkbox-field'>
                             <input name='#{field[:id]}'
                                 type='#{field[:type]}'
-                                #{field[:singleCheck] && "ng-click=\"#{model} = (#{model} == '#{key}') ? '' : '#{key}'\""}
+                                ng-click=\"#{model} = (#{model} == '#{key}') ? '' : '#{key}'\"
                                 id='#{key}'
                                 value='#{key}'
-                                #{field[:singleCheck] && "ng-checked=\"#{model} == '#{key}'\""}
+                                #{field[:required] && 'required'}
+                            />
+                            <div class='checkbox-label'>#{option}</div>
+                          </div>"
+      end
+      raw checkboxString
+    when 'radio'
+      checkboxString = ""
+      field[:options].each do |key, option|
+        checkboxString += "<div class='checkbox-field'>
+                            <input name='#{field[:id]}'
+                                type='#{field[:type]}'
+                                ng-click=\"#{model} = (#{model} == '#{key}') ? '' : '#{key}'\"
+                                id='#{key}'
+                                value='#{key}'
+                                ng-checked=\"#{model} == '#{key}'\"
                                 #{field[:required] && 'required'}
                             />
                             <div class='checkbox-label'>#{option}</div>

@@ -256,8 +256,7 @@ class Client
         {
           :name => 'Inspection',
           :id => 'inspection',
-          :type => 'checkbox',
-          :singleCheck => true,
+          :type => 'radio',
           :options => {
             'notInspected' => 'This risk was not inspected',
           },
@@ -265,8 +264,7 @@ class Client
         {
           :name => 'This risk is:',
           :id => 'riskSeverity',
-          :type => 'checkbox',
-          :singleCheck => true,
+          :type => 'radio',
           :options => {
             'excellent' => 'Excellent',
             'veryGood' => 'Very Good',
