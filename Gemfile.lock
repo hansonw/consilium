@@ -13,13 +13,6 @@ GIT
       rubyzip
 
 GIT
-  remote: https://github.com/bokmann/font-awesome-rails.git
-  revision: 5d69652b358c32e4192b1671ef6138328a5efe0a
-  specs:
-    font-awesome-rails (3.2.1.1)
-      railties (>= 3.2, < 5.0)
-
-GIT
   remote: https://github.com/mongoid/mongoid.git
   revision: 06b708d37cdebdc50b69614e9ff84dd953993a12
   specs:
@@ -84,6 +77,8 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    font-awesome-rails (3.2.1.1)
+      railties (>= 3.2, < 5.0)
     hike (1.2.3)
     htmlentities (4.3.1)
     i18n (0.6.4)
@@ -175,7 +170,7 @@ DEPENDENCIES
   cancan
   coffee-rails (~> 4.0.0)
   devise!
-  font-awesome-rails!
+  font-awesome-rails
   jbuilder (~> 1.0.1)
   jquery-rails
   modernizr-rails
