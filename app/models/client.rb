@@ -41,7 +41,7 @@ class Client
     {
       :name => 'Web Site',
       :id => 'website',
-      :placeholder => 'www.consilium.com',
+      :placeholder => 'Website (ex. www.consilium.com)',
       :type => 'text',
       :required => false,
     },
@@ -62,8 +62,8 @@ class Client
     {
       :name => 'Email',
       # TODO: if id is set to email, the text resets after it is saved. 
-      :id => 'emailAddess',
-      :placeholder => 'john@consilium.ca',
+      :id => 'emailAddress',
+      :placeholder => 'Email (ex. john@consilium.ca)',
       :type => 'email',
       :required => false,
     },
@@ -113,7 +113,7 @@ class Client
         {
           :name => 'Email',
           :id => 'email',
-          :placeholder => 'john@consilium.ca',
+          :placeholder => 'Email (ex. john@consilium.ca)',
           :type => 'email',
         },
         {
@@ -131,7 +131,7 @@ class Client
         {
           :name => 'Industry Code',
           :id => 'industryCode',
-          :placeholder => '000000',
+          :placeholder => 'Industry Code (ex. 000000)',
           :type => 'text',
           :required => true,
         },
@@ -219,7 +219,7 @@ class Client
         },
         {
           :name => 'If renewal was not offered, explain here',
-          :id => 'renewalExplination',
+          :id => 'renewalExplanation',
           :placeholder => '',
           :type => 'textbox',
           :boxRows => 6,
