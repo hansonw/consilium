@@ -760,6 +760,72 @@ class Client
           :placeholder => 'If Other, Please Describe',
           :type => 'text',
         },
+        {
+          :name => 'Safe Type',
+          :id => 'safeType',
+          :type => 'checkbox',
+          :options => {
+            'fire' => 'Fire',
+            'burglary' => 'Burglary',
+            'vault' => 'Vault',
+            'none' => 'None',
+          },
+        },
+        {
+          :name => 'Safe Class',
+          :id => 'safeClass',
+          :type => 'checkbox',
+          :options => {
+            '1' => '1',
+            '2' => '2',
+            '3' => '3',
+            '4' => '4',
+            '5' => '5',
+          },
+        },
+        {
+          :name => 'Other',
+          :id => 'crimeProtectionOther',
+          :type => 'textbox',
+        },
+        {
+          :name => 'Occupancy Insured',
+          :id => 'occupancyInsured',
+          :type => 'textbox',
+        },
+        {
+          :name => 'Occupancy Others',
+          :id => 'occupancyOthers',
+          :type => 'textbox',
+        },
+        {
+          :name => 'Exposures',
+          :id => 'exposuresClear',
+          :type => 'checkbox',
+          :options => {
+            'clearAllDirections' => 'Clear All Directions',
+          },
+        },
+        {
+          :name => 'Left of Insured',
+          :id => 'exposuresLeft',
+          :type => 'textbox',
+        },
+        {
+          :name => 'Right of Insured',
+          :id => 'exposuresRight',
+          :type => 'textbox',
+        },
+        {
+          :name => 'Behind Insured',
+          :id => 'exposuresBehind',
+          :type => 'textbox',
+        },
+        {
+          :name => 'Loss Payees',
+          :id => 'lossPayees',
+          :type => 'textbox',
+        },
       ],
     },
     {
