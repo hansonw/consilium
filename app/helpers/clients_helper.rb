@@ -23,7 +23,7 @@ module ClientsHelper
       end
       dropdownString += "</div>"
       raw dropdownString
-    when 'checkbox'
+    when 'checkbox', 'radio'
       checkboxString = ""
       field[:options].each do |key, option|
         checkboxString += "<div class='checkbox-field'>
@@ -32,22 +32,7 @@ module ClientsHelper
                                 ng-click=\"#{model} = (#{model} == '#{key}') ? '' : '#{key}'\"
                                 id='#{key}'
                                 value='#{key}'
-                                #{field[:required] && 'required'}
-                            />
-                            <div class='checkbox-label'>#{option}</div>
-                          </div>"
-      end
-      raw checkboxString
-    when 'radio'
-      checkboxString = ""
-      field[:options].each do |key, option|
-        checkboxString += "<div class='checkbox-field'>
-                            <input name='#{field[:id]}'
-                                type='#{field[:type]}'
-                                ng-click=\"#{model} = (#{model} == '#{key}') ? '' : '#{key}'\"
-                                id='#{key}'
-                                value='#{key}'
-                                ng-checked=\"#{model} == '#{key}'\"
+                                #{field[:type] == 'radio' && "ng-checked=\"#{model} == '#{key}'\""}
                                 #{field[:required] && 'required'}
                             />
                             <div class='checkbox-label'>#{option}</div>
