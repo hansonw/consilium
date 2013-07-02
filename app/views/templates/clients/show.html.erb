@@ -33,16 +33,15 @@
       <i data-ng-show="loading" class="icon-spinner icon-spin"></i>
       <span data-ng-show="!loading">{{ client.name.value }}</span>
     </h2>
-    <div class="breadcrumbs">
-      <a data-ng-href="#/">Home</a>
-      <span class="divider">&gt;</span>
-      <a data-ng-href="#/clients/">Clients</a>
-      <span class="divider">&gt;</span>
-      <% # TODO: We should fix the Angular routing to support optional parameters. %>
-      <a data-ng-href="#/clients/show/{{ clientId }}">View Client</a>
-      <hr class="soften" />
-    </div>
+    <%= render :partial => 'templates/breadcrumbs',
+               :locals => { :paths => {
+          "Home" => "#/",
+          "Clients" => "#/clients/",
+          "{{ client.name.value }}" => "#/clients/show/{{ clientId }}",
+        }}
+     %>
   </div>
+  <hr class="soften" />
 
   <div class="content client-show">
     <div class="client-info pure-form pure-form-aligned well">
