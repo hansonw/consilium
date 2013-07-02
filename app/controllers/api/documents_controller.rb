@@ -1,3 +1,6 @@
+require 'ydocx/document'
+require 'tempfile'
+
 class Api::DocumentsController < Api::ApiController
   before_action :set_document, only: [:edit, :destroy]
 
@@ -42,15 +45,24 @@ class Api::DocumentsController < Api::ApiController
   # GET /documents/1
   # GET /documents/1.json
   def show
-    @document = Client.where(:id => params[:id]).first
+    @document = Document.where(:id => params[:id]).first
     if @document.nil?
       render json: '', status: :gone
       return
     end
 
-    respond_to do |format|
-      format.json { render json: get_json(@document) }
+    data = {}
+    @document.client.attributes.each do |key, val|
+      if val.is_a?(Hash) && !val['value'].nil?
+        data[key] = val['value']
+      end
     end
+
+    tmpfile = Tempfile.new(@document.id.to_s)
+    template_path = Rails.root.join('lib', 'docx_templates', 'default.docx')
+    YDocx::Document.fill_template(template_path, data, tmpfile.path)
+
+    send_data(File.binread(tmpfile.path), :filename => @document.description + '.docx')
   end
 
   # PUT /documents/:id
@@ -64,7 +76,7 @@ class Api::DocumentsController < Api::ApiController
       @document = Document.new(document_params)
       @document.user_id = @user.id
       @document.client = Client.find(params[:client_id])
-      # TODO: should generate the actual document here.
+
       success = @document.save!
     end
 
