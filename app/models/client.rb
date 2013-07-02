@@ -135,7 +135,7 @@ class Client
           :type => 'text',
         },
         {
-          :name => 'Description of operations:',
+          :name => 'Description of operations',
           :id => 'descriptionOperations',
           :placeholder => 'Description of operations',
           :type => 'textbox',
@@ -277,7 +277,7 @@ class Client
           },
         },
         {
-          :name => 'This risk is:',
+          :name => 'This risk is',
           :id => 'riskSeverity',
           :type => 'radio',
           :options => {
@@ -308,8 +308,8 @@ class Client
       :id => 'riskInfos',
       :type => [
         {
-          :name => 'Type:',
-          :id => 'name',
+          :name => 'Type',
+          :id => 'type',
           :type => 'dropdown',
           :placeholder => '',
           :options => [
@@ -320,22 +320,22 @@ class Client
           ],
         },
         {
-          :name => 'Notes:',
+          :name => 'Notes',
           :id => 'riskInfosNotes',
           :type => 'textbox',
         },
         {
-          :name => 'Limit:',
+          :name => 'Limit',
           :id => 'riskInfosLimit',
           :type => 'text',
         },
         {
-          :name => 'Stories:',
+          :name => 'Stories',
           :id => 'sonstructionStories',
           :type => 'text',
         },
         {
-          :name => 'Walls:',
+          :name => 'Walls',
           :id => 'constructionWalls',
           :type => 'checkbox',
           :options => {
@@ -348,7 +348,7 @@ class Client
           },
         },
         {
-          :name => 'Roof:',
+          :name => 'Roof',
           :id => 'constructionRoof',
           :type => 'checkbox',
           :options => {
@@ -367,13 +367,13 @@ class Client
           },
         },
         {
-          :name => 'Describe:',
+          :name => 'Describe',
           :id => 'constructionRoofDescribe',
           :placeholder => 'If Other, Please Describe',
           :type => 'text',
         },
         {
-          :name => 'Floors:',
+          :name => 'Floors',
           :id => 'constructionFloors',
           :type => 'checkbox',
           :options => {
@@ -392,7 +392,7 @@ class Client
           :type => 'text',
         },
         {
-          :name => 'Area Units:',
+          :name => 'Area Units',
           :id => 'constructionAreaUnit',
           :type => 'dropdown',
           :options => [
@@ -401,7 +401,7 @@ class Client
           ],
         },
         {
-          :name => 'Year Built:',
+          :name => 'Year Built',
           :id => 'yearBuilt',
           :placeholder => '#',
           :type => 'text',
@@ -421,7 +421,7 @@ class Client
           },
         },
         {
-          :name => 'Electrical:',
+          :name => 'Electrical',
           :id => 'constructionElectrical',
           :type => 'checkbox',
           :options => {
@@ -431,7 +431,7 @@ class Client
           },
         },
         {
-          :name => 'Plumbing:',
+          :name => 'Plumbing',
           :id => 'constructionPlumbing',
           :type => 'checkbox',
           :options => {
@@ -444,7 +444,7 @@ class Client
           },
         },
         {
-          :name => 'Heating:',
+          :name => 'Heating',
           :id => 'constructionHeating',
           :type => 'checkbox',
           :options => {
@@ -460,10 +460,118 @@ class Client
           },
         },
         {
-          :name => 'Describe:',
+          :name => 'Describe',
           :id => 'constructionHeatingDescribe',
           :placeholder => 'If Other, Please Describe',
           :type => 'text',
+        },
+        {
+          :name => 'Fuel',
+          :id => 'constructionFuel',
+          :type => 'checkbox',
+          :options => {
+            'oil' => 'Oil',
+            'naturalGas' => 'Natural Gas',
+            'propane' => 'Propane',
+            'steam' => 'Steam',
+            'wood' => 'Wood',
+            'electric' => 'Electric',
+            'other' => 'Other (describe)',
+          },
+        },
+        {
+          :name => 'Describe',
+          :id => 'constructionFuelDescribe',
+          :placeholder => 'If Other, Please Describe',
+          :type => 'text',
+        },
+        {
+          :name => 'Renovations',
+          :id => 'renovationsType',
+          :type => 'checkbox',
+          :options => {
+            'noneKnown' => 'None Known',
+          },
+        },
+        {
+          :name => '',
+          :id => 'renovationsElectrical',
+          :type => 'checkbox',
+          :options => {
+            'electricalRenovation' => 'Electrical',
+          },
+        },
+        {
+          :name => 'Year of Renovation',
+          :id => 'renovationsElectricalYear',
+          :type => 'text',
+          :placeholder => '#',
+        },
+        {
+          :name => 'Complete/Partial',
+          :id => 'renovationsElectricalCompletePartial',
+          :type => 'text',
+          :placeholder => 'Complete/Partial',
+        },
+        {
+          :name => '',
+          :id => 'renovationsPlumbing',
+          :type => 'checkbox',
+          :options => {
+            'plumbingRenovation' => 'Plumbing',
+          },
+        },
+        {
+          :name => 'Year of Renovation',
+          :id => 'renovationsPlumbingYear',
+          :type => 'text',
+          :placeholder => '#',
+        },
+        {
+          :name => 'Complete/Partial',
+          :id => 'renovationsPlumbingCompletePartial',
+          :type => 'text',
+          :placeholder => 'Complete/Partial',
+        },
+        {
+          :name => '',
+          :id => 'renovationsHeating',
+          :type => 'checkbox',
+          :options => {
+            'heatingRenovation' => 'Heating',
+          },
+        },
+        {
+          :name => 'Year of Renovation',
+          :id => 'renovationsHeatingYear',
+          :type => 'text',
+          :placeholder => '#',
+        },
+        {
+          :name => 'Complete/Partial',
+          :id => 'renovationsHeatingCompletePartial',
+          :type => 'text',
+          :placeholder => 'Complete/Partial',
+        },
+        {
+          :name => '',
+          :id => 'renovationsRoof',
+          :type => 'checkbox',
+          :options => {
+            'roofRenovation' => 'Roof',
+          },
+        },
+        {
+          :name => 'Year of Renovation',
+          :id => 'renovationsRoofYear',
+          :type => 'text',
+          :placeholder => '#',
+        },
+        {
+          :name => 'Complete/Partial',
+          :id => 'renovationsRoofCompletePartial',
+          :type => 'text',
+          :placeholder => 'Complete/Partial',
         },
       ],
     },
