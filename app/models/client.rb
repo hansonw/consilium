@@ -133,7 +133,6 @@ class Client
           :id => 'industryCode',
           :placeholder => 'Industry Code (ex. 000000)',
           :type => 'text',
-          :required => true,
         },
         {
           :name => 'Description of operations:',
