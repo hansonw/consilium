@@ -169,4 +169,8 @@ body {
   &.modal-active {
     overflow: hidden;
   }
+
+  .inherit-style {
+    color: inherit;
+  }
 }

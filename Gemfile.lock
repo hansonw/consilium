@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:DouglasSherk/ydocx.git
+  remote: https://github.com/DouglasSherk/ydocx.git
   revision: 9cc5414bccdeb3ce639fc02cc27a9b2450d22854
   specs:
     ydocx (1.2.3)
