@@ -5,21 +5,21 @@
 
 window.App = angular.module('Consilium', ['ngResource'])
 
-App.config(['$routeProvider', ($routeProvider) ->
+App.config ['$routeProvider', ($routeProvider) ->
   <% getAllAngularRoutes().each do |route| %>
   $routeProvider.when '<%= angularRouteAppPath(route).sub '#', '' %>',
     templateUrl: '<%= angularRouteFilePath(route) %>'
   <% end %>
   $routeProvider.otherwise
     templateUrl: '<%= angularRouteFilePath(app_templates_path) %>'
-])
+]
 
-App.config(["$httpProvider", ($httpProvider) ->
+App.config ["$httpProvider", ($httpProvider) ->
   $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
   $httpProvider.responseInterceptors.push('AuthHttpInterceptor')
-])
+]
 
-App.run ($rootScope, $location, $anchorScroll, $timeout, $http, Client, Offline, Auth, AuthToken) ->
+App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', '$http', 'Client', 'Offline', 'Auth', 'AuthToken', ($rootScope, $location, $anchorScroll, $timeout, $http, Client, Offline, Auth, AuthToken) ->
 
   # Initialize Auth service.
   Auth.init()
@@ -111,3 +111,4 @@ App.run ($rootScope, $location, $anchorScroll, $timeout, $http, Client, Offline,
 
   $rootScope.mainMenuLinkClick = ->
     $rootScope._showMenu = !$rootScope._showMenu
+]
