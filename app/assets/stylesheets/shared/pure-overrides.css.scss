@@ -195,13 +195,19 @@
     }
   }
 
-  .checkbox-field {
+  .checkbox-container {
     display: inline-block;
-    margin: 0px 4px;
+    @include calc(width, "100% - #{$label-width + $label-comfort-margin}");
+    @include respond-to(handhelds) { width: 100%; }
 
-    .checkbox-label {
+    .checkbox-field {
       display: inline-block;
-      margin: 0px 2px 0px 4px;
+      margin: 0px 4px;
+
+      .checkbox-label {
+        display: inline-block;
+        margin: 0px 2px 0px 4px;
+      }
     }
   }
 }

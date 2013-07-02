@@ -11,7 +11,7 @@ module ClientsHelper
       end
       dropdownString += "</select>"
       if field[:otherPlaceholder] != ''
-        dropdownString += "<input class='other-field' name='#{field[:id]}' 
+        dropdownString += "<input class='other-field' name='#{field[:id]}'
                               type=\"{{(#{model} == 'Other') ? 'text' : 'hidden'}}\"
                               ng-model='#{model}' placeholder='#{field[:otherPlaceholder]}'
                               #{field[:optionRequired] && 'required'}
@@ -38,7 +38,7 @@ module ClientsHelper
                             <div class='checkbox-label'>#{option}</div>
                           </div>"
       end
-      raw checkboxString
+      raw "<div class='checkbox-container'>" + checkboxString + "</div>"
     when 'textbox'
       raw "<textarea name='#{field[:id]}' ng-model='#{model}'
                 placeholder='#{field[:placeholder]}'
