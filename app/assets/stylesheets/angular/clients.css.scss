@@ -78,15 +78,15 @@
     $height: 90%;
     $buffer: 32px;
     overflow-y: auto;
-    height: -moz-calc(100% - 39px);/* Firefox */
-    height: -webkit-calc(100% - 39px);/* WebKit */
-    height: -o-calc(100% - 39px);/* Opera */
-    height: calc(100% - 39px);/* Standard */
+    height: -moz-calc(100% - 38px);/* Firefox */
+    height: -webkit-calc(100% - 38px);/* WebKit */
+    height: -o-calc(100% - 38px);/* Opera */
+    height: calc(100% - 38px);/* Standard */
   }
   #section-box {
     height: 100%
   }
-  
+
 #toolbar {
   @include transition();
 
