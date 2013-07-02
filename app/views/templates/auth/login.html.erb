@@ -16,9 +16,8 @@
     <div class="login-buttons">
       <%= link_to "Forgot Password", new_user_password_path, :class => 'pure-button' %>
       <%= link_to "Sign Up", new_user_registration_path, :class => 'pure-button pure-button-secondary' %>
-      <% # TODO: Remove the hidden submit button and fix the Login button so the enter button submits form. %>
-      <%= link_to "Login", '', :class => 'pure-button pure-button-primary', :type => 'submit', :data => {:ng_click => 'login.submit(loginForm)'} %>
-      <input style="visibility: hidden;" data-ng-click="login.submit(loginForm)" type="submit" value="Login">
+      <% # TODO: Show that Login failed %>
+      <button class = "pure-button pure-button-primary" data-ng-click="login.submit(loginForm)" type="submit">Login</button>
     </div>
   </form>
 </div>
