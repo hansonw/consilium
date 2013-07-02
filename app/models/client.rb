@@ -229,18 +229,33 @@ class Client
       :name => 'Liability Info',
       :id => 'liabilityInfos',
       :type => [
+        {
+          :name => 'Stub',
+          :id => 'stub',
+          :type => 'text'
+        }
       ],
     },
     {
       :name => 'Policy Info',
       :id => 'policyInfos',
       :type => [
+        {
+          :name => 'Stub',
+          :id => 'stub',
+          :type => 'text'
+        }
       ],
     },
     {
       :name => 'Payment Info',
       :id => 'paymentInfos',
       :type => [
+        {
+          :name => 'Stub',
+          :id => 'stub',
+          :type => 'text'
+        }
       ],
     },
     {
@@ -456,30 +471,55 @@ class Client
       :name => 'Misc. Notes',
       :id => 'miscNotes',
       :type => [
+        {
+          :name => 'Stub',
+          :id => 'stub',
+          :type => 'text'
+        }
       ],
     },
     {
       :name => 'Coverage',
       :id => 'coverages',
       :type => [
+        {
+          :name => 'Stub',
+          :id => 'stub',
+          :type => 'text'
+        }
       ],
     },
     {
       :name => 'Properties',
       :id => 'properties',
       :type => [
+        {
+          :name => 'Stub',
+          :id => 'stub',
+          :type => 'text'
+        }
       ],
     },
     {
       :name => 'Umbrella/Machinery',
       :id => 'umbrellaMachinerys',
       :type => [
+        {
+          :name => 'Stub',
+          :id => 'stub',
+          :type => 'text'
+        }
       ],
     },
     {
       :name => 'Photos',
       :id => 'photos',
       :type => [
+        {
+          :name => 'Stub',
+          :id => 'stub',
+          :type => 'text'
+        }
       ],
     },
   ]

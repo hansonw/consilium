@@ -8,7 +8,7 @@
   <thead>
     <tr>
       <% # TODO: Make the heading dynamic; not all sections have a "Name" field. %>
-      <th>Name</th>
+      <th><%= field[:type].first[:name] %></th>
       <th class="align-right">Actions</th>
     </tr>
   </thead>
@@ -18,7 +18,7 @@
       <td></td>
     </tr>
     <tr data-ng-repeat="item in client.<%= field[:id] %>.value">
-      <td>{{ item.name }}</td>
+      <td>{{ item.<%= field[:type].first[:id] %> }}</td>
       <td class="align-right">
         <a class="pure-button pure-button-small" data-ng-click="editInField('<%= field[:id] %>', $index)"><i class="icon-edit icon-large"></i></a>
         <a class="pure-button pure-button-small pure-button-error" data-ng-click="deleteFromField('<%= field[:id] %>', $index)"><i class="icon-trash icon-large"></i></a>
