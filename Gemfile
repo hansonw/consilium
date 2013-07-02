@@ -45,7 +45,7 @@ gem 'cancan'
 gem 'angularjs-rails'
 
 # YDocx for docx templating
-gem 'ydocx', :git => 'git@github.com:DouglasSherk/ydocx.git'
+gem 'ydocx', :git => 'https://github.com/DouglasSherk/ydocx.git'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
