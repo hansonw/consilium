@@ -63,8 +63,13 @@
 
           <% Client::FIELDS.each do |field| %>
             <% if field[:type].is_a? Array %>
-              <%= render :partial => 'templates/clients/field_table',
-                         :locals => { :field => field } %>
+              <% if field[:id].ends_with? 's' %>
+                <%= render :partial => 'templates/clients/field_table',
+                           :locals => { :field => field } %>
+              <% else %>
+                <%= render :partial => 'templates/clients/field_section',
+                           :locals => { :field => field } %>
+              <% end %>
             <% end %>
           <% end %>
 

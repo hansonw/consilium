@@ -32,7 +32,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     $scope.client = new Client()
     $scope.lastSaved = $scope.client.getData()
 
-  $scope.clientContact = {}
+  $scope.subsectionVisible = {}
 
   # Detect if it's been over _saveTimeout seconds since the last change to the model.
   # If it has been, save the form progress now.

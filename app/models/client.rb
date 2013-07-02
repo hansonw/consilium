@@ -126,7 +126,7 @@ class Client
     },
     {
       :name => 'Business Ops',
-      :id => 'businessOps',
+      :id => 'businessOp',
       :type => [
         {
           :name => 'Industry Code',
@@ -297,7 +297,7 @@ class Client
     },
     {
       :name => 'Umbrella/Machinery',
-      :id => 'umbrellaMachinery',
+      :id => 'umbrellaMachinerys',
       :type => [
       ],
     },

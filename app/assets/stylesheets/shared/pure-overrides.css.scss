@@ -154,7 +154,8 @@
     @include respond-to(tablets) { @include calc(width, "100% - #{$label-width-lowres + 2*$label-margin + $label-comfort-margin}"); }
     @include respond-to(handhelds) { width: 100%; }
   }
-  // Text areas do not get formatted by pure, the styling below is 
+
+  // Text areas do not get formatted by pure, the styling below is
   // obtained from the styling pure uses for text inputs.
   textarea {
     border: 1px solid #ccc;
@@ -166,15 +167,20 @@
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     resize:none;
-    @include calc(width, "100% - #{$label-width + 2*$label-margin + $label-comfort-margin}");
-    @include respond-to(tablets) { @include calc(width, "100% - #{$label-width-lowres + 2*$label-margin + $label-comfort-margin}"); }
-    @include respond-to(handhelds) { width: 100%; }
+
+    // Custom styles.
+    $textarea-padding: 0.5em;
+    padding: $textarea-padding;
+    @include calc(width, "100% - #{$label-width + 2*$label-margin + $label-comfort-margin + 2*$textarea-padding}");
+    @include respond-to(tablets) { @include calc(width, "100% - #{$label-width-lowres + 2*$label-margin + $label-comfort-margin + 2*$textarea-padding}"); }
+    @include respond-to(handhelds) { @include calc(width, "100% - #{2*$textarea-padding}"); }
   }
 
   .dropdown-list {
     width: $dropdown-width;
     margin: 4.5px 0;
   }
+
   .dropdown-field {
     display: inline-block;
     width: 350px;
@@ -188,6 +194,7 @@
       @include calc(width, "100% - #{$dropdown-width + $label-comfort-margin}");
     }
   }
+
   .checkbox-field {
     display: inline-block;
     margin: 0px 4px;
