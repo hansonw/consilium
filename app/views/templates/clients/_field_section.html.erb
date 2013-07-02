@@ -12,7 +12,7 @@
     <% field[:type].each do |subfield| %>
       <div class="pure-control-group">
         <label name="<%= subfield[:id] %>" for="<%= subfield[:id] %>"><%= subfield[:name] %></label>
-        <%= ng_input(subfield, 'client.' + subfield[:id])  %>
+        <%= ng_input(subfield, 'client.' + subfield[:id] + '.value')  %>
       </div>
     <% end %>
   </div>

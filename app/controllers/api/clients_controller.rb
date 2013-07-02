@@ -129,8 +129,14 @@ class Api::ClientsController < Api::ApiController
       Client::FIELDS.each do |field|
         permitted[field[:id]] = [:updated_at]
         if field[:type].is_a? Array
-          values = [field[:type].map { |sf| sf[:id] }]
-          permitted[field[:id]] << {:value => values}
+          if field[:id].ends_with? 's'
+            values = [field[:type].map { |sf| sf[:id] }]
+            permitted[field[:id]] << {:value => values}
+          else
+            field[:type].each do |subsection_field|
+              permitted[subsection_field[:id]] << :value
+            end
+          end
         else
           permitted[field[:id]] << :value
         end
