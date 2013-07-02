@@ -85,23 +85,16 @@
   @include respond-to(handhelds) { display: none; }
 }
 
-// TODO: Yuck. This should have been code reviewed.
+// TODO: Where do these numbers come from? We should also change the
+// names and scopes of these |section-|s.
 #section-holder{
-  height: -moz-calc(95% - 95px);/* Firefox */
-  height: -webkit-calc(95% - 95px);/* WebKit */
-  height: -o-calc(95% - 95px);/* Opera */
-  height: calc(95% - 95px);/* Standard */
+  @include calc(height, '95% - 95px');
   max-height: 550px;
 }
 
 #section-list {
-  $height: 90%;
-  $buffer: 32px;
   overflow-y: auto;
-  height: -moz-calc(100% - 38px);/* Firefox */
-  height: -webkit-calc(100% - 38px);/* WebKit */
-  height: -o-calc(100% - 38px);/* Opera */
-  height: calc(100% - 38px);/* Standard */
+  @include calc(height, '100% - 38px');
 }
 
 #section-box {
