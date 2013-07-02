@@ -29,10 +29,10 @@ module ClientsHelper
         checkboxString += "<div class='checkbox-field'>
                             <input name='#{field[:id]}'
                                 type='#{field[:type]}'
-                                ng-click=\"#{model} = (#{model} == '#{key}') ? '' : '#{key}'\"
+                                #{field[:singleCheck] && "ng-click=\"#{model} = (#{model} == '#{key}') ? '' : '#{key}'\""}
                                 id='#{key}'
                                 value='#{key}'
-                                ng-checked=\"#{model} == '#{key}'\"
+                                #{field[:singleCheck] && "ng-checked=\"#{model} == '#{key}'\""}
                                 #{field[:required] && 'required'}
                             />
                             <div class='checkbox-label'>#{option}</div>
