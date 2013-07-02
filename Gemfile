@@ -44,6 +44,9 @@ gem 'cancan'
 # AngularJS client-side MVC framework.
 gem 'angularjs-rails'
 
+# YDocx for docx templating
+gem 'ydocx', :git => 'https://github.com/DouglasSherk/ydocx.git'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
