@@ -248,6 +248,12 @@ class Client
       :id => 'locationInfos',
       :type => [
         {
+          :name => 'Date',
+          :id => 'inspectionDate',
+          :placeholder => 'Date risk was inspected',
+          :type => 'text',
+        },
+        {
           :name => 'Inspection',
           :id => 'inspection',
           :type => 'checkbox',
@@ -261,12 +267,24 @@ class Client
           :type => 'checkbox',
           :options => {
             'excellent' => 'Excellent',
-            'good' => 'Good',
             'veryGood' => 'Very Good',
+            'good' => 'Good',
             'average' => 'Average',
             'fair' => 'Fair',
             'poor' => 'Poor',
           },
+        },
+        {
+          :name => 'Municipal fire zone',
+          :id => 'fireZone',
+          :placeholder => 'Municipal fire protection zone',
+          :type => 'text',
+        },
+        {
+          :name =>'Fire Protection Grade',
+          :id => 'fireGrade',
+          :placeholder => 'Fire Protection Grade',
+          :type => 'text',
         },
       ],
     },
@@ -274,6 +292,84 @@ class Client
       :name => 'Risk Info',
       :id => 'riskInfos',
       :type => [
+        {
+          :name => 'Type:',
+          :id => 'name',
+          :type => 'dropdown',
+          :placeholder => '',
+          :options => [
+            'Commercial Building',
+            'Commercial Equipment',
+            'Commercial Stock',
+            'Other Commercial Risk',
+          ],
+        },
+        {
+          :name => 'Notes:',
+          :id => 'riskInfosNotes',
+          :type => 'textbox',
+        },
+        {
+          :name => 'Limit:',
+          :id => 'riskInfosLimit',
+          :type => 'text',
+        },
+        {
+          :name => 'Stories:',
+          :id => 'sonstructionStories',
+          :type => 'text',
+        },
+        {
+          :name => 'Walls:',
+          :id => 'constructionWalls',
+          :type => 'checkbox',
+          :options => {
+            'fireResistive' => 'Fire Resistive',
+            'nonCombustableMasonryWalls' => 'Non-Combustable Masonry Walls',
+            'nonCombustableNonMasonryWalls' => 'Non-Combustable Non-masonry Walls',
+            'masonry' => 'Masonry',
+            'masonryVeneer' => 'Masonry Veneer',
+            'frameAndAllOthers' => 'Frame & All Others',
+          },
+        },
+        {
+          :name => 'Roof:',
+          :id => 'constructionRoof',
+          :type => 'checkbox',
+          :options => {
+            'steelDeck' => 'Steel Deck',
+            'tarPaper' => 'Tar Paper',
+            'TandG' => 'T & G',
+            'metal' => 'Metal',
+          },
+        },
+        {
+          :name => 'Floors:',
+          :id => 'constructionFloors',
+          :type => 'checkbox',
+          :options => {
+            'fireResistive' => 'Fire Resistive',
+            'nonCombustableMasonryWalls' => 'Non-Combustable Masonry Walls',
+            'nonCombustableNonMasonryWalls' => 'Non-Combustable Non-masonry Walls',
+            'masonry' => 'Masonry',
+            'masonryVeneer' => 'Masonry Veneer',
+            'frameAndAllOthers' => 'Frame & All Others',
+          },
+        },
+        {
+          :name => 'Basement',
+          :id => 'constructionBasement',
+          :type => 'checkbox',
+          :options => {
+            'fireResistive' => 'Fire Resistive',
+            'nonCombustableMasonryWalls' => 'Non-Combustable Masonry Walls',
+            'nonCombustableNonMasonryWalls' => 'Non-Combustable Non-masonry Walls',
+            'masonry' => 'Masonry',
+            'masonryVeneer' => 'Masonry Veneer',
+            'frameAndAllOthers' => 'Frame & All Others',
+            'notApplicable' => 'Not Applicable'
+          },
+        },
       ],
     },
     {
