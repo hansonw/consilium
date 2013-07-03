@@ -176,7 +176,7 @@ class Client
     },
     {
       :name => 'Prev. Policy Info',
-      :id => 'prevPolicyInfos',
+      :id => 'prevPolicyInfo',
       :type => [
         {
           :name => 'Insurer',
@@ -220,7 +220,7 @@ class Client
     },
     {
       :name => 'Liability Info',
-      :id => 'liabilityInfos',
+      :id => 'liabilityInfo',
       :type => [
         {
           :name => 'In Business Since',
@@ -323,7 +323,7 @@ class Client
     },
     {
       :name => 'Policy Info',
-      :id => 'policyInfos',
+      :id => 'policyInfo',
       :type => [
         {
           :name => 'Period of Coverage From',
@@ -346,7 +346,7 @@ class Client
     },
     {
       :name => 'Payment Info',
-      :id => 'paymentInfos',
+      :id => 'paymentInfo',
       :type => [
         {
           :name => 'Stub',
@@ -950,7 +950,7 @@ class Client
     },
     {
       :name => 'Misc. Notes',
-      :id => 'miscNotes',
+      :id => 'miscNote',
       :type => [
         {
           :name => 'Notes',
@@ -1100,8 +1100,8 @@ class Client
       ],
     },
     {
-      :name => 'Umbrella/Machinery',
-      :id => 'umbrellaMachineries',
+      :name => 'Umbrella',
+      :id => 'umbrella',
       :type => [
         {
           :name => 'Policy No.',
@@ -1151,8 +1151,8 @@ class Client
       ],
     },
     {
-      :name => 'Broker Declaration',
-      :id => 'brokerDeclaration',
+      :name => 'Declaration',
+      :id => 'Declaration',
       :type => [
         {
           :name => 'I have known this client since',

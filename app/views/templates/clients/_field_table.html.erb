@@ -1,30 +1,31 @@
-<div id="<%= field[:id] %>" class="section">
-  <a class="pull-right pure-button pure-button-primary" href="#modalAdd<%= field[:id] %>" modal-toggle>
-    <i class="icon-plus"></i> <span class="verbose-desc">Add <%= field[:name].singularize %></span>
-  </a>
-  <h3 class="no-top-margin no-bottom-margin"><%= field[:name] %></h3>
+<div class="well">
+  <div id="<%= field[:id] %>" class="section">
+    <a class="button-size pull-right pure-button pure-button-primary" href="#modalAdd<%= field[:id] %>" modal-toggle>
+      <i class="icon-plus"></i> <span class="verbose-desc">Add <%= field[:name].singularize %></span>
+    </a>
+    <h3 class="no-top-margin no-bottom-margin"><%= field[:name] %></h3>
+  </div>
+  <table class="pure-table pure-table-horizontal pure-table-full-width">
+    <thead>
+      <tr>
+        <% # TODO: Make the heading dynamic; not all sections have a "Name" field. %>
+        <th><%= field[:type].first[:name] %></th>
+        <th class="align-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-show="!client.<%= field[:id] %>.value.length">
+        <td><em>None</em></td>
+        <td></td>
+      </tr>
+      <tr data-ng-repeat="item in client.<%= field[:id] %>.value">
+        <td>{{ item.<%= field[:type].first[:id] %> }}</td>
+        <td class="align-right">
+          <a class="pure-button pure-button-small" data-ng-click="editInField('<%= field[:id] %>', $index)"><i class="icon-edit icon-large"></i></a>
+          <a class="pure-button pure-button-small pure-button-error" data-ng-click="deleteFromField('<%= field[:id] %>', $index)"><i class="icon-trash icon-large"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-<table class="pure-table pure-table-horizontal pure-table-full-width">
-  <thead>
-    <tr>
-      <% # TODO: Make the heading dynamic; not all sections have a "Name" field. %>
-      <th><%= field[:type].first[:name] %></th>
-      <th class="align-right">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr data-ng-show="!client.<%= field[:id] %>.value.length">
-      <td><em>None</em></td>
-      <td></td>
-    </tr>
-    <tr data-ng-repeat="item in client.<%= field[:id] %>.value">
-      <td>{{ item.<%= field[:type].first[:id] %> }}</td>
-      <td class="align-right">
-        <a class="pure-button pure-button-small" data-ng-click="editInField('<%= field[:id] %>', $index)"><i class="icon-edit icon-large"></i></a>
-        <a class="pure-button pure-button-small pure-button-error" data-ng-click="deleteFromField('<%= field[:id] %>', $index)"><i class="icon-trash icon-large"></i></a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
 <div class="separator"></div>
