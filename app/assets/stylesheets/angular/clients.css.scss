@@ -87,7 +87,7 @@
 
 // TODO: Where do these numbers come from? We should also change the
 // names and scopes of these |section-|s.
-#section-holder{
+#section-holder {
   @include calc(height, '95% - 95px');
   max-height: 550px;
 }

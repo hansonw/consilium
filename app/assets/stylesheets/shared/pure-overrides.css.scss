@@ -1,49 +1,52 @@
 @import 'constants';
 @import 'utilities';
 
-.subnav {
-  @include transition();
-
-  padding-top: 70px;
-  z-index: 1003;
-  left: $nav-width-desktops;
-  background: #212020;
-
-  .pure-menu ul {
-    // Hack to get menu elements to line up correctly with .nav
-    border-top: 1px solid rgba(0, 0, 0, 0);
-  }
-
-  &.active {
-    left: 2*$nav-width-desktops;
-  }
-
-  @include respond-to(handhelds) {
-    left: 0;
-    &.nav-active {
-      left: $nav-width-handhelds;
-    }
-    &.active {
-      left: 2*$nav-width-handhelds;
-    }
-  }
-  @include respond-to(tablets) {
-    left: 0;
-    &.nav-active {
-      left: $nav-width-tablets;
-    }
-    &.active {
-      left: 2*$nav-width-tablets;
-    }
-  }
-}
+// This is no longer valid and will need to be changed to be hardware accelerated in the future.
+//.subnav {
+//  @include transition();
+//
+//  padding-top: 70px;
+//  z-index: 1003;
+//  left: $nav-width-desktops;
+//  background: #212020;
+//
+//  .pure-menu ul {
+//    // Hack to get menu elements to line up correctly with .nav
+//    border-top: 1px solid rgba(0, 0, 0, 0);
+//  }
+//
+//  &.active {
+//    left: 2*$nav-width-desktops;
+//  }
+//
+//  @include respond-to(handhelds) {
+//    left: 0;
+//    &.nav-active {
+//      left: $nav-width-handhelds;
+//    }
+//    &.active {
+//      left: 2*$nav-width-handhelds;
+//    }
+//  }
+//  @include respond-to(tablets) {
+//    left: 0;
+//    &.nav-active {
+//      left: $nav-width-tablets;
+//    }
+//    &.active {
+//      left: 2*$nav-width-tablets;
+//    }
+//  }
+//}
 
 .nav {
   @include transition();
 
+  left: 0;
+
   padding-top: $body-margin;
   z-index: 1004;
-  left: $nav-width-desktops;
+  @include transform($nav-width-desktops, 0);
   background: #191818;
 
   .pure-menu ul {
@@ -51,15 +54,16 @@
   }
 
   @include respond-to(handhelds) {
-    left: 0;
+    @include transform(0, 0);
     &.active {
-      left: $nav-width-handhelds;
+      @include transform($nav-width-handhelds, 0);
     }
   }
+
   @include respond-to(tablets) {
-    left: 0;
+    @include transform(0, 0);
     &.active {
-      left: $nav-width-tablets;
+      @include transform($nav-width-tablets, 0);
     }
   }
 }

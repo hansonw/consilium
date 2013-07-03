@@ -77,8 +77,10 @@ body {
   }
 
   #main {
-    width: 100%;
-    position: relative;
+    @include transition();
+
+    @include respond-to(desktops) { padding-left: $nav-width-desktops; }
+    @include respond-to(widescreens) { padding-left: $nav-width-widescreens; }
   }
 
   .align-right {

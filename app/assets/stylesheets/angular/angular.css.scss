@@ -37,21 +37,15 @@ body {
   }
 
   .layout {
-    @include transition();
-
-    padding-left: $nav-width-desktops;
     @include respond-to(handhelds) {
-      position: relative;
-      padding-left: 0;
-      &.active {
-        left: $nav-width-handhelds;
+      &.active #main {
+        @include transform($nav-width-handhelds, 0);
       }
     }
+
     @include respond-to(tablets) {
-      position: relative;
-      padding-left: 0;
-      &.active {
-        left: $nav-width-tablets;
+      &.active #main {
+        @include transform($nav-width-tablets, 0);
       }
     }
   }
@@ -92,9 +86,9 @@ body {
     }
 
     &.active {
-      left: $nav-width-handhelds;
-      @include respond-to(handhelds) { left: $nav-width-handhelds; }
-      @include respond-to(tablets) { left: $nav-width-tablets; }
+      // This doesn't show up on anything other than handhelds and mobile.
+      @include transform($nav-width-handhelds, 0);
+      @include respond-to(tablets) { @include transform($nav-width-tablets, 0); }
     }
   }
 

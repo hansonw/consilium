@@ -1,5 +1,6 @@
 $break-small: 480px;
-$break-large: 720px;
+// XXX: This must be 767px or some minor things break.
+$break-large: 767px;
 $break-xlarge: 1200px;
 
 @mixin respond-to($media) {
@@ -31,6 +32,11 @@ $break-xlarge: 1200px;
   -ms-transition: all $transition-duration ease-out;
   -o-transition: all $transition-duration ease-out;
   transition: all $transition-duration ease-out;
+}
+
+@mixin transform($x, $y) {
+  -webkit-transform: translate3d($x, $y, 0);
+  transform: translate3d($x, $y, 0);
 }
 
 @mixin gradient($rgb-start, $rgb-finish, $occupancy, $location-start, $location-finish) {
