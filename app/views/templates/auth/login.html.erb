@@ -3,7 +3,7 @@
   <hr class="soften" />
   <div class="separator-small"></div>
   <form name="loginForm" class="pure-form pure-form-aligned" data-ng-submit="login.submit(loginForm)">
-    <%= field_set_tag nil do %>
+    <div class="pure-form-fields">
       <div class="pure-control-group">
         <%= label_tag 'email', 'Email Address' %>
         <%= email_field_tag 'email', nil, :placeholder => 'Email address', :required => true, :data => {:ng_model => 'loginData.email'} %>
@@ -12,7 +12,7 @@
         <%= label_tag 'Password', 'Password' %>
         <%= password_field_tag 'password', nil, :placeholder => 'Password', :required => true, :data => {:ng_model => 'loginData.password'} %>
       </div>
-    <% end %>
+    </div>
     <div class="login-buttons">
       <%= link_to "Forgot Password", new_user_password_path, :class => 'pure-button' %>
       <%= link_to "Sign Up", new_user_registration_path, :class => 'pure-button pure-button-secondary' %>
