@@ -39,7 +39,7 @@ module ClientsHelper
                                 ng-checked=\"#{checked}\"
                                 #{field[:required] && 'required'}
                             />
-                            <div class='checkbox-label'>#{option}</div>
+                            <span class='checkbox-label'>#{option}</span>
                           </div>"
       end
       r = "<div class='checkbox-container'>" + checkboxString + "</div>"
