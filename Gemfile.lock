@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: https://github.com/DouglasSherk/ydocx.git
-  revision: a602cf8b47f366c5b4a36c94d39e55868ea11195
+  revision: ec8b176ee6149c023f60a6f92da988ef67e1b985
   specs:
     ydocx (1.2.3)
       diff-lcs
@@ -107,6 +107,7 @@ GEM
     mime-types (1.23)
     mini_portile (0.5.0)
     minitest (4.7.5)
+    modernizr-rails (2.6.2.3)
     moped (1.5.0)
     multi_json (1.7.7)
     murmurhash3 (0.1.3)
@@ -193,6 +194,7 @@ DEPENDENCIES
   font-awesome-rails
   jbuilder (~> 1.0.1)
   jquery-rails
+  modernizr-rails
   mongoid!
   normalize-rails
   phonegap-rails!

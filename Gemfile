@@ -16,10 +16,8 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-# Disable because this Gem sucks and Modernizr.com is much better.
-# More specifically, you can't customize what gets included, and the defaults are garbage.
 # HTML5 feature detection library
-# gem 'modernizr-rails'
+gem 'modernizr-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.0.1'
