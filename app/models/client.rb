@@ -809,16 +809,19 @@ class Client
         {
           :name => 'Left of Insured',
           :id => 'exposuresLeft',
+          :placeholder => 'description',
           :type => 'textbox',
         },
         {
           :name => 'Right of Insured',
           :id => 'exposuresRight',
+          :placeholder => 'description',
           :type => 'textbox',
         },
         {
           :name => 'Behind Insured',
           :id => 'exposuresBehind',
+          :placeholder => 'description',
           :type => 'textbox',
         },
         {
@@ -844,10 +847,73 @@ class Client
       :id => 'coverages',
       :type => [
         {
-          :name => 'Stub',
-          :id => 'stub',
-          :type => 'text'
-        }
+          :name => 'Title',
+          :id => 'mainTitle',
+          :type => 'text',
+        },
+        {
+          :name => 'Class',
+          :id => 'classification',
+          :type => 'dropdown',
+          :placeholder => '',
+          :options => [
+            'Property',
+            'Business Income',
+            'Business Interruption',
+            'Crime',
+            'Liability',
+            'Umberella',
+            'Machinery Breakdown',
+            'Other',
+          ],
+        },
+        {
+          :name => '',
+          :id => 'broadNamed',
+          :type => 'checkbox',
+          :options => {
+            'broad' => 'Broad',
+            'named' => 'Named',
+            'nameOfEmployee' => 'Name',
+            'position' => 'Position',
+            'robbery' => 'Robbery',
+            'fourPoint' => '4 Point',
+            'sevenPoint' => '7 Point',
+            'limited' => 'Limited',
+            'profit' => 'Profit',
+            'nonProfit' => 'Non-Profit',
+          },
+        },
+        {
+          :name => '',
+          :id => 'propertype',
+          :type => 'checkbox',
+          :options => {
+            'building' => 'Building',
+            'equipment' => 'Equipment',
+            'stock' => 'Stock',
+          },
+        },
+        {
+          :name => 'Replacement Cost',
+          :id => 'replacementCost',
+          :type => 'text',
+        },
+        {
+          :name => 'Deductable',
+          :id => 'deductable',
+          :type => 'text',
+        },
+        {
+          :name => 'Co-Ins',
+          :id => 'coverageCoIns',
+          :type => 'text',
+        },
+        {
+          :name => 'Limit',
+          :id => 'coverageLimit',
+          :type => 'text',
+        },
       ],
     },
     {
@@ -855,10 +921,57 @@ class Client
       :id => 'properties',
       :type => [
         {
-          :name => 'Stub',
-          :id => 'stub',
-          :type => 'text'
-        }
+          :name => 'Item #',
+          :id => 'itemNumber',
+          :type => 'text',
+        },
+        {
+          :name => 'Class',
+          :id => 'classification',
+          :type => 'dropdown',
+          :placeholder => '',
+          :options => [
+            'Contractors Equiptment',
+            'Fine Arts',
+            'Motor Truck Cargo',
+            'Miscellaneous',
+          ],
+        },
+        {
+          :name => 'Description of Item',
+          :id => 'description',
+          :type => 'textbox',
+        },
+        {
+          :name => 'Year',
+          :id => 'year',
+          :type => 'text',
+        },
+        {
+          :name => 'Make',
+          :id => 'make',
+          :type => 'text',
+        },
+        {
+          :name => 'Model',
+          :id => 'model',
+          :type => 'text',
+        },
+        {
+          :name => 'Sereal Number',
+          :id => 'serealNumber',
+          :type => 'text',
+        },
+        {
+          :name => 'Limit',
+          :id => 'limit',
+          :type => 'text',
+        },
+        {
+          :name => 'Cargo Limit',
+          :id => 'cargoLimit',
+          :type => 'text',
+        },
       ],
     },
     {
@@ -866,10 +979,38 @@ class Client
       :id => 'umbrellaMachinerys',
       :type => [
         {
-          :name => 'Stub',
-          :id => 'stub',
-          :type => 'text'
-        }
+          :name => 'Policy No.',
+          :id => 'policyNumber',
+          :placeholder => 'Policy Number (ex. 0000)',
+          :type => 'text',
+        },
+        {
+          :name => 'Insurer',
+          :id => 'insurer',
+          :type => 'text',
+        },
+        {
+          :name => 'Start Date',
+          :id => 'startDate',
+          :placeholder => 'mm/dd/yyyy',
+          :type => 'text',
+        },
+        {
+          :name => 'End Date',
+          :id => 'endDate',
+          :placeholder => 'mm/dd/yyyy',
+          :type => 'text',
+        },
+        {
+          :name => 'Type of Insurance',
+          :id => 'insuranceType',
+          :type => 'text',
+        },
+        {
+          :name => 'Limit',
+          :id => 'limit',
+          :type => 'text',
+        },
       ],
     },
     {
