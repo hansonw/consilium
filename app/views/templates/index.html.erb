@@ -1,3 +1,19 @@
 <div id="main" class="pure-u" data-ng-controller="HomeCtrl">
   <h1 class="center">Consilium</h1>
+  <h3 class="center">Welcome back!</h3>
+  <div id="main" class="pure-u" data-ng-controller="ClientsRecentCtrl">
+  <div>
+    Your most recent clients
+  </div>
+        <div data-ng-show="!clients.length">
+          ou haven't viewed any clients recently.
+        </div>
+        <div data-ng-repeat="client in clients.slice(0, 3)" data-ng-click="clientClick(client.id)">
+    {{ client.name }}
+      {{ client.company }}
+            <a data-ng-href="#/clients/show/{{ client.id }}" class="pure-button pure-button-small pure-button-success">
+              <i class="icon-share-alt"></i>
+            </a>
+          </div>
+</div>
 </div>
