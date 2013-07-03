@@ -1212,8 +1212,12 @@ class Client
       when 'checkbox'
         # Each value has to be true/false
         if !value.nil?
-          value.each do |key, val|
-            value[key] = (val == true || val =~ /^(true|t|yes|on|y|1)$/i)
+          if value.is_a? Hash
+            value.each do |key, val|
+              value[key] = (val == true || val =~ /^(true|t|yes|on|y|1)$/i)
+            end
+          else
+            errors[field_name] << 'must be a checkbox value'
           end
         end
       end
