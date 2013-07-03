@@ -105,6 +105,10 @@ body {
     margin: 20px 0;
   }
 
+  .separator-flow {
+    height: 15px;
+  }
+
   .section {
     position: relative;
     margin-bottom: 15px;
@@ -117,12 +121,10 @@ body {
   }
 
   .well {
-    @include gradient(246, 255, 1, 0%, 100%);
+    @include gradient(245, 248, 1, 0%, 100%);
 
-    padding-right: 5px;
-    padding-left: 5px;
-    padding-top: 15px;
-    border-radius:2px;
+    padding: 15px 15px 0 15px;
+    border-radius: 2px;
   }
 
   /**
