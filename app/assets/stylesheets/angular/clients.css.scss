@@ -159,39 +159,40 @@
     $search-button-width: 55px;
 
     padding: 20px;
-    text-align: center;
+    text-align: right;
     background: rgba(0, 0, 0, 0.035);
     margin-bottom: 20px;
 
     .search-controls {
-      height: 30px;
+      $search-height: 30px;
+
+      height: $search-height;
 
       input {
         vertical-align: top;
-        display: inline-block;
-        height: inherit;
-        @include calc(width, '100% - #{$search-button-width}');
+        height: $search-height;
+        width: 100%;
       }
 
-      .spinner {
-        position: absolute;
-        display: inline-block;
-        margin-left: -30px;
-        margin-top: 7px;
-        opacity: 0;
-        &.loading {
-          opacity: 1;
-        }
-      }
+      // TODO: This is too poorly done for now. We should come back to it.
+      //.spinner {
+      //  position: absolute;
+      //  display: inline-block;
+      //  margin-left: -30px;
+      //  margin-top: 7px;
+      //  opacity: 0;
+      //  &.loading {
+      //    opacity: 1;
+      //  }
+      //}
 
       button#btnSearch {
+        margin-top: -$search-height;
         vertical-align: top;
         width: $search-button-width;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
-        margin-left: -7px;
-        display: inline-block;
-        height: inherit;
+        height: $search-height;
       }
     }
 
