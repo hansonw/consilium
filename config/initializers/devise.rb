@@ -244,3 +244,8 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
 end
+# TODO:  Without the code below, signup and forgot password gives error that main_app does not exist.
+#        Look into devise.
+def main_app
+  Rails.application.routes.url_helpers
+end
