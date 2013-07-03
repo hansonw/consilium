@@ -77,12 +77,7 @@ body {
   }
 
   #main {
-    @include transition();
-
     width: 100%;
-
-    @include respond-to(desktops) { padding-left: $nav-width-desktops; @include calc(width, '100% - #{$nav-width-desktops}'); };
-    @include respond-to(widescreens) { padding-left: $nav-width-widescreens; @include calc(width, '100% - #{$nav-width-widescreens}'); }
   }
 
   .align-right {
