@@ -1,12 +1,12 @@
 <div data-ng-controller="ClientsEditCtrl">
-  <div id="main" class="pure-u">
-    <% Client::FIELDS.each do |field| %>
-      <% if field[:type].is_a? Array %>
-        <%= render :partial => 'templates/clients/field_modal',
-                   :locals => { :field => field, :submit_callback => "addToField('#{field[:id]}')" } %>
-      <% end %>
+  <% Client::FIELDS.each do |field| %>
+    <% if field[:type].is_a? Array %>
+      <%= render :partial => 'templates/clients/field_modal',
+                 :locals => { :field => field, :submit_callback => "addToField('#{field[:id]}')" } %>
     <% end %>
+  <% end %>
 
+  <div id="main" class="pure-u">
     <div class="content header pure-u-1">
       <h2 class="no-bottom-margin">{{ title }}</h2>
       <%= render :partial => 'templates/breadcrumbs',
