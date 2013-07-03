@@ -173,11 +173,15 @@
     resize:none;
 
     // Custom styles.
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+
     $textarea-padding: 0.5em;
     padding: $textarea-padding;
-    @include calc(width, "100% - #{$label-width + 2*$label-margin + $label-comfort-margin + 2*$textarea-padding}");
-    @include respond-to(tablets) { @include calc(width, "100% - #{$label-width-lowres + 2*$label-margin + $label-comfort-margin + 2*$textarea-padding}"); }
-    @include respond-to(handhelds) { @include calc(width, "100% - #{2*$textarea-padding}"); }
+    @include calc(width, "100% - #{$label-width + 2*$label-margin + $label-comfort-margin}");
+    @include respond-to(tablets) { @include calc(width, "100% - #{$label-width-lowres + 2*$label-margin + $label-comfort-margin}"); }
+    @include respond-to(handhelds) { width: 100%; }
   }
 
   .dropdown-list {
