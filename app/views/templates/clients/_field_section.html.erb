@@ -8,7 +8,7 @@
         </a>
         <h3 class="no-top-margin no-bottom-margin"><%= field[:name] %></h3>
       </div>
-      <div class="subsection-inner">
+      <div class="subsection-inner pure-form-fields">
         <% field[:type].each do |subfield| %>
           <div class="pure-control-group">
             <label name="<%= subfield[:id] %>" for="<%= subfield[:id] %>"><%= subfield[:name] %></label>

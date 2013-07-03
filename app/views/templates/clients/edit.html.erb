@@ -51,14 +51,16 @@
 
             <div class="separator-xsmall"></div>
 
-            <% Client::FIELDS.each do |field| %>
-              <% if not field[:type].is_a? Array %>
-                <div class="pure-control-group">
-                  <label for="<%= field[:id] %>"><%= field[:name] %></label>
-                  <%= ng_input(field, "client.#{field[:id]}.value") %>
-                </div>
+            <div class="pure-form-fields">
+              <% Client::FIELDS.each do |field| %>
+                <% if not field[:type].is_a? Array %>
+                  <div class="pure-control-group">
+                    <label for="<%= field[:id] %>"><%= field[:name] %></label>
+                    <%= ng_input(field, "client.#{field[:id]}.value") %>
+                  </div>
+                <% end %>
               <% end %>
-            <% end %>
+            </div>
 
             <div class="separator"></div>
 

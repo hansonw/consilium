@@ -137,9 +137,8 @@
   }
 }
 
-.pure-form-aligned .pure-control-group {
+.pure-form-aligned {
   $label-width: 10em;
-  $label-width-lowres: 6em;
   $label-margin: 1em;
   $dropdown-width: 10em;
   // XXX: Where does this come from? Oh well.
@@ -148,40 +147,54 @@
   // TODO: This is bad and we should look into it.
   $dropdown-comfort-antimargin-lowres: 0.2em;
 
-  label {
-    @include respond-to(tablets) { width: $label-width-lowres; margin: 0 $label-margin 0 0; }
-  }
+  .pure-form-fields {
+    display: table;
+    width: 100%;
+    border-spacing: 3px;
+    @include respond-to(handhelds) { border-spacing: 0 3px; }
 
-  input[type="text"], input[type="email"], input[type="password"] {
-    width: 350px;
-    @include calc(width, "100% - #{$label-width + 2*$label-margin + $label-comfort-margin}");
-    @include respond-to(tablets) { @include calc(width, "100% - #{$label-width-lowres + 2*$label-margin + $label-comfort-margin}"); }
-    @include respond-to(handhelds) { width: 100%; }
-  }
+    .pure-control-group {
+      display: table-row;
 
-  // Text areas do not get formatted by pure, the styling below is
-  // obtained from the styling pure uses for text inputs.
-  textarea {
-    border: 1px solid #ccc;
-    font-size: 0.8em;
-    box-shadow: inset 0 1px 3px #ddd;
-    border-radius: 4px;
-    -webkit-transition: .3s linear border;
-    transition: .3s linear border;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
+      * {
+        margin: 3px;
+      }
 
-    // Custom styles.
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-    box-sizing: border-box;         /* Opera/IE 8+ */
+      label {
+        padding-right: 10px;
+        display: table-cell;
+        @include respond-to(handhelds) { display: table-row; }
+      }
 
-    resize:none;
-    $textarea-padding: 0.5em;
-    padding: $textarea-padding;
-    @include calc(width, "100% - #{$label-width + 2*$label-margin + $label-comfort-margin}");
-    @include respond-to(tablets) { @include calc(width, "100% - #{$label-width-lowres + 2*$label-margin + $label-comfort-margin}"); }
-    @include respond-to(handhelds) { width: 100%; }
+      input[type="text"], input[type="email"], input[type="password"] {
+        display: table-cell;
+        width: 100%;
+        @include respond-to(handhelds) { display: table-row; }
+      }
+
+      // Text areas do not get formatted by pure, the styling below is
+      // obtained from the styling pure uses for text inputs.
+      textarea {
+        // Custom styles.
+        -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+        -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+        box-sizing: border-box;         /* Opera/IE 8+ */
+
+        resize: none;
+        padding: 0.5em;
+        width: 100%;
+        display: table-cell;
+
+        border: 1px solid #ccc;
+        font-size: 0.8em;
+        box-shadow: inset 0 1px 3px #ddd;
+        border-radius: 4px;
+        -webkit-transition: .3s linear border;
+        transition: .3s linear border;
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+      }
+    }
   }
 
   .dropdown-list {
@@ -197,7 +210,7 @@
     display: inline-block;
     width: 350px;
     @include calc(width, "100% - #{$label-width + $label-comfort-margin - $dropdown-comfort-margin}");
-    @include respond-to(tablets) { @include calc(width, "100% - #{$label-width-lowres + $label-comfort-margin + $dropdown-comfort-antimargin-lowres}"); }
+    @include respond-to(tablets) { @include calc(width, "100% - #{$label-width + $label-comfort-margin + $dropdown-comfort-antimargin-lowres}"); }
     @include respond-to(handhelds) { width: 100%; }
 
     .other-field {

@@ -19,12 +19,14 @@
           <form name="form<%= field[:id] %>"
                 class="pure-form pure-form-aligned"
                 data-ng-submit="<%= submit_callback %>">
-            <% field[:type].each do |subfield| %>
-              <div class="pure-control-group">
-                <label for="<%= subfield[:id] %>"><%= subfield[:name] %></label>
-                <%= ng_input(subfield, field[:id] + '.' + subfield[:id])  %>
-              </div>
-            <% end %>
+            <div class="pure-form-fields">
+              <% field[:type].each do |subfield| %>
+                <div class="pure-control-group">
+                  <label for="<%= subfield[:id] %>"><%= subfield[:name] %></label>
+                  <%= ng_input(subfield, field[:id] + '.' + subfield[:id])  %>
+                </div>
+              <% end %>
+            </div>
             <div class="separator"></div>
             <div class="pull-right">
               <button type="submit" class="pure-button pure-button-primary">Save</button>
