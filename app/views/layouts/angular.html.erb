@@ -17,7 +17,9 @@
   <div class="pure-g-r" data-ng-class="{'active': menuShouldShow(), 'layout': isLoggedIn}">
     <a href="" id="mainMenuLink" class="pure-menu-link" data-ng-click="mainMenuLinkClick()"
        data-ng-class="{'active': menuShouldShow()}" data-ng-show="isLoggedIn">
-      <i class="icon-reorder icon-2x icon-fixed-width"></i></a>
+      <i data-ng-show="!loading" class="icon-reorder icon-2x icon-fixed-width"></i>
+      <i data-ng-show="loading" class="icon-spinner icon-spin icon-2x icon-fixed-width"></i>
+    </a>
     <div class="nav pure-u" data-ng-class="{'active': menuShouldShow()}" data-ng-show="isLoggedIn">
       <div class="pure-menu pure-menu-open">
         <a href="#/" class="pure-menu-heading">Consilium</a>

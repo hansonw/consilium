@@ -55,6 +55,8 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', '$http', 'Clien
   # Also sync every time we navigate to a different page.
   $rootScope.$on('$routeChangeSuccess', -> Client.sync())
 
+  $rootScope.$on('$viewContentLoaded', -> $rootScope.loading = false)
+
   $rootScope.scrollTo = (id) ->
     old = $location.hash()
     $location.hash(id)
@@ -88,9 +90,11 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', '$http', 'Clien
       $rootScope._curMenuItem = null
     else
       $rootScope._curMenuItem = path
-    if not $rootScope._showSubMenu = subMenu?
-      $rootScope._showMenu = false if path?
-      $location.path(path) if path?
+    if (not $rootScope._showSubMenu = subMenu?) && path?
+      $rootScope.loading = true
+      $rootScope._showMenu = false
+      # HACK: wait until angular shows loading icon before actually going
+      $timeout((-> $location.path(path)), 50)
 
   $rootScope.menuItemIsSelected = (path) ->
     return $location.path().substr(0, path.length) == path
