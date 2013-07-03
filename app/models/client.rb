@@ -885,8 +885,8 @@ class Client
     },
   ]
 
-  def validate_scalar(field_name, field_desc, value)
-    if value.nil?
+  def validate_field(field_name, field_desc, value)
+    if value.nil? || value == ''
       if field_desc[:required]
         errors[field_name] << 'is required'
       end
@@ -916,6 +916,18 @@ class Client
         value = value.to_s
         if !( /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.match(value))
           errors[field_name] << 'not valid email'
+        end
+      when 'radio', 'dropdown'
+        # Has to be one of the given values
+        if !field_desc[:options].include?(value)
+          errors[field_name] << 'is not one of the provided options'
+        end
+      when 'checkbox'
+        # Each value has to be true/false
+        if !value.nil?
+          value.each do |key, val|
+            value[key] = (val == true || val =~ /^(true|t|yes|on|y|1)$/i)
+          end
         end
       end
     end
@@ -948,12 +960,12 @@ class Client
         else
           val['value'].each_with_index do |subval, i|
             field[:type].each do |subfield|
-              subval[subfield[:id]] = validate_scalar(subfield[:id], subfield, subval[subfield[:id]])
+              subval[subfield[:id]] = validate_field(subfield[:id], subfield, subval[subfield[:id]])
             end
           end
         end
       else
-        val['value'] = validate_scalar(field[:id], field, val['value'])
+        val['value'] = validate_field(field[:id], field, val['value'])
       end
     end
 
