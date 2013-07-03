@@ -17,7 +17,9 @@
       <%= link_to "Forgot Password", new_user_password_path, :class => 'pure-button' %>
       <%= link_to "Sign Up", new_user_registration_path, :class => 'pure-button pure-button-secondary' %>
       <% # TODO: Show that Login failed %>
-      <button class = "pure-button pure-button-primary" data-ng-click="login.submit(loginForm)" type="submit">Login</button>
+      <% # TODO: Submit and link buttons do not scale at same rate %>
+      <button class = "pure-button pure-button-primary" data-ng-click="login.submit(loginForm)" type="submit" 
+              style="vertical-align: top;">Login</button>  
     </div>
   </form>
 </div>
