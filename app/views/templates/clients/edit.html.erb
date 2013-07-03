@@ -1,103 +1,104 @@
 <div data-ng-controller="ClientsEditCtrl">
-  <% Client::FIELDS.each do |field| %>
-    <% if field[:type].is_a? Array %>
-      <%= render :partial => 'templates/clients/field_modal',
-                 :locals => { :field => field, :submit_callback => "addToField('#{field[:id]}')" } %>
+  <div id="main" class="pure-u">
+    <% Client::FIELDS.each do |field| %>
+      <% if field[:type].is_a? Array %>
+        <%= render :partial => 'templates/clients/field_modal',
+                   :locals => { :field => field, :submit_callback => "addToField('#{field[:id]}')" } %>
+      <% end %>
     <% end %>
-  <% end %>
 
-  <div class="content header pure-u-1">
-    <h2 class="no-bottom-margin">{{ title }}</h2>
-    <%= render :partial => 'templates/breadcrumbs',
-               :locals => { :paths => {
-          "Home" => "#/",
-          "Clients" => "#/clients/",
-          "{{ title }}" => "#/clients/{{ !clientId ? 'new' : 'edit/' + clientId }}",
-        }}
-     %>
-  </div>
-  <hr class="soften" />
+    <div class="content header pure-u-1">
+      <h2 class="no-bottom-margin">{{ title }}</h2>
+      <%= render :partial => 'templates/breadcrumbs',
+                 :locals => { :paths => {
+            "Home" => "#/",
+            "Clients" => "#/clients/",
+            "{{ title }}" => "#/clients/{{ !clientId ? 'new' : 'edit/' + clientId }}",
+          }}
+       %>
+    </div>
+    <hr class="soften" />
 
-  <div class="content">
-    <div class="client-form">
-      <div class="form-nav">
-        <div scroll-fix id="section-holder">
-          <div class="pure-menu pure-menu-open" id="section-box">
-            <a class="pure-menu-heading">Sections</a>
-            <ul id="section-list">
-              <li><a href="" data-ng-click="scrollTo('basicInfo')">Basic Info</a></li>
-              <% Client::FIELDS.each do |field| %>
-                <% if field[:type].is_a? Array %>
-                  <li>
-                    <a href="" data-ng-click="scrollTo('<%= field[:id] %>')">
-                      <%= field[:name] %>
-                    </a>
-                  </li>
+    <div class="content">
+      <div class="client-form">
+        <div class="form-nav">
+          <div scroll-fix id="section-holder">
+            <div class="pure-menu pure-menu-open" id="section-box">
+              <a class="pure-menu-heading">Sections</a>
+              <ul id="section-list">
+                <li><a href="" data-ng-click="scrollTo('basicInfo')">Basic Info</a></li>
+                <% Client::FIELDS.each do |field| %>
+                  <% if field[:type].is_a? Array %>
+                    <li>
+                      <a href="" data-ng-click="scrollTo('<%= field[:id] %>')">
+                        <%= field[:name] %>
+                      </a>
+                    </li>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div data-ng-show="loading" class="form-content">
-        <h3 class="no-top-margin"><i class="icon-spinner icon-spin icon-large"></i> Loading...</h3>
-      </div>
-      <div data-ng-show="!loading" class="form-content">
-        <form name="newClient" class="pure-form pure-form-aligned" data-ng-submit="saveForm()">
-          <div class="section" id="basicInfo">
-            <h3 class="no-top-margin">Basic Info.</h3>
-          </div>
-
-          <div class="separator-xsmall"></div>
-
-          <% Client::FIELDS.each do |field| %>
-            <% if not field[:type].is_a? Array %>
-              <div class="pure-control-group">
-                <label for="<%= field[:id] %>"><%= field[:name] %></label>
-                <%= ng_input(field, "client.#{field[:id]}.value") %>
-              </div>
-            <% end %>
-          <% end %>
-
-          <div class="separator"></div>
-
-          <% Client::FIELDS.each do |field| %>
-            <% if field[:type].is_a? Array %>
-              <% if field[:id].ends_with? 's' %>
-                <%= render :partial => 'templates/clients/field_table',
-                           :locals => { :field => field } %>
-              <% else %>
-                <%= render :partial => 'templates/clients/field_section',
-                           :locals => { :field => field } %>
-              <% end %>
-            <% end %>
-          <% end %>
-
-          <div id="toolbar" data-ng-class="{'active': menuShouldShow()}">
-            <div class="content">
-              <button class="pure-button pure-button-secondary pure-button-large" data-ng-class="{'pure-button-disabled': !saving && !dirty}"
-                      type="submit">
-                <span data-ng-if="saving">
-                  <i class="icon-spinner icon-spin"></i> Saving...
-                </span>
-                <span data-ng-if="!saving && !dirty && client.isNew()">
-                  No changes
-                </span>
-                <span data-ng-if="!saving && !dirty && !client.isNew()">
-                  Saved
-                </span>
-                <span data-ng-if="!saving && dirty && newClient.$valid">
-                  Save
-                </span>
-                <span data-ng-if="!saving && dirty && !newClient.$valid">
-                  Save ({{ errorCount() }})
-                </span>
-              </button>
-              <a data-ng-click="done()" class="pure-button pure-button-primary pure-button-large">Done</a>
+              </ul>
             </div>
           </div>
-        </form>
+        </div>
+        <div data-ng-show="loading" class="form-content">
+          <h3 class="no-top-margin"><i class="icon-spinner icon-spin icon-large"></i> Loading...</h3>
+        </div>
+        <div data-ng-show="!loading" class="form-content">
+          <form name="newClient" class="pure-form pure-form-aligned" data-ng-submit="saveForm()">
+            <div class="section" id="basicInfo">
+              <h3 class="no-top-margin">Basic Info.</h3>
+            </div>
+
+            <div class="separator-xsmall"></div>
+
+            <% Client::FIELDS.each do |field| %>
+              <% if not field[:type].is_a? Array %>
+                <div class="pure-control-group">
+                  <label for="<%= field[:id] %>"><%= field[:name] %></label>
+                  <%= ng_input(field, "client.#{field[:id]}.value") %>
+                </div>
+              <% end %>
+            <% end %>
+
+            <div class="separator"></div>
+
+            <% Client::FIELDS.each do |field| %>
+              <% if field[:type].is_a? Array %>
+                <% if field[:id].ends_with? 's' %>
+                  <%= render :partial => 'templates/clients/field_table',
+                             :locals => { :field => field } %>
+                <% else %>
+                  <%= render :partial => 'templates/clients/field_section',
+                             :locals => { :field => field } %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </form>
+        </div>
       </div>
+    </div>
+  </div>
+  <div id="toolbar" class="pure-u" data-ng-class="{'active': menuShouldShow()}">
+    <div class="content">
+      <button class="pure-button pure-button-secondary pure-button-large" data-ng-class="{'pure-button-disabled': !saving && !dirty}"
+              type="submit">
+        <span data-ng-if="saving">
+          <i class="icon-spinner icon-spin"></i> Saving...
+        </span>
+        <span data-ng-if="!saving && !dirty && client.isNew()">
+          No changes
+        </span>
+        <span data-ng-if="!saving && !dirty && !client.isNew()">
+          Saved
+        </span>
+        <span data-ng-if="!saving && dirty && newClient.$valid">
+          Save
+        </span>
+        <span data-ng-if="!saving && dirty && !newClient.$valid">
+          Save ({{ errorCount() }})
+        </span>
+      </button>
+      <a data-ng-click="done()" class="pure-button pure-button-primary pure-button-large">Done</a>
     </div>
   </div>
 </div>

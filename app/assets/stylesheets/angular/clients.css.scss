@@ -105,12 +105,15 @@
   @include transition();
 
   position: fixed;
+
   bottom: 0;
   right: 0;
+  left: $nav-width-desktops;
+  @include transform(0, 0);
+
   z-index: 1002;
   background: #eee;
   color: #666;
-  left: $nav-width-desktops;
   text-align: right;
   padding: 10px 0;
   border-top: 1px solid #ddd;
@@ -120,25 +123,20 @@
   }
 
   @include respond-to(handhelds) {
-    left: 0;
-    right: 0;
-
     button {
-      display:inline-block;
+      display: inline-block;
     }
 
+    left: 0;
     &.active {
-      left: $nav-width-handhelds;
-      right: -$nav-width-handhelds;
+      @include transform($nav-width-handhelds, 0);
     }
   }
 
   @include respond-to(tablets) {
     left: 0;
-    right: 0;
     &.active {
-      left: $nav-width-tablets;
-      right: -$nav-width-tablets;
+      @include transform($nav-width-tablets, 0);
     }
   }
 }
