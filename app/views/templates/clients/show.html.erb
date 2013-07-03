@@ -51,10 +51,6 @@
              data-ng-href="#/clients/edit/{{ clientId }}">
             <i class="icon-edit"></i><span class="desc"><span class="verbose-desc"> View and</span> Edit</span>
           </a>
-          <a class="pure-button pure-button-error"
-             data-ng-click="deleteClient()">
-            <i class="icon-trash"></i><span class="desc"> Delete</span>
-          </a>
         </div>
         <h3 class="no-top-margin">Client Info.</h3>
       </div>
@@ -115,9 +111,6 @@
             <td class="actions align-right">
               <a data-ng-href="/api/documents/{{ document.id }}" class="pure-button pure-button-small pure-button-success">
                 <i class="icon-download-alt icon-large"></i>
-              </a>
-              <a data-ng-click="deleteDocument($index)" class="pure-button pure-button-small pure-button-error">
-                <i class="icon-trash icon-large"></i>
               </a>
             </td>
           </tr>
