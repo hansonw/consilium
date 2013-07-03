@@ -223,10 +223,102 @@ class Client
       :id => 'liabilityInfos',
       :type => [
         {
-          :name => 'Stub',
-          :id => 'stub',
-          :type => 'text'
-        }
+          :name => 'In Business Since',
+          :id => 'businessStartDate',
+          :placeholder => 'mm/dd/yyyy',
+          :type => 'text',
+        },
+        {
+          :name => 'Full Time Employees',
+          :id => 'fullTimeEmployees',
+          :placeholder => '#',
+          :type => 'text',
+        },
+        {
+          :name => 'Part Time Employees',
+          :id => 'partTimeEmployees',
+          :placeholder => '#',
+          :type => 'text',
+        },
+        {
+          :name => '',
+          :id => 'covered',
+          :type => 'checkbox',
+          :options => {
+            'coveredWCB' => 'Covered by WCB',
+          },
+        },
+        {
+          :name => 'Annual gross receipts',
+          :id => 'annualGrossReceipts',
+          :placeholder => '',
+          :type => 'text',
+        },
+        {
+          :name => 'Canadian %',
+          :id => 'canadianPercent',
+          :placeholder => '',
+          :type => 'text',
+        },
+        {
+          :name => 'US. %',
+          :id => 'americanPercent ',
+          :placeholder => '',
+          :type => 'text',
+        },
+        {
+          :name => 'Foreign %',
+          :id => 'foreignPercent',
+          :placeholder => '',
+          :type => 'text',
+        },
+        {
+          :name => 'Annual Payroll',
+          :id => 'annualPayroll',
+          :type => 'text',
+        },
+        {
+          :name => 'Units',
+          :id => 'units',
+          :type => 'text',
+        },
+        {
+          :name => 'Base Units',
+          :id => 'baseUnits',
+          :type => 'text',
+        },
+        {
+          :name => 'Is there any liquor liability',
+          :id => 'liquorLiability',
+          :type => 'checkbox',
+          :options => {
+            'liquor' => 'yes',
+            'noLiquor' => 'No',
+          },
+        },
+        {
+          :name => 'Receipt Splits: liquor',
+          :id => 'receiptSplitsLiqour',
+          :placeholder => '$',
+          :type => 'text',
+        },
+        {
+          :name => 'Receipt Splits: Food',
+          :id => 'receiptSplitsFood',
+          :placeholder => '$',
+          :type => 'text',
+        },
+        {
+          :name => 'Receipt Splits: Other',
+          :id => 'receiptSplitsOther',
+          :placeholder => '$',
+          :type => 'text',
+        },
+        {
+          :name => 'Notes',
+          :id => 'liquorNotes',
+          :type => 'textbox',
+        },
       ],
     },
     {
@@ -234,10 +326,22 @@ class Client
       :id => 'policyInfos',
       :type => [
         {
-          :name => 'Stub',
-          :id => 'stub',
-          :type => 'text'
-        }
+          :name => 'Period of Coverage From',
+          :placeholder => 'mm/dd/yyyy',
+          :id => 'coverageFrom',
+          :type => 'text',
+        },
+        {
+          :name => 'Period of Coverage To',
+          :placeholder => 'mm/dd/yyyy',
+          :id => 'coverageTo',
+          :type => 'text',
+        },
+        {
+          :name => 'Package Name',
+          :id => 'packageName',
+          :type => 'text',
+        },
       ],
     },
     {
@@ -247,8 +351,19 @@ class Client
         {
           :name => 'Stub',
           :id => 'stub',
-          :type => 'text'
-        }
+          :type => 'checkbox',
+          :options => {
+            'companyBill' => 'Company Bill',
+            'BrokerBill' => 'Broker/Agent Bill',
+            'other' => 'Other',
+          },
+        },
+        {
+          :name => 'Describe',
+          :id => 'constructionRoofDescribe',
+          :placeholder => 'If Other, Please Describe',
+          :type => 'text',
+        },
       ],
     },
     {
@@ -394,7 +509,7 @@ class Client
             'metal' => 'Metal',
             'slate' => 'Slate',
             'tile' => 'Tile',
-            'asphaltShingles' => 'Ashphalt Shingles',
+            'asphaltShingles' => 'Asphalt Shingles',
             'woodShingles' => 'Wood Shingles',
             'woodShakes' => 'Wood Shakes',
             'rubber' => 'Rubber',
@@ -487,7 +602,7 @@ class Client
             'none' => 'None',
             'ductFurnace' => 'Duct Furnace',
             'boiler' => 'Boiler',
-            'radiant' => 'Radient',
+            'radiant' => 'Radiant',
             'electric' => 'Electric',
             'furnaceCentral' => 'Furnace (Central)',
             'floorFurnace' => 'Floor Furnace',
@@ -709,7 +824,7 @@ class Client
           :type => 'checkbox',
           :options => {
             'deadbolt' => 'Doors -Deadbolt',
-            'breakResistantGlass' => 'Break Reisitant Glass',
+            'breakResistantGlass' => 'Break Resistant Glass',
             'WindowsBarred' => 'Windows -barred',
             'WindowsWireMesh' => 'Windows -Wire Mesh',
             'SteelBars' => 'Steel Bars on Openings',
@@ -718,25 +833,25 @@ class Client
             'fence' => 'Fence',
             'GuardDog' => 'Guard Dog',
             'WindowsULC' => 'Windows -ULC Security Film',
-            'aditionalComboLock' => 'Aditional Combo Lock',
-            'aditionalKey' => 'Aditional Key',
+            'additionalComboLock' => 'Additional Combo Lock',
+            'additionalKey' => 'Additional Key',
             'fineWireprotection' => 'Alarm \'fine wire\' protecting openings',
-            'commonWallsReinforced' => 'Common Tennant Walls Reinforced with Steel Mesh',
+            'commonWallsReinforced' => 'Common Tenant Walls Reinforced with Steel Mesh',
             'exteriorLighting' => 'Exterior Lighting',
             'electronicLock' => 'Electronic Lock',
-            'enterancevisable' => 'Enterance Visable From Street',
+            'entrancevisible' => 'Entrance Visible From Street',
             'ExteriorDoorsSturdy' => 'Exterior Doors Of Sturdy Construction, Hinges Inside',
             'holdUpButtons' => 'Hold-Up Buttons',
             'metalLoadingDoors' => 'Metal Loading Doors, Secured Internal',
             'motionsensitivelighting' => 'Motion Sensitive Lighting',
             'multipleLockStyles' => 'Multiple Lock Styles',
-            'permiterFenceLockable' => 'Perimitor FEince and Gate Lockable',
-            'lotIluminatedNight' => 'Property/Lot Iluminated at Night',
+            'permeterFenceLockable' => 'Perimeter Fence and Gate Lockable',
+            'lotIlluminatedNight' => 'Property/Lot Illuminated at Night',
             'SkyOpenigsBlocked' => 'Skylignt/Roof AC Openings Blocked Off',
-            'steelPostPreventEntery' => 'Steel Post (frint & back) to Prevent veichale entery',
-            'stockSecured' => 'Stock Secured -Seperate Enclosure',
+            'steelPostPreventEntry' => 'Steel Post (front & back) to Prevent vehicle entry',
+            'stockSecured' => 'Stock Secured -Separate Enclosure',
             'stockroomCeilingMotionSensor' => 'Stockroom Ceiling Entirely Covered By Motion Sensor',
-            'warehouseAlarmedSeperately' => 'Warehouse Alarmed Seperately from Office',
+            'warehouseAlarmedSeparately' => 'Warehouse Alarmed Separately from Office',
             'warningSighs' => 'Warning Signs',
             'WindowsBreakageDetectors' => 'Windows -Glass Breakage Detectors',
           },
@@ -838,10 +953,16 @@ class Client
       :id => 'miscNotes',
       :type => [
         {
-          :name => 'Stub',
-          :id => 'stub',
-          :type => 'text'
-        }
+          :name => 'Notes',
+          :id => 'notes',
+          :type => 'textbox',
+        },
+        {
+          :name => 'Special Circumstances',
+          :id => 'specialCircumstances',
+          :placeholder => 'Special circumstances concerning this policy/application which the company should know.',
+          :type => 'textbox',
+        },
       ],
     },
     {
@@ -865,7 +986,7 @@ class Client
             'Business Interruption',
             'Crime',
             'Liability',
-            'Umberella',
+            'Umbrella',
             'Machinery Breakdown',
             'Other',
           ],
@@ -889,7 +1010,7 @@ class Client
         },
         {
           :name => '',
-          :id => 'propertype',
+          :id => 'propertyType',
           :type => 'checkbox',
           :options => {
             'building' => 'Building',
@@ -903,8 +1024,8 @@ class Client
           :type => 'text',
         },
         {
-          :name => 'Deductable',
-          :id => 'deductable',
+          :name => 'Deductible',
+          :id => 'deductible',
           :type => 'text',
         },
         {
@@ -935,7 +1056,7 @@ class Client
           :type => 'dropdown',
           :placeholder => '',
           :options => [
-            'Contractors Equiptment',
+            'Contractors Equipment',
             'Fine Arts',
             'Motor Truck Cargo',
             'Miscellaneous',
@@ -962,8 +1083,8 @@ class Client
           :type => 'text',
         },
         {
-          :name => 'Sereal Number',
-          :id => 'serealNumber',
+          :name => 'Serial Number',
+          :id => 'serialNumber',
           :type => 'text',
         },
         {
@@ -980,7 +1101,7 @@ class Client
     },
     {
       :name => 'Umbrella/Machinery',
-      :id => 'umbrellaMachinerys',
+      :id => 'umbrellaMachineries',
       :type => [
         {
           :name => 'Policy No.',
@@ -1027,6 +1148,26 @@ class Client
           :id => 'stub',
           :type => 'text'
         }
+      ],
+    },
+    {
+      :name => 'Broker Declaration',
+      :id => 'brokerDeclaration',
+      :type => [
+        {
+          :name => 'I have known this client since',
+          :id => 'dateKnown',
+          :placeholder => 'mm/dd/yyyy',
+          :type => 'text',
+        },
+        {
+          :name => '',
+          :id => 'propertyType',
+          :type => 'checkbox',
+          :options => {
+            'newClient' => 'This business/client is new to my office.',
+          },
+        },
       ],
     },
   ]
