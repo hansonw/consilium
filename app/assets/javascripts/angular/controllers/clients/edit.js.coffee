@@ -120,7 +120,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     )
 
   $scope.addToField = (objName) ->
-    obj = $scope[objName]
+    obj = $scope[objName] || {}
     collection = (($scope.client[objName] ||= {}).value ||= [])
 
     form = $scope['form' + objName]

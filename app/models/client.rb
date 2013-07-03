@@ -258,6 +258,7 @@ class Client
         {
           :name => 'Location Number',
           :id => 'locationNumber',
+          :required => true,
           :placeholder => '#',
           :type => 'text',
         },
@@ -344,6 +345,7 @@ class Client
         {
           :name => 'Type',
           :id => 'type',
+          :required => true,
           :type => 'dropdown',
           :placeholder => '',
           :options => [
@@ -848,6 +850,7 @@ class Client
       :type => [
         {
           :name => 'Title',
+          :required => true,
           :id => 'mainTitle',
           :type => 'text',
         },
@@ -923,6 +926,7 @@ class Client
         {
           :name => 'Item #',
           :id => 'itemNumber',
+          :required => true,
           :type => 'text',
         },
         {
@@ -981,6 +985,7 @@ class Client
         {
           :name => 'Policy No.',
           :id => 'policyNumber',
+          :required => true,
           :placeholder => 'Policy Number (ex. 0000)',
           :type => 'text',
         },
