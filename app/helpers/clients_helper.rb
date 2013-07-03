@@ -1,9 +1,11 @@
 module ClientsHelper
   def ng_input(field, model)
+    r = ''
     case field[:type]
     when 'dropdown'
       dropdownString = "<div class='dropdown-field'>
                           <select class='dropdown-list' name='#{field[:id]}' ng-model='#{model}'
+                            ng-class='#{model} == \"Other\" && \"other-dropdown\"'
                             #{field[:required] && 'required'}>
                           <option value=''>#{field[:placeholder]}</option>"
       field[:options].each do |option|
@@ -15,14 +17,10 @@ module ClientsHelper
                               type=\"{{(#{model} == 'Other') ? 'text' : 'hidden'}}\"
                               ng-model='#{model}' placeholder='#{field[:otherPlaceholder]}'
                               #{field[:optionRequired] && 'required'}
-                              ng-minlength='#{field[:minlength]}'
-                              ng-maxlength='#{field[:maxlength]}'
-                              ng-min='#{field[:min]}'
-                              ng-max='#{field[:max]}'
                           />"
       end
       dropdownString += "</div>"
-      raw dropdownString
+      r = dropdownString
     when 'checkbox', 'radio'
       checkboxString = ""
       field[:options].each do |key, option|
@@ -44,23 +42,25 @@ module ClientsHelper
                             <div class='checkbox-label'>#{option}</div>
                           </div>"
       end
-      raw "<div class='checkbox-container'>" + checkboxString + "</div>"
+      r = "<div class='checkbox-container'>" + checkboxString + "</div>"
     when 'textbox'
-      raw "<textarea name='#{field[:id]}' ng-model='#{model}'
+      r = "<textarea name='#{field[:id]}' ng-model='#{model}'
                 placeholder='#{field[:placeholder]}'
                 #{field[:required] && 'required'}
-                rows = '#{field[:boxRows]}'
+                rows='#{field[:boxRows]}'
             /></textarea>"
     else
-      raw "<input name='#{field[:id]}' type='#{field[:type]}'
+      r = "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='#{model}' placeholder='#{field[:placeholder]}'
               #{field[:required] && 'required'}
               #{field[:validatePhone] && 'validate-phone'}
-              ng-minlength='#{field[:minlength]}'
-              ng-maxlength='#{field[:maxlength]}'
-              ng-min='#{field[:min]}'
-              ng-max='#{field[:max]}'
+              #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
+              #{field[:maxlength] && "ng-maxlength='#{field[:maxlength]}'"}
+              #{field[:min] && "ng-min='#{field[:min]}'"}
+              #{field[:max] && "ng-max='#{field[:max]}'"}
             />"
     end
+
+    return raw r.gsub("\n", "").squeeze(' ')
   end
 end

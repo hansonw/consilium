@@ -185,6 +185,10 @@
   .dropdown-list {
     min-width: $dropdown-width;
     margin: 4.5px 0;
+
+    &.other-dropdown {
+      width: $dropdown-width;
+    }
   }
 
   .dropdown-field {
