@@ -8,6 +8,7 @@ body {
     padding: 0 $login-padding;
     margin: auto;
     width: 600px;
+    display: block;
 
     @include respond-to(tablets) { width: 80%; }
     @include respond-to(handhelds) {
