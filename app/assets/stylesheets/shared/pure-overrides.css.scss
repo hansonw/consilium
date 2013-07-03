@@ -170,11 +170,11 @@
     transition: .3s linear border;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
-    resize:none;
 
     // Custom styles.
     @include box-sizing();
 
+    resize:none;
     $textarea-padding: 0.5em;
     padding: $textarea-padding;
     @include calc(width, "100% - #{$label-width + 2*$label-margin + $label-comfort-margin}");
