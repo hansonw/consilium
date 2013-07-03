@@ -3,6 +3,8 @@ App.directive 'modalToggle', ->
     $($elem).click (e) ->
       targetId = $($elem).attr('href')
       targetId = targetId.substr(1, targetId.length)
-      $('.modal[id~="' + targetId + '"]').toggleClass('active')
       $('body').toggleClass('modal-active')
+      setTimeout (->
+        $('.modal[id~="' + targetId + '"]').toggleClass('active')
+      ), 20
       e.preventDefault()

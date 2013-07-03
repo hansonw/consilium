@@ -79,8 +79,10 @@ body {
   #main {
     @include transition();
 
-    @include respond-to(desktops) { padding-left: $nav-width-desktops; }
-    @include respond-to(widescreens) { padding-left: $nav-width-widescreens; }
+    width: 100%;
+
+    @include respond-to(desktops) { padding-left: $nav-width-desktops; @include calc(width, '100% - #{$nav-width-desktops}'); };
+    @include respond-to(widescreens) { padding-left: $nav-width-widescreens; @include calc(width, '100% - #{$nav-width-widescreens}'); }
   }
 
   .align-right {
@@ -140,21 +142,17 @@ body {
   .modal {
     @include transition();
 
-    opacity: 0;
-    top: 0;
-    left: -100%;
     position: fixed;
+    top: 0;
+    left: 0;
+    @include transform(-100%, 0);
+    width: 100%;
     height: 100%;
     background: white;
-    right: 100%;
-    // XXX: This is prone to problems in the future.
-    z-index: 1001;
+    z-index: 1006;
 
     &.active {
-      z-index: 1006;
-      opacity: 1;
-      left: 0;
-      right: 0;
+      @include transform(0, 0);
     }
 
     .modal-inside {
