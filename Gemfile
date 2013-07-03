@@ -68,7 +68,10 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-# gem 'capistrano', group: :development
+gem 'capistrano', group: :development
+
+# PhoneGap gem for mobile deployment
+gem 'phonegap-rails', :git => 'https://github.com/DouglasSherk/phonegap-rails.git'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]

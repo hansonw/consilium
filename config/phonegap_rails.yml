@@ -1,0 +1,9 @@
+##
+##  General settings
+##
+phonegap_path: 'vendor/phonegap/'
+api_server: 'https://consilium.scigit.com' # This will be accessible through API_SERVER global var
+
+##  Android settings
+android:
+  package: 'com.scigit.consilium'
