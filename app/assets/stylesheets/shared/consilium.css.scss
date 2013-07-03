@@ -117,13 +117,11 @@ body {
   }
 
   .well {
-    @include gradient(237, 255, 1, 0%, 100%);
+    @include gradient(246, 255, 1, 0%, 100%);
 
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-top: 12px;
-    // min-height: 180px;
-    max-height: 380px;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 15px;
     border-radius:2px;
   }
 

@@ -46,6 +46,7 @@
     max-height: 32px;
     overflow: hidden;
     padding: 10px 0;
+    margin-top: -10px;
     margin-bottom: 30px;
 
     .subsection-inner {
@@ -104,6 +105,7 @@
 .button-size {
   @include respond-to(widescreens) { width:146px; }
   @include respond-to(desktops) { width:146px;}
+  
 }
 
 #toolbar {
