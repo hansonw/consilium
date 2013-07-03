@@ -1,0 +1,12 @@
+Modernizr.addTest 'csscalc', ->
+  prop = 'width:'
+  value = 'calc(10px);'
+  el = document.createElement('div')
+
+  el.style.cssText = prop + Modernizr._prefixes.join(value + prop)
+
+  !!el.style.length
+
+Modernizr.load
+  test: Modernizr.csscalc
+  nope: ['<%= asset_path('cssParser.js') %>', '<%= asset_path('polycalc.js') %>']
