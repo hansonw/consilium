@@ -183,7 +183,6 @@ class Client
           :id => 'insurer',
           :placeholder => '',
           :type => 'text',
-          :required => true,
         },
         {
           :name => 'Broker',
@@ -373,7 +372,6 @@ class Client
         {
           :name => 'Location Number',
           :id => 'locationNumber',
-          :required => true,
           :placeholder => '#',
           :type => 'text',
         },
@@ -1106,7 +1104,6 @@ class Client
         {
           :name => 'Policy No.',
           :id => 'policyNumber',
-          :required => true,
           :placeholder => 'Policy Number (ex. 0000)',
           :type => 'text',
         },
