@@ -205,7 +205,7 @@
       overflow: hidden;
 
       &.active {
-        height: 170px;
+        height: 190px;
       }
 
       .advanced-search-inner {
@@ -218,18 +218,27 @@
           $advanced-search-label-width: 80px;
 
           margin-bottom: 15px;
+          display: table;
+          width: 100%;
+          border-spacing: 4px;
 
           .advanced-search-field {
             margin: 10px 0;
+            display: table-row;
+
+            * {
+              margin: 4px;
+            }
+
             label {
+              display: table-cell;
               width: $advanced-search-label-width;
               margin-right: 5px;
-              display: inline-block;
             }
+
             input {
-              width: 30px;
-              display: inline-block;
-              @include calc(width, '100% - #{$advanced-search-label-width} - 10px');
+              display: table-cell;
+              width: 100%;
             }
           }
         }
@@ -275,7 +284,6 @@
 }
 
 .client-table {
-  table-layout: fixed;
   word-wrap: break-word;
 
   .name {
