@@ -133,7 +133,8 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     # obj -- the object being pushed
 
     if obj.$index?
-      # It's already tied to the one in the collection; just remove the index field
+      # Remove the index field and add it back
+      collection[obj.$index] = obj
       delete obj.$index
     else
       collection.push(obj)
@@ -145,7 +146,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   $scope.editInField = (objName, index) ->
     collection = (($scope.client[objName] ||= {}).value ||= [])
     if index < collection.length
-      $scope[objName] = collection[index]
+      $scope[objName] = angular.copy(collection[index])
       $scope[objName].$index = index
       $('#modalAdd' + objName).toggleClass('active')
       $('body').toggleClass('modal-active')
