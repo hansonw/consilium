@@ -1101,12 +1101,14 @@ class Client
         else
           val['value'].each_with_index do |subval, i|
             field[:type].each do |subfield|
-              subval[subfield[:id]] = validate_field(subfield[:id], subfield, subval[subfield[:id]])
+              value = validate_field(subfield[:id], subfield, subval[subfield[:id]])
+              subval[subfield[:id]] = value unless value.nil?
             end
           end
         end
       else
-        val['value'] = validate_field(field[:id], field, val['value'])
+        value = validate_field(field[:id], field, val['value'])
+        val['value'] = value unless value.nil?
       end
     end
 
