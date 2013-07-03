@@ -130,7 +130,13 @@ class Api::ClientsController < Api::ApiController
         if field[:type].is_a? Array
           if field[:id].ends_with? 's'
             permitted[field[:id]] = [:updated_at]
-            values = [field[:type].map { |sf| sf[:id] }]
+            values = [field[:type].map { |sf|
+              if sf[:type] == 'checkbox'
+                {sf[:id] => sf[:options].keys}
+              else
+                sf[:id]
+              end
+            }]
             permitted[field[:id]] << {:value => values}
           else
             field[:type].each do |subsection_field|

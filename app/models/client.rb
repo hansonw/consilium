@@ -55,7 +55,7 @@ class Client
     },
     {
       :name => 'Email',
-      # TODO: if id is set to email, the text resets after it is saved. 
+      # TODO: if id is set to email, the text resets after it is saved.
       :id => 'emailAddress',
       :placeholder => 'Email (ex. john@consilium.ca)',
       :type => 'email',
@@ -305,7 +305,7 @@ class Client
         {
           :name => 'Inspection',
           :id => 'inspection',
-          :type => 'radio',
+          :type => 'checkbox',
           :options => {
             'notInspected' => 'This risk was not inspected',
           },
@@ -374,8 +374,8 @@ class Client
           :type => 'checkbox',
           :options => {
             'fireResistive' => 'Fire Resistive',
-            'nonCombustableMasonryWalls' => 'Non-Combustable Masonry Walls',
-            'nonCombustableNonMasonryWalls' => 'Non-Combustable Non-masonry Walls',
+            'nonCombustibleMasonryWalls' => 'Non-Combustible Masonry Walls',
+            'nonCombustibleNonMasonryWalls' => 'Non-Combustible Non-masonry Walls',
             'masonry' => 'Masonry',
             'masonryVeneer' => 'Masonry Veneer',
             'frameAndAllOthers' => 'Frame & All Others',
@@ -384,7 +384,7 @@ class Client
         {
           :name => 'Roof',
           :id => 'constructionRoof',
-          :type => 'checkbox',
+          :type => 'radio',
           :options => {
             'steelDeck' => 'Steel Deck',
             'tarPaper' => 'Tar Paper',
@@ -412,8 +412,8 @@ class Client
           :type => 'checkbox',
           :options => {
             'fireResistive' => 'Fire Resistive',
-            'nonCombustableMasonryWalls' => 'Non-Combustable Masonry Walls',
-            'nonCombustableNonMasonryWalls' => 'Non-Combustable Non-masonry Walls',
+            'nonCombustibleMasonryWalls' => 'Non-Combustible Masonry Walls',
+            'nonCombustibleNonMasonryWalls' => 'Non-Combustible Non-masonry Walls',
             'masonry' => 'Masonry',
             'masonryVeneer' => 'Masonry Veneer',
             'frameAndAllOthers' => 'Frame & All Others',
@@ -446,8 +446,8 @@ class Client
           :type => 'checkbox',
           :options => {
             'fireResistive' => 'Fire Resistive',
-            'nonCombustableMasonryWalls' => 'Non-Combustable Masonry Walls',
-            'nonCombustableNonMasonryWalls' => 'Non-Combustable Non-masonry Walls',
+            'nonCombustibleMasonryWalls' => 'Non-Combustible Masonry Walls',
+            'nonCombustibleNonMasonryWalls' => 'Non-Combustible Non-masonry Walls',
             'masonry' => 'Masonry',
             'masonryVeneer' => 'Masonry Veneer',
             'frameAndAllOthers' => 'Frame & All Others',
@@ -457,7 +457,7 @@ class Client
         {
           :name => 'Electrical',
           :id => 'constructionElectrical',
-          :type => 'checkbox',
+          :type => 'radio',
           :options => {
             'breakers' => 'Breakers',
             'fuses' => 'Fuses',
@@ -467,7 +467,7 @@ class Client
         {
           :name => 'Plumbing',
           :id => 'constructionPlumbing',
-          :type => 'checkbox',
+          :type => 'radio',
           :options => {
             'copper' => 'Copper',
             'lead' => 'Lead',
@@ -480,7 +480,7 @@ class Client
         {
           :name => 'Heating',
           :id => 'constructionHeating',
-          :type => 'checkbox',
+          :type => 'radio',
           :options => {
             'none' => 'None',
             'ductFurnace' => 'Duct Furnace',
@@ -502,7 +502,7 @@ class Client
         {
           :name => 'Fuel',
           :id => 'constructionFuel',
-          :type => 'checkbox',
+          :type => 'radio',
           :options => {
             'oil' => 'Oil',
             'naturalGas' => 'Natural Gas',
@@ -652,7 +652,7 @@ class Client
         {
           :name => 'Extinguishing Agent',
           :id => 'extinguishingAgent',
-          :type => 'checkbox',
+          :type => 'radio',
           :options => {
             'water' => 'Water',
             'chemical' => 'Chemical',
@@ -666,7 +666,7 @@ class Client
         {
           :name => 'Fire Alarm',
           :id => 'fireAlarm',
-          :type => 'checkbox',
+          :type => 'radio',
           :options => {
             'none' => 'None',
             'complete' => 'Complete',
@@ -742,7 +742,7 @@ class Client
         {
           :name => 'Burglar Alarm',
           :id => 'burglarAlarm',
-          :type => 'checkbox',
+          :type => 'radio',
           :options => {
             'none' => 'None',
             'complete' => 'Complete',
@@ -763,7 +763,7 @@ class Client
         {
           :name => 'Safe Type',
           :id => 'safeType',
-          :type => 'checkbox',
+          :type => 'radio',
           :options => {
             'fire' => 'Fire',
             'burglary' => 'Burglary',
@@ -774,7 +774,7 @@ class Client
         {
           :name => 'Safe Class',
           :id => 'safeClass',
-          :type => 'checkbox',
+          :type => 'radio',
           :options => {
             '1' => '1',
             '2' => '2',
