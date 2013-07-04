@@ -1,4 +1,6 @@
 module AngularTemplateCachingHelper
+  include ActionView::Helpers
+
   def angularAllTemplates
     templates = {}
     FileUtils.cd Rails.root.join 'app', 'views', 'templates' do
@@ -21,6 +23,6 @@ module AngularTemplateCachingHelper
   end
 
   def angularTemplateContent(f)
-    ERB.new(File.read(f)).src.to_json
+    ERB.new(File.read(f), nil, '-').result
   end
 end

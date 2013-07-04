@@ -117,11 +117,3 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', '$http', 'Clien
   $rootScope.mainMenuLinkClick = ->
     $rootScope._showMenu = !$rootScope._showMenu
 ]
-
-<% if Rails.env.development? %>
-App.run ['$templateCache', ($templateCache) ->
-  <% angularAllTemplates.each do |path, content| %>
-  $templateCache.put "<%= path %>", `<%= content %>`
-  <% end %>
-]
-<% end %>
