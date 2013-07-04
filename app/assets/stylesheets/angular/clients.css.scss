@@ -29,6 +29,14 @@
     }
   }
 
+  .force-centre {
+    @include respond-to(widescreens){
+      display: block;
+      width:80%;
+      margin: auto;
+    }
+  }
+
   .form-nav {
     $client-form-nav-padding: 50px;
 

@@ -36,6 +36,10 @@ body {
     @include respond-to(widescreens) { width: 80%; }
   }
 
+  .modal-inside .modal-sizer {
+    @include respond-to(handhelds) {margin-right: auto;}
+  }
+
   .layout {
     @include respond-to(handhelds) {
       &.active #main {

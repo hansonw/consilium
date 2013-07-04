@@ -224,8 +224,6 @@
 
   .checkbox-container {
     display: inline-block;
-    @include calc(width, "100% - #{$label-width + $label-comfort-margin}");
-    @include respond-to(handhelds) { width: 100%; }
 
     .checkbox-field {
       display: inline-block;
