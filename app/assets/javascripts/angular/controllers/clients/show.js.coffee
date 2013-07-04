@@ -1,4 +1,4 @@
-App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filter', 'Client', 'ClientChanges', 'Document', 'RecentClients', ($scope, $routeParams, $location, $filter, Client, ClientChanges, Document, RecentClients) ->
+App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filter', 'Client', 'ClientChange', 'Document', 'RecentClients', ($scope, $routeParams, $location, $filter, Client, ClientChange, Document, RecentClients) ->
   $scope.clientId = $routeParams.clientId
   $scope.loading = $scope.historyLoading = $scope.docLoading = true
   $scope.historyError = $scope.docError = false
@@ -6,7 +6,7 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
     (->
       $scope.loading = false
       RecentClients.logClientShow($scope.client)
-      $scope.history = ClientChanges.query({client_id: $scope.client.id},
+      $scope.history = ClientChange.query({client_id: $scope.client.id},
         (-> $scope.historyLoading = false),
         (->
           $scope.historyLoading = false

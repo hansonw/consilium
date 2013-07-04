@@ -76,13 +76,21 @@ class Api::ClientsController < Api::ApiController
     # Get a list of changed fields
     changed_fields = []
     new_client.attributes.each do |key, val|
-      if defined?(val['value']) && old_client[key] &&
-         val['value'] != old_client[key]['value']
+      if defined?(val['value'])
+        if old_client[key] && val['value'] != old_client[key]['value'] ||
+           old_client[key].nil?
+          changed_fields << key
+        end
+      end
+    end
+
+    old_client.attributes.each do |key, val|
+      if new_client[key].nil?
         changed_fields << key
       end
     end
 
-    changed_fields = changed_fields.map do |field_id|
+    changed_fields = changed_fields.sort.map do |field_id|
       field = Client::FIELDS.select { |field| field[:id] == field_id }.first
       field && field[:name].downcase
     end
@@ -92,8 +100,7 @@ class Api::ClientsController < Api::ApiController
     end
 
     num_fields = 3
-    return 'Edited field' + (changed_fields.length == 1 ? '' : 's') + ' ' +
-        changed_fields[0, num_fields].join(', ') +
+    return 'Edited ' + changed_fields[0, num_fields].join(', ') +
         (changed_fields.length > num_fields ? '...' : '')
   end
 
@@ -138,7 +145,7 @@ class Api::ClientsController < Api::ApiController
         if !last_change.nil? && last_change.user_id == @user.id && Time.now - last_change.updated_at < 60
           # Merge into previous if it's within a minute
           if last_change.description = get_description(@client, changes.second && changes.second.client_data)
-            last_change.client_data = @client
+            last_change.client_data = @client.dup
             last_change.save!
           end
         else
