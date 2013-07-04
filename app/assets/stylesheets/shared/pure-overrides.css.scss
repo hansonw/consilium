@@ -137,6 +137,10 @@
   }
 }
 
+input, select, textarea {
+  font-family: "proxima-nova";
+}
+
 .pure-form-aligned {
   $label-width: 10em;
   $label-margin: 1em;
