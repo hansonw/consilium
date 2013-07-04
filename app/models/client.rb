@@ -1208,14 +1208,14 @@ class Client
           :id => 'propertyType',
           :type => 'checkbox',
           :options => {
-            'newClient' => 'This business/client is new to my office.',
+            'newClient' => 'This client is new to my office.',
           },
         },
       ],
     }
   ]
 
-  def validate_field(field_name, field_desc, value)
+  def validate_value(field_name, field_desc, value)
     if value.nil? || value == ''
       if field_desc[:required]
         errors[field_name] << 'is required'
@@ -1269,39 +1269,49 @@ class Client
     return value
   end
 
+  def validate_field(field)
+    val = self[field[:id]]
+    if val.nil?
+      if field[:required]
+        errors[field[:id]] << 'is required'
+      end
+    elsif val['updated_at'].nil?
+      errors[field[:id]] << 'must contain "updated_at"'
+    elsif val['value'].nil?
+      if field[:type].is_a?(Array)
+        # Rails parses empty arrays as nil. Assume that's what happened
+        val['value'] = []
+      else
+        errors[field[:id]] << 'must contain "value"'
+      end
+    elsif field[:type].is_a?(Array)
+      if !val['value'].is_a?(Array)
+        errors[field[:id]] << 'must be an array'
+      else
+        val['value'].each_with_index do |subval, i|
+          field[:type].each do |subfield|
+            value = validate_value(subfield[:id], subfield, subval[subfield[:id]])
+            subval[subfield[:id]] = value unless value.nil?
+          end
+        end
+      end
+    else
+      value = validate_value(field[:id], field, val['value'])
+      val['value'] = value unless value.nil?
+    end
+  end
+
   def valid?(context = nil)
     errors.clear
     # Custom validation.
     FIELDS.each do |field|
-      val = self[field[:id]]
-
-      if val.nil?
-        if field[:required]
-          errors[field[:id]] << 'is required'
-        end
-      elsif val['updated_at'].nil?
-        errors[field[:id]] << 'must contain "updated_at"'
-      elsif val['value'].nil?
-        if field[:type].is_a?(Array)
-          # Rails parses empty arrays as nil. Assume that's what happened
-          val['value'] = []
-        else
-          errors[field[:id]] << 'must contain "value"'
-        end
-      elsif field[:type].is_a?(Array)
-        if !val['value'].is_a?(Array)
-          errors[field[:id]] << 'must be an array'
-        else
-          val['value'].each_with_index do |subval, i|
-            field[:type].each do |subfield|
-              value = validate_field(subfield[:id], subfield, subval[subfield[:id]])
-              subval[subfield[:id]] = value unless value.nil?
-            end
-          end
+      if field[:type].is_a?(Array) && !field[:id].ends_with?('s')
+        # just a section; fields are contained outside
+        field[:type].each do |subfield|
+          validate_field(subfield)
         end
       else
-        value = validate_field(field[:id], field, val['value'])
-        val['value'] = value unless value.nil?
+        validate_field(field)
       end
     end
 

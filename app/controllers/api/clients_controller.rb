@@ -138,7 +138,7 @@ class Api::ClientsController < Api::ApiController
     end
 
     respond_to do |format|
-      if @client.save!
+      if @client.save
         # Create a new client change if necessary.
         changes = ClientChange.where('client_id' => @client.id).desc(:updated_at)
         last_change = changes.first
@@ -146,7 +146,7 @@ class Api::ClientsController < Api::ApiController
           # Merge into previous if it's within a minute
           if last_change.description = get_description(@client.attributes, changes.second && changes.second.client_data)
             last_change.client_data = @client.attributes
-            last_change.save!
+            last_change.save
           else
             last_change.delete # Changes got reverted
           end
@@ -157,7 +157,7 @@ class Api::ClientsController < Api::ApiController
               :client_id => @client.id,
               :client_data => @client.attributes,
               :description => desc,
-            ).save!
+            ).save
           end
         end
         format.json { render json: get_json(@client) }
@@ -197,13 +197,17 @@ class Api::ClientsController < Api::ApiController
             permitted[field[:id]] << {:value => values}
           else
             field[:type].each do |subsection_field|
-              permitted[subsection_field[:id]] = [:updated_at]
-              permitted[subsection_field[:id]] << :value
+              permitted[subsection_field[:id]] = [:updated_at,
+                if subsection_field[:type] == 'checkbox'
+                  {:value => subsection_field[:options].keys}
+                else
+                  :value
+                end
+              ]
             end
           end
         else
-          permitted[field[:id]] = [:updated_at]
-          permitted[field[:id]] << :value
+          permitted[field[:id]] = [:updated_at, :value]
         end
       end
       params.permit(permitted)
