@@ -1215,6 +1215,17 @@ class Client
     }
   ]
 
+  def self.expand_fields
+    fields = FIELDS.map do |field|
+      if field[:type].is_a?(Array) && !field[:id].ends_with?('s')
+        field[:type]
+      else
+        field
+      end
+    end
+    return fields.flatten
+  end
+
   def validate_value(field_name, field_desc, value)
     if value.nil? || value == ''
       if field_desc[:required]
@@ -1304,15 +1315,8 @@ class Client
   def valid?(context = nil)
     errors.clear
     # Custom validation.
-    FIELDS.each do |field|
-      if field[:type].is_a?(Array) && !field[:id].ends_with?('s')
-        # just a section; fields are contained outside
-        field[:type].each do |subfield|
-          validate_field(subfield)
-        end
-      else
-        validate_field(field)
-      end
+    Client.expand_fields.each do |field|
+      validate_field(field)
     end
 
     errors.empty? && super(context)

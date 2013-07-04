@@ -91,8 +91,8 @@ class Api::ClientsController < Api::ApiController
     end
 
     changed_fields = changed_fields.sort.map do |field_id|
-      field = Client::FIELDS.select { |field| field[:id] == field_id }.first
-      field && field[:name].downcase
+      field = Client.expand_fields.select { |field| field[:id] == field_id }.first
+      (!field || field[:name].empty? ? field_id.underscore.humanize : field[:name]).downcase
     end
 
     if changed_fields.empty?
@@ -183,31 +183,25 @@ class Api::ClientsController < Api::ApiController
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
       permitted = {}
-      Client::FIELDS.each do |field|
+      Client.expand_fields.each do |field|
         if field[:type].is_a? Array
-          if field[:id].ends_with? 's'
-            permitted[field[:id]] = [:updated_at]
-            values = [field[:type].map { |sf|
-              if sf[:type] == 'checkbox'
-                {sf[:id] => sf[:options].keys}
-              else
-                sf[:id]
-              end
-            }]
-            permitted[field[:id]] << {:value => values}
-          else
-            field[:type].each do |subsection_field|
-              permitted[subsection_field[:id]] = [:updated_at,
-                if subsection_field[:type] == 'checkbox'
-                  {:value => subsection_field[:options].keys}
-                else
-                  :value
-                end
-              ]
+          permitted[field[:id]] = [:updated_at]
+          values = [field[:type].map { |sf|
+            if sf[:type] == 'checkbox'
+              {sf[:id] => sf[:options].keys}
+            else
+              sf[:id]
             end
-          end
+          }]
+          permitted[field[:id]] << {:value => values}
         else
-          permitted[field[:id]] = [:updated_at, :value]
+          permitted[field[:id]] = [:updated_at,
+            if field[:type] == 'checkbox'
+              {:value => field[:options].keys}
+            else
+              :value
+            end
+          ]
         end
       end
       params.permit(permitted)
