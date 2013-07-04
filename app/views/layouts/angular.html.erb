@@ -11,10 +11,10 @@
     }
   </script>
 
-  <% if Rails.env.development? %>
+  <% if Rails.env.phonegap? %>
     <% angularAllTemplates.each do |path, content| %>
       <script type="text/ng-template" id="<%= path %>">
-        <%= raw content %>
+       <%= raw content %>
       </script>
     <% end %>
   <% end %>

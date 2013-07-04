@@ -23,7 +23,7 @@ module AngularRoutingHelper
   end
 
   def angularRouteFilePath(route)
-    ((route.split(':')[0]).sub(/(\/)+$/, '')).sub(/(\/new)+$/, '/edit') + (isRouteAScope(route) ? '/index' : '') + '.html'
+    ((route.split(':')[0]).sub(/^\/|(\/)+$/, '')).sub(/(\/new)+$/, '/edit') + (isRouteAScope(route) ? '/index' : '') + '.html'
   end
 
   def angularRouteRawPath(route)

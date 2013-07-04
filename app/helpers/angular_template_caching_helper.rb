@@ -49,12 +49,10 @@ module AngularTemplateCachingHelper
   end
 
   def angularTemplatePath(f)
-    "/app/templates/#{File.path(f).sub(/\.erb/, '')}"
+    "app/templates/#{File.path(f).sub(/\.erb/, '')}"
   end
 
   def angularTemplateContent(f)
-    #ERB.new(File.read(f), nil, '-').result
-    renderer = AngularTemplateRenderer.new.render_to_string('templates/' + f)
-    #renderer.render(template: File.path('templates/' + f))
+    AngularTemplateRenderer.new.render_to_string('templates/' + f)
   end
 end
