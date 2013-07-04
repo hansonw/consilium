@@ -344,6 +344,7 @@
 
 .client-landing {
   .recent-edit {
+  //TODO:  We should switch to pure's grid system.
     @include respond-to(widescreens) {
       width: 47.5%;
       float: right;

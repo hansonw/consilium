@@ -10,7 +10,7 @@
         <h4>Some of your most recent clients</h4>
         <div data-ng-controller="ClientsRecentCtrl">
           <%= render :partial => 'templates/clients/recent_table',
-                     :locals => {:limit => 3 } %>
+                     :locals => { :limit => 3 } %>
         </div>
       </div>
       <% # TODO: Make this section show the most recent clients edit history. %>
@@ -18,7 +18,7 @@
         <h4>Most recent edits for client INSERTNAMEHERE</h4>
         <div>
           <%= render :partial => 'templates/clients/edit_history_table',
-                     :locals => {:limit => 3 } %>
+                     :locals => { :limit => 3 } %>
         </div>
       </div>
     </div>

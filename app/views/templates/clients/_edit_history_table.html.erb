@@ -15,7 +15,7 @@
     <tr data-ng-show="!historyLoading && !historyError && !history.length">
       <td colspan="2">No edit history available.</td>
     </tr>
-    <tr data-ng-repeat="item in history<%= %(.slice(0, #{limit})) if limit %>">
+    <tr data-ng-repeat="item in history<%= %(.slice(0, #{limit})) if !local_assigns[:limit].nil? %>">
       <td class="description">
         {{ item.description }}
         <div class="detail">

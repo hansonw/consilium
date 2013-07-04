@@ -10,7 +10,7 @@
     <tr data-ng-show="!clients.length">
       <td colspan="3">You haven't viewed any clients recently.</td>
     </tr>
-    <tr data-ng-repeat="client in clients<%= %(.slice(0, #{limit})) if limit %>" data-ng-click="clientClick(client.id)">
+    <tr data-ng-repeat="client in clients<%= %(.slice(0, #{limit})) if !local_assigns[:limit].nil? %>" data-ng-click="clientClick(client.id)">
       <td class="name">{{ client.name }}</td>
       <td class="company">{{ client.company }}</td>
       <td class="actions align-right">
