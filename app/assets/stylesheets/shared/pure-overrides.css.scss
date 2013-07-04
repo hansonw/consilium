@@ -201,7 +201,8 @@
 
   .dropdown-list {
     min-width: $dropdown-width;
-    margin: 4.5px 0 !important;
+    margin: 4.5px 0;
+    display: table-cell;
 
     &.other-dropdown {
       width: $dropdown-width;
@@ -209,16 +210,16 @@
   }
 
   .dropdown-field {
-    display: inline-block;
-    width: 350px;
-    @include calc(width, "100% - #{$label-width + $label-comfort-margin - $dropdown-comfort-margin}");
-    @include respond-to(tablets) { @include calc(width, "100% - #{$label-width + $label-comfort-margin + $dropdown-comfort-antimargin-lowres}"); }
-    @include respond-to(handhelds) { width: 100%; }
+    display: table;
+    margin: 0px !important;
+    border-spacing: 0px;
+    width: 100%;
+    @include respond-to(handhelds) { display: table-row; }
 
     .other-field {
-      display: inline-block;
+      display: table-cell;
       margin-left: $label-comfort-margin;
-      @include calc(width, "100% - #{$dropdown-width + $label-comfort-margin}");
+      width: 100%;
     }
   }
 

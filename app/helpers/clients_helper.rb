@@ -14,12 +14,14 @@ module ClientsHelper
       end
       dropdownString += "</select>"
       if field[:otherPlaceholder] != ''
-        dropdownString += "<input class='other-field' name='#{field[:id]}'
-                              type=\"{{(#{model} == 'Other') ? 'text' : 'hidden'}}\"
-                              ng-model='#{model}' placeholder='#{field[:otherPlaceholder]}'
-                              #{field[:optionRequired] && 'required'}
-                              #{field[:disabled] && 'disabled'}
-                          />"
+        dropdownString +=  "<div class='other-field'>
+                              <input name='#{field[:id]}'
+                                type=\"{{(#{model} == 'Other') ? 'text' : 'hidden'}}\"
+                                ng-model='#{model}' placeholder='#{field[:otherPlaceholder]}'
+                                #{field[:optionRequired] && 'required'}
+                                #{field[:disabled] && 'disabled'}
+                              />
+                            </div>"
       end
       dropdownString += "</div>"
       r = dropdownString
