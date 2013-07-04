@@ -6,7 +6,11 @@
 
   @include respond-to(widescreens) { padding-top: 20px; }
 
-  padding-bottom: 100px;
+  select[disabled] {
+    border: 1px solid #ccc;
+    background-color: white;
+    color: black;
+  }
 
   .form-content {
     @include transition();
@@ -22,6 +26,14 @@
 
     @include respond-to(widescreens) {
       @include calc(width, '100% - #{$client-form-nav-width + 5px}');
+    }
+  }
+
+  .force-centre {
+    @include respond-to(widescreens){
+      display: block;
+      width:80%;
+      margin: auto;
     }
   }
 
@@ -41,21 +53,23 @@
   }
 
   .subsection {
-    @include transition();
+    // TODO: Subsection transitions disabled for now. This is done too poorly right now.
+    // @include transition();
 
     max-height: 32px;
     overflow: hidden;
     padding: 10px 0;
     margin-top: -10px;
-    margin-bottom: 30px;
+    margin-bottom: -15px;
 
     .subsection-inner {
       margin: 20px 0 20px 0;
     }
 
-    // TODO: This is very rickety and won't work with larger subsections.
     &.active {
-      max-height: 300px;
+      // TODO: This is very rickety and won't work with larger subsections.
+      //max-height: 300px;
+      max-height: none;
     }
   }
 }
@@ -102,7 +116,8 @@
   height: 100%
 }
 
-.button-size {
+// TODO: This needs to be renamed and scoped correctly.
+.section-edit {
   @include respond-to(widescreens) { width:146px; }
   @include respond-to(desktops) { width:146px;}
 }
@@ -158,39 +173,42 @@
     $search-button-width: 55px;
 
     padding: 20px;
-    text-align: center;
+    text-align: right;
     background: rgba(0, 0, 0, 0.035);
     margin-bottom: 20px;
 
     .search-controls {
-      height: 30px;
+      $search-height: 30px;
+
+      height: $search-height;
 
       input {
         vertical-align: top;
-        display: inline-block;
-        height: inherit;
-        @include calc(width, '100% - #{$search-button-width}');
+        height: $search-height;
+        width: 100%;
+        margin-bottom: 0;
       }
 
-      .spinner {
-        position: absolute;
-        display: inline-block;
-        margin-left: -30px;
-        margin-top: 7px;
-        opacity: 0;
-        &.loading {
-          opacity: 1;
-        }
-      }
+      // TODO: This is too poorly done for now. We should come back to it.
+      //.spinner {
+      //  position: absolute;
+      //  display: inline-block;
+      //  margin-left: -30px;
+      //  margin-top: 7px;
+      //  opacity: 0;
+      //  &.loading {
+      //    opacity: 1;
+      //  }
+      //}
 
       button#btnSearch {
+        margin-top: -$search-height;
         vertical-align: top;
         width: $search-button-width;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
-        margin-left: -7px;
+        height: $search-height;
         display: inline-block;
-        height: inherit;
       }
     }
 
@@ -204,7 +222,7 @@
       overflow: hidden;
 
       &.active {
-        height: 170px;
+        height: 190px;
       }
 
       .advanced-search-inner {
@@ -217,18 +235,27 @@
           $advanced-search-label-width: 80px;
 
           margin-bottom: 15px;
+          display: table;
+          width: 100%;
+          border-spacing: 4px;
 
           .advanced-search-field {
             margin: 10px 0;
+            display: table-row;
+
+            * {
+              margin: 4px;
+            }
+
             label {
+              display: table-cell;
               width: $advanced-search-label-width;
               margin-right: 5px;
-              display: inline-block;
             }
+
             input {
-              width: 30px;
-              display: inline-block;
-              @include calc(width, '100% - #{$advanced-search-label-width} - 10px');
+              display: table-cell;
+              width: 100%;
             }
           }
         }
@@ -266,6 +293,7 @@
   }
 
   .client-docs {
+    margin-bottom: 30px;
     @include respond-to(widescreens) {
       width: 100%;
       float: left;
@@ -274,7 +302,6 @@
 }
 
 .client-table {
-  table-layout: fixed;
   word-wrap: break-word;
 
   .name {
@@ -302,8 +329,6 @@
 }
 
 .document-table {
-  margin-bottom: 100px;
-
   .actions {
     .pure-button {
       margin: 3px 0 3px 0; // so buttons stack nicely
@@ -321,6 +346,25 @@
 
     .date {
       color: #999;
+    }
+  }
+}
+
+.client-landing {
+  .recent-edit {
+    @include respond-to(widescreens) {
+      width: 45%;
+      float: right;
+      margin-left: 5%;
+    }
+  }
+  
+  .recent-client {
+    margin-bottom: 30px;
+    @include respond-to(widescreens) {
+      width: 45%;
+      float: left;
+      margin-right: 5%;
     }
   }
 }
