@@ -181,13 +181,13 @@ class Client
         {
           :name => 'Insurer',
           :id => 'insurer',
-          :placeholder => 'Marc Hodgkinson',
+          :placeholder => 'Name',
           :type => 'text',
         },
         {
           :name => 'Broker',
           :id => 'broker',
-          :placeholder => 'National Truck League Insurance Brokers',
+          :placeholder => 'Some Insurance Brokers.inc',
           :type => 'text',
         },
         {
@@ -365,7 +365,7 @@ class Client
         {
           :name => 'Describe',
           :id => 'constructionRoofDescribe',
-          :placeholder => 'If Other, Please Describe',
+          :placeholder => 'If other, please describe',
           :type => 'text',
         },
       ],
@@ -531,7 +531,7 @@ class Client
         {
           :name => 'Describe',
           :id => 'constructionRoofDescribe',
-          :placeholder => 'If Other, Please Describe',
+          :placeholder => 'If other, please describe',
           :type => 'text',
         },
         {
@@ -625,7 +625,7 @@ class Client
         {
           :name => 'Describe',
           :id => 'constructionHeatingDescribe',
-          :placeholder => 'If Other, Please Describe',
+          :placeholder => 'If other, please describe',
           :type => 'text',
         },
         {
@@ -645,7 +645,7 @@ class Client
         {
           :name => 'Describe',
           :id => 'constructionFuelDescribe',
-          :placeholder => 'If Other, Please Describe',
+          :placeholder => 'If other, please describe',
           :type => 'text',
         },
         {
@@ -775,7 +775,7 @@ class Client
         {
           :name => 'Describe',
           :id => 'extinguishingSystemDescribe',
-          :placeholder => 'If Other, Please Describe',
+          :placeholder => 'If other, please describe',
           :type => 'text',
         },
         {
@@ -809,7 +809,7 @@ class Client
         {
           :name => 'Describe',
           :id => 'fireAlarmDescribe',
-          :placeholder => 'If Other, Please Describe',
+          :placeholder => 'If other, please describe',
           :type => 'text',
         },
         {
@@ -886,7 +886,7 @@ class Client
         {
           :name => 'Describe',
           :id => 'burglarAlarmDescribe',
-          :placeholder => 'If Other, Please Describe',
+          :placeholder => 'If other, please describe',
           :type => 'text',
         },
         {
@@ -1141,7 +1141,7 @@ class Client
         {
           :name => 'Insurer',
           :id => 'insurer',
-          :placeholder => 'Marc Hodgkinson',
+          :placeholder => 'Name',
           :type => 'text',
         },
         {

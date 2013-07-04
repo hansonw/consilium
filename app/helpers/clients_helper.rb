@@ -34,10 +34,10 @@ module ClientsHelper
           click_action = "#{model}.#{key} = !#{model}.#{key}"
           checked = "#{model}.#{key}"
         end
-        checkboxString += "<div class='checkbox-field'>
+        checkboxString += "<div class='checkbox-field'
+                            ng-click=\"#{click_action}\">
                             <input name='#{field[:id]}'
                                 type='#{field[:type]}'
-                                ng-click=\"#{click_action}\"
                                 id='#{key}'
                                 value='#{key}'
                                 ng-checked=\"#{checked}\"
