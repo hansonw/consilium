@@ -81,3 +81,9 @@ production:
       options:
         skip_version_check: true
         safe: true
+phonegap:
+  sessions:
+    default:
+      database: consilium_development
+      hosts:
+        - localhost:27017

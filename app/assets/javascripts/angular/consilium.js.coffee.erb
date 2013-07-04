@@ -1,5 +1,6 @@
 <% environment.context_class.instance_eval { include ActionView::Helpers } %>
 <% environment.context_class.instance_eval { include AngularRoutingHelper } %>
+<% environment.context_class.instance_eval { include AngularTemplateCachingHelper } %>
 <% environment.context_class.instance_eval { include ActionDispatch::Routing } %>
 <% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
 
@@ -116,3 +117,11 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', '$http', 'Clien
   $rootScope.mainMenuLinkClick = ->
     $rootScope._showMenu = !$rootScope._showMenu
 ]
+
+<% if Rails.env.development? %>
+App.run ['$templateCache', ($templateCache) ->
+  <% angularAllTemplates.each do |path, content| %>
+  $templateCache.put "<%= path %>", `<%= content %>`
+  <% end %>
+]
+<% end %>
