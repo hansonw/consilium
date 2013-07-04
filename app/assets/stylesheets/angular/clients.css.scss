@@ -341,3 +341,22 @@
     }
   }
 }
+
+.client-landing {
+  .recent-edit {
+    @include respond-to(widescreens) {
+      width: 45%;
+      float: right;
+      margin-left: 5%;
+    }
+  }
+  
+  .recent-client {
+    margin-bottom: 30px;
+    @include respond-to(widescreens) {
+      width: 45%;
+      float: left;
+      margin-right: 5%;
+    }
+  }
+}
