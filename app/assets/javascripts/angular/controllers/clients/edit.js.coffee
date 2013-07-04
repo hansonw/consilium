@@ -23,19 +23,18 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   $scope.lastSaved = null
 
   # TODO: error should be modal
-  $scope.loading = false
+  $scope.loading = true
   if $scope.clientChangeId
-    client_change = ClientChange.get(id: $scope.clientChangeId,
+    $scope.clientChange = ClientChange.get(id: $scope.clientChangeId,
       (->
         $scope.loading = false
-        $scope.client = client_change.client_data
+        $scope.client = $scope.clientChange.client_data
         $('input, textarea').attr('readonly', true)
         $('select').attr('disabled', true)), # select readonly doesn't work
       (data) ->
         alert('The requested client was not found.')
         $location.path('/clients'))
   else if $scope.clientId
-    $scope.loading = true
     $scope.client = Client.get(id: $scope.clientId,
       (->
         $scope.loading = false
@@ -45,6 +44,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
         alert('The requested client was not found.')
         $location.path('/clients'))
   else
+    $scope.loading = false
     $scope.client = new Client()
     $scope.lastSaved = $scope.client.getData()
 

@@ -17,7 +17,7 @@
     </tr>
     <tr data-ng-repeat="item in history<%= %(.slice(0, #{limit})) if !local_assigns[:limit].nil? %>">
       <td class="description">
-        {{ item.description }}
+        {{ item.description | ellipsize: 40:1 }}
         <div class="detail">
           by <span class="email">{{ item.user_email }}</span> on
           <span class="date">{{ item.updated_at | date: 'medium'}}</span>

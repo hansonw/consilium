@@ -45,6 +45,11 @@
             <h3 class="no-top-margin"><i class="icon-spinner icon-spin icon-large"></i> Loading...</h3>
           </div>
           <div data-ng-show="!loading" class="form-content">
+            <div data-ng-show="clientChange" class="edit-description">
+              <b>{{ clientChange.user_email }}</b> made the following changes on {{ clientChange.updated_at | date: 'medium' }}:<br />
+              <div class="description">{{ clientChange.description }}</div>
+            </div>
+
             <div class="section" id="basicInfo">
               <h3 class="no-top-margin">Basic Info.</h3>
             </div>

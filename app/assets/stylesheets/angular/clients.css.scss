@@ -44,6 +44,15 @@
     }
   }
 
+  .edit-description {
+    margin-bottom: 30px;
+    .description {
+      font-size: 120%;
+      color: #666;
+      margin-top: 4px;
+    }
+  }
+
   .subsection {
     // TODO: Subsection transitions disabled for now. This is done too poorly right now.
     // @include transition();

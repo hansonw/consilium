@@ -99,9 +99,7 @@ class Api::ClientsController < Api::ApiController
       return nil
     end
 
-    num_fields = 3
-    return 'Edited ' + changed_fields[0, num_fields].join(', ') +
-        (changed_fields.length > num_fields ? '...' : '')
+    return 'Edited ' + changed_fields.join(', ')
   end
 
   # PUT /clients/:id
