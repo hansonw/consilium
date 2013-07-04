@@ -30,7 +30,9 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
         $scope.loading = false
         $scope.client = $scope.clientChange.client_data
         $('input, textarea').attr('readonly', true)
-        $('select').attr('disabled', true)), # select readonly doesn't work
+        # readonly isn't enough for checkboxes and selects
+        $('input[type=checkbox]').attr('disabled', true)
+        $('select').attr('disabled', true)),
       (data) ->
         alert('The requested client was not found.')
         $location.path('/clients'))
