@@ -1,21 +1,22 @@
 <div class="well">
-    <div class="subsection" data-ng-class="{'active': subsectionVisible['<%= field[:id] %>']}">
-      <div id="<%= field[:id] %>" class="section">
-        <a class="button-size pull-right pure-button pure-button-primary"
-           data-ng-click="subsectionVisible['<%= field[:id] %>'] = !subsectionVisible['<%= field[:id] %>']">
-          <i data-ng-class="{'icon-caret-down': !subsectionVisible['<%= field[:id] %>'], 'icon-caret-up': subsectionVisible['<%= field[:id] %>']}"></i>
-          <span class="verbose-desc">Edit <%= field[:name] %></span>
-        </a>
-        <h3 class="no-top-margin no-bottom-margin"><%= field[:name] %></h3>
-      </div>
-      <hr class="soften" />
-      <div class="subsection-inner pure-form-fields">
-        <% field[:type].each do |subfield| %>
-          <div class="pure-control-group">
-            <label name="<%= subfield[:id] %>" for="<%= subfield[:id] %>"><%= subfield[:name] %></label>
-            <%= ng_input(subfield, 'client.' + subfield[:id] + '.value')  %>
-          </div>
-        <% end %>
-      </div>
+  <div class="subsection" data-ng-class="{'active': subsectionVisible['<%= field[:id] %>']}">
+    <div id="<%= field[:id] %>" class="section">
+      <a class="section-edit pull-right pure-button pure-button-primary"
+         data-ng-click="subsectionVisible['<%= field[:id] %>'] = !subsectionVisible['<%= field[:id] %>']">
+        <i data-ng-class="{'icon-caret-down': !subsectionVisible['<%= field[:id] %>'], 'icon-caret-up': subsectionVisible['<%= field[:id] %>']}"></i>
+        <span class="verbose-desc">Edit <%= field[:name] %></span>
+      </a>
+      <h3 class="no-top-margin no-bottom-margin"><%= field[:name] %></h3>
     </div>
+    <hr class="soften" />
+    <div class="subsection-inner pure-form-fields">
+      <% field[:type].each do |subfield| %>
+        <div class="pure-control-group">
+          <label name="<%= subfield[:id] %>" for="<%= subfield[:id] %>"><%= subfield[:name] %></label>
+          <%= ng_input(subfield, 'client.' + subfield[:id] + '.value')  %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
+<div class="separator"></div>

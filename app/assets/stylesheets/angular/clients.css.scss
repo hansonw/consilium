@@ -6,8 +6,6 @@
 
   @include respond-to(widescreens) { padding-top: 20px; }
 
-  padding-bottom: 100px;
-
   .form-content {
     @include transition();
 
@@ -47,7 +45,7 @@
     overflow: hidden;
     padding: 10px 0;
     margin-top: -10px;
-    margin-bottom: 30px;
+    margin-bottom: -15px;
 
     .subsection-inner {
       margin: 20px 0 20px 0;
@@ -102,10 +100,10 @@
   height: 100%
 }
 
-.button-size {
+// TODO: This needs to be renamed and scoped correctly.
+.section-edit {
   @include respond-to(widescreens) { width:146px; }
-  @include respond-to(desktops) { width:146px;}
-  
+  @include respond-to(desktops) { width:146px; }
 }
 
 #toolbar {
@@ -312,8 +310,6 @@
 }
 
 .document-table {
-  margin-bottom: 100px;
-
   .actions {
     .pure-button {
       margin: 3px 0 3px 0; // so buttons stack nicely

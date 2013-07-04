@@ -62,6 +62,10 @@ body {
     @include respond-to(handhelds) { font-size: 18px; }
   }
 
+  #view {
+    padding-bottom: 60px;
+  }
+
   #main {
     @include transition();
 
