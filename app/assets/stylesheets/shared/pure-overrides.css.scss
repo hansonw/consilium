@@ -172,6 +172,12 @@
         @include respond-to(handhelds) { display: table-row; }
       }
 
+      input[readonly], textarea[readonly], select[readonly] {
+        border: 1px solid #ccc;
+        background-color: white;
+        color: black;
+      }
+
       // Text areas do not get formatted by pure, the styling below is
       // obtained from the styling pure uses for text inputs.
       textarea {

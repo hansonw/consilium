@@ -6,6 +6,12 @@
 
   @include respond-to(widescreens) { padding-top: 20px; }
 
+  select[disabled] {
+    border: 1px solid #ccc;
+    background-color: white;
+    color: black;
+  }
+
   .form-content {
     @include transition();
 

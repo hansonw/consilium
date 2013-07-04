@@ -1,12 +1,18 @@
 # This doubles as the new client view (if no client ID is provided)
-App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$location', 'Client', 'RecentClients', ($scope, $routeParams, $timeout, $location, Client, RecentClients) ->
+App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$location', 'Client', 'ClientChanges', 'RecentClients', ($scope, $routeParams, $timeout, $location, Client, ClientChanges, RecentClients) ->
   $scope._saveTimeout = 10000
   $scope._lastChange = new Date().getTime()
   $scope.saving = false
   $scope.dirty = false
 
   $scope.clientId = $routeParams.clientId
-  $scope.title = if $scope.clientId then 'Edit Client' else 'Create Client'
+  $scope.clientChangeId = $routeParams.clientChangeId
+  if $scope.clientChangeId
+    $scope.title = 'View Client History'
+  else if $scope.clientId
+    $scope.title = 'Edit Client'
+  else
+    $scope.title = 'Create Client'
 
   # Adding a watch triggers the watch (yo dawg).
   # Thus we gate the whole dirty check on this flag, and flip it the first time the
@@ -18,7 +24,17 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
 
   # TODO: error should be modal
   $scope.loading = false
-  if $scope.clientId
+  if $scope.clientChangeId
+    client_change = ClientChanges.get(id: $scope.clientChangeId,
+      (->
+        $scope.loading = false
+        $scope.client = client_change.client_data
+        $('input, textarea').attr('readonly', true)
+        $('select').attr('disabled', true)), # select readonly doesn't work
+      (data) ->
+        alert('The requested client was not found.')
+        $location.path('/clients'))
+  else if $scope.clientId
     $scope.loading = true
     $scope.client = Client.get(id: $scope.clientId,
       (->

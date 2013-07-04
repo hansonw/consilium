@@ -51,18 +51,9 @@ class Api::ClientChangesController < Api::ApiController
       return
     end
 
-    data = {}
-    @client_change.client_data.attributes.each do |key, val|
-      if val.is_a?(Hash) && !val['value'].nil?
-        data[key] = val['value']
-      end
+    respond_to do |format|
+      format.json { render json: get_json(@client_change) }
     end
-
-    tmpfile = Tempfile.new(@client_change.id.to_s)
-    template_path = Rails.root.join('lib', 'docx_templates', 'default.docx')
-    YDocx::ClientChange.fill_template(template_path, data, tmpfile.path)
-
-    send_data(File.binread(tmpfile.path), :filename => @client_change.description + '.docx')
   end
 
   # DELETE /client_changes/1

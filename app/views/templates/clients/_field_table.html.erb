@@ -1,6 +1,7 @@
 <div class="well">
   <div id="<%= field[:id] %>" class="section">
-    <a class="section-edit pull-right pure-button pure-button-primary" href="#modalAdd<%= field[:id] %>" modal-toggle>
+    <a class="section-edit pull-right pure-button pure-button-primary" href="#modalAdd<%= field[:id] %>" modal-toggle
+       data-ng-show="!clientChangeId">
       <i class="icon-plus"></i> <span class="verbose-desc">Add <%= field[:name].singularize %></span>
     </a>
     <h3 class="no-top-margin no-bottom-margin"><%= field[:name] %></h3>
@@ -22,7 +23,10 @@
         <td>{{ item.<%= field[:type].first[:id] %> }}</td>
         <td class="align-right">
           <a class="pure-button pure-button-small" data-ng-click="editInField('<%= field[:id] %>', $index)"><i class="icon-edit icon-large"></i></a>
-          <a class="pure-button pure-button-small pure-button-error" data-ng-click="deleteFromField('<%= field[:id] %>', $index)"><i class="icon-trash icon-large"></i></a>
+          <a class="pure-button pure-button-small pure-button-error" data-ng-click="deleteFromField('<%= field[:id] %>', $index)"
+             data-ng-show="!clientChangeId">
+            <i class="icon-trash icon-large"></i>
+          </a>
         </td>
       </tr>
     </tbody>
