@@ -209,11 +209,20 @@
     }
   }
 
+  .dropdown-container {
+    display: table-cell;
+    width: 100%;
+    margin: 0px !important;
+
+    @include respond-to(handhelds) { display: block; }
+  }
+
   .dropdown-field {
     display: table;
     margin: 0px !important;
     border-spacing: 0px;
     width: 100%;
+
     @include respond-to(handhelds) { display: table-row; }
 
     .other-field {

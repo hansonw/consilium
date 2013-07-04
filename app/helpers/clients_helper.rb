@@ -24,7 +24,7 @@ module ClientsHelper
                             </div>"
       end
       dropdownString += "</div>"
-      r = dropdownString
+      r = "<div class='dropdown-container'>" + dropdownString + "</div>"
     when 'checkbox', 'radio'
       checkboxString = ""
       field[:options].each do |key, option|
