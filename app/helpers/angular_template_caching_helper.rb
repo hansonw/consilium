@@ -1,5 +1,13 @@
 module AngularTemplateCachingHelper
-  include ActionView::Helpers
+  class AngularTemplateRenderer < ActionView::Base
+    include Rails.application.routes.url_helpers
+    include ActionView::Helpers
+    include ActionDispatch::Routing
+
+    def default_url_options
+      {host: 'consilium.scigit.com'}
+    end
+  end
 
   def angularAllTemplates
     templates = {}
@@ -10,7 +18,6 @@ module AngularTemplateCachingHelper
           angularTemplateContent(path) if angularTemplateIsValid(path)
       end
     end
-    puts templates
     templates
   end
 
@@ -23,6 +30,8 @@ module AngularTemplateCachingHelper
   end
 
   def angularTemplateContent(f)
-    ERB.new(File.read(f), nil, '-').result
+    #ERB.new(File.read(f), nil, '-').result
+    renderer = AngularTemplateRenderer.new(Rails.root.join('app', 'views'))
+    renderer.render(template: File.path('templates/' + f))
   end
 end
