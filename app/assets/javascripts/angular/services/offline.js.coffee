@@ -238,7 +238,10 @@ App.factory 'Offline', ['$timeout', 'AuthToken', ($timeout, AuthToken) -> {
           resource.query(params || {},
             (data) =>
               for result in data
-                res.push(@syncWithLocal(result))
+                if params['short']
+                  res.push(new OfflineResource(getData(result)))
+                else
+                  res.push(@syncWithLocal(result))
               success(res) if success
             , queryLocal)
         else
