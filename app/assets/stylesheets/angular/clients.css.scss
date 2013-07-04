@@ -170,6 +170,7 @@
         vertical-align: top;
         height: $search-height;
         width: 100%;
+        margin-bottom: 0;
       }
 
       // TODO: This is too poorly done for now. We should come back to it.
@@ -191,6 +192,7 @@
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
         height: $search-height;
+        display: inline-block;
       }
     }
 
