@@ -158,6 +158,18 @@ body {
       @include respond-to(desktops) {
         padding-left: 0;
       }
+
+      .content {
+        @include respond-to(handhelds) {margin: auto;}
+      }
+
+      .form-content {
+        @include respond-to(widescreens){
+          display: block;
+          width: 80%;
+          margin: auto;
+        }
+      }
     }
   }
 

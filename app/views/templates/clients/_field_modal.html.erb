@@ -1,6 +1,6 @@
 <div id="modalAdd<%= field[:id] %>" class="modal pure-u">
   <div class="layout modal-inside" data-ng-class="{'active': menuShouldShow()}">
-    <div class="header content pure-u-1 modal-sizer">
+    <div class="header content pure-u-1">
       <h2 class="no-bottom-margin">Add <%= field[:name].singularize %></h2>
       <%= render :partial => 'templates/breadcrumbs',
                  :locals => { :paths => {
@@ -12,10 +12,9 @@
        %>
     </div>
     <hr class="soften" />
-
-    <div class="content modal-sizer">
+    <div class="content">
       <div class="client-form">
-        <div class="form-content force-centre">
+        <div class="form-content">
           <form name="form<%= field[:id] %>"
                 class="pure-form pure-form-aligned"
                 data-ng-submit="<%= submit_callback %>">
