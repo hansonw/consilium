@@ -75,7 +75,7 @@ class Api::ClientsController < Api::ApiController
 
     # Get a list of changed fields
     changed_fields = []
-    new_client.attributes.each do |key, val|
+    new_client.each do |key, val|
       if defined?(val['value'])
         if old_client[key] && val['value'] != old_client[key]['value'] ||
            old_client[key].nil?
@@ -84,7 +84,7 @@ class Api::ClientsController < Api::ApiController
       end
     end
 
-    old_client.attributes.each do |key, val|
+    old_client.each do |key, val|
       if new_client[key].nil?
         changed_fields << key
       end
@@ -144,16 +144,18 @@ class Api::ClientsController < Api::ApiController
         last_change = changes.first
         if !last_change.nil? && last_change.user_id == @user.id && Time.now - last_change.updated_at < 60
           # Merge into previous if it's within a minute
-          if last_change.description = get_description(@client, changes.second && changes.second.client_data)
-            last_change.client_data = @client.dup
+          if last_change.description = get_description(@client.attributes, changes.second && changes.second.client_data)
+            last_change.client_data = @client.attributes
             last_change.save!
+          else
+            last_change.delete # Changes got reverted
           end
         else
-          if desc = get_description(@client, last_change && last_change.client_data)
+          if desc = get_description(@client.attributes, last_change && last_change.client_data)
             ClientChange.new(
               :user_id => @user.id,
               :client_id => @client.id,
-              :client_data => @client,
+              :client_data => @client.attributes,
               :description => desc,
             ).save!
           end
