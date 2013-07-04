@@ -89,8 +89,6 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    font-awesome-rails (3.2.1.1)
-      railties (>= 3.2, < 5.0)
     highline (1.6.19)
     hike (1.2.3)
     htmlentities (4.3.1)
@@ -191,7 +189,6 @@ DEPENDENCIES
   capistrano
   coffee-rails (~> 4.0.0)
   devise!
-  font-awesome-rails
   jbuilder (~> 1.0.1)
   jquery-rails
   modernizr-rails

@@ -31,10 +31,6 @@ gem 'mongoid', :git => 'https://github.com/mongoid/mongoid.git'
 # Normalize (foundation for Pure.CSS)
 gem 'normalize-rails'
 
-# FontAwesome vector icons.
-# Need GitHub version for this to work. Likely an issue with Rails 4.0.
-gem 'font-awesome-rails'
-
 # User authentication and registration.
 gem 'devise', :git => 'https://github.com/plataformatec/devise.git'
 
