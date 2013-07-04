@@ -124,7 +124,7 @@ class Client
         {
           :name => 'Industry Code',
           :id => 'industryCode',
-          :placeholder => 'Industry Code (ex. 000000)',
+          :placeholder => 'Industry Code (ex. 111111)',
           :type => 'text',
         },
         {
@@ -148,28 +148,28 @@ class Client
           :required => true,
         },
         {
-          :name => 'Type',
-          :id => 'type',
-          :placeholder => '',
+          :name => 'Type of Claim',
+          :id => 'claimType',
+          :placeholder => '(ex. Commercial)',
           :type => 'text',
         },
         {
           :name => 'Description',
           :id => 'description',
-          :placeholder => '',
+          :placeholder => 'Description',
           :type => 'textbox',
           :boxRows => 2,
         },
         {
           :name => 'Amount Paid',
           :id => 'amountPaid',
-          :placeholder => '',
+          :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
         },
         {
           :name => 'Reserve',
           :id => 'reserve',
-          :placeholder => '',
+          :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
         },
       ],
@@ -181,37 +181,37 @@ class Client
         {
           :name => 'Insurer',
           :id => 'insurer',
-          :placeholder => '',
+          :placeholder => 'Marc Hodgkinson',
           :type => 'text',
         },
         {
           :name => 'Broker',
           :id => 'broker',
-          :placeholder => '',
+          :placeholder => 'National Truck League Insurance Brokers',
           :type => 'text',
         },
         {
-          :name => 'Policy #',
+          :name => 'Policy Number',
           :id => 'policyNumber',
-          :placeholder => '',
+          :placeholder => '# (ex. AAA1111111)',
           :type => 'text',
         },
         {
           :name => 'Premium',
           :id => 'premium',
-          :placeholder => '',
+          :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
         },
         {
           :name => 'Prev. Term',
           :id => 'previousTerm',
-          :placeholder => 'Start date - End date',
+          :placeholder => 'Start date - End date (ex. mm/dd/yyyy - mm/dd/yyyy)',
           :type => 'text',
         },
         {
           :name => 'If renewal was not offered, explain here',
           :id => 'renewalExplanation',
-          :placeholder => '',
+          :placeholder => 'Explanation',
           :type => 'textbox',
           :boxRows => 6,
         },
@@ -250,40 +250,43 @@ class Client
         {
           :name => 'Annual gross receipts',
           :id => 'annualGrossReceipts',
-          :placeholder => '',
+          :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
         },
         {
           :name => 'Canadian %',
           :id => 'canadianPercent',
-          :placeholder => '',
+          :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
         },
         {
           :name => 'US. %',
           :id => 'americanPercent ',
-          :placeholder => '',
+          :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
         },
         {
           :name => 'Foreign %',
           :id => 'foreignPercent',
-          :placeholder => '',
+          :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
         },
         {
           :name => 'Annual Payroll',
           :id => 'annualPayroll',
+          :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
         },
         {
           :name => 'Units',
           :id => 'units',
+          :placeholder => 'Amount of units',
           :type => 'text',
         },
         {
           :name => 'Base Units',
           :id => 'baseUnits',
+          :placeholder => 'Base units',
           :type => 'text',
         },
         {
@@ -298,24 +301,25 @@ class Client
         {
           :name => 'Receipt Splits: liquor',
           :id => 'receiptSplitsLiqour',
-          :placeholder => '$',
+          :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
         },
         {
           :name => 'Receipt Splits: Food',
           :id => 'receiptSplitsFood',
-          :placeholder => '$',
+          :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
         },
         {
           :name => 'Receipt Splits: Other',
           :id => 'receiptSplitsOther',
-          :placeholder => '$',
+          :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
         },
         {
           :name => 'Notes',
           :id => 'liquorNotes',
+          :placeholder => 'Other related info.',
           :type => 'textbox',
         },
       ],
@@ -339,6 +343,7 @@ class Client
         {
           :name => 'Package Name',
           :id => 'packageName',
+          :placeholder => 'Package name',
           :type => 'text',
         },
       ],
@@ -348,8 +353,8 @@ class Client
       :id => 'paymentInfo',
       :type => [
         {
-          :name => 'Stub',
-          :id => 'stub',
+          :name => '',
+          :id => 'paymentType',
           :type => 'checkbox',
           :options => {
             'companyBill' => 'Company Bill',
@@ -372,7 +377,7 @@ class Client
         {
           :name => 'Location Number',
           :id => 'locationNumber',
-          :placeholder => '#',
+          :placeholder => '# (ex. 1111)',
           :type => 'text',
         },
         {
@@ -388,26 +393,31 @@ class Client
         {
           :name => 'Address',
           :id => 'locationAddress',
+          :placeholder => 'Address (apt., suite, bldg.)',
           :type => 'text',
         },
         {
           :name => 'City',
           :id => 'locationCity',
+          :placeholder => 'City',
           :type => 'text',
         },
         {
           :name => 'Country',
           :id => 'locationCountry',
+          :placeholder => 'Country',
           :type => 'text',
         },
         {
           :name => 'Province/State',
           :id => 'locationProvinceState',
+          :placeholder => 'Province/State',
           :type => 'text',
         },
         {
           :name => 'Postal Code',
           :id => 'locationPostalCode',
+          :placeholder => '(ex. A1A 1A1)',
           :type => 'text',
         },
         {
@@ -471,16 +481,19 @@ class Client
         {
           :name => 'Notes',
           :id => 'riskInfosNotes',
+          :placeholder => "Other useful info.",
           :type => 'textbox',
         },
         {
           :name => 'Limit',
           :id => 'riskInfosLimit',
+          :placeholder => 'Limit',
           :type => 'text',
         },
         {
           :name => 'Stories',
           :id => 'constructionStories',
+          :placeholder => '# of Floors',
           :type => 'text',
         },
         {
@@ -537,13 +550,14 @@ class Client
         {
           :name => 'Area',
           :id => 'constructionArea',
-          :placeholder => 'Number Only',
+          :placeholder => '# Only',
           :type => 'text',
         },
         {
           :name => 'Area Units',
           :id => 'constructionAreaUnit',
           :type => 'dropdown',
+          :placeholder => 'Area',
           :options => [
             'Ft&sup2;',
             'm&sup2;',
@@ -901,16 +915,19 @@ class Client
         {
           :name => 'Other',
           :id => 'crimeProtectionOther',
+          :placeholder => 'Other Useful Info',
           :type => 'textbox',
         },
         {
           :name => 'Occupancy Insured',
           :id => 'occupancyInsured',
+          :placeholder => 'Description',
           :type => 'textbox',
         },
         {
           :name => 'Occupancy Others',
           :id => 'occupancyOthers',
+          :placeholder => 'Description',
           :type => 'textbox',
         },
         {
@@ -924,24 +941,25 @@ class Client
         {
           :name => 'Left of Insured',
           :id => 'exposuresLeft',
-          :placeholder => 'description',
+          :placeholder => 'Description (ex. clear)',
           :type => 'textbox',
         },
         {
           :name => 'Right of Insured',
           :id => 'exposuresRight',
-          :placeholder => 'description',
+          :placeholder => 'Description (ex. clear)',
           :type => 'textbox',
         },
         {
           :name => 'Behind Insured',
           :id => 'exposuresBehind',
-          :placeholder => 'description',
+          :placeholder => 'Description (ex. clear)',
           :type => 'textbox',
         },
         {
           :name => 'Loss Payees',
           :id => 'lossPayees',
+          :placeholder => 'Firstname Lastname',
           :type => 'textbox',
         },
       ],
@@ -953,6 +971,7 @@ class Client
         {
           :name => 'Notes',
           :id => 'notes',
+          :placeholder => 'Other Useful Info',
           :type => 'textbox',
         },
         {
@@ -971,6 +990,7 @@ class Client
           :name => 'Title',
           :required => true,
           :id => 'mainTitle',
+          :placeholder => '(ex. Office Contents)',
           :type => 'text',
         },
         {
@@ -1019,21 +1039,25 @@ class Client
         {
           :name => 'Replacement Cost',
           :id => 'replacementCost',
+          :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
         },
         {
           :name => 'Deductible',
           :id => 'deductible',
+          :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
         },
         {
           :name => 'Co-Ins',
           :id => 'coverageCoIns',
+          :placeholder => '(ex. 80/20)',
           :type => 'text',
         },
         {
           :name => 'Limit',
           :id => 'coverageLimit',
+          :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
         },
       ],
@@ -1063,36 +1087,43 @@ class Client
         {
           :name => 'Description of Item',
           :id => 'description',
+          :placeholder => 'Describe what it looks like and what it does',
           :type => 'textbox',
         },
         {
           :name => 'Year',
           :id => 'year',
+          :placeholder => '#',
           :type => 'text',
         },
         {
           :name => 'Make',
           :id => 'make',
+          :placeholder => '(ex. Ford)',
           :type => 'text',
         },
         {
           :name => 'Model',
           :id => 'model',
+          :placeholder => '(ex. F250 Super Duty XL)',
           :type => 'text',
         },
         {
           :name => 'Serial Number',
           :id => 'serialNumber',
+          :placeholder => '(ex. 1FTFE1160WHA00001)',
           :type => 'text',
         },
         {
           :name => 'Limit',
           :id => 'limit',
+          :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
         },
         {
           :name => 'Cargo Limit',
           :id => 'cargoLimit',
+          :placeholder => 'Weight in kg (ex. 1111)',
           :type => 'text',
         },
       ],
@@ -1102,14 +1133,15 @@ class Client
       :id => 'umbrella',
       :type => [
         {
-          :name => 'Policy No.',
+          :name => 'Policy Number',
           :id => 'policyNumber',
-          :placeholder => 'Policy Number (ex. 0000)',
+          :placeholder => '# (ex. AAA1111111)',
           :type => 'text',
         },
         {
           :name => 'Insurer',
           :id => 'insurer',
+          :placeholder => 'Marc Hodgkinson',
           :type => 'text',
         },
         {
@@ -1127,11 +1159,13 @@ class Client
         {
           :name => 'Type of Insurance',
           :id => 'insuranceType',
+          :placeholder => '(ex. Auto Insurance)',
           :type => 'text',
         },
         {
           :name => 'Limit',
           :id => 'limit',
+          :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
         },
       ],
@@ -1141,10 +1175,22 @@ class Client
       :id => 'photos',
       :type => [
         {
-          :name => 'Stub',
-          :id => 'stub',
-          :type => 'text'
-        }
+          :name => 'Notes',
+          :id => 'photoNotes',
+          :placeholder => 'Take a note',
+          :type => 'text',
+        },
+        {
+          :name => 'Organize Photos By',
+          :id => 'organizePhotos',
+          :type => 'dropdown',
+          :placeholder => 'Date',
+          :options => [
+            'Alphabetically',
+            'Date',
+            'Photographer',
+          ],
+        },
       ],
     },
     {
@@ -1166,7 +1212,7 @@ class Client
           },
         },
       ],
-    },
+    }
   ]
 
   def validate_field(field_name, field_desc, value)
