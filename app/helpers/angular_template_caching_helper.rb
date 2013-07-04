@@ -1,12 +1,35 @@
 module AngularTemplateCachingHelper
-  class AngularTemplateRenderer < ActionView::Base
+  class AngularTemplateRenderer < AbstractController::Base
+    include AbstractController::Logger
+    include AbstractController::Rendering
+    include AbstractController::Layouts
+    include AbstractController::Helpers
+    include AbstractController::Translation
+    include AbstractController::AssetPaths
+    include ActionController::UrlFor
     include Rails.application.routes.url_helpers
-    include ActionView::Helpers
-    include ActionDispatch::Routing
 
-    def default_url_options
-      {host: 'consilium.scigit.com'}
+    helper ApplicationHelper
+    helper ClientsHelper
+
+    def initialize(*args)
+      super()
+      lookup_context.view_paths = Rails.root.join('app', 'views')
     end
+
+    def protect_against_forgery?
+      false
+    end
+
+    def flash
+      {}
+    end
+
+    def params
+      {}
+    end
+
+    self.asset_host = ActionController::Base.asset_host
   end
 
   def angularAllTemplates
@@ -31,7 +54,7 @@ module AngularTemplateCachingHelper
 
   def angularTemplateContent(f)
     #ERB.new(File.read(f), nil, '-').result
-    renderer = AngularTemplateRenderer.new(Rails.root.join('app', 'views'))
-    renderer.render(template: File.path('templates/' + f))
+    renderer = AngularTemplateRenderer.new.render_to_string('templates/' + f)
+    #renderer.render(template: File.path('templates/' + f))
   end
 end
