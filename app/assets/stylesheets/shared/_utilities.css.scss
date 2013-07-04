@@ -39,6 +39,12 @@ $break-xlarge: 1200px;
   transform: translate3d($x, $y, 0);
 }
 
+@mixin box-sizing() {
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
 @mixin gradient($rgb-start, $rgb-finish, $occupancy, $location-start, $location-finish) {
   $hex-start: rgb($rgb-start, $rgb-start, $rgb-start);
   $hex-finish: rgb($rgb-finish, $rgb-finish, $rgb-finish);
