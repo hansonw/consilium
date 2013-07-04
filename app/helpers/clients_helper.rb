@@ -6,7 +6,8 @@ module ClientsHelper
       dropdownString = "<div class='dropdown-field'>
                           <select class='dropdown-list' name='#{field[:id]}' ng-model='#{model}'
                             ng-class='#{model} == \"Other\" && \"other-dropdown\"'
-                            #{field[:required] && 'required'}>
+                            #{field[:required] && 'required'}
+                            #{field[:disabled] && 'disabled'}>
                           <option value=''>#{field[:placeholder]}</option>"
       field[:options].each do |option|
         dropdownString += "<option value='#{option}'>#{option}</option>"
@@ -17,6 +18,7 @@ module ClientsHelper
                               type=\"{{(#{model} == 'Other') ? 'text' : 'hidden'}}\"
                               ng-model='#{model}' placeholder='#{field[:otherPlaceholder]}'
                               #{field[:optionRequired] && 'required'}
+                              #{field[:disabled] && 'disabled'}
                           />"
       end
       dropdownString += "</div>"
@@ -38,6 +40,7 @@ module ClientsHelper
                                 value='#{key}'
                                 ng-checked=\"#{checked}\"
                                 #{field[:required] && 'required'}
+                                #{field[:disabled] && 'disabled'}
                             />
                             <span class='checkbox-label'>#{option}</span>
                           </div>"
@@ -47,12 +50,14 @@ module ClientsHelper
       r = "<textarea name='#{field[:id]}' ng-model='#{model}'
                 placeholder='#{field[:placeholder]}'
                 #{field[:required] && 'required'}
+                #{field[:disabled] && 'disabled'}
                 rows='#{field[:boxRows]}'
             /></textarea>"
     else
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='#{model}' placeholder='#{field[:placeholder]}'
               #{field[:required] && 'required'}
+              #{field[:disabled] && 'disabled'}
               #{field[:validatePhone] && 'validate-phone'}
               #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
               #{field[:maxlength] && "ng-maxlength='#{field[:maxlength]}'"}

@@ -1,13 +1,18 @@
-App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', 'Client', 'Document', 'RecentClients', ($scope, $routeParams, $location, Client, Document, RecentClients) ->
+App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filter', 'Client', 'ClientChanges', 'Document', 'RecentClients', ($scope, $routeParams, $location, $filter, Client, ClientChanges, Document, RecentClients) ->
   $scope.clientId = $routeParams.clientId
-  $scope.loading = true
-  $scope.docLoading = true
-  $scope.docError = false
+  $scope.loading = $scope.historyLoading = $scope.docLoading = true
+  $scope.historyError = $scope.docError = false
   $scope.client = Client.get({id: $scope.clientId},
     (->
       $scope.loading = false
       RecentClients.logClientShow($scope.client)
-      $scope.documents = Document.query({client_id: $scope.client.id}
+      $scope.history = ClientChanges.query({client_id: $scope.client.id},
+        (-> $scope.historyLoading = false),
+        (->
+          $scope.historyLoading = false
+          $scope.historyError = true)
+      )
+      $scope.documents = Document.query({client_id: $scope.client.id},
         (-> $scope.docLoading = false),
         (->
           $scope.docLoading = false
@@ -25,10 +30,15 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', 'Clien
       $scope.client.$delete()
       $location.path('/clients')
 
+  $scope.setClientChange = (change) ->
+    doc = ($scope.genDocument ||= {})
+    doc.changeDescription =
+      change.description + ' by ' + change.user_email + ' at ' + $filter('date')(change.updated_at, 'medium')
+    doc.client_change_id = change.id
+
   $scope.generating = false
   $scope.generateDocument = ->
     d = new Document($scope.genDocument)
-    d.client_id = $scope.clientId
     $scope.generating = true
     d.$save((data, header) ->
       $scope.documents.splice(0, 0, d)
@@ -47,4 +57,7 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', 'Clien
     if confirm('Are you sure? This will delete the document for all other users.')
       $scope.documents[index].$delete()
       $scope.documents.splice(index, 1)
+
+  $scope.closeModal = (objName) ->
+    $scope[objName] = {}
 ]

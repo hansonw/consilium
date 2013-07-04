@@ -3,6 +3,8 @@ class Document
   include Mongoid::Timestamps
 
   belongs_to :user
-  embeds_one :client
+  belongs_to :client # for indexing
+  belongs_to :client_change
   field :description, type: String
+  field :template, type: String
 end

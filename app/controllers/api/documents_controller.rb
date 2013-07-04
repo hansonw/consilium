@@ -14,6 +14,8 @@ class Api::DocumentsController < Api::ApiController
       elsif key == "user_id"
         ret[:user_id] = val.to_s
         ret[:user_email] = obj.user.email
+      elsif key == "client_change_id"
+        ret[:client_change_id] = val.to_s
       elsif key == "created_at"
         # convert to milliseconds, Javascript's default format
         ret[key] = (val.to_f * 1000).to_i
@@ -29,13 +31,9 @@ class Api::DocumentsController < Api::ApiController
   def index
     @documents = Document.all
     if params[:client_id]
-      @documents = @documents.where('client._id' => Moped::BSON::ObjectId(params[:client_id]))
+      @documents = @documents.where('client_id' => Moped::BSON::ObjectId(params[:client_id]))
     end
     @documents = @documents.desc(:created_at)
-
-    if params[:short]
-      @documents = @documents.only(:id, :user, :description, :created_at)
-    end
 
     respond_to do |format|
       format.json { render json: @documents.map{ |d| get_json(d) } }
@@ -52,7 +50,7 @@ class Api::DocumentsController < Api::ApiController
     end
 
     data = {}
-    @document.client.attributes.each do |key, val|
+    @document.client_change.client_data.attributes.each do |key, val|
       if val.is_a?(Hash) && !val['value'].nil?
         data[key] = val['value']
       end
@@ -75,9 +73,13 @@ class Api::DocumentsController < Api::ApiController
     else
       @document = Document.new(document_params)
       @document.user_id = @user.id
-      @document.client = Client.find(params[:client_id])
-
-      success = @document.save!
+      if change = ClientChange.find(params[:client_change_id])
+        @document.client_id = change.client_id
+        @document.client_change_id = change.id
+        success = @document.save!
+      else
+        success = false
+      end
     end
 
     respond_to do |format|

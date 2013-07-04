@@ -68,6 +68,35 @@ class Api::ClientsController < Api::ApiController
   def edit
   end
 
+  def get_description(new_client, old_client)
+    if old_client.nil?
+      return 'Created new client'
+    end
+
+    # Get a list of changed fields
+    changed_fields = []
+    new_client.attributes.each do |key, val|
+      if defined?(val['value']) && old_client[key] &&
+         val['value'] != old_client[key]['value']
+        changed_fields << key
+      end
+    end
+
+    changed_fields = changed_fields.map do |field_id|
+      field = Client::FIELDS.select { |field| field[:id] == field_id }.first
+      field && field[:name].downcase
+    end
+
+    if changed_fields.empty?
+      return nil
+    end
+
+    num_fields = 3
+    return 'Edited field' + (changed_fields.length == 1 ? '' : 's') + ' ' +
+        changed_fields[0, num_fields].join(', ') +
+        (changed_fields.length > num_fields ? '...' : '')
+  end
+
   # PUT /clients/:id
   # PUT /clients/:id.json
   # Creates if a non-existent ID is provided.
@@ -102,7 +131,26 @@ class Api::ClientsController < Api::ApiController
     end
 
     respond_to do |format|
-      if @client.upsert
+      if @client.save!
+        # Create a new client change if necessary.
+        changes = ClientChange.where('client_id' => @client.id).desc(:updated_at)
+        last_change = changes.first
+        if !last_change.nil? && last_change.user_id == @user.id && Time.now - last_change.updated_at < 60
+          # Merge into previous if it's within a minute
+          if last_change.description = get_description(@client, changes.second && changes.second.client_data)
+            last_change.client_data = @client
+            last_change.save!
+          end
+        else
+          if desc = get_description(@client, last_change && last_change.client_data)
+            ClientChange.new(
+              :user_id => @user.id,
+              :client_id => @client.id,
+              :client_data => @client,
+              :description => desc,
+            ).save!
+          end
+        end
         format.json { render json: get_json(@client) }
       else
         format.json { render json: @client.errors, status: :unprocessable_entity }

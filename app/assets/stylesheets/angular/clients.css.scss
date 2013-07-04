@@ -103,7 +103,7 @@
 // TODO: This needs to be renamed and scoped correctly.
 .section-edit {
   @include respond-to(widescreens) { width:146px; }
-  @include respond-to(desktops) { width:146px; }
+  @include respond-to(desktops) { width:146px;}
 }
 
 #toolbar {
@@ -277,6 +277,7 @@
   }
 
   .client-docs {
+    margin-bottom: 30px;
     @include respond-to(widescreens) {
       width: 100%;
       float: left;
