@@ -77,4 +77,8 @@ Consilium::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # TODO: This isn't a big deal because we're storing all of our assets locally,
+  # but our PhoneGap compiler won't work without this.
+  config.assets.debug = true
 end
