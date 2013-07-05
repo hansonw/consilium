@@ -1,4 +1,4 @@
-App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', 'Auth', ($scope, $location, Client, Auth) ->
+App.controller 'ClientsIndexCtrl', ['$scope', 'Client', 'Auth', ($scope, Client, Auth) ->
   Auth.checkLogin()
 
   results_per_page = 20
@@ -9,9 +9,6 @@ App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', 'Auth', ($s
   $scope.resultStart = 0
   $scope.moreResults = false
   $scope.showAdvancedSearch = false
-
-  $scope.clientClick = (client) ->
-    $location.path('/clients/show/' + client)
 
   $scope.updateResults = (more) ->
     if more && ($scope.loading || !$scope.moreResults)

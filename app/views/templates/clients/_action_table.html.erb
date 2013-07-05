@@ -16,13 +16,13 @@
       <td colspan="<%= fields.length + 1 %>">No <%= name %> available.</td>
     </tr>
     <tr data-ng-repeat="item in <%= model %><%= ".slice(0, #{limit})" if !local_assigns[:limit].nil? %>"
-        data-ng-click="<%= local_assigns[:rowClick] %>">
+        <%= defined?(rowhref) && raw("data-click-href='#{rowhref}'") %> >
       <% fields.each do |field| %>
         <td class="<%= field[:class] %>"><%= raw field[:content] %></td>
       <% end %>
       <td class="actions align-right">
         <% actions.each do |action| %>
-          <a data-ng-href="<%= action[:href] %>" data-ng-click="<%= action[:click] %>"
+          <a data-ng-href="<%= action[:href] %>" data-ng-click="<%= raw(action[:click]) %>"
              class="pure-button pure-button-small <%= action[:class] %>" <%= action[:attrs] %>>
             <i class="<%= action[:icon] %> icon-large"></i>
           </a>
