@@ -14,7 +14,7 @@
                    :locals => { :paths => {
               "Home" => "#/",
               "Clients" => "#/clients/",
-              "{{ title }}" => "#/clients/{{ clientChangeId ? 'edit//' + clientChangeId : (!clientId ? 'edit/' + clientId : 'new') }}",
+              "{{ title }}" => "#/clients/{{ clientChangeId ? 'edit/change/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}",
             }}
          %>
       </div>
@@ -46,7 +46,7 @@
           </div>
           <div data-ng-show="!loading" class="form-content">
             <div data-ng-show="clientChange" class="edit-description">
-              <b>{{ clientChange.user_email }}</b> made the following changes on {{ clientChange.updated_at | date: 'medium' }}:<br />
+              <b>{{ clientChange.user_email }}</b> made this change on {{ clientChange.updated_at | date: 'MMM d, y h:mm a' }}:<br />
               <div class="description">{{ clientChange.description }}</div>
             </div>
 

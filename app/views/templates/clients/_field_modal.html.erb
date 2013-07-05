@@ -6,8 +6,8 @@
                  :locals => { :paths => {
             "Home" => "#/",
             "Clients" => "#/clients/",
-            "{{ title }}" => "#/clients/{{ !clientId ? 'new' : 'edit/' + clientId }}",
-            "Add " + field[:name].singularize => "#/clients/{{ !clientId ? 'new' : 'edit/' + clientId }}",
+            "{{ title }}" => '',
+            "Add " + field[:name].singularize => '',
           }}
        %>
     </div>

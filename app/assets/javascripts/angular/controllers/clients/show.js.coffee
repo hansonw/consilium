@@ -2,6 +2,7 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
   $scope.clientId = $routeParams.clientId
   $scope.loading = $scope.historyLoading = $scope.docLoading = true
   $scope.historyError = $scope.docError = false
+  $scope.title = 'View Client'
   $scope.client = Client.get({id: $scope.clientId},
     (->
       $scope.loading = false
