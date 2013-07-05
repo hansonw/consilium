@@ -1,4 +1,6 @@
-App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filter', 'Client', 'ClientChange', 'Document', 'RecentClients', ($scope, $routeParams, $location, $filter, Client, ClientChange, Document, RecentClients) ->
+App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filter', 'Client', 'ClientChange', 'Document', 'RecentClients', 'Auth', ($scope, $routeParams, $location, $filter, Client, ClientChange, Document, RecentClients, Auth) ->
+  Auth.checkLogin()
+
   $scope.clientId = $routeParams.clientId
   $scope.loading = $scope.historyLoading = $scope.docLoading = true
   $scope.historyError = $scope.docError = false

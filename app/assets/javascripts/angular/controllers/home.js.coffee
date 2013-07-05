@@ -1,4 +1,6 @@
-App.controller 'HomeCtrl', ['$scope', 'ClientChange', ($scope, ClientChange) ->
+App.controller 'HomeCtrl', ['$scope', 'ClientChange', 'Auth', ($scope, ClientChange, Auth) ->
+  Auth.checkLogin()
+
   $scope.historyLoading = true
   $scope.history = ClientChange.query({short: true},
     (->

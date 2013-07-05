@@ -1,5 +1,7 @@
 # This doubles as the new client view (if no client ID is provided)
-App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$location', 'Client', 'ClientChange', 'RecentClients', ($scope, $routeParams, $timeout, $location, Client, ClientChange, RecentClients) ->
+App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$location', 'Client', 'ClientChange', 'RecentClients', 'Auth', ($scope, $routeParams, $timeout, $location, Client, ClientChange, RecentClients, Auth) ->
+  Auth.checkLogin()
+
   $scope._saveTimeout = 10000
   $scope._lastChange = new Date().getTime()
   $scope.saving = false

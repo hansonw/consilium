@@ -1,4 +1,6 @@
-App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', ($scope, $location, Client) ->
+App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', 'Auth', ($scope, $location, Client, Auth) ->
+  Auth.checkLogin()
+
   results_per_page = 20
 
   $scope.loading = false

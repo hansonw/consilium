@@ -34,7 +34,7 @@ App.factory 'AuthHttpInterceptor', ['$q', '$window', '$rootScope', 'AuthSessionS
     )
 ]
 
-App.factory 'Auth', ['$http', 'AuthToken', 'AuthSessionStatus', ($http, AuthToken, AuthSessionStatus) ->
+App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($http, $location, AuthToken, AuthSessionStatus) ->
   _isLoggedIn: true
   _watches: []
   isLoggedIn: -> @_isLoggedIn
@@ -55,6 +55,9 @@ App.factory 'Auth', ['$http', 'AuthToken', 'AuthSessionStatus', ($http, AuthToke
       # TODO: Find a better way to display login failiure
       alert('Login Failed')
     )
+  checkLogin: () ->
+    if !@isLoggedIn()
+      $location.path('/auth/login')
   logout: ->
     self = @
     $http.post(
