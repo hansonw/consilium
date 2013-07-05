@@ -1,3 +1,6 @@
+<% environment.context_class.instance_eval { include ActionView::Helpers } %>
+<% environment.context_class.instance_eval { include AngularHostHelper } %>
+
 App.factory 'AuthToken', ['$resource', ($resource) ->
   get: ->
     localStorage.getItem('authToken')
@@ -40,7 +43,7 @@ App.factory 'Auth', ['$http', 'AuthToken', 'AuthSessionStatus', ($http, AuthToke
   login: (credentials) ->
     self = @
     $http.post(
-      '/api/auth/login',
+      '<%= angularApiPath('/api/auth/login') %>',
       credentials
     ).success((data, status, headers, config) ->
       data.email = credentials.email
@@ -53,7 +56,7 @@ App.factory 'Auth', ['$http', 'AuthToken', 'AuthSessionStatus', ($http, AuthToke
   logout: ->
     self = @
     $http.post(
-      '/api/auth/logout',
+      '<%= angularApiPath('/api/auth/logout') %>',
       AuthToken.addAuthTokenToJSONRequest({}),
     ).success((data, status, headers, config) ->
       AuthToken.remove()
