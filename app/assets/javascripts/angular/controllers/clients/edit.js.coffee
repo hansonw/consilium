@@ -79,9 +79,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   $scope.$on('$destroy', ->
     if $scope._saveTimer?
       $timeout.cancel($scope._saveTimer)
-    $("body").removeClass("modal-active")
   )
-  # TODO: Extend the modal directive to be possible to hide from Angular code.
 
   $scope.toggleRadio = (objName, value) ->
     if !$scope.clientChangeId

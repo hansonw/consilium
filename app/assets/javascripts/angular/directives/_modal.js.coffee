@@ -8,3 +8,6 @@ App.directive 'modalToggle', ->
         $('.modal[id~="' + targetId + '"]').toggleClass('active')
       ), 20
       e.preventDefault()
+    if !$scope._modalDestructor
+      $scope._modalDestructor = true
+      $scope.$on('$destroy', -> $('body').removeClass('modal-active'))
