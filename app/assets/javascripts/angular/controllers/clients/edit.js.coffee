@@ -43,6 +43,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
         $scope.lastSaved = $scope.client.getData()
         RecentClients.logClientShow($scope.client)),
       (data) ->
+        RecentClients.removeClient($scope.clientId)
         alert('The requested client was not found.')
         $location.path('/clients'))
   else

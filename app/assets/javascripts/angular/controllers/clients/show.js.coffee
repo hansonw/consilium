@@ -6,7 +6,7 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
     (->
       $scope.loading = false
       RecentClients.logClientShow($scope.client)
-      $scope.history = ClientChange.query({client_id: $scope.client.id},
+      $scope.history = ClientChange.query({client_id: $scope.client.id, short: true},
         (-> $scope.historyLoading = false),
         (->
           $scope.historyLoading = false
@@ -21,6 +21,7 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
     ),
     (data, header) ->
       # TODO: should be a modal
+      RecentClients.removeClient($scope.clientId)
       alert('The requested client was not found.')
       $location.path('/clients'))
 

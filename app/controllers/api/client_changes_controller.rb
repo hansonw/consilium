@@ -14,6 +14,9 @@ class Api::ClientChangesController < Api::ApiController
       elsif key == "user_id"
         ret[:user_id] = val.to_s
         ret[:user_email] = obj.user.email
+      elsif key == "client_id"
+        ret[:client_id] = val.to_s
+        ret[:client_name] = obj.client.name['value']
       elsif key == "created_at"
         # convert to milliseconds, Javascript's default format
         ret[key] = (val.to_f * 1000).to_i
@@ -34,7 +37,7 @@ class Api::ClientChangesController < Api::ApiController
     @client_changes = @client_changes.desc(:created_at)
 
     if params[:short]
-      @client_changes = @client_changes.only(:id, :user, :description, :created_at)
+      @client_changes = @client_changes.only(:id, :user, :client, :description, :updated_at)
     end
 
     respond_to do |format|

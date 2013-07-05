@@ -19,15 +19,21 @@
       <td class="description">
         {{ item.description | ellipsize: 40:1 }}
         <div class="detail">
-          by <span class="email">{{ item.user_email }}</span><span class="except-desktops"><br /></span>
+          <% if local_assigns[:main_page] %>
+            on client <a data-ng-href="#/clients/show/{{ item.client_id }}" class="pretty">{{ item.client_name }}</a>
+          <% end %>
+          by <span class="email">{{ item.user_email }}</span>
+          <span class="<%= !local_assigns[:main_page] && 'except-desktops' %>"><br /></span>
           on <span class="date">{{ item.updated_at | date: 'medium'}}</span>
         </div>
       </td>
       <td class="actions align-right">
-        <a data-ng-href="#modalAddgenDocument" modal-toggle data-ng-click="setClientChange(item)"
-           class="pure-button pure-button-small pure-button-primary">
-          <i class="icon-file icon-large"></i>
-        </a>
+        <% if !local_assigns[:main_page] %>
+          <a data-ng-href="#modalAddgenDocument" modal-toggle data-ng-click="setClientChange(item)"
+             class="pure-button pure-button-small pure-button-primary">
+            <i class="icon-file icon-large"></i>
+          </a>
+        <% end %>
         <a data-ng-href="#/clients/edit/{{ clientId }}/{{ item.id }}" class="pure-button pure-button-small pure-button-success">
           <i class="icon-share-alt icon-large"></i>
         </a>

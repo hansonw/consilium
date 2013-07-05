@@ -17,5 +17,11 @@ App.service 'RecentClients', [->
       })
       @clients = @clients.splice(0, @limit)
       window.localStorage.setItem('RecentClients', angular.toJson(@clients))
+    removeClient: (clientId) ->
+      for val, index in @clients
+        if val.id == clientId
+          @clients.splice(index, 1)
+          break
+      window.localStorage.setItem('RecentClients', angular.toJson(@clients))
   }
 ]
