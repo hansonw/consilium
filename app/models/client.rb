@@ -187,7 +187,7 @@ class Client
         {
           :name => 'Broker',
           :id => 'broker',
-          :placeholder => 'Some Insurance Brokers.inc',
+          :placeholder => 'Some Insurance Brokers Inc.',
           :type => 'text',
         },
         {
