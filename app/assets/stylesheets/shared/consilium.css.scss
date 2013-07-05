@@ -30,7 +30,7 @@ body {
     color: #777777;
     font-weight: 400;
   }
-  
+
   .alert {
     background: #cce1ef;
     padding: 20px;
@@ -179,5 +179,13 @@ body {
 
   .inherit-style {
     color: inherit;
+  }
+
+  .except-desktops {
+    @include respond-to(desktops, widescreens) { display: none; }
+  }
+
+  .only-desktops {
+    @include respond-to(tablets, handhelds) { display: none; }
   }
 }

@@ -96,11 +96,6 @@
   }
 }
 
-.verbose-desc {
-  @include respond-to(tablets) { display: none; }
-  @include respond-to(handhelds) { display: none; }
-}
-
 // TODO: Where do these numbers come from? We should also change the
 // names and scopes of these |section-|s.
 #section-holder {
@@ -330,7 +325,16 @@
 }
 
 .document-table {
+  .description {
+    padding-right: 10px;
+    width: auto;
+    @include respond-to(tablets, handhelds) {
+      width: 100%;
+    }
+  }
+
   .actions {
+    padding-left: 0px;
     .pure-button {
       margin: 3px 0 3px 0; // so buttons stack nicely
       width: 20px;

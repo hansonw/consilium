@@ -52,7 +52,7 @@
         <div class="client-buttons pull-right">
           <a class="pure-button pure-button-primary"
              data-ng-href="#/clients/edit/{{ clientId }}">
-            <i class="icon-edit"></i><span class="desc"><span class="verbose-desc"> View and</span> Edit</span>
+            <i class="icon-edit"></i><span class="desc"><span class="only-desktops"> View and</span> Edit</span>
           </a>
         </div>
         <h3 class="no-top-margin">Client Info.</h3>
@@ -111,8 +111,8 @@
             <td class="description">
               {{ document.description }}
               <div class="detail">
-                Created by <span class="email">{{ document.user_email }}</span> on
-                <span class="date">{{ document.created_at | date: 'medium'}}</span>
+                Created by <span class="email">{{ document.user_email }}</span><span class="except-desktops"><br /></span>
+                on <span class="date">{{ document.created_at | date: 'medium'}}</span>
               </div>
             </td>
             <td class="actions align-right">
