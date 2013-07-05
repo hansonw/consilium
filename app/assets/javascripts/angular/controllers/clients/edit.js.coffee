@@ -80,6 +80,15 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   )
   # TODO: Extend the modal directive to be possible to hide from Angular code.
 
+  $scope.toggleRadio = (objName, value) ->
+    if !$scope.clientChangeId
+      # It's assumed that value does not have to be quote-escaped.
+      $scope.$eval("#{objName} = (#{objName} == '#{value}' ? '' : '#{value}')")
+
+  $scope.toggleCheckbox = (objName) ->
+    if !$scope.clientChangeId
+      $scope.$eval("#{objName} = !#{objName}")
+
   $scope.errorCount = ->
     ret = 0
     for key, val of $scope.newClient.$error

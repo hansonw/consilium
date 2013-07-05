@@ -28,10 +28,10 @@ module ClientsHelper
     when 'checkbox', 'radio'
       checkboxString = ""
       field[:options].each do |key, option|
-        click_action = "#{model} = (#{model} == '#{key}') ? '' : '#{key}'"
+        click_action = "toggleRadio('#{model}', '#{key}')"
         checked = "#{model} == '#{key}'"
         if field[:type] == 'checkbox'
-          click_action = "#{model}.#{key} = !#{model}.#{key}"
+          click_action = "toggleCheckbox('#{model}.#{key}')"
           checked = "#{model}.#{key}"
         end
         checkboxString += "<div class='checkbox-field'
