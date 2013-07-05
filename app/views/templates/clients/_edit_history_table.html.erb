@@ -22,7 +22,7 @@
           <% if local_assigns[:main_page] %>
             on client <a data-ng-href="#/clients/show/{{ item.client_id }}" class="pretty">{{ item.client_name }}</a>
           <% end %>
-          by <a data-ng-href="#/clients/show/{{ item.user_id }}" class="email">{{ item.user_email }}</a>
+          by <a data-ng-href="#/users/show/{{ item.user_id }}" class="email">{{ item.user_email }}</a>
           <span class="<%= !local_assigns[:main_page] && 'except-desktops' %>"><br /></span>
           on <span class="date">{{ item.updated_at | date: 'medium'}}</span>
         </div>
