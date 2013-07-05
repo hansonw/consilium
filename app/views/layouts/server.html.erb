@@ -21,9 +21,7 @@
           <div class="content">
             <span class="title pull-left"><%= link_to 'Consilium', root_path, :class => 'inherit-style' %></span>
             <!--<span class="nav-sections">
-              <a class="pure-button pure-button-light">Topics</a>
-            </span>
-            <a class="pure-button">Contact Us</a>-->
+            a class="pure-button">Contact Us</a>-->
             <%= link_to user_signed_in? ? 'Go to App' : 'Login', app_root_path, :class => 'pure-button pure-button-secondary' %>
           </div>
         </div>
