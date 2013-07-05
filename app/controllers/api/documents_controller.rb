@@ -50,9 +50,12 @@ class Api::DocumentsController < Api::ApiController
     end
 
     data = {}
-    @document.client_change.client_data.attributes.each do |key, val|
-      if val.is_a?(Hash) && !val['value'].nil?
-        data[key] = val['value']
+    # XXX: Hanson please check this.
+    if @document.client_change.client_data && @document.client_change.client_data.attributes
+      @document.client_change.client_data.attributes.each do |key, val|
+        if val.is_a?(Hash) && !val['value'].nil?
+          data[key] = val['value']
+        end
       end
     end
 
