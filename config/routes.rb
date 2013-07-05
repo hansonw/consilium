@@ -3,7 +3,7 @@ Consilium::Application.routes.draw do
 
   get 'home/index' => 'home#index'
 
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => 'users/registrations'}
 
   scope :api do
     resources :clients, :controller => 'api/clients'
