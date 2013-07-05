@@ -203,10 +203,28 @@ class Client
           :type => 'text',
         },
         {
+          :name => '',
+          :id => 'premiumMonthlyAnnual',
+          :type => 'radio',
+          :options => {
+            'annually' => 'Annually',
+            'monthly' => 'Monthly',
+          },
+        },
+        {
           :name => 'Prev. Term',
           :id => 'previousTerm',
           :placeholder => 'Start date - End date (ex. mm/dd/yyyy - mm/dd/yyyy)',
           :type => 'text',
+        },
+        {
+          :name => 'Was renewal offered',
+          :id => 'renewalOffered',
+          :type => 'radio',
+          :options => {
+            'yes' => 'Yes',
+            'no' => 'No',
+          },
         },
         {
           :name => 'If renewal was not offered, explain here',
@@ -240,35 +258,37 @@ class Client
           :type => 'text',
         },
         {
-          :name => '',
+          :name => 'Covered by',
           :id => 'covered',
-          :type => 'checkbox',
-          :options => {
-            'coveredWCB' => 'Covered by WCB',
-          },
+          :type => 'dropdown',
+          :options => [
+            'WCB',
+            'Other',
+          ],
+          :otherPlaceholder => 'Specify', 
         },
         {
           :name => 'Annual gross receipts',
           :id => 'annualGrossReceipts',
-          :placeholder => '$ CAN (ex. 1111)',
+          :placeholder => '% (ex. 11)',
           :type => 'text',
         },
         {
           :name => 'Canadian %',
           :id => 'canadianPercent',
-          :placeholder => '$ CAN (ex. 1111)',
+          :placeholder => '% (ex. 11)',
           :type => 'text',
         },
         {
           :name => 'US. %',
-          :id => 'americanPercent ',
-          :placeholder => '$ CAN (ex. 1111)',
+          :id => 'americanPercent',
+          :placeholder => '% (ex. 11)',
           :type => 'text',
         },
         {
           :name => 'Foreign %',
           :id => 'foreignPercent',
-          :placeholder => '$ CAN (ex. 1111)',
+          :placeholder => '% (ex. 11)',
           :type => 'text',
         },
         {
@@ -294,12 +314,12 @@ class Client
           :id => 'liquorLiability',
           :type => 'checkbox',
           :options => {
-            'liquor' => 'yes',
+            'liquor' => 'Yes',
             'noLiquor' => 'No',
           },
         },
         {
-          :name => 'Receipt Splits: liquor',
+          :name => 'Receipt Splits: Liquor',
           :id => 'receiptSplitsLiqour',
           :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
@@ -448,10 +468,18 @@ class Client
           },
         },
         {
-          :name => 'Municipal fire zone',
-          :id => 'fireZone',
-          :placeholder => 'Municipal fire protection zone',
-          :type => 'text',
+          :name => 'Municipal Fire Zone',
+          :id => 'municipalFireZone',
+          :type => 'dropdown',
+          :placeholder => 'Zone',
+          :options => [
+            'Zone 1',
+            'Zone 2',
+            'Zone 3',
+            'Zone 4',
+            'Other'
+          ],
+          :otherPlaceholder => 'Specify',
         },
         {
           :name =>'Fire Protection Grade',
