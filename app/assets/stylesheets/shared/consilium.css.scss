@@ -30,7 +30,7 @@ body {
     color: #777777;
     font-weight: 400;
   }
-  
+
   .alert {
     background: #cce1ef;
     padding: 20px;
@@ -179,5 +179,14 @@ body {
 
   .inherit-style {
     color: inherit;
+  }
+
+  .except-widescreens {
+    @include respond-to(widescreens) { display: none; }
+  }
+
+  .only-widescreens {
+    @include respond-to(tablets) { display: none; }
+    @include respond-to(handhelds) { display: none; }
   }
 }
