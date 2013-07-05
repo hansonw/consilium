@@ -1,5 +1,5 @@
 module AngularHostHelper
   def angularApiPath(path)
-    ('https://consilium.scigit.com' if Rails.env.phonegap?) + path
+    (Rails.env.phonegap? && 'https://consilium.scigit.com' || '')  + path
   end
 end
