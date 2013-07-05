@@ -328,10 +328,7 @@
   .description {
     padding-right: 10px;
     width: auto;
-    @include respond-to(tablets) {
-      width: 100%;
-    }
-    @include respond-to(handhelds) {
+    @include respond-to(tablets, handhelds) {
       width: 100%;
     }
   }

@@ -181,12 +181,11 @@ body {
     color: inherit;
   }
 
-  .except-widescreens {
-    @include respond-to(widescreens) { display: none; }
+  .except-desktops {
+    @include respond-to(desktops, widescreens) { display: none; }
   }
 
-  .only-widescreens {
-    @include respond-to(tablets) { display: none; }
-    @include respond-to(handhelds) { display: none; }
+  .only-desktops {
+    @include respond-to(tablets, handhelds) { display: none; }
   }
 }

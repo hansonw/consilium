@@ -3,17 +3,17 @@ $break-small: 480px;
 $break-large: 767px;
 $break-xlarge: 1200px;
 
-@mixin respond-to($media) {
-  @if $media == handhelds {
+@mixin respond-to($media...) {
+  @if index($media, handhelds) {
     @media only screen and (max-width: $break-small) { @content; }
   }
-  @else if $media == tablets {
+  @if index($media, tablets) {
     @media only screen and (min-width: $break-small + 1) and (max-width: $break-large - 1) { @content; }
   }
-  @else if $media == desktops {
+  @if index($media, desktops) {
     @media only screen and (min-width: $break-large + 1) and (max-width: $break-xlarge - 1) { @content; }
   }
-  @else if $media == widescreens {
+  @if index($media, widescreens) {
     @media only screen and (min-width: $break-xlarge) { @content; }
   }
 }
