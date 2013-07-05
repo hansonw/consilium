@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/DouglasSherk/phonegap-rails.git
-  revision: f0d77ca064c29f68d926a3dcbd1ee35f37d5cd26
+  revision: 104c0d592ed05ae03761718ac3d6642b25c6d5e1
   specs:
     phonegap-rails (0.0.12)
 
