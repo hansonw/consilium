@@ -116,7 +116,7 @@
             <td class="description">
               {{ document.description }}
               <div class="detail">
-                Created by <span class="email">{{ document.user_email }}</span><span class="except-desktops"><br /></span>
+                Created by <a data-ng-href="#/users/show/{{ document.user_id }}" class="email">{{ document.user_email }}</a><span class="except-desktops"><br /></span>
                 on <span class="date">{{ document.created_at | date: 'medium'}}</span>
               </div>
             </td>
