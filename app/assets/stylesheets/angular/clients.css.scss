@@ -305,7 +305,7 @@
   }
 }
 
-.client-table {
+.clients-table {
   word-wrap: break-word;
 
   .name {
@@ -332,7 +332,7 @@
   }
 }
 
-.document-table {
+.history-table {
   .description {
     padding-right: 10px;
     width: auto;
@@ -352,11 +352,15 @@
   .detail {
     font-size: 80%;
     margin-top: 3px;
-    
+
     .date {
       color: #999;
     }
   }
+}
+
+.documents-table {
+  @extend .history-table;
 }
 
 .client-landing {

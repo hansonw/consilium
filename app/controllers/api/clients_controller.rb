@@ -91,8 +91,7 @@ class Api::ClientsController < Api::ApiController
     end
 
     changed_fields = changed_fields.sort.map do |field_id|
-      field = Client.expand_fields.select { |field| field[:id] == field_id }.first
-      (!field || field[:name].empty? ? field_id.underscore.humanize : field[:name]).downcase
+      field_id.underscore.humanize.downcase
     end
 
     if changed_fields.empty?

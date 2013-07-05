@@ -4,7 +4,7 @@ App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', 'Auth', ($s
   results_per_page = 20
 
   $scope.loading = false
-  $scope.error = false
+  $scope.clientsError = false
   $scope.query = ''
   $scope.resultStart = 0
   $scope.moreResults = false
@@ -19,8 +19,9 @@ App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', 'Auth', ($s
 
     # Query for one more than is required; if an extra exists, then a 'show more' needs to be displayed
     $scope.loading = true
+    $scope.clientsLoading = !$scope.clients || more
     searchIcon = $('#btnSearch i')
-    $scope.error = false
+    $scope.clientsError = false
     $scope.resultStart = if more then $scope.resultStart + results_per_page else 0
     query_params =
       short: true, # indicates we should only fetch id/name/company
@@ -38,10 +39,10 @@ App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', 'Auth', ($s
             Array::push.apply($scope.clients, clients.slice(0, results_per_page))
           else
             $scope.clients = clients.slice(0, results_per_page)
-          $scope.loading = false
+          $scope.loading = $scope.clientsLoading = false
       , ->
-          $scope.error = true
-          $scope.loading = false
+          $scope.clientsError = true
+          $scope.loading = $scope.clientsLoading = false
     )
 
   # Can't pass updateResults directly: $watch passes other arguments automatically

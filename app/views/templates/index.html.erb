@@ -17,8 +17,33 @@
       <div class="recent-edit">
         <h4>Recent changes to clients</h4>
         <div>
-          <%= render :partial => 'templates/clients/edit_history_table',
-                     :locals => { :limit => 5, :main_page => true } %>
+          <%= render :partial => 'templates/clients/action_table',
+                     :locals => {
+                       :name => 'history',
+                       :model => 'history',
+                       :limit => 5,
+                       :fields => [
+                         {
+                           :name => 'Description',
+                           :class => 'description',
+                           :content => <<-END
+                             {{ item.description | ellipsize: 40:1 }}
+                             <div class="detail">
+                               on client <a data-ng-href="#/clients/show/{{ item.client_id }}" class="pretty">{{ item.client_name }} </a>
+                               by <a data-ng-href="#/users/show/{{ item.user_id }}" class="email">{{ item.user_email }}</a><br />
+                               on <span class="date">{{ item.updated_at | date: 'medium'}}</span>
+                             </div>
+                           END
+                         }
+                       ],
+                       :actions => [
+                         {
+                           :class => 'pure-button-success',
+                           :icon => 'icon-share-alt',
+                           :href => '#/clients/edit/{{ item.client_id }}/{{ item.id }}',
+                         }
+                       ]
+                     } %>
         </div>
       </div>
     </div>
