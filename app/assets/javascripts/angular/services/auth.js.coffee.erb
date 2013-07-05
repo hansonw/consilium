@@ -52,6 +52,8 @@ App.factory 'Auth', ['$http', 'AuthToken', 'AuthSessionStatus', ($http, AuthToke
       self._isLoggedIn = true
       self._notifyWatches()
     ).error((data, status, headers, config) ->
+      # TODO: Find a better way to display login failiure
+      alert('Login Failed')
     )
   logout: ->
     self = @
