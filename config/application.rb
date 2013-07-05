@@ -26,5 +26,9 @@ module Consilium
     # config.i18n.default_locale = :de
 
     config.autoload_paths += Dir["#{config.root}/lib/**"]
+
+    # TODO: We shouldn't need these to be able to target PhoneGap.
+    config.assets.paths << Rails.root.join('public', 'font')
+    config.assets.paths << Rails.root.join('public', 'images')
   end
 end
