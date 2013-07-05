@@ -185,9 +185,21 @@ class Client
           :type => 'text',
         },
         {
+          :name => 'Choose Broker',
+          :id => 'chooseBroker',
+          :type => 'dropdown',
+          :placeholder => '',
+          :options => [
+            'Broker 1',
+            'Broker 2',
+            'Broker 3',
+            'Broker not in list',
+          ],
+        },
+        {
           :name => 'Broker',
           :id => 'broker',
-          :placeholder => 'Some Insurance Brokers Inc.',
+          :placeholder => 'If broker not in list, write name here',
           :type => 'text',
         },
         {
@@ -203,10 +215,28 @@ class Client
           :type => 'text',
         },
         {
+          :name => '',
+          :id => 'premiumMonthlyAnnual',
+          :type => 'radio',
+          :options => {
+            'annually' => 'Annually',
+            'monthly' => 'Monthly',
+          },
+        },
+        {
           :name => 'Prev. Term',
           :id => 'previousTerm',
           :placeholder => 'Start date - End date (ex. mm/dd/yyyy - mm/dd/yyyy)',
           :type => 'text',
+        },
+        {
+          :name => 'Was renewal offered',
+          :id => 'renewalOffered',
+          :type => 'radio',
+          :options => {
+            'yes' => 'Yes',
+            'no' => 'No',
+          },
         },
         {
           :name => 'If renewal was not offered, explain here',
@@ -240,12 +270,19 @@ class Client
           :type => 'text',
         },
         {
-          :name => '',
+          :name => 'Covered by',
           :id => 'covered',
           :type => 'checkbox',
           :options => {
-            'coveredWCB' => 'Covered by WCB',
+            'coveredWCB' => 'WCB',
+            'alternative' => 'Alternative',
           },
+        },
+        {
+          :name => 'Alternative',
+          :id => 'alternativeExplain',
+          :placeholder => 'If alternative define',
+          :type => 'text',
         },
         {
           :name => 'Annual gross receipts',
@@ -261,7 +298,7 @@ class Client
         },
         {
           :name => 'US. %',
-          :id => 'americanPercent ',
+          :id => 'americanPercent',
           :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
         },
@@ -294,12 +331,12 @@ class Client
           :id => 'liquorLiability',
           :type => 'checkbox',
           :options => {
-            'liquor' => 'yes',
+            'liquor' => 'Yes',
             'noLiquor' => 'No',
           },
         },
         {
-          :name => 'Receipt Splits: liquor',
+          :name => 'Receipt Splits: Liquor',
           :id => 'receiptSplitsLiqour',
           :placeholder => '$ CAN (ex. 1111)',
           :type => 'text',
@@ -448,9 +485,33 @@ class Client
           },
         },
         {
-          :name => 'Municipal fire zone',
-          :id => 'fireZone',
-          :placeholder => 'Municipal fire protection zone',
+          :name => 'Municipal Fire Zone',
+          :id => 'fireZoneCity',
+          :type => 'dropdown',
+          :placeholder => 'City',
+          :options => [
+            'Waterloo',
+            'Kitchener',
+            'London',
+            'Toronto',
+          ],
+        },
+        {
+          :name => 'Municipal Zone',
+          :id => 'municipalFireZone',
+          :type => 'dropdown',
+          :placeholder => 'Zone',
+          :options => [
+            'Zone 1',
+            'Zone 2',
+            'Zone 3',
+            'Zone 4',
+          ],
+        },
+        {
+          :name => '',
+          :id => 'fireZoneExplain',
+          :placeholder => 'If not available, explain',
           :type => 'text',
         },
         {
@@ -1024,6 +1085,7 @@ class Client
             'limited' => 'Limited',
             'profit' => 'Profit',
             'nonProfit' => 'Non-Profit',
+            'standardDeductable' => 'Standard Deductible'
           },
         },
         {
