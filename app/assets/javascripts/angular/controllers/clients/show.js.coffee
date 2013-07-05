@@ -2,8 +2,8 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
   Auth.checkLogin()
 
   $scope.clientId = $routeParams.clientId
-  $scope.loading = $scope.historyLoading = $scope.docLoading = true
-  $scope.historyError = $scope.docError = false
+  $scope.loading = $scope.historyLoading = $scope.documentsLoading = true
+  $scope.historyError = $scope.documentsError = false
   $scope.title = 'View Client'
   $scope.client = Client.get({id: $scope.clientId},
     (->
@@ -16,10 +16,10 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
           $scope.historyError = true)
       )
       $scope.documents = Document.query({client_id: $scope.client.id},
-        (-> $scope.docLoading = false),
+        (-> $scope.documentsLoading = false),
         (->
-          $scope.docLoading = false
-          $scope.docError = true)
+          $scope.documentsLoading = false
+          $scope.documentsError = true)
       )
     ),
     (data, header) ->

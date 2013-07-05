@@ -85,49 +85,71 @@
       <div class="section" id="basicInfo">
         <h3 class="no-top-margin">Edit History</h3>
       </div>
-      <%= render :partial => 'templates/clients/edit_history_table' %>
+      <%= render :partial => 'templates/clients/action_table',
+                 :locals => {
+                   :name => 'history',
+                   :model => 'history',
+                   :fields => [
+                     {
+                       :name => 'Description',
+                       :class => 'description',
+                       :content => <<-END
+                         {{ item.description | ellipsize: 40:1 }}
+                         <div class="detail">
+                           by <a data-ng-href="#/users/show/{{ item.user_id }}" class="email">{{ item.user_email }}</a>
+                           <span class="except-desktops"><br /></span>
+                           on <span class="date">{{ item.updated_at | date: 'MMM d, y h:mm a' }}</span>
+                         </div>
+                       END
+                     }
+                   ],
+                   :actions => [
+                     {
+                       :class => 'pure-button-primary',
+                       :icon => 'icon-file',
+                       :href => '#modalAddgenDocument',
+                       :click => 'setClientChange(item)',
+                       :attrs => 'modal-toggle',
+                     },
+                     {
+                       :class => 'pure-button-success',
+                       :icon => 'icon-share-alt',
+                       :href => '#/clients/edit/{{ item.client_id }}/{{ item.id }}',
+                     }
+                   ]
+                 } %>
     </div>
 
     <div class="client-docs well">
       <div class="section" id="basicInfo">
         <h3 class="no-top-margin">Documents</h3>
       </div>
-      <table class="document-table pure-table pure-table-horizontal pure-table-full-width">
-        <thead>
-          <tr>
-            <th class="name">Description</th>
-            <th class="actions align-right">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr data-ng-show="docLoading">
-            <td colspan="2"><i class="icon-spinner icon-spin icon-large"></i> Loading...</td>
-          </tr>
-          <tr data-ng-show="!docLoading && docError">
-            <td colspan="2">Must be online to view and generate documents.</td>
-          </tr>
-          <tr data-ng-show="!docLoading && !docError && !documents.length">
-            <td colspan="2">No documents generated for this client yet.</td>
-          </tr>
-          <tr data-ng-show="generating">
-            <td colspan="2"><i class="icon-spinner icon-spin icon-large"></i> Generating new document...</td>
-          </tr>
-          <tr data-ng-repeat="document in documents">
-            <td class="description">
-              {{ document.description }}
-              <div class="detail">
-                Created by <a data-ng-href="#/users/show/{{ document.user_id }}" class="email">{{ document.user_email }}</a><span class="except-desktops"><br /></span>
-                on <span class="date">{{ document.created_at | date: 'medium'}}</span>
-              </div>
-            </td>
-            <td class="actions align-right">
-              <a data-ng-href="/api/documents/{{ document.id }}" class="pure-button pure-button-small pure-button-success">
-                <i class="icon-download-alt icon-large"></i>
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <%= render :partial => 'templates/clients/action_table',
+                 :locals => {
+                   :name => 'documents',
+                   :model => 'documents',
+                   :fields => [
+                     {
+                       :name => 'Description',
+                       :class => 'description',
+                       :content => <<-END
+                         {{ item.description }}
+                         <div class="detail">
+                           by <a data-ng-href="#/users/show/{{ item.user_id }}" class="email">{{ item.user_email }}</a>
+                           <span class="except-desktops"><br /></span>
+                           on <span class="date">{{ item.updated_at | date: 'MMM d, y h:mm a' }}</span>
+                         </div>
+                       END
+                     }
+                   ],
+                   :actions => [
+                     {
+                       :class => 'pure-button-success',
+                       :icon => 'icon-download-alt',
+                       :href => '/api/documents/{{ item.id }}',
+                     }
+                   ]
+                 } %>
     </div>
   </div>
 </div>

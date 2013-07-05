@@ -14,7 +14,7 @@
                    :locals => { :paths => {
               "Home" => "#/",
               "Clients" => "#/clients/",
-              "{{ title }}" => "#/clients/{{ clientChangeId ? 'edit/change/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}",
+              "{{ title }}" => "#/clients/{{ clientChangeId ? 'edit/' + clientId + '/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}",
             }}
          %>
       </div>
