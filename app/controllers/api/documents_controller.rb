@@ -50,12 +50,9 @@ class Api::DocumentsController < Api::ApiController
     end
 
     data = {}
-    # XXX: Hanson please check this.
-    if defined?(@document.client_change.client_data) && defined?(@document.client_change.client_data.attributes)
-      @document.client_change.client_data.attributes.each do |key, val|
-        if val.is_a?(Hash) && !val['value'].nil?
-          data[key] = val['value']
-        end
+    @document.client_change.client_data.each do |key, val|
+      if val.is_a?(Hash) && !val['value'].nil?
+        data[key] = val['value']
       end
     end
 
