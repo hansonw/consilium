@@ -19,8 +19,8 @@
       <td class="description">
         {{ item.description | ellipsize: 40:1 }}
         <div class="detail">
-          by <span class="email">{{ item.user_email }}</span> on
-          <span class="date">{{ item.updated_at | date: 'medium'}}</span>
+          by <span class="email">{{ item.user_email }}</span><span class="except-widescreens"><br /></span>
+          on <span class="date">{{ item.updated_at | date: 'medium'}}</span>
         </div>
       </td>
       <td class="actions align-right">

@@ -4,7 +4,7 @@
       <a class="section-edit pull-right pure-button pure-button-primary"
          data-ng-click="subsectionVisible['<%= field[:id] %>'] = !subsectionVisible['<%= field[:id] %>']">
         <i data-ng-class="{'icon-caret-down': !subsectionVisible['<%= field[:id] %>'], 'icon-caret-up': subsectionVisible['<%= field[:id] %>']}"></i>
-        <span class="verbose-desc">Edit <%= field[:name] %></span>
+        <span class="only-widescreens">Edit <%= field[:name] %></span>
       </a>
       <h3 class="no-top-margin no-bottom-margin"><%= field[:name] %></h3>
     </div>
