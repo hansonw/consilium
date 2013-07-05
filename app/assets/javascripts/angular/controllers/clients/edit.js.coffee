@@ -76,6 +76,12 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     $scope._lastChange = new Date().getTime()
   ), true
 
+  $scope.$on('$locationChangeStart', (event) ->
+    if $scope.dirty
+      if !confirm("You have unsaved changes.\n\nAre you sure you want to leave this page?")
+        event.preventDefault())
+  $(window).on('beforeunload', -> if $scope.dirty then 'You have unsaved changes.' else null)
+
   $scope.$on('$destroy', ->
     if $scope._saveTimer?
       $timeout.cancel($scope._saveTimer)
