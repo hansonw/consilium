@@ -1,4 +1,4 @@
-App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filter', 'Client', 'ClientChange', 'Document', 'RecentClients', 'Auth', ($scope, $routeParams, $location, $filter, Client, ClientChange, Document, RecentClients, Auth) ->
+App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filter', 'Client', 'ClientChange', 'Document', 'RecentClients', 'Auth', 'Modal', ($scope, $routeParams, $location, $filter, Client, ClientChange, Document, RecentClients, Auth, Modal) ->
   Auth.checkLogin()
 
   $scope.clientId = $routeParams.clientId
@@ -53,8 +53,7 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
     )
 
     $scope.genDocument = {}
-    $('#modal-genDocument').toggleClass('active')
-    $('body').toggleClass('modal-active')
+    Modal.toggleModal('genDocument')
 
   $scope.deleteDocument = (index) ->
     # TODO: should be modal
