@@ -1,14 +1,12 @@
-App.directive 'modalToggle', ->
+App.directive 'modalToggle', ['Modal', (Modal) ->
   ($scope, $elem, attr) ->
     $($elem).click (e) ->
       targetId = attr.modalToggle
-      $('body').toggleClass('modal-active')
-      setTimeout (->
-        $(".modal[id~='modal-#{targetId}']").toggleClass('active')
-        $scope[targetId] = {}
-      ), 20
+      Modal.toggleModal(targetId)
+      $scope[targetId] = {}
       e.preventDefault()
 
     if !$scope._modalDestructor
       $scope._modalDestructor = true
       $scope.$on('$destroy', -> $('body').removeClass('modal-active'))
+]

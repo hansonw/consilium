@@ -1,5 +1,5 @@
 # This doubles as the new client view (if no client ID is provided)
-App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$location', 'Client', 'ClientChange', 'RecentClients', 'Auth', ($scope, $routeParams, $timeout, $location, Client, ClientChange, RecentClients, Auth) ->
+App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$location', 'Client', 'ClientChange', 'RecentClients', 'Auth', 'Modal', ($scope, $routeParams, $timeout, $location, Client, ClientChange, RecentClients, Auth, Modal) ->
   Auth.checkLogin()
 
   $scope._saveTimeout = 10000
@@ -178,17 +178,14 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     else
       collection.push(obj)
 
-    $scope[objName] = {}
-    $('#modal-' + objName).toggleClass('active')
-    $('body').toggleClass('modal-active')
+    Modal.toggleModal(objName)
 
   $scope.editInField = (objName, index) ->
     collection = (($scope.client[objName] ||= {}).value ||= [])
     if index < collection.length
       $scope[objName] = angular.copy(collection[index])
       $scope[objName].$index = index
-      $('#modal-' + objName).toggleClass('active')
-      $('body').toggleClass('modal-active')
+      Modal.toggleModal(objName)
 
   $scope.deleteFromField = (objName, index) ->
     collection = (($scope.client[objName] ||= {}).value ||= [])
