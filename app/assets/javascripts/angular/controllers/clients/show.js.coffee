@@ -1,4 +1,5 @@
-App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filter', 'Client', 'ClientChange', 'Document', 'RecentClients', 'Auth', 'Modal', ($scope, $routeParams, $location, $filter, Client, ClientChange, Document, RecentClients, Auth, Modal) ->
+App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filter', 'Client', 'ClientChange', 'Document', 'RecentClients', 'Auth', 'Modal',\
+                                   ($scope, $routeParams, $location, $filter, Client, ClientChange, Document, RecentClients, Auth, Modal) ->
   Auth.checkLogin()
 
   $scope.clientId = $routeParams.clientId
