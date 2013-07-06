@@ -53,7 +53,7 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
     )
 
     $scope.genDocument = {}
-    $('#modalAddgenDocument').toggleClass('active')
+    $('#modal-genDocument').toggleClass('active')
     $('body').toggleClass('modal-active')
 
   $scope.deleteDocument = (index) ->
@@ -61,7 +61,4 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
     if confirm('Are you sure? This will delete the document for all other users.')
       $scope.documents[index].$delete()
       $scope.documents.splice(index, 1)
-
-  $scope.closeModal = (objName) ->
-    $scope[objName] = {}
 ]

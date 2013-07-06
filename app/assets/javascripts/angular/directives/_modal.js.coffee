@@ -1,13 +1,14 @@
 App.directive 'modalToggle', ->
-  ($scope, $elem) ->
+  ($scope, $elem, attr) ->
     $($elem).click (e) ->
-      targetId = $($elem).attr('href')
-      targetId = targetId.substr(1, targetId.length)
+      targetId = attr.modalToggle
       $('body').toggleClass('modal-active')
       setTimeout (->
-        $('.modal[id~="' + targetId + '"]').toggleClass('active')
+        $(".modal[id~='modal-#{targetId}']").toggleClass('active')
+        $scope[targetId] = {}
       ), 20
       e.preventDefault()
+
     if !$scope._modalDestructor
       $scope._modalDestructor = true
       $scope.$on('$destroy', -> $('body').removeClass('modal-active'))

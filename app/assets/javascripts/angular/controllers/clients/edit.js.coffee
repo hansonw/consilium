@@ -179,7 +179,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       collection.push(obj)
 
     $scope[objName] = {}
-    $('#modalAdd' + objName).toggleClass('active')
+    $('#modal-' + objName).toggleClass('active')
     $('body').toggleClass('modal-active')
 
   $scope.editInField = (objName, index) ->
@@ -187,16 +187,13 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     if index < collection.length
       $scope[objName] = angular.copy(collection[index])
       $scope[objName].$index = index
-      $('#modalAdd' + objName).toggleClass('active')
+      $('#modal-' + objName).toggleClass('active')
       $('body').toggleClass('modal-active')
 
   $scope.deleteFromField = (objName, index) ->
     collection = (($scope.client[objName] ||= {}).value ||= [])
     if index < collection.length
       collection.splice(index, 1)
-
-  $scope.closeModal = (objName) ->
-    $scope[objName] = {}
 
   $scope.done = ->
     window.history.back()

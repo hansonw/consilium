@@ -23,7 +23,7 @@
       <td class="actions align-right">
         <% actions.each do |action| %>
           <a data-ng-href="<%= action[:href] %>" data-ng-click="<%= raw(action[:click]) %>"
-             class="pure-button pure-button-small <%= action[:class] %>" <%= action[:attrs] %>>
+             class="pure-button pure-button-small <%= action[:class] %>" <%= raw action[:attrs] %> >
             <i class="<%= action[:icon] %> icon-large"></i>
           </a>
         <% end %>
