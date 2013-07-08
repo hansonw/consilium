@@ -197,7 +197,7 @@ button, input, select, textarea {
         border-radius: 4px;
         -webkit-transition: .3s linear border;
         transition: .3s linear border;
-        box-sizing: border-box;
+        @include box-sizing(border-box);
         -webkit-font-smoothing: antialiased;
       }
     }
@@ -220,7 +220,7 @@ button, input, select, textarea {
       .dropdown-list {
         min-width: $dropdown-width;
         margin: 0;
-        box-sizing: content-box;
+        @include box-sizing(content-box);
         display: table-cell;
 
         &.other-dropdown {

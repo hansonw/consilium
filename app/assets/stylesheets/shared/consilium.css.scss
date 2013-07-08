@@ -152,14 +152,14 @@ body {
     }
 
     .modal-inside {
-      @include box-sizing();
+      @include box-sizing(border-box);
 
       overflow: auto;
       height: 100%;
       padding-bottom: $view-padding;
 
-      //I dont know why this has to be here but if i remove the 100% it does not work.
-      @include respond-to(desktops) {
+      // "Hide" the menu.
+      @include respond-to(desktops, widescreens) {
         padding-left: 0;
       }
 

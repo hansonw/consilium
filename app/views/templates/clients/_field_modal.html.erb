@@ -13,26 +13,24 @@
     </div>
     <hr class="soften" />
     <div class="content">
-      <div class="client-form">
-        <div class="form-content">
-          <form name="form<%= field[:id] %>"
-                class="pure-form pure-form-aligned"
-                data-ng-submit="<%= submit_callback %>">
-            <div class="pure-form-fields">
-              <% field[:type].each do |subfield| %>
-                <div class="pure-control-group">
-                  <label for="<%= subfield[:id] %>"><%= subfield[:name] %></label>
-                  <%= ng_input(subfield, field[:id] + '.' + subfield[:id])  %>
-                </div>
-              <% end %>
-            </div>
-            <div class="separator"></div>
-            <div class="pull-right">
-              <button data-ng-show="!clientChangeId" type="submit" class="pure-button pure-button-primary">Save</button>
-              <button class="pure-button" modal-toggle="<%= field[:id] %>">Close</button>
-            </div>
-          </form>
-        </div>
+      <div class="form-content">
+        <form name="form<%= field[:id] %>"
+              class="pure-form pure-form-aligned"
+              data-ng-submit="<%= submit_callback %>">
+          <div class="pure-form-fields">
+            <% field[:type].each do |subfield| %>
+              <div class="pure-control-group">
+                <label for="<%= subfield[:id] %>"><%= subfield[:name] %></label>
+                <%= ng_input(subfield, field[:id] + '.' + subfield[:id])  %>
+              </div>
+            <% end %>
+          </div>
+          <div class="separator"></div>
+          <div class="pull-right">
+            <button data-ng-show="!clientChangeId" type="submit" class="pure-button pure-button-primary">Save</button>
+            <button class="pure-button" modal-toggle="<%= field[:id] %>">Close</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

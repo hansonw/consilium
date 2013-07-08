@@ -3,13 +3,11 @@
 
 .client-form {
   $client-form-nav-width: 300px;
+  $client-form-nav-padding: 50px;
 
-  @include respond-to(widescreens) { padding-top: 20px; }
-
-  select[disabled] {
-    border: 1px solid #ccc;
-    background-color: white;
-    color: black;
+  @include respond-to(widescreens) {
+    padding-top: 20px;
+    padding-left: $client-form-nav-width + $client-form-nav-padding + 10px;
   }
 
   .form-content {
@@ -23,15 +21,9 @@
         display: inline-block;
       }
     }
-
-    @include respond-to(widescreens) {
-      @include calc(width, '100% - #{$client-form-nav-width + 5px}');
-    }
   }
 
   .form-nav {
-    $client-form-nav-padding: 50px;
-
     @include transition();
 
     display: none;
@@ -40,7 +32,31 @@
 
     @include respond-to(widescreens) {
       display: inline-block;
+      margin-left: -($client-form-nav-width + $client-form-nav-padding + 10px);
       padding-right: $client-form-nav-padding;
+    }
+
+    .nav-container {
+      $nav-heading-height: 32px;
+      $nav-heading-margin: 6px;
+
+      height: 100%;
+      @include box-sizing(border-box);
+      padding-bottom: 56px + 60px + $nav-heading-height + $nav-heading-margin; // covers the toolbar and a bit of padding
+
+      .nav-box {
+        height: 100%;
+        padding-top: $nav-heading-height + $nav-heading-margin;
+
+        .nav-heading {
+          margin-top: -$nav-heading-height;
+        }
+
+        .nav-list {
+          height: 100%;
+          overflow-y: auto;
+        }
+      }
     }
   }
 
@@ -53,7 +69,7 @@
     }
   }
 
-  .subsection{
+  .subsection {
     //position: relative;
     .subsection-well {
       //position: absolute;
@@ -81,50 +97,34 @@
         }
       }
     }
+
+    .section-edit {
+      @include respond-to(widescreens) { width:146px; }
+      @include respond-to(desktops) { width:146px;}
+    }
   }
 }
 
 .search-client-form {
-  $search-client-form-nav-width: 400px;
+  $search-client-form-nav-width: 350px;
+  $search-client-form-nav-padding: 50px;
 
   @extend .client-form;
 
-  .form-content {
-    @include respond-to(widescreens) {
-      @include calc(width, '100% - #{$search-client-form-nav-width + 5px}');
-    }
+  @include respond-to(widescreens) {
+    padding-left: $search-client-form-nav-width + $search-client-form-nav-padding + 10px;
   }
 
   .form-nav {
-    $search-client-form-nav-padding: 50px;
-
     width: 100%;
     display: inline-block;
 
-    @include respond-to(widescreens) { width: $search-client-form-nav-width - $search-client-form-nav-padding; }
+    @include respond-to(widescreens) {
+      margin-left: -($search-client-form-nav-width + $search-client-form-nav-padding + 10px);
+      width: $search-client-form-nav-width;
+      padding-right: $search-client-form-nav-padding;
+    }
   }
-}
-
-// TODO: Where do these numbers come from? We should also change the
-// names and scopes of these |section-|s.
-#section-holder {
-  @include calc(height, '95% - 95px');
-  max-height: 585px;
-}
-
-#section-list {
-  overflow-y: auto;
-  @include calc(height, '100% - 38px');
-}
-
-#section-box {
-  height: 100%
-}
-
-// TODO: This needs to be renamed and scoped correctly.
-.section-edit {
-  @include respond-to(widescreens) { width:146px; }
-  @include respond-to(desktops) { width:146px;}
 }
 
 #toolbar {

@@ -18,13 +18,6 @@ $break-xlarge: 1200px;
   }
 }
 
-@mixin calc($property, $expression) {
-  #{$property}: -moz-calc(#{$expression});
-  #{$property}: -o-calc(#{$expression});
-  #{$property}: -webkit-calc(#{$expression});
-  #{$property}: calc(#{$expression});
-}
-
 @mixin transition() {
   $transition-duration: 0.4s;
   -webkit-transition: all $transition-duration ease-out;
@@ -39,10 +32,10 @@ $break-xlarge: 1200px;
   transform: translate3d($x, $y, 0);
 }
 
-@mixin box-sizing() {
-  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-  box-sizing: border-box;         /* Opera/IE 8+ */
+@mixin box-sizing($value) {
+  -webkit-box-sizing: $value; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: $value;    /* Firefox, other Gecko */
+  box-sizing: $value;         /* Opera/IE 8+ */
 }
 
 @mixin gradient($rgb-start, $rgb-finish, $occupancy, $location-start, $location-finish) {
