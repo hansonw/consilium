@@ -60,7 +60,7 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
       $location.path('/auth/login')
   logout: ->
     self = @
-    $http.post(
+    $http.get(
       '<%= angularApiPath('/api/auth/logout') %>',
       AuthToken.addAuthTokenToJSONRequest({}),
     ).success((data, status, headers, config) ->
