@@ -22,7 +22,7 @@ App.config ["$httpProvider", ($httpProvider) ->
   delete $httpProvider.defaults.headers.common['X-Requested-With']
 ]
 
-App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', '$http', 'Client', 'Offline', 'Auth', 'AuthToken', ($rootScope, $location, $anchorScroll, $timeout, $http, Client, Offline, Auth, AuthToken) ->
+App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Offline', 'Auth', ($rootScope, $location, $anchorScroll, $timeout, Client, Offline, Auth) ->
 
   # Initialize Auth service.
   Auth.init()
