@@ -1446,6 +1446,17 @@ class Client
       :id => 'photos',
       :type => [
         {
+          :name => '',
+          :id => 'photoTaker',
+          :type => 'photo',
+        },
+        {
+          :name => 'Name',
+          :id => 'photoName',
+          :placeholder => '',
+          :type => 'text',
+        },
+        {
           :name => 'Notes',
           :id => 'photoNotes',
           :placeholder => 'Take a note',
