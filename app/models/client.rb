@@ -260,13 +260,13 @@ class Client
         {
           :name => 'Covered by',
           :id => 'covered',
-          :placeholder => 'WCB/Other',
+          :placeholder => '',
           :type => 'dropdown',
           :options => [
             'WCB',
             'Other',
           ],
-          :otherPlaceholder => 'Specify', 
+          :otherPlaceholder => 'Specify',
         },
         {
           :name => 'Annual gross receipts',
