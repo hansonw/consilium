@@ -7,7 +7,7 @@ App.factory 'Client', ['$resource', 'Offline', ($resource, Offline) ->
       if params.query?
         if !val.name?.value?.match?(///#{params.query}///i)? &&
            !val.company?.value?.match?(///#{params.query}///i)? &&
-           !val.email?.value?.match?(///#{params.query}///i)?
+           !val.emailAddress?.value?.match?(///#{params.query}///i)?
           return false
       if params.filter?
         for key, str of params.filter

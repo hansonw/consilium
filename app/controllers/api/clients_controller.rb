@@ -21,7 +21,7 @@ class Api::ClientsController < Api::ApiController
     @clients = Client.any_of(
       {"name.value" => /#{Regexp.escape(params[:query] || '')}/i},
       {"company.value" => /#{Regexp.escape(params[:query] || '')}/i},
-      {"email.value" => /#{Regexp.escape(params[:query] || '')}/i},
+      {"emailAddress.value" => /#{Regexp.escape(params[:query] || '')}/i},
     )
     if params[:filter]
       filter = JSON.parse(params[:filter])
