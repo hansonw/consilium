@@ -173,7 +173,7 @@ button, input, select, textarea {
       input[type="text"], input[type="email"], input[type="password"] {
         display: table-cell;
         width: 100%;
-        @include respond-to(handhelds) { display: table-row; }
+        @include respond-to(handhelds) { display: table-row; margin: 3px 0; }
       }
 
       input[readonly], textarea[readonly], select[readonly] {
