@@ -1092,8 +1092,8 @@ class Client
       ],
     },
     {
-      :name => 'Automobile Sched',
-      :id => 'automobileSchedule',
+      :name => 'Auto Schedule',
+      :id => 'autoSchedules',
       :type => [
         {
           :name => 'Item #',
@@ -1163,13 +1163,13 @@ class Client
           :type => 'text',
         },
         {
-          :name => 'date added',
+          :name => 'Date Added',
           :id => 'dateAdded',
           :placeholder => '(ex. mm/dd/yyyy)',
           :type => 'text',
         },
         {
-          :name => 'policy expiry',
+          :name => 'Policy Expiry',
           :id => 'policyExpiry',
           :placeholder => '(ex. mm/dd/yyyy)',
           :type => 'text',
