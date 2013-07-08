@@ -26,30 +26,6 @@ body {
     @include respond-to(desktops) { left: 2*$nav-width-desktops; }
   }
 
-  .content {
-    $content-margin-handhelds: 85px;
-    $content-margin-tablets: 150px;
-    width: 70%;
-    margin: auto;
-    @include respond-to(handhelds) { @include calc(width, '100% - #{$content-margin-handhelds}'); margin-right: 20px; }
-    @include respond-to(tablets) { @include calc(width, '100% - #{$content-margin-tablets}'); }
-    @include respond-to(widescreens) { width: 80%; }
-  }
-
-  .layout {
-    @include respond-to(handhelds) {
-      &.active #main {
-        @include transform($nav-width-handhelds, 0);
-      }
-    }
-
-    @include respond-to(tablets) {
-      &.active #main {
-        @include transform($nav-width-tablets, 0);
-      }
-    }
-  }
-
   h1 {
     @include respond-to(handhelds) { font-size: 32px; }
   }
@@ -70,9 +46,6 @@ body {
     @include transition();
 
     width: 100%;
-
-    @include respond-to(desktops) { padding-left: $nav-width-desktops; @include calc(width, '100% - #{$nav-width-desktops}'); };
-    @include respond-to(widescreens) { padding-left: $nav-width-widescreens; @include calc(width, '100% - #{$nav-width-widescreens}'); }
   }
 
   #mainMenuLink {
@@ -122,6 +95,43 @@ body {
         color: #08c;
         text-decoration: none;
       }
+    }
+  }
+
+  .layout {
+    @include respond-to(handhelds) {
+      padding-left: $collapsed-nav-width;
+
+      &.active #main {
+        @include transform($nav-width-handhelds, 0);
+      }
+    }
+
+    @include respond-to(tablets) {
+      padding-left: $collapsed-nav-width;
+
+      &.active #main {
+        @include transform($nav-width-tablets, 0);
+      }
+    }
+
+    @include respond-to(desktops) {
+      padding-left: $nav-width-desktops;
+      padding-right: 0px;
+    }
+
+    @include respond-to(widescreens) {
+      padding-left: $nav-width-widescreens;
+      padding-right: 0px;
+    }
+  }
+
+  .content {
+    width: 80%;
+    margin: auto;
+
+    @include respond-to(handhelds, tablets) {
+      width: 90%;
     }
   }
 }
