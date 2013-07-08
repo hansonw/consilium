@@ -203,36 +203,40 @@ button, input, select, textarea {
     }
   }
 
-  .dropdown-list {
-    min-width: $dropdown-width;
-    margin: 4.5px 0;
-    display: table-cell;
-
-    &.other-dropdown {
-      width: $dropdown-width;
-    }
-  }
-
   .dropdown-container {
     display: table-cell;
     width: 100%;
-    margin: 0px !important;
+    margin: 0;
 
     @include respond-to(handhelds) { display: block; }
-  }
 
-  .dropdown-field {
-    display: table;
-    margin: 0px !important;
-    border-spacing: 0px;
-    width: 100%;
-
-    @include respond-to(handhelds) { display: table-row; }
-
-    .other-field {
-      display: table-cell;
-      margin-left: $label-comfort-margin;
+    .dropdown-field {
+      display: table-row;
+      border-spacing: 0;
       width: 100%;
+
+      @include respond-to(handhelds) { display: table-row; }
+
+      .dropdown-list {
+        min-width: $dropdown-width;
+        margin: 0;
+        box-sizing: content-box;
+        display: table-cell;
+
+        &.other-dropdown {
+          width: $dropdown-width;
+        }
+      }
+
+      .other-field {
+        display: table-cell;
+        margin-left: $label-comfort-margin;
+        width: 100%;
+
+        input {
+          margin: 0 0 0 6px;
+        }
+      }
     }
   }
 
