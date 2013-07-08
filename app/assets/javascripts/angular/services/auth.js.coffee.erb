@@ -3,17 +3,20 @@
 
 App.factory 'AuthToken', ['$resource', ($resource) ->
   get: ->
-    localStorage.getItem('authToken')
+    return {email: '', auth_token: ''} if not @_get()
+    $.parseJSON(@_get())
   set: (authToken) ->
     localStorage.setItem('authToken', authToken)
   remove: ->
     localStorage.removeItem('authToken')
   addAuthTokenToJSONRequest: (obj) ->
-    return obj if not @get()
-    authToken = $.parseJSON(@get() || {})
+    return obj if not @_get()
+    authToken = @get()
     obj.email = authToken.email
     obj.auth_token = authToken.auth_token
     obj
+  _get: ->
+    localStorage.getItem('authToken')
 ]
 
 App.factory 'AuthSessionStatus', [ ->
@@ -75,14 +78,14 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
     actions = actions || ["query", "get", "update"]
 
     authTokenWrapper = (resource, action) ->
-      authToken = $.parseJSON(AuthToken.get() || {})
+      authToken = AuthToken.get()
 
       resource["_" + action] = resource[action]
 
       resource[action] = (data, success, error) ->
         resource["_" + action] angular.extend({}, data or {},
-          email: authToken.email
-          auth_token: authToken.auth_token
+          email: AuthToken.get().email
+          auth_token: AuthToken.get().auth_token
         ), success, error
 
     wrappedResource = resource
