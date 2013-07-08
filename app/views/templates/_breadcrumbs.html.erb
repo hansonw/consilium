@@ -4,7 +4,7 @@
       <span class="current">
     <% end %>
 
-    <%= link_to path[0], '', :data => {:ng_href => path[1]} %>
+    <%= link_to path[0], '', :data => path[1].is_a?(Hash) ? path[1] : {:ng_href => path[1]} %>
 
     <% if index == paths.length - 1 %>
       </span>

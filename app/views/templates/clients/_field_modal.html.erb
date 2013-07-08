@@ -6,7 +6,7 @@
                  :locals => { :paths => {
             "Home" => "#/",
             "Clients" => "#/clients/",
-            "{{ title }}" => '',
+            "{{ title }}" => {:modal_toggle => field[:id]},
             "Add " + field[:name].singularize => '',
           }}
        %>
