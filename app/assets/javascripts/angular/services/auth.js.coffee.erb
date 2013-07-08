@@ -28,7 +28,7 @@ App.factory 'AuthToken', ['$resource', ($resource) ->
         ), success, error
 
     wrappedResource = resource
-    authTokenWrapper(action) for action in actions
+    authTokenWrapper(wrappedResource, action) for action in actions
     wrappedResource
 ]
 

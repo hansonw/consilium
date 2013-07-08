@@ -3,5 +3,5 @@
 
 App.factory 'ClientChange', ['$resource', 'AuthToken', ($resource, AuthToken) ->
   resource = $resource('<%= angularApiPath('/api/client_changes/:id') %>', {format: 'json', id: '@id'}, {'save': {method: 'PUT'}})
-  return AuthToken.wrapActions(resource, ["query", "update", "get", "post", "save"])
+  return AuthToken.wrapActions(resource, ["query", "update"])
 ]
