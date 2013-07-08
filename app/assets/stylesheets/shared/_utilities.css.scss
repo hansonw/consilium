@@ -1,20 +1,19 @@
 $break-small: 480px;
-// XXX: This must be 767px or some minor things break.
-$break-large: 767px;
+$break-large: 768px;
 $break-xlarge: 1200px;
 
 @mixin respond-to($media...) {
   @if index($media, handhelds) {
-    @media only screen and (max-width: $break-small - 1) { @content; }
+    @media only screen and (max-width: $break-small) { @content; }
   }
   @if index($media, tablets) {
-    @media only screen and (min-width: $break-small) and (max-width: $break-large - 1) { @content; }
+    @media only screen and (min-width: $break-small+1) and (max-width: $break-large) { @content; }
   }
   @if index($media, desktops) {
-    @media only screen and (min-width: $break-large) and (max-width: $break-xlarge - 1) { @content; }
+    @media only screen and (min-width: $break-large+1) and (max-width: $break-xlarge) { @content; }
   }
   @if index($media, widescreens) {
-    @media only screen and (min-width: $break-xlarge) { @content; }
+    @media only screen and (min-width: $break-xlarge+1) { @content; }
   }
 }
 
