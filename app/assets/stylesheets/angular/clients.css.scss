@@ -53,32 +53,25 @@
     }
   }
 
-  .subsection{
-    //position: relative;
-    .subsection-well {
-      //position: absolute;
-      //top: 0;
-      .subsection-outer {
-        // TODO: Subsection transitions disabled for now. This is done too poorly right now.
-        position: relative;
-        height: 32px;
-        overflow: hidden;
-        padding: 10px 0;
-        margin-top: -10px;
-        margin-bottom: -15px;
+  .well {
+    @include transition();
+  }
 
-        .subsection-inner {
-          margin: 20px 0 20px 0;
-          position: absolute;
-          top: 0;
-          @include transition();
-        }
+  .subsection {
+    position: relative;
 
-        &.active {
-          // TODO: This is very rickety and won't work with larger subsections.
-          //max-height: 300px;
-          //max-height: none;
-        }
+    .subsection-outer {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      padding: 10px 0;
+      height: 32px;
+      width: 560px;
+
+      &.active {
+        // TODO: This is very rickety and won't work with larger subsections.
+        //max-height: 300px;
+        //max-height: none;
       }
     }
   }

@@ -1,0 +1,323 @@
+<link href="/assets/pure-min.css?body=1" media="all" rel="stylesheet" />
+<link href="/assets/font-awesome/font-awesome.css?body=1" media="all" rel="stylesheet" />
+<link href="/assets/shared.css?body=1" media="all" rel="stylesheet" />
+<link href="/assets/angular/angular.css?body=1" media="all" rel="stylesheet" />
+<link href="/assets/angular/clients.css?body=1" media="all" rel="stylesheet" />
+<link href="/assets/angular/home.css?body=1" media="all" rel="stylesheet" />
+<link href="/assets/angular/welcome.css?body=1" media="all" rel="stylesheet" />
+<link href="/assets/shared/_constants.css?body=1" media="all" rel="stylesheet" />
+<link href="/assets/shared/_utilities.css?body=1" media="all" rel="stylesheet" />
+<link href="/assets/shared/auth.css?body=1" media="all" rel="stylesheet" />
+<link href="/assets/shared/consilium.css?body=1" media="all" rel="stylesheet" />
+<link href="/assets/shared/fonts.css?body=1" media="all" rel="stylesheet" />
+<link href="/assets/shared/pure-overrides.css?body=1" media="all" rel="stylesheet" />
+
+<script src="/assets/jquery.js?body=1"></script>
+<script>
+  $(document).ready(function() {
+    $.each($('.innards'), function() {
+      inner = $(this).find('.subsection-inner');
+      inner.css('-webkit-transform', 'translate3d(0, -' + ($(this).height()+20) + 'px, 0)')
+      inner.css('transform', 'translate3d(0, -' + ($(this).height()+20) + 'px, 0)')
+    });
+    $('.pure-button').click(function() {
+      section = $(this).parents('.subsection');
+      div = section.find('.test')
+      outer = section.find('div.subsection-outer')
+      innards = section.find('.innards');
+      inner = innards.find('.subsection-inner');
+      height = inner.height() + 20;
+      if (section.data('toggle')) {
+        inner.css('-webkit-transform', 'translate3d(0, -' + height + 'px, 0)')
+        inner.css('transform', 'translate3d(0, -' + height + 'px, 0)')
+        div.css('-webkit-transform', 'scale3d(1, 1, 1)')
+        div.css('transform', 'scale3d(1, 1, 1)')
+        $.each(section.nextAll(), function() {
+          $(this).data('offset', off = ($(this).data('offset')||0) - height);
+          $(this).css('-webkit-transform', 'translate3d(0, ' + off + 'px, 0)')
+          $(this).css('transform', 'translate3d(0, ' + off + 'px, 0)')
+        })
+      }
+      else {
+        innards = section.find('.innards');
+        inner = innards.find('.subsection-inner');
+        inner.css('-webkit-transform', 'translate3d(0, 0, 0)')
+        inner.css('transform', 'translate3d(0, 0, 0)')
+        scale = 1 + height / div.outerHeight();
+        div.css('-webkit-transform', 'scale3d(1, ' + scale + ', 1)')
+        div.css('transform', 'scale3d(1, ' + scale + ', 1)')
+        $.each(section.nextAll(), function() {
+          $(this).data('offset', off = ($(this).data('offset')||0) + height);
+          $(this).css('-webkit-transform', 'translate3d(0, ' + off + 'px, 0)')
+          $(this).css('transform', 'translate3d(0, ' + off + 'px, 0)')
+        })
+      }
+      section.data('toggle', !section.data('toggle'))
+    });
+  });
+</script>
+
+<style>
+.subsection {
+  width: 600px;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.test {
+  background: #f0f0f0;
+  padding: 20px;
+  height: 32px;
+  -webkit-transform-origin-y: 0%;
+  transform-origin: 0 0;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.innards {
+  position: absolute;
+  width: 560px;
+  clip: rect(0px, 2000px, 2000px, 0px);
+}
+.subsection-inner {
+  -webkit-transform: translate3d(0, -500px, 0);
+  transform: translate3d(0, -500px, 0);
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+</style>
+
+<form name="newClient" class="client-form pure-form pure-form-aligned">
+  <div class="subsection">
+    <div class="test">
+    </div>
+    <div class="subsection-outer active" data-ng-class="{'active': subsectionVisible['businessOp']}" style="height: 204px;">
+      <div id="businessOp" class="section">
+        <a class="section-edit pull-right pure-button pure-button-primary" data-ng-click="subsectionVisible['businessOp'] = !subsectionVisible['businessOp']">
+          <i data-ng-class="{'icon-caret-down': !subsectionVisible['businessOp'], 'icon-caret-up': subsectionVisible['businessOp']}" class="icon-caret-up"></i>
+          <span class="only-desktops">Edit Business Ops</span>
+        </a>
+        <h3 class="no-top-margin no-bottom-margin">Business Ops</h3>
+      </div>
+    </div>
+    <div class="innards">
+      <div class="subsection-inner pure-form-fields">
+        <div class="pure-control-group">
+          <label name="industryCode" for="industryCode">Industry Code</label>
+          <input name="industryCode" type="text" ng-model="client.industryCode.value" placeholder="Industry Code (ex. 111111)" class="ng-pristine ng-valid">
+        </div>
+        <div class="pure-control-group">
+          <label name="descriptionOperations" for="descriptionOperations">Description of operations</label>
+          <textarea name="descriptionOperations" ng-model="client.descriptionOperations.value" placeholder="Description of operations" rows="5" class="ng-pristine ng-valid"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="separator"></div>
+  <div class="subsection">
+    <div class="test">
+    </div>
+    <div class="subsection-outer active" data-ng-class="{'active': subsectionVisible['businessOp']}" style="height: 204px;">
+      <div id="businessOp" class="section">
+        <a class="section-edit pull-right pure-button pure-button-primary" data-ng-click="subsectionVisible['businessOp'] = !subsectionVisible['businessOp']">
+          <i data-ng-class="{'icon-caret-down': !subsectionVisible['businessOp'], 'icon-caret-up': subsectionVisible['businessOp']}" class="icon-caret-up"></i>
+          <span class="only-desktops">Edit Business Ops</span>
+        </a>
+        <h3 class="no-top-margin no-bottom-margin">Business Ops</h3>
+      </div>
+    </div>
+    <div class="innards">
+      <div class="subsection-inner pure-form-fields">
+        <div class="pure-control-group">
+          <label name="industryCode" for="industryCode">Industry Code</label>
+          <input name="industryCode" type="text" ng-model="client.industryCode.value" placeholder="Industry Code (ex. 111111)" class="ng-pristine ng-valid">
+        </div>
+        <div class="pure-control-group">
+          <label name="descriptionOperations" for="descriptionOperations">Description of operations</label>
+          <textarea name="descriptionOperations" ng-model="client.descriptionOperations.value" placeholder="Description of operations" rows="5" class="ng-pristine ng-valid"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div class="separator"></div>
+  <div class="subsection">
+    <div class="test">
+    </div>
+    <div class="subsection-outer active" data-ng-class="{'active': subsectionVisible['businessOp']}" style="height: 204px;">
+      <div id="businessOp" class="section">
+        <a class="section-edit pull-right pure-button pure-button-primary" data-ng-click="subsectionVisible['businessOp'] = !subsectionVisible['businessOp']">
+          <i data-ng-class="{'icon-caret-down': !subsectionVisible['businessOp'], 'icon-caret-up': subsectionVisible['businessOp']}" class="icon-caret-up"></i>
+          <span class="only-desktops">Edit Business Ops</span>
+        </a>
+        <h3 class="no-top-margin no-bottom-margin">Business Ops</h3>
+      </div>
+    </div>
+    <div class="innards">
+      <div class="subsection-inner pure-form-fields">
+        <div class="pure-control-group">
+          <label name="industryCode" for="industryCode">Industry Code</label>
+          <input name="industryCode" type="text" ng-model="client.industryCode.value" placeholder="Industry Code (ex. 111111)" class="ng-pristine ng-valid">
+        </div>
+        <div class="pure-control-group">
+          <label name="descriptionOperations" for="descriptionOperations">Description of operations</label>
+          <textarea name="descriptionOperations" ng-model="client.descriptionOperations.value" placeholder="Description of operations" rows="5" class="ng-pristine ng-valid"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div class="separator"></div>
+  <div class="subsection">
+    <div class="test">
+    </div>
+    <div class="subsection-outer active" data-ng-class="{'active': subsectionVisible['businessOp']}" style="height: 204px;">
+      <div id="businessOp" class="section">
+        <a class="section-edit pull-right pure-button pure-button-primary" data-ng-click="subsectionVisible['businessOp'] = !subsectionVisible['businessOp']">
+          <i data-ng-class="{'icon-caret-down': !subsectionVisible['businessOp'], 'icon-caret-up': subsectionVisible['businessOp']}" class="icon-caret-up"></i>
+          <span class="only-desktops">Edit Business Ops</span>
+        </a>
+        <h3 class="no-top-margin no-bottom-margin">Business Ops</h3>
+      </div>
+    </div>
+    <div class="innards">
+      <div class="subsection-inner pure-form-fields">
+        <div class="pure-control-group">
+          <label name="industryCode" for="industryCode">Industry Code</label>
+          <input name="industryCode" type="text" ng-model="client.industryCode.value" placeholder="Industry Code (ex. 111111)" class="ng-pristine ng-valid">
+        </div>
+        <div class="pure-control-group">
+          <label name="descriptionOperations" for="descriptionOperations">Description of operations</label>
+          <textarea name="descriptionOperations" ng-model="client.descriptionOperations.value" placeholder="Description of operations" rows="5" class="ng-pristine ng-valid"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div class="separator"></div>
+  <div class="subsection">
+    <div class="test">
+    </div>
+    <div class="subsection-outer active" data-ng-class="{'active': subsectionVisible['businessOp']}" style="height: 204px;">
+      <div id="businessOp" class="section">
+        <a class="section-edit pull-right pure-button pure-button-primary" data-ng-click="subsectionVisible['businessOp'] = !subsectionVisible['businessOp']">
+          <i data-ng-class="{'icon-caret-down': !subsectionVisible['businessOp'], 'icon-caret-up': subsectionVisible['businessOp']}" class="icon-caret-up"></i>
+          <span class="only-desktops">Edit Business Ops</span>
+        </a>
+        <h3 class="no-top-margin no-bottom-margin">Business Ops</h3>
+      </div>
+    </div>
+    <div class="innards">
+      <div class="subsection-inner pure-form-fields">
+        <div class="pure-control-group">
+          <label name="industryCode" for="industryCode">Industry Code</label>
+          <input name="industryCode" type="text" ng-model="client.industryCode.value" placeholder="Industry Code (ex. 111111)" class="ng-pristine ng-valid">
+        </div>
+        <div class="pure-control-group">
+          <label name="descriptionOperations" for="descriptionOperations">Description of operations</label>
+          <textarea name="descriptionOperations" ng-model="client.descriptionOperations.value" placeholder="Description of operations" rows="5" class="ng-pristine ng-valid"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div class="separator"></div>
+  <div class="subsection">
+    <div class="test">
+    </div>
+    <div class="subsection-outer active" data-ng-class="{'active': subsectionVisible['businessOp']}" style="height: 204px;">
+      <div id="businessOp" class="section">
+        <a class="section-edit pull-right pure-button pure-button-primary" data-ng-click="subsectionVisible['businessOp'] = !subsectionVisible['businessOp']">
+          <i data-ng-class="{'icon-caret-down': !subsectionVisible['businessOp'], 'icon-caret-up': subsectionVisible['businessOp']}" class="icon-caret-up"></i>
+          <span class="only-desktops">Edit Business Ops</span>
+        </a>
+        <h3 class="no-top-margin no-bottom-margin">Business Ops</h3>
+      </div>
+    </div>
+    <div class="innards">
+      <div class="subsection-inner pure-form-fields">
+        <div class="pure-control-group">
+          <label name="industryCode" for="industryCode">Industry Code</label>
+          <input name="industryCode" type="text" ng-model="client.industryCode.value" placeholder="Industry Code (ex. 111111)" class="ng-pristine ng-valid">
+        </div>
+        <div class="pure-control-group">
+          <label name="descriptionOperations" for="descriptionOperations">Description of operations</label>
+          <textarea name="descriptionOperations" ng-model="client.descriptionOperations.value" placeholder="Description of operations" rows="5" class="ng-pristine ng-valid"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div class="separator"></div>
+  <div class="subsection">
+    <div class="test">
+    </div>
+    <div class="subsection-outer active" data-ng-class="{'active': subsectionVisible['businessOp']}" style="height: 204px;">
+      <div id="businessOp" class="section">
+        <a class="section-edit pull-right pure-button pure-button-primary" data-ng-click="subsectionVisible['businessOp'] = !subsectionVisible['businessOp']">
+          <i data-ng-class="{'icon-caret-down': !subsectionVisible['businessOp'], 'icon-caret-up': subsectionVisible['businessOp']}" class="icon-caret-up"></i>
+          <span class="only-desktops">Edit Business Ops</span>
+        </a>
+        <h3 class="no-top-margin no-bottom-margin">Business Ops</h3>
+      </div>
+    </div>
+    <div class="innards">
+      <div class="subsection-inner pure-form-fields">
+        <div class="pure-control-group">
+          <label name="industryCode" for="industryCode">Industry Code</label>
+          <input name="industryCode" type="text" ng-model="client.industryCode.value" placeholder="Industry Code (ex. 111111)" class="ng-pristine ng-valid">
+        </div>
+        <div class="pure-control-group">
+          <label name="descriptionOperations" for="descriptionOperations">Description of operations</label>
+          <textarea name="descriptionOperations" ng-model="client.descriptionOperations.value" placeholder="Description of operations" rows="5" class="ng-pristine ng-valid"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div class="separator"></div>
+  <div class="subsection">
+    <div class="test">
+    </div>
+    <div class="subsection-outer active" data-ng-class="{'active': subsectionVisible['businessOp']}" style="height: 204px;">
+      <div id="businessOp" class="section">
+        <a class="section-edit pull-right pure-button pure-button-primary" data-ng-click="subsectionVisible['businessOp'] = !subsectionVisible['businessOp']">
+          <i data-ng-class="{'icon-caret-down': !subsectionVisible['businessOp'], 'icon-caret-up': subsectionVisible['businessOp']}" class="icon-caret-up"></i>
+          <span class="only-desktops">Edit Business Ops</span>
+        </a>
+        <h3 class="no-top-margin no-bottom-margin">Business Ops</h3>
+      </div>
+    </div>
+    <div class="innards">
+      <div class="subsection-inner pure-form-fields">
+        <div class="pure-control-group">
+          <label name="industryCode" for="industryCode">Industry Code</label>
+          <input name="industryCode" type="text" ng-model="client.industryCode.value" placeholder="Industry Code (ex. 111111)" class="ng-pristine ng-valid">
+        </div>
+        <div class="pure-control-group">
+          <label name="descriptionOperations" for="descriptionOperations">Description of operations</label>
+          <textarea name="descriptionOperations" ng-model="client.descriptionOperations.value" placeholder="Description of operations" rows="5" class="ng-pristine ng-valid"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div class="separator"></div>
+  <div class="subsection">
+    <div class="test">
+    </div>
+    <div class="subsection-outer active" data-ng-class="{'active': subsectionVisible['businessOp']}" style="height: 204px;">
+      <div id="businessOp" class="section">
+        <a class="section-edit pull-right pure-button pure-button-primary" data-ng-click="subsectionVisible['businessOp'] = !subsectionVisible['businessOp']">
+          <i data-ng-class="{'icon-caret-down': !subsectionVisible['businessOp'], 'icon-caret-up': subsectionVisible['businessOp']}" class="icon-caret-up"></i>
+          <span class="only-desktops">Edit Business Ops</span>
+        </a>
+        <h3 class="no-top-margin no-bottom-margin">Business Ops</h3>
+      </div>
+    </div>
+    <div class="innards">
+      <div class="subsection-inner pure-form-fields">
+        <div class="pure-control-group">
+          <label name="industryCode" for="industryCode">Industry Code</label>
+          <input name="industryCode" type="text" ng-model="client.industryCode.value" placeholder="Industry Code (ex. 111111)" class="ng-pristine ng-valid">
+        </div>
+        <div class="pure-control-group">
+          <label name="descriptionOperations" for="descriptionOperations">Description of operations</label>
+          <textarea name="descriptionOperations" ng-model="client.descriptionOperations.value" placeholder="Description of operations" rows="5" class="ng-pristine ng-valid"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
