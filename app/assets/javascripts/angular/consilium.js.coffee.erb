@@ -18,6 +18,8 @@ App.config ['$routeProvider', ($routeProvider) ->
 App.config ["$httpProvider", ($httpProvider) ->
   $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
   $httpProvider.responseInterceptors.push('AuthHttpInterceptor')
+  $httpProvider.defaults.useXDomain = true
+  delete $httpProvider.defaults.headers.common['X-Requested-With']
 ]
 
 App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', '$http', 'Client', 'Offline', 'Auth', 'AuthToken', ($rootScope, $location, $anchorScroll, $timeout, $http, Client, Offline, Auth, AuthToken) ->

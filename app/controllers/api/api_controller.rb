@@ -4,6 +4,10 @@ class Api::ApiController < ApplicationController
   respond_to :json
 
   private
+    def verified_request?
+      true
+    end
+
     def json_authenticate
       unless @user = warden.authenticate
         render json: '', :status => :unauthorized
