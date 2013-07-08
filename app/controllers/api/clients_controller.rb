@@ -70,7 +70,7 @@ class Api::ClientsController < Api::ApiController
 
   def get_description(new_client, old_client)
     if old_client.nil?
-      return 'Created new client'
+      return 'Created new client ' + new_client['name']['value']
     end
 
     # Get a list of changed fields
