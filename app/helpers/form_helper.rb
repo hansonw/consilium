@@ -109,6 +109,21 @@ module FormHelper
               #{field[:type] == 'currency' && pattern('\d+(\.\d{0,2})?') + "title='No dollar sign and no comma(s) - cents are optional'"}
               #{field[:type] == 'phone' && pattern('^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$') + "title='Must have format: 1234567890, 123-456-7890, or 123.456.7890'"}
             />"
+    when 'photo'
+      r="<div style='' name='#{field[:id]}' ng-model='#{model}' 
+                #{field[:required] && 'required'}
+                #{field[:disabled] && 'disabled'}
+                class='' id='cameraOptions'>
+                <a data-ng-click='openCamera()' class='pure-button pure-button-primary' style=''><i class='icon-camera'></i></a>
+                <a data-ng-click='openCamera()' class='pure-button pure-button-primary' style=''><i class='icon-cog'></i></a>
+                <div id='camera'>
+                <a id='close' data-ng-click='closeCamera()' class='pure-button pure-button-primary' style=''><i class='icon-remove'></i></a>
+                <div id='cameraBar'>
+                <a id='shoot' data-ng-click='closeCamera()' data-ng-show='!clientChangeId' type='submit' class='pure-button pure-button-primary' style=''><i class='icon-camera'></i></a>
+                <a id='settings' data-ng-click='closeCamera()' class='pure-button pure-button-primary' style=''><i class='icon-cog'></i></a>
+                </div>
+                </div>
+              </div>"
     else
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='#{model}' placeholder='#{field[:placeholder]}'
