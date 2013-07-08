@@ -204,11 +204,9 @@ button, input, select, textarea {
   }
 
   .dropdown-container {
-    display: table-cell;
+    display: inline-block;
     width: 100%;
-    margin: 0;
-
-    @include respond-to(handhelds) { display: block; }
+    margin: 0 !important;
 
     .dropdown-field {
       display: table-row;
