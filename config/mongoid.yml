@@ -89,7 +89,7 @@ phonegap:
       database: consilium_development
       hosts:
         - localhost:27017
-phonegap-staging:
+phonegap_staging:
   sessions:
     default:
       database: consilium_development
