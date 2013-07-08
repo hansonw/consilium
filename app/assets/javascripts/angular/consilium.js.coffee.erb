@@ -53,6 +53,9 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Offl
         (-> $rootScope.last_sync_success = false)
       )
     $timeout($rootScope.checkOnline, 2000)
+    # $timeout returns a promise to the return value, creating a circular reference if it's returned here.
+    # This causes a ridiculously massive memory leak
+    return null
 
   $rootScope.checkOnline()
   # Also sync every time we navigate to a different page.
