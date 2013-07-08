@@ -6,7 +6,7 @@ module AngularHostHelper
     when 'phonegap'
       host = 'https://consilium.scigit.com'
     when 'phonegap_staging'
-      host = 'https://scigit-consilium-staging.herokuapp.com'
+      host = 'https://consilium-staging.scigit.com'
     end
 
     host + path
