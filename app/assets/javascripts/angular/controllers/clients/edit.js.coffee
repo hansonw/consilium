@@ -96,6 +96,24 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       $timeout.cancel($scope._saveTimer)
   )
 
+  $scope.openCamera = () ->
+    $('#camera').css({
+        position:'absolute',
+        top: 0,
+        left: 0,
+        height: '100%',
+        width: '100%'
+    });
+
+  $scope.closeCamera = () ->
+    $('#camera').css({
+        position:'absolute',
+        top: 0,
+        left: 0,
+        height: 0,
+        width: 0,
+    });
+
   $scope.toggleRadio = (objName, value) ->
     if !$scope.clientChangeId
       # It's assumed that value does not have to be quote-escaped.
