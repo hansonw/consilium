@@ -14,6 +14,21 @@ App.factory 'AuthToken', ['$resource', ($resource) ->
     obj.email = authToken.email
     obj.auth_token = authToken.auth_token
     obj
+  wrapActions: (resource, actions) ->
+    authTokenWrapper = (resource, action) ->
+      authToken = @get
+
+      resource["_" + action] = resource[action]
+
+      resource[action] = (data, success, error) ->
+        resource["_" + action] angular.extend({}, data or {},
+          email: authToken.email
+          auth_token: authToken.auth_token
+        ), success, error
+
+    wrappedResource = resource
+    authTokenWrapper(action) for action in actions
+    wrappedResource
 ]
 
 App.factory 'AuthSessionStatus', [ ->
