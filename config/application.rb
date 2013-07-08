@@ -30,5 +30,12 @@ module Consilium
     # TODO: We shouldn't need these to be able to target PhoneGap.
     config.assets.paths << Rails.root.join('public', 'font')
     config.assets.paths << Rails.root.join('public', 'images')
+
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :post, :put, :options]
+      end
+    end
   end
 end
