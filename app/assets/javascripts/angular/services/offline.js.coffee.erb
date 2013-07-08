@@ -235,7 +235,7 @@ App.factory 'Offline', ['$timeout', 'AuthToken', ($timeout, AuthToken) -> {
             @defer(=> error(data)) if error
 
         if online()
-          resource.query(params || {},
+          resource.query(AuthToken.addAuthTokenToJSONRequest(params),
             (data) =>
               for result in data
                 if params['short']
