@@ -14,24 +14,6 @@ App.factory 'AuthToken', ['$resource', ($resource) ->
     obj.email = authToken.email
     obj.auth_token = authToken.auth_token
     obj
-  wrapActions: (resource, actions) ->
-    self = @
-    actions = actions || ["query", "get", "update"]
-
-    authTokenWrapper = (resource, action) ->
-      authToken = $.parseJSON(self.get() || {})
-
-      resource["_" + action] = resource[action]
-
-      resource[action] = (data, success, error) ->
-        resource["_" + action] angular.extend({}, data or {},
-          email: authToken.email
-          auth_token: authToken.auth_token
-        ), success, error
-
-    wrappedResource = resource
-    authTokenWrapper(wrappedResource, action) for action in actions
-    wrappedResource
 ]
 
 App.factory 'AuthSessionStatus', [ ->
@@ -89,6 +71,23 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
     )
   watch: (fn) ->
     @_watches.push fn
+  wrapActions: (resource, actions) ->
+    actions = actions || ["query", "get", "update"]
+
+    authTokenWrapper = (resource, action) ->
+      authToken = $.parseJSON(AuthToken.get() || {})
+
+      resource["_" + action] = resource[action]
+
+      resource[action] = (data, success, error) ->
+        resource["_" + action] angular.extend({}, data or {},
+          email: authToken.email
+          auth_token: authToken.auth_token
+        ), success, error
+
+    wrappedResource = resource
+    authTokenWrapper(wrappedResource, action) for action in actions
+    wrappedResource
   sessionExpired: ->
     if @_isLoggedIn
       @_isLoggedIn = false

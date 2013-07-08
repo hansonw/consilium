@@ -1,7 +1,7 @@
 <% environment.context_class.instance_eval { include ActionView::Helpers } %>
 <% environment.context_class.instance_eval { include AngularHostHelper } %>
 
-App.factory 'ClientChange', ['$resource', 'AuthToken', ($resource, AuthToken) ->
+App.factory 'ClientChange', ['$resource', 'Auth', ($resource, Auth) ->
   resource = $resource('<%= angularApiPath('/api/client_changes/:id') %>', {format: 'json', id: '@id'}, {'save': {method: 'PUT'}})
-  return AuthToken.wrapActions(resource)
+  return Auth.wrapActions(resource)
 ]
