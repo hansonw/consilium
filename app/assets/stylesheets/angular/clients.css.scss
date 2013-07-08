@@ -10,19 +10,6 @@
     padding-left: $client-form-nav-width + $client-form-nav-padding + 10px;
   }
 
-  .form-content {
-    @include transition();
-
-    width: 100%;
-    display: inline-block;
-
-    @include respond-to(handhelds) {
-      button {
-        display: inline-block;
-      }
-    }
-  }
-
   .form-nav {
     @include transition();
 
@@ -101,6 +88,19 @@
     .section-edit {
       @include respond-to(widescreens) { width:146px; }
       @include respond-to(desktops) { width:146px;}
+    }
+  }
+}
+
+.form-content {
+  @include transition();
+
+  width: 100%;
+  display: inline-block;
+
+  @include respond-to(handhelds) {
+    button {
+      display: inline-block;
     }
   }
 }

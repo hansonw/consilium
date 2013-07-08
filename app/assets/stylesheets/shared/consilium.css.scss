@@ -159,9 +159,7 @@ body {
       padding-bottom: $view-padding;
 
       // "Hide" the menu.
-      @include respond-to(desktops, widescreens) {
-        padding-left: 0;
-      }
+      padding-left: 0;
 
       .content {
         @include respond-to(handhelds) {margin: auto;}
