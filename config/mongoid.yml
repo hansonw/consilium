@@ -81,7 +81,15 @@ production:
       options:
         skip_version_check: true
         safe: true
+# Neither of these should ever get used, but if you want to test locally while
+# in the phonegap env, you can.
 phonegap:
+  sessions:
+    default:
+      database: consilium_development
+      hosts:
+        - localhost:27017
+phonegap-staging:
   sessions:
     default:
       database: consilium_development

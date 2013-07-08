@@ -2,7 +2,7 @@
 <html data-ng-app="Consilium">
 <head>
   <title>Consilium</title>
-  <% if Rails.env.phonegap? %>
+  <% if Rails.env.phonegap? || Rails.env.phonegap-staging? %>
     <% # XXX: These will have already been minified by the PhoneGap build path. %>
     <link href="css/application.css" media="all" rel="stylesheet" />
     <script src="js/application.js"></script>
@@ -17,7 +17,7 @@
     }
   </script>
 
-  <% if Rails.env.phonegap? %>
+  <% if Rails.env.phonegap? || Rails.env.phonegap-staging? %>
     <% angularAllTemplates.each do |path, content| %>
       <script type="text/ng-template" id="<%= path %>">
        <%= raw content %>
