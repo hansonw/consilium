@@ -15,8 +15,9 @@ App.factory 'AuthToken', ['$resource', ($resource) ->
     obj.auth_token = authToken.auth_token
     obj
   wrapActions: (resource, actions) ->
+    self = @
     authTokenWrapper = (resource, action) ->
-      authToken = @get
+      authToken = $.parseJSON(self.get() || {})
 
       resource["_" + action] = resource[action]
 
