@@ -1,3 +1,24 @@
+require 'rubygems'
+require 'zip/zip'
+require 'find'
+require 'fileutils'
+
+class Zipper
+  def self.zip(dir, zip_dir)
+    Zip::ZipFile.open(zip_dir, Zip::ZipFile::CREATE) do |zipfile|
+      Find.find(dir) do |path|
+        Find.prune if File.basename(path)[0] == ?.
+        dest = /#{dir}\/(\w.*)/.match(path.to_s)
+          # Skip files if they exists
+          begin
+            zipfile.add(dest[1],path) if dest
+          rescue Zip::ZipEntryExistsError
+          end
+      end
+    end
+  end
+end
+
 namespace :phonegap do
   desc "Export website as PhoneGap application."
   task :export => :environment do
@@ -69,6 +90,10 @@ namespace :phonegap do
     # Copy config file
     puts "* copying config.xml"
     FileUtils.cp File.dirname(__FILE__) + "/config.xml", project_path
+
+    # Zip up the project
+    puts "Zipping up project to: #{project_path}/consilium.zip"
+    Zipper.zip(project_path, "#{project_path}/consilium.zip")
 
     # Fix relative paths and configure API server
     #css_file_path = "#{project_path}/css/application.css"
