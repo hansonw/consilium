@@ -131,44 +131,6 @@ body {
     padding: 20px;
   }
 
-   #cameraOptions {
-    margin: 3px auto;
-  }
-
-  #camera {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    margin:0px;
-    background: white;
-  }
-
-  #shoot {
-    position: relative;
-    bottom: 0px;
-    display:inline-block;
-  }
-
-  #settings {
-    position: relative;
-    bottom: 0px;
-    display:inline-block;
-  }
-
-  #close {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-
-  #cameraBar {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
-
   /**
    * Must be used below a position:absolute element that you want to center it in.
    */
