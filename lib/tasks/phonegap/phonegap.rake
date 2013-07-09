@@ -6,33 +6,37 @@ namespace :phonegap do
     puts "Exporting PhoneGap project"
 
     case Rails.env
-    when 'phonegap', 'phonegap-staging'
+    when "phonegap", "phonegap_staging"
     else
-      puts 'rake phonegap:export must be run under the "phonegap" or "phonegap-staging" environments'
+      puts "rake phonegap:export must be run under the \"phonegap\" or \"phonegap_staging\" environments"
       next
     end
 
     assetsPath = Rails.application.assets
 
-    project_path = Rails.root.join('phonegap')
+    project_path = Rails.root.join("phonegap")
+    puts "Project path: #{project_path}"
+
+    puts "* Clobbering project path"
+    FileUtils.rm_rf project_path
     FileUtils.mkdir_p project_path
 
     # Export js assets
-    puts '* javascript assets'
+    puts "* javascript assets"
     FileUtils.mkdir_p "#{project_path}/js"
     file = File.open("#{project_path}/js/application.js", "w")
     file.write assetsPath['application.js']
     file.close
 
     # Export css assets
-    puts '* css assets'
+    puts "* css assets"
     FileUtils.mkdir_p "#{project_path}/css"
     file = File.open("#{project_path}/css/application.css", "w")
     file.write assetsPath['angular.css']
     file.close
 
     # Export images
-    puts '* images folder'
+    puts "* images folder"
     #FileUtils.mkdir_p "#{project_path}/assets"
     FileUtils.mkdir_p "#{project_path}/images"
     #other_paths = Rails.configuration.assets.paths.select {|x| x =~ /\/fonts$|\/images$/}
@@ -45,7 +49,7 @@ namespace :phonegap do
     end
 
     # Export fonts folder
-    puts '* fonts folder'
+    puts "* fonts folder"
     FileUtils.mkdir_p "#{project_path}/font"
     other_paths = Rails.configuration.assets.paths.select {|x| x.to_s.ends_with?('font') }
     other_paths.each do |path|
@@ -56,11 +60,15 @@ namespace :phonegap do
     end
 
     # Export all layouts
-    puts '* layouts (index.html)'
+    puts "* layouts (index.html)"
     public_source = File.expand_path('../../../../public', __FILE__)
     file = File.open("#{project_path}/index.html", "w")
     file.write angularRenderRoot
     file.close
+
+    # Copy config file
+    puts "* copying config.xml"
+    FileUtils.cp File.dirname(__FILE__) + "/config.xml", project_path
 
     # Fix relative paths and configure API server
     #css_file_path = "#{project_path}/css/application.css"
