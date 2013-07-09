@@ -33,7 +33,7 @@ namespace :phonegap do
       next
     end
 
-    assetsPath = Rails.application.assets
+    assets_path = Rails.application.assets
 
     project_path = Rails.root.join("phonegap")
     puts "Project path: #{project_path}"
@@ -46,36 +46,27 @@ namespace :phonegap do
     puts "* javascript assets"
     FileUtils.mkdir_p "#{project_path}/js"
     file = File.open("#{project_path}/js/application.js", "w")
-    file.write assetsPath['application.js']
+    file.write assets_path['application.js']
     file.close
 
     # Export css assets
     puts "* css assets"
     FileUtils.mkdir_p "#{project_path}/css"
     file = File.open("#{project_path}/css/application.css", "w")
-    file.write assetsPath['angular.css']
+    file.write assets_path['angular.css']
     file.close
 
-    # Export images
-    puts "* images folder"
-    FileUtils.mkdir_p "#{project_path}/images"
-    #other_paths = Rails.configuration.assets.paths.select {|x| x =~ /\/fonts$|\/images$/}
-    other_paths = Rails.configuration.assets.paths.select {|x| x.to_s.ends_with?('images') }
-    other_paths.each do |path|
-      files = Dir.glob("#{path}/*.*")
-      files.each do |file|
-        FileUtils.cp file, "#{project_path}/images/"
-      end
-    end
+    # Export public folder
+    puts "* public folder"
+    public_path = Rails.root.join("public")
 
-    # Export fonts folder
-    puts "* fonts folder"
-    FileUtils.mkdir_p "#{project_path}/font"
-    other_paths = Rails.configuration.assets.paths.select {|x| x.to_s.ends_with?('font') }
-    other_paths.each do |path|
-      files = Dir.glob("#{path}/*.*")
-      files.each do |file|
-        FileUtils.cp file, "#{project_path}/font/"
+    Dir.foreach public_path do |file|
+      next if file == "." or file == ".."
+
+      path = public_path + file
+
+      if !File.symlink?(path)
+        FileUtils.cp_r path, "#{project_path}/"
       end
     end
 
