@@ -60,11 +60,12 @@ module ClientsHelper
               ng-model='#{model}' placeholder='#{field[:placeholder]}'
               #{field[:required] && 'required'}
               #{field[:disabled] && 'disabled'}
-              #{field[:validatePhone] && 'validate-phone'}
               #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
               #{field[:maxlength] && "ng-maxlength='#{field[:maxlength]}'"}
               #{field[:min] && "ng-min='#{field[:min]}'"}
               #{field[:max] && "ng-max='#{field[:max]}'"}
+              #{field[:pattern] && "pattern='#{field[:pattern]}'"}
+              #{field[:errorMessage] && "title='#{field[:errorMessage]}'"}
             />"
     end
 

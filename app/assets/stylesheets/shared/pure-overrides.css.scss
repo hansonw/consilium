@@ -170,7 +170,7 @@ button, input, select, textarea {
         @include respond-to(handhelds) { display: table-row; }
       }
 
-      input[type="text"], input[type="email"], input[type="password"] {
+      input[type="text"], input[type="email"], input[type="password"], input[type="currency"] {
         display: table-cell;
         width: 100%;
         @include respond-to(handhelds) { display: table-row; margin: 3px 0; }
