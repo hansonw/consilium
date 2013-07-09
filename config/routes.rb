@@ -7,9 +7,13 @@ Consilium::Application.routes.draw do
 
   scope :api do
     resources :clients, :controller => 'api/clients'
+    post 'clients/:id' => 'api/clients#create'
+
     resources :documents, :controller => 'api/documents'
-    resources :client_changes, :controller => 'api/client_changes'
     put 'documents' => 'api/documents#update'
+
+    resources :client_changes, :controller => 'api/client_changes'
+
     post 'auth/login' => 'api/auth#login'
     get 'auth/logout' => 'api/auth#logout'
   end

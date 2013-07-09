@@ -13,10 +13,10 @@ class Api::ClientChangesController < Api::ApiController
         ret[:id] = val.to_s
       elsif key == "user_id"
         ret[:user_id] = val.to_s
-        ret[:user_email] = obj.user.email
+        ret[:user_email] = obj.user ? obj.user.email : 'deleted'
       elsif key == "client_id"
         ret[:client_id] = val.to_s
-        ret[:client_name] = obj.client.name['value']
+        ret[:client_name] = obj.client ? obj.client.name['value'] : 'deleted'
       elsif key == "created_at"
         # convert to milliseconds, Javascript's default format
         ret[key] = (val.to_f * 1000).to_i

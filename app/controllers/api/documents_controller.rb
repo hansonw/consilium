@@ -13,7 +13,7 @@ class Api::DocumentsController < Api::ApiController
         ret[:id] = val.to_s
       elsif key == "user_id"
         ret[:user_id] = val.to_s
-        ret[:user_email] = obj.user.email
+        ret[:user_email] = obj.user ? obj.user.email : 'deleted'
       elsif key == "client_change_id"
         ret[:client_change_id] = val.to_s
       elsif key == "created_at"
@@ -31,7 +31,7 @@ class Api::DocumentsController < Api::ApiController
   def index
     @documents = Document.all
     if params[:client_id]
-      @documents = @documents.where('client_id' => Moped::BSON::ObjectId(params[:client_id]))
+      @documents = @documents.where('client_id' => params[:client_id])
     end
     @documents = @documents.desc(:created_at)
 

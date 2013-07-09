@@ -146,7 +146,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
         # TODO: these should be modals or something.
         if data.status == 410 # Deleted on the server
           if confirm('This document was deleted by another user. Continue working on it?')
-            $scope.client.generate_id()
+            $scope.client.generateId()
             $timeout($scope.saveForm, 0) # defer
           else
             $location.path('/clients')

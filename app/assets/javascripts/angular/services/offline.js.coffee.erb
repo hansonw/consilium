@@ -77,31 +77,42 @@ class LocalStorage
     @get_db()? && (key for val, key of @get_db())
 
 # Wraps an angular HTTP resource with offline functionality.
-App.factory 'Offline', ['$timeout', 'AuthToken', ($timeout, AuthToken) -> {
+App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeout, AuthToken) -> {
   online: online,
 
   # key - index to use for local storage DB
-  # resource - base angular HTTP resource
+  # resource_url - HTTP resource URL
   # match_fn - select function (for query/get)
-  wrap: (key, resource, match_fn = defaultMatch) ->
+  wrap: (key, resource_url, match_fn = defaultMatch) ->
+    resource = $resource(resource_url, {format: 'json', id: '@id'}, {
+      'save': {method: 'PUT'},
+      'create': {method: 'POST'}
+    })
     storage = new LocalStorage(key)
     class OfflineResource
       constructor: (data = {}) ->
         rsrc = new resource(data)
         angular.extend(this, rsrc)
         # Generate a nearly guaranteed unique id.
-        @generate_id() if !@id
+        @generateId() if !@id
         @_save = rsrc.$save.bind(this)
+        @_create = rsrc.$create.bind(this)
         @_delete = rsrc.$delete.bind(this)
 
-      generate_id: ->
-        @id = 'local-' + Date.now() + '-' + Math.floor(Math.random() * 1e9)
+      _pad: (str, len) ->
+        while str.length < len
+          str = '0' + str
+        return str
+
+      isNew: ->
+        @IS_NEW
+
+      generateId: ->
+        @id = Date.now().toString(16) + @_pad(Math.floor(Math.random() * 1e9).toString(16), 9)
+        @IS_NEW = true
 
       getData: ->
         getData(this)
-
-      isNew: ->
-        @id.indexOf('local') == 0
 
       $save: (success, error) ->
         existing = storage.get(@id)
@@ -110,10 +121,9 @@ App.factory 'Offline', ['$timeout', 'AuthToken', ($timeout, AuthToken) -> {
             @[key].updated_at = Date.now() # Estimate. Will be updated by the server
 
         if online()
-          @_save(AuthToken.addAuthTokenToJSONRequest({}), (data) =>
+          save_fn = if @isNew() then @_create else @_save
+          save_fn(AuthToken.addAuthTokenToJSONRequest({}), (data) =>
             # Delete the temporary model from the local DB if it exists.
-            if @isNew()
-              storage.delete(@id, true)
             angular.extend(this, data)
             storage.insert(data)
             angular.extend(this, storage.get(@id))
@@ -170,7 +180,7 @@ App.factory 'Offline', ['$timeout', 'AuthToken', ($timeout, AuthToken) -> {
                 offline.id = id
                 offline.$delete()
                 storage.delete(id, true)
-              else if val.id.indexOf('local') == 0
+              else if val.IS_NEW
                 offline = new OfflineResource(val)
                 offline.$save()
               else if !serverIds[id]

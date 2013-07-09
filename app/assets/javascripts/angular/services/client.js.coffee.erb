@@ -1,8 +1,8 @@
 <% environment.context_class.instance_eval { include ActionView::Helpers } %>
 <% environment.context_class.instance_eval { include AngularHostHelper } %>
 
-App.factory 'Client', ['$resource', 'Offline', ($resource, Offline) ->
-  Offline.wrap 'Client', $resource('<%= angularApiPath('/api/clients/:id') %>', {format: 'json', id: '@id'}, {'save': {method: 'PUT'}}),
+App.factory 'Client', ['Offline', (Offline) ->
+  Offline.wrap 'Client', '<%= angularApiPath('/api/clients/:id') %>',
     (params, val) ->
       if params.query?
         if !val.name?.value?.match?(///#{params.query}///i)? &&

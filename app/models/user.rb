@@ -1,6 +1,7 @@
 class User
   include Mongoid::Document
 
+  has_many :client_changes
   has_many :documents
 
   # Include default devise modules. Others available are:

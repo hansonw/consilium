@@ -15,6 +15,10 @@ class Api::ClientsController < Api::ApiController
     ret
   end
 
+  def valid_value(val)
+    return val.is_a?(Hash) && val['updated_at']
+  end
+
   # GET /clients
   # GET /clients.json
   def index
@@ -68,67 +72,21 @@ class Api::ClientsController < Api::ApiController
   def edit
   end
 
-  def get_description(new_client, old_client)
-    if old_client.nil?
-      return 'Created new client ' + new_client['name']['value']
-    end
-
-    # Get a list of changed fields
-    changed_fields = []
-    new_client.each do |key, val|
-      if defined?(val['value'])
-        if old_client[key] && val['value'] != old_client[key]['value'] ||
-           old_client[key].nil?
-          changed_fields << key
-        end
-      end
-    end
-
-    old_client.each do |key, val|
-      if new_client[key].nil?
-        changed_fields << key
-      end
-    end
-
-    changed_fields = changed_fields.sort.map do |field_id|
-      field_id.underscore.humanize.downcase
-    end
-
-    if changed_fields.empty?
-      return nil
-    end
-
-    return 'Edited ' + changed_fields.join(', ')
-  end
-
-  # PUT /clients/:id
-  # PUT /clients/:id.json
-  # Creates if a non-existent ID is provided.
-  def update
-    @client = Client.new(client_params)
+  # POST /clients/:id
+  def create
+     @client = Client.new(client_params)
 
     # Don't allow client timestamps to exceed the server time
     # (otherwise client can provide an arbitrarily large one to prevent future editing)
     cur_time = (Time.now.to_f * 1000).to_i
 
-    # If an ID is provided, try looking it up first
     if existing = Client.where(:id => params[:id]).first
-      # Sync all fields
-      @client.attributes.each do |key, val|
-        if defined?(val['updated_at']) &&
-           (!defined?(existing[key]['updated_at']) || val['updated_at'] > existing[key]['updated_at'])
-          existing[key] = val
-          existing[key]['updated_at'] = [val['updated_at'], cur_time].min
-        end
-      end
-      @client = existing
-    elsif !params[:id].starts_with?('local')
-      # Must have been deleted by someone else.
-      render json: '', status: :gone
+      render json: '', status: :conflict
       return
     else
+      @client._id = params[:id]
       @client.attributes.each do |key, val|
-        if defined?(val['updated_at'])
+        if valid_value(val)
           val['updated_at'] = [val['updated_at'], cur_time].min
         end
       end
@@ -136,27 +94,43 @@ class Api::ClientsController < Api::ApiController
 
     respond_to do |format|
       if @client.save
-        # Create a new client change if necessary.
-        changes = ClientChange.where('client_id' => @client.id).desc(:updated_at)
-        last_change = changes.first
-        if !last_change.nil? && last_change.user_id == @user.id && Time.now - last_change.updated_at < 60
-          # Merge into previous if it's within a minute
-          if last_change.description = get_description(@client.attributes, changes.second && changes.second.client_data)
-            last_change.client_data = @client.attributes
-            last_change.save
-          else
-            last_change.delete # Changes got reverted
-          end
-        else
-          if desc = get_description(@client.attributes, last_change && last_change.client_data)
-            ClientChange.new(
-              :user_id => @user.id,
-              :client_id => @client.id,
-              :client_data => @client.attributes,
-              :description => desc,
-            ).save
-          end
+        ClientChange.update_client(@client, @user.id)
+        format.json { render json: get_json(@client) }
+      else
+        format.json { render json: @client.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /clients/:id
+  # PUT /clients/:id.json
+  def update
+    @client = Client.new(client_params)
+
+    # Don't allow client timestamps to exceed the server time
+    # (otherwise client can provide an arbitrarily large one to prevent future editing)
+    cur_time = (Time.now.to_f * 1000).to_i
+
+    if existing = Client.where(:id => params[:id]).first
+      # Sync all fields
+      @client.attributes.each do |key, val|
+        if valid_value(val) &&
+           (!valid_value(existing[key]) || val['updated_at'] > existing[key]['updated_at'])
+          existing[key] = val
+          existing[key]['updated_at'] = [val['updated_at'], cur_time].min
         end
+      end
+      @client = existing
+    else
+      # Must have been deleted by someone else.
+      render json: '', status: :gone
+      return
+    end
+
+    respond_to do |format|
+      if @client.save
+        # Create a new client change if necessary.
+        ClientChange.update_client(@client, @user.id)
         format.json { render json: get_json(@client) }
       else
         format.json { render json: @client.errors, status: :unprocessable_entity }

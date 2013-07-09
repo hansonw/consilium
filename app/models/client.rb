@@ -2,6 +2,9 @@ class Client
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
 
+  has_many :client_changes, dependent: :delete
+  has_many :documents, dependent: :delete
+
   FIELDS = [
     {
       :name => 'Name',
