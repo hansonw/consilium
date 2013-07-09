@@ -72,14 +72,14 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Rece
     $location.hash(old)
 
   $rootScope.menuItems = [
-    name: 'Create Client'
-    link: '/clients/new',
+    name: 'Home',
+    link: '/index'
   ,
-    name: 'Search Clients'
-    link: '/clients/index'
+    name: 'Clients'
+    link: '/clients/index',
   ,
-    name: 'Recent Clients'
-    link: '/clients/recent'
+    name: 'Brokers'
+    link: '/brokers/index'
   ]
 
   $rootScope._curMenuItem = null
@@ -105,7 +105,13 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Rece
       $timeout((-> $location.path(path)), 50)
 
   $rootScope.menuItemIsSelected = (path) ->
-    return $location.path().substr(0, path.length) == path
+    regex = /(\/)index+$/
+    location = $location.path().replace regex, ''
+    if path == $rootScope.menuItems[0].link or path == '/'
+      return location == $rootScope.menuItems[0].link or location == ''
+    else
+      path = path.replace regex, ''
+      return location.substr(0, path.length) == path
 
   $rootScope.subMenuItemSelect = (path) ->
     $rootScope._showSubMenu = false

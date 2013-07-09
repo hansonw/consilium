@@ -85,6 +85,11 @@ body {
 
     @include respond-to(handhelds) { padding: 0; }
 
+    .header-buttons {
+      float: right;
+      margin-top: -30px;
+    }
+
     .breadcrumbs {
       .divider {
         color: #ccc;
@@ -132,6 +137,23 @@ body {
 
     @include respond-to(handhelds, tablets) {
       width: 90%;
+    }
+  }
+
+  .table-header {
+    margin-bottom: 20px;
+    display: table;
+
+    > * {
+      display: table-cell;
+    }
+
+    .table-search {
+      width: 100%;
+    }
+
+    .table-buttons {
+      text-align: right;
     }
   }
 }

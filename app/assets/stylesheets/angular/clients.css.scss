@@ -169,105 +169,140 @@
   }
 }
 
-.client-search {
-  @include transition();
+.search-controls {
+  $search-height: 32px;
+  $search-button-width: 55px;
 
-  width: 100%;
-  display: inline-block;
+  height: $search-height;
 
-  .search {
-    $search-button-width: 55px;
+  input {
+    display: inline-block !important; // Override pure setting this in an @media query.
+    height: $search-height;
+    width: 50%;
+    min-width: 150px;
+  }
 
-    padding: 20px;
-    text-align: right;
-    margin-bottom: 20px;
+  // TODO: This is too poorly done for now. We should come back to it.
+  //.spinner {
+  //  position: absolute;
+  //  display: inline-block;
+  //  margin-left: -30px;
+  //  margin-top: 7px;
+  //  opacity: 0;
+  //  &.loading {
+  //    opacity: 1;
+  //  }
+  //}
 
-    .search-controls {
-      $search-height: 30px;
-
-      height: $search-height;
-
-      input {
-        vertical-align: top;
-        height: $search-height;
-        width: 100%;
-        margin-bottom: 0;
-      }
-
-      // TODO: This is too poorly done for now. We should come back to it.
-      //.spinner {
-      //  position: absolute;
-      //  display: inline-block;
-      //  margin-left: -30px;
-      //  margin-top: 7px;
-      //  opacity: 0;
-      //  &.loading {
-      //    opacity: 1;
-      //  }
-      //}
-
-      button#btnSearch {
-        margin-top: -$search-height;
-        vertical-align: top;
-        width: $search-button-width;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        height: $search-height;
-        display: inline-block;
-      }
-    }
-
-    .advanced-search {
-      @include transition();
-
-      margin-top: 10px;
-      text-align: right;
-      position: relative;
-      height: 16px;
-      overflow: hidden;
-
-      &.active {
-        height: 190px;
-      }
-
-      .advanced-search-inner {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        left: 0;
-
-        .advanced-search-fields {
-          $advanced-search-label-width: 80px;
-
-          margin-bottom: 15px;
-          display: table;
-          width: 100%;
-          border-spacing: 4px;
-
-          .advanced-search-field {
-            margin: 10px 0;
-            display: table-row;
-
-            * {
-              margin: 4px;
-            }
-
-            label {
-              display: table-cell;
-              width: $advanced-search-label-width;
-              margin-right: 5px;
-            }
-
-            input {
-              display: table-cell;
-              width: 100%;
-            }
-          }
-        }
-      }
-    }
+  button#btnSearch {
+    margin-left: -$search-button-width;
+    width: $search-button-width;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    height: $search-height;
+    display: inline-block;
   }
 }
+
+//.client-search {
+//  @include transition();
+//
+//  width: 100%;
+//  display: inline-block;
+//
+//  .search {
+//    $search-button-width: 55px;
+//
+//    padding: 20px;
+//    text-align: right;
+//    margin-bottom: 20px;
+//
+//    .search-controls {
+//      $search-height: 30px;
+//
+//      height: $search-height;
+//
+//      input {
+//        vertical-align: top;
+//        height: $search-height;
+//        width: 100%;
+//        margin-bottom: 0;
+//      }
+//
+//      // TODO: This is too poorly done for now. We should come back to it.
+//      //.spinner {
+//      //  position: absolute;
+//      //  display: inline-block;
+//      //  margin-left: -30px;
+//      //  margin-top: 7px;
+//      //  opacity: 0;
+//      //  &.loading {
+//      //    opacity: 1;
+//      //  }
+//      //}
+//
+//      button#btnSearch {
+//        margin-top: -$search-height;
+//        vertical-align: top;
+//        width: $search-button-width;
+//        border-top-left-radius: 0;
+//        border-bottom-left-radius: 0;
+//        height: $search-height;
+//        display: inline-block;
+//      }
+//    }
+//
+//    .advanced-search {
+//      @include transition();
+//
+//      margin-top: 10px;
+//      text-align: right;
+//      position: relative;
+//      height: 16px;
+//      overflow: hidden;
+//
+//      &.active {
+//        height: 190px;
+//      }
+//
+//      .advanced-search-inner {
+//        position: absolute;
+//        bottom: 0;
+//        right: 0;
+//        left: 0;
+//
+//        .advanced-search-fields {
+//          $advanced-search-label-width: 80px;
+//
+//          margin-bottom: 15px;
+//          display: table;
+//          width: 100%;
+//          border-spacing: 4px;
+//
+//          .advanced-search-field {
+//            margin: 10px 0;
+//            display: table-row;
+//
+//            * {
+//              margin: 4px;
+//            }
+//
+//            label {
+//              display: table-cell;
+//              width: $advanced-search-label-width;
+//              margin-right: 5px;
+//            }
+//
+//            input {
+//              display: table-cell;
+//              width: 100%;
+//            }
+//          }
+//        }
+//      }
+//    }
+//  }
+//}
 
 .client-show {
   padding-top: 20px;
