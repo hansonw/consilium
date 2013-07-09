@@ -1,4 +1,7 @@
-# This doubles as the new client view (if no client ID is provided)
+
+
+
+
 App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$location', 'Client', 'ClientChange', 'RecentClients', 'Auth', 'Modal',\
                                    ($scope, $routeParams, $timeout, $location, Client, ClientChange, RecentClients, Auth, Modal) ->
   Auth.checkLogin()
@@ -96,6 +99,23 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       $timeout.cancel($scope._saveTimer)
   )
 
+  camera.onchange = (e) ->
+    files = e.target.files
+    # img.src = URL.createObjectURL(files[0])  if files.length > 0 and files[0].type.indexOf("image/") is 0
+
+  gotPic = (event) ->
+    $(".yourimage").attr "src", URL.createObjectURL(event.target.files[0])  if event.target.files.length is 1 and event.target.files[0].type.indexOf("image/") is 0
+    alert URL.createObjectURL(event.target.files[0])
+
+  desiredWidth = undefined
+  $(document).ready ->
+    $(".takePictureField").on "change", gotPic
+    $(".yourimage").load
+    desiredWidth = window.innerWidth
+    window.URL = window.webkitURL  if ("url" not of window) and ("webkitURL" of window)
+
+
+
   $scope.openCamera = () ->
     $('#camera').css({
         position:'absolute',
@@ -113,6 +133,11 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
         height: 0,
         width: 0,
     });
+
+  $sccapturePhoto = ->
+    navigator.camera.getPicture uploadPhoto, null,
+      sourceType: 1
+      quality: 60
 
   $scope.toggleRadio = (objName, value) ->
     if !$scope.clientChangeId

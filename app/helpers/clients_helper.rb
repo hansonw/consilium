@@ -106,14 +106,26 @@ module ClientsHelper
       r="<div style='' name='#{field[:id]}' ng-model='#{model}' 
                 #{field[:required] && 'required'}
                 #{field[:disabled] && 'disabled'}
-                class='' id='cameraOptions'>
-                <a data-ng-click='openCamera()' class='pure-button pure-button-primary' style=''><i class='icon-camera'></i></a>
+                id='cameraOptions'>
+                <div class='well' >
+                <a id='theCamera' data-ng-click='openCamera()' class='pure-button pure-button-primary' style=''><i class='icon-camera'></i></a>
                 <a data-ng-click='openCamera()' class='pure-button pure-button-primary' style=''><i class='icon-cog'></i></a>
+                <input type='file' capture='camera' accept='image/*' class='takePictureField' />
+                <img class='yourimage'/>
+                </div>
+                <textarea name='#{field[:id]}' ng-model='#{model}'
+                placeholder='#{field[:placeholder]}'
+                #{field[:required] && 'required'}
+                #{field[:disabled] && 'disabled'}
+                rows='#{field[:boxRows]}'
+               /></textarea>
                 <div id='camera'>
-                <a id='close' data-ng-click='closeCamera()' class='pure-button pure-button-primary' style=''><i class='icon-remove'></i></a>
-                <div id='cameraBar'>
-                <a id='shoot' data-ng-click='closeCamera()' data-ng-show='!clientChangeId' type='submit' class='pure-button pure-button-primary' style=''><i class='icon-camera'></i></a>
-                <a id='settings' data-ng-click='closeCamera()' class='pure-button pure-button-primary' style=''><i class='icon-cog'></i></a>
+                <img class='yourimage'/>
+                <a id='closeCameraTab' data-ng-click='closeCamera()' class='pure-button pure-button-primary' style=''><i class='icon-remove'></i></a>
+                <div id='cameraNavBar'>
+                <input type='file' capture='camera' accept='image/*' class='takePictureField' />
+                <a id='CapturePhoto' data-ng-click='closeCamera()' class='pure-button pure-button-primary' style=''><i class='icon-camera'></i></a>
+                <a id='settingsCamera' data-ng-click='closeCamera()' class='pure-button pure-button-primary' style=''><i class='icon-cog'></i></a>
                 </div>
                 </div>
               </div>"

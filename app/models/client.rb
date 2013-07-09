@@ -414,12 +414,13 @@ class Client
         {
           :name => 'Payment Type',
           :id => 'paymentType',
-          :type => 'dropdown',
-          :options => [
-            'Company Bill',
-            'Broker/Agent Bill',
-            'Other',
-          ],
+          :type => 'checkbox',
+          :options => {
+            'companyBill' => 'Company Bill',
+            'brokerBill' => 'Broker/Agent Bill',
+            'other' => 'Other',
+          },
+          :otherPlaceholder => 'Specify', 
         },
       ],
     },
@@ -1225,12 +1226,7 @@ class Client
             'Owner-operator',
             'Other',
           ],
-        },
-        {
-          :name => 'Finance Company',
-          :id => 'financeCompany',
-          :placeholder => 'Some Truck Co.',
-          :type => 'text',
+          :otherPlaceholder => 'Specify', 
         },
         {
           :name => 'Year',
@@ -1269,6 +1265,12 @@ class Client
           :type => 'text',
         },
         {
+          :name => 'Lessor',
+          :id => 'lessor',
+          :placeholder => '(ex. Owned)',
+          :type => 'text',
+        },
+        {
           :name => 'Date Added',
           :id => 'dateAdded',
           :type => 'date',
@@ -1277,6 +1279,78 @@ class Client
           :name => 'Policy Expiry',
           :id => 'policyExpiry',
           :type => 'date',
+        },
+        {
+          :name => 'Deleted',
+          :id => 'deleted',
+          :placeholder => '(ex. mm/dd/yyyy)',
+          :type => 'text',
+        },
+        {
+          :name => 'Premium',
+          :id => 'premium',
+          :placeholder => '$ (ex. 1111)',
+          :type => 'text',
+        },
+        {
+          :name => 'Premium Credit',
+          :id => 'premiumCredit',
+          :placeholder => '$ (ex. 1111)',
+          :type => 'text',
+        },
+        {
+          :name => 'Cargo',
+          :id => 'cargo',
+          :placeholder => '$ (ex. 1111)',
+          :type => 'text',
+        },
+        {
+          :name => 'Cargo Credit',
+          :id => 'CargoCredit',
+          :placeholder => '$ (ex. 1111)',
+          :type => 'text',
+        },
+      ],
+    },
+    {
+      :name => 'Umbrella',
+      :id => 'umbrella',
+      :type => [
+        {
+          :name => 'Policy Number',
+          :id => 'policyNumber',
+          :placeholder => '# (ex. AAA1111111)',
+          :type => 'text',
+        },
+        {
+          :name => 'Insurer',
+          :id => 'insurer',
+          :placeholder => 'Name',
+          :type => 'text',
+        },
+        {
+          :name => 'Start Date',
+          :id => 'startDate',
+          :placeholder => 'mm/dd/yyyy',
+          :type => 'text',
+        },
+        {
+          :name => 'End Date',
+          :id => 'endDate',
+          :placeholder => 'mm/dd/yyyy',
+          :type => 'text',
+        },
+        {
+          :name => 'Type of Insurance',
+          :id => 'insuranceType',
+          :placeholder => '(ex. Auto Insurance)',
+          :type => 'text',
+        },
+        {
+          :name => 'Limit',
+          :id => 'limit',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
         },
       ],
     },
@@ -1349,19 +1423,20 @@ class Client
       :type => [
         {
           :name => '',
-          :id => 'photoTaker',
+          :id => 'photoCamera',
           :type => 'photo',
         },
         {
-          :name => 'Name',
-          :id => 'photoName',
-          :placeholder => '',
+          :name => 'Title',
+          :id => 'photoTitle',
+          :placeholder => 'Title of photo',
+          # :required => true,
           :type => 'text',
         },
         {
           :name => 'Notes',
           :id => 'photoNotes',
-          :placeholder => 'Take a note',
+          :placeholder => 'Note about the photo',
           :type => 'text',
         },
         {
