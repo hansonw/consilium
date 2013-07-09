@@ -166,6 +166,59 @@ $client-form-nav-padding: 50px;
   }
 }
 
+#cameraOptions {
+  margin: 3px auto;
+}
+
+#camera {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  margin:0px;
+  background: white;
+}
+
+#capturePhoto {
+  position: relative;
+  bottom: 0px;
+  display:inline-block;
+}
+
+#settingsCamera {
+  position: relative;
+  bottom: 0px;
+  display:inline-block;
+}
+
+#closeCameraTab {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#camera{ 
+  #cameraNavBar {
+    position: absolute;
+    bottom: 0;
+    background: rgb(224, 224, 224); 
+    background: rgba(212, 212, 212, .5);
+    color: #666;
+    text-align: right;
+    padding: 5px 0;
+    width: 100%;
+    margin: 0px;
+  }
+}
+
+#cameraOptions .yourimage {
+  max-height: 100%;
+  max-width: 100%;
+  display: table;
+  margin: 0px auto;
+}
+
 #toolbar {
   position: fixed;
 

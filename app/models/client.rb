@@ -414,12 +414,13 @@ class Client
         {
           :name => 'Payment Type',
           :id => 'paymentType',
-          :type => 'dropdown',
-          :options => [
-            'Company Bill',
-            'Broker/Agent Bill',
-            'Other',
-          ],
+          :type => 'checkbox',
+          :options => {
+            'companyBill' => 'Company Bill',
+            'brokerBill' => 'Broker/Agent Bill',
+            'other' => 'Other',
+          },
+          :otherPlaceholder => 'Specify', 
         },
       ],
     },
@@ -1225,12 +1226,7 @@ class Client
             'Owner-operator',
             'Other',
           ],
-        },
-        {
-          :name => 'Finance Company',
-          :id => 'financeCompany',
-          :placeholder => 'Some Truck Co.',
-          :type => 'text',
+          :otherPlaceholder => 'Specify', 
         },
         {
           :name => 'Year',
@@ -1447,19 +1443,20 @@ class Client
       :type => [
         {
           :name => '',
-          :id => 'photoTaker',
+          :id => 'photoCamera',
           :type => 'photo',
         },
         {
-          :name => 'Name',
-          :id => 'photoName',
-          :placeholder => '',
+          :name => 'Title',
+          :id => 'photoTitle',
+          :placeholder => 'Title of photo',
+          # :required => true,
           :type => 'text',
         },
         {
           :name => 'Notes',
           :id => 'photoNotes',
-          :placeholder => 'Take a note',
+          :placeholder => 'Note about the photo',
           :type => 'text',
         },
         {
