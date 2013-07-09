@@ -58,7 +58,6 @@ namespace :phonegap do
 
     # Export images
     puts "* images folder"
-    #FileUtils.mkdir_p "#{project_path}/assets"
     FileUtils.mkdir_p "#{project_path}/images"
     #other_paths = Rails.configuration.assets.paths.select {|x| x =~ /\/fonts$|\/images$/}
     other_paths = Rails.configuration.assets.paths.select {|x| x.to_s.ends_with?('images') }
@@ -94,27 +93,5 @@ namespace :phonegap do
     # Zip up the project
     puts "Zipping up project to: #{project_path}/consilium.zip"
     Zipper.zip(project_path, "#{project_path}/consilium.zip")
-
-    # Fix relative paths and configure API server
-    #css_file_path = "#{project_path}/css/application.css"
-    #css_file = File.read(css_file_path)
-    #new_css_file = css_file.gsub(/\/assets/, '../assets')
-    #file = File.open(css_file_path, "w")
-    #file.puts new_css_file
-    #file.close
-    #js_file_path = "#{project_path}/js/application.js"
-    #js_file = File.read(js_file_path)
-    #new_js_file = js_file.gsub(/src=\\"\//, 'src=\"')
-    #if @api_server.blank?
-    #  puts "Warning: No API server is specified for this app"
-    #else
-    #  if new_js_file =~ /href=\\"\//
-    #    puts "Relative paths found. Making absolute to reference API: #{@api_server}"
-    #    new_js_file.gsub!(/href=\\"\//, 'href=\"'+@api_server+'/')
-    #  end
-    #end
-    #file = File.open(js_file_path, "w")
-    #file.puts new_js_file
-    #file.close
   end
 end
