@@ -22,7 +22,8 @@ App.config ["$httpProvider", ($httpProvider) ->
   delete $httpProvider.defaults.headers.common['X-Requested-With']
 ]
 
-App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Offline', 'Auth', ($rootScope, $location, $anchorScroll, $timeout, Client, Offline, Auth) ->
+App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'RecentClients', 'Offline', 'Auth',\
+         ($rootScope, $location, $anchorScroll, $timeout, Client, RecentClients, Offline, Auth) ->
 
   # Initialize Auth service.
   Auth.init()
@@ -38,17 +39,18 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Offl
   $rootScope.online_status = true
   $rootScope.last_sync_success = true
 
+  offlineClasses = [Client, RecentClients]
   $rootScope.checkOnline = ->
     online = Offline.online()
     if online != $rootScope.online_status
       if $rootScope.online_status = online
         # User just came online, so we should sync everything now.
-        Client.sync(
+        Offline.sync(offlineClasses,
           (-> $rootScope.last_sync_success = true),
           (-> $rootScope.last_sync_success = false)
         )
     else if !$rootScope.last_sync_success
-      Client.sync(
+      Offline.sync(offlineClasses,
         (-> $rootScope.last_sync_success = true),
         (-> $rootScope.last_sync_success = false)
       )
@@ -59,8 +61,7 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Offl
 
   $rootScope.checkOnline()
   # Also sync every time we navigate to a different page.
-  $rootScope.$on('$routeChangeSuccess', -> Client.sync())
-
+  $rootScope.$on('$routeChangeSuccess', -> Offline.sync(offlineClasses))
   $rootScope.$on('$routeChangeStart', -> $rootScope.loading = true)
   $rootScope.$on('$viewContentLoaded', -> $rootScope.loading = false)
 

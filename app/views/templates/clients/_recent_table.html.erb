@@ -1,7 +1,7 @@
 <%= render :partial => 'templates/clients/action_table',
            :locals => {
              :name => 'clients',
-             :model => 'clients',
+             :model => 'clients.clients',
              :limit => local_assigns[:limit],
              :rowhref => '#/clients/show/{{ item.id }}',
              :fields => [

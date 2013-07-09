@@ -1,27 +1,64 @@
-App.service 'RecentClients', [->
-  clients = []
-  try clients = angular.fromJson(window.localStorage.getItem('RecentClients')) || []
+<% environment.context_class.instance_eval { include ActionView::Helpers } %>
+<% environment.context_class.instance_eval { include AngularHostHelper } %>
 
-  return {
-    limit: 10,
-    clients: clients,
-    logClientShow: (client) ->
-      for val, index in @clients
-        if val.id == client.id
-          @clients.splice(index, 1)
-          break
-      @clients.splice(0, 0, {
-        id: client.id,
-        name: client.name?.value,
-        company: client.company?.value,
-      })
-      @clients = @clients.splice(0, @limit)
-      window.localStorage.setItem('RecentClients', angular.toJson(@clients))
-    removeClient: (clientId) ->
-      for val, index in @clients
-        if val.id == clientId
-          @clients.splice(index, 1)
-          break
-      window.localStorage.setItem('RecentClients', angular.toJson(@clients))
-  }
+App.factory 'RecentClients', ['Offline', (Offline) ->
+  class RecentClients
+    @limit: 10
+
+    @store: Offline.wrap 'RecentClients', '<%= angularApiPath('/api/recent_clients') %>', (-> true), # only one data set per user anyway
+      merge_fn = (dest, newData) =>
+        # merge dest.clients and newData.clients, then take the most recent.
+        merged = (dest.clients || []).concat(newData.clients || [])
+        merged.sort((a, b) -> b.timestamp - a.timestamp)
+        unique = []
+        inList = {}
+        for client in merged
+          if !inList[client.id] && unique.length < @limit
+            inList[client.id] = true
+            unique.push(client)
+        dest.clients = unique
+        return true
+
+    @getClients: (success, error) ->
+      @store.get({}, success, error)
+
+    @logClientShow: (client) ->
+      update = (res) =>
+        for val, index in res.clients
+          if val.id == client.id
+            res.clients.splice(index, 1)
+            break
+        res.clients.splice(0, 0, {
+          id: client.id,
+          name: client.name?.value,
+          company: client.company?.value,
+          timestamp: Date.now(),
+        })
+        res.clients = res.clients.splice(0, @limit)
+        res.$save()
+
+      res = @store.get({}, (data) ->
+        update(res)
+      , (data) =>
+        res = new @store({clients: []})
+        update(res)
+      )
+
+    @removeClient: (clientId) ->
+      update = (res) =>
+        for val, index in res.clients
+          if val.id == clientId
+            res.clients.splice(index, 1)
+            break
+        res.$save()
+
+      res = @store.get({}, (data) ->
+        update(res)
+      , (data) =>
+        res = new @store({clients: []})
+        update(res)
+      )
+
+    @sync: (success, error) ->
+      @store.sync(success, error)
 ]
