@@ -19,10 +19,7 @@
               data-ng-submit="<%= submit_callback %>">
           <div class="pure-form-fields">
             <% field[:type].each do |subfield| %>
-              <div class="pure-control-group">
-                <label for="<%= subfield[:id] %>"><%= subfield[:name] %></label>
-                <%= ng_input(subfield, field[:id] + '.' + subfield[:id])  %>
-              </div>
+              <%= client_field subfield, field %>
             <% end %>
           </div>
           <div class="separator"></div>

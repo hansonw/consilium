@@ -11,10 +11,7 @@
       </div>
       <div class="subsection-inner pure-form-fields">
         <% field[:type].each do |subfield| %>
-          <div class="pure-control-group">
-            <label name="<%= subfield[:id] %>" for="<%= subfield[:id] %>"><%= subfield[:name] %></label>
-            <%= ng_input(subfield, 'client.' + subfield[:id] + '.value')  %>
-          </div>
+          <%= client_field subfield %>
         <% end %>
       </div>
     </div>

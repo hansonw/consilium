@@ -233,6 +233,7 @@ class Client
           :id => 'renewalExplanation',
           :placeholder => 'Explanation',
           :type => 'textbox',
+          :showIf => '!renewalOffered',
           :boxRows => 6,
         },
       ],
@@ -315,17 +316,18 @@ class Client
         {
           :name => 'Is there any liquor liability',
           :id => 'liquorLiability',
-          :type => 'checkbox',
+          :type => 'radio',
           :options => {
-            'liquor' => 'Yes',
-            'noLiquor' => 'No',
+            'yes' => 'Yes',
+            'no' => 'No',
           },
         },
         {
           :name => 'Receipt Splits: Liquor',
-          :id => 'receiptSplitsLiqour',
+          :id => 'receiptSplitsLiquor',
           :placeholder => '$ CAN (ex. 111.11)',
           :type => 'currency',
+          :showIf => 'liquorLiability'
         },
         {
           :name => 'Receipt Splits: Food',

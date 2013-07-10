@@ -1,4 +1,25 @@
 module ClientsHelper
+  def model_name(field_name, parent_field)
+    return parent_field.nil? ? "client.#{field_name}.value" : "#{parent_field[:id]}.#{field_name}"
+  end
+
+  def client_field(field, parent_field = nil)
+    model = model_name(field[:id], parent_field)
+    if field[:showIf]
+      if field[:showIf].start_with? '!'
+        showIf = model_name(field[:showIf][1..-1], parent_field) + ' != "yes"'
+      else
+        showIf = model_name(field[:showIf], parent_field) + ' != "no"'
+      end
+    end
+
+    return raw\
+      "<div class='pure-control-group' #{field[:showIf] && "data-ng-show='#{showIf}'"}>
+         <label for='#{field[:id]}'>#{field[:name]}</label>
+         #{ng_input(field, model)}
+       </div>"
+  end
+
   def ng_input(field, model)
     r = ''
     case field[:type]

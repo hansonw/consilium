@@ -59,10 +59,7 @@
             <div class="pure-form-fields">
               <% Client::FIELDS.each do |field| %>
                 <% if not field[:type].is_a? Array %>
-                  <div class="pure-control-group">
-                    <label for="<%= field[:id] %>"><%= field[:name] %></label>
-                    <%= ng_input(field, "client.#{field[:id]}.value") %>
-                  </div>
+                  <%= client_field field %>
                 <% end %>
               <% end %>
             </div>
