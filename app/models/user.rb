@@ -3,6 +3,7 @@ class User
 
   has_many :client_changes
   has_many :documents
+  has_one :recent_clients
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

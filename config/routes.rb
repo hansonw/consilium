@@ -9,6 +9,9 @@ Consilium::Application.routes.draw do
     resources :clients, :controller => 'api/clients'
     post 'clients/:id' => 'api/clients#create'
 
+    resources :recent_clients, :controller => 'api/recent_clients'
+    put 'recent_clients' => 'api/recent_clients#update'
+
     resources :documents, :controller => 'api/documents'
     put 'documents' => 'api/documents#update'
 

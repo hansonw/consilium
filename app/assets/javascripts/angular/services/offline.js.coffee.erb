@@ -53,16 +53,15 @@ class LocalStorage
   save_db: (db) ->
     window.localStorage.setItem(@storageKey(), angular.toJson(db))
 
-  insert: (resource) ->
+  insert: (resource, overwrite = false) ->
     data = getData(resource)
 
     db = @get_db() || {}
-    if db[data.id]
+    if db[data.id] && !overwrite
       existing = db[data.id]
       # Prioritize local deletions over changes (for now)
       if existing.id == null
         return existing
-
       need_update = @sync_fn(data, existing)
 
     db[data.id] = data
@@ -185,8 +184,12 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
         if existing?
           if existing.id != null
             angular.extend(data, existing)
-            data.$save() if online()
+            # After the server's done merging, take that as the 'truth'
             offline = new OfflineResource(existing)
+            data.$save((data2) ->
+              storage.insert(data2, true)
+              angular.extend(data2, offline)
+            ) if online()
           else
             data.$delete() if online()
             return null
@@ -221,6 +224,8 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
 
       @get: (params, success, error) ->
         res = new OfflineResource(params)
+        res.IS_NEW = false
+
         queryLocal = (data) =>
           if params.id
             ret = storage.get(params.id)

@@ -5,7 +5,7 @@ App.factory 'RecentClients', ['Offline', (Offline) ->
   class RecentClients
     @limit: 10
 
-    @store: Offline.wrap 'RecentClients', '<%= angularApiPath('/api/recent_clients') %>', (-> true), # only one data set per user anyway
+    @store: Offline.wrap 'RecentClients', '<%= angularApiPath('/api/recent_clients/:get') %>', (-> true), # only one data set per user anyway
       merge_fn = (dest, newData) =>
         # merge dest.clients and newData.clients, then take the most recent.
         merged = (dest.clients || []).concat(newData.clients || [])
@@ -16,11 +16,13 @@ App.factory 'RecentClients', ['Offline', (Offline) ->
           if !inList[client.id] && unique.length < @limit
             inList[client.id] = true
             unique.push(client)
+
+        updated = !angular.equals(unique, dest.clients)
         dest.clients = unique
-        return true
+        return updated
 
     @getClients: (success, error) ->
-      @store.get({}, success, error)
+      @store.get({get: 'get'}, success, error)
 
     @logClientShow: (client) ->
       update = (res) =>
@@ -37,7 +39,7 @@ App.factory 'RecentClients', ['Offline', (Offline) ->
         res.clients = res.clients.splice(0, @limit)
         res.$save()
 
-      res = @store.get({}, (data) ->
+      res = @store.get({get: 'get'}, (data) ->
         update(res)
       , (data) =>
         res = new @store({clients: []})
@@ -52,7 +54,7 @@ App.factory 'RecentClients', ['Offline', (Offline) ->
             break
         res.$save()
 
-      res = @store.get({}, (data) ->
+      res = @store.get({get: 'get'}, (data) ->
         update(res)
       , (data) =>
         res = new @store({clients: []})
