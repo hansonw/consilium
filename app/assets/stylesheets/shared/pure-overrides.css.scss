@@ -173,6 +173,9 @@ button, input, select, textarea {
       input[type="text"], input[type="email"], input[type="password"], input[type="currency"], input[type="phone"] {
         display: table-cell;
         width: 100%;
+      }
+
+      input, select, textarea {
         @include respond-to(handhelds) { display: table-row; margin: 3px 0; }
       }
 
@@ -233,6 +236,7 @@ button, input, select, textarea {
 
         input {
           margin: 0 0 0 6px;
+          @include respond-to(handhelds) { margin: 0; }
         }
       }
     }
