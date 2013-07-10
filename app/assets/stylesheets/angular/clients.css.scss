@@ -60,6 +60,7 @@
 
   .edit-description {
     margin-bottom: 30px;
+
     .description {
       font-size: 120%;
       color: #666;
@@ -72,38 +73,41 @@
       background: $light-green;
     }
   }
-
+  .transitionOn {
+    @include transition();
+  }
   .subsection {
+    padding: 0px -20px;
+    height: 72px;
     &.changed {
       .slider {
         background: $light-green;
       }
     }
+    .slider {
+      position: relative;
+      padding: 20px;
+      margin-bottom: -52px;
+      height: 32px;
 
-    //position: relative;
-    .subsection-well {
-      //position: absolute;
-      //top: 0;
-      .subsection-outer {
-        // TODO: Subsection transitions disabled for now. This is done too poorly right now.
+      -webkit-transform-origin: 50% 0%;
+      -moz-transform-origin: 50% 0%;
+      -ms-transform-origin: 50% 0%;
+      -o-transform-origin: 50% 0%; 
+      transform-origin: 50% 0%;
+    }
+
+    .subsection-outer {
+      height: 32px;
+      position: relative;
+      padding: 0px 20px;
+
+      .subsection-inner {
         position: relative;
-        height: 32px;
+        width: 100%;
         overflow: hidden;
-        padding: 10px 0;
-        margin-top: -10px;
-        margin-bottom: -15px;
 
-        .subsection-inner {
-          margin: 20px 0 20px 0;
-          position: absolute;
-          top: 0;
-          @include transition();
-        }
-
-        &.active {
-          // TODO: This is very rickety and won't work with larger subsections.
-          //max-height: 300px;
-          //max-height: none;
+        .subsection-contents {
         }
       }
     }

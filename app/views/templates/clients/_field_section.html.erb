@@ -1,15 +1,16 @@
 <div class="subsection" data-ng-class="changedSections.<%= field[:id] %> && 'changed'" animate-subsection>
-  <div class="well subsection-well">
-    <div class="subsection-outer" data-ng-class="{'active': subsectionVisible['<%= field[:id] %>']}">
-      <div id="<%= field[:id] %>" class="section">
-        <a class="section-edit pull-right pure-button pure-button-primary"
-           data-ng-click="subsectionVisible['<%= field[:id] %>'] = !subsectionVisible['<%= field[:id] %>']">
-          <i data-ng-class="{'icon-caret-down': !subsectionVisible['<%= field[:id] %>'], 'icon-caret-up': subsectionVisible['<%= field[:id] %>']}"></i>
-          <span class="only-desktops">{{ clientChangeId ? 'View' : 'Edit' }} <%= field[:name] %></span>
-        </a>
-        <h3 class="no-top-margin no-bottom-margin"><%= field[:name] %></h3>
-      </div>
-      <div class="subsection-inner pure-form-fields">
+  <div class="slider well"></div>
+  <div class="subsection-outer" data-ng-class="{'active': subsectionVisible['<%= field[:id] %>']}">
+    <div id="<%= field[:id] %>" class="section">
+      <a class="section-edit pull-right pure-button pure-button-primary"
+         data-ng-click="subsectionVisible['<%= field[:id] %>'] = !subsectionVisible['<%= field[:id] %>']">
+        <i data-ng-class="{'icon-caret-down': !subsectionVisible['<%= field[:id] %>'], 'icon-caret-up': subsectionVisible['<%= field[:id] %>']}"></i>
+        <span class="only-desktops">{{ clientChangeId ? 'View' : 'Edit' }} <%= field[:name] %></span>
+      </a>
+      <h3 class="no-top-margin no-bottom-margin"><%= field[:name] %></h3>
+    </div>
+    <div class="subsection-inner">
+      <div class="subsection-contents pure-form-fields">
         <% field[:type].each do |subfield| %>
           <%= client_field subfield, show_changed: true %>
         <% end %>
