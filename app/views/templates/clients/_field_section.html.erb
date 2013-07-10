@@ -1,4 +1,4 @@
-<div class="subsection" animate-subsection>
+<div class="subsection" data-ng-class="changedSections.<%= field[:id] %> && 'changed'" animate-subsection>
   <div class="well subsection-well">
     <div class="subsection-outer" data-ng-class="{'active': subsectionVisible['<%= field[:id] %>']}">
       <div id="<%= field[:id] %>" class="section">
@@ -11,7 +11,7 @@
       </div>
       <div class="subsection-inner pure-form-fields">
         <% field[:type].each do |subfield| %>
-          <%= client_field subfield %>
+          <%= client_field subfield, show_changed: true %>
         <% end %>
       </div>
     </div>

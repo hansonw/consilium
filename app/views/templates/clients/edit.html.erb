@@ -27,10 +27,12 @@
               <div class="pure-menu pure-menu-open nav-box">
                 <a class="pure-menu-heading nav-heading">Sections</a>
                 <ul class="nav-list">
-                  <li><a href="" data-ng-click="scrollTo('basicInfo')">Basic Info</a></li>
+                  <li data-ng-class="changedSections['basicInfo'] && 'changed'">
+                    <a href="" data-ng-click="scrollTo('basicInfo')">Basic Info</a>
+                  </li>
                   <% Client::FIELDS.each do |field| %>
                     <% if field[:type].is_a? Array %>
-                      <li>
+                      <li data-ng-class="changedSections.<%= field[:id] %> && 'changed'">
                         <a href="" data-ng-click="scrollTo('<%= field[:id] %>')">
                           <%= field[:name] %>
                         </a>
@@ -59,7 +61,7 @@
             <div class="pure-form-fields">
               <% Client::FIELDS.each do |field| %>
                 <% if not field[:type].is_a? Array %>
-                  <%= client_field field %>
+                  <%= client_field field, show_changed: true %>
                 <% end %>
               <% end %>
             </div>

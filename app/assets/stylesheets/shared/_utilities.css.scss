@@ -49,3 +49,9 @@ $break-xlarge: 1200px;
   background: linear-gradient(to bottom,  rgba($rgb-start,$rgb-start,$rgb-start,$occupancy) $location-start,rgba($rgb-finish,$rgb-finish,$rgb-finish,$occupancy) $location-finish); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$hex-start', endColorstr='$hex-finish',GradientType=0 ); /* IE6-9 */
 }
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}

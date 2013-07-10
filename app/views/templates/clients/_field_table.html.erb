@@ -1,4 +1,4 @@
-<div class="well">
+<div class="well" data-ng-class="changedSections.<%= field[:id] %> && 'changed'">
   <div id="<%= field[:id] %>" class="section">
     <a class="section-edit pull-right pure-button pure-button-primary" modal-toggle="<%= field[:id] %>"
        data-ng-show="!clientChangeId">

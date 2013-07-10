@@ -124,8 +124,7 @@ body {
 
   .well {
     border: 1px solid #d8d8d8;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
+    @include border-radius(3px);
     background: $light-gray;
 
     border-bottom-width: 2px;

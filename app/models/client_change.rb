@@ -8,28 +8,49 @@ class ClientChange
   field :client_data, type: Hash
   field :description, type: String
 
-  def self.get_change_description(new_client, old_client)
-    if old_client.nil?
-      return 'Created new client ' + new_client['name']['value']
+  # Empty values should be treated the same as missing values.
+  def self.value_equals(a, b)
+    a_null = !a || a.empty?
+    b_null = !b || b.empty?
+    if a_null != b_null
+      return false
+    elsif a_null
+      return true
+    else
+      return a == b
     end
+  end
 
-    # Get a list of changed fields
+  def self.get_changed_fields(new_client, old_client)
     changed_fields = []
+
     new_client.each do |key, val|
-      if defined?(val['value'])
-        if old_client[key] && val['value'] != old_client[key]['value'] ||
-           old_client[key].nil?
+      if val.is_a?(Hash) && val['value']
+        if !value_equals(val['value'], old_client && old_client[key] && old_client[key]['value'])
           changed_fields << key
         end
       end
     end
 
-    old_client.each do |key, val|
-      if new_client[key].nil?
-        changed_fields << key
+    unless old_client.nil?
+      old_client.each do |key, val|
+        if val.is_a?(Hash) && val['value']
+          if !value_equals(val['value'], new_client && new_client[key] && new_client[key]['value'])
+            changed_fields << key
+          end
+        end
       end
     end
 
+    changed_fields.uniq
+  end
+
+  def self.get_change_description(new_client, old_client)
+    if old_client.nil?
+      return 'Created new client ' + new_client['name']['value']
+    end
+
+    changed_fields = get_changed_fields(new_client, old_client)
     changed_fields = changed_fields.sort.map do |field_id|
       field_id.underscore.humanize.downcase
     end

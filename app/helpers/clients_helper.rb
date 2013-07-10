@@ -3,7 +3,7 @@ module ClientsHelper
     return parent_field.nil? ? "client.#{field_name}.value" : "#{parent_field[:id]}.#{field_name}"
   end
 
-  def client_field(field, parent_field = nil)
+  def client_field(field, parent_field: nil, show_changed: false)
     model = model_name(field[:id], parent_field)
     if field[:showIf]
       if field[:showIf].start_with? '!'
@@ -15,7 +15,9 @@ module ClientsHelper
 
     return raw\
       "<div class='pure-control-group' #{field[:showIf] && "data-ng-show='#{showIf}'"}>
-         <label for='#{field[:id]}'>#{field[:name]}</label>
+         <label for='#{field[:id]}' #{show_changed && "data-ng-class='changedFields.#{field[:id]} && \"changed\"'"}>
+           #{field[:name]}
+         </label>
          #{ng_input(field, model)}
        </div>"
   end

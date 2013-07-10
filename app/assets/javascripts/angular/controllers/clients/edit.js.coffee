@@ -32,6 +32,8 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       (->
         $scope.loading = false
         $scope.client = $scope.clientChange.client_data
+        $scope.changedFields = $scope.clientChange.changed_fields
+        $scope.changedSections = $scope.clientChange.changed_sections
         $('input, textarea, select').attr('readonly', true)
         $('input, textarea').attr('placeholder', '')
         # readonly isn't enough for checkboxes and selects

@@ -19,7 +19,7 @@
               data-ng-submit="<%= submit_callback %>">
           <div class="pure-form-fields">
             <% field[:type].each do |subfield| %>
-              <%= client_field subfield, field %>
+              <%= client_field subfield, parent_field: field %>
             <% end %>
           </div>
           <div class="separator"></div>

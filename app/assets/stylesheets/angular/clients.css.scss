@@ -10,6 +10,11 @@
     padding-left: $client-form-nav-width + $client-form-nav-padding + 10px;
   }
 
+  label.changed {
+    background: $light-green;
+    @include border-radius(5px);
+  }
+
   .form-nav {
     @include transition();
 
@@ -43,6 +48,11 @@
           height: 100%;
           overflow-y: auto;
           font-size: 90%;
+
+          li.changed {
+            background: $light-green;
+            color: white;
+          }
         }
       }
     }
@@ -57,7 +67,19 @@
     }
   }
 
+  .well.changed {
+    &.changed {
+      background: $light-green;
+    }
+  }
+
   .subsection {
+    &.changed {
+      .slider {
+        background: $light-green;
+      }
+    }
+
     //position: relative;
     .subsection-well {
       //position: absolute;

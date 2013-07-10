@@ -6,7 +6,7 @@ class Api::ClientChangesController < Api::ApiController
 
   respond_to :json
 
-  def get_json(obj)
+  def get_json(obj, attrs = {})
     ret = {}
     obj.attributes.each do |key, val|
       if key == "_id"
@@ -24,7 +24,8 @@ class Api::ClientChangesController < Api::ApiController
         ret[key] = val
       end
     end
-    ret
+
+    ret.merge(attrs)
   end
 
   # GET /client_changes
@@ -54,8 +55,39 @@ class Api::ClientChangesController < Api::ApiController
       return
     end
 
+    prev_change = ClientChange.where({
+      'client_id' => @client_change.client_id,
+      :updated_at.lt => @client_change.updated_at
+    }).desc(:created_at).first
+
+    changed_fields = ClientChange.get_changed_fields(
+        @client_change.client_data, prev_change && prev_change.client_data)
+
+    changed_sections = changed_fields.map do |field_id|
+      section = 'basicInfo'
+      Client::FIELDS.each do |field|
+        if field[:type].is_a?(Array)
+          if field[:id] == field_id
+            section = field_id
+          elsif !field[:id].ends_with?('s')
+            field[:type].each do |subfield|
+              if subfield[:id] == field_id
+                section = field[:id]
+              end
+            end
+          end
+        end
+      end
+      section
+    end
+
+    attrs = {
+      :changed_fields => Hash[changed_fields.map {|c| [c, true]}],
+      :changed_sections => Hash[changed_sections.map {|c| [c, true]}],
+    }
+
     respond_to do |format|
-      format.json { render json: get_json(@client_change) }
+      format.json { render json: get_json(@client_change, attrs) }
     end
   end
 
