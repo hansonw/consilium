@@ -140,6 +140,12 @@ body {
     }
   }
 
+  .button-bar {
+     @include respond-to(widescreens) {
+      padding-right: 56px;
+    }
+  }
+
   .table-header {
     margin-bottom: 20px;
     display: table;
