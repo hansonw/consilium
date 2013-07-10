@@ -48,13 +48,13 @@ class Client
       :name => 'Phone',
       :id => 'phone',
       :placeholder => 'Area code - phone #, ext #',
-      :type => 'text',
+      :type => 'phone',
     },
     {
       :name => 'Fax',
       :id => 'fax',
       :placeholder => 'Area code - phone #, ext #',
-      :type => 'text',
+      :type => 'phone',
     },
     {
       :name => 'Email',
@@ -103,8 +103,7 @@ class Client
           :name => 'Phone',
           :id => 'phone',
           :placeholder => 'Area code - phone #, ext #',
-          :type => 'text',
-          :validatePhone => true,
+          :type => 'phone',
         },
         {
           :name => 'Email',
@@ -166,14 +165,14 @@ class Client
         {
           :name => 'Amount Paid',
           :id => 'amountPaid',
-          :placeholder => '$ CAN (ex. 1111)',
-          :type => 'text',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
         },
         {
           :name => 'Reserve',
           :id => 'reserve',
-          :placeholder => '$ CAN (ex. 1111)',
-          :type => 'text',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
         },
       ],
     },
@@ -202,8 +201,8 @@ class Client
         {
           :name => 'Premium',
           :id => 'premium',
-          :placeholder => '$ CAN (ex. 1111)',
-          :type => 'text',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
         },
         {
           :name => '',
@@ -298,8 +297,8 @@ class Client
         {
           :name => 'Annual Payroll',
           :id => 'annualPayroll',
-          :placeholder => '$ CAN (ex. 1111)',
-          :type => 'text',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
         },
         {
           :name => 'Units',
@@ -325,20 +324,20 @@ class Client
         {
           :name => 'Receipt Splits: Liquor',
           :id => 'receiptSplitsLiqour',
-          :placeholder => '$ CAN (ex. 1111)',
-          :type => 'text',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
         },
         {
           :name => 'Receipt Splits: Food',
           :id => 'receiptSplitsFood',
-          :placeholder => '$ CAN (ex. 1111)',
-          :type => 'text',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
         },
         {
           :name => 'Receipt Splits: Other',
           :id => 'receiptSplitsOther',
-          :placeholder => '$ CAN (ex. 1111)',
-          :type => 'text',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
         },
         {
           :name => 'Notes',
@@ -1071,14 +1070,14 @@ class Client
         {
           :name => 'Replacement Cost',
           :id => 'replacementCost',
-          :placeholder => '$ CAN (ex. 1111)',
-          :type => 'text',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
         },
         {
           :name => 'Deductible',
           :id => 'deductible',
-          :placeholder => '$ CAN (ex. 1111)',
-          :type => 'text',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
         },
         {
           :name => 'Co-Ins',
@@ -1089,8 +1088,8 @@ class Client
         {
           :name => 'Limit',
           :id => 'coverageLimit',
-          :placeholder => '$ CAN (ex. 1111)',
-          :type => 'text',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
         },
       ],
     },
@@ -1216,8 +1215,8 @@ class Client
         {
           :name => 'Limit',
           :id => 'limit',
-          :placeholder => '$ CAN (ex. 1111)',
-          :type => 'text',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
         },
       ],
     },
@@ -1308,6 +1307,11 @@ class Client
         value = value.to_s
         if !( /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.match(value))
           errors[field_name] << 'not valid email'
+        end
+      when 'currency'
+        value = value.to_s
+        if !(/^\d+(\.\d{0,2})?/i.match(value))
+          errors[field_name] << 'not valid currency format'
         end
       when 'radio', 'dropdown'
         # Has to be one of the given values
