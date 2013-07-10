@@ -36,6 +36,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
         $('input, textarea').attr('placeholder', '')
         # readonly isn't enough for checkboxes and selects
         $('input[type=checkbox]').attr('disabled', true)
+        $('input[type=radio]').attr('disabled', true)
         $('select').attr('disabled', true)
         $scope.client.id = $scope.clientId
         RecentClients.logClientShow($scope.client)),
