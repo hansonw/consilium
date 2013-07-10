@@ -5,16 +5,16 @@ module ClientsHelper
 
   def client_field(field, parent_field: nil, show_changed: false)
     model = model_name(field[:id], parent_field)
-    if field[:showIf]
-      if field[:showIf].start_with? '!'
-        showIf = model_name(field[:showIf][1..-1], parent_field) + ' != "yes"'
+    if field[:if]
+      if field[:if].start_with? '!'
+        showIf = model_name(field[:if][1..-1], parent_field) + ' != "yes"'
       else
-        showIf = model_name(field[:showIf], parent_field) + ' != "no"'
+        showIf = model_name(field[:if], parent_field) + ' != "no"'
       end
     end
 
     return raw\
-      "<div class='pure-control-group' #{field[:showIf] && "data-ng-show='#{showIf}'"}>
+      "<div class='pure-control-group' #{field[:if] && "data-ng-show='#{showIf}'"}>
          <label for='#{field[:id]}' #{show_changed && "data-ng-class='changedFields.#{field[:id]} && \"changed\"'"}>
            #{field[:name]}
          </label>

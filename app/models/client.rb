@@ -233,7 +233,7 @@ class Client
           :id => 'renewalExplanation',
           :placeholder => 'Explanation',
           :type => 'textbox',
-          :showIf => '!renewalOffered',
+          :if => '!renewalOffered',
           :boxRows => 6,
         },
       ],
@@ -327,7 +327,7 @@ class Client
           :id => 'receiptSplitsLiquor',
           :placeholder => '$ CAN (ex. 111.11)',
           :type => 'currency',
-          :showIf => 'liquorLiability'
+          :if => 'liquorLiability'
         },
         {
           :name => 'Receipt Splits: Food',
