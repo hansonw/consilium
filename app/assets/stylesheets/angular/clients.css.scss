@@ -68,11 +68,10 @@
     }
   }
 
-  .well.changed {
-    &.changed {
-      background: $light-green;
-    }
+  .well.changed, .changed .well {
+    background: $light-green;
   }
+
   .transitionOn {
     @include transition();
   }
