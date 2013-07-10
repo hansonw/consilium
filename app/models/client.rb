@@ -4,10 +4,7 @@ class Client
 
   has_many :client_changes, dependent: :delete
   has_many :documents, dependent: :delete
-  currency_pattern = '\d+(\.\d{0,2})?'
-  currency_message = 'No dollar sign and no comma(s) - cents are optional'
-  phone_pattern = '^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$'
-  phone_message = 'Must be in 1234567890, 123-456-7890, or 123.456.7890'
+
   FIELDS = [
     {
       :name => 'Name',
@@ -51,15 +48,13 @@ class Client
       :name => 'Phone',
       :id => 'phone',
       :placeholder => 'Area code - phone #, ext #',
-      :type => 'text',
-      :pattern => phone_pattern,
-      :errorMessage => phone_message,
+      :type => 'phone',
     },
     {
       :name => 'Fax',
       :id => 'fax',
       :placeholder => 'Area code - phone #, ext #',
-      :type => 'text',
+      :type => 'phone',
     },
     {
       :name => 'Email',
@@ -108,9 +103,7 @@ class Client
           :name => 'Phone',
           :id => 'phone',
           :placeholder => 'Area code - phone #, ext #',
-          :type => 'text',
-          :pattern => phone_pattern,
-          :errorMessage => phone_message,
+          :type => 'phone',
         },
         {
           :name => 'Email',
@@ -174,16 +167,12 @@ class Client
           :id => 'amountPaid',
           :placeholder => '$ CAN (ex. 111.11)',
           :type => 'currency',
-          :pattern => currency_pattern,
-          :errorMessage => currency_message,
         },
         {
           :name => 'Reserve',
           :id => 'reserve',
           :placeholder => '$ CAN (ex. 111.11)',
           :type => 'currency',
-          :pattern => currency_pattern,
-          :errorMessage => currency_message,
         },
       ],
     },
@@ -214,8 +203,6 @@ class Client
           :id => 'premium',
           :placeholder => '$ CAN (ex. 111.11)',
           :type => 'currency',
-          :pattern => currency_pattern,
-          :errorMessage => currency_message,
         },
         {
           :name => '',
@@ -312,8 +299,6 @@ class Client
           :id => 'annualPayroll',
           :placeholder => '$ CAN (ex. 111.11)',
           :type => 'currency',
-          :pattern => currency_pattern,
-          :errorMessage => currency_message,
         },
         {
           :name => 'Units',
@@ -341,24 +326,18 @@ class Client
           :id => 'receiptSplitsLiqour',
           :placeholder => '$ CAN (ex. 111.11)',
           :type => 'currency',
-          :pattern => currency_pattern,
-          :errorMessage => currency_message,
         },
         {
           :name => 'Receipt Splits: Food',
           :id => 'receiptSplitsFood',
           :placeholder => '$ CAN (ex. 111.11)',
           :type => 'currency',
-          :pattern => currency_pattern,
-          :errorMessage => currency_message,
         },
         {
           :name => 'Receipt Splits: Other',
           :id => 'receiptSplitsOther',
           :placeholder => '$ CAN (ex. 111.11)',
           :type => 'currency',
-          :pattern => currency_pattern,
-          :errorMessage => currency_message,
         },
         {
           :name => 'Notes',
@@ -1093,16 +1072,12 @@ class Client
           :id => 'replacementCost',
           :placeholder => '$ CAN (ex. 111.11)',
           :type => 'currency',
-          :pattern => currency_pattern,
-          :errorMessage => currency_message,
         },
         {
           :name => 'Deductible',
           :id => 'deductible',
           :placeholder => '$ CAN (ex. 111.11)',
           :type => 'currency',
-          :pattern => currency_pattern,
-          :errorMessage => currency_message,
         },
         {
           :name => 'Co-Ins',
@@ -1115,8 +1090,6 @@ class Client
           :id => 'coverageLimit',
           :placeholder => '$ CAN (ex. 111.11)',
           :type => 'currency',
-          :pattern => currency_pattern,
-          :errorMessage => currency_message,
         },
       ],
     },
@@ -1244,8 +1217,6 @@ class Client
           :id => 'limit',
           :placeholder => '$ CAN (ex. 111.11)',
           :type => 'currency',
-          :pattern => currency_pattern,
-          :errorMessage => currency_message,
         },
       ],
     },
@@ -1339,7 +1310,7 @@ class Client
         end
       when 'currency'
         value = value.to_s
-        if !(currency_pattern.match(value))
+        if !(/^\d+(\.\d{0,2})?/i.match(value))
           errors[field_name] << 'not valid currency format'
         end
       when 'radio', 'dropdown'

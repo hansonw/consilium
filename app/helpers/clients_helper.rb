@@ -55,6 +55,18 @@ module ClientsHelper
                 #{field[:disabled] && 'disabled'}
                 rows='#{field[:boxRows]}'
             /></textarea>"
+    when 'currency', 'phone'
+      r = "<input name='#{field[:id]}' type='#{field[:type]}'
+              ng-model='#{model}' placeholder='#{field[:placeholder]}'
+              #{field[:required] && 'required'}
+              #{field[:disabled] && 'disabled'}
+              #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
+              #{field[:maxlength] && "ng-maxlength='#{field[:maxlength]}'"}
+              #{field[:min] && "ng-min='#{field[:min]}'"}
+              #{field[:max] && "ng-max='#{field[:max]}'"}
+              #{field[:type] == 'currency' && 'pattern=\'\d+(\.\d{0,2})?\'' + "title='No dollar sign and no comma(s) - cents are optional'"}
+              #{field[:type] == 'phone' && 'pattern=\'^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$\'' + "title='Must have format: 1234567890, 123-456-7890, or 123.456.7890'"}
+            />"
     else
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='#{model}' placeholder='#{field[:placeholder]}'
