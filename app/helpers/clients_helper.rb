@@ -108,25 +108,11 @@ module ClientsHelper
                 #{field[:disabled] && 'disabled'}
                 id='cameraOptions'>
                 <div class='well' >
-                <a id='theCamera' data-ng-click='openCamera()' class='pure-button pure-button-primary' style=''><i class='icon-camera'></i></a>
-                <a data-ng-click='openCamera()' class='pure-button pure-button-primary' style=''><i class='icon-cog'></i></a>
+                <a id='CapturePhoto' data-ng-click='sccapturePhoto()' class='pure-button pure-button-primary' style=''><i class='icon-camera'></i></a>
+                <a id='settingsCamera' data-ng-click='findPhoto()' class='pure-button pure-button-primary' style=''><i class='icon-picture'></i></a>
                 <input type='file' capture='camera' accept='image/*' class='takePictureField' />
+                <img style='display:none;' id='largeImage' src='' />
                 <img class='yourimage'/>
-                </div>
-                <textarea name='#{field[:id]}' ng-model='#{model}'
-                placeholder='#{field[:placeholder]}'
-                #{field[:required] && 'required'}
-                #{field[:disabled] && 'disabled'}
-                rows='#{field[:boxRows]}'
-               /></textarea>
-                <div id='camera'>
-                <img class='yourimage'/>
-                <a id='closeCameraTab' data-ng-click='closeCamera()' class='pure-button pure-button-primary' style=''><i class='icon-remove'></i></a>
-                <div id='cameraNavBar'>
-                <input type='file' capture='camera' accept='image/*' class='takePictureField' />
-                <a id='CapturePhoto' data-ng-click='closeCamera()' class='pure-button pure-button-primary' style=''><i class='icon-camera'></i></a>
-                <a id='settingsCamera' data-ng-click='closeCamera()' class='pure-button pure-button-primary' style=''><i class='icon-cog'></i></a>
-                </div>
                 </div>
               </div>"
     else

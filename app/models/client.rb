@@ -1422,16 +1422,16 @@ class Client
       :id => 'photos',
       :type => [
         {
-          :name => '',
-          :id => 'photoCamera',
-          :type => 'photo',
-        },
-        {
           :name => 'Title',
           :id => 'photoTitle',
           :placeholder => 'Title of photo',
-          # :required => true,
+          :required => true,
           :type => 'text',
+        },
+        {
+          :name => '',
+          :id => 'photoCamera',
+          :type => 'photo',
         },
         {
           :name => 'Notes',
