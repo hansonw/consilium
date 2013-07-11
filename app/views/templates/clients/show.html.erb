@@ -89,6 +89,7 @@
                  :locals => {
                    :name => 'history',
                    :model => 'history',
+                   :rowhref => '#/clients/edit/{{ item.client_id }}/{{ item.id }}',
                    :fields => [
                      {
                        :name => 'Description',
@@ -127,6 +128,7 @@
                  :locals => {
                    :name => 'documents',
                    :model => 'documents',
+                   :rowhref => '/api/documents/{{ item.id }}',
                    :fields => [
                      {
                        :name => 'Description',

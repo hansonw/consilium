@@ -107,6 +107,14 @@ $client-form-nav-padding: 50px;
       }
     }
   }
+
+  .data-table {
+    background-color: $table-background;
+
+    .ng-scope:hover {
+      background-color: $table-hover;
+    }
+  }
 }
 
 .section-edit {
@@ -369,6 +377,7 @@ $client-form-nav-padding: 50px;
 }
 
 .clients-table {
+  background-color: $table-background;
   word-wrap: break-word;
 
   .name {
@@ -391,7 +400,7 @@ $client-form-nav-padding: 50px;
   .ng-scope:hover {
     cursor: pointer;
     cursor: hand;
-    background-color: #f7f7f7;
+    background-color: $table-hover;
   }
 
   tr th i {
@@ -400,6 +409,8 @@ $client-form-nav-padding: 50px;
 }
 
 .history-table {
+  background-color: $table-background;
+
   .description {
     padding-right: 10px;
     width: auto;
@@ -424,28 +435,39 @@ $client-form-nav-padding: 50px;
       color: #999;
     }
   }
+
+  .link {
+  }
+
+  .ng-scope:hover {
+    cursor: pointer;
+    cursor: hand;
+    background-color: $table-hover;
+  }
 }
 
 .documents-table {
   @extend .history-table;
+
+    .ng-scope:hover {
+    background-color: $table-hover;
+  }
 }
 
 .client-landing {
   .recent-edit {
   //TODO:  We should switch to pure's grid system.
     @include respond-to(widescreens) {
-      width: 47.5%;
+      width: 43%;
       float: right;
-      margin-left: 2.5%;
     }
   }
 
   .recent-client {
     margin-bottom: 30px;
     @include respond-to(widescreens) {
-      width: 47.5%;
+      width: 43%;
       float: left;
-      margin-right: 2.5%;
     }
   }
 }
