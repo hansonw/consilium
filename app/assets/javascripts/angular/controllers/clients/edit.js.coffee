@@ -99,13 +99,8 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       $timeout.cancel($scope._saveTimer)
   )
 
-  camera.onchange = (e) ->
-    files = e.target.files
-    # img.src = URL.createObjectURL(files[0])  if files.length > 0 and files[0].type.indexOf("image/") is 0
-
   gotPic = (event) ->
     $(".yourimage").attr "src", URL.createObjectURL(event.target.files[0])  if event.target.files.length is 1 and event.target.files[0].type.indexOf("image/") is 0
-    alert URL.createObjectURL(event.target.files[0])
 
   desiredWidth = undefined
   $(document).ready ->
@@ -114,30 +109,31 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     desiredWidth = window.innerWidth
     window.URL = window.webkitURL  if ("url" not of window) and ("webkitURL" of window)
 
-
-
-  $scope.openCamera = () ->
-    $('#camera').css({
-        position:'absolute',
-        top: 0,
-        left: 0,
-        height: '100%',
-        width: '100%'
-    });
-
-  $scope.closeCamera = () ->
-    $('#camera').css({
-        position:'absolute',
-        top: 0,
-        left: 0,
-        height: 0,
-        width: 0,
-    });
-
-  $sccapturePhoto = ->
-    navigator.camera.getPicture uploadPhoto, null,
+  $scope.sccapturePhoto = ->
+    navigator.camera.getPicture onSuccess, YouDoneGoofed,
       sourceType: 1
-      quality: 60
+      quality: 20
+      destinationType: 0
+
+  $scope.findPhoto = ->
+    navigator.camera.getPicture onSuccess, YouDoneGoofed,
+      sourceType: 0
+      quality: 20
+      destinationType: 0
+
+  YouDoneGoofed = ->
+    alert "Hustion We have A Problem..."
+
+  onSuccess = (imageData) ->
+    # alert "win!"
+    # smallImage = document.getElementById("smallImage")
+    # smallImage.style.display = "table"
+    # smallImage.src = "data:image/jpeg;base64," + imageData
+    # alert imageData
+    largeImage = document.getElementById("largeImage")
+    largeImage.style.display = "table"
+    largeImage.src = "data:image/jpeg;base64," + imageData
+    # alert "win3!"
 
   $scope.toggleRadio = (objName, value) ->
     if !$scope.clientChangeId
