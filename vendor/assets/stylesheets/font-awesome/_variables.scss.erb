@@ -1,7 +1,14 @@
 // Variables
 // --------------------------
 
-$FontAwesomePath: "../font" !default;
+// PATCH: This path is not the default.
+//$FontAwesomePath: "../font" !default;
+<% if Rails.env.phonegap? || Rails.env.phonegap_staging? %>
+  $FontAwesomePath: "../font";
+<% else %>
+  $FontAwesomePath: "../../font";
+<% end %>
+
 $FontAwesomeVersion: "3.2.1" !default;
 $borderColor: #eeeeee !default;
 $iconMuted: #eeeeee !default;
