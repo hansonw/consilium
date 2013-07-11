@@ -37,6 +37,7 @@ $client-form-nav-padding: 50px;
 
       .nav-box {
         height: 100%;
+        max-height: auto;
         padding-top: $nav-heading-height + $nav-heading-margin;
 
         .nav-heading {
