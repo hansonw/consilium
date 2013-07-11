@@ -31,7 +31,7 @@ $break-xlarge: 1200px;
   transform: translate3d($x, $y, 0);
 }
 
-@mixin box-sizing($value) {
+@mixin box-sizing($value: border-box) {
   -webkit-box-sizing: $value; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: $value;    /* Firefox, other Gecko */
   box-sizing: $value;         /* Opera/IE 8+ */

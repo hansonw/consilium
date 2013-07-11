@@ -1,13 +1,13 @@
 @import '../shared/constants';
 @import '../shared/utilities';
 
-.client-form {
-  $client-form-nav-width: 300px;
-  $client-form-nav-padding: 50px;
+$client-form-nav-width: 250px;
+$client-form-nav-padding: 50px;
 
+.client-form {
   @include respond-to(widescreens) {
     padding-top: 20px;
-    padding-left: $client-form-nav-width + $client-form-nav-padding + 10px;
+    padding-left: $client-form-nav-width;
   }
 
   label.changed {
@@ -19,13 +19,12 @@
     @include transition();
 
     display: none;
-    width: $client-form-nav-width - $client-form-nav-padding;
+    width: $client-form-nav-width - 5px;
     vertical-align: top;
 
     @include respond-to(widescreens) {
       display: inline-block;
-      margin-left: -($client-form-nav-width + $client-form-nav-padding + 10px);
-      padding-right: $client-form-nav-padding;
+      margin-left: -$client-form-nav-width;
     }
 
     .nav-container {
@@ -75,6 +74,7 @@
   .transitionOn {
     @include transition();
   }
+
   .subsection {
     padding: 0px -20px;
     height: 72px;
@@ -116,6 +116,7 @@
 
 .form-content {
   @include transition();
+  @include box-sizing();
 
   width: 100%;
   display: inline-block;
@@ -124,6 +125,10 @@
     button {
       display: inline-block;
     }
+  }
+
+  @include respond-to(widescreens) {
+    padding-left: $client-form-nav-padding;
   }
 }
 
