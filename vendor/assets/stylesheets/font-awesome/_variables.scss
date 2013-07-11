@@ -1,7 +1,9 @@
 // Variables
 // --------------------------
 
-$FontAwesomePath: "../font" !default;
+//$FontAwesomePath: "../font" !default;
+// PATCH: This is not the default path.
+$FontAwesomePath: "/font";
 $FontAwesomeVersion: "3.2.1" !default;
 $borderColor: #eeeeee !default;
 $iconMuted: #eeeeee !default;
