@@ -11,7 +11,6 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require modernizr
-//= require fastclick
 //= require jquery
 //= require jquery_ujs
 //= require unstable/angular

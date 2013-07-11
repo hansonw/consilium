@@ -46,9 +46,6 @@ gem 'ydocx', :git => 'https://github.com/DouglasSherk/ydocx.git'
 # CORS handling from Rack
 gem 'rack-cors', :require => 'rack/cors'
 
-# FastClick library to disable double-tap delay on mobile
-gem 'fastclick-rails'
-
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
