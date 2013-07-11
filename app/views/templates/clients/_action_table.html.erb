@@ -26,14 +26,15 @@
       <td colspan="<%= fields.length + 1 %>">No <%= name %> available.</td>
     </tr>
     <tr data-ng-repeat="item in <%= model %><%= ".slice(0, #{limit})" if !local_assigns[:limit].nil? %><%= " | orderBy:#{model}Predicate:#{model}Reverse" if local_assigns[:sortable] %>"
-        <%= defined?(rowhref) && raw("data-click-href='#{rowhref}'") %> >
+        <%= defined?(rowHref) && raw("data-click-href='#{rowHref}'") %>
+        <%= defined?(rowModule) && raw("data-ng-click=" + rowModule) %> >
       <% fields.each do |field| %>
         <td class="<%= field[:class] %>"><%= raw field[:content] %></td>
       <% end %>
       <td class="actions align-right">
         <% actions.each do |action| %>
           <a data-ng-href="<%= action[:href] %>" data-ng-click="<%= raw(action[:click]) %>"
-             class="pure-button pure-button-small <%= action[:class] %>" <%= raw action[:attrs] %> >
+             class="pure-button pure-button-small <%= action[:class] %>" <%= raw action[:attrs] %> eat-click>
             <i class="<%= action[:icon] %> icon-large"></i>
           </a>
         <% end %>

@@ -6,7 +6,7 @@
   </div>
   <div class="content">
     <div class="client-landing">
-      <div class="recent-client well">
+      <div class="recent-client">
         <h4>Some of your most recent clients</h4>
         <div data-ng-controller="ClientsRecentCtrl">
           <%= render :partial => 'templates/clients/recent_table',
@@ -14,7 +14,7 @@
         </div>
       </div>
       <% # TODO: Show the user's name here. %>
-      <div class="recent-edit well">
+      <div class="recent-edit">
         <h4>Recent changes to clients</h4>
         <div>
           <%= render :partial => 'templates/clients/action_table',
@@ -22,7 +22,7 @@
                        :name => 'history',
                        :model => 'history',
                        :limit => 5,
-                       :rowhref => '#/clients/edit/{{ item.client_id }}/{{ item.id }}',
+                       :rowHref => '#/clients/edit/{{ item.client_id }}/{{ item.id }}',
                        :fields => [
                          {
                            :name => 'Description',
@@ -30,8 +30,8 @@
                            :content => <<-END
                              {{ item.description | ellipsize: 40:1 }}
                              <div class="detail">
-                               on client <a data-ng-href="#/clients/show/{{ item.client_id }}" class="pretty link">{{ item.client_name }} </a>
-                               by <a data-ng-href="#/users/show/{{ item.user_id }}" class="email link">{{ item.user_email }}</a><br />
+                               on client <a data-ng-href="#/clients/show/{{ item.client_id }}" class="pretty" eat-click>{{ item.client_name }} </a>
+                               by <a data-ng-href="#/users/show/{{ item.user_id }}" class="email" eat-click>{{ item.user_email }}</a><br />
                                on <span class="date">{{ item.updated_at | date: 'medium'}}</span>
                              </div>
                            END
