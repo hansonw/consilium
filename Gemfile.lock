@@ -14,7 +14,7 @@ GIT
 
 GIT
   remote: https://github.com/mongoid/mongoid.git
-  revision: d52c33bce36a2e427634c3483128f739213798e3
+  revision: a8f66d834dcaa0241eb97e7aea9fb7c39427d8e9
   specs:
     mongoid (4.0.0)
       activemodel (~> 4.0.0)
@@ -24,7 +24,7 @@ GIT
 
 GIT
   remote: https://github.com/plataformatec/devise.git
-  revision: 3c519b13ff94acf86bc744c8675ebea56b72c7b0
+  revision: 49aebde435cf556a9a897f83babfc1f4e7f4a4cc
   specs:
     devise (3.0.0.rc)
       bcrypt-ruby (~> 3.0)
@@ -83,13 +83,14 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    fastclick-rails (0.0.1)
     highline (1.6.19)
     hike (1.2.3)
     htmlentities (4.3.1)
     i18n (0.6.4)
     jbuilder (1.0.2)
       activesupport (>= 3.0.0)
-    jquery-rails (3.0.2)
+    jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.0)
@@ -185,6 +186,7 @@ DEPENDENCIES
   capistrano
   coffee-rails (~> 4.0.0)
   devise!
+  fastclick-rails
   jbuilder (~> 1.0.1)
   jquery-rails
   modernizr-rails
