@@ -150,10 +150,12 @@ body {
 
     .table-search {
       width: 100%;
+      vertical-align: bottom;
     }
 
     .table-buttons {
       text-align: right;
+      vertical-align: top;
     }
   }
 }
