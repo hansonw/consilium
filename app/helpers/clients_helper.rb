@@ -6,10 +6,23 @@ module ClientsHelper
   def client_field(field, parent_field: nil, show_changed: false)
     model = model_name(field[:id], parent_field)
     if field[:if]
+      negate = false
+      showIf = field[:if]
       if field[:if].start_with? '!'
-        showIf = model_name(field[:if][1..-1], parent_field) + ' != "yes"'
+        showIf = field[:if][1..-1]
+        negate = true
+      end
+
+      parts = showIf.split('.')
+      parts[0] = model_name(parts[0], parent_field)
+      if parts.length > 1
+        showIf = parts.join('.') # checkbox
       else
-        showIf = model_name(field[:if], parent_field) + ' != "no"'
+        showIf = parts[0] + ' == "yes"' # radio
+      end
+
+      if negate
+        showIf = "!(#{showIf})"
       end
     end
 
