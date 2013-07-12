@@ -189,4 +189,10 @@ body {
   .only-desktops {
     @include respond-to(tablets, handhelds) { display: none; }
   }
+
+  label.required:after {
+    content: "*";
+    color: red;
+    float: right;
+  }
 }

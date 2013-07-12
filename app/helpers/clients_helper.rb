@@ -15,7 +15,7 @@ module ClientsHelper
 
     return raw\
       "<div class='pure-control-group' #{field[:if] && "data-ng-show='#{showIf}'"}>
-         <label for='#{field[:id]}' #{show_changed && "data-ng-class='changedFields.#{field[:id]} && \"changed\"'"}>
+         <label for='#{field[:id]}' #{field[:required] && "class='required'"} #{show_changed && "data-ng-class='changedFields.#{field[:id]} && \"changed\"'"}>
            #{field[:name]}
          </label>
          #{ng_input(field, model)}
