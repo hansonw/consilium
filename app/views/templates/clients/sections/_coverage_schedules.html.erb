@@ -1,0 +1,57 @@
+<%
+  schedules = [
+    {
+      :name => 'Property',
+      :type => [
+        {
+          :name => 'Building, Equipment and Stock',
+          :id => 'bldgEquipAndStock',
+          :options => [
+            'Building',
+            'Equipment',
+            'Stock',
+          ],
+          :type => [
+            'Broad',
+            'Named',
+          ],
+        },
+        {
+          :name => 'Property of Every Description (POED)',
+          :id => 'poed',
+          :options => [
+            'Building',
+            'Equipment',
+            'Stock',
+          ],
+          :type => [
+            'Broad',
+            'Named',
+          ],
+        },
+      ],
+    },
+  ]
+%>
+
+<div class="pure-g-r">
+  <div class="pure-u-1-3">
+    <select data-ng-model="coverageCategory">
+      <% schedules.each do |category| %>
+        <option><%= category[:name] %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="pure-u-1-3">
+    <% schedules.each do |category| %>
+      <select data-ng-show="coverageCategory == '<%= category[:name] %>'">
+        <% category[:type].each do |type| %>
+          <option><%= type[:name] %></option>
+        <% end %>
+      </select>
+    <% end %>
+  </div>
+  <div class="pure-u-1-3">
+    oh
+  </div>
+</div>
