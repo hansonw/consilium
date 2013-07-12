@@ -9,6 +9,10 @@
          <% end %>
         >
           <%= raw '<a href="" class="pretty">' if local_assigns[:sortable] %><%= field[:name] %><%= raw '</a>' if local_assigns[:sortable] %>
+          <% if local_assigns[:sortable] %>
+            <i class="icon-caret-down" data-ng-show="<%= model %>Predicate == '<%= field[:class] %>.value || <%= field[:class] %>' && !<%= model %>Reverse"></i>
+            <i class="icon-caret-up" data-ng-show="<%= model %>Predicate == '<%= field[:class] %>.value || <%= field[:class] %>' && <%= model %>Reverse"></i>
+          <% end %>
         </th>
       <% end %>
       <th class="actions align-right">Actions</th>
