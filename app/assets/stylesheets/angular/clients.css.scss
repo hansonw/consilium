@@ -110,7 +110,7 @@ $client-form-nav-padding: 50px;
 
   .data-table {
     background-color: $light-gray;
-    @include hover();
+    @include ng-scope-hover();
   }
 }
 
@@ -396,12 +396,11 @@ $client-form-nav-padding: 50px;
   tr th i {
     color: #666;
   }
-  
-  @include hover();
+
+  @include ng-scope-hover();
 }
 
 .history-table {
-
   .description {
     padding-right: 10px;
     width: auto;
@@ -427,7 +426,7 @@ $client-form-nav-padding: 50px;
     }
   }
 
-  @include hover();
+  @include ng-scope-hover();
 }
 
 .documents-table {

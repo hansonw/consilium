@@ -27,7 +27,8 @@
     </tr>
     <tr data-ng-repeat="item in <%= model %><%= ".slice(0, #{limit})" if !local_assigns[:limit].nil? %><%= " | orderBy:#{model}Predicate:#{model}Reverse" if local_assigns[:sortable] %>"
         <%= defined?(rowHref) && raw("data-click-href='#{rowHref}'") %>
-        <%= defined?(rowModule) && raw("data-ng-click=" + rowModule) %> >
+        <% # TODO: Investigate weirld interaction between single quotes and double qoutes which occurs when it is all one string %>
+        <%= defined?(rowClick) && raw("data-ng-click=" + rowClick) %> >
       <% fields.each do |field| %>
         <td class="<%= field[:class] %>"><%= raw field[:content] %></td>
       <% end %>
