@@ -8,15 +8,15 @@ App.directive 'animateSubsection', ['$timeout', ($timeout)->
       element.css '-webkit-transform', 'scale3d(1, ' + scaleValue + ', 1)'
       element.css 'transform', 'scale3d(1, ' + scaleValue + ', 1)'
 
-    pushElements = (height, animate) ->
+    pushElements = (offset, animate = false, relative = true) ->
       #Move all elements below up or down depending on height value
       $.each $elem.nextAll(), ->
-          $(this).data 'offset', off_ = ($(this).data('offset') or 0) + height
-          if animate
-            applyAnimate $(this), true
-          else
-            applyAnimate $(this)
-          applyTranslate $(this), off_
+        $(this).data('offset', off_ = (relative && $(this).data('offset') || 0) + offset)
+        if animate
+          applyAnimate $(this), true
+        else
+          applyAnimate $(this)
+        applyTranslate $(this), off_
 
     applyAnimate = (element, type) ->
       if type
@@ -29,20 +29,18 @@ App.directive 'animateSubsection', ['$timeout', ($timeout)->
     padding = 20 # Padding around well, obtained from stylesheets/shared/consillium.css.scss
     conversionFactor = 1200 # seconds to miliseconds plus buffer of 20%
     heightOriginal = $elem.height()
-    
+
     div = $elem.find '.slider'
     outer = $elem.find '.subsection-outer'
     inner = outer.find '.subsection-inner'
     contents = inner.find '.subsection-contents'
 
     applyAnimate contents, false
-    applyTranslate contents, '-' + (contents.height() + padding)
+    applyTranslate contents, -(contents.height() + padding)
+
     # XXX:  Only problem with this is if you move it too fast, the elements dont move to the right spot.
-    $(window).resize ->
-      if !$elem.hasClass 'active'
-        applyAnimate contents, 'none'
-        applyTranslate contents, '-' + (contents.height() + padding)
-      else
+    updateElement = ->
+      if $elem.hasClass 'active'
         height = contents.height() + padding
         scaleAmount = 1 + height / div.outerHeight()
         applyAnimate div, false
@@ -52,11 +50,16 @@ App.directive 'animateSubsection', ['$timeout', ($timeout)->
         applyTranslate contents, 0
         $elem.height heightOriginal + height
 
+    $(window).resize updateElement
+    $scope.$watch 'client', updateElement, true
+
     $($elem.find 'a.section-edit').click ->
-      height = contents.height() + padding
+      if $scope.timer
+        $timeout.cancel($scope.timer)
+        $scope.timer = null
 
       if $elem.hasClass 'active'
-        $elem.removeClass 'active'
+        height = contents.height() + padding
 
         applyAnimate contents, true
         applyTranslate contents, -height
@@ -66,12 +69,21 @@ App.directive 'animateSubsection', ['$timeout', ($timeout)->
 
         pushElements -height, true
         # Undo tranforms and add heights
-        $timeout () ->
+        $scope.timer = $timeout () ->
           applyAnimate $elem, false
           $elem.height heightOriginal
-          pushElements height
+          pushElements 0, false, false
+          inner.hide()
         , transitionDuration * conversionFactor
       else
+        if !inner.is(':visible')
+          inner.show()
+          height = contents.height() + padding
+          applyAnimate contents, false
+          applyTranslate contents, -height
+        else
+          height = contents.height() + padding
+
         scaleAmount = 1 + height / div.outerHeight()
         applyAnimate div, true
         applyScale div, scaleAmount
@@ -81,11 +93,11 @@ App.directive 'animateSubsection', ['$timeout', ($timeout)->
 
         pushElements height, true
         # Undo tranforms and add heights
-        $timeout () ->
+        $scope.timer = $timeout () ->
           applyAnimate $elem, false
           $elem.height heightOriginal + height
-          pushElements -height
+          pushElements 0, false, false
         , transitionDuration * conversionFactor
 
-        $elem.addClass 'active', !$elem.hasClass 'active'
+      $elem.toggleClass 'active'
 ]

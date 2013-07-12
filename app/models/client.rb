@@ -499,6 +499,7 @@ class Client
           :id => 'inspectedBy',
           :placeholder => 'Person/firm risk was inspected by',
           :type => 'text',
+          :if => 'inspection',
         },
         {
           :name => 'This risk is',
