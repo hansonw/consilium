@@ -687,6 +687,17 @@
     <% end %>
 
     <%
+      replacementCost = {
+        :name => 'Replacement cost',
+        :id => 'replacementCost',
+        :type => 'currency',
+        :placeholder => '$ CAN (ex. 111.11)',
+        :if => "options == \"Building\" || " + sectionId + ".options == \"Equipment\""
+      }
+     %>
+    <%= client_field replacementCost, parent_field: {:id => sectionId} %>
+
+    <%
       deductible = {
         :name => 'Deductible',
         :id => 'deductible',
