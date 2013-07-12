@@ -193,10 +193,10 @@ $client-form-nav-padding: 50px;
   display:inline-block;
 }
 
-#closeCameraTab {
-  position: absolute;
-  top: 0;
-  right: 0;
+#closeImage {
+  position: relative;
+  bottom: 0px;
+  display:inline-block;
 }
 
 #camera{ 
@@ -213,11 +213,24 @@ $client-form-nav-padding: 50px;
   }
 }
 
-#cameraOptions .yourimage {
-  max-height: 100%;
-  max-width: 100%;
-  display: table;
-  margin: 0px auto;
+#cameraOptions {
+  .yourimage {
+    max-height: 100%;
+    max-width: 100%;
+    display: table;
+    margin: 0px auto;
+  }
+
+  .takePictureField {
+    @include respond-to(handhelds) {
+      width: 100%;
+    }
+    margin-bottom: 3px;
+  }
+
+  #photoOptions {
+    display: inline-block;
+  }
 }
 
 #toolbar {
