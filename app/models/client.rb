@@ -398,7 +398,7 @@ class Client
     },
     {
       :name => 'Location Info',
-      :id => 'locationInfos',
+      :id => 'locationInfo',
       :type => [
         {
           :name => 'Location Number',
