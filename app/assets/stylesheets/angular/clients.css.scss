@@ -107,6 +107,11 @@ $client-form-nav-padding: 50px;
       }
     }
   }
+
+  .data-table {
+    background-color: $light-gray;
+    @include ng-scope-hover();
+  }
 }
 
 .section-edit {
@@ -388,15 +393,11 @@ $client-form-nav-padding: 50px;
     text-align: center;
   }
 
-  .ng-scope:hover {
-    cursor: pointer;
-    cursor: hand;
-    background-color: #f7f7f7;
-  }
-
   tr th i {
     color: #666;
   }
+
+  @include ng-scope-hover();
 }
 
 .history-table {
@@ -424,6 +425,8 @@ $client-form-nav-padding: 50px;
       color: #999;
     }
   }
+
+  @include ng-scope-hover();
 }
 
 .documents-table {

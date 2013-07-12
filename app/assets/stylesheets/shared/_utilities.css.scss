@@ -55,3 +55,11 @@ $break-xlarge: 1200px;
   -moz-border-radius: $radius;
   border-radius: $radius;
 }
+
+@mixin ng-scope-hover() {
+  .ng-scope:hover {
+    cursor: pointer;
+    cursor: hand;
+    background-color: $table-hover;
+  }
+}
