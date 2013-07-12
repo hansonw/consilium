@@ -6,28 +6,28 @@
         {
           :name => 'Building, Equipment and Stock',
           :id => 'bldgEquipAndStock',
-          :options => [
-            'Building',
-            'Equipment',
-            'Stock',
-          ],
-          :type => [
-            'Broad',
-            'Named',
-          ],
+          :options => {
+            'building' => 'Building',
+            'equipment' => 'Equipment',
+            'stock' => 'Stock',
+          },
+          :type => {
+            'broad' => 'Broad',
+            'named' => 'Named',
+          },
         },
         {
           :name => 'Property of Every Description (POED)',
           :id => 'poed',
-          :options => [
-            'Building',
-            'Equipment',
-            'Stock',
-          ],
-          :type => [
-            'Broad',
-            'Named',
-          ],
+          :options => {
+            'building' => 'Building',
+            'equipment' => 'Equipment',
+            'stock' => 'Stock',
+          },
+          :type => {
+            'broad' => 'Broad',
+            'named' => 'Named',
+          },
         },
       ],
     },
@@ -36,7 +36,7 @@
 
 <div class="pure-g-r">
   <div class="pure-u-1-3">
-    <select data-ng-model="coverageCategory">
+    <select data-ng-model="coverageSchedules.category">
       <% schedules.each do |category| %>
         <option><%= category[:name] %></option>
       <% end %>
@@ -44,7 +44,7 @@
   </div>
   <div class="pure-u-1-3">
     <% schedules.each do |category| %>
-      <select data-ng-show="coverageCategory == '<%= category[:name] %>'">
+      <select data-ng-model="coverageSchedules.type" data-ng-show="coverageSchedules.category == '<%= category[:name] %>'">
         <% category[:type].each do |type| %>
           <option><%= type[:name] %></option>
         <% end %>
@@ -52,6 +52,34 @@
     <% end %>
   </div>
   <div class="pure-u-1-3">
-    oh
+    <% schedules.each do |category| %>
+      <% category[:type].each do |type| %>
+        <% if !type[:options].nil? %>
+          <%
+            optionsMenu = {
+              :name => '',
+              :id => type[:id],
+              :type => 'radio',
+              :options => type[:options],
+            }
+           %>
+          <div data-ng-show="coverageSchedules.type == '<%= type[:name] %>'">
+            <%= client_field optionsMenu, parent_field: {:id => 'coverageSchedules'} %>
+          </div>
+
+          <%
+            typesMenu = {
+              :name => '',
+              :id => type[:id],
+              :type => 'radio',
+              :options => type[:type],
+            }
+           %>
+          <div data-ng-show="coverageSchedules.type == '<%= type[:name] %>'">
+            <%= client_field typesMenu, parent_field: {:id => 'coverageSchedules'} %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
   </div>
 </div>
