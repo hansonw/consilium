@@ -50,6 +50,16 @@
                      :name => 'Company',
                      :class => 'company',
                      :content => '{{ item.company.value }}'
+                   },
+                   {
+                     :name => 'Updated At',
+                     :class => 'updated_at',
+                     :content => '{{ item.updated_at | date: \'short\' }}'
+                   },
+                   {
+                     :name => 'Created At',
+                     :class => 'created_at',
+                     :content => '{{ item.created_at | date: \'short\' }}'
                    }
                  ],
                  :actions => [
