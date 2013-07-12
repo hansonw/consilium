@@ -6,21 +6,21 @@
              :rowHref => '#/clients/show/{{ item.id }}',
              :fields => [
                {
+                 :name => 'Company',
+                 :class => 'company',
+                 :content => '{{ item.company }}'
+               },
+               {
                  :name => 'Name',
                  :class => 'name',
                  :content => '{{ item.name }}'
                },
-               {
-                 :name => 'Company',
-                 :class => 'company',
-                 :content => '{{ item.company }}'
-               }
              ],
              :actions => [
                {
                  :class => 'pure-button-success',
                  :icon => 'icon-share-alt',
                  :href => '#/clients/show/{{ item.id }}',
-               }
-             ]
+               },
+             ],
            } %>

@@ -23,8 +23,8 @@ class Api::ClientsController < Api::ApiController
   # GET /clients.json
   def index
     @clients = Client.any_of(
-      {"name.value" => /#{Regexp.escape(params[:query] || '')}/i},
       {"company.value" => /#{Regexp.escape(params[:query] || '')}/i},
+      {"name.value" => /#{Regexp.escape(params[:query] || '')}/i},
       {"emailAddress.value" => /#{Regexp.escape(params[:query] || '')}/i},
     )
     if params[:filter]
@@ -41,7 +41,7 @@ class Api::ClientsController < Api::ApiController
     @clients = @clients.skip(params[:start] || 0).limit(params[:limit] || 0).asc("name.value")
 
     if params[:short]
-      @clients = @clients.only(:id, :name, :company, :updated_at, :created_at)
+      @clients = @clients.only(:id, :company, :name, :updated_at, :created_at)
     end
 
     respond_to do |format|

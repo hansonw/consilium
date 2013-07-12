@@ -22,7 +22,7 @@ App.controller 'ClientsIndexCtrl', ['$scope', 'Client', 'Auth',\
     $scope.clientsError = false
     $scope.resultStart = if more then $scope.resultStart + results_per_page else 0
     query_params =
-      short: true, # indicates we should only fetch id/name/company
+      short: true, # indicates we should only fetch id/company/name
       start: $scope.resultStart,
       limit: results_per_page+1
 

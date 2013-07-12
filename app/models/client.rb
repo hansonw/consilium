@@ -8,16 +8,16 @@ class Client
 
   FIELDS = [
     {
-      :name => 'Name',
-      :id => 'name',
-      :placeholder => 'Firstname Lastname',
+      :name => 'Company',
+      :id => 'company',
+      :placeholder => 'Name of Company',
       :type => 'text',
       :required => true,
     },
     {
-      :name => 'Company',
-      :id => 'company',
-      :placeholder => 'Name of Company',
+      :name => 'Name',
+      :id => 'name',
+      :placeholder => 'Firstname Lastname',
       :type => 'text',
       :required => true,
     },
