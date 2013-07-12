@@ -1154,6 +1154,28 @@ class Client
           :name => 'Type',
           :id => 'type',
           :required => true,
+          :type => 'text',
+        },
+        {
+          :id => 'category',
+          :required => true,
+          :type => 'text',
+        },
+        {
+          :id => 'options',
+          :type => 'text',
+        },
+        {
+          :id => 'deductible',
+          :type => 'text'
+        },
+        {
+          :id => 'coIns',
+          :type => 'text'
+        },
+        {
+          :id => 'limit',
+          :type => 'text'
         },
       ],
     },
