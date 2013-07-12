@@ -101,6 +101,7 @@ module ClientsHelper
               #{field[:max] && "ng-max='#{field[:max]}'"}
               #{field[:pattern] && "pattern='#{field[:pattern]}'"}
               #{field[:errorMessage] && "title='#{field[:errorMessage]}'"}
+              #{field[:type] == 'date' && "placeholder-polyfill"}
             />"
     end
 

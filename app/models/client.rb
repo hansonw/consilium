@@ -146,8 +146,7 @@ class Client
         {
           :name => 'Loss Date',
           :id => 'lossDate',
-          :placeholder => 'dd/mm/yy',
-          :type => 'text',
+          :type => 'date',
           :required => true,
         },
         {
@@ -215,10 +214,14 @@ class Client
           },
         },
         {
-          :name => 'Prev. Term',
-          :id => 'previousTerm',
-          :placeholder => 'Start date - End date (ex. mm/dd/yyyy - mm/dd/yyyy)',
-          :type => 'text',
+          :name => 'Prev. Term Start Date',
+          :id => 'previousTermStart',
+          :type => 'date',
+        },
+        {
+          :name => 'Prev. Term End Date',
+          :id => 'previousTermEnd',
+          :type => 'date',
         },
         {
           :name => 'Was renewal offered',
@@ -246,8 +249,7 @@ class Client
         {
           :name => 'In Business Since',
           :id => 'businessStartDate',
-          :placeholder => 'mm/dd/yyyy',
-          :type => 'text',
+          :type => 'date',
         },
         {
           :name => 'Full Time Employees',
@@ -356,15 +358,13 @@ class Client
       :type => [
         {
           :name => 'Period of Coverage From',
-          :placeholder => 'mm/dd/yyyy',
           :id => 'coverageFrom',
-          :type => 'text',
+          :type => 'date',
         },
         {
           :name => 'Period of Coverage To',
-          :placeholder => 'mm/dd/yyyy',
           :id => 'coverageTo',
-          :type => 'text',
+          :type => 'date',
         },
         {
           :name => 'Package Name',
@@ -447,18 +447,19 @@ class Client
           :type => 'text',
         },
         {
-          :name => 'Date',
-          :id => 'inspectionDate',
-          :placeholder => 'Date risk was inspected',
-          :type => 'text',
+          :name => 'Risk was inspected',
+          :id => 'inspection',
+          :type => 'radio',
+          :options => {
+            'yes' => 'Yes',
+            'no' => 'No',
+          },
         },
         {
-          :name => 'Inspection',
-          :id => 'inspection',
-          :type => 'checkbox',
-          :options => {
-            'notInspected' => 'This risk was not inspected',
-          },
+          :name => 'Date Inspected',
+          :id => 'inspectionDate',
+          :type => 'date',
+          :if => 'inspection',
         },
         {
           :name => 'This risk is',
@@ -472,6 +473,7 @@ class Client
             'fair' => 'Fair',
             'poor' => 'Poor',
           },
+          :if => 'inspection',
         },
         {
           :name => 'Municipal Fire Zone',
@@ -1170,14 +1172,12 @@ class Client
         {
           :name => 'Date Added',
           :id => 'dateAdded',
-          :placeholder => '(ex. mm/dd/yyyy)',
-          :type => 'text',
+          :type => 'date',
         },
         {
           :name => 'Policy Expiry',
           :id => 'policyExpiry',
-          :placeholder => '(ex. mm/dd/yyyy)',
-          :type => 'text',
+          :type => 'date',
         },
       ],
     },
@@ -1200,14 +1200,12 @@ class Client
         {
           :name => 'Start Date',
           :id => 'startDate',
-          :placeholder => 'mm/dd/yyyy',
-          :type => 'text',
+          :type => 'date',
         },
         {
           :name => 'End Date',
           :id => 'endDate',
-          :placeholder => 'mm/dd/yyyy',
-          :type => 'text',
+          :type => 'date',
         },
         {
           :name => 'Type of Insurance',
@@ -1253,8 +1251,7 @@ class Client
         {
           :name => 'I have known this client since',
           :id => 'dateKnown',
-          :placeholder => 'mm/dd/yyyy',
-          :type => 'text',
+          :type => 'date',
         },
         {
           :name => '',
