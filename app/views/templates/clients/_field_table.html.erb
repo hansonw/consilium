@@ -10,6 +10,7 @@
              :locals => {
                :name => 'data',
                :model => "client.#{field[:id]}.value",
+               :rowClick => "editInField('#{field[:id]}',$index)",
                :fields => [
                  {
                    :name => field[:type].first[:name],
