@@ -115,11 +115,14 @@ module FormHelper
                 #{field[:disabled] && 'disabled'}
                 id='cameraOptions'>
                 <div class='well' >
-                <a id='CapturePhoto' data-ng-click='sccapturePhoto()' class='pure-button pure-button-primary' style=''><i class='icon-camera'></i></a>
-                <a id='settingsCamera' data-ng-click='findPhoto()' class='pure-button pure-button-primary' style=''><i class='icon-picture'></i></a>
-                <input type='file' capture='camera' accept='image/*' class='takePictureField' />
-                <img style='display:none;' id='largeImage' src='' />
-                <img class='yourimage'/>
+                  <input type='file' capture='camera' accept='image/*' class='takePictureField' />
+                  <div id='photoOptions'>
+                    <a id='CapturePhoto' data-ng-click='sccapturePhoto()' class='pure-button pure-button-primary' style='' title='Only works on mobile'><i class='icon-camera'></i></a>
+                    <a id='settingsCamera' data-ng-click='findPhoto()' class='pure-button pure-button-primary' style='' title='Only works on mobile'><i class='icon-picture'></i></a>
+                    <a id='closeImage' data-ng-click='closePicture()' class='pure-button pure-button-primary' style=''><i class='icon-remove'></i></a>
+                  </div>
+                  <img style='display:none;' id='largeImage' src='' />
+                  <img class='yourimage'/>
                 </div>
               </div>"
     else
