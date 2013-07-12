@@ -627,10 +627,11 @@
   ]
 %>
 
-<div class="pure-g-r">
+<div class="pure-g-r" id="coverageScheduleForm">
   <div class="pure-u-1-5">
     <h2>Category</h2>
-    <select data-ng-model="<%= sectionId %>.category">
+    <hr class="soften" />
+    <select name="category" data-ng-model="<%= sectionId %>.category" required>
       <% schedules.each do |category| %>
         <option><%= category[:name] %></option>
       <% end %>
@@ -638,11 +639,12 @@
   </div>
   <div class="pure-u-2-5">
     <h2>Type</h2>
+    <hr class="soften" />
     <select data-ng-show="!<%= sectionId %>.category" disabled>
       <option>             </option>
     </select>
     <% schedules.each do |category| %>
-      <select data-ng-model="<%= sectionId %>.type" data-ng-show="<%= sectionId %>.category == '<%= category[:name] %>'">
+      <select name="type" data-ng-model="<%= sectionId %>.type" data-ng-show="<%= sectionId %>.category == '<%= category[:name] %>'" required>
         <% category[:type].each do |type| %>
           <option><%= type[:name] %></option>
         <% end %>
@@ -651,12 +653,13 @@
   </div>
   <div class="pure-u-2-5">
     <h2>Values</h2>
+    <hr class="soften" />
     <% schedules.each do |category| %>
       <% category[:type].each do |type| %>
         <% if !type[:options].nil? %>
           <%
             optionsMenu = {
-              :name => '',
+              :name => 'Options',
               :id => 'options',
               :type => 'radio',
               :options => type[:options],
@@ -668,7 +671,7 @@
 
           <%
             typesMenu = {
-              :name => '',
+              :name => 'Type',
               :id => 'types',
               :type => 'radio',
               :options => type[:type],

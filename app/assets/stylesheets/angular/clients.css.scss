@@ -453,3 +453,14 @@ $client-form-nav-padding: 50px;
     }
   }
 }
+
+#coverageScheduleForm {
+  select {
+    width: 100%;
+  }
+
+  > * {
+    @include box-sizing(border-box);
+    padding: 20px;
+  }
+}
