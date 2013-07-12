@@ -109,6 +109,10 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     desiredWidth = window.innerWidth
     window.URL = window.webkitURL  if ("url" not of window) and ("webkitURL" of window)
 
+  $scope.closePicture = () ->
+    $("#largeImage").replaceWith "<img style='display:none;' id='largeImage' src='' />"
+    $(".yourimage").replaceWith "<img class='yourimage'/>"
+                
   $scope.sccapturePhoto = ->
     navigator.camera.getPicture onSuccess, YouDoneGoofed,
       sourceType: 1
@@ -125,15 +129,9 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     alert "Hustion We have A Problem..."
 
   onSuccess = (imageData) ->
-    # alert "win!"
-    # smallImage = document.getElementById("smallImage")
-    # smallImage.style.display = "table"
-    # smallImage.src = "data:image/jpeg;base64," + imageData
-    # alert imageData
     largeImage = document.getElementById("largeImage")
     largeImage.style.display = "table"
     largeImage.src = "data:image/jpeg;base64," + imageData
-    # alert "win3!"
 
   $scope.toggleRadio = (objName, value) ->
     if !$scope.clientChangeId
