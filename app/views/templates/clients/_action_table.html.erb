@@ -3,7 +3,11 @@
   <thead>
     <tr>
       <% fields.each do |field| %>
-        <th class="<%= field[:class] %>"><%= field[:name] %></th>
+        <th class="<%= field[:class] %>"
+         <% if local_assigns[:sortable] %>
+            data-ng-click="<%= model %>Predicate = '<%= field[:class] %>.value || <%= field[:class] %>'; <%= model %>Reverse = !<%= model %>Reverse"
+         <% end %>
+        ><%= field[:name] %></th>
       <% end %>
       <th class="actions align-right">Actions</th>
     </tr>
@@ -15,7 +19,7 @@
     <tr data-ng-show="!<%= name %>Loading && !<%= name %>Error && !<%= model %>.length">
       <td colspan="<%= fields.length + 1 %>">No <%= name %> available.</td>
     </tr>
-    <tr data-ng-repeat="item in <%= model %><%= ".slice(0, #{limit})" if !local_assigns[:limit].nil? %>"
+    <tr data-ng-repeat="item in <%= model %><%= ".slice(0, #{limit})" if !local_assigns[:limit].nil? %><%= " | orderBy:#{model}Predicate:#{model}Reverse" if local_assigns[:sortable] %>"
         <%= defined?(rowhref) && raw("data-click-href='#{rowhref}'") %> >
       <% fields.each do |field| %>
         <td class="<%= field[:class] %>"><%= raw field[:content] %></td>
