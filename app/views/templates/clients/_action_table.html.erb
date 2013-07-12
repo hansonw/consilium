@@ -7,7 +7,9 @@
          <% if local_assigns[:sortable] %>
             data-ng-click="<%= model %>Predicate = '<%= field[:class] %>.value || <%= field[:class] %>'; <%= model %>Reverse = !<%= model %>Reverse"
          <% end %>
-        ><%= field[:name] %></th>
+        >
+          <%= raw '<a href="" class="pretty">' if local_assigns[:sortable] %><%= field[:name] %><%= raw '</a>' if local_assigns[:sortable] %>
+        </th>
       <% end %>
       <th class="actions align-right">Actions</th>
     </tr>
