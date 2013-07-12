@@ -1396,7 +1396,7 @@ class Client
         end
       when 'radio', 'dropdown'
         # Has to be one of the given values
-        if !field_desc[:options].include?(value)
+        if !field_desc[:options].include?(value) && !field_desc[:options].include?('Other')
           errors[field_name] << 'is not one of the provided options'
         end
       when 'checkbox'
