@@ -48,9 +48,20 @@ class Api::DocumentsController < Api::ApiController
       end
     end
 
+    if brokerage = Brokerage.all.first
+      data['brokerOffice'] = brokerage.office
+      data['brokerMarketer'] = brokerage.marketer
+      data['brokerProducer'] = brokerage.producer
+    end
+
+    fields = Client::FIELDS
+    fields << {:id => 'brokerOffice', :type => 'text'}
+    fields << {:id => 'brokerMarketer', :type => 'text'}
+    fields << {:id => 'brokerProducer', :type => 'text'}
+
     tmpfile = Tempfile.new(client_change.id.to_s)
     template_path = Rails.root.join('lib', 'docx_templates', 'default.docx')
-    YDocx::Document.fill_template(template_path, data, Client::FIELDS, tmpfile.path)
+    YDocx::Document.fill_template(template_path, data, fields, tmpfile.path)
 
     send_data(File.binread(tmpfile.path), :filename => name + '.docx')
   end

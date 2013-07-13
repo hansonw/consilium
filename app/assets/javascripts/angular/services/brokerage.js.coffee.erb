@@ -1,0 +1,7 @@
+<% environment.context_class.instance_eval { include ActionView::Helpers } %>
+<% environment.context_class.instance_eval { include AngularHostHelper } %>
+
+App.factory 'Brokerage', ['$resource', 'Auth', ($resource, Auth) ->
+  resource = $resource('<%= angularApiPath('/api/brokerage') %>', {format: 'json', id: '@id'})
+  return Auth.wrapActions(resource)
+]
