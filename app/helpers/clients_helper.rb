@@ -40,10 +40,13 @@ module ClientsHelper
     case field[:type]
     when 'dropdown'
       dropdownString = "<div class='dropdown-field'>
-                          <select class='dropdown-list' name='#{field[:id]}' ng-model='#{model}'
-                            ng-class='#{model} == \"Other\" && \"other-dropdown\"'
+                          <select class='dropdown-list' name='#{field[:id]}' ng-model='#{model}dropdown'
+                            ng-class='#{model}dropdown == \"Other\" && \"other-dropdown\"'
+                            ng-change='#{model} = #{model}dropdown'
+                            dropdown-other
                             #{field[:required] && 'required'}
-                            #{field[:disabled] && 'disabled'}>
+                            #{field[:disabled] && 'disabled'}
+                            #{field[:intelligentOther] && 'intelligent-other'}>
                           <option value=''>#{field[:placeholder]}</option>"
       field[:options].each do |option|
         dropdownString += "<option value='#{option}'>#{option}</option>"
@@ -52,8 +55,10 @@ module ClientsHelper
       if field[:otherPlaceholder] != ''
         dropdownString +=  "<div class='other-field'>
                               <input name='#{field[:id]}'
-                                type=\"{{(#{model} == 'Other') ? 'text' : 'hidden'}}\"
-                                ng-model='#{model}' placeholder='#{field[:otherPlaceholder]}'
+                                type='text'
+                                style=\"{{(#{model}dropdown == 'Other') ? 'display:auto' : 'display:none'}}\"
+                                ng-model='#{model}other' placeholder='#{field[:otherPlaceholder]}'
+                                ng-change='#{model} = #{model}other'
                                 #{field[:optionRequired] && 'required'}
                                 #{field[:disabled] && 'disabled'}
                               />
