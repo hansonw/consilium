@@ -40,6 +40,21 @@ class Api::DocumentsController < Api::ApiController
     end
   end
 
+  def gen_document(client_change, name)
+    data = {}
+    client_change.client_data.each do |key, val|
+      if val.is_a?(Hash) && !val['value'].nil?
+        data[key] = val['value']
+      end
+    end
+
+    tmpfile = Tempfile.new(client_change.id.to_s)
+    template_path = Rails.root.join('lib', 'docx_templates', 'default.docx')
+    YDocx::Document.fill_template(template_path, data, Client::FIELDS, tmpfile.path)
+
+    send_data(File.binread(tmpfile.path), :filename => name + '.docx')
+  end
+
   # GET /documents/1
   # GET /documents/1.json
   def show
@@ -49,18 +64,19 @@ class Api::DocumentsController < Api::ApiController
       return
     end
 
-    data = {}
-    @document.client_change.client_data.each do |key, val|
-      if val.is_a?(Hash) && !val['value'].nil?
-        data[key] = val['value']
-      end
+    gen_document(@document.client_change, @document.description)
+  end
+
+  # GET /documents/client/:id
+  def client
+    @client = Client.find(params[:id])
+    last_change = ClientChange.where('client_id' => @client.id).desc(:updated_at).first
+    if last_change.nil?
+      render json: '', status: :not_found
+      return
     end
 
-    tmpfile = Tempfile.new(@document.id.to_s)
-    template_path = Rails.root.join('lib', 'docx_templates', 'default.docx')
-    YDocx::Document.fill_template(template_path, data, tmpfile.path)
-
-    send_data(File.binread(tmpfile.path), :filename => @document.description + '.docx')
+    gen_document(last_change, @client.company['value'])
   end
 
   # PUT /documents/:id

@@ -13,6 +13,7 @@ Consilium::Application.routes.draw do
     put 'recent_clients' => 'api/recent_clients#update'
 
     resources :documents, :controller => 'api/documents'
+    get 'documents/client/:id' => 'api/documents#client'
     put 'documents' => 'api/documents#update'
 
     resources :client_changes, :controller => 'api/client_changes'

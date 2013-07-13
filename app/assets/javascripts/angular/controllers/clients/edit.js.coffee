@@ -27,6 +27,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
 
   # TODO: error should be modal
   $scope.loading = true
+  $scope.savedOnce = false
   if $scope.clientChangeId
     $scope.clientChange = ClientChange.get(id: $scope.clientChangeId,
       (->
@@ -144,6 +145,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
         $scope.saving = $scope.dirty = false
         RecentClients.logClientShow($scope.client)
         $scope.lastSaved = $scope.client.getData()
+        $scope.savedOnce = true
     , (data) ->
         $scope.saving = false
         # TODO: these should be modals or something.
@@ -197,5 +199,8 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       collection.splice(index, 1)
 
   $scope.done = ->
-    window.history.back()
+    if $scope.clientId || $scope.savedOnce
+      $location.path("/clients/show/#{$scope.client.id}")
+    else
+      window.history.back()
 ]

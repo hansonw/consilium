@@ -34,13 +34,13 @@
   <div class="content header pure-u-1">
     <h2 class="no-bottom-margin">
       <i data-ng-show="loading" class="icon-spinner icon-spin"></i>
-      <span data-ng-show="!loading">{{ client.name.value }}</span>
+      <span data-ng-show="!loading">{{ client.company.value }}</span>
     </h2>
     <%= render :partial => 'templates/breadcrumbs',
                :locals => { :paths => {
           "Home" => "#/",
           "Clients" => "#/clients/",
-          "{{ client.name.value }}" => "#/clients/show/{{ clientId }}",
+          "{{ client.company.value }}" => "#/clients/show/{{ clientId }}",
         }}
      %>
   </div>
@@ -50,6 +50,10 @@
     <div class="client-info pure-form pure-form-aligned well">
       <div class="section" id="basicInfo">
         <div class="client-buttons pull-right">
+          <a class="pure-button pure-button-primary"
+             data-ng-href="/api/documents/client/{{ clientId }}">
+            <i class="icon-file"></i><span class="desc"><span class="only-desktops"> Get</span> Document</span>
+          </a>
           <a class="pure-button pure-button-primary"
              data-ng-href="#/clients/edit/{{ clientId }}">
             <i class="icon-edit"></i><span class="desc"><span class="only-desktops"> View and</span> Edit</span>
@@ -63,8 +67,8 @@
       </div>
       <div data-ng-show="!loading">
         <div class="pure-control-group">
-          <label for="name">Name</label>
-          <span class="value">{{ client.name.value }}</span>
+          <label for="name">Company</label>
+          <span class="value">{{ client.company.value }}</span>
         </div>
         <div class="pure-control-group">
           <label for="address">Address</label>
@@ -72,7 +76,7 @@
         </div>
         <div class="pure-control-group">
           <label for="city_and_province">City and Province</label>
-          <span class="value">{{ client.city.value }}, {{ client.province.value }}</span>
+          <span class="value">{{ client.city.value }} {{ client.province.value }}</span>
         </div>
         <div class="pure-control-group">
           <label for="phone">Phone</label>

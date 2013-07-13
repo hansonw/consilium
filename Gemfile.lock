@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/DouglasSherk/ydocx.git
-  revision: a602cf8b47f366c5b4a36c94d39e55868ea11195
+  revision: 5b71a76ce2930a691c7b5c623e1be664360439e0
   specs:
     ydocx (1.2.3)
       diff-lcs
@@ -14,7 +14,7 @@ GIT
 
 GIT
   remote: https://github.com/mongoid/mongoid.git
-  revision: d52c33bce36a2e427634c3483128f739213798e3
+  revision: a8f66d834dcaa0241eb97e7aea9fb7c39427d8e9
   specs:
     mongoid (4.0.0)
       activemodel (~> 4.0.0)
@@ -24,13 +24,13 @@ GIT
 
 GIT
   remote: https://github.com/plataformatec/devise.git
-  revision: 3c519b13ff94acf86bc744c8675ebea56b72c7b0
+  revision: fed6a92d552116284c9a2be82c8aa899f774b463
   specs:
     devise (3.0.0.rc)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
-      warden (~> 1.2.1)
+      warden (~> 1.2.2)
 
 GEM
   remote: https://rubygems.org/
@@ -89,7 +89,7 @@ GEM
     i18n (0.6.4)
     jbuilder (1.0.2)
       activesupport (>= 3.0.0)
-    jquery-rails (3.0.2)
+    jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.0)
@@ -171,7 +171,7 @@ GEM
     uglifier (2.1.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    warden (1.2.1)
+    warden (1.2.2)
       rack (>= 1.0)
 
 PLATFORMS
