@@ -23,7 +23,7 @@ class Client
     },
     {
       :name => 'Form of business',
-      :id => 'companyType',
+      :id => 'businessType',
       :type => 'dropdown',
       :options => [
         'Individual',
@@ -412,20 +412,14 @@ class Client
       :id => 'paymentInfo',
       :type => [
         {
-          :name => '',
+          :name => 'Payment Type',
           :id => 'paymentType',
-          :type => 'checkbox',
-          :options => {
-            'companyBill' => 'Company Bill',
-            'brokerBill' => 'Broker/Agent Bill',
-            'other' => 'Other',
-          },
-        },
-        {
-          :name => 'Describe',
-          :id => 'paymentTypeOther',
-          :placeholder => 'If other, please describe',
-          :type => 'text',
+          :type => 'dropdown',
+          :options => [
+            'Company Bill',
+            'Broker/Agent Bill',
+            'Other',
+          ],
         },
       ],
     },
@@ -480,26 +474,25 @@ class Client
           :type => 'text',
         },
         {
-          :name => 'Risk was inspected',
+          :name => '',
           :id => 'inspection',
-          :type => 'radio',
+          :type => 'checkbox',
           :options => {
-            'yes' => 'Yes',
-            'no' => 'No',
+            'yes' => 'This risk was not inspected',
           },
         },
         {
           :name => 'Date Inspected',
           :id => 'inspectionDate',
           :type => 'date',
-          :if => 'inspection',
+          :if => '!inspection.yes',
         },
         {
           :name => 'Inspected by',
           :id => 'inspectedBy',
           :placeholder => 'Person/firm risk was inspected by',
           :type => 'text',
-          :if => 'inspection',
+          :if => '!inspection.yes',
         },
         {
           :name => 'This risk is',
@@ -513,7 +506,7 @@ class Client
             'fair' => 'Fair',
             'poor' => 'Poor',
           },
-          :if => 'inspection',
+          :if => '!inspection.yes',
         },
         {
           :name => 'Municipal Fire Zone',
@@ -588,8 +581,8 @@ class Client
           :id => 'constructionAreaUnit',
           :type => 'dropdown',
           :options => [
-            'Ft&sup2;',
-            'm&sup2;',
+            'Sq. ft.',
+            'Sq. m.',
           ],
         },
         {
@@ -892,10 +885,10 @@ class Client
           :if => 'renovationsRoof.yes',
         },
         {
-          :name => 'Fire Hydrants',
+          :name => 'Nearest Fire Hydrant',
           :id => 'fireHydrants',
           :type => 'dropdown',
-          :placeholder => 'Nearest hydrant',
+          :placeholder => 'Select distance',
           :options => [
             'Unprotected',
             'Within 150m',
@@ -904,10 +897,10 @@ class Client
           ],
         },
         {
-          :name => 'Fire Department',
+          :name => 'Nearest Fire Department',
           :id => 'fireDepartment',
           :type => 'dropdown',
-          :placeholder => 'Nearest fire dept.',
+          :placeholder => 'Select distance',
           :options => [
             'Not Specified',
             'Within 5km',
@@ -968,7 +961,7 @@ class Client
           :id => 'standpipe',
           :type => 'checkbox',
           :options => {
-            'standpipeAndHose' => 'Standpipe & Hose',
+            'yes' => 'Standpipe & Hose',
           },
         },
         {
@@ -991,7 +984,7 @@ class Client
             'fence' => 'Fence',
             'guardDog' => 'Guard Dog',
             'windowsULC' => 'Windows – ULC security film',
-            'comboLock ' => 'Additional combination lock',
+            'comboLock' => 'Additional combination lock',
             'additionalKey' => 'Additional key',
             'fineWireProtection' => 'Alarm \'fine wire\' protecting openings',
             'concealed' => 'Camera with concealed VCR recording on film',
@@ -1359,10 +1352,10 @@ class Client
         },
         {
           :name => '',
-          :id => 'propertyType',
+          :id => 'newClient',
           :type => 'checkbox',
           :options => {
-            'newClient' => 'This client is new to my office.',
+            'yes' => 'This client is new to my office.',
           },
         },
       ],
