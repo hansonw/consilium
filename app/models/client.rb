@@ -986,7 +986,7 @@ class Client
             'windowsULC' => 'Windows – ULC security film',
             'comboLock' => 'Additional combination lock',
             'additionalKey' => 'Additional key',
-            'fineWireProtection' => 'Alarm \'fine wire\' protecting openings',
+            'fineWireProtection' => 'Alarm "fine wire" protecting openings',
             'concealed' => 'Camera with concealed VCR recording on film',
             'commonWalls' => 'Common tenant walls reinforced with steel mesh',
             'electronicLock' => 'Electronic lock',
@@ -1437,7 +1437,7 @@ class Client
         end
       when 'radio', 'dropdown'
         # Has to be one of the given values
-        if !field_desc[:options].include?(value)
+        if !field_desc[:options].include?(value) && !field_desc[:options].include?('Other')
           errors[field_name] << 'is not one of the provided options'
         end
       when 'checkbox'

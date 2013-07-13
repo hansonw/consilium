@@ -71,6 +71,12 @@ $client-form-nav-padding: 50px;
     background: $light-green;
   }
 
+  .changed {
+    .changed {
+      background: darken($light-green, 10%);
+    }
+  }
+
   .transitionOn {
     @include transition();
   }

@@ -40,8 +40,8 @@ module ClientsHelper
     case field[:type]
     when 'dropdown'
       dropdownString = "<div class='dropdown-field'>
-                          <select class='dropdown-list' name='#{field[:id]}' ng-model='#{model}'
-                            ng-class='#{model} == \"Other\" && \"other-dropdown\"'
+                          <select class='dropdown-list' name='#{field[:id]}'
+                            data-dropdown-other='#{model}'
                             #{field[:required] && 'required'}
                             #{field[:disabled] && 'disabled'}>
                           <option value=''>#{field[:placeholder]}</option>"
@@ -52,8 +52,8 @@ module ClientsHelper
       if field[:otherPlaceholder] != ''
         dropdownString +=  "<div class='other-field'>
                               <input name='#{field[:id]}'
-                                type=\"{{(#{model} == 'Other') ? 'text' : 'hidden'}}\"
-                                ng-model='#{model}' placeholder='#{field[:otherPlaceholder]}'
+                                type='hidden'
+                                data-dropdown-other='#{model}' placeholder='#{field[:otherPlaceholder]}'
                                 #{field[:optionRequired] && 'required'}
                                 #{field[:disabled] && 'disabled'}
                               />
