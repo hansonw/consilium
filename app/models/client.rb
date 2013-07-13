@@ -1180,6 +1180,10 @@ class Client
           }
         },
         {
+          :id => 'replacementCost',
+          :type => 'currency'
+        },
+        {
           :id => 'deductible',
           :type => 'currency'
         },
