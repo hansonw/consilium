@@ -18,6 +18,8 @@ Consilium::Application.routes.draw do
 
     resources :client_changes, :controller => 'api/client_changes'
 
+    resource :brokerage, :controller => 'api/brokerage'
+
     post 'auth/login' => 'api/auth#login'
     get 'auth/logout' => 'api/auth#logout'
   end
@@ -44,6 +46,10 @@ Consilium::Application.routes.draw do
       scope :auth do
         get '' => 'home#app', :as => 'app_auth'
         get 'login' => 'home#app', :as => 'app_auth_login'
+      end
+
+      scope :brokerage do
+        get 'index' => 'home#app', :as => 'app_brokerage'
       end
     end
   end
