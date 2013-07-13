@@ -16,6 +16,7 @@ App.directive 'dropdownOther', ->
         bindings[model]['select'].val('Other')
         bindings[model]['select'].addClass('other-dropdown')
         bindings[model]['input'].val(newVal)
+        bindings[model]['input'].attr('type', 'text')
       else
         bindings[model]['select'].val(newVal)
         bindings[model]['select'].removeClass('other-dropdown')
