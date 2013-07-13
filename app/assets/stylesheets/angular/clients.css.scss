@@ -463,4 +463,19 @@ $client-form-nav-padding: 50px;
     @include box-sizing(border-box);
     padding: 20px;
   }
+
+  @include respond-to(desktops, widescreens) {
+    input[type="text"], input[type="currency"] {
+      display: table-row;
+      width: 100%;
+    }
+    label {
+      display: table-row;
+      text-align: left;
+    }
+    .checkbox-container {
+      display: table-row;
+      width: 100%;
+    }
+  }
 }

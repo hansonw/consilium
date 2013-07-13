@@ -164,13 +164,14 @@ body {
         @include respond-to(handhelds) {margin: auto;}
       }
 
+      /* Why is this here?
       .form-content {
         @include respond-to(widescreens){
           display: block;
           width: 80%;
           margin: auto;
         }
-      }
+      }*/
     }
   }
 

@@ -427,7 +427,7 @@
           :id => 'moneySecurities',
           :type => {
             'broad' => 'Broad',
-            'robery' => 'Robery',
+            'robbery' => 'Robbery',
           },
         },
         {
@@ -460,7 +460,7 @@
         },
         {
           :name => 'Office Burglary & Robbery',
-          :id => 'officeBueglary',
+          :id => 'officeBurglary',
           :type => {
             'fourPoint' => '4 Point',
             'sevenPoint' => '7 Point',
@@ -629,24 +629,25 @@
 
 <div class="pure-g-r" id="coverageScheduleForm">
   <div class="pure-u-1-5">
-    <h2>Category</h2>
+    <h2 class="no-top-margin">Category</h2>
     <hr class="soften" />
-    <select name="category" data-ng-model="<%= sectionId %>.category" size="<%= schedules.count + 1%>" required>
-      <option></option>
+    <select name="category" data-ng-model="<%= sectionId %>.category" size="<%= schedules.count + 1%>"
+            data-ng-change="<%= sectionId %>.type = ''" required>
+      <option value="">Select a category...</option>
       <% schedules.each do |category| %>
         <option><%= category[:name] %></option>
       <% end %>
     </select>
   </div>
   <div class="pure-u-2-5">
-    <h2>Type</h2>
+    <h2 class="no-top-margin">Type</h2>
     <hr class="soften" />
-    <select data-ng-show="!<%= sectionId %>.category" disabled>
+    <select data-ng-if="!<%= sectionId %>.category" disabled>
       <option>             </option>
     </select>
     <% schedules.each do |category| %>
-      <select name="type" data-ng-model="<%= sectionId %>.type" data-ng-show="<%= sectionId %>.category == '<%= category[:name] %>'" size="<%= category[:type].count + 1 %>" required>
-        <option></option>
+      <select name="type" data-ng-model="<%= sectionId %>.type" data-ng-if="<%= sectionId %>.category == '<%= category[:name] %>'" size="<%= category[:type].count + 1 %>" required>
+        <option value="">Select a type...</option>
         <% category[:type].each do |type| %>
           <option><%= type[:name] %></option>
         <% end %>
@@ -654,7 +655,7 @@
     <% end %>
   </div>
   <div class="pure-u-2-5">
-    <h2>Values</h2>
+    <h2 class="no-top-margin">Values</h2>
     <hr class="soften" />
     <% schedules.each do |category| %>
       <% category[:type].each do |type| %>
@@ -667,19 +668,20 @@
               :options => type[:options],
             }
            %>
-          <div data-ng-show="<%= sectionId %>.type == '<%= type[:name] %>'">
+          <div data-ng-if="<%= sectionId %>.type == '<%= type[:name] %>'">
             <%= client_field optionsMenu, parent_field: {:id => sectionId} %>
           </div>
-
+        <% end %>
+        <% if !type[:type].nil? %>
           <%
             typesMenu = {
-              :name => 'Type',
-              :id => 'types',
+              :name => 'Types',
+              :id => 'subtype',
               :type => 'radio',
               :options => type[:type],
             }
            %>
-          <div data-ng-show="<%= sectionId %>.type == '<%= type[:name] %>'">
+          <div data-ng-if="<%= sectionId %>.type == '<%= type[:name] %>'">
             <%= client_field typesMenu, parent_field: {:id => sectionId} %>
           </div>
         <% end %>
@@ -692,7 +694,7 @@
         :id => 'replacementCost',
         :type => 'currency',
         :placeholder => '$ CAN (ex. 111.11)',
-        :if => "options == \"Building\" || " + sectionId + ".options == \"Equipment\""
+        :if => "options == \"building\" || " + sectionId + ".options == \"equipment\""
       }
      %>
     <%= client_field replacementCost, parent_field: {:id => sectionId} %>

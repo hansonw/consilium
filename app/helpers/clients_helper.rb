@@ -74,7 +74,6 @@ module ClientsHelper
                             ng-click=\"#{click_action}\">
                             <input name='#{field[:id]}'
                                 type='#{field[:type]}'
-                                id='#{key}'
                                 value='#{key}'
                                 ng-checked=\"#{checked}\"
                                 #{field[:required] && 'required'}

@@ -1156,11 +1156,32 @@ class Client
         },
         {
           :id => 'options',
-          :type => 'text',
+          :type => 'radio',
+          :options => {
+            'building' => 'Building',
+            'equipment' => 'Equipment',
+            'stock' => 'Stock',
+          }
+        },
+        {
+          :id => 'subtype',
+          :type => 'radio',
+          :options => {
+            'broad' => 'Broad',
+            'named' => 'Named',
+            'nameOfEmployee' => 'Name',
+            'position' => 'Position',
+            'robbery' => 'Robbery',
+            'fourPoint' => '4 Point',
+            'sevenPoint' => '7 Point',
+            'limited' => 'Limited',
+            'profit' => 'Profit',
+            'nonProfit' => 'Non-Profit',
+          }
         },
         {
           :id => 'deductible',
-          :type => 'text'
+          :type => 'currency'
         },
         {
           :id => 'coIns',
@@ -1168,7 +1189,7 @@ class Client
         },
         {
           :id => 'limit',
-          :type => 'text'
+          :type => 'currency'
         },
       ],
     },
