@@ -1269,6 +1269,12 @@ class Client
           :type => 'text',
         },
         {
+          :name => 'Lessor',
+          :id => 'lessor',
+          :placeholder => '(ex. Owned)',
+          :type => 'text',
+        },
+        {
           :name => 'Date Added',
           :id => 'dateAdded',
           :type => 'date',
@@ -1277,6 +1283,35 @@ class Client
           :name => 'Policy Expiry',
           :id => 'policyExpiry',
           :type => 'date',
+        },
+        {
+          :name => 'Deleted',
+          :id => 'deleted',
+          :type => 'date',
+        },
+        {
+          :name => 'Premium',
+          :id => 'premium',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
+        },
+        {
+          :name => 'Premium Credit',
+          :id => 'premiumCredit',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
+        },
+        {
+          :name => 'Cargo',
+          :id => 'cargo',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
+        },
+        {
+          :name => 'Cargo Credit',
+          :id => 'cargoCredit',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
         },
       ],
     },
