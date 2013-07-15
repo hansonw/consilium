@@ -1281,8 +1281,71 @@ class Client
       ],
     },
     {
-      :name => 'Property',
-      :id => 'properties',
+      :name => 'Equip. Schedule',
+      :id => 'equipmentSchedules',
+      :type => [
+        {
+          :name => 'Type',
+          :id => 'type',
+          :type => 'dropdown',
+          :required => true,
+          :placeholder => 'Select a type..',
+          :options => [
+            'Contractors Equipment',
+            'Motor Truck Cargo',
+            'Miscellaneous Property',
+            'Fine Arts',
+            'Other',
+          ]
+        },
+        {
+          :name => 'Item #',
+          :id => 'itemNumber',
+          :type => 'text',
+          :placeholder => '#',
+          :required => true,
+        },
+        {
+          :name => 'Year',
+          :id => 'year',
+          :type => 'number',
+          :placeholder => 'yyyy',
+        },
+        {
+          :name => 'Make',
+          :id => 'make',
+          :type => 'text',
+          :placeholder => 'Manufacturer',
+        },
+        {
+          :name => 'Model',
+          :id => 'model',
+          :type => 'text',
+          :placeholder => 'Model',
+        },
+        {
+          :name => 'Serial Number',
+          :id => 'serialNumber',
+          :type => 'text',
+          :placeholder => 'ex. A1234567890',
+        },
+        {
+          :name => 'Description',
+          :id => 'description',
+          :type => 'text',
+          :placeholder => 'Describe the item',
+        },
+        {
+          :name => 'Limit',
+          :id => 'limit',
+          :type => 'text',
+          :placeholder => '',
+        },
+      ]
+    },
+    {
+      :name => 'Misc. Schedule',
+      :id => 'miscellaneousSchedules',
       :type => [
         {
           :name => 'Type',
