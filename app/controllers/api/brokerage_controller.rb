@@ -9,6 +9,9 @@ class Api::BrokerageController < Api::ApiController
   end
 
   def create
+    # Empty arrays are nil
+    params[:contacts] ||= []
+
     if @brokerage = Brokerage.all.first
       @brokerage.update(brokerage_params)
     else
@@ -25,6 +28,7 @@ class Api::BrokerageController < Api::ApiController
   end
 
   def brokerage_params
-    params.permit :office, :marketer, :producer
+    params.permit :name, :address, :website, :phone, :fax,
+                  :contacts => [[:name, :title, :email, :phone]]
   end
 end

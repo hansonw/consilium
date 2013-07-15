@@ -317,6 +317,16 @@ body {
   }
 }
 
+.pure-table {
+  .actions {
+    padding-left: 0px;
+    .pure-button {
+      margin: 3px 0 3px 0; // so buttons stack nicely
+      width: 20px;
+    }
+  }
+}
+
 .pure-table-full-width {
   width: 100%;
 }

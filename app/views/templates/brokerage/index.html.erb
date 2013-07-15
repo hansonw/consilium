@@ -1,4 +1,39 @@
 <div id="main" class="pure-u" data-ng-controller="BrokerageIndexCtrl">
+  <% contactsField = {
+      :id => 'contacts',
+      :name => 'Contacts',
+      :type => [
+        {
+          :id => 'name',
+          :name => 'Name',
+          :placeholder => 'Name',
+          :required => true,
+          :type => 'text',
+        },
+        {
+          :id => 'title',
+          :name => 'Title',
+          :placeholder => 'e.g. Producer, Marketer, Customer Service',
+          :required => true,
+          :type => 'text',
+        },
+        {
+          :id => 'email',
+          :name => 'Email',
+          :placeholder => 'e.g. john@consilium.ca',
+          :type => 'email',
+        },
+        {
+          :id => 'phone',
+          :name => 'Phone',
+          :placeholder => '(Area Code) - Number (ext.)',
+          :type => 'phone',
+        }
+      ]
+    } %>
+  <%= render :partial => 'templates/clients/field_modal',
+             :locals => { :field => contactsField, :submit_callback => "addContact()" } %>
+
   <div class="content header pure-u-1">
     <h2 class="no-bottom-margin">
       Brokerage
@@ -15,20 +50,69 @@
 
   <div class="content">
     <form name="form" class="brokerage-form pure-form pure-form-aligned" data-ng-submit="submitForm()">
-      <div class="pure-form-fields">
-        <div class="pure-control-group">
-          <label for="office">Office</label>
-          <input type="text" name="office" ng-model="brokerage.office" />
-        </div>
-        <div class="pure-control-group">
-          <label for="marketer">Marketer</label>
-          <input type="text" name="marketer" ng-model="brokerage.marketer" />
-        </div>
-        <div class="pure-control-group">
-          <label for="producer">Producer</label>
-          <input type="text" name="producer" ng-model="brokerage.producer" />
-        </div>
+      <div class="section" id="basicInfo">
+        <h3 class="no-top-margin">Office Info.</h3>
       </div>
+
+      <div class="pure-form-fields">
+        <% ['name', 'address', 'website', 'phone', 'fax'].each do |field| %>
+          <div class="pure-control-group">
+            <label for="<%= field %>"><%= field.capitalize %></label>
+            <input type="text" name="name" ng-model="brokerage.<%= field %>" />
+          </div>
+        <% end %>
+      </div>
+
+      <div class="separator"></div>
+
+      <div class="section">
+        <a class="section-edit pull-right pure-button pure-button-primary" modal-toggle="contacts"
+           data-ng-show="!clientChangeId">
+          <i class="icon-plus"></i> <span class="only-desktops">Add Contact</span>
+        </a>
+        <h3 class="no-top-margin no-bottom-margin">Brokerage Contacts</h3>
+
+        </div>
+
+        <%= render :partial => 'templates/clients/action_table',
+                   :locals => {
+                      :name => 'contacts',
+                      :model => "brokerage.contacts",
+                      :rowClick => 'editContact($index)',
+                      :fields => [
+                        {
+                          :name => 'Name',
+                          :content => '{{ item.name }}'
+                        },
+                        {
+                          :name => 'Title',
+                          :content => '{{ item.title }}'
+                        },
+                        {
+                          :name => 'Email',
+                          :class => 'email',
+                          :content => '{{ item.email }}',
+                        },
+                        {
+                          :name => 'Phone',
+                          :content => '{{ item.phone }}'
+                        },
+                      ],
+                      :actions => [
+                        {
+                          :icon => 'icon-edit',
+                          :click => 'editContact($index)'
+                        },
+                        {
+                          :class => 'pure-button-error',
+                          :icon => 'icon-trash',
+                          :click => 'deleteContact($index)',
+                        },
+                      ],
+                    } %>
+
+      <div class="separator"></div>
+
       <div class="button-group">
         <button data-ng-show="form.$dirty && !saving" class="pure-button pure-button-primary" type="submit">Save</button>
         <button data-ng-show="saving" class="pure-button pure-button-disabled pure-button-primary" type="submit">Saving</button>

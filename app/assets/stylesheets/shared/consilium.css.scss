@@ -194,6 +194,6 @@ body {
   label.required:after {
     content: "*";
     color: red;
-    float: right;
+    margin-left: -2px;
   }
 }
