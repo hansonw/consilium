@@ -38,6 +38,10 @@ module FormHelper
        </div>"
   end
 
+  def pattern(str)
+    return "ng-pattern='/#{str}/' pattern='#{str}'"
+  end
+
   def ng_input(field, model)
     r = ''
     case field[:type]
@@ -102,8 +106,8 @@ module FormHelper
               #{field[:maxlength] && "ng-maxlength='#{field[:maxlength]}'"}
               #{field[:min] && "ng-min='#{field[:min]}'"}
               #{field[:max] && "ng-max='#{field[:max]}'"}
-              #{field[:type] == 'currency' && 'pattern=\'\d+(\.\d{0,2})?\'' + "title='No dollar sign and no comma(s) - cents are optional'"}
-              #{field[:type] == 'phone' && 'pattern=\'^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$\'' + "title='Must have format: 1234567890, 123-456-7890, or 123.456.7890'"}
+              #{field[:type] == 'currency' && pattern('\d+(\.\d{0,2})?') + "title='No dollar sign and no comma(s) - cents are optional'"}
+              #{field[:type] == 'phone' && pattern('^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$') + "title='Must have format: 1234567890, 123-456-7890, or 123.456.7890'"}
             />"
     else
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
@@ -114,7 +118,7 @@ module FormHelper
               #{field[:maxlength] && "ng-maxlength='#{field[:maxlength]}'"}
               #{field[:min] && "ng-min='#{field[:min]}'"}
               #{field[:max] && "ng-max='#{field[:max]}'"}
-              #{field[:pattern] && "pattern='#{field[:pattern]}'"}
+              #{field[:pattern] && pattern(field[:pattern])}
               #{field[:errorMessage] && "title='#{field[:errorMessage]}'"}
               #{field[:type] == 'date' && "placeholder-polyfill"}
             />"

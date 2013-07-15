@@ -67,7 +67,7 @@
              :locals => {
                :field => contactsField,
                :title => 'Brokerage',
-               :submit_callback => "addContact()"
+               :submit_callback => "addToField('contacts')"
              } %>
 
   <div class="content header pure-u-1">
@@ -85,7 +85,8 @@
   <hr class="soften" />
 
   <div class="content">
-    <form name="form" class="brokerage-form pure-form pure-form-aligned" data-ng-submit="submitForm()">
+    <form auto-save="brokerage" name="brokerageForm" data-ng-submit="saveForm()"
+          class="brokerage-form pure-form pure-form-aligned">
       <div class="well">
         <div class="section" id="basicInfo">
           <h3 class="no-top-margin no-bottom-margin">Office Info.</h3>
@@ -102,8 +103,7 @@
 
       <div class="well">
         <div class="section">
-          <a class="section-edit pull-right pure-button pure-button-primary" modal-toggle="contacts"
-             data-ng-show="!clientChangeId">
+          <a class="section-edit pull-right pure-button pure-button-primary" modal-toggle="contacts">
             <i class="icon-plus"></i> <span class="only-desktops">Add Contact</span>
           </a>
           <h3 class="no-top-margin no-bottom-margin">Brokerage Contacts</h3>
@@ -113,7 +113,7 @@
                    :locals => {
                       :name => 'contacts',
                       :model => "brokerage.contacts",
-                      :rowClick => 'editContact($index)',
+                      :rowClick => "editInField('contacts', $index)",
                       :fields => [
                         {
                           :name => 'Name',
@@ -136,12 +136,12 @@
                       :actions => [
                         {
                           :icon => 'icon-edit',
-                          :click => 'editContact($index)'
+                          :click => "editInField('contacts', $index)",
                         },
                         {
                           :class => 'pure-button-error',
                           :icon => 'icon-trash',
-                          :click => 'deleteContact($index)',
+                          :click => "deleteFromField('contacts', $index)",
                         },
                       ],
                     } %>
@@ -150,9 +150,21 @@
       <div class="separator-xsmall"></div>
 
       <div class="button-group">
-        <button data-ng-show="form.$dirty && !saving" class="pure-button pure-button-primary" type="submit">Save</button>
-        <button data-ng-show="saving" class="pure-button pure-button-disabled pure-button-primary" type="submit">Saving</button>
-        <button data-ng-show="!form.$dirty && !saving" class="pure-button pure-button-disabled pure-button-primary" type="submit">Saved</button>
+        <button class="pure-button pure-button-secondary pure-button-large"
+                data-ng-class="{'pure-button-disabled': !saving && !brokerageForm.$dirty}" type="submit">
+          <span data-ng-if="saving">
+            <i class="icon-spinner icon-spin"></i> Saving...
+          </span>
+          <span data-ng-if="!saving && !brokerageForm.$dirty">
+            Saved
+          </span>
+          <span data-ng-if="!saving && brokerageForm.$dirty && brokerageForm.$valid">
+            Save
+          </span>
+          <span data-ng-if="!saving && brokerageForm.$dirty && !brokerageForm.$valid">
+            Save ({{ errorCount() }})
+          </span>
+        </button>
       </div>
     </form>
   </div>

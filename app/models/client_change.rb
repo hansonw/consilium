@@ -47,7 +47,7 @@ class ClientChange
 
   def self.get_change_description(new_client, old_client)
     if old_client.nil?
-      return 'Created new client ' + new_client['name']['value']
+      return 'Created new client ' + new_client['company']['value']
     end
 
     changed_fields = get_changed_fields(new_client, old_client)

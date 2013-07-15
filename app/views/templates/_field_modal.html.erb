@@ -28,7 +28,7 @@
           <% end %>
           <div class="separator"></div>
           <div class="pull-right">
-            <button data-ng-show="!clientChangeId" type="submit" class="pure-button pure-button-primary">Save</button>
+            <button data-ng-show="!readonly" type="submit" class="pure-button pure-button-primary">Save</button>
             <button class="pure-button" modal-toggle="<%= field[:id] %>">Close</button>
           </div>
         </form>
