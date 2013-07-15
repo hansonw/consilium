@@ -8,5 +8,5 @@ App.directive 'modalToggle', ['Modal', (Modal) ->
 
     if !$scope._modalDestructor
       $scope._modalDestructor = true
-      $scope.$on('$destroy', -> $('body').removeClass('modal-active'))
+      $scope.$on('$destroy', -> Modal.toggleModal(null, false))
 ]

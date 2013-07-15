@@ -167,8 +167,6 @@ $client-form-nav-padding: 50px;
 }
 
 #toolbar {
-  @include transition();
-
   position: fixed;
 
   bottom: 0;
