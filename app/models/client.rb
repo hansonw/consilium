@@ -300,7 +300,7 @@ class Client
           :placeholder => '',
           :type => 'dropdown',
           :options => [
-            'WCB',
+            'WSIB',
             'Other',
           ],
           :otherPlaceholder => 'Specify',
