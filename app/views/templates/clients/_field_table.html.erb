@@ -9,7 +9,7 @@
   <%= render :partial => 'templates/action_table',
              :locals => {
                :name => 'data',
-               :model => "client.#{field[:id]}.value",
+               :model => "#{root || 'client'}.#{field[:id]}.value",
                :rowClick => "editInField('#{field[:id]}',$index)",
                :fields => [
                  {

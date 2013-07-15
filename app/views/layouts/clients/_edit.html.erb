@@ -1,0 +1,112 @@
+<div data-ng-controller="ClientsEditCtrl">
+  <% Client::FIELDS.each do |field| %>
+    <% if field[:type].is_a?(Array) && field[:id].ends_with?('s') %>
+      <%= render :partial => 'templates/field_modal',
+                 :locals => {
+                   :field => field,
+                   :page => 'Clients',
+                   :page_url => '#/clients/',
+                   :page_title => '{{ title }}',
+                   :submit_callback => "addToField('#{field[:id]}', #{if defined? root then root else 'null' end})"
+                 } %>
+    <% end %>
+  <% end %>
+
+  <form auto-save="client" syncable
+        save-success="saveSuccess" save-error="saveError" data-ng-submit="saveForm()"
+        name="clientForm" class="pure-form pure-form-aligned">
+    <div id="main" class="pure-u">
+      <div class="content header pure-u-1">
+        <h2 class="no-bottom-margin">{{ title }}</h2>
+        <%= yield %>
+      </div>
+      <hr class="soften" />
+
+      <div class="content">
+        <div class="client-form">
+          <div class="form-nav">
+            <div scroll-fix class="nav-container">
+              <div class="pure-menu pure-menu-open nav-box">
+                <a class="pure-menu-heading nav-heading">Sections</a>
+                <ul class="nav-list">
+                  <li data-ng-class="changedSections['basicInfo'] && 'changed'">
+                    <a href="" data-ng-click="scrollTo('basicInfo')">Basic Info</a>
+                  </li>
+                  <% fields.each do |field| %>
+                    <% if field[:type].is_a? Array %>
+                      <li data-ng-class="changedSections.<%= field[:id] %> && 'changed'">
+                        <a href="" data-ng-click="scrollTo('<%= field[:id] %>')">
+                          <%= field[:name] %>
+                        </a>
+                      </li>
+                    <% end %>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div data-ng-show="loading" class="form-content">
+            <h3 class="no-top-margin"><i class="icon-spinner icon-spin icon-large"></i> Loading...</h3>
+          </div>
+          <div data-ng-show="!loading" class="form-content">
+            <div data-ng-show="clientChange" class="edit-description">
+              <b>{{ clientChange.user_email }}</b> made this change on {{ clientChange.updated_at | date: 'MMM d, y h:mm a' }}:<br />
+              <div class="description">{{ clientChange.description }}</div>
+            </div>
+
+            <div class="section" id="basicInfo">
+              <h3 class="no-top-margin">Basic Info.</h3>
+            </div>
+
+            <div class="separator-xsmall"></div>
+
+            <div class="pure-form-fields">
+              <% fields.each do |field| %>
+                <% if not field[:type].is_a? Array %>
+                  <%= form_field field, if defined? root then root else nil end %>
+                <% end %>
+              <% end %>
+            </div>
+
+            <div class="separator"></div>
+
+            <% fields.each do |field| %>
+              <% if field[:type].is_a? Array %>
+                <% if field[:id].ends_with? 's' %>
+                  <%= render :partial => 'templates/clients/field_table',
+                             :locals => { :field => field, :root => if defined? root then root else nil end } %>
+                <% else %>
+                  <%= render :partial => 'templates/clients/field_section',
+                             :locals => { :field => field, :root => if defined? root then root else nil end } %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="toolbar" class="pure-u" data-ng-class="{'active': menuShouldShow()}">
+      <div class="content">
+        <button class="pure-button pure-button-secondary pure-button-large" data-ng-class="{'pure-button-disabled': !saving && !clientForm.$dirty}"
+                data-ng-show="!clientChangeId" type="submit">
+          <span data-ng-if="saving">
+            <i class="icon-spinner icon-spin"></i> Saving...
+          </span>
+          <span data-ng-if="!saving && !clientForm.$dirty && client.isNew()">
+            No changes
+          </span>
+          <span data-ng-if="!saving && !clientForm.$dirty && !client.isNew()">
+            Saved
+          </span>
+          <span data-ng-if="!saving && clientForm.$dirty && newClient.$valid">
+            Save
+          </span>
+          <span data-ng-if="!saving && clientForm.$dirty && !newClient.$valid">
+            Save ({{ errorCount() }})
+          </span>
+        </button>
+        <a data-ng-click="done()" class="pure-button pure-button-primary pure-button-large">Done</a>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,9 +1,11 @@
 module FormHelper
   def model_name(field_name, parent_field)
-    return "#{parent_field}.#{field_name}" + (parent_field == 'client' ? '.value' : '')
+    return "#{parent_field}.#{field_name}.value"
   end
 
   def form_field(field, parent_field)
+    parent_field = 'client' if parent_field.nil?
+
     model = model_name(field[:id], parent_field)
     if field[:if]
       negate = false
