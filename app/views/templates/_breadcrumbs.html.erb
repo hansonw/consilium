@@ -1,3 +1,5 @@
+<% paths = paths.delete_if { |k, v| k.nil? } %>
+
 <div class="breadcrumbs">
   <% paths.each_with_index do |path, index| %>
     <% if index == paths.length - 1 %>

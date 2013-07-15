@@ -2,7 +2,13 @@
   <% Client::FIELDS.each do |field| %>
     <% if field[:type].is_a?(Array) && field[:id].ends_with?('s') %>
       <%= render :partial => 'templates/field_modal',
-                 :locals => { :field => field, :submit_callback => "addToField('#{field[:id]}')" } %>
+                 :locals => {
+                   :field => field,
+                   :page => 'Clients',
+                   :page_url => '#/clients/',
+                   :title => '{{ title }}',
+                   :submit_callback => "addToField('#{field[:id]}')"
+                 } %>
     <% end %>
   <% end %>
 

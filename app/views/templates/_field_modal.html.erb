@@ -5,8 +5,8 @@
       <%= render :partial => 'templates/breadcrumbs',
                  :locals => { :paths => {
             "Home" => "#/",
-            "Clients" => "#/clients/",
-            "{{ title }}" => {:modal_toggle => field[:id]},
+            local_assigns[:page] => local_assigns[:page_url],
+            local_assigns[:title] => {:modal_toggle => field[:id]},
             "Add " + field[:name].singularize => '',
           }}
        %>

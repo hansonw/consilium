@@ -3,7 +3,6 @@ App.controller 'BrokerageIndexCtrl', ['$scope', 'Brokerage', 'Auth', 'Modal',\
   Auth.checkLogin()
 
   $scope.brokerage = Brokerage.get()
-  $scope.title = 'Brokerage'
 
   $scope.submitForm = ->
     if !$scope.saving && $scope.form.$dirty

@@ -64,7 +64,11 @@
       ]
     } %>
   <%= render :partial => 'templates/field_modal',
-             :locals => { :field => contactsField, :submit_callback => "addContact()" } %>
+             :locals => {
+               :field => contactsField,
+               :title => 'Brokerage',
+               :submit_callback => "addContact()"
+             } %>
 
   <div class="content header pure-u-1">
     <h2 class="no-bottom-margin">
