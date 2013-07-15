@@ -1,5 +1,5 @@
 <div id="main" data-ng-controller="ClientsShowCtrl" class="pure-form pure-u">
- <%= render :partial => 'templates/clients/field_modal',
+ <%= render :partial => 'templates/field_modal',
             :locals => {
               :field => {
                 :name => 'Generated Documents',
@@ -89,7 +89,7 @@
       <div class="section" id="basicInfo">
         <h3 class="no-top-margin">Edit History</h3>
       </div>
-      <%= render :partial => 'templates/clients/action_table',
+      <%= render :partial => 'templates/action_table',
                  :locals => {
                    :name => 'history',
                    :model => 'history',
@@ -128,7 +128,7 @@
       <div class="section" id="basicInfo">
         <h3 class="no-top-margin">Documents</h3>
       </div>
-      <%= render :partial => 'templates/clients/action_table',
+      <%= render :partial => 'templates/action_table',
                  :locals => {
                    :name => 'documents',
                    :model => 'documents',

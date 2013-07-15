@@ -22,7 +22,7 @@
           <% else %>
             <div class="pure-form-fields">
               <% field[:type].each do |subfield| %>
-                <%= client_field subfield, parent_field: field %>
+                <%= form_field subfield, field[:id] %>
               <% end %>
             </div>
           <% end %>

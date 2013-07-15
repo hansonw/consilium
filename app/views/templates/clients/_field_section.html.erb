@@ -12,7 +12,7 @@
     <div class="subsection-inner">
       <div class="subsection-contents pure-form-fields">
         <% field[:type].each do |subfield| %>
-          <%= client_field subfield, show_changed: true %>
+          <%= form_field subfield, 'client' %>
         <% end %>
       </div>
     </div>

@@ -3,8 +3,8 @@ module AngularTemplateCachingHelper
     # XXX: HACK HACK HACK. We shouldn't have to do this.
     # Without it, anything in this helper is undefined. We will have to manually
     # add each helper that we use anywhere to this list.
-    require "#{Rails.root}/app/helpers/clients_helper"
-    helper ClientsHelper
+    require "#{Rails.root}/app/helpers/form_helper"
+    helper FormHelper
 
     def protect_against_forgery?
       false

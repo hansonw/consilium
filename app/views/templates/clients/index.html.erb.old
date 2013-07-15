@@ -47,7 +47,7 @@
           </div>
         </div>
         <div class="form-content">
-          <%= render :partial => 'templates/clients/action_table',
+          <%= render :partial => 'templates/action_table',
                      :locals => {
                        :name => 'clients',
                        :model => 'clients',

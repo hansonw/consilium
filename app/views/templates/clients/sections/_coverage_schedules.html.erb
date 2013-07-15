@@ -669,7 +669,7 @@
             }
            %>
           <div data-ng-if="<%= sectionId %>.type == '<%= type[:name] %>'">
-            <%= client_field optionsMenu, parent_field: {:id => sectionId} %>
+            <%= form_field optionsMenu, sectionId %>
           </div>
         <% end %>
         <% if !type[:type].nil? %>
@@ -682,7 +682,7 @@
             }
            %>
           <div data-ng-if="<%= sectionId %>.type == '<%= type[:name] %>'">
-            <%= client_field typesMenu, parent_field: {:id => sectionId} %>
+            <%= form_field typesMenu, sectionId %>
           </div>
         <% end %>
       <% end %>
@@ -697,7 +697,7 @@
         :if => "options == \"building\" || " + sectionId + ".options == \"equipment\""
       }
      %>
-    <%= client_field replacementCost, parent_field: {:id => sectionId} %>
+    <%= form_field replacementCost, sectionId %>
 
     <%
       deductible = {
@@ -707,7 +707,7 @@
         :placeholder => '$ CAN (ex. 111.11)',
       }
      %>
-    <%= client_field deductible, parent_field: {:id => sectionId} %>
+    <%= form_field deductible, sectionId %>
     <%
       coIns = {
         :name => 'Co-Ins',
@@ -716,7 +716,7 @@
         :placeholder => '(ex. 80/20)',
       }
      %>
-    <%= client_field coIns, parent_field: {:id => sectionId} %>
+    <%= form_field coIns, sectionId %>
     <%
       limit = {
         :name => 'Limit',
@@ -725,6 +725,6 @@
         :placeholder => '$ CAN (ex. 111.11)',
       }
      %>
-    <%= client_field limit, parent_field: {:id => sectionId} %>
+    <%= form_field limit, sectionId %>
   </div>
 </div>

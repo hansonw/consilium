@@ -6,7 +6,7 @@
     </a>
     <h3 class="no-top-margin no-bottom-margin"><%= field[:name] %></h3>
   </div>
-  <%= render :partial => 'templates/clients/action_table',
+  <%= render :partial => 'templates/action_table',
              :locals => {
                :name => 'data',
                :model => "client.#{field[:id]}.value",

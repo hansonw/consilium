@@ -1,7 +1,7 @@
 <div data-ng-controller="ClientsEditCtrl">
   <% Client::FIELDS.each do |field| %>
     <% if field[:type].is_a?(Array) && field[:id].ends_with?('s') %>
-      <%= render :partial => 'templates/clients/field_modal',
+      <%= render :partial => 'templates/field_modal',
                  :locals => { :field => field, :submit_callback => "addToField('#{field[:id]}')" } %>
     <% end %>
   <% end %>
@@ -61,7 +61,7 @@
             <div class="pure-form-fields">
               <% Client::FIELDS.each do |field| %>
                 <% if not field[:type].is_a? Array %>
-                  <%= client_field field, show_changed: true %>
+                  <%= form_field field, 'client' %>
                 <% end %>
               <% end %>
             </div>

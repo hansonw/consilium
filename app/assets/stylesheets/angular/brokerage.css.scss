@@ -1,3 +1,6 @@
+@import '../shared/constants';
+@import '../shared/utilities';
+
 .brokerage-form {
   .button-group {
     margin-top: 15px;
@@ -10,4 +13,6 @@
   .email {
     word-break: break-word;
   }
+
+  @include ng-scope-hover();
 }

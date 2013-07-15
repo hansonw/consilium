@@ -14,23 +14,23 @@ GIT
 
 GIT
   remote: https://github.com/mongoid/mongoid.git
-  revision: a8f66d834dcaa0241eb97e7aea9fb7c39427d8e9
+  revision: cb541fa1fd7cf9ab0a725c757490d0ac435a79f7
   specs:
     mongoid (4.0.0)
       activemodel (~> 4.0.0)
-      moped (~> 1.4)
+      moped (~> 1.5)
       origin (~> 1.0)
       tzinfo (~> 0.3.22)
 
 GIT
   remote: https://github.com/plataformatec/devise.git
-  revision: fed6a92d552116284c9a2be82c8aa899f774b463
+  revision: b46b7e37360413e6a9faf43df76ffc6f6e749058
   specs:
-    devise (3.0.0.rc)
+    devise (3.0.0)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
-      warden (~> 1.2.2)
+      warden (~> 1.2.3)
 
 GEM
   remote: https://rubygems.org/
@@ -168,10 +168,10 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
-    uglifier (2.1.1)
+    uglifier (2.1.2)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    warden (1.2.2)
+    warden (1.2.3)
       rack (>= 1.0)
 
 PLATFORMS
