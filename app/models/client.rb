@@ -129,6 +129,7 @@ class Client
             'Vice President',
             'Other',
           ],
+          :intelligentOther => true,
           :otherPlaceholder => 'Specify',
         },
         {

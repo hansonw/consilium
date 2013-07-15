@@ -53,7 +53,7 @@ module FormHelper
     case field[:type]
     when 'dropdown'
       dropdownString = "<div class='dropdown-field'>
-                          <select class='dropdown-list' name='#{field[:id]}'
+                          <select class='dropdown-list #{field[:id]}' name='#{field[:id]}'
                             data-dropdown-other='#{model}'
                             #{field[:required] && 'required'}
                             #{field[:readonly] && 'readonly'}>

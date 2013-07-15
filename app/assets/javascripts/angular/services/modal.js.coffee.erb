@@ -13,4 +13,6 @@ App.factory 'Modal', [->
 
     if modalName
       $(".modal[id~='modal-#{modalName}']").toggleClass('active', setMode)
+
+    $("div#modal-#{modalName}").trigger("modal-toggle")
 ]
