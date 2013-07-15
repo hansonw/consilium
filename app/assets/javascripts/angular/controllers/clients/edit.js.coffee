@@ -1,4 +1,7 @@
-# This doubles as the new client view (if no client ID is provided)
+
+
+
+
 App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$location', 'Client', 'ClientChange', 'RecentClients', 'Auth', 'Modal',\
                                    ($scope, $routeParams, $timeout, $location, Client, ClientChange, RecentClients, Auth, Modal) ->
   Auth.checkLogin()
@@ -95,6 +98,40 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     if $scope._saveTimer?
       $timeout.cancel($scope._saveTimer)
   )
+
+  gotPic = (event) ->
+    $(".yourimage").attr "src", URL.createObjectURL(event.target.files[0])  if event.target.files.length is 1 and event.target.files[0].type.indexOf("image/") is 0
+
+  desiredWidth = undefined
+  $(document).ready ->
+    $(".takePictureField").on "change", gotPic
+    $(".yourimage").load
+    desiredWidth = window.innerWidth
+    window.URL = window.webkitURL  if ("url" not of window) and ("webkitURL" of window)
+
+  $scope.closePicture = () ->
+    $("#largeImage").replaceWith "<img style='display:none;' id='largeImage' src='' />"
+    $(".yourimage").replaceWith "<img class='yourimage'/>"
+                
+  $scope.sccapturePhoto = ->
+    navigator.camera.getPicture onSuccess, YouDoneGoofed,
+      sourceType: 1
+      quality: 20
+      destinationType: 0
+
+  $scope.findPhoto = ->
+    navigator.camera.getPicture onSuccess, YouDoneGoofed,
+      sourceType: 0
+      quality: 20
+      destinationType: 0
+
+  YouDoneGoofed = ->
+    alert "Hustion We have A Problem..."
+
+  onSuccess = (imageData) ->
+    largeImage = document.getElementById("largeImage")
+    largeImage.style.display = "table"
+    largeImage.src = "data:image/jpeg;base64," + imageData
 
   $scope.toggleRadio = (objName, value) ->
     if !$scope.clientChangeId
