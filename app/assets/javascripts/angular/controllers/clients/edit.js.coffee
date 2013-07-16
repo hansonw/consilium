@@ -45,8 +45,9 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     $scope.client = Client.get(id: $scope.clientId,
       (->
         if $scope.inLocationInfo
-          if !$scope.locationInfoId?
-            alert 'No location'
+          if !$scope.locationInfoId? || $scope.locationInfoId == ''
+            (($scope.client.locationInfos ||= {}).value ||= []).push({})
+            $scope.locationInfoId = $scope.client.locationInfos.value.length - 1
           if !$scope.client.locationInfos.value? || $scope.locationInfoId < 0 || $scope.locationInfoId >= $scope.client.locationInfos.value.length
             alert('The requested location info was not found.')
 
