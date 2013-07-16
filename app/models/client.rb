@@ -414,13 +414,12 @@ class Client
         {
           :name => 'Payment Type',
           :id => 'paymentType',
-          :type => 'checkbox',
-          :options => {
-            'companyBill' => 'Company Bill',
-            'brokerBill' => 'Broker/Agent Bill',
-            'other' => 'Other',
-          },
-          :otherPlaceholder => 'Specify', 
+          :type => 'dropdown',
+          :options => [
+            'Company Bill',
+            'Broker/Agent Bill',
+            'Other',
+          ],
         },
       ],
     },
@@ -1226,7 +1225,12 @@ class Client
             'Owner-operator',
             'Other',
           ],
-          :otherPlaceholder => 'Specify', 
+        },
+        {
+          :name => 'Finance Company',
+          :id => 'financeCompany',
+          :placeholder => 'Some Truck Co.',
+          :type => 'text',
         },
         {
           :name => 'Year',
@@ -1442,28 +1446,21 @@ class Client
       :id => 'photos',
       :type => [
         {
-          :name => 'Title',
-          :id => 'photoTitle',
-          :placeholder => 'Title of photo',
-          :required => true,
-          :type => 'text',
-        },
-        {
-          :name => '',
-          :id => 'photoCamera',
-          :type => 'photo',
-        },
-        {
           :name => 'Notes',
           :id => 'photoNotes',
-          :placeholder => 'Note about the photo',
-          :type => 'textbox',
+          :placeholder => 'Take a note',
+          :type => 'text',
         },
         {
-          :name => 'Date Taken',
-          :id => 'datePhotographed',
-          :placeholder => 'mm/dd/yyyy',
-          :type => 'text',
+          :name => 'Organize Photos By',
+          :id => 'organizePhotos',
+          :type => 'dropdown',
+          :placeholder => 'Date',
+          :options => [
+            'Alphabetically',
+            'Date',
+            'Photographer',
+          ],
         },
       ],
     },

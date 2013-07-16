@@ -109,22 +109,6 @@ module FormHelper
               #{field[:type] == 'currency' && pattern('\d+(\.\d{0,2})?') + "title='No dollar sign and no comma(s) - cents are optional'"}
               #{field[:type] == 'phone' && pattern('^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$') + "title='Must have format: 1234567890, 123-456-7890, or 123.456.7890'"}
             />"
-    when 'photo'
-      r="<div style='' name='#{field[:id]}' ng-model='#{model}' 
-                #{field[:required] && 'required'}
-                #{field[:disabled] && 'disabled'}
-                id='cameraOptions'>
-                <div class='well' >
-                  <input type='file' capture='camera' accept='image/*' class='takePictureField' />
-                  <div id='photoOptions'>
-                    <a id='CapturePhoto' data-ng-click='sccapturePhoto()' class='pure-button pure-button-primary' style='' title='Only works on mobile'><i class='icon-camera'></i></a>
-                    <a id='settingsCamera' data-ng-click='findPhoto()' class='pure-button pure-button-primary' style='' title='Only works on mobile'><i class='icon-picture'></i></a>
-                    <a id='closeImage' data-ng-click='closePicture()' class='pure-button pure-button-primary' style=''><i class='icon-remove'></i></a>
-                  </div>
-                  <img style='display:none;' id='largeImage' src='' />
-                  <img class='yourimage'/>
-                </div>
-              </div>"
     else
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='#{model}' placeholder='#{field[:placeholder]}'
