@@ -49,9 +49,9 @@ class Api::DocumentsController < Api::ApiController
     end
 
     if brokerage = Brokerage.all.first
-      data['brokerOffice'] = brokerage.office
-      data['brokerMarketer'] = brokerage.marketer
-      data['brokerProducer'] = brokerage.producer
+      data['brokerOffice'] = ''
+      data['brokerMarketer'] = ''
+      data['brokerProducer'] = ''
     end
 
     fields = Client::FIELDS

@@ -1,13 +1,13 @@
 <div id="modal-<%= field[:id] %>" class="modal pure-u">
   <div class="layout modal-inside" data-ng-class="{'active': menuShouldShow()}">
     <div class="header content pure-u-1">
-      <h2 class="no-bottom-margin">Add <%= field[:name].singularize %></h2>
+      <h2 class="no-bottom-margin"><%= local_assigns[:title] || "Add #{field[:name].singularize}" %></h2>
       <%= render :partial => 'templates/breadcrumbs',
                  :locals => { :paths => {
             "Home" => "#/",
             local_assigns[:page] => local_assigns[:page_url],
-            local_assigns[:title] => {:modal_toggle => field[:id]},
-            "Add " + field[:name].singularize => '',
+            local_assigns[:page_title] => {:modal_toggle => field[:id]},
+            local_assigns[:title] || "Add #{field[:name].singularize}" => '',
           }}
        %>
     </div>
@@ -28,8 +28,8 @@
           <% end %>
           <div class="separator"></div>
           <div class="pull-right">
-            <button data-ng-show="!readonly" type="submit" class="pure-button pure-button-primary">Save</button>
-            <button class="pure-button" modal-toggle="<%= field[:id] %>">Close</button>
+            <button data-ng-show="!readonly" type="submit" class="pure-button pure-button-primary"><%= local_assigns[:submit_text] || 'Save' %></button>
+            <button class="pure-button" modal-toggle="<%= field[:id] %>">Cancel</button>
           </div>
         </form>
       </div>

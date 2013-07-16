@@ -50,7 +50,7 @@ module FormHelper
                           <select class='dropdown-list' name='#{field[:id]}'
                             data-dropdown-other='#{model}'
                             #{field[:required] && 'required'}
-                            #{field[:disabled] && 'disabled'}>
+                            #{field[:readonly] && 'readonly'}>
                           <option value=''>#{field[:placeholder]}</option>"
       field[:options].each do |option|
         dropdownString += "<option value='#{option}'>#{option}</option>"
@@ -62,7 +62,7 @@ module FormHelper
                                 type='hidden'
                                 data-dropdown-other='#{model}' placeholder='#{field[:otherPlaceholder]}'
                                 #{field[:optionRequired] && 'required'}
-                                #{field[:disabled] && 'disabled'}
+                                #{field[:readonly] && 'readonly'}
                               />
                             </div>"
       end
@@ -84,7 +84,7 @@ module FormHelper
                                 value='#{key}'
                                 ng-checked=\"#{checked}\"
                                 #{field[:required] && 'required'}
-                                #{field[:disabled] && 'disabled'}
+                                #{field[:readonly] && 'readonly'}
                             />
                             <span class='checkbox-label'>#{option}</span>
                           </div>"
@@ -94,14 +94,14 @@ module FormHelper
       r = "<textarea name='#{field[:id]}' ng-model='#{model}'
                 placeholder='#{field[:placeholder]}'
                 #{field[:required] && 'required'}
-                #{field[:disabled] && 'disabled'}
+                #{field[:readonly] && 'readonly'}
                 rows='#{field[:boxRows]}'
             /></textarea>"
     when 'currency', 'phone'
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='#{model}' placeholder='#{field[:placeholder]}'
               #{field[:required] && 'required'}
-              #{field[:disabled] && 'disabled'}
+              #{field[:readonly] && 'readonly'}
               #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
               #{field[:maxlength] && "ng-maxlength='#{field[:maxlength]}'"}
               #{field[:min] && "ng-min='#{field[:min]}'"}
@@ -113,7 +113,7 @@ module FormHelper
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='#{model}' placeholder='#{field[:placeholder]}'
               #{field[:required] && 'required'}
-              #{field[:disabled] && 'disabled'}
+              #{field[:readonly] && 'readonly'}
               #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
               #{field[:maxlength] && "ng-maxlength='#{field[:maxlength]}'"}
               #{field[:min] && "ng-min='#{field[:min]}'"}

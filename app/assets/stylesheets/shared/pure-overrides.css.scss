@@ -181,9 +181,14 @@ button, input, select, textarea {
       }
 
       input[readonly], textarea[readonly], select[readonly] {
-        border: 1px solid #ccc;
-        background-color: white;
+        border: 0;
+        box-shadow: none;
+        background-color: transparent;
         color: black;
+      }
+
+      select[readonly] {
+        border: 1px solid #ccc;
       }
 
       // Text areas do not get formatted by pure, the styling below is
