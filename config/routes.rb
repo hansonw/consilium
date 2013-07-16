@@ -40,6 +40,7 @@ Consilium::Application.routes.draw do
         get 'recent' => 'home#app', :as => 'app_clients_recent'
         get 'show/:clientId' => 'home#app', :as => 'app_clients_show'
         get 'edit/:clientId' => 'home#app', :as => 'app_clients_edit'
+        get 'edit/:clientId/locationInfo' => 'home#app', :as => 'app_clients_new_locationInfo'
         get 'edit/:clientId/locationInfo/:locationInfoId' => 'home#app', :as => 'app_clients_edit_locationInfo'
         get 'edit/:clientId/:clientChangeId' => 'home#app', :as => 'app_clients_view_change'
       end

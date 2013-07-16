@@ -1,7 +1,7 @@
 <% fields = Client::FIELDS.detect{|f| f[:id] == 'locationInfos'} %>
 <% fields = fields[:type] %>
 
-<%= render :layout => 'layouts/clients/edit', :locals => {:fields => fields, :root => 'locationInfo'} do %>
+<%= render :layout => 'layouts/clients/edit', :locals => {:fields => fields, :root => 'client.locationInfos.value[locationInfoId]'} do %>
   <%= render :partial => 'templates/breadcrumbs',
              :locals => { :paths => {
         "Home" => "#/",
