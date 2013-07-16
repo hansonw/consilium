@@ -54,7 +54,7 @@ class Api::DocumentsController < Api::ApiController
       data['brokerProducer'] = ''
     end
 
-    fields = Client::FIELDS
+    fields = Client::FIELDS.dup
     fields << {:id => 'brokerOffice', :type => 'text'}
     fields << {:id => 'brokerMarketer', :type => 'text'}
     fields << {:id => 'brokerProducer', :type => 'text'}
