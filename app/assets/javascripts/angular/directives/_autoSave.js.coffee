@@ -34,7 +34,7 @@ App.directive 'autoSave', ['$timeout', 'Modal', ($timeout, Modal) ->
 
     $scope.$on('$locationChangeStart', (event) ->
       if form.$dirty
-        if !confirm("You have unsaved changes.\n\nAre you sure you want to leave this page?")
+        if !confirm("You have unsaved changes.\nAre you sure you want to leave this page?")
           event.preventDefault())
 
     $(window).on('beforeunload', unloadHandler = ->

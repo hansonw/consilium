@@ -1823,13 +1823,12 @@ class Client
     return fields.flatten
   end
 
-  def validate_value(field_name, field_desc, value_field)
-    if value_field.nil? || value_field == ''
+  def validate_value(field_name, field_desc, value)
+    if value.nil? || value == ''
       if field_desc[:required]
         errors[field_name] << 'is required'
       end
     else
-      value = value_field[:value]
       case field_desc[:type]
       when 'text'
         value = value.to_s
@@ -1879,42 +1878,39 @@ class Client
         end
       end
     end
-
-    value_field[:value] = value if !value_field.nil? && value_field.has_key?(:value)
-    return value_field
+    return value
   end
 
-  def validate_field(field)
-    val = self[field[:id]]
+  def validate_field(obj, field, parent = nil)
+    field_name = field[:id].underscore.humanize + (parent ? ' in ' + parent[:id].underscore.humanize.downcase : '')
+    val = obj[field[:id]]
     if val.nil?
       if field[:required]
-        errors[field[:id]] << 'is required'
+        errors[field_name] << 'is required'
       end
-    elsif val['updated_at'].nil?
-      errors[field[:id]] << 'must contain "updated_at"'
+    elsif val['updated_at'].nil? && parent.nil? # TODO: for now, let's just ignore it on subfields
+      errors[field_name] << 'must contain "updated_at"'
     elsif val['value'].nil?
       if field[:type].is_a?(Array)
         # Rails parses empty arrays as nil. Assume that's what happened
         val['value'] = []
       else
-        errors[field[:id]] << 'must contain "value"'
+        errors[field_name] << 'must contain "value"'
       end
     elsif field[:type].is_a?(Array)
       if !val['value'].is_a?(Array)
-        errors[field[:id]] << 'must be an array'
+        errors[field_name] << 'must be an array'
       else
         val['value'].each_with_index do |subval, i|
           field[:type].each do |subfield|
-            value = validate_value(subfield[:id], subfield, subval[subfield[:id]])
-            subval[subfield[:id]] = value unless value.nil?
+            validate_field(subval, subfield, field)
           end
         end
       end
     else
-      value = validate_value(field[:id], field, val)
-      val = value unless value.nil?
+      value = validate_value(field_name, field, val['value'])
+      val['value'] = value unless value.nil?
     end
-    val
   end
 
   def valid?(context = nil)
@@ -1922,7 +1918,7 @@ class Client
 
     # Custom validation.
     Client.expand_fields.each do |field|
-      validate_field(field)
+      validate_field(self, field)
     end
 
     errors.empty? && super(context)

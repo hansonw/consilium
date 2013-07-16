@@ -98,10 +98,10 @@
           <span data-ng-if="!saving && !clientForm.$dirty && !client.isNew()">
             Saved
           </span>
-          <span data-ng-if="!saving && clientForm.$dirty && newClient.$valid">
+          <span data-ng-if="!saving && clientForm.$dirty && clientForm.$valid">
             Save
           </span>
-          <span data-ng-if="!saving && clientForm.$dirty && !newClient.$valid">
+          <span data-ng-if="!saving && clientForm.$dirty && !clientForm.$valid">
             Save ({{ errorCount() }})
           </span>
         </button>
