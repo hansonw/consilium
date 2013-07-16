@@ -426,6 +426,8 @@ class Client
     {
       :name => 'Location Info',
       :id => 'locationInfos',
+      :editHref => 'clients/edit/{{clientId}}/locationInfo/{{ $index }}',
+      :createHref => '#/clients/edit/{{clientId}}/locationInfo/',
       :type => [
         {
           :name => 'Location Number',

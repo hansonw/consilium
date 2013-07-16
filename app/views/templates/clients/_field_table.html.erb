@@ -1,6 +1,8 @@
 <div class="well" data-ng-class="changedSections.<%= field[:id] %> && 'changed'">
   <div id="<%= field[:id] %>" class="section">
-    <a class="section-edit pull-right pure-button pure-button-primary" modal-toggle="<%= field[:id] %>"
+    <a class="section-edit pull-right pure-button pure-button-primary"
+       <%= "modal-toggle=#{field[:id]}" if !field.has_key?(:createHref) %>
+       <%= "data-ng-href=#{field[:createHref]}" if field.has_key?(:createHref) %>
        data-ng-show="!clientChangeId">
       <i class="icon-plus"></i> <span class="only-desktops">Add <%= field[:name].singularize %></span>
     </a>
@@ -20,7 +22,7 @@
                :actions => [
                  {
                    :icon => 'icon-edit',
-                   :click => "editInField('#{field[:id]}', $index)"
+                   :click => if field.has_key?(:editHref) then "navigateTo('#{field[:editHref]}')" else "editInField('#{field[:id]}', $index)" end
                  },
                  {
                    :class => 'pure-button-error',

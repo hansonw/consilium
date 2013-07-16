@@ -65,6 +65,9 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Rece
   $rootScope.$on('$routeChangeStart', -> $rootScope.loading = true)
   $rootScope.$on('$viewContentLoaded', -> $rootScope.loading = false)
 
+  $rootScope.navigateTo = (path) ->
+    $location.path(path)
+
   $rootScope.scrollTo = (id) ->
     old = $location.hash()
     $location.hash(id)
