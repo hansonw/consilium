@@ -1,12 +1,12 @@
 module FormHelper
-  def model_name(field_name, parent_field)
-    return "#{parent_field}.#{field_name}.value"
+  def model_name(field_name, parent_field, syncable)
+    return "#{parent_field}.#{field_name}" + (syncable ? '.value' : '')
   end
 
-  def form_field(field, parent_field)
+  def form_field(field, parent_field, syncable = true)
     parent_field = 'client' if parent_field.nil?
 
-    model = model_name(field[:id], parent_field)
+    model = model_name(field[:id], parent_field, syncable)
     if field[:if]
       negate = false
       showIf = field[:if]
@@ -16,7 +16,7 @@ module FormHelper
       end
 
       parts = showIf.split('.')
-      parts[0] = model_name(parts[0], parent_field)
+      parts[0] = model_name(parts[0], parent_field, syncable)
       if parts.length > 1
         showIf = parts.join('.') # checkbox
       else

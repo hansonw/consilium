@@ -22,7 +22,7 @@
           <% else %>
             <div class="pure-form-fields">
               <% field[:type].each do |subfield| %>
-                <%= form_field subfield, field[:id] %>
+                <%= form_field subfield, field[:id], defined?(syncable) ? syncable : true %>
               <% end %>
             </div>
           <% end %>

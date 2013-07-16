@@ -67,6 +67,7 @@
              :locals => {
                :field => contactsField,
                :page_title => 'Brokerage',
+               :syncable => false,
                :submit_callback => "addToField('contacts')"
              } %>
 
@@ -94,7 +95,7 @@
 
         <div class="pure-form-fields">
           <% fields.each do |field| %>
-            <%= form_field field, 'brokerage' %>
+            <%= form_field field, 'brokerage', false %>
           <% end %>
         </div>
       </div>
