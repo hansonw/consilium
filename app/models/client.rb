@@ -1308,6 +1308,7 @@ class Client
                 'Owner-operator',
                 'Other',
               ],
+              :intelligentOther => true,
             },
             {
               :name => 'Finance Company',
@@ -1414,7 +1415,8 @@ class Client
                 'Miscellaneous Property',
                 'Fine Arts',
                 'Other',
-              ]
+              ],
+              :intelligentOther => true,
             },
             {
               :name => 'Item #',
@@ -1483,7 +1485,8 @@ class Client
                 'Miscellaneous Property',
                 'Fine Arts',
                 'Other',
-              ]
+              ],
+              :intelligentOther => true,
             },
             {
               :name => 'Item #',

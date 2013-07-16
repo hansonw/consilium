@@ -22,7 +22,7 @@
           <% else %>
             <div class="pure-form-fields">
               <% field[:type].each do |subfield| %>
-                <%= form_field subfield, field[:id], defined?(syncable) ? syncable : true %>
+                <%= form_field subfield, field[:id], defined?(syncable) ? syncable : true, if defined? root then root else nil end %>
               <% end %>
             </div>
           <% end %>
@@ -36,4 +36,3 @@
     </div>
   </div>
 </div>
-

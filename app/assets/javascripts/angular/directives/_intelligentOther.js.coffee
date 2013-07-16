@@ -1,42 +1,47 @@
 App.directive 'intelligentOther', ->
   options = []
   ($scope, $elem, $attr) ->
+    intelligentWorkings = (selectHtml, collectionField) ->
+      check = []
+      $("." + collectionField).html(selectHtml)
 
-    model = $attr.dropdownOther.split "."
+      model = $attr.dropdownOther.split "."
+      preModel = $attr.model
+      modelString = "client"
+      modelCurrent = model.shift()
+      if preModel != "null"
+        modelString = preModel + "." + modelCurrent
+      else
+        modelString = "client." + modelCurrent
+
+      currentValue = Object.byString($scope, modelCurrent) # Model for current modal in format client.modal_name
+      collection = Object.byString($scope, modelString) # All models for current modal client.model.modal_name where model can be something like locationInfos.value[locationInfoId]
+      collection = ((collection ||= {}).value ||= [])
+      for field in collection then do (field) ->
+        if currentValue? and field[collectionField]? and field[collectionField].value? and not (field[collectionField].value in options) and not (field[collectionField].value in check)
+          $("." + collectionField + " option:last").before("<option value='" + field[collectionField].value + "'>" + field[collectionField].value + "</option>")
+          check.push field[collectionField].value
+
+      if currentValue? and currentValue[collectionField]? and currentValue[collectionField].value?
+        $elem.val(currentValue[collectionField].value)
+        if not (currentValue[collectionField].value == 'Other')
+          $elem.removeClass('other-dropdown')
+          $elem.parent().find('input').attr('type', 'hidden')
+      else
+        $elem.removeClass('other-dropdown')
+        $elem.parent().find('input').attr('type', 'hidden')
+
+    model = $attr.dropdownOther.split "." 
     modelLength = model.length
-    collectionField = model[modelLength - 1]
-    model.pop()
-
-    modelCollection = model[model.length-1]
+    collectionField = model[modelLength - 2]
+    modelCollection = model[modelLength - 3]
 
     $("." + collectionField + " option").each ->
       options.push $(this).val()
 
     selectHtml = $("." + collectionField).html()
     
-    $("div#modal-" + modelCollection).bind 'modal-toggle', ->
-      check = []
-      $("." + collectionField).html(selectHtml)
-      
-      model = $attr.dropdownOther.split "."
-      model.pop()
-      modelFirst = model.shift()
-      collection = $scope.client[modelFirst]
-      currentValue = $scope[modelFirst]
+    $("div#modal-" + modelCollection).bind('modal-toggle', ->
+      intelligentWorkings(selectHtml, collectionField)
+    )
 
-      if model.length > 0
-        for collectionModel in model
-          collection = collection[collectionModel]
-          currentValue = currentValue[collectionModel]
-
-      collection = ((collection ||= {}).value ||= [])
-      for field in collection then do (field) ->
-        if not (field[collectionField] in options) and currentValue? and field[collectionField]? and not (field[collectionField] in check)
-          $("." + collectionField + " option:last").before("<option value='" + field[collectionField] + "'>" + field[collectionField] + "</option>")
-          check.push field[collectionField]
-
-      if currentValue?
-        $elem.val(currentValue[collectionField])
-        if not (currentValue[collectionField] == 'Other')
-          $elem.removeClass('other-dropdown')
-          $elem.parent().find('input').attr('type', 'hidden')
