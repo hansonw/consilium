@@ -98,4 +98,6 @@ App.directive 'animateSubsection', ['$timeout', ($timeout)->
           $elem.height heightOriginal + height
           pushElements 0, false, false
         , transitionDuration * conversionFactor
+
+      $elem.toggleClass 'active'
 ]
