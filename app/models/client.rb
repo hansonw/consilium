@@ -1812,8 +1812,8 @@ class Client
     }
   ]
 
-  def self.expand_fields
-    fields = FIELDS.map do |field|
+  def self.expand_fields(node = FIELDS)
+    fields = node.map do |field|
       if field[:type].is_a?(Array) && !field[:id].ends_with?('s')
         field[:type]
       else
@@ -1823,12 +1823,13 @@ class Client
     return fields.flatten
   end
 
-  def validate_value(field_name, field_desc, value)
-    if value.nil? || value == ''
+  def validate_value(field_name, field_desc, value_field)
+    if value_field.nil? || value_field == ''
       if field_desc[:required]
         errors[field_name] << 'is required'
       end
     else
+      value = value_field[:value]
       case field_desc[:type]
       when 'text'
         value = value.to_s
@@ -1879,7 +1880,8 @@ class Client
       end
     end
 
-    return value
+    value_field[:value] = value if !value_field.nil? && value_field.has_key?(:value)
+    return value_field
   end
 
   def validate_field(field)
@@ -1909,13 +1911,15 @@ class Client
         end
       end
     else
-      value = validate_value(field[:id], field, val['value'])
-      val['value'] = value unless value.nil?
+      value = validate_value(field[:id], field, val)
+      val = value unless value.nil?
     end
+    val
   end
 
   def valid?(context = nil)
     errors.clear
+
     # Custom validation.
     Client.expand_fields.each do |field|
       validate_field(field)

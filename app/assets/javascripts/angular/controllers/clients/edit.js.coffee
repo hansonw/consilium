@@ -5,7 +5,14 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
 
   $scope.clientId = $routeParams.clientId
   $scope.clientChangeId = $routeParams.clientChangeId
-  if $scope.clientChangeId
+  $scope.inLocationInfo = !!$location.path().match /\/locationInfo(\/.*)$/
+  $scope.locationInfoId = $routeParams.locationInfoId
+  if $scope.inLocationInfo
+    if $scope.locationInfoId
+      $scope.title = 'Edit Location Info'
+    else
+      $scope.title = 'Create Location Info'
+  else if $scope.clientChangeId
     $scope.title = 'View Client History'
   else if $scope.clientId
     $scope.title = 'Edit Client'
@@ -37,6 +44,9 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   else if $scope.clientId
     $scope.client = Client.get(id: $scope.clientId,
       (->
+        if $scope.locationInfoId
+          $scope.locationInfo = $scope.client.locationInfos[$scope.locationInfoId]
+
         $scope.loading = false
         RecentClients.logClientShow($scope.client)),
       (data) ->

@@ -151,31 +151,25 @@ class Api::ClientsController < Api::ApiController
       @client = Client.find(params[:id])
     end
 
+    def generate_params(node)
+      permitted = {}
+      Client.expand_fields(node).each do |field|
+        permitted[field[:id]] = [:updated_at,
+          if field[:type].is_a? Array
+            {:value => generate_params(field[:type])}
+          elsif field[:type] == 'checkbox'
+            {:value => field[:options].keys}
+          else
+            :value
+          end
+        ]
+      end
+      permitted
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
-      permitted = {}
-      Client.expand_fields.each do |field|
-        if field[:type].is_a? Array
-          permitted[field[:id]] = [:updated_at]
-          values = [field[:type].map { |sf|
-            if sf[:type] == 'checkbox'
-              {sf[:id] => sf[:options].keys}
-            else
-              sf[:id]
-            end
-          }]
-          permitted[field[:id]] << {:value => values}
-        else
-          permitted[field[:id]] = [:updated_at,
-            if field[:type] == 'checkbox'
-              {:value => field[:options].keys}
-            else
-              :value
-            end
-          ]
-        end
-      end
-      params.permit(permitted)
+      params.permit(generate_params(Client::FIELDS))
     end
 
 end

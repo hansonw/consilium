@@ -14,7 +14,7 @@
                :fields => [
                  {
                    :name => field[:type].first[:name],
-                   :content => "{{ item.#{field[:type].first[:id]} }}"
+                   :content => "{{ item.#{field[:type].first[:id]}.value }}"
                  },
                ],
                :actions => [
