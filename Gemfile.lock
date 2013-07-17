@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/DouglasSherk/ydocx.git
-  revision: f71d90256d367151c4af57347cecd539baeef390
+  revision: 1d9de9b0870b628b6d0aefe8a1ac443f79991eb7
   specs:
     ydocx (1.2.3)
       diff-lcs
@@ -14,7 +14,7 @@ GIT
 
 GIT
   remote: https://github.com/mongoid/mongoid.git
-  revision: cb541fa1fd7cf9ab0a725c757490d0ac435a79f7
+  revision: 5d8397e24b673724f4b70ca2923a62bfe20e6e79
   specs:
     mongoid (4.0.0)
       activemodel (~> 4.0.0)
