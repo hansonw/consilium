@@ -1,5 +1,5 @@
 <div data-ng-controller="ClientsEditCtrl">
-  <% Client::FIELDS.each do |field| %>
+  <% fields.each do |field| %>
     <% if field[:type].is_a?(Array) && field[:id].ends_with?('s') %>
       <%= render :partial => 'templates/field_modal',
                  :locals => {
@@ -7,7 +7,7 @@
                    :page => 'Clients',
                    :page_url => '#/clients/',
                    :page_title => '{{ title }}',
-                   :submit_callback => "addToField('#{field[:id]}', #{if defined? root then root else 'null' end})"
+                   :submit_callback => "addToField('#{field[:id]}', #{if defined? root then "'#{root}'" else 'null' end})"
                  } %>
     <% end %>
   <% end %>

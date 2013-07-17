@@ -631,7 +631,7 @@
   <div class="pure-u-1-5">
     <h2 class="no-top-margin">Category</h2>
     <hr class="soften" />
-    <select name="category" data-ng-model="<%= sectionId %>.category" size="<%= schedules.count + 1%>"
+    <select name="category" data-ng-model="<%= sectionId %>.category.value" size="<%= schedules.count + 1%>"
             data-ng-change="<%= sectionId %>.type = ''" required>
       <option value="">Select a category...</option>
       <% schedules.each do |category| %>
@@ -646,7 +646,7 @@
       <option>             </option>
     </select>
     <% schedules.each do |category| %>
-      <select name="type" data-ng-model="<%= sectionId %>.type" data-ng-if="<%= sectionId %>.category == '<%= category[:name] %>'" size="<%= category[:type].count + 1 %>" required>
+      <select name="type" data-ng-model="<%= sectionId %>.type.value" data-ng-if="<%= sectionId %>.category.value == '<%= category[:name] %>'" size="<%= category[:type].count + 1 %>" required>
         <option value="">Select a type...</option>
         <% category[:type].each do |type| %>
           <option><%= type[:name] %></option>

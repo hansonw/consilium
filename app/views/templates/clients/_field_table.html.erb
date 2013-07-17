@@ -12,7 +12,9 @@
              :locals => {
                :name => 'data',
                :model => "#{root || 'client'}.#{field[:id]}.value",
-               :rowClick => "editInField('#{field[:id]}',$index)",
+               :rowClick => if field.has_key?(:editHref)
+                            then "navigateTo('#{field[:editHref]}')"
+                            else "editInField('#{field[:id]}', #{if defined? root then "'#{root}'" else 'null' end}, $index)" end,
                :fields => [
                  {
                    :name => field[:type].first[:name],
@@ -22,12 +24,14 @@
                :actions => [
                  {
                    :icon => 'icon-edit',
-                   :click => if field.has_key?(:editHref) then "navigateTo('#{field[:editHref]}')" else "editInField('#{field[:id]}', $index)" end
+                   :click => if field.has_key?(:editHref)
+                             then "navigateTo('#{field[:editHref]}')"
+                             else "editInField('#{field[:id]}', #{if defined? root then "'#{root}'" else 'null' end}, $index)" end,
                  },
                  {
                    :class => 'pure-button-error',
                    :icon => 'icon-trash',
-                   :click => "deleteFromField('#{field[:id]}', $index)",
+                   :click => "deleteFromField('#{field[:id]}', #{if defined? root then "'#{root}'" else 'null' end}, $index)",
                    :attrs => "data-ng-show='!clientChangeId'"
                  },
                ],
