@@ -56,10 +56,19 @@ module FormHelper
                           <select class='dropdown-list' name='#{field[:id]}'
                             data-dropdown-other='#{model}'
                             #{field[:required] && 'required'}
+                            #{field[:intelligentStates] && 'intelligentStates'}
                             #{field[:readonly] && 'readonly'}>
                           <option value=''>#{field[:placeholder]}</option>"
-      field[:options].each do |option|
-        dropdownString += "<option value='#{option}'>#{option}</option>"
+      if field[:id] == 'province'
+        field[:options].each do |country|
+          country[1].each do |state|
+            dropdownString += "<option value='#{state}' id='#{country[0]}'>#{state}</option>"
+          end
+        end
+      else
+        field[:options].each do |option|
+          dropdownString += "<option value='#{option}'>#{option}</option>"
+        end
       end
       dropdownString += "</select>"
       if field[:otherPlaceholder] != ''

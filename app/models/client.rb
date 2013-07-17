@@ -53,16 +53,38 @@ class Client
       :type => 'text',
     },
     {
-      :name => 'Province',
-      :id => 'province',
-      :placeholder => 'Province',
-      :type => 'text',
-    },
-    {
       :name => 'Country',
       :id => 'country',
-      :placeholder => 'Country',
-      :type => 'text',
+      :placeholder => '',
+      :type => 'dropdown',
+      :intelligentStates => true,
+      :options => [
+        'Canada',
+        'Other',
+      ]
+    },
+    {
+      :name => 'Province',
+      :id => 'province',
+      :placeholder => '',
+      :type => 'dropdown',
+      :options => {
+        :canada => [
+          'Alberta',
+          'British Columbia',
+          'Manitoba',
+          'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories',
+          'Nova Scotia',
+          'Nunavut', 'Ontario',
+          'Prince Edward Island',
+          'Quebec',
+          'Saskatchewan',
+          'Yukon Territory'
+        ],
+        :other => [
+          'Other',
+        ],
+      },
     },
     {
       :name => 'Postal Code',
