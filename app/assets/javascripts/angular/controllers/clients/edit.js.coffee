@@ -85,7 +85,9 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       alert("Please fix the following errors:\n" + error_str)
 
   $scope.done = ->
-    if $scope.clientId || $scope.savedOnce
+    if $scope.inLocationInfo
+      window.history.back()
+    else if $scope.clientId || $scope.savedOnce
       $location.path("/clients/show/#{$scope.client.id}")
     else
       window.history.back()

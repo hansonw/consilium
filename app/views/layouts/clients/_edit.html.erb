@@ -105,7 +105,7 @@
             Save ({{ errorCount() }})
           </span>
         </button>
-        <a data-ng-click="done()" class="pure-button pure-button-primary pure-button-large">Done</a>
+        <a data-ng-click="done()" class="pure-button pure-button-primary pure-button-large">{{ inLocationInfo ? "Back to Client" : "Done" }}</a>
       </div>
     </div>
   </form>
