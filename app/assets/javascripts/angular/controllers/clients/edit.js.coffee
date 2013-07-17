@@ -1,6 +1,6 @@
 # This doubles as the new client view (if no client ID is provided)
-App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$location', 'Client', 'ClientChange', 'RecentClients', 'Auth', 'Modal',\
-                                   ($scope, $routeParams, $timeout, $location, Client, ClientChange, RecentClients, Auth, Modal) ->
+App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$location', '$rootScope', 'Client', 'ClientChange', 'RecentClients', 'Auth', 'Modal', 'Flash',\
+                                   ($scope, $routeParams, $timeout, $location, $rootScope, Client, ClientChange, RecentClients, Auth, Modal, Flash) ->
   Auth.checkLogin()
 
   $scope.clientId = $routeParams.clientId
@@ -50,6 +50,11 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
             $scope.locationInfoId = $scope.client.locationInfos.value.length - 1
           if !$scope.client.locationInfos.value? || $scope.locationInfoId < 0 || $scope.locationInfoId >= $scope.client.locationInfos.value.length
             alert('The requested location info was not found.')
+          Flash.set('client-focusSection', 'locationInfos')
+        else if Flash.get('client-focusSection')
+          $timeout (->
+            $rootScope.scrollTo(Flash.get('client-focusSection'))
+          ), 0
 
         $scope.loading = false
         RecentClients.logClientShow($scope.client)),

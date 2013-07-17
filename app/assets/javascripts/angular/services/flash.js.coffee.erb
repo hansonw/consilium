@@ -1,0 +1,18 @@
+App.factory 'Flash', ['$location', '$rootScope', \
+                      ($location, $rootScope) ->
+  factory =
+    _flashes: {}
+    get: (key) ->
+      @_flashes[key]?.value
+    set: (key, val) ->
+      @_flashes[key] = {value: val, counter: 2}
+    _routeChangeStart: ->
+      for key, val of @_flashes
+        if !(--val.counter)
+          delete @_flashes[key]
+
+  $rootScope.$on '$routeChangeStart', ->
+    factory._routeChangeStart()
+
+  factory
+]
