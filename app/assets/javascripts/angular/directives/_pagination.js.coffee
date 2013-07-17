@@ -25,6 +25,9 @@ App.directive 'pagination', [ ->
         pagination[model].pages = Math.ceil(obj.length / limit)
     ), true
 
+    $scope.pageGetIndex = (model, index) ->
+      index + pagination[model].curPage * pagination[model].limit
+
     $scope.prevPage = (model) ->
       if pagination[model].curPage
         $scope.gotoPage(model, pagination[model].curPage - 1)

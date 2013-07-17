@@ -378,7 +378,9 @@ $client-form-nav-padding: 50px;
 
     .paginator {
       text-align: right;
-      margin-top: 20px;
+      .pure-paginator {
+        margin-top: 20px;
+      }
       .pure-button {
         background-color: transparent;
       }

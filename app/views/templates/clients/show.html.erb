@@ -106,8 +106,8 @@
                        :name => 'Description',
                        :class => 'description',
                        :content => <<-END
-                         <b>{{ $index + pagination.history.curPage == 0 ? "Current revision: " : "" }}</b>
-                         {{ item.description | ellipsize: ($index + pagination.history.curPage == 0 ? 20 : 40):1 }}
+                         <b>{{ pageGetIndex('history', $index) == 0 ? "Current revision: " : "" }}</b>
+                         {{ item.description | ellipsize: (pageGetIndex('history', $index) == 0 ? 20 : 40):1 }}
                          <div class="detail">
                            by <a data-ng-href="#/users/show/{{ item.user_id }}" class="email">{{ item.user_email }}</a>
                            <span class="except-desktops"><br /></span>
@@ -120,7 +120,7 @@
                      {
                        :class => 'pure-button-primary',
                        :icon => 'icon-file',
-                       :click => 'setClientChange(item, $index)',
+                       :click => 'setClientChange(item, pageGetIndex("history", $index))',
                        :attrs => 'modal-toggle="genDocument"',
                      },
                      {
