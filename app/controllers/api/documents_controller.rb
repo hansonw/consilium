@@ -49,15 +49,28 @@ class Api::DocumentsController < Api::ApiController
     end
 
     if brokerage = Brokerage.all.first
-      data['brokerOffice'] = ''
-      data['brokerMarketer'] = ''
-      data['brokerProducer'] = ''
+      data['brokerOffice'] = brokerage.name
+      data['brokerAddress'] = brokerage.address
+      data['brokerWebsite'] = brokerage.website
+      data['brokerPhone'] = brokerage.phone
+      data['brokerFax'] = brokerage.fax
+      data['brokerContacts'] = brokerage.contacts
+      data['primaryBroker'] =
+        brokerage.contacts.first && brokerage.contacts.first['name']
     end
 
     fields = Client::FIELDS.dup
     fields << {:id => 'brokerOffice', :type => 'text'}
-    fields << {:id => 'brokerMarketer', :type => 'text'}
-    fields << {:id => 'brokerProducer', :type => 'text'}
+    fields << {:id => 'brokerAddress', :type => 'text'}
+    fields << {:id => 'brokerWebsite', :type => 'text'}
+    fields << {:id => 'brokerPhone', :type => 'text'}
+    fields << {:id => 'brokerFax', :type => 'text'}
+    fields << {:id => 'brokerContacts', :type => [
+      {:id => 'name', :type => 'text'},
+      {:id => 'title', :type => 'text'},
+      {:id => 'email', :type => 'text'},
+      {:id => 'phone', :type => 'text'},
+    ]}
 
     tmpfile = Tempfile.new(client_change.id.to_s)
     template_path = Rails.root.join('lib', 'docx_templates', 'default.docx')

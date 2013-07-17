@@ -308,8 +308,8 @@ class Client
         {
           :name => 'Annual gross receipts',
           :id => 'annualGrossReceipts',
-          :placeholder => '% (ex. 11)',
-          :type => 'text',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
         },
         {
           :name => 'Canadian %',
@@ -335,54 +335,49 @@ class Client
           :placeholder => '$ CAN (ex. 111.11)',
           :type => 'currency',
         },
-        {
-          :name => 'Units',
-          :id => 'units',
-          :placeholder => 'Amount of units',
-          :type => 'text',
-        },
-        {
-          :name => 'Base Units',
-          :id => 'baseUnits',
-          :placeholder => 'Base units',
-          :type => 'text',
-        },
-        {
-          :name => 'Is there any liquor liability',
-          :id => 'liquorLiability',
-          :type => 'radio',
-          :options => {
-            'yes' => 'Yes',
-            'no' => 'No',
-          },
-        },
-        {
-          :name => 'Receipt Splits: Liquor',
-          :id => 'receiptSplitsLiquor',
-          :placeholder => '$ CAN (ex. 111.11)',
-          :type => 'currency',
-          :if => 'liquorLiability'
-        },
-        {
-          :name => 'Receipt Splits: Food',
-          :id => 'receiptSplitsFood',
-          :placeholder => '$ CAN (ex. 111.11)',
-          :type => 'currency',
-          :if => 'liquorLiability'
-        },
-        {
-          :name => 'Receipt Splits: Other',
-          :id => 'receiptSplitsOther',
-          :placeholder => '$ CAN (ex. 111.11)',
-          :type => 'currency',
-          :if => 'liquorLiability'
-        },
-        {
-          :name => 'Notes',
-          :id => 'liquorNotes',
-          :placeholder => 'Other related info.',
-          :type => 'textbox',
-        },
+        # Marc doesn't have these; dunno if these will be necessary at some point
+        # {
+        #   :name => 'Units',
+        #   :id => 'units',
+        #   :placeholder => 'Amount of units',
+        #   :type => 'text',
+        # },
+        # {
+        #   :name => 'Base Units',
+        #   :id => 'baseUnits',
+        #   :placeholder => 'Base units',
+        #   :type => 'text',
+        # },
+        # {
+        #   :name => 'Is there any liquor liability',
+        #   :id => 'liquorLiability',
+        #   :type => 'radio',
+        #   :options => {
+        #     'yes' => 'Yes',
+        #     'no' => 'No',
+        #   },
+        # },
+        # {
+        #   :name => 'Receipt Splits: Liquor',
+        #   :id => 'receiptSplitsLiquor',
+        #   :placeholder => '$ CAN (ex. 111.11)',
+        #   :type => 'currency',
+        #   :if => 'liquorLiability'
+        # },
+        # {
+        #   :name => 'Receipt Splits: Food',
+        #   :id => 'receiptSplitsFood',
+        #   :placeholder => '$ CAN (ex. 111.11)',
+        #   :type => 'currency',
+        #   :if => 'liquorLiability'
+        # },
+        # {
+        #   :name => 'Receipt Splits: Other',
+        #   :id => 'receiptSplitsOther',
+        #   :placeholder => '$ CAN (ex. 111.11)',
+        #   :type => 'currency',
+        #   :if => 'liquorLiability'
+        # },
       ],
     },
     {
@@ -400,29 +395,29 @@ class Client
           :type => 'date',
         },
         {
-          :name => 'Package Name',
-          :id => 'packageName',
-          :placeholder => 'Package name',
-          :type => 'text',
+          :name => 'Quote Required By',
+          :id => 'requiredBy',
+          :type => 'date',
         },
       ],
     },
-    {
-      :name => 'Payment Info',
-      :id => 'paymentInfo',
-      :type => [
-        {
-          :name => 'Payment Type',
-          :id => 'paymentType',
-          :type => 'dropdown',
-          :options => [
-            'Company Bill',
-            'Broker/Agent Bill',
-            'Other',
-          ],
-        },
-      ],
-    },
+    # Not in Marc's template.
+    # {
+    #   :name => 'Payment Info',
+    #   :id => 'paymentInfo',
+    #   :type => [
+    #     {
+    #       :name => 'Payment Type',
+    #       :id => 'paymentType',
+    #       :type => 'dropdown',
+    #       :options => [
+    #         'Company Bill',
+    #         'Broker/Agent Bill',
+    #         'Other',
+    #       ],
+    #     },
+    #   ],
+    # },
     {
       :name => 'Location Info',
       :id => 'locationInfos',
@@ -511,25 +506,31 @@ class Client
           :if => '!inspection.yes',
         },
         {
-          :name => 'Municipal Fire Zone',
-          :id => 'municipalFireZone',
-          :type => 'dropdown',
-          :placeholder => 'Zone',
-          :options => [
-            'Zone 1',
-            'Zone 2',
-            'Zone 3',
-            'Zone 4',
-            'Other'
-          ],
-          :otherPlaceholder => 'Specify',
-        },
-        {
-          :name =>'Fire Protection Grade',
-          :id => 'fireGrade',
-          :placeholder => 'Fire Protection Grade',
+          :name => 'Scope of insured property',
+          :id => 'scopeOfInsuredProperty',
           :type => 'text',
+          :placeholder => 'e.g. equipment, stock, business interruption',
         },
+        # {
+        #   :name => 'Municipal Fire Zone',
+        #   :id => 'municipalFireZone',
+        #   :type => 'dropdown',
+        #   :placeholder => 'Zone',
+        #   :options => [
+        #     'Zone 1',
+        #     'Zone 2',
+        #     'Zone 3',
+        #     'Zone 4',
+        #     'Other'
+        #   ],
+        #   :otherPlaceholder => 'Specify',
+        # },
+        # {
+        #   :name =>'Fire Protection Grade',
+        #   :id => 'fireGrade',
+        #   :placeholder => 'Fire Protection Grade',
+        #   :type => 'text',
+        # },
         {
           :name => 'Risk Info',
           :id => 'riskInfo',
@@ -1102,21 +1103,22 @@ class Client
               :type => 'textbox',
               :if => '!exposuresClear.yes',
             },
-            {
-              :name => 'Loss Payees',
-              :id => 'lossPayees',
-              :placeholder => 'Firstname Lastname',
-              :type => 'textbox',
-            },
-            {
-              :name => '',
-              :id => 'lossPayeesType',
-              :type => 'radio',
-              :options => {
-                'mortgage' => '(as per standard mortgage clause)',
-                'interests' => '(as their interests may appear)',
-              }
-            },
+            # Not in Marc's template
+            # {
+            #   :name => 'Loss Payees',
+            #   :id => 'lossPayees',
+            #   :placeholder => 'Firstname Lastname',
+            #   :type => 'textbox',
+            # },
+            # {
+            #   :name => '',
+            #   :id => 'lossPayeesType',
+            #   :type => 'radio',
+            #   :options => {
+            #     'mortgage' => '(as per standard mortgage clause)',
+            #     'interests' => '(as their interests may appear)',
+            #   }
+            # },
           ],
         },
         {
@@ -1456,12 +1458,6 @@ class Client
           :name => 'Notes',
           :id => 'notes',
           :placeholder => 'Other Useful Info',
-          :type => 'textbox',
-        },
-        {
-          :name => 'Special Circumstances',
-          :id => 'specialCircumstances',
-          :placeholder => 'Special circumstances concerning this policy/application which the company should know.',
           :type => 'textbox',
         },
       ],
