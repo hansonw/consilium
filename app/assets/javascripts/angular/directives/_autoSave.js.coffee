@@ -102,7 +102,7 @@ App.directive 'autoSave', ['$timeout', 'Modal', ($timeout, Modal) ->
 
     $scope.addToField = (objName, root) ->
       obj = $scope[objName] || {}
-      root = model if !root?
+      root = model if !root? or root == ''
       collection = Object.byString($scope, root + '.' + objName + ('.value' if syncable))
 
       modalForm = $scope['form' + objName]
@@ -134,7 +134,7 @@ App.directive 'autoSave', ['$timeout', 'Modal', ($timeout, Modal) ->
         Modal.toggleModal(objName)
 
     $scope.deleteFromField = (objName, root, index) ->
-      root = model if !root?
+      root = model if !root? or root == ''
       collection = Object.byString($scope, root + '.' + objName + ('.value' if syncable))
 
       if index < collection.length
