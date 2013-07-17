@@ -1,5 +1,6 @@
 <table class="<%= name %>-table pure-table pure-table-horizontal pure-table-full-width"
-       <%= local_assigns[:infiniteScroll] && "infinite-scroll data-update='#{local_assigns[:infiniteScroll]}'" %> >
+       <%= local_assigns[:infiniteScroll] && "infinite-scroll data-update='#{local_assigns[:infiniteScroll]}'" %>
+       <%= local_assigns[:pagination] && raw("pagination='#{model}' pagination-limit='10'") %> >
   <thead>
     <tr>
       <% fields.each do |field| %>
@@ -25,7 +26,9 @@
     <tr data-ng-show="!<%= name %>Loading && !<%= name %>Error && !<%= model %>.length">
       <td colspan="<%= fields.length + 1 %>">No <%= name %> available.</td>
     </tr>
-    <tr data-ng-repeat="item in <%= model %><%= ".slice(0, #{limit})" if !local_assigns[:limit].nil? %><%= " | orderBy:#{model}Predicate:#{model}Reverse" if local_assigns[:sortable] %>"
+    <tr data-ng-repeat="item in <%= model %><%= ".slice(0, #{limit})" if !local_assigns[:limit].nil? -%>
+        <%= " | orderBy:#{model}Predicate:#{model}Reverse" if local_assigns[:sortable] -%>
+        <%= " | startFrom:pagination['#{model}'].start | limitTo:pagination['#{model}'].limit" if local_assigns[:pagination] %>"
         <%= local_assigns[:rowHref] && raw("data-click-href='#{h rowHref}'") %>
         <%= local_assigns[:rowClick] && raw("data-ng-click='#{h rowClick}'") %> >
       <% fields.each do |field| %>

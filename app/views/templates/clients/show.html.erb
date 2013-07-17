@@ -99,14 +99,15 @@
                  :locals => {
                    :name => 'history',
                    :model => 'history',
+                   :pagination => true,
                    :rowHref => '#/clients/edit/{{ item.client_id }}/{{ item.id }}',
                    :fields => [
                      {
                        :name => 'Description',
                        :class => 'description',
                        :content => <<-END
-                         <b>{{ $index == 0 ? "Current revision: " : "" }}</b>
-                         {{ item.description | ellipsize: ($index == 0 ? 20 : 40):1 }}
+                         <b>{{ $index + pagination.history.curPage == 0 ? "Current revision: " : "" }}</b>
+                         {{ item.description | ellipsize: ($index + pagination.history.curPage == 0 ? 20 : 40):1 }}
                          <div class="detail">
                            by <a data-ng-href="#/users/show/{{ item.user_id }}" class="email">{{ item.user_email }}</a>
                            <span class="except-desktops"><br /></span>
@@ -129,6 +130,7 @@
                      }
                    ]
                  } %>
+      <div class="paginator" paginator="history"></div>
     </div>
 
     <div class="client-docs well">

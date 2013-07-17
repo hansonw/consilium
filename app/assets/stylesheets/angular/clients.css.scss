@@ -375,6 +375,14 @@ $client-form-nav-padding: 50px;
       width: 100%;
       float: left;
     }
+
+    .paginator {
+      text-align: right;
+      margin-top: 20px;
+      .pure-button {
+        background-color: transparent;
+      }
+    }
   }
 }
 
