@@ -97,8 +97,9 @@ module FormHelper
       end
       r = "<div class='checkbox-container'>" + checkboxString + "</div>"
     when 'textbox'
+      # Textarea placeholders cause weird bugs in IE10. Disabled for now.
       r = "<textarea name='#{field[:id]}' ng-model='#{model}'
-                placeholder='#{field[:placeholder]}'
+                #{false && field[:placeholder] && "placeholder='#{field[:placeholder]}'"}
                 #{field[:required] && 'required'}
                 #{field[:readonly] && 'readonly'}
                 rows='#{field[:boxRows]}'
