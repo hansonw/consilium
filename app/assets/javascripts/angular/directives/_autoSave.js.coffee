@@ -103,7 +103,7 @@ App.directive 'autoSave', ['$timeout', 'Modal', ($timeout, Modal) ->
     $scope.addToField = (objName, root) ->
       obj = $scope[objName] || {}
       root = model if !root? or root == ''
-      collection = Object.byString($scope, root + '.' + objName + ('.value' if syncable))
+      collection = Object.byString($scope, root + '.' + objName + (syncable && '.value' || ''))
 
       modalForm = $scope['form' + objName]
       if !modalForm.$valid
@@ -126,7 +126,7 @@ App.directive 'autoSave', ['$timeout', 'Modal', ($timeout, Modal) ->
 
     $scope.editInField = (objName, root, index) ->
       root = model if !root? or root == ''
-      collection = Object.byString($scope, root + '.' + objName + ('.value' if syncable))
+      collection = Object.byString($scope, root + '.' + objName + (syncable && '.value' || ''))
 
       if index < collection.length
         $scope[objName] = angular.copy(collection[index])
@@ -135,7 +135,7 @@ App.directive 'autoSave', ['$timeout', 'Modal', ($timeout, Modal) ->
 
     $scope.deleteFromField = (objName, root, index) ->
       root = model if !root? or root == ''
-      collection = Object.byString($scope, root + '.' + objName + ('.value' if syncable))
+      collection = Object.byString($scope, root + '.' + objName + (syncable && '.value' || ''))
 
       if index < collection.length
         collection.splice(index, 1)

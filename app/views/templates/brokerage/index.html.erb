@@ -118,7 +118,7 @@
                    :locals => {
                       :name => 'contacts',
                       :model => "brokerage.contacts",
-                      :rowClick => "editInField('contacts', $index)",
+                      :rowClick => "editInField('contacts', null, $index)",
                       :fields => [
                         {
                           :name => 'Name',
@@ -141,12 +141,12 @@
                       :actions => [
                         {
                           :icon => 'icon-edit',
-                          :click => "editInField('contacts', $index)",
+                          :click => "editInField('contacts', null, $index)",
                         },
                         {
                           :class => 'pure-button-error',
                           :icon => 'icon-trash',
-                          :click => "deleteFromField('contacts', $index)",
+                          :click => "deleteFromField('contacts', null, $index)",
                         },
                       ],
                     } %>
