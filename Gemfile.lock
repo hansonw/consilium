@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/blowmage/minitest-rails.git
+  revision: 1482ca802f0260df4bd4915f86b279099076d99d
+  specs:
+    minitest-rails (0.9.2.20130623200248)
+      minitest (~> 4.7)
+      railties (>= 3.0)
+
+GIT
   remote: https://github.com/DouglasSherk/ydocx.git
   revision: 8277920986e34cdb7dfc6e8e9bee9eb10cc08d08
   specs:
@@ -83,6 +91,11 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.2.1)
+      factory_girl (~> 4.2.0)
+      railties (>= 3.0.0)
     highline (1.6.19)
     hike (1.2.3)
     htmlentities (4.3.1)
@@ -185,8 +198,10 @@ DEPENDENCIES
   capistrano
   coffee-rails (~> 4.0.0)
   devise!
+  factory_girl_rails
   jbuilder (~> 1.0.1)
   jquery-rails
+  minitest-rails!
   modernizr-rails
   mongoid!
   normalize-rails

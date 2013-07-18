@@ -1,6 +1,8 @@
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'yaml' #added by seb (might not be need)
+require 'minitest-rails' #added by seb (might not be need)
 
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!

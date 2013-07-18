@@ -71,3 +71,7 @@ gem 'capistrano', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+# trying to figure out auto testing
+gem 'factory_girl_rails'
+gem "minitest-rails", git: "git://github.com/blowmage/minitest-rails.git"
