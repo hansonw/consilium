@@ -75,8 +75,6 @@ class Api::DocumentsController < Api::ApiController
       end
     end
 
-    puts data['buildings']
-
     if brokerage = Brokerage.all.first
       data['brokerOffice'] = brokerage.name
       data['brokerAddress'] = brokerage.address
