@@ -1451,6 +1451,47 @@ class Client
           ]
         },
         {
+          :name => 'Drivers',
+          :id => 'drivers',
+          :type => [
+            {
+              :name => 'Driver #',
+              :id => 'driver',
+              :type => 'text',
+              :placeholder => '#',
+            },
+            {
+              :name => 'Name',
+              :id => 'name',
+              :type => 'text',
+              :placeholder => 'Firstname Lastname',
+            },
+            {
+              :name => 'License #',
+              :id => 'licenseNumber',
+              :type => 'text',
+              :placeholder => 'ex. S3372-17979-01010'
+            },
+            {
+              :name => 'Date Employed',
+              :id => 'dateEmployed',
+              :type => 'date',
+            },
+            {
+              :name => 'Accidents',
+              :id => 'accidents',
+              :type => 'text',
+              :placeholder => 'Number of accidents and type',
+            },
+            {
+              :name => 'Convictions',
+              :id => 'convictions',
+              :type => 'text',
+              :placeholder => 'Number of convictions and type',
+            },
+          ]
+        },
+        {
           :name => 'Photos',
           :id => 'photos',
           :type => [
