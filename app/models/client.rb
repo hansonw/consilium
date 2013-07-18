@@ -1147,6 +1147,61 @@ class Client
           ],
         },
         {
+          :name => 'Buildings',
+          :id => 'buildings',
+          :type => [
+            {
+              :name => 'Building #',
+              :id => 'buildingNumber',
+              :type => 'text',
+              :placeholder => '#',
+            },
+            {
+              :name => 'Address',
+              :id => 'address',
+              :type => 'text',
+              :placeholder => 'Address (apt., suite, bldg.)',
+            },
+            {
+              :name => 'Description',
+              :id => 'description',
+              :type => 'text',
+              :placeholder => 'Description',
+            },
+            {
+              :name => 'Replacement Cost or Actual Cash Value',
+              :id => 'replacementCost',
+              :type => 'currency',
+              :placeholder => '$ CAN (ex. 111.11)',
+            },
+            {
+              :name => 'Coinsurance',
+              :id => 'coinsurance',
+              :type => 'text',
+              :placeholder => 'ex. 90%',
+            },
+            {
+              # XXX: wat
+              :name => '100% Values',
+              :id => 'oneHundredPercentValues',
+              :type => 'text',
+              :placeholder => '100% values',
+            },
+            {
+              :name => 'Rate or Loss Cost',
+              :id => 'rateOrLossCost',
+              :type => 'currency',
+              :placeholder => '$ CAN (ex. 111.11)',
+            },
+            {
+              :name => 'Premium',
+              :id => 'premium',
+              :type => 'currency',
+              :placeholder => '$ CAN (ex. 111.11)',
+            },
+          ],
+        },
+        {
           :name => 'Coverage Sched.',
           :id => 'coverageSchedules',
           :partial => 'templates/clients/sections/coverage_schedules',

@@ -48,6 +48,27 @@ class Api::DocumentsController < Api::ApiController
       end
     end
 
+    # TODO: The docx markup language should support iteration over arbitrary collections.
+    # For now, we have to hack in this collection that is generated using an iteration
+    # over all locationInfos.
+
+    data['buildings'] ||= []
+    if !data['locationInfos'].nil?
+      data['locationInfos'].each do |location|
+        if !location['buildings'].nil?
+          location['buildings'].each do |k, building|
+            bldg = {}
+            building[1].each do |key, val|
+              if val.is_a?(Hash) && !val['value'].nil?
+                bldg[key] = val['value']
+              end
+            end
+            data['buildings'].push bldg
+          end
+        end
+      end
+    end
+
     if brokerage = Brokerage.all.first
       data['brokerOffice'] = brokerage.name
       data['brokerAddress'] = brokerage.address
@@ -71,6 +92,19 @@ class Api::DocumentsController < Api::ApiController
       {:id => 'email', :type => 'text'},
       {:id => 'phone', :type => 'text'},
     ]}
+
+    bldgsField = nil
+    Client::FIELDS.each do |field|
+      if field[:id] == 'locationInfos'
+        field[:type].each do |subfield|
+          if subfield[:id] == 'buildings'
+            bldgsField = subfield
+          end
+        end
+      end
+    end
+
+    fields << bldgsField if !bldgsField.nil?
 
     tmpfile = Tempfile.new(client_change.id.to_s)
     template_path = Rails.root.join('lib', 'docx_templates', 'default.docx')
