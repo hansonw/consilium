@@ -58,16 +58,24 @@ class Api::DocumentsController < Api::ApiController
         if !location['buildings'].nil?
           location['buildings'].each do |k, building|
             bldg = {}
+
+            if !location['locationNumber'].nil?
+              bldg['locationNumber'] = location['locationNumber']['value']
+            end
+
             building[1].each do |key, val|
               if val.is_a?(Hash) && !val['value'].nil?
                 bldg[key] = val['value']
               end
             end
+
             data['buildings'].push bldg
           end
         end
       end
     end
+
+    puts data['buildings']
 
     if brokerage = Brokerage.all.first
       data['brokerOffice'] = brokerage.name
@@ -99,6 +107,7 @@ class Api::DocumentsController < Api::ApiController
         field[:type].each do |subfield|
           if subfield[:id] == 'buildings'
             bldgsField = subfield
+            bldgsField[:type] << {:id => 'locationNumber', :type => 'text'}
           end
         end
       end
