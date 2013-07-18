@@ -93,8 +93,12 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   $scope.done = ->
     if $scope.inLocationInfo
       window.history.back()
-    else if $scope.clientId || $scope.savedOnce
-      $location.path("/clients/show/#{$scope.client.id}")
+    else if $scope.clientId || $scope.clientForm.$dirty
+      if $scope.clientForm.$dirty
+        $scope.saveForm(true, ->
+          $location.path("/clients/show/#{$scope.client.id}"))
+      else
+        $location.path("/clients/show/#{$scope.client.id}")
     else
       window.history.back()
 ]

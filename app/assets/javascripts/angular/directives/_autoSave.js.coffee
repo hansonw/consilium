@@ -38,7 +38,7 @@ App.directive 'autoSave', ['$timeout', 'Modal', ($timeout, Modal) ->
           event.preventDefault())
 
     $(window).on('beforeunload', unloadHandler = ->
-      if form.$dirty then 'You have unsaved changes.' else null)
+      if form.$dirty then 'You have unsaved changes.' else undefined)
 
     $scope.$on('$destroy', ->
       $(window).off('beforeunload', unloadHandler)
@@ -80,7 +80,7 @@ App.directive 'autoSave', ['$timeout', 'Modal', ($timeout, Modal) ->
             error_str += " - #{err.$name} is #{errors[key]}\n"
       return error_str
 
-    $scope.saveForm = (manual = true)->
+    $scope.saveForm = (manual = true, successCallback)->
       return if !form.$dirty || $scope.saving || $scope.readonly
 
       if !form.$valid
@@ -94,8 +94,9 @@ App.directive 'autoSave', ['$timeout', 'Modal', ($timeout, Modal) ->
         ->
           $scope.saving = false
           form.$setPristine()
+          successCallback() if successCallback
           success() if success
-      , (data) ->
+      , ->
           $scope.saving = false
           error(data) if error
       )
