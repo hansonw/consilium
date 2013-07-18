@@ -381,6 +381,31 @@ class Client
       ],
     },
     {
+      # TODO: Move this into Liability Information as a collection within a section.
+      :name => 'Exposure/Receipts',
+      :id => 'exposureOrReceipts',
+      :type => [
+        {
+          :name => 'Operation or Product Type',
+          :id => 'operationOrProductType',
+          :type => 'text',
+          :placeholder => 'Operation or product type',
+        },
+        {
+          :name => 'Annual % or $',
+          :id => 'annualPercentOrDollar',
+          :type => 'text',
+          :placeholder => '$ CAN (ex. 111.11) or % (ex. 48%)'
+        },
+        {
+          :name => 'Change from Last Year',
+          :id => 'changeFromLastYear',
+          :type => 'text',
+          :placeholder => '$ CAN (ex. 111.11) or % (ex. 48%)'
+        },
+      ],
+    },
+    {
       :name => 'Policy Info',
       :id => 'policyInfo',
       :type => [
