@@ -642,7 +642,7 @@
   <div class="pure-u-2-5">
     <h2 class="no-top-margin">Type</h2>
     <hr class="soften" />
-    <select data-ng-if="!<%= sectionId %>.category" disabled>
+    <select data-ng-if="!<%= sectionId %>.category.value" disabled>
       <option>             </option>
     </select>
     <% schedules.each do |category| %>
@@ -668,7 +668,7 @@
               :options => type[:options],
             }
            %>
-          <div data-ng-if="<%= sectionId %>.type == '<%= type[:name] %>'">
+          <div data-ng-if="<%= sectionId %>.type.value == '<%= type[:name] %>'">
             <%= form_field optionsMenu, sectionId %>
           </div>
         <% end %>
@@ -681,7 +681,7 @@
               :options => type[:type],
             }
            %>
-          <div data-ng-if="<%= sectionId %>.type == '<%= type[:name] %>'">
+          <div data-ng-if="<%= sectionId %>.type.value == '<%= type[:name] %>'">
             <%= form_field typesMenu, sectionId %>
           </div>
         <% end %>
@@ -694,7 +694,7 @@
         :id => 'replacementCost',
         :type => 'currency',
         :placeholder => '$ CAN (ex. 111.11)',
-        :if => "options == \"building\" || " + sectionId + ".options == \"equipment\""
+        :if => "%" + sectionId + ".options.value == \"building\" || " + sectionId + ".options.value == \"equipment\"",
       }
      %>
     <%= form_field replacementCost, sectionId %>

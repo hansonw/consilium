@@ -8,23 +8,27 @@ module FormHelper
 
     model = model_name(field[:id], parent_field, syncable)
     if field[:if]
-      negate = false
-      showIf = field[:if]
-      if field[:if].start_with? '!'
+      if field[:if].start_with? '%'
         showIf = field[:if][1..-1]
-        negate = true
-      end
-
-      parts = showIf.split('.')
-      parts[0] = model_name(parts[0], parent_field, syncable)
-      if parts.length > 1
-        showIf = parts.join('.') # checkbox
       else
-        showIf = parts[0] + ' == "yes"' # radio
-      end
+        negate = false
+        showIf = field[:if]
+        if field[:if].start_with? '!'
+          showIf = field[:if][1..-1]
+          negate = true
+        end
 
-      if negate
-        showIf = "!(#{showIf})"
+        parts = showIf.split('.')
+        parts[0] = model_name(parts[0], parent_field, syncable)
+        if parts.length > 1
+          showIf = parts.join('.') # checkbox
+        else
+          showIf = parts[0] + ' == "yes"' # radio
+        end
+
+        if negate
+          showIf = "!(#{showIf})"
+        end
       end
     end
 
