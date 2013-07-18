@@ -1172,7 +1172,7 @@ class Client
               :type => 'currency'
             },
             {
-              :id => 'coIns',
+              :id => 'coinsurance',
               :type => 'text'
             },
             {
