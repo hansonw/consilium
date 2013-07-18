@@ -694,7 +694,7 @@
         :id => 'replacementCost',
         :type => 'currency',
         :placeholder => '$ CAN (ex. 111.11)',
-        :if => "%" + sectionId + ".options.value == \"building\" || " + sectionId + ".options.value == \"equipment\"",
+        :if => "$" + sectionId + ".options.value == \"building\" || " + sectionId + ".options.value == \"equipment\"",
       }
      %>
     <%= form_field replacementCost, sectionId %>

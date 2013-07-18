@@ -8,7 +8,7 @@ module FormHelper
 
     model = model_name(field[:id], parent_field, syncable)
     if field[:if]
-      if field[:if].start_with? '%'
+      if field[:if].start_with? '$'
         showIf = field[:if][1..-1]
       else
         negate = false
