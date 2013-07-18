@@ -5,7 +5,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
 
   $scope.clientId = $routeParams.clientId
   $scope.clientChangeId = $routeParams.clientChangeId
-  $scope.inLocationInfo = !!$location.path().match /\/locationInfo(\/.*)$/
+  $scope.inLocationInfo = !!$location.path().match /\/locationInfo(\/.*)?$/
   $scope.locationInfoId = $routeParams.locationInfoId
   if $scope.inLocationInfo
     if $scope.locationInfoId
@@ -46,7 +46,8 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       (->
         if $scope.inLocationInfo
           if !$scope.locationInfoId? || $scope.locationInfoId == ''
-            (($scope.client.locationInfos ||= {}).value ||= []).push({})
+            (($scope.client.locationInfos ||= {}).value ||= [])
+            $scope.client.locationInfos.value.push({})
             $scope.locationInfoId = $scope.client.locationInfos.value.length - 1
           if !$scope.client.locationInfos.value? || $scope.locationInfoId < 0 || $scope.locationInfoId >= $scope.client.locationInfos.value.length
             alert('The requested location info was not found.')
