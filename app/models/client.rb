@@ -1492,6 +1492,412 @@ class Client
           ]
         },
         {
+          :name => 'Loss Control Survey',
+          :id => 'lossControlSurvey',
+          :type => [
+            {
+              :name => 'Performed by',
+              :id => 'surveyPerformedBy',
+              :placeholder => 'Name',
+              :type => 'text',
+            },
+            {
+              :name => 'Performed on',
+              :id => 'surveyDate',
+              :type => 'date',
+            },
+            {
+              :name => 'Person interviewed',
+              :id => 'surveyInterviewee',
+              :placeholder => 'Name',
+              :type => 'text',
+            },
+            {
+              :id => 'surveyHeatingServiced',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Has heating / cooling systems been serviced in past 12 months?'
+              }
+            },
+            {
+              :id => 'surveyCombClearance',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Is there adequate clearance to combustibles?'
+              }
+            },
+            {
+              :id => 'surveyTemporaryHeating',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Any use of temporary heating device(s)?'
+              }
+            },
+            {
+              :id => 'surveyElectricalUpgrades',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Any electrical upgrades that we should be aware of?'
+              }
+            },
+            {
+              :id => 'surveyElectricalUpgradesComment',
+              :name => 'Describe',
+              :type => 'text',
+              :if => 'surveyElectricalUpgrades.yes'
+            },
+            {
+              :id => 'surveyExtensionCords',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Any extension cords in use?'
+              }
+            },
+            {
+              :id => 'surveyService',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Size of Service and on breakers?'
+              }
+            },
+            {
+              :id => 'surveyServiceComment',
+              :name => 'Describe',
+              :type => 'text',
+              :if => 'surveyService.yes'
+            },
+            {
+              :id => 'surveyWiring',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Wiring supported and in good condition?'
+              }
+            },
+            {
+              :id => 'surveyThermScan',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Has thermo-graphic scan been performed?'
+              }
+            },
+            {
+              :id => 'surveyAislesClear',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Aisles free and clear of obstructions?'
+              }
+            },
+            {
+              :id => 'surveyStockRooms',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Stock rooms organized and well lit?'
+              }
+            },
+            {
+              :id => 'surveyCrossDoc',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Cross dock clear and safe?'
+              }
+            },
+            {
+              :id => 'surveyTrashClear',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Trash and pallets clear from building 50\'?'
+              }
+            },
+            {
+              :id => 'surveyWellLit',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Well lit retail / traffic area free of trip hazards?'
+              }
+            },
+            {
+              :id => 'surveyDispensing',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Dispensing operations and related safety precautions?'
+              }
+            },
+            {
+              :id => 'surveyDispensingComment',
+              :name => 'Describe',
+              :type => 'text',
+              :if => 'surveyDispensing.yes'
+            },
+            {
+              :id => 'surveySolventStorage',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Are proper storage of solvents and flammables present?'
+              }
+            },
+            {
+              :id => 'surveyRefueling',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Are there any refueling tanks on site?'
+              }
+            },
+            {
+              :id => 'surveyRefuelingComment',
+              :name => 'Describe',
+              :type => 'text',
+              :if => 'surveyRefueling.yes'
+            },
+            {
+              :id => 'surveyDisasterPlan',
+              :name => '',
+              :type => 'checkbox',
+              :if => 'surveyRefueling.yes',
+              :options => {
+                'yes' => 'If there is refueling on site, is there a disaster plan?'
+              }
+            },
+            {
+              :id => 'surveyFireHall',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Distance to Fire Hall and type of fire hall?'
+              }
+            },
+            {
+              :id => 'surveyFireHallComment',
+              :name => 'Distance and Type',
+              :type => 'text',
+              :if => 'surveyFireHall.yes'
+            },
+            {
+              :id => 'surveyFireExtinguishers',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Are there fire extinguishers present?'
+              }
+            },
+            {
+              :id => 'surveyFireExtinguishersComment',
+              :name => 'Size and type',
+              :type => 'text',
+              :if => 'surveyFireExtinguishers.yes'
+            },
+            {
+              :id => 'surveyExtinguishersServiced',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Fire extinguishers serviced in last 12 months?'
+              }
+            },
+            {
+              :id => 'surveyExtinguishersServicedComment',
+              :name => 'By whom?',
+              :type => 'text',
+              :if => 'surveyExtinguishersServiced.yes'
+            },
+            {
+              :id => 'surveyAlarmPanel',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Fire alarm panel free of trouble signs?'
+              }
+            },
+            {
+              :id => 'surveyAutomaticSprinkler',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Is there an automatic sprinkler?'
+              }
+            },
+            {
+              :id => 'surveyAutomaticSprinklerComment',
+              :name => 'History of Testing',
+              :type => 'text',
+              :if => 'surveyAutomaticSprinkler.yes'
+            },
+            {
+              :id => 'surveyStandpipe',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Standpipe and hose tested and inspected last 12 months?'
+              }
+            },
+            {
+              :id => 'surveyPerimeter',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Is there any perimeter fencing?'
+              }
+            },
+            {
+              :id => 'surveyPerimeterComment',
+              :name => 'Fenced %',
+              :type => 'text',
+              :if => 'surveyPerimeter.yes'
+            },
+            {
+              :id => 'surveyExteriorLighting',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Is exterior lighting adequate present and working?'
+              }
+            },
+            {
+              :id => 'surveyObstructions',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Access points free of obstructions?'
+              }
+            },
+            {
+              :id => 'surveyAdequateExposure',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Are doors, windows and locks adequate for exposure?'
+              }
+            },
+            {
+              :id => 'surveyBurglarResistant',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Is there burglar resistant glass and or window (door) bars present?'
+              }
+            },
+            {
+              :id => 'surveyULCEquipment',
+              :name => 'ULC equipment',
+              :type => 'textbox',
+            },
+            {
+              :id => 'surveyAlarmCompany',
+              :name => 'Alarm company',
+              :type => 'text',
+              :placeholder => 'Name and address',
+            },
+            {
+              :id => 'surveyHeatMotion',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Does alarm system include heat, motion and smoke?'
+              }
+            },
+            {
+              :id => 'surveySnowRemoval',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Do you hire snow removal?'
+              }
+            },
+            {
+              :id => 'surveyCertificates',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Do you gather certificates of insurance from any contractor that is doing work on your premises?'
+              }
+            },
+            {
+              :id => 'surveyCertificateFile',
+              :name => 'How long do you keep those certificates on file?',
+              :type => 'text',
+              :if => 'surveyCertificates.yes',
+            },
+            {
+              :id => 'surveyCertificateCopy',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Could we have a copy of the certificate that your broker created for you?'
+              },
+              :if => 'surveyCertificates.yes',
+            },
+            {
+              :id => 'surveySlipAndFall',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Do you have a slip and fall policy?'
+              }
+            },
+            {
+              :id => 'surveyDisasterPlan',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'May we see a copy of your disaster plan that your broker / agent helped you to prepare?'
+              }
+            },
+            {
+              :id => 'surveyFireDoors',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Are all fire doors free and clear of obstructions?'
+              }
+            },
+            {
+              :id => 'surveyFireExits',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Are all fire exits properly identified?'
+              }
+            },
+            {
+              :id => 'surveyFireExitsOperable',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Are all fire exit doors operable (not chained or locked)?'
+              }
+            },
+            {
+              :id => 'surveyTrained',
+              :name => '',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Are all employees trained in emergency evacuation procedures?'
+              }
+            },
+            {
+              :name => 'Other/Notes',
+              :id => 'surveyOther',
+              :placeholder => 'Notes',
+              :type => 'textbox'
+            },
+          ]
+        },
+        {
           :name => 'Photos',
           :id => 'photos',
           :type => [
