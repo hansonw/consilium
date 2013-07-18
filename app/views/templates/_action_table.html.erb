@@ -24,7 +24,7 @@
       <td colspan="<%= fields.length + 1 %>">Could not load <%= name %>. Please try again later</td>
     </tr>
     <tr data-ng-show="!<%= name %>Loading && !<%= name %>Error && !<%= model %>.length">
-      <td colspan="<%= fields.length + 1 %>">No <%= name %> available.</td>
+      <td colspan="<%= fields.length + 1 %>"><em>None or N/A.</em></td>
     </tr>
     <tr data-ng-repeat="item in <%= model %><%= ".slice(0, #{limit})" if !local_assigns[:limit].nil? -%>
         <%= " | orderBy:#{model}Predicate:#{model}Reverse" if local_assigns[:sortable] -%>
