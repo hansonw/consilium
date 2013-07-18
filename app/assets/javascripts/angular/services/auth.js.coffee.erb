@@ -38,63 +38,66 @@ App.factory 'AuthHttpInterceptor', ['$q', '$window', '$rootScope', 'AuthSessionS
 ]
 
 App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($http, $location, AuthToken, AuthSessionStatus) ->
-  _isLoggedIn: true
-  _watches: []
-  isLoggedIn: -> @_isLoggedIn
-  # TODO: There must be a better way to do this. Perhaps in the $get() method.
-  init: -> AuthSessionStatus.watch(@)
-  login: (credentials) ->
-    self = @
-    $http.post(
-      '<%= angularApiPath('/api/auth/login') %>',
-      credentials
-    ).success((data, status, headers, config) ->
-      data.email = credentials.email
-      AuthToken.set(JSON.stringify(data))
+  service =
+    _isLoggedIn: true
+    _watches: []
+    isLoggedIn: -> @_isLoggedIn
+    login: (credentials) ->
+      self = @
+      $http.post(
+        '<%= angularApiPath('/api/auth/login') %>',
+        credentials
+      ).success((data, status, headers, config) ->
+        data.email = credentials.email
+        AuthToken.set(JSON.stringify(data))
 
-      self._isLoggedIn = true
-      self._notifyWatches()
-    ).error((data, status, headers, config) ->
-      # TODO: Find a better way to display login failiure
-      alert('Login Failed')
-    )
-  checkLogin: () ->
-    if !@isLoggedIn()
-      $location.path('/auth/login')
-  logout: ->
-    self = @
-    $http.get(
-      '<%= angularApiPath('/api/auth/logout') %>',
-      AuthToken.addAuthTokenToJSONRequest({}),
-    ).success((data, status, headers, config) ->
-      AuthToken.remove()
+        self._isLoggedIn = true
+        self._notifyWatches()
+      ).error((data, status, headers, config) ->
+        # TODO: Find a better way to display login failiure
+        alert('Login Failed')
+      )
+    checkLogin: () ->
+      if !@isLoggedIn()
+        $location.path('/auth/login')
+    logout: ->
+      self = @
+      $http.get(
+        '<%= angularApiPath('/api/auth/logout') %>',
+        AuthToken.addAuthTokenToJSONRequest({}),
+      ).success((data, status, headers, config) ->
+        AuthToken.remove()
 
-      self._isLoggedIn = false
-      self._notifyWatches()
-    )
-  watch: (fn) ->
-    @_watches.push fn
-  wrapActions: (resource, actions) ->
-    actions = actions || ["query", "get", "update"]
+        self._isLoggedIn = false
+        self._notifyWatches()
+      )
+    watch: (fn) ->
+      @_watches.push fn
+    wrapActions: (resource, actions) ->
+      actions = actions || ["query", "get", "update"]
 
-    authTokenWrapper = (resource, action) ->
-      authToken = AuthToken.get()
+      authTokenWrapper = (resource, action) ->
+        authToken = AuthToken.get()
 
-      resource["_" + action] = resource[action]
+        resource["_" + action] = resource[action]
 
-      resource[action] = (data, success, error) ->
-        resource["_" + action] angular.extend({}, data or {},
-          email: AuthToken.get().email
-          auth_token: AuthToken.get().auth_token
-        ), success, error
+        resource[action] = (data, success, error) ->
+          resource["_" + action] angular.extend({}, data or {},
+            email: AuthToken.get().email
+            auth_token: AuthToken.get().auth_token
+          ), success, error
 
-    wrappedResource = resource
-    authTokenWrapper(wrappedResource, action) for action in actions
-    wrappedResource
-  sessionExpired: ->
-    if @_isLoggedIn
-      @_isLoggedIn = false
-      @_notifyWatches()
-  _notifyWatches: ->
-    watch(@_isLoggedIn) for watch in @_watches
+      wrappedResource = resource
+      authTokenWrapper(wrappedResource, action) for action in actions
+      wrappedResource
+    sessionExpired: ->
+      if @_isLoggedIn
+        @_isLoggedIn = false
+        @_notifyWatches()
+    _notifyWatches: ->
+      watch(@_isLoggedIn) for watch in @_watches
+
+  AuthSessionStatus.watch(service)
+
+  service
 ]
