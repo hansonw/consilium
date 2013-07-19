@@ -1179,6 +1179,7 @@ class Client
               :id => 'coinsurance',
               :type => 'text',
               :placeholder => 'ex. 90%',
+              :prefill => '90%',
             },
             {
               # XXX: wat

@@ -100,6 +100,7 @@ module FormHelper
       # Textarea placeholders cause weird bugs in IE10. Disabled for now.
       r = "<textarea name='#{field[:id]}' ng-model='#{model}'
                 #{false && field[:placeholder] && "placeholder='#{field[:placeholder]}'"}
+                #{field[:prefill] && "prefill='#{field[:prefill]}'"}
                 #{field[:required] && 'required'}
                 #{field[:readonly] && 'readonly'}
                 rows='#{field[:boxRows]}'
@@ -107,6 +108,7 @@ module FormHelper
     when 'currency', 'phone'
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='#{model}' placeholder='#{field[:placeholder]}'
+              #{field[:prefill] && "prefill='#{field[:prefill]}'"}
               #{field[:required] && 'required'}
               #{field[:readonly] && 'readonly'}
               #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
@@ -119,6 +121,7 @@ module FormHelper
     else
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='#{model}' placeholder='#{field[:placeholder]}'
+              #{field[:prefill] && "prefill='#{field[:prefill]}'"}
               #{field[:required] && 'required'}
               #{field[:readonly] && 'readonly'}
               #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
