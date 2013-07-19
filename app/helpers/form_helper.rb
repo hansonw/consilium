@@ -92,7 +92,7 @@ module FormHelper
                                 #{field[:required] && 'required'}
                                 #{field[:readonly] && 'readonly'}
                             />
-                            <span class='checkbox-label'>#{option}</span>
+                            <label for='#{field[:id]}' class='checkbox-label'>#{option}</label>
                           </div>"
       end
       r = "<div class='checkbox-container'>" + checkboxString + "</div>"

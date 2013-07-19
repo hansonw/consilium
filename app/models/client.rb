@@ -1104,7 +1104,7 @@ class Client
               :id => 'exposuresClear',
               :type => 'checkbox',
               :options => {
-                'yes' => 'Clear all directions',
+                'yes' => 'Clear in all directions',
               },
             },
             {
