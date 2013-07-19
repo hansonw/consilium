@@ -57,16 +57,38 @@ class Client
           :type => 'text',
         },
         {
-          :name => 'Province',
-          :id => 'province',
-          :placeholder => 'Province',
-          :type => 'text',
+          :name => 'Province/State',
+          :id => 'locationProvinceState',
+          :placeholder => 'Province/State',
+          :type => 'dropdown',
+          :options => {
+            :canada => [
+              'Alberta',
+              'British Columbia',
+              'Manitoba',
+              'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories',
+              'Nova Scotia',
+              'Nunavut', 'Ontario',
+              'Prince Edward Island',
+              'Quebec',
+              'Saskatchewan',
+              'Yukon Territory'
+            ],
+            :other => [
+              'Other',
+            ],
+          },
         },
         {
           :name => 'Country',
           :id => 'country',
-          :placeholder => 'Country',
-          :type => 'text',
+          :placeholder => '',
+          :type => 'dropdown',
+          :intelligentStates => true,
+          :options => [
+            'Canada',
+            'Other',
+          ]
         },
         {
           :name => 'Postal Code',
@@ -490,15 +512,37 @@ class Client
             },
             {
               :name => 'Country',
-              :id => 'locationCountry',
-              :placeholder => 'Country',
-              :type => 'text',
+              :id => 'country',
+              :placeholder => '',
+              :type => 'dropdown',
+              :intelligentStates => true,
+              :options => [
+                'Canada',
+                'Other',
+              ],
             },
             {
               :name => 'Province/State',
-              :id => 'locationProvinceState',
+              :id => 'province',
               :placeholder => 'Province/State',
-              :type => 'text',
+              :type => 'dropdown',
+              :options => {
+                :canada => [
+                  'Alberta',
+                  'British Columbia',
+                  'Manitoba',
+                  'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories',
+                  'Nova Scotia',
+                  'Nunavut', 'Ontario',
+                  'Prince Edward Island',
+                  'Quebec',
+                  'Saskatchewan',
+                  'Yukon Territory'
+                ],
+                :other => [
+                  'Other',
+                ],
+              },
             },
             {
               :name => 'Postal Code',
