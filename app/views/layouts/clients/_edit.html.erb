@@ -7,7 +7,8 @@
                    :page => 'Clients',
                    :page_url => '#/clients/',
                    :page_title => '{{ title }}',
-                   :submit_callback => "addToField('#{field[:id]}', #{if defined? root then "'#{root}'" else 'null' end})"
+                   :submit_callback => "addToField('#{field[:id]}', #{if defined? root then "'#{root}'" else 'null' end})",
+                   :root => if defined? root then "'#{root}'" else 'null' end
                  } %>
     <% end %>
   <% end %>
