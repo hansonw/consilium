@@ -705,7 +705,9 @@
         :id => 'coinsurance',
         :type => 'text',
         :placeholder => '(ex. 90%)',
-        :prefill => '90%',
+        :prefill => {
+          :auto => '90%',
+        },
       }
      %>
     <%= form_field coinsurance, sectionId %>
@@ -724,7 +726,9 @@
         :id => 'limit',
         :type => 'currency',
         :placeholder => '$ CAN (ex. 111.11)',
-        :prefillCalc => 'coverageSchedules.replacementCost.value'
+        :prefill => {
+          :calc => 'coverageSchedules.replacementCost.value',
+        },
       }
      %>
     <%= form_field limit, sectionId %>

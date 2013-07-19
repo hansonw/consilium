@@ -1161,7 +1161,9 @@ class Client
               :id => 'address',
               :type => 'text',
               :placeholder => 'Address (apt., suite, bldg.)',
-              :prefill => 'Same as Location',
+              :prefill => {
+                :auto => 'Same as Location',
+              },
             },
             {
               :name => 'Description',
@@ -1174,7 +1176,9 @@ class Client
               :id => 'coinsurance',
               :type => 'text',
               :placeholder => 'ex. 90%',
-              :prefill => '90%',
+              :prefill => {
+                :auto => '90%',
+              },
               :if => '!statedAmount.yes',
             },
             {
@@ -1202,7 +1206,9 @@ class Client
               :id => 'premium',
               :type => 'currency',
               :placeholder => '$ CAN (ex. 111.11), calculated from rate and replacement cost',
-              :prefillCalc => '(buildings.replacementCost.value/1000)*buildings.rate.value'
+              :prefill => {
+                :calc => 'buildings.rate.value*buildings.replacementCost.value/1000',
+              },
             },
           ],
         },

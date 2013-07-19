@@ -22,12 +22,14 @@ App.directive 'prefillCalc', ->
   ($scope, $elem, $attrs) ->
     prefillWrapper $scope, $elem, $attrs, (model, value) ->
       calcValue = null
-      console.log $attrs.prefillCalc
       try
         $scope.$eval("__tempPrefillValue = #{$attrs.prefillCalc}")
         calcValue = $scope.__tempPrefillValue
         delete $scope.__tempPrefillValue
       catch e
         console.log JSON.stringify e
+
+      if $attrs.type == 'currency'
+        calcValue = Math.round(calcValue * 100.0) / 100.0
 
       $scope.$eval("#{model} = #{calcValue}")
