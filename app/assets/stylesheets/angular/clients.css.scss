@@ -411,6 +411,14 @@ $client-form-nav-padding: 50px;
   tr th i {
     color: #666;
   }
+  
+  .bold {
+    font-weight: 900;
+  }
+
+  .regular {
+    font-weight: 500;
+  }
 
   @include ng-scope-hover();
 }
