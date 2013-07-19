@@ -1,12 +1,12 @@
 class ClientChange
-  # include Mongoid::Document
-  # include Mongoid::Timestamps
+  include Mongoid::Document
+  include Mongoid::Timestamps
 
-  # belongs_to :user
-  # belongs_to :client # for indexing purposes
-  # has_many :documents, dependent: :delete
-  # field :client_data, type: Hash
-  # field :description, type: String
+  belongs_to :user
+  belongs_to :client # for indexing purposes
+  has_many :documents, dependent: :delete
+  field :client_data, type: Hash
+  field :description, type: String
   # ^ These need to be commented to run Rspec for some unknown reason
 
   # used to see if simple testing is working

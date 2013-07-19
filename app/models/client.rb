@@ -1,10 +1,10 @@
 class Client
-  # include Mongoid::Document
-  # include Mongoid::Timestamps
-  # include Mongoid::Attributes::Dynamic
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  include Mongoid::Attributes::Dynamic
 
-  # has_many :client_changes, dependent: :delete
-  # has_many :documents, dependent: :delete
+  has_many :client_changes, dependent: :delete
+  has_many :documents, dependent: :delete
   # ^ These need to be commented to run Rspec for some unknown reason
 
   FIELDS = [
