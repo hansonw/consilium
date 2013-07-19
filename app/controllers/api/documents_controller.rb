@@ -40,13 +40,24 @@ class Api::DocumentsController < Api::ApiController
     end
   end
 
-  def gen_document(client_change, name)
-    data = {}
-    client_change.client_data.each do |key, val|
-      if val.is_a?(Hash) && !val['value'].nil?
-        data[key] = val['value']
+  def unwrap(data)
+    if data.is_a?(Hash)
+      if data['value']
+        return unwrap(data['value'])
+      else
+        data.each do |k, v|
+          data[k] = unwrap(v)
+        end
       end
+    elsif data.is_a?(Array)
+      return data.map { |d| unwrap(d) }
     end
+
+    return data
+  end
+
+  def gen_document(client_change, name)
+    data = unwrap(client_change.client_data)
 
     # TODO: The docx markup language should support iteration over arbitrary collections.
     # For now, we have to hack in this collection that is generated using an iteration
@@ -56,19 +67,11 @@ class Api::DocumentsController < Api::ApiController
     if !data['locationInfos'].nil?
       data['locationInfos'].each do |location|
         if !location['buildings'].nil?
-          location['buildings'].each do |k, building|
-            bldg = {}
-
+          location['buildings'].each do |building|
+            bldg = building.dup
             if !location['locationNumber'].nil?
-              bldg['locationNumber'] = location['locationNumber']['value']
+              bldg['locationNumber'] = location['locationNumber']
             end
-
-            building[1].each do |key, val|
-              if val.is_a?(Hash) && !val['value'].nil?
-                bldg[key] = val['value']
-              end
-            end
-
             data['buildings'].push bldg
           end
         end
@@ -104,7 +107,7 @@ class Api::DocumentsController < Api::ApiController
       if field[:id] == 'locationInfos'
         field[:type].each do |subfield|
           if subfield[:id] == 'buildings'
-            bldgsField = subfield
+            bldgsField = subfield.dup
             bldgsField[:type] << {:id => 'locationNumber', :type => 'text'}
           end
         end
