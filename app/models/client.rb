@@ -454,6 +454,7 @@ class Client
           :id => 'locationNumber',
           :placeholder => '# (ex. 1111)',
           :type => 'text',
+          :required => true,
         },
         {
           :name => 'This location is',
