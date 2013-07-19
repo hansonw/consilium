@@ -1197,6 +1197,12 @@ class Client
               :placeholder => '$ CAN (ex. 111.11)',
             },
             {
+              :name => 'Actual Cash Value',
+              :id => 'actualCashValue',
+              :type => 'currency',
+              :placeholder => '$ CAN (ex. 111.11)',
+            },
+            {
               :name => 'Rate',
               :id => 'rate',
               :type => 'currency',
@@ -1208,7 +1214,7 @@ class Client
               :type => 'currency',
               :placeholder => '$ CAN (ex. 111.11), calculated from rate and replacement cost',
               :prefill => {
-                :calc => 'buildings.rate.value*buildings.replacementCost.value/1000',
+                :calc => 'buildings.rate.value*(buildings.replacementCost.value || buildings.actualCashValue.value)/1000',
               },
             },
           ],
