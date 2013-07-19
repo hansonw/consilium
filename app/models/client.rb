@@ -1447,6 +1447,12 @@ class Client
               :placeholder => 'ex. A1234567890',
             },
             {
+              :name => 'Lessor',
+              :id => 'lessor',
+              :type => 'text',
+              :placeholder => 'Lessor',
+            },
+            {
               :name => 'Description',
               :id => 'description',
               :type => 'text',
@@ -1508,6 +1514,12 @@ class Client
               :id => 'serialNumber',
               :type => 'text',
               :placeholder => 'ex. A1234567890',
+            },
+            {
+              :name => 'Lessor',
+              :id => 'lessor',
+              :type => 'text',
+              :placeholder => 'Lessor',
             },
             {
               :name => 'Description',
