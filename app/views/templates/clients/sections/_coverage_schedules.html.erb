@@ -700,6 +700,16 @@
     <%= form_field replacementCost, sectionId %>
 
     <%
+      coinsurance = {
+        :name => 'Coinsurance',
+        :id => 'coinsurance',
+        :type => 'text',
+        :placeholder => '(ex. 90%)',
+        :prefill => '90%',
+      }
+     %>
+    <%= form_field coinsurance, sectionId %>
+    <%
       deductible = {
         :name => 'Deductible',
         :id => 'deductible',
@@ -709,20 +719,12 @@
      %>
     <%= form_field deductible, sectionId %>
     <%
-      coinsurance = {
-        :name => 'Coinsurance',
-        :id => 'coinsurance',
-        :type => 'text',
-        :placeholder => '(ex. 80/20)',
-      }
-     %>
-    <%= form_field coinsurance, sectionId %>
-    <%
       limit = {
         :name => 'Limit',
         :id => 'limit',
         :type => 'currency',
         :placeholder => '$ CAN (ex. 111.11)',
+        :prefillCalc => 'coverageSchedules.deductible.value'
       }
      %>
     <%= form_field limit, sectionId %>
