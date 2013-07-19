@@ -513,7 +513,6 @@ class Client
             {
               :name => 'Country',
               :id => 'country',
-              :placeholder => '',
               :type => 'dropdown',
               :intelligentStates => true,
               :options => [
@@ -524,7 +523,6 @@ class Client
             {
               :name => 'Province/State',
               :id => 'province',
-              :placeholder => 'Province/State',
               :type => 'dropdown',
               :options => {
                 :canada => [
