@@ -3,7 +3,7 @@ module FormHelper
     return "#{parent_field}.#{field_name}" + (syncable ? '.value' : '')
   end
 
-  def form_field(field, parent_field, syncable = true)
+  def form_field(field, parent_field, syncable = true, *model_parent)
     parent_field = 'client' if parent_field.nil?
 
     model = model_name(field[:id], parent_field, syncable)
@@ -40,7 +40,7 @@ module FormHelper
                 #{parent_field == 'client' && "data-ng-class='changedFields.#{field[:id]} && \"changed\"'"}>
            #{field[:name]}
          </label>
-         #{ng_input(field, model)}
+         #{ng_input(field, model, model_parent[0])}
        </div>"
   end
 
@@ -48,15 +48,17 @@ module FormHelper
     return "ng-pattern='/#{str}/' pattern='#{str}'"
   end
 
-  def ng_input(field, model)
+  def ng_input(field, model, *model_parent)
     r = ''
     case field[:type]
     when 'dropdown'
       dropdownString = "<div class='dropdown-field'>
-                          <select class='dropdown-list' name='#{field[:id]}'
+                          <select class='dropdown-list #{field[:id]}' name='#{field[:id]}'
                             data-dropdown-other='#{model}'
+                            #{field[:intelligentOther] && ('model=' + model_parent[0] + '')}
                             #{field[:required] && 'required'}
                             #{field[:intelligentStates] && 'intelligentStates'}
+                            #{field[:intelligentOther] && 'intelligent-other'}>
                             #{field[:readonly] && 'readonly'}>
                           <option value=''>#{field[:placeholder]}</option>"
       if field[:id] == 'province'
