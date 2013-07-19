@@ -1169,12 +1169,6 @@ class Client
               :placeholder => 'Description',
             },
             {
-              :name => 'Replacement Cost or Actual Cash Value',
-              :id => 'replacementCost',
-              :type => 'currency',
-              :placeholder => '$ CAN (ex. 111.11)',
-            },
-            {
               :name => 'Coinsurance',
               :id => 'coinsurance',
               :type => 'text',
@@ -1182,15 +1176,14 @@ class Client
               :prefill => '90%',
             },
             {
-              # XXX: wat
-              :name => '100% Values',
-              :id => 'oneHundredPercentValues',
-              :type => 'text',
-              :placeholder => '100% values',
+              :name => 'Replacement Cost',
+              :id => 'replacementCost',
+              :type => 'currency',
+              :placeholder => '$ CAN (ex. 111.11)',
             },
             {
-              :name => 'Rate or Loss Cost',
-              :id => 'rateOrLossCost',
+              :name => 'Rate',
+              :id => 'rate',
               :type => 'currency',
               :placeholder => '$ CAN (ex. 111.11)',
             },
@@ -1198,7 +1191,8 @@ class Client
               :name => 'Premium',
               :id => 'premium',
               :type => 'currency',
-              :placeholder => '$ CAN (ex. 111.11)',
+              :placeholder => '$ CAN (ex. 111.11), calculated from rate and replacement cost',
+              :prefillCalc => '(buildings.replacementCost.value/1000)*buildings.rate.value'
             },
           ],
         },

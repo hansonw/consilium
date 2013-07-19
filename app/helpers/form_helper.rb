@@ -101,6 +101,7 @@ module FormHelper
       r = "<textarea name='#{field[:id]}' ng-model='#{model}'
                 #{false && field[:placeholder] && "placeholder='#{field[:placeholder]}'"}
                 #{field[:prefill] && "prefill='#{field[:prefill]}'"}
+                #{field[:prefillCalc] && "prefill-calc='#{field[:prefillCalc]}'"}
                 #{field[:required] && 'required'}
                 #{field[:readonly] && 'readonly'}
                 rows='#{field[:boxRows]}'
@@ -109,6 +110,7 @@ module FormHelper
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='#{model}' placeholder='#{field[:placeholder]}'
               #{field[:prefill] && "prefill='#{field[:prefill]}'"}
+              #{field[:prefillCalc] && "prefill-calc='#{field[:prefillCalc]}'"}
               #{field[:required] && 'required'}
               #{field[:readonly] && 'readonly'}
               #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
@@ -122,6 +124,7 @@ module FormHelper
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='#{model}' placeholder='#{field[:placeholder]}'
               #{field[:prefill] && "prefill='#{field[:prefill]}'"}
+              #{field[:prefillCalc] && "prefill-calc='#{field[:prefillCalc]}'"}
               #{field[:required] && 'required'}
               #{field[:readonly] && 'readonly'}
               #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
