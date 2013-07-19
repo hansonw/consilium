@@ -17,8 +17,9 @@
                             else "editInField('#{field[:id]}', #{if defined? root then "'#{root}'" else 'null' end}, $index)" end,
                :fields => [
                  {
-                   :name => field[:type].first[:name],
-                   :content => "{{ item.#{field[:type].first[:id]}.value }}"
+                   # TODO/HACK: We should dynamically get this by recursively going down the tree.
+                   :name => (field[:type].first.has_key?(:type) && field[:type].first[:type].is_a?(Array)) ? field[:type].first[:type].first[:name] : field[:type].first[:name],
+                   :content => "{{ item.#{(field[:type].first.has_key?(:type) && field[:type].first[:type].is_a?(Array)) ? field[:type].first[:type].first[:id] : field[:type].first[:id]}.value }}"
                  },
                ],
                :actions => [

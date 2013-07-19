@@ -1,5 +1,5 @@
-<% # -2 because, 1: don't want to be zero-indexed, 1: basic info is not actually a section %>
-<% numBasicInfoFields = -2 %>
+<% # -1 because we don't want it to be zero-indexed %>
+<% numBasicInfoFields = -1 %>
 <% fields.each do |field| %>
   <% if not field[:type].is_a? Array %>
     <% numBasicInfoFields += 1 %>
@@ -37,9 +37,6 @@
               <div class="pure-menu pure-menu-open nav-box">
                 <a class="pure-menu-heading nav-heading">Sections</a>
                 <ul class="nav-list">
-                  <li data-ng-class="changedSections['basicInfo'] && 'changed'">
-                    <a href="" data-ng-click="scrollTo('basicInfo')">1. Basic Info</a>
-                  </li>
                   <% fields.each_with_index do |field, index| %>
                     <% index -= numBasicInfoFields %>
                     <% if field[:type].is_a? Array %>
@@ -62,22 +59,6 @@
               <b>{{ clientChange.user_email }}</b> made this change on {{ clientChange.updated_at | date: 'MMM d, y h:mm a' }}:<br />
               <div class="description">{{ clientChange.description }}</div>
             </div>
-
-            <div class="section" id="basicInfo">
-              <h3 class="no-top-margin">1. Basic Info.</h3>
-            </div>
-
-            <div class="separator-xsmall"></div>
-
-            <div class="pure-form-fields">
-              <% fields.each do |field| %>
-                <% if not field[:type].is_a? Array %>
-                  <%= form_field field, if defined? root then root else nil end %>
-                <% end %>
-              <% end %>
-            </div>
-
-            <div class="separator"></div>
 
             <% fields.each_with_index do |field, index| %>
               <% index -= numBasicInfoFields %>
