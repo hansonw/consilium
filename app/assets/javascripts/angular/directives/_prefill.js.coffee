@@ -13,10 +13,17 @@ prefillWrapper = ($scope, $elem, $attrs, fn) ->
     if !value? || value == ''
       fn(model, value)
 
+setFieldValue = ($scope, $elem, model, value) ->
+  $scope.$eval("#{model} = '#{value}'")
+  $scope.$digest()
+  setTimeout (->
+    $($elem).select()
+  ), 0
+
 App.directive 'prefill', ->
   ($scope, $elem, $attrs) ->
     prefillWrapper $scope, $elem, $attrs, (model, value) ->
-      $scope.$eval("#{model} = '#{$attrs.prefill}'")
+      setFieldValue($scope, $elem, model, $attrs.prefill)
 
 App.directive 'prefillCalc', ->
   ($scope, $elem, $attrs) ->
@@ -32,4 +39,4 @@ App.directive 'prefillCalc', ->
       if $attrs.type == 'currency'
         calcValue = Math.round(calcValue * 100.0) / 100.0
 
-      $scope.$eval("#{model} = #{calcValue}")
+      setFieldValue($scope, $elem, model, calcValue)
