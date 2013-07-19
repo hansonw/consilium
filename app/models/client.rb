@@ -1155,6 +1155,7 @@ class Client
               :id => 'buildingNumber',
               :type => 'text',
               :placeholder => '#',
+              :required => true,
             },
             {
               :name => 'Address',
