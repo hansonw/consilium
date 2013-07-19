@@ -1161,6 +1161,7 @@ class Client
               :id => 'address',
               :type => 'text',
               :placeholder => 'Address (apt., suite, bldg.)',
+              :prefill => 'Same as Location',
             },
             {
               :name => 'Description',
@@ -1174,6 +1175,15 @@ class Client
               :type => 'text',
               :placeholder => 'ex. 90%',
               :prefill => '90%',
+              :if => '!statedAmount.yes',
+            },
+            {
+              :name => '',
+              :id => 'statedAmount',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Stated Amount',
+              }
             },
             {
               :name => 'Replacement Cost',
