@@ -296,12 +296,11 @@ body {
   .pure-button-warning,
   .pure-button-secondary {
       color: white;
-      @include border-radius(4px);
-      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
   }
 
   .pure-button-success {
-      background: rgb(76, 201, 71); /* this is a green */
+      background: rgb(76, 180, 71); /* this is a green */
   }
 
   .pure-button-error {

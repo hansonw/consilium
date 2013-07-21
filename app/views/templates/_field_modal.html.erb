@@ -29,7 +29,7 @@
           <div class="separator"></div>
           <div class="pull-right">
             <button data-ng-show="!readonly" type="submit" class="pure-button pure-button-primary"><%= local_assigns[:submit_text] || 'Save' %></button>
-            <button class="pure-button" modal-toggle="<%= field[:id] %>">Cancel</button>
+            <button class="pure-button pure-button-error" modal-toggle="<%= field[:id] %>">Cancel</button>
           </div>
         </form>
       </div>

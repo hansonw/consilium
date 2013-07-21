@@ -56,7 +56,7 @@
     <div class="client-info pure-form pure-form-aligned well">
       <div class="section" id="basicInfo">
         <div class="client-buttons pull-right">
-          <a class="pure-button pure-button-primary" data-ng-click="genFromRecent()"
+          <a class="pure-button pure-button-success" data-ng-click="genFromRecent()"
              data-ng-show="history.length">
             <i class="icon-file"></i><span class="desc"><span class="only-desktops"> Generate</span> Document</span>
           </a>
@@ -118,13 +118,12 @@
                    ],
                    :actions => [
                      {
-                       :class => 'pure-button-primary',
+                       :class => 'pure-button-success',
                        :icon => 'icon-file',
                        :click => 'setClientChange(item, pageGetIndex("history", $index))',
                        :attrs => 'modal-toggle="genDocument"',
                      },
                      {
-                       :class => 'pure-button-success',
                        :icon => 'icon-share-alt',
                        :href => '#/clients/edit/{{ item.client_id }}/change/{{ item.id }}',
                      }

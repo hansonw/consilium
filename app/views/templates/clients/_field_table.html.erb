@@ -1,6 +1,6 @@
 <div class="well" data-ng-class="changedSections.<%= field[:id] %> && 'changed'">
   <div id="<%= field[:id] %>" class="section">
-    <a class="section-edit pull-right pure-button pure-button-primary"
+    <a class="section-edit pull-right pure-button pure-button-success"
        <%= "modal-toggle=#{field[:id]}" if !field.has_key?(:createHref) %>
        <%= "data-ng-href=#{field[:createHref]}" if field.has_key?(:createHref) %>
        data-ng-show="!clientChangeId">
@@ -24,6 +24,7 @@
                ],
                :actions => [
                  {
+                   :class => 'pure-button-primary',
                    :icon => 'icon-edit',
                    :click => if field.has_key?(:editHref)
                              then "navigateTo('#{field[:editHref]}')"
