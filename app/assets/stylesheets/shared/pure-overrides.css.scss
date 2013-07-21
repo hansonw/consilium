@@ -291,28 +291,37 @@ body {
     width: 300px;
   }
 
+  .pure-button {
+    //background: rgb(76, 180, 71); /* this is a green */
+  }
+
+  .pure-button-info,
   .pure-button-success,
   .pure-button-error,
   .pure-button-warning,
   .pure-button-secondary {
-      color: white;
-      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+  }
+
+  .pure-button-info {
+    background: #aaa;
   }
 
   .pure-button-success {
-      background: rgb(76, 180, 71); /* this is a green */
+    background: rgb(76, 180, 71); /* this is a green */
   }
 
   .pure-button-error {
-      background: rgb(202, 60, 60); /* this is a maroon */
+    background: rgb(202, 60, 60); /* this is a maroon */
   }
 
   .pure-button-warning {
-      background: orange;
+    background: orange;
   }
 
   .pure-button-secondary {
-      background: rgb(95, 198, 218); /* this is a light blue */
+    background: rgb(95, 198, 218); /* this is a light blue */
   }
 
   h3 {
