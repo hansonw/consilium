@@ -1,4 +1,4 @@
-<div class="subsection" data-ng-class="changedSections.<%= field[:id] %> && 'changed'" animate-subsection>
+<div class="subsection <%= field[:class] %>" data-ng-class="changedSections.<%= field[:id] %> && 'changed'" animate-subsection>
   <div class="slider well"></div>
   <div class="subsection-outer" data-ng-class="{'active': subsectionVisible['<%= field[:id] %>']}">
     <div id="<%= field[:id] %>" class="section">

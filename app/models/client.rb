@@ -10,6 +10,7 @@ class Client
     {
       :name => 'Basic Client Info',
       :id => 'basicClientInfo',
+      :class => 'startOpen',
       :type => [
         {
           :name => 'Company',
@@ -58,8 +59,7 @@ class Client
         },
         {
           :name => 'Province/State',
-          :id => 'locationProvinceState',
-          :placeholder => 'Province/State',
+          :id => 'province',
           :type => 'dropdown',
           :options => {
             :canada => [
@@ -481,6 +481,7 @@ class Client
         {
           :name => 'Basic Location Info',
           :id => 'basicLocationInfo',
+          :class => 'startOpen',
           :type => [
             {
               :name => 'Location Number',
