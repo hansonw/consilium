@@ -93,7 +93,8 @@ App.directive 'animateSubsection', ['$timeout', '$rootScope', ($timeout, $rootSc
         if inner.height() == 0
           $timeout (->
             expandStartOpenSection()
-          ), 50
+          ), 200
+          null
         else
           toggleSectionExpanded(true)
 
@@ -101,6 +102,7 @@ App.directive 'animateSubsection', ['$timeout', '$rootScope', ($timeout, $rootSc
         $timeout (->
           expandStartOpenSection()
         ), 0
+        null
       else
         applyTranslate contents, -(contents.height() + padding)
 
