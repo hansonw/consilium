@@ -2,16 +2,18 @@
 
 <div class="breadcrumbs">
   <% paths.each_with_index do |path, index| %>
-    <% if index == paths.length - 1 %>
-      <span class="current">
-    <% end %>
+    <span <%= (match = path[0].match(/{{(.*)}}/)) && raw("data-ng-show='#{match[1]}'") %>>
+      <% if index == paths.length - 1 %>
+        <span class="current">
+      <% end %>
 
-    <%= link_to path[0], '', :data => path[1].is_a?(Hash) ? path[1] : {:ng_href => path[1]} %>
+      <%= link_to path[0], '', :data => path[1].is_a?(Hash) ? path[1] : {:ng_href => path[1]} %>
 
-    <% if index == paths.length - 1 %>
-      </span>
-    <% else %>
-      <span class="divider">&gt;</span>
-    <% end %>
+      <% if index == paths.length - 1 %>
+        </span>
+      <% else %>
+        <span class="divider">&gt;</span>
+      <% end %>
+    </span>
   <% end %>
 </div>

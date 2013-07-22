@@ -5,7 +5,7 @@
              :locals => { :paths => {
         "Home" => "#/",
         "Clients" => "#/clients/index",
-        "{{ client.company.value ? client.company.value : 'Client'}}" => "{{client.company.value ? '#/clients/show/' + clientId : '#/clients/index'}}",
+        "{{ (clientId || savedOnce) && (client.company.value || 'Client') }}" => "{{ '#/clients/show/' + client.id }}",
         "{{ title }}" => "#/clients/{{ clientChangeId ? 'edit/' + clientId + '/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}",
       }}
    %>

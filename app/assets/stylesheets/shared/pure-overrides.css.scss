@@ -251,6 +251,8 @@ button, input, select, textarea {
   .checkbox-container {
     display: inline-block;
 
+    @include respond-to(handhelds) { display: table-row; }
+
     .checkbox-field {
       display: inline-block;
       margin: 0px 4px;
