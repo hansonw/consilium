@@ -1,4 +1,4 @@
-App.directive 'dropdownOther', ->
+App.directive 'dropdownOther', ['$parse', ($parse) ->
   bindings = {}
   options = {}
 
@@ -37,12 +37,12 @@ App.directive 'dropdownOther', ->
       $elem.change ->
         input = bindings[model]['input']
         if $elem.val() != 'Other'
-          $scope.$eval("#{model} = '#{$elem.val()}'")
+          $parse(model).assign($scope, $elem.val())
           bindings[model]['select'].removeClass('other-dropdown')
           input.attr('type', 'hidden')
           input.val('')
         else
-          $scope.$eval("#{model} = '#{$elem.val()}'")
+          $parse(model).assign($scope, $elem.val())
           bindings[model]['select'].addClass('other-dropdown')
           input.attr('type', 'text')
     else
@@ -50,6 +50,7 @@ App.directive 'dropdownOther', ->
         select = bindings[model]['select']
         if select.val() == 'Other'
           if $elem.val() != ''
-            $scope.$eval("#{model} = '#{$elem.val()}'")
+            $parse(model).assign($scope, $elem.val())
           else
-            $scope.$eval("#{model} = 'Other'")
+            $parse(model).assign($scope, 'Other')
+]

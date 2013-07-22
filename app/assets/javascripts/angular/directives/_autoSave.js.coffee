@@ -1,4 +1,4 @@
-App.directive 'autoSave', ['$timeout', 'Modal', ($timeout, Modal) ->
+App.directive 'autoSave', ['$parse', '$timeout', 'Modal', ($parse, $timeout, Modal) ->
   ($scope, $elem, attr) ->
     form = $scope[$elem.attr('name')]
     model = attr.autoSave
@@ -48,12 +48,13 @@ App.directive 'autoSave', ['$timeout', 'Modal', ($timeout, Modal) ->
 
     $scope.toggleRadio = (objName, value) ->
       if !$scope.readonly
-        # It's assumed that value does not have to be quote-escaped.
-        $scope.$eval("#{objName} = (#{objName} == '#{value}' ? '' : '#{value}')")
+        obj = $parse(objName)
+        obj.assign($scope, obj($scope) == value ? '' : value)
 
     $scope.toggleCheckbox = (objName) ->
       if !$scope.readonly
-        $scope.$eval("#{objName} = !#{objName}")
+        obj = $parse(objName)
+        obj.assign($scope, !obj($scope))
 
     $scope.errorCount = ->
       ret = 0

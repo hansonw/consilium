@@ -128,7 +128,7 @@ module FormHelper
               #{field[:maxlength] && "ng-maxlength='#{field[:maxlength]}'"}
               #{field[:min] && "ng-min='#{field[:min]}'"}
               #{field[:max] && "ng-max='#{field[:max]}'"}
-              #{field[:type] == 'currency' && pattern('\d+(\.\d{0,2})?') + "title='No dollar sign and no comma(s) - cents are optional'"}
+              #{field[:type] == 'currency' && pattern('\d+(\.\d{0,2})?') + "title='No dollar sign and no comma(s) - cents are optional' restrict='[$,]'"}
               #{field[:type] == 'phone' && pattern('^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$') + "title='Must have format: 1234567890, 123-456-7890, or 123.456.7890'"}
             />"
     else
