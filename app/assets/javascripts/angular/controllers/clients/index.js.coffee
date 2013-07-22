@@ -10,6 +10,7 @@ App.controller 'ClientsIndexCtrl', ['$scope', 'Client', 'Auth',\
   $scope.resultStart = 0
   $scope.moreResults = false
   $scope.showAdvancedSearch = false
+  $scope.clientsPredicate = 'company'
 
   $scope.updateResults = (more) ->
     if more && ($scope.loading || !$scope.moreResults)
@@ -24,6 +25,8 @@ App.controller 'ClientsIndexCtrl', ['$scope', 'Client', 'Auth',\
     query_params =
       short: true, # indicates we should only fetch id/company/name
       start: $scope.resultStart,
+      order_by: $scope.clientsPredicate,
+      desc: $scope.clientsReverse,
       limit: results_per_page+1
 
     query_params.query = $scope.query

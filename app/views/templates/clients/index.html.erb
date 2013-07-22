@@ -19,10 +19,9 @@
         <form class="pure-form">
           <div class="pure-control-group">
             <input id="search" type="text" class="pure-input" placeholder="Search" autocomplete="off" data-ng-model="query">
-            <% # TODO: This is too poorly done for now. We should come back to it. %>
-            <% #<i class="icon-spinner icon-spin spinner" data-ng-class="loading && 'loading'"></i> %>
             <button id="btnSearch" class="pure-button pure-button-small pure-button-primary">
-              <i class="icon-search"></i>
+              <i class="icon-search" data-ng-show="!loading"></i>
+              <i class="icon-spinner icon-spin spinner" data-ng-show="loading"></i>
             </button>
           </div>
         </form>
@@ -40,7 +39,7 @@
                  :model => 'clients',
                  :infiniteScroll => 'updateResults(true)',
                  :rowHref => '#/clients/show/{{ item.id }}',
-                 :sortable => {},
+                 :sortable => {:server_side => true},
                  :fields => [
                    {
                      :name => 'Company',

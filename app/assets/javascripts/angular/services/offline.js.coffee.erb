@@ -267,6 +267,19 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
           if stored != false
             start = params.start || 0
             limit = params.limit || 1e9
+            desc = if params.desc then -1 else 1
+            stored.sort (a, b) ->
+              if params.order_by
+                a_val = a[params.order_by]
+                b_val = b[params.order_by]
+                a_val = a_val?.value || a_val || 0
+                b_val = b_val?.value || b_val || 0
+                if a_val < b_val
+                  return -1 * desc
+                if a_val > b_val
+                  return 1 * desc
+              return 0
+
             index = 0
             for val in stored
               if !val.id?

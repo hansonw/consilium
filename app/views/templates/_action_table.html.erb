@@ -6,13 +6,15 @@
       <% fields.each do |field| %>
         <th class="<%= field[:class] %>"
          <% if local_assigns[:sortable] %>
-            data-ng-click="<%= model %>Predicate = '<%= field[:class] %>.value || <%= field[:class] %>'; <%= model %>Reverse = !<%= model %>Reverse"
+            data-ng-click="<%= model %>Reverse = <%= model %>Predicate == '<%= field[:class] %>' ? !<%= model %>Reverse : false;
+              <%= model %>Predicate = '<%= field[:class] %>';
+              updateResults()"
          <% end %>
         >
-          <%= raw '<a href="" class="pretty" data-ng-class="' + "#{model}Predicate == '#{field[:class]}.value || #{field[:class]}' ? 'bold' : 'regular'" + '">' if local_assigns[:sortable] %><%= field[:name] %><%= raw '</a>' if local_assigns[:sortable] %>
+          <%= raw '<a href="" class="pretty" data-ng-class="' + "#{model}Predicate == '#{field[:class]}' ? 'bold' : 'regular'" + '">' if local_assigns[:sortable] %><%= field[:name] %><%= raw '</a>' if local_assigns[:sortable] %>
           <% if local_assigns[:sortable] %>
-            <i class="icon-caret-down" data-ng-show="<%= model %>Predicate == '<%= field[:class] %>.value || <%= field[:class] %>' && !<%= model %>Reverse"></i>
-            <i class="icon-caret-up" data-ng-show="<%= model %>Predicate == '<%= field[:class] %>.value || <%= field[:class] %>' && <%= model %>Reverse"></i>
+            <i class="icon-caret-up" data-ng-show="<%= model %>Predicate == '<%= field[:class] %>' && !<%= model %>Reverse"></i>
+            <i class="icon-caret-down" data-ng-show="<%= model %>Predicate == '<%= field[:class] %>' && <%= model %>Reverse"></i>
           <% end %>
         </th>
       <% end %>
@@ -27,7 +29,7 @@
       <td colspan="<%= fields.length + 1 %>"><em>None or N/A.</em></td>
     </tr>
     <tr data-ng-repeat="item in <%= model %><%= ".slice(0, #{limit})" if !local_assigns[:limit].nil? -%>
-        <%= " | orderBy:#{model}Predicate:#{model}Reverse" if local_assigns[:sortable] -%>
+        <%= " | orderBy:(#{model}Predicate + '.value || ' + #{model}Predicate):#{model}Reverse" if local_assigns[:sortable] && !sortable[:server_side] -%>
         <%= " | startFrom:pagination['#{model}'].start | limitTo:pagination['#{model}'].limit" if local_assigns[:pagination] %>"
         <%= local_assigns[:rowHref] && raw("data-click-href='#{h rowHref}'") %>
         <%= local_assigns[:rowClick] && raw("data-ng-click='#{h rowClick}'") %> >

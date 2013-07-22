@@ -27,6 +27,7 @@ class Api::ClientsController < Api::ApiController
       {"name.value" => /#{Regexp.escape(params[:query] || '')}/i},
       {"emailAddress.value" => /#{Regexp.escape(params[:query] || '')}/i},
     )
+
     if params[:filter]
       filter = JSON.parse(params[:filter])
       select = {}
@@ -38,7 +39,19 @@ class Api::ClientsController < Api::ApiController
       @clients = @clients.where(select)
     end
 
-    @clients = @clients.skip(params[:start] || 0).limit(params[:limit] || 0).asc("name.value")
+    if order_by = params[:order_by]
+      if !['id', 'updated_at', 'created_at'].include?(order_by)
+        order_by += '.value'
+      end
+
+      if params[:desc] == 'true'
+        @clients = @clients.desc(order_by)
+      else
+        @clients = @clients.asc(order_by)
+      end
+    end
+
+    @clients = @clients.skip(params[:start] || 0).limit(params[:limit] || 0)
 
     if params[:short]
       @clients = @clients.only(:id, :company, :name, :updated_at, :created_at)
