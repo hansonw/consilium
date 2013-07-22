@@ -2,7 +2,7 @@
 
 <div class="breadcrumbs">
   <% paths.each_with_index do |path, index| %>
-    <span <%= (match = path[0].match(/{{(.*)}}/)) && raw("data-ng-show='#{match[1]}'") %>>
+    <span <%= (match = path[0].match(/{{(.*)}}/)) && raw("data-ng-show='#{h match[1]}'") %>>
       <% if index == paths.length - 1 %>
         <span class="current">
       <% end %>
