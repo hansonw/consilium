@@ -237,6 +237,27 @@ class Client
       ],
     },
     {
+      :name => 'Policy Info',
+      :id => 'policyInfo',
+      :type => [
+        {
+          :name => 'Period of Coverage From',
+          :id => 'coverageFrom',
+          :type => 'date',
+        },
+        {
+          :name => 'Period of Coverage To',
+          :id => 'coverageTo',
+          :type => 'date',
+        },
+        {
+          :name => 'Quote Required By',
+          :id => 'requiredBy',
+          :type => 'date',
+        },
+      ],
+    },
+    {
       :name => 'Prev. Policy Info',
       :id => 'prevPolicyInfo',
       :type => [
@@ -431,27 +452,6 @@ class Client
           :id => 'changeFromLastYear',
           :type => 'text',
           :placeholder => '$ CAN (ex. 111.11) or % (ex. 48%)'
-        },
-      ],
-    },
-    {
-      :name => 'Policy Info',
-      :id => 'policyInfo',
-      :type => [
-        {
-          :name => 'Period of Coverage From',
-          :id => 'coverageFrom',
-          :type => 'date',
-        },
-        {
-          :name => 'Period of Coverage To',
-          :id => 'coverageTo',
-          :type => 'date',
-        },
-        {
-          :name => 'Quote Required By',
-          :id => 'requiredBy',
-          :type => 'date',
         },
       ],
     },
