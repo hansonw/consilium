@@ -61,23 +61,19 @@ class Client
           :name => 'Province/State',
           :id => 'province',
           :type => 'dropdown',
-          :options => {
-            :canada => [
-              'Alberta',
-              'British Columbia',
-              'Manitoba',
-              'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories',
-              'Nova Scotia',
-              'Nunavut', 'Ontario',
-              'Prince Edward Island',
-              'Quebec',
-              'Saskatchewan',
-              'Yukon Territory'
-            ],
-            :other => [
-              'Other',
-            ],
-          },
+          :options => [
+            'Alberta',
+            'British Columbia',
+            'Manitoba',
+            'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories',
+            'Nova Scotia',
+            'Nunavut', 'Ontario',
+            'Prince Edward Island',
+            'Quebec',
+            'Saskatchewan',
+            'Yukon Territory',
+            'Other',
+          ],
         },
         {
           :name => 'Country',
@@ -526,23 +522,18 @@ class Client
               :name => 'Province/State',
               :id => 'province',
               :type => 'dropdown',
-              :options => {
-                :canada => [
-                  'Alberta',
-                  'British Columbia',
-                  'Manitoba',
-                  'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories',
-                  'Nova Scotia',
-                  'Nunavut', 'Ontario',
-                  'Prince Edward Island',
-                  'Quebec',
-                  'Saskatchewan',
-                  'Yukon Territory'
-                ],
-                :other => [
-                  'Other',
-                ],
-              },
+              :options => [
+                'Alberta',
+                'British Columbia',
+                'Manitoba',
+                'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories',
+                'Nova Scotia',
+                'Nunavut', 'Ontario',
+                'Prince Edward Island',
+                'Quebec',
+                'Saskatchewan',
+                'Yukon Territory'
+              ],
             },
             {
               :name => 'Postal Code',

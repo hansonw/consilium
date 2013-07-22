@@ -61,16 +61,8 @@ module FormHelper
                             #{field[:intelligentOther] && 'intelligent-other'}>
                             #{field[:readonly] && 'readonly'}>
                           <option value=''>#{field[:placeholder]}</option>"
-      if field[:id] == 'province'
-        field[:options].each do |country|
-          country[1].each do |state|
-            dropdownString += "<option value='#{state}' id='#{country[0]}'>#{state}</option>"
-          end
-        end
-      else
-        field[:options].each do |option|
-          dropdownString += "<option value='#{option}'>#{option}</option>"
-        end
+      field[:options].each do |option|
+        dropdownString += "<option value='#{option}'>#{option}</option>"
       end
       dropdownString += "</select>"
       if field[:otherPlaceholder] != ''

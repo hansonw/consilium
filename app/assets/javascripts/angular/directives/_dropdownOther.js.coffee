@@ -5,6 +5,7 @@ App.directive 'dropdownOther', ['$parse', ($parse) ->
   return ($scope, $elem, $attrs) ->
     model = $attrs.dropdownOther
     type = if $elem.is('select') then 'select' else 'input'
+    form = $scope[$elem.parents('form').attr('name')]
     (bindings[model] ||= {})[type] = $elem
 
     $scope.$watch model, (newVal) ->
@@ -45,6 +46,7 @@ App.directive 'dropdownOther', ['$parse', ($parse) ->
           $parse(model).assign($scope, $elem.val())
           bindings[model]['select'].addClass('other-dropdown')
           input.attr('type', 'text')
+        form.$setDirty()
     else
       $elem.on 'input', ->
         select = bindings[model]['select']
@@ -53,4 +55,5 @@ App.directive 'dropdownOther', ['$parse', ($parse) ->
             $parse(model).assign($scope, $elem.val())
           else
             $parse(model).assign($scope, 'Other')
+        form.$setDirty()
 ]
