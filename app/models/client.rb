@@ -255,19 +255,29 @@ class Client
     },
     {
       :name => 'Prev. Policy Info',
-      :id => 'prevPolicyInfo',
+      :id => 'prevPolicyInfos',
       :type => [
         {
           :name => 'Insurer',
           :id => 'prevInsurer',
+          :required => true,
           :placeholder => 'Name',
           :type => 'text',
         },
         {
-          :name => 'Broker',
-          :id => 'prevBroker',
-          :placeholder => 'Some Insurance Brokers Inc.',
-          :type => 'text',
+          :name => 'Policy Type',
+          :id => 'prevPolicyType',
+          :required => true,
+          :type => 'dropdown',
+          :options => [
+            'CGL',
+            'CMP',
+            'IRCA',
+            'Fleet',
+            'Environmental',
+            'WSIB Alternative',
+            'Other',
+          ]
         },
         {
           :name => 'Policy Number',
@@ -291,31 +301,14 @@ class Client
           },
         },
         {
-          :name => 'Prev. Term Start Date',
+          :name => 'Inception Date',
           :id => 'prevTermStart',
           :type => 'date',
         },
         {
-          :name => 'Prev. Term End Date',
+          :name => 'Expiry Date',
           :id => 'prevTermEnd',
           :type => 'date',
-        },
-        {
-          :name => 'Was renewal offered',
-          :id => 'renewalOffered',
-          :type => 'radio',
-          :options => {
-            'yes' => 'Yes',
-            'no' => 'No',
-          },
-        },
-        {
-          :name => 'If renewal was not offered, explain here',
-          :id => 'renewalExplanation',
-          :placeholder => 'Explanation',
-          :type => 'textbox',
-          :if => '!renewalOffered',
-          :boxRows => 6,
         },
       ],
     },

@@ -49,7 +49,7 @@ App.directive 'autoSave', ['$parse', '$timeout', 'Modal', ($parse, $timeout, Mod
     $scope.toggleRadio = (objName, value) ->
       if !$scope.readonly
         obj = $parse(objName)
-        obj.assign($scope, obj($scope) == value ? '' : value)
+        obj.assign($scope, if obj($scope) == value then '' else value)
 
     $scope.toggleCheckbox = (objName) ->
       if !$scope.readonly
