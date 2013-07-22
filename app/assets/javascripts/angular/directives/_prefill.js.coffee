@@ -1,42 +1,36 @@
-prefillWrapper = ($scope, $elem, $attrs, fn) ->
+prefillWrapper = ($scope, $elem, $attrs, $parse, fn) ->
   model = $attrs.ngModel
   elem = $($elem)
 
   elem.focus ->
-    # Indirect way of getting the model value, since it's
-    # difficult to access directly.
-    $scope.__tempPrefillValue = null
-    $scope.$eval("__tempPrefillValue = #{model}")
-    value = $scope.__tempPrefillValue
-    delete $scope.__tempPrefillValue
-
+    value = $parse(model)($scope)
     if !value? || value == ''
       fn(model, value)
 
-setFieldValue = ($scope, $elem, model, value) ->
-  $scope.$eval("#{model} = '#{value}'")
+setFieldValue = ($scope, $elem, $parse, model, value) ->
+  $parse(model).assign($scope, value)
   $scope.$digest()
   setTimeout (->
     $($elem).select()
   ), 0
 
-App.directive 'prefill', ->
+App.directive 'prefill', ['$parse', ($parse) ->
   ($scope, $elem, $attrs) ->
-    prefillWrapper $scope, $elem, $attrs, (model, value) ->
-      setFieldValue($scope, $elem, model, $attrs.prefill)
+    prefillWrapper $scope, $elem, $attrs, $parse, (model, value) ->
+      setFieldValue($scope, $elem, $parse, model, $attrs.prefill)
+]
 
-App.directive 'prefillCalc', ->
+App.directive 'prefillCalc', ['$parse', ($parse) ->
   ($scope, $elem, $attrs) ->
-    prefillWrapper $scope, $elem, $attrs, (model, value) ->
+    prefillWrapper $scope, $elem, $attrs, $parse, (model, value) ->
       calcValue = null
       try
-        $scope.$eval("__tempPrefillValue = #{$attrs.prefillCalc}")
-        calcValue = $scope.__tempPrefillValue
-        delete $scope.__tempPrefillValue
+        calcValue = $parse($attrs.prefillCalc)($scope)
       catch e
         console.log JSON.stringify e
 
       if $attrs.type == 'currency'
         calcValue = Math.round(calcValue * 100.0) / 100.0
 
-      setFieldValue($scope, $elem, model, calcValue)
+      setFieldValue($scope, $elem, $parse, model, calcValue)
+]

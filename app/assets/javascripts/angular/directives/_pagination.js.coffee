@@ -8,7 +8,7 @@ App.filter('range', ->
     if input > 0 then (i for i in [1..input]) else []
 )
 
-App.directive 'pagination', [ ->
+App.directive 'pagination', ['$parse', ($parse) ->
   ($scope, $elem, attr) ->
     model = attr.pagination
     limit = +attr.paginationLimit
@@ -21,7 +21,7 @@ App.directive 'pagination', [ ->
       curPage: 0
 
     $scope.$watch model, ( ->
-      if obj = $scope.$eval(model)
+      if obj = $parse(model)($scope)
         pagination[model].pages = Math.ceil(obj.length / limit)
     ), true
 

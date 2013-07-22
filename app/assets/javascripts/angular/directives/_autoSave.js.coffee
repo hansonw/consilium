@@ -3,8 +3,8 @@ App.directive 'autoSave', ['$parse', '$timeout', 'Modal', ($parse, $timeout, Mod
     form = $scope[$elem.attr('name')]
     model = attr.autoSave
     syncable = attr.syncable?
-    success = $scope.$eval(attr.saveSuccess)
-    error = $scope.$eval(attr.saveError)
+    success = $parse(attr.saveSuccess)($scope)
+    error = $parse(attr.saveError)($scope)
 
     saveTimeout = 10000
     lastChange = new Date().getTime()
@@ -92,12 +92,12 @@ App.directive 'autoSave', ['$parse', '$timeout', 'Modal', ($parse, $timeout, Mod
 
       $scope.saving = true
       $scope[model].$save(
-        ->
+        (data) ->
           $scope.saving = false
           form.$setPristine()
           successCallback() if successCallback
-          success() if success
-      , ->
+          success(data) if success
+      , (data) ->
           $scope.saving = false
           error(data) if error
       )
