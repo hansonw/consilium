@@ -4,9 +4,11 @@ App.directive 'scrollFix', ->
     win = $(window)
     scrollFixMargin = parseInt($attr.scrollFixMargin) || 30
     offset = domElem.offset().top if domElem.is(':visible')
+    origHeight = null
 
     win.bind 'scroll resize', ->
       return if not domElem.is(':visible')
+      origHeight = domElem.height() if !origHeight?
       scrollFixCondition = Modernizr.mq($attr.scrollFixCondition || 'screen and (min-width:0)')
       wasScrollFixCondition = domElem.data 'scroll-fix-condition'
 
@@ -25,11 +27,13 @@ App.directive 'scrollFix', ->
 
           paddingLeft = parseInt(domElem.css 'padding-left')
           paddingRight = parseInt(domElem.css 'padding-right')
+          paddingBottom = parseInt(domElem.css 'padding-bottom')
 
           domElem.css 'top', scrollFixMargin
           domElem.css 'width', domElem.parent().width() - paddingLeft - paddingRight
           domElem.css 'left', domElem.offset().left
           domElem.css 'position', 'fixed'
+          domElem.css 'max-height', origHeight + paddingBottom
         ), scrollFixTime
       else if scrollFixMargin + scrollTop < offset and domElem.data 'scroll-fixed'
         domElem.data 'scroll-fixed', false

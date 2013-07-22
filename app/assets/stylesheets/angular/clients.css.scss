@@ -33,11 +33,12 @@ $client-form-nav-padding: 50px;
 
       height: 100%;
       @include box-sizing(border-box);
-      padding-bottom: 56px + 60px + $nav-heading-height + $nav-heading-margin; // covers the toolbar and a bit of padding
+      padding-bottom: 56px + 60px; // Don't cover the toolbar
 
       .nav-box {
         height: 100%;
         padding-top: $nav-heading-height + $nav-heading-margin;
+        box-sizing: border-box;
 
         .nav-heading {
           margin-top: -$nav-heading-height;
