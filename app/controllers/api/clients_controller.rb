@@ -39,22 +39,25 @@ class Api::ClientsController < Api::ApiController
       @clients = @clients.where(select)
     end
 
-    if order_by = params[:order_by]
-      if !['id', 'updated_at', 'created_at'].include?(order_by)
-        order_by += '.value'
-      end
-
-      if params[:desc] == 'true'
-        @clients = @clients.desc(order_by)
-      else
-        @clients = @clients.asc(order_by)
-      end
-    end
-
-    @clients = @clients.skip(params[:start] || 0).limit(params[:limit] || 0)
-
     if params[:short]
       @clients = @clients.only(:id, :company, :name, :updated_at, :created_at)
+    end
+
+    if order_by = params[:order_by]
+      @clients = @clients.to_a.sort do |a, b|
+        a_val = a[order_by]
+        b_val = b[order_by]
+        a_val = (a_val.is_a?(Hash) && a_val['value']) || a_val
+        b_val = (b_val.is_a?(Hash) && b_val['value']) || b_val
+        ret = a_val.to_s.downcase <=> b_val.to_s.downcase
+        if params[:desc] == 'true'
+          ret = -ret
+        end
+        ret
+      end
+      @clients = @clients[params[:start].to_i || 0, params[:limit].to_i || @clients.length] || []
+    else
+      @clients = @clients.skip(params[:start] || 0).limit(params[:limit] || 0)
     end
 
     respond_to do |format|

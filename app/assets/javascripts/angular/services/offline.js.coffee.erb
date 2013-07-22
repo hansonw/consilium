@@ -270,10 +270,12 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
             desc = if params.desc then -1 else 1
             stored.sort (a, b) ->
               if params.order_by
-                a_val = a[params.order_by]
-                b_val = b[params.order_by]
-                a_val = a_val?.value || a_val || 0
-                b_val = b_val?.value || b_val || 0
+                get_val = (x) ->
+                  val = x[params.order_by]
+                  val = val?.value || val || ""
+                  val = val.toString().toLowerCase()
+                a_val = get_val(a)
+                b_val = get_val(b)
                 if a_val < b_val
                   return -1 * desc
                 if a_val > b_val
