@@ -1,7 +1,8 @@
-require 'test_helper'
+require 'minitest/spec'
 
-class ClientTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+# class ClientTest < ActiveSupport::TestCase
+class ClientTest < Test::Unit::TestCase
+  def test_for_the_truth
+    assert true
+  end
 end

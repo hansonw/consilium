@@ -5,6 +5,7 @@ class Client
 
   has_many :client_changes, dependent: :delete
   has_many :documents, dependent: :delete
+  # ^ These need to be commented to run Rspec for some unknown reason
 
   FIELDS = [
     {

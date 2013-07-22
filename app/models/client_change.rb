@@ -7,6 +7,12 @@ class ClientChange
   has_many :documents, dependent: :delete
   field :client_data, type: Hash
   field :description, type: String
+  # ^ These need to be commented to run Rspec for some unknown reason
+
+  # used to see if simple testing is working
+  def seven
+    7
+  end
 
   # Empty values should be treated the same as missing values.
   def self.value_equals(a, b)
