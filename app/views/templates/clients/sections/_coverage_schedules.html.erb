@@ -4,6 +4,7 @@
   schedules = [
     {
       :name => 'Property',
+      :id => 'property',
       :type => [
         {
           :name => 'Building, Equipment and Stock',
@@ -33,7 +34,7 @@
         },
         {
           :name => 'Contents of Every Description (COED)',
-          :id => 'COED',
+          :id => 'coed',
           :options => {
             'equipment' => 'Equipment',
             'stock' => 'Stock',
@@ -121,7 +122,7 @@
         },
         {
           :name => 'Installation Floater',
-          :id => 'instalationFloater',
+          :id => 'installationFloater',
           :type => {
             'broad' => 'Broad Form',
             'named' => 'Named Perils',
@@ -157,7 +158,7 @@
         },
         {
           :name => 'Exhibition Floater',
-          :id => 'exibitionFloater',
+          :id => 'exhibitionFloater',
           :type => {
             'broad' => 'Broad Form',
             'named' => 'Named Perils',
@@ -192,8 +193,8 @@
           :id => 'furriersCustomersLiability',
         },
         {
-          :name => 'Jewellers Block (Broad)',
-          :id => 'jewellersBlock',
+          :name => 'Jewelers Block (Broad)',
+          :id => 'jewelersBlock',
         },
         {
           :name => 'Heavy Equipment in Use',
@@ -281,12 +282,13 @@
         },
         {
           :name => 'Misc. Wording (Named)',
-          :id => 'MiscWordingNamed',
+          :id => 'miscWordingNamed',
         },
       ],
     },
     {
       :name => 'Business Income',
+      :id => 'businessIncome',
       :type => [
         {
           :name => 'Business Income',
@@ -332,6 +334,7 @@
     },
     {
       :name => 'Business Interruption',
+      :id => 'businessInterruption',
       :type => [
         {
           :name => 'Profits (Broad/Named)',
@@ -343,11 +346,11 @@
         },
         {
           :name => 'Gross Earnings–Mercantile or Non-Manufacturing ',
-          :id => 'GrossEMOrNM',
+          :id => 'grossEMOrNM',
         },
         {
           :name => 'Gross Earnings–Manufacturing',
-          :id => 'GrossEarningsManufacturing',
+          :id => 'grossEarningsManufacturing',
           :type => {
             'broad' => 'Broad Form',
             'named' => 'Named Perils',
@@ -355,7 +358,7 @@
         },
         {
           :name => 'Earnings – No Co-Insurance',
-          :id => 'EarningsNoCons',
+          :id => 'earningsNoCons',
           :type => {
             'broad' => 'Broad Form',
             'named' => 'Named Perils',
@@ -363,7 +366,7 @@
         },
         {
           :name => 'Rent or Rental Value',
-          :id => 'rentRetalValue',
+          :id => 'rentRentalValue',
           :type => {
             'broad' => 'Broad Form',
             'named' => 'Named Perils',
@@ -399,16 +402,17 @@
         },
         {
           :name => 'Misc. Wording (Named)',
-          :id => 'MiscWordingNamed',
+          :id => 'miscWordingNamed',
         },
       ],
     },
     {
       :name => 'Crime',
+      :id => 'crime',
       :type => [
         {
           :name => 'Comprehensive 3 D',
-          :id => 'comprehensiveThreeD',
+          :id => 'comprehensive3D',
         },
         {
           :name => 'Employee Dishonesty (Individual)',
@@ -440,7 +444,7 @@
         },
         {
           :name => 'Damage to Building by Burglary or Robbery',
-          :id => 'dammageBuild',
+          :id => 'damageBuild',
         },
         {
           :name => 'Stock & Equipment Burglary',
@@ -482,6 +486,7 @@
     },
     {
       :name => 'Liability',
+      :id => 'liability',
       :type => [
         {
           :name => 'Commercial General Liability (Occurrence Form)',
@@ -509,11 +514,11 @@
         },
         {
           :name => 'Worldwide Non-owned Automobile Liability',
-          :id => 'WWNonOwnedAuto',
+          :id => 'wwNonOwnedAuto',
         },
         {
           :name => 'Voluntary Compensation',
-          :id => 'VoluntaryComensation',
+          :id => 'voluntaryComensation',
         },
         {
           :name => 'Professional Liability',
@@ -529,11 +534,11 @@
         },
         {
           :name => 'Employers’ Bodily Injury Liability',
-          :id => 'employersBodilyIngury',
+          :id => 'employersBodilyInjury',
         },
         {
           :name => 'Wrap-up Liability',
-          :id => 'wrapUPLiability',
+          :id => 'wrapUpLiability',
         },
         {
           :name => 'Pollution Liability',
@@ -551,6 +556,7 @@
     },
     {
       :name => 'Umbrella',
+      :id => 'umbrella',
       :type => [
         {
           :name => 'Umbrella Liability',
@@ -564,6 +570,7 @@
     },
     {
       :name => 'Machinery Breakdown',
+      :id => 'machineryBreakdown',
       :type => [
         {
           :name => 'Machinery Breakdown',
@@ -597,6 +604,7 @@
     },
     {
       :name => 'Other',
+      :id => 'other',
       :type => [
         {
           :name => 'Fees to Substantiate Loss',
@@ -631,8 +639,8 @@
   <div class="pure-u-1-5">
     <h2 class="no-top-margin">Category</h2>
     <hr class="soften" />
-    <select name="category" data-ng-model="<%= sectionId %>.category.value" size="<%= schedules.count + 1%>"
-            data-ng-change="<%= sectionId %>.type = ''" required>
+    <select name="category" data-ng-model="coverage.category" size="<%= schedules.count + 1%>"
+            data-ng-change="coverage.type = ''" required>
       <option value="">Select a category...</option>
       <% schedules.each do |category| %>
         <option><%= category[:name] %></option>
@@ -642,11 +650,11 @@
   <div class="pure-u-2-5">
     <h2 class="no-top-margin">Type</h2>
     <hr class="soften" />
-    <select data-ng-if="!<%= sectionId %>.category.value" disabled>
+    <select data-ng-if="!coverage.category" disabled>
       <option>             </option>
     </select>
     <% schedules.each do |category| %>
-      <select name="type" data-ng-model="<%= sectionId %>.type.value" data-ng-if="<%= sectionId %>.category.value == '<%= category[:name] %>'" size="<%= category[:type].count + 1 %>" required>
+      <select data-ng-model="coverage.type" data-ng-if="coverage.category == '<%= category[:name] %>'" size="<%= category[:type].count + 1 %>" required>
         <option value="">Select a type...</option>
         <% category[:type].each do |type| %>
           <option><%= type[:name] %></option>
@@ -657,9 +665,10 @@
   <div class="pure-u-2-5 pure-form pure-form-aligned">
     <h2 class="no-top-margin">Values</h2>
     <hr class="soften" />
-    <div class="pure-form-fields">
-      <% schedules.each do |category| %>
-        <% category[:type].each do |type| %>
+    <% schedules.each do |category| %>
+      <% category[:type].each do |type| %>
+        <% obj = [sectionId, category[:id], type[:id]].join('.') %>
+        <div class="pure-form-fields" data-ng-if="coverage.category == '<%= category[:name] %>' && coverage.type == '<%= type[:name] %>'">
           <% if !type[:options].nil? %>
             <%
               optionsMenu = {
@@ -667,10 +676,9 @@
                 :id => 'options',
                 :type => 'radio',
                 :options => type[:options],
-                :if => "$#{sectionId}.type.value == '#{type[:name]}'"
               }
              %>
-            <%= form_field optionsMenu, sectionId %>
+            <%= form_field optionsMenu, obj %>
           <% end %>
           <% if !type[:type].nil? %>
             <%
@@ -679,58 +687,59 @@
                 :id => 'subtype',
                 :type => 'radio',
                 :options => type[:type],
-                :if => "$#{sectionId}.type.value == '#{type[:name]}'"
               }
              %>
-            <%= form_field typesMenu, sectionId %>
+            <%= form_field typesMenu, obj %>
           <% end %>
-        <% end %>
+
+          <%
+            replacementCost = {
+              :name => 'Replacement cost',
+              :id => 'replacementCost',
+              :type => 'currency',
+              :placeholder => '$ CAN (ex. 111.11)',
+              :if => "$#{sectionId}.options.value == \"building\" || #{sectionId}.options.value == \"equipment\"",
+            }
+           %>
+          <%= form_field replacementCost, obj %>
+
+          <%
+            coinsurance = {
+              :name => 'Coinsurance',
+              :id => 'coinsurance',
+              :type => 'text',
+              :placeholder => '(ex. 90%)',
+              :prefill => {
+                :auto => '90%',
+              },
+            }
+          %>
+          <%= form_field coinsurance, obj %>
+
+          <%
+            deductible = {
+              :name => 'Deductible',
+              :id => 'deductible',
+              :type => 'currency',
+              :placeholder => '$ CAN (ex. 111.11)',
+            }
+           %>
+          <%= form_field deductible, obj %>
+
+          <%
+            limit = {
+              :name => 'Limit',
+              :id => 'limit',
+              :type => 'currency',
+              :placeholder => '$ CAN (ex. 111.11)',
+              :prefill => {
+                :calc => 'coverageSchedules.replacementCost.value',
+              },
+            }
+           %>
+          <%= form_field limit, obj %>
+       </div>
       <% end %>
-
-      <%
-        replacementCost = {
-          :name => 'Replacement cost',
-          :id => 'replacementCost',
-          :type => 'currency',
-          :placeholder => '$ CAN (ex. 111.11)',
-          :if => "$" + sectionId + ".options.value == \"building\" || " + sectionId + ".options.value == \"equipment\"",
-        }
-       %>
-      <%= form_field replacementCost, sectionId %>
-
-      <%
-        coinsurance = {
-          :name => 'Coinsurance',
-          :id => 'coinsurance',
-          :type => 'text',
-          :placeholder => '(ex. 90%)',
-          :prefill => {
-            :auto => '90%',
-          },
-        }
-       %>
-      <%= form_field coinsurance, sectionId %>
-      <%
-        deductible = {
-          :name => 'Deductible',
-          :id => 'deductible',
-          :type => 'currency',
-          :placeholder => '$ CAN (ex. 111.11)',
-        }
-       %>
-      <%= form_field deductible, sectionId %>
-      <%
-        limit = {
-          :name => 'Limit',
-          :id => 'limit',
-          :type => 'currency',
-          :placeholder => '$ CAN (ex. 111.11)',
-          :prefill => {
-            :calc => 'coverageSchedules.replacementCost.value',
-          },
-        }
-       %>
-      <%= form_field limit, sectionId %>
-    </div>
+    <% end %>
   </div>
 </div>
