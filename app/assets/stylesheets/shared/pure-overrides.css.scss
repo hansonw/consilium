@@ -161,6 +161,10 @@ button, input, select, textarea {
     .pure-control-group {
       display: table-row;
 
+      @include respond-to(handhelds) {
+        display: block;
+      }
+
       * {
         margin: 3px;
       }
