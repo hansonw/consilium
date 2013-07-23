@@ -18,11 +18,12 @@
               class="pure-form pure-form-aligned"
               data-ng-submit="<%= submit_callback %>">
           <% if field[:partial] %>
-            <%= render :partial => field[:partial] %>
+            <%= render :partial => field[:partial],
+                       :locals => local_assigns %>
           <% else %>
             <div class="pure-form-fields">
               <% field[:type].each do |subfield| %>
-                <%= form_field subfield, field[:id], defined?(syncable) ? syncable : true, if defined? root then root else nil end %>
+                <%= form_field subfield, field[:id], defined?(syncable) ? syncable : true, local_assigns[:root] %>
               <% end %>
             </div>
           <% end %>

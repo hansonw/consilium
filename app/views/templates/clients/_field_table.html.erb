@@ -1,10 +1,15 @@
 <div class="well" data-ng-class="changedSections.<%= field[:id] %> && 'changed'">
   <div id="<%= field[:id] %>" class="section">
     <a class="section-edit pull-right pure-button pure-button-success"
-       <%= "modal-toggle=#{field[:id]}" if !field.has_key?(:createHref) %>
-       <%= "data-ng-href=#{field[:createHref]}" if field.has_key?(:createHref) %>
+       <% if field.has_key?(:createHref) %>
+         <%= raw "data-ng-href='#{h field[:createHref]}'" %>
+       <% elsif field.has_key?(:createCallback) %>
+         <%= raw "data-ng-click='#{h field[:createCallback]}'" %>
+       <% else %>
+         <%= raw "modal-toggle='#{field[:id]}'" %>
+       <% end %>
        data-ng-show="!clientChangeId">
-      <i class="icon-plus"></i> <span class="only-desktops">Add <%= field[:name].singularize %></span>
+      <i class="icon-plus"></i> <span class="only-desktops"><%= field[:modalTitle] || "Add #{field[:name].singularize}" %></span>
     </a>
     <h3 class="no-top-margin no-bottom-margin"><%= index %>. <%= field[:name] %></h3>
   </div>
@@ -12,7 +17,8 @@
              :locals => {
                :name => 'data',
                :model => "#{root || 'client'}.#{field[:id]}.value",
-               :rowClick => if field.has_key?(:editHref)
+               :rowClick => field[:editCallback] ||
+                            if field.has_key?(:editHref)
                             then "navigateTo('#{field[:editHref]}')"
                             else "editInField('#{field[:id]}', #{if defined? root then "'#{root}'" else 'null' end}, $index)" end,
                :fields => [
@@ -26,14 +32,16 @@
                  {
                    :class => 'pure-button-primary',
                    :icon => 'icon-edit',
-                   :click => if field.has_key?(:editHref)
+                   :click => field[:editCallback] ||
+                             if field.has_key?(:editHref)
                              then "navigateTo('#{field[:editHref]}')"
                              else "editInField('#{field[:id]}', #{if defined? root then "'#{root}'" else 'null' end}, $index)" end,
                  },
                  {
                    :class => 'pure-button-error',
                    :icon => 'icon-trash',
-                   :click => "deleteFromField('#{field[:id]}', #{if defined? root then "'#{root}'" else 'null' end}, $index)",
+                   :click => field[:deleteCallback] ||
+                             "deleteFromField('#{field[:id]}', #{if defined? root then "'#{root}'" else 'null' end}, $index)",
                    :attrs => "data-ng-show='!clientChangeId'"
                  },
                ],

@@ -12,7 +12,7 @@
     <div class="subsection-inner">
       <div class="subsection-contents pure-form-fields">
         <% field[:type].each do |subfield| %>
-          <%= form_field subfield, if defined? root then root else nil end %>
+          <%= form_field subfield, local_assigns[:root] %>
         <% end %>
       </div>
     </div>

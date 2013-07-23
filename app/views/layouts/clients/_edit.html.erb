@@ -7,8 +7,9 @@
                    :page => 'Clients',
                    :page_url => '#/clients/',
                    :page_title => '{{ title }}',
-                   :submit_callback => "addToField('#{field[:id]}', #{if defined? root then "'#{root}'" else 'null' end})",
-                   :root => if defined? root then "'#{root}'" else 'null' end
+                   :title => field[:modalTitle],
+                   :submit_callback => field[:submitCallback] || "addToField('#{field[:id]}', #{if defined? root then "'#{root}'" else 'null' end})",
+                   :root => local_assigns[:root]
                  } %>
     <% end %>
   <% end %>
@@ -56,10 +57,10 @@
               <% if field[:type].is_a? Array %>
                 <% if field[:id].ends_with? 's' %>
                   <%= render :partial => 'templates/clients/field_table',
-                             :locals => { :field => field, :index => index + 1, :root => if defined? root then root else nil end } %>
+                             :locals => { :field => field, :index => index + 1, :root => local_assigns[:root] } %>
                 <% else %>
                   <%= render :partial => 'templates/clients/field_section',
-                             :locals => { :field => field, :index => index + 1, :root => if defined? root then root else nil end } %>
+                             :locals => { :field => field, :index => index + 1, :root => local_assigns[:root] } %>
                 <% end %>
               <% end %>
             <% end %>

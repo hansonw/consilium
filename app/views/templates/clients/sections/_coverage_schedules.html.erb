@@ -7,42 +7,38 @@
       :id => 'property',
       :type => [
         {
-          :name => 'Building, Equipment and Stock',
-          :id => 'bldgEquipAndStock',
-          :options => {
-            'building' => 'Building',
-            'equipment' => 'Equipment',
-            'stock' => 'Stock',
+          :name => 'Building',
+          :id => 'building',
+          :type => {
+            'broad' => 'Broad Form',
+            'named' => 'Named Perils',
           },
+          :replacementCost => true,
+        },
+        {
+          :name => 'Equipment',
+          :id => 'equipment',
+          :type => {
+            'broad' => 'Broad Form',
+            'named' => 'Named Perils',
+          },
+          :replacementCost => true,
+        },
+        {
+          :name => 'Stock',
+          :id => 'stock',
           :type => {
             'broad' => 'Broad Form',
             'named' => 'Named Perils',
           },
         },
         {
-          :name => 'Property of Every Description (POED)',
+          :name => 'Property of Every Description (POED) ***',
           :id => 'poed',
-          :options => {
-            'building' => 'Building',
-            'equipment' => 'Equipment',
-            'stock' => 'Stock',
-          },
-          :type => {
-            'broad' => 'Broad Form',
-            'named' => 'Named Perils',
-          },
         },
         {
-          :name => 'Contents of Every Description (COED)',
+          :name => 'Contents of Every Description (COED) ***',
           :id => 'coed',
-          :options => {
-            'equipment' => 'Equipment',
-            'stock' => 'Stock',
-          },
-          :type => {
-            'broad' => 'Broad Form',
-            'named' => 'Named Perils',
-          },
         },
         {
           :name => 'Office Contents (Broad)',
@@ -145,12 +141,16 @@
           },
         },
         {
-          :name => 'Equipment Dealer’s Stock and Equipment',
-          :id => 'dealersStockAndEquipment',
-          :options => {
-            'equipment' => 'Equipment',
-            'stock' => 'Stock',
+          :name => 'Equipment Dealer’s Stock',
+          :id => 'dealersStock',
+          :type => {
+            'broad' => 'Broad Form',
+            'named' => 'Named Perils',
           },
+        },
+        {
+          :name => 'Equipment Dealer’s Equipment',
+          :id => 'dealersEquipment',
           :type => {
             'broad' => 'Broad Form',
             'named' => 'Named Perils',
@@ -635,7 +635,7 @@
   ]
 %>
 
-<div class="pure-g-r" id="coverageScheduleForm">
+<div class="pure-g-r" id="coverageScheduleForm" coverage-schedule-form="<%= sectionId %>" coverage-schedule-model="<%= root %>.<%= sectionId %>.value">
   <div class="pure-u-1-5">
     <h2 class="no-top-margin">Category</h2>
     <hr class="soften" />
@@ -666,20 +666,12 @@
     <h2 class="no-top-margin">Values</h2>
     <hr class="soften" />
     <% schedules.each do |category| %>
+      <% # Hack the names into angular. %>
+      <span data-ng-init="coverageCategories.<%= category[:id] %> = '<%= category[:name] %>'" />
       <% category[:type].each do |type| %>
         <% obj = [sectionId, category[:id], type[:id]].join('.') %>
+        <span data-ng-init="coverageTypes.<%= category[:id] %>.<%= type[:id] %> = '<%= type[:name] %>'" />
         <div class="pure-form-fields" data-ng-if="coverage.category == '<%= category[:name] %>' && coverage.type == '<%= type[:name] %>'">
-          <% if !type[:options].nil? %>
-            <%
-              optionsMenu = {
-                :name => 'Options',
-                :id => 'options',
-                :type => 'radio',
-                :options => type[:options],
-              }
-             %>
-            <%= form_field optionsMenu, obj %>
-          <% end %>
           <% if !type[:type].nil? %>
             <%
               typesMenu = {
@@ -692,16 +684,17 @@
             <%= form_field typesMenu, obj %>
           <% end %>
 
-          <%
-            replacementCost = {
-              :name => 'Replacement cost',
-              :id => 'replacementCost',
-              :type => 'currency',
-              :placeholder => '$ CAN (ex. 111.11)',
-              :if => "$#{sectionId}.options.value == \"building\" || #{sectionId}.options.value == \"equipment\"",
-            }
-           %>
-          <%= form_field replacementCost, obj %>
+          <% if !type[:replacementCost].nil? %>
+            <%
+              replacementCost = {
+                :name => 'Replacement cost',
+                :id => 'replacementCost',
+                :type => 'currency',
+                :placeholder => '$ CAN (ex. 111.11)',
+              }
+             %>
+            <%= form_field replacementCost, obj %>
+          <% end %>
 
           <%
             coinsurance = {
@@ -733,7 +726,7 @@
               :type => 'currency',
               :placeholder => '$ CAN (ex. 111.11)',
               :prefill => {
-                :calc => 'coverageSchedules.replacementCost.value',
+                :calc => obj + '.replacementCost.value',
               },
             }
            %>

@@ -55,7 +55,7 @@ module FormHelper
       dropdownString = "<div class='dropdown-field'>
                           <select class='dropdown-list #{field[:id]}' name='#{field[:id]}'
                             data-dropdown-other='#{model}'
-                            #{field[:intelligentOther] && ('model=' + model_parent[0] + '')}
+                            #{field[:intelligentOther] && "model='#{h model_parent[0]}'"}
                             #{field[:required] && 'required'}
                             #{field[:intelligentStates] && 'intelligentStates'}
                             #{field[:intelligentOther] && 'intelligent-other'}>

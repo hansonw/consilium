@@ -1306,6 +1306,10 @@ class Client
         {
           :name => 'Coverage Sched.',
           :id => 'coverageSchedules',
+          :modalTitle => 'Edit Coverage Schedules',
+          :createCallback => 'editCoverageSchedule()',
+          :submitCallback => 'saveCoverageSchedules()',
+          :editCallback => 'editCoverageSchedule($index)',
           :partial => 'templates/clients/sections/coverage_schedules',
           :type => [
             # Primary field only, for the table. The rest are declared in the partia
@@ -1319,15 +1323,6 @@ class Client
               :id => 'category',
               :required => true,
               :type => 'text',
-            },
-            {
-              :id => 'options',
-              :type => 'radio',
-              :options => {
-                'building' => 'Building',
-                'equipment' => 'Equipment',
-                'stock' => 'Stock',
-              }
             },
             {
               :id => 'subtype',
