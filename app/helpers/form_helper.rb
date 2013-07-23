@@ -138,6 +138,18 @@ module FormHelper
               #{field[:type] == 'phone' && pattern('^([0-9][-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})(\s*(ext|x|extension)\.?\s*[0-9]+)?$')\
                 + "title='Use the format 1-123-456-7890 ext. 1234 (dashes, country code, ext. optional)'"}
             />"
+    when 'date'
+      r = "<input type='hidden' ng-model='#{model}' />
+           <input name='#{field[:id]}' type='datepicker'
+              model='#{model}' placeholder='#{field[:placeholder] || "Select a date"}'
+              #{field[:prefill] && field[:prefill][:auto] && "prefill='#{field[:prefill][:auto]}'"}
+              #{field[:prefill] && field[:prefill][:calc] && "prefill-calc='#{field[:prefill][:calc]}'"}
+              #{field[:required] && 'required'}
+              #{field[:readonly] && 'readonly'}
+              #{field[:pattern] && pattern(field[:pattern])}
+              #{field[:errorMessage] && "title='#{field[:errorMessage]}'"}
+              #{field[:type] == 'date' && 'datepicker'}
+            />"
     else
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='#{model}' placeholder='#{field[:placeholder]}'
@@ -151,7 +163,6 @@ module FormHelper
               #{field[:max] && "ng-max='#{field[:max]}'"}
               #{field[:pattern] && pattern(field[:pattern])}
               #{field[:errorMessage] && "title='#{field[:errorMessage]}'"}
-              #{field[:type] == 'date' && "placeholder-polyfill"}
             />"
     end
 

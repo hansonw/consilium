@@ -1,0 +1,17 @@
+@import 'constants';
+@import 'utilities';
+
+body {
+  input[type='datepicker'] {
+    margin-right: -100%;
+  }
+
+  .ui-datepicker-trigger {
+    height: 27px;
+
+    // Taken from Pure CSS's .pure-button
+    color: rgba(0,0,0,.8);
+    background: #E6E6E6;
+    border: 1px solid #ccc;
+  }
+}

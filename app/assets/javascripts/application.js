@@ -14,6 +14,7 @@
 //= require modernizr
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.datepicker
 //= require unstable/angular
 //= require unstable/angular-resource
 //= require_tree .
