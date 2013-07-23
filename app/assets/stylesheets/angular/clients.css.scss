@@ -460,7 +460,7 @@ $client-form-nav-padding: 50px;
       display: table-row;
       width: 100%;
     }
-    label {
+    .pure-control-group > label { // not the checkbox labels
       display: table-row;
       text-align: left;
     }

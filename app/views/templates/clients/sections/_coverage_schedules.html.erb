@@ -654,83 +654,83 @@
       </select>
     <% end %>
   </div>
-  <div class="pure-u-2-5">
+  <div class="pure-u-2-5 pure-form pure-form-aligned">
     <h2 class="no-top-margin">Values</h2>
     <hr class="soften" />
-    <% schedules.each do |category| %>
-      <% category[:type].each do |type| %>
-        <% if !type[:options].nil? %>
-          <%
-            optionsMenu = {
-              :name => 'Options',
-              :id => 'options',
-              :type => 'radio',
-              :options => type[:options],
-            }
-           %>
-          <div data-ng-if="<%= sectionId %>.type.value == '<%= type[:name] %>'">
+    <div class="pure-form-fields">
+      <% schedules.each do |category| %>
+        <% category[:type].each do |type| %>
+          <% if !type[:options].nil? %>
+            <%
+              optionsMenu = {
+                :name => 'Options',
+                :id => 'options',
+                :type => 'radio',
+                :options => type[:options],
+                :if => "$#{sectionId}.type.value == '#{type[:name]}'"
+              }
+             %>
             <%= form_field optionsMenu, sectionId %>
-          </div>
-        <% end %>
-        <% if !type[:type].nil? %>
-          <%
-            typesMenu = {
-              :name => 'Types',
-              :id => 'subtype',
-              :type => 'radio',
-              :options => type[:type],
-            }
-           %>
-          <div data-ng-if="<%= sectionId %>.type.value == '<%= type[:name] %>'">
+          <% end %>
+          <% if !type[:type].nil? %>
+            <%
+              typesMenu = {
+                :name => 'Types',
+                :id => 'subtype',
+                :type => 'radio',
+                :options => type[:type],
+                :if => "$#{sectionId}.type.value == '#{type[:name]}'"
+              }
+             %>
             <%= form_field typesMenu, sectionId %>
-          </div>
+          <% end %>
         <% end %>
       <% end %>
-    <% end %>
 
-    <%
-      replacementCost = {
-        :name => 'Replacement cost',
-        :id => 'replacementCost',
-        :type => 'currency',
-        :placeholder => '$ CAN (ex. 111.11)',
-        :if => "$" + sectionId + ".options.value == \"building\" || " + sectionId + ".options.value == \"equipment\"",
-      }
-     %>
-    <%= form_field replacementCost, sectionId %>
+      <%
+        replacementCost = {
+          :name => 'Replacement cost',
+          :id => 'replacementCost',
+          :type => 'currency',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :if => "$" + sectionId + ".options.value == \"building\" || " + sectionId + ".options.value == \"equipment\"",
+        }
+       %>
+      <%= form_field replacementCost, sectionId %>
 
-    <%
-      coinsurance = {
-        :name => 'Coinsurance',
-        :id => 'coinsurance',
-        :type => 'text',
-        :placeholder => '(ex. 90%)',
-        :prefill => {
-          :auto => '90%',
-        },
-      }
-     %>
-    <%= form_field coinsurance, sectionId %>
-    <%
-      deductible = {
-        :name => 'Deductible',
-        :id => 'deductible',
-        :type => 'currency',
-        :placeholder => '$ CAN (ex. 111.11)',
-      }
-     %>
-    <%= form_field deductible, sectionId %>
-    <%
-      limit = {
-        :name => 'Limit',
-        :id => 'limit',
-        :type => 'currency',
-        :placeholder => '$ CAN (ex. 111.11)',
-        :prefill => {
-          :calc => 'coverageSchedules.replacementCost.value',
-        },
-      }
-     %>
-    <%= form_field limit, sectionId %>
+      <%
+        coinsurance = {
+          :name => 'Coinsurance',
+          :id => 'coinsurance',
+          :type => 'text',
+          :placeholder => '(ex. 90%)',
+          :prefill => {
+            :auto => '90%',
+          },
+        }
+       %>
+      <%= form_field coinsurance, sectionId %>
+      <%
+        deductible = {
+          :name => 'Deductible',
+          :id => 'deductible',
+          :type => 'currency',
+          :placeholder => '$ CAN (ex. 111.11)',
+        }
+       %>
+      <%= form_field deductible, sectionId %>
+      <%
+        limit = {
+          :name => 'Limit',
+          :id => 'limit',
+          :type => 'currency',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :prefill => {
+            :calc => 'coverageSchedules.replacementCost.value',
+          },
+        }
+       %>
+      <%= form_field limit, sectionId %>
+    </div>
   </div>
 </div>

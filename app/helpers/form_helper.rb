@@ -34,7 +34,7 @@ module FormHelper
 
     return raw\
       "<div class='pure-control-group'
-            #{field[:if] && "data-ng-show='#{showIf}'"}>
+            #{field[:if] && "data-ng-show='#{h showIf}'"}>
          <label for='#{field[:id]}'
                 #{field[:required] && "class='required'"}
                 #{parent_field == 'client' && "data-ng-class='changedFields.#{field[:id]} && \"changed\"'"}>
