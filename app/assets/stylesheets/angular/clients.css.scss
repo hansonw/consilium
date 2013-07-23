@@ -455,6 +455,16 @@ $client-form-nav-padding: 50px;
     padding: 20px;
   }
 
+  .pure-control-group {
+    display: block;
+  }
+
+  @include respond-to(tablets) {
+    .pure-control-group {
+      display: table-row;
+    }
+  }
+
   @include respond-to(desktops, widescreens) {
     input[type="text"], input[type="currency"] {
       display: table-row;
