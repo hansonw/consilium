@@ -650,7 +650,7 @@
   <div class="pure-u-2-5">
     <h2 class="no-top-margin">Type</h2>
     <hr class="soften" />
-    <select data-ng-if="!coverage.category" disabled>
+    <select size="2" data-ng-if="!coverage.category" disabled>
       <option>             </option>
     </select>
     <% schedules.each do |category| %>
@@ -665,6 +665,9 @@
   <div class="pure-u-2-5 pure-form pure-form-aligned">
     <h2 class="no-top-margin">Values</h2>
     <hr class="soften" />
+    <div data-ng-show="!coverage.category || !coverage.type">
+      Please select a category and type.
+    </div>
     <% schedules.each do |category| %>
       <% # Hack the names into angular. %>
       <span data-ng-init="coverageCategories.<%= category[:id] %> = '<%= category[:name] %>'" />
