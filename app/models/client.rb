@@ -234,21 +234,64 @@ class Client
     },
     {
       :name => 'Policy Info',
-      :id => 'policyInfo',
+      :id => 'policyInfos',
       :type => [
         {
-          :name => 'Period of Coverage From',
-          :id => 'coverageFrom',
+          :name => 'Insurer',
+          :id => 'prevInsurer',
+          :required => true,
+          :placeholder => 'Name',
+          :type => 'text',
+        },
+        {
+          :name => 'Policy Type',
+          :id => 'prevPolicyType',
+          :required => true,
+          :type => 'dropdown',
+          :options => [
+            'CGL',
+            'CMP',
+            'IRCA',
+            'Fleet',
+            'Environmental',
+            'WSIB Alternative',
+            'Other',
+          ]
+        },
+        {
+          :name => 'Policy Number',
+          :id => 'prevPolicyNumber',
+          :placeholder => '# (ex. AAA1111111)',
+          :type => 'text',
+        },
+        {
+          :name => 'Premium',
+          :id => 'prevPremium',
+          :placeholder => '$ CAN (ex. 111.11)',
+          :type => 'currency',
+        },
+        {
+          :name => '',
+          :id => 'prevPremiumMonthlyOrAnnual',
+          :type => 'radio',
+          :options => {
+            'annually' => 'Annually',
+            'monthly' => 'Monthly',
+          },
+        },
+        {
+          :name => 'Inception Date',
+          :id => 'prevTermStart',
           :type => 'date',
         },
         {
-          :name => 'Period of Coverage To',
-          :id => 'coverageTo',
+          :name => 'Expiry Date',
+          :id => 'prevTermEnd',
           :type => 'date',
         },
         {
           :name => 'Quote Required By',
-          :id => 'requiredBy',
+          :id => 'quoteRequiredBy',
           :type => 'date',
         },
       ],
