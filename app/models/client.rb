@@ -470,6 +470,7 @@ class Client
         {
           :name => 'Operation or Product Type',
           :id => 'operationOrProductType',
+          :required => true,
           :type => 'text',
           :placeholder => 'Operation or product type',
         },

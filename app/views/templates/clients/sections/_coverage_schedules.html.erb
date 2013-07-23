@@ -643,7 +643,7 @@
             data-ng-change="coverage.type = ''" required>
       <option value="">Select a category...</option>
       <% schedules.each do |category| %>
-        <option><%= category[:name] %></option>
+        <option ng-class="<%= sectionId %>.<%= category[:id] %> && 'selected'"><%= category[:name] %></option>
       <% end %>
     </select>
   </div>
@@ -657,7 +657,7 @@
       <select data-ng-model="coverage.type" data-ng-if="coverage.category == '<%= category[:name] %>'" size="<%= category[:type].count + 1 %>" required>
         <option value="">Select a type...</option>
         <% category[:type].each do |type| %>
-          <option><%= type[:name] %></option>
+          <option ng-class="<%= sectionId %>.<%= category[:id] %>.<%= type[:id] %> && 'selected'"><%= type[:name] %></option>
         <% end %>
       </select>
     <% end %>
@@ -731,6 +731,11 @@
             }
            %>
           <%= form_field limit, obj %>
+
+          <div class="pure-control-group">
+            <label></label>
+            <button type="button" id="clearCoverage" data-ng-click="clearCoverage()" class="pull-right pure-button pure-button-error" eat-click>Clear Coverage</button>
+          </div>
        </div>
       <% end %>
     <% end %>

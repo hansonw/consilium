@@ -51,4 +51,13 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
 
       obj.assign($scope, coverageSchedules)
       Modal.toggleModal(form)
+
+    $scope.clearCoverage = ->
+      coverageSchedules = obj($scope)
+      cat = coverageIdLookup[$scope.coverage.category]?[$scope.coverage.type]
+      if coverageSchedules[cat[0]]?[cat[1]]?
+        delete coverageSchedules[cat[0]][cat[1]]
+        if $.isEmptyObject(coverageSchedules[cat[0]])
+          delete coverageSchedules[cat[0]]
+      obj.assign($scope, coverageSchedules)
 ]

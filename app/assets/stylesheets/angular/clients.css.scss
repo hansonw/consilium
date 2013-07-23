@@ -465,6 +465,10 @@ $client-form-nav-padding: 50px;
     }
   }
 
+  option.selected {
+    background: $light-green;
+  }
+
   @include respond-to(desktops, widescreens) {
     input[type="text"], input[type="currency"] {
       display: table-row;
@@ -478,5 +482,12 @@ $client-form-nav-padding: 50px;
       display: table-row;
       width: 100%;
     }
+    select {
+      height: 350px;
+    }
+  }
+
+  #clearCoverage {
+    margin-right: 0px;
   }
 }
