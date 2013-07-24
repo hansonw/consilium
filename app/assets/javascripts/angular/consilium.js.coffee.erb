@@ -9,10 +9,12 @@ window.App = angular.module('Consilium', ['ngResource'])
 App.config ['$routeProvider', ($routeProvider) ->
   <% getAllAngularRoutes().each do |route| %>
   $routeProvider.when '<%= angularRouteAppPath(route).sub '#', '' %>',
-    templateUrl: '<%= angularRouteFilePath(route) %>'
+    templateUrl: '<%= angularRouteFilePath(route) %>',
+    reloadOnSearch: false
   <% end %>
   $routeProvider.otherwise
-    templateUrl: '<%= angularRouteFilePath(app_templates_path) %>'
+    templateUrl: '<%= angularRouteFilePath(app_templates_path) %>',
+    reloadOnSearch: false,
 ]
 
 App.config ["$httpProvider", ($httpProvider) ->
