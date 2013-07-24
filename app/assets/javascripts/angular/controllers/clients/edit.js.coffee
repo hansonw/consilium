@@ -67,6 +67,21 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     $scope.loading = false
     $scope.client = new Client()
 
+  # Override auto-saving's default onLocationChange
+  $scope.onLocationChange = (event, nextLoc, curLoc) ->
+    if nextLoc.indexOf('locationInfo') >= 0
+      if !$scope.clientForm.$valid
+        if !$scope.clientForm.$dirty
+          alert('Please fill out some basic information before continuing to this section.')
+        else
+          alert('Please fix errors in this form before continuing.')
+        event.preventDefault()
+        return false
+      else if $scope.clientForm.$dirty
+        $scope.saveForm(true, -> window.location = nextLoc)
+        event.preventDefault()
+        return false
+
   $scope.subsectionVisible = {}
   $scope.savedOnce = false
 

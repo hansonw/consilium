@@ -1024,10 +1024,6 @@ class Client
               },
               :if => 'renovationsRoof.yes',
             },
-            {
-              :type => 'separator',
-              :if => 'renovationsRoof.yes',
-            },
           ]
         },
         {
