@@ -12,8 +12,8 @@ App.directive 'datepicker', ['$parse', ($parse) ->
         $parse($attr.model).assign $scope, unixTime
         $scope.$digest()
       ,
-      showOn: 'button',
-      buttonText: '<i class="icon-calendar"></i>',
+      showOn: $attr.readonly? ? undefined : 'button',
+      buttonText: $attr.readonly? ? undefined : '<i class="icon-calendar"></i>',
     .next().insertBefore($elem)
 
     $scope.$watch $attr.model, ->
