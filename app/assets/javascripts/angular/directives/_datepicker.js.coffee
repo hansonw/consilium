@@ -8,7 +8,7 @@ App.directive 'datepicker', ['$parse', ($parse) ->
       dateFormat: 'yy-mm-dd',
       onSelect: (date) ->
         $elem.data 'date', date
-        unixTime = $elem.datepicker('getDate').getTime()/1000
+        unixTime = Math.floor($elem.datepicker('getDate').getTime()/1000)
         $parse($attr.model).assign $scope, unixTime
         $scope.$digest()
       ,
@@ -18,7 +18,10 @@ App.directive 'datepicker', ['$parse', ($parse) ->
 
     $scope.$watch $attr.model, ->
       savedDate = $parse($attr.model) $scope
-      $elem.datepicker 'setDate', savedDate
+      if savedDate?
+        $elem.datepicker 'setDate', new Date(savedDate*1000)
+      else
+        $elem.val ''
 
     $elem.on 'change input propertychange paste keyup', (e) ->
       $elem.val $elem.data('date')
