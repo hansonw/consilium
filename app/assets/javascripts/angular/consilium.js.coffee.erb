@@ -33,7 +33,7 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Rece
   $rootScope.logout = -> Auth.logout()
   Auth.watch (isLoggedIn) ->
     $rootScope.isLoggedIn = isLoggedIn
-    window.location = (if isLoggedIn then '#/' else '#/auth/login')
+    $location.url(if isLoggedIn then '/' else '/auth/login')
 
   $rootScope.online_status = true
   $rootScope.last_sync_success = true
@@ -100,7 +100,7 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Rece
     if (not $rootScope._showSubMenu = subMenu?) && path?
       $rootScope._showMenu = false
       # HACK: wait until angular shows loading icon before actually going
-      $timeout((-> window.location = '#' + path), 50)
+      $timeout((-> $location.url(path)), 50)
 
   $rootScope.menuItemIsSelected = (path) ->
     regex = /(\/)index+$/
