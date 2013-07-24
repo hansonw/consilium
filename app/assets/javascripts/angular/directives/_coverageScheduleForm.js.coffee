@@ -14,7 +14,7 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
     store = $parse(model)
 
     $scope.saveCoverageSchedules = ->
-      coverageSchedules = obj($scope)
+      coverageSchedules = obj($scope) || {}
       collection = []
       for cat, data of coverageSchedules
         for type, coverage of data
@@ -32,8 +32,7 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
       Modal.toggleModal(form)
 
     $scope.editCoverageSchedule = (index) ->
-      collection = store($scope)
-
+      collection = store($scope) || {}
       coverageSchedules = {}
       for coverage, i in collection
         ids = coverageIdLookup[coverage.category.value][coverage.type.value]
@@ -53,7 +52,7 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
       Modal.toggleModal(form)
 
     $scope.clearCoverage = ->
-      coverageSchedules = obj($scope)
+      coverageSchedules = obj($scope) || {}
       cat = coverageIdLookup[$scope.coverage.category]?[$scope.coverage.type]
       if coverageSchedules[cat[0]]?[cat[1]]?
         delete coverageSchedules[cat[0]][cat[1]]

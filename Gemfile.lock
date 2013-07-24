@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/DouglasSherk/ydocx.git
-  revision: 8277920986e34cdb7dfc6e8e9bee9eb10cc08d08
+  revision: 3074cfa0aeaed853e5c1c69ba25fd9fd7c876a69
   specs:
     ydocx (1.2.3)
       diff-lcs
@@ -164,7 +164,7 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     thor (0.18.1)
-    thread_safe (0.1.0)
+    thread_safe (0.1.2)
       atomic
     tilt (1.4.1)
     treetop (1.4.14)

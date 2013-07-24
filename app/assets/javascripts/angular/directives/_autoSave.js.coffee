@@ -84,12 +84,15 @@ App.directive 'autoSave', ['$parse', '$timeout', 'Modal', ($parse, $timeout, Mod
             error_str += " - #{err.$name} is #{errors[key]}\n"
       return error_str
 
-    $scope.getFieldError = (field) ->
-      if form[field] && form[field].$error
-        errs = []
-        for key, val of form[field].$error
-          errs.push("Field is #{errors[key]}") if val
-        return errs.join('<br />')
+    $scope.getFieldError = (field, parent_form) ->
+      fform = $scope[parent_form + 'Form'] || form
+      if fform[field] && fform[field].$error && !fform[field].$pristine
+        dom_field = $("[name='#{parent_form + 'Form'}'] [name='#{field}']")
+        if !dom_field.is(':focus')
+          errs = []
+          for key, val of fform[field].$error
+            errs.push("Field is #{errors[key]}") if val
+          return errs.join('<br />')
       return ''
 
     $scope.saveForm = (manual = true, successCallback)->
@@ -118,7 +121,7 @@ App.directive 'autoSave', ['$parse', '$timeout', 'Modal', ($parse, $timeout, Mod
       root = model if !root? or root == ''
       collection = Object.byString($scope, root + '.' + objName + (syncable && '.value' || ''))
 
-      modalForm = $scope['form' + objName]
+      modalForm = $scope[objName + 'Form']
       if !modalForm.$valid
         alert("Please fix the following errors:\n" + $scope.errorText(modalForm.$error))
         return

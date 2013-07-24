@@ -4,6 +4,7 @@ App.directive 'modalToggle', ['Modal', (Modal) ->
       targetId = attr.modalToggle
       Modal.toggleModal(targetId)
       $scope[targetId] = {}
+      $scope[targetId + 'Form']?.$setPristine()?
       e.preventDefault()
 
     if !$scope._modalDestructor

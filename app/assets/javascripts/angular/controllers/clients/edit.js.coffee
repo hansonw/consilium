@@ -94,7 +94,14 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     if $scope.inLocationInfo
       window.history.back()
     else if $scope.clientId || $scope.clientForm.$dirty
-      if $scope.clientForm.$dirty
+      if !$scope.clientForm.$valid
+        if confirm('Errors are preventing the form from being saved.\nAre you sure you wish to leave? Any changes will be discarded.')
+          $scope.clientForm.$setPristine()
+          if $scope.clientId || $scope.savedOnce
+            $location.path("/clients/show/#{$scope.client.id}")
+          else
+            window.history.back()
+      else if $scope.clientForm.$dirty
         $scope.saveForm(true, ->
           $location.path("/clients/show/#{$scope.client.id}"))
       else
