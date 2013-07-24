@@ -795,6 +795,7 @@ class Client
               :options => [
                 'Asphalt shingles',
                 'Steel Deck',
+                'Steel',
                 'Tar and gravel',
                 'Concrete on steel structure',
                 'Concrete Tiles',
