@@ -25,7 +25,7 @@ App.directive 'prefillCalc', ['$parse', ($parse) ->
     prefillWrapper $scope, $elem, $attrs, $parse, (model, value) ->
       calcValue = null
       try
-        calcValue = $parse($attrs.prefillCalc)($scope)
+        calcValue = $parse($attrs.prefillExpr)($scope)
       catch e
         console.log JSON.stringify e
 
@@ -39,10 +39,11 @@ App.directive 'prefillWatch', ['$parse', ($parse) ->
   ($scope, $elem, $attrs) ->
     model = $attrs.ngModel
     watch = $attrs.prefillWatch
+    expr = $attrs.prefillExpr
     $scope.$watch watch, ->
       watchBlurred = ->
         curVal = $parse(model)($scope)
-        $parse(model).assign($scope, $parse(watch)($scope)) if !curVal? || curVal == ''
+        $parse(model).assign($scope, $parse(expr)($scope)) if !curVal? || curVal == ''
         $('[ng-model="' + watch + '"]').off('blur', watchBlurred)
       $('[ng-model="' + watch + '"]').on('blur', watchBlurred)
 ]

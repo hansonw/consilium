@@ -25,6 +25,11 @@ class Client
           :placeholder => 'Firstname Lastname',
           :type => 'text',
           :required => true,
+          :prefill => {
+            :type => 'watch',
+            :watch => 'client.company.value',
+            :expr => '123123',
+          },
         },
         {
           :name => 'Form of business',
@@ -1306,7 +1311,8 @@ class Client
               :type => 'text',
               :placeholder => 'Address (apt., suite, bldg.)',
               :prefill => {
-                :auto => 'Same as Location',
+                :type => 'static',
+                :text => 'Same as Location',
               },
             },
             {
@@ -1321,7 +1327,8 @@ class Client
               :type => 'text',
               :placeholder => 'ex. 90%',
               :prefill => {
-                :auto => '90%',
+                :type => 'static',
+                :text => '90%',
               },
               :if => '!statedAmount.yes',
             },
@@ -1357,7 +1364,8 @@ class Client
               :type => 'currency',
               :placeholder => '$ CAN (ex. 111.11), calculated from rate and replacement cost',
               :prefill => {
-                :calc => 'buildings.rate.value*(buildings.replacementCost.value || buildings.actualCashValue.value)/1000',
+                :type => 'calc',
+                :expr => 'buildings.rate.value*(buildings.replacementCost.value || buildings.actualCashValue.value)/1000',
               },
             },
           ],

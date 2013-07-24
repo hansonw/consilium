@@ -126,9 +126,9 @@ module FormHelper
       # Textarea placeholders cause weird bugs in IE10. Disabled for now.
       r = "<textarea name='#{field[:id]}' ng-model='#{model}'
                 #{false && field[:placeholder] && "placeholder='#{field[:placeholder]}'"}
-                #{field[:prefill] && field[:prefill][:auto] && "prefill='#{field[:prefill][:auto]}'"}
-                #{field[:prefill] && field[:prefill][:calc] && "prefill-calc='#{field[:prefill][:calc]}'"}
-                #{field[:prefill] && field[:prefill][:watch] && "prefill-watch='#{field[:prefill][:watch]}'"}
+                #{field[:prefill] && field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
+                #{field[:prefill] && field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
+                #{field[:prefill] && field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}
                 #{field[:required] && 'required'}
                 #{field[:readonly] && 'readonly'}
                 rows='#{field[:boxRows]}'
@@ -136,9 +136,9 @@ module FormHelper
     when 'currency', 'phone'
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='#{model}' placeholder='#{field[:placeholder]}'
-              #{field[:prefill] && field[:prefill][:auto] && "prefill='#{field[:prefill][:auto]}'"}
-              #{field[:prefill] && field[:prefill][:calc] && "prefill-calc='#{field[:prefill][:calc]}'"}
-                #{field[:prefill] && field[:prefill][:watch] && "prefill-watch='#{field[:prefill][:watch]}'"}
+              #{field[:prefill] && field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
+              #{field[:prefill] && field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
+              #{field[:prefill] && field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}
               #{field[:required] && 'required'}
               #{field[:readonly] && 'readonly'}
               #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
@@ -153,9 +153,9 @@ module FormHelper
       r = "<input type='hidden' ng-model='#{model}' />
            <input name='#{field[:id]}' type='datepicker'
               model='#{model}' placeholder='#{field[:placeholder] || "Select a date"}'
-              #{field[:prefill] && field[:prefill][:auto] && "prefill='#{field[:prefill][:auto]}'"}
-              #{field[:prefill] && field[:prefill][:calc] && "prefill-calc='#{field[:prefill][:calc]}'"}
-              #{field[:prefill] && field[:prefill][:watch] && "prefill-watch='#{field[:prefill][:watch]}'"}
+              #{field[:prefill] && field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
+              #{field[:prefill] && field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
+              #{field[:prefill] && field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}
               #{field[:required] && 'required'}
               #{field[:readonly] && 'readonly'}
               #{field[:pattern] && pattern(field[:pattern])}
@@ -165,9 +165,9 @@ module FormHelper
     else
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='#{model}' placeholder='#{field[:placeholder]}'
-              #{field[:prefill] && field[:prefill][:auto] && "prefill='#{field[:prefill][:auto]}'"}
-              #{field[:prefill] && field[:prefill][:calc] && "prefill-calc='#{field[:prefill][:calc]}'"}
-              #{field[:prefill] && field[:prefill][:watch] && "prefill-watch='#{field[:prefill][:watch]}'"}
+              #{field[:prefill] && field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
+              #{field[:prefill] && field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
+              #{field[:prefill] && field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}
               #{field[:required] && 'required'}
               #{field[:readonly] && 'readonly'}
               #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}

@@ -706,7 +706,8 @@
               :type => 'text',
               :placeholder => '(ex. 90%)',
               :prefill => {
-                :auto => '90%',
+                :type => 'static',
+                :text => '90%',
               },
             }
           %>
@@ -729,7 +730,8 @@
               :type => 'currency',
               :placeholder => '$ CAN (ex. 111.11)',
               :prefill => {
-                :calc => obj + '.replacementCost.value',
+                :type => 'calc',
+                :expr => obj + '.replacementCost.value',
               },
             }
            %>
