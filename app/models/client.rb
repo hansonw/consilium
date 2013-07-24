@@ -614,6 +614,10 @@ class Client
               :if => '!inspection.yes',
             },
             {
+              :type => 'separator',
+              :if => '!inspection.yes'
+            },
+            {
               :name => 'Scope of insured property',
               :id => 'scopeOfInsuredProperty',
               :type => 'text',
@@ -1160,6 +1164,10 @@ class Client
               :name => 'Describe if other',
               :id => 'protectionTypesOther',
               :type => 'text',
+              :if => 'protectionTypes.other'
+            },
+            {
+              :type => 'separator',
               :if => 'protectionTypes.other'
             },
             {
@@ -2190,6 +2198,7 @@ class Client
           :name => 'I have known this client since',
           :id => 'dateKnown',
           :type => 'date',
+          :if => '!newClient.yes',
         },
         {
           :name => '',
