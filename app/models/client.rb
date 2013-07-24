@@ -1726,8 +1726,8 @@ class Client
           ]
         },
         {
-          :name => 'Loss Control Survey',
-          :id => 'lossControlSurvey',
+          :name => 'Loss Control Surveys',
+          :id => 'lossControlSurveys',
           :type => [
             {
               :name => 'Performed by',

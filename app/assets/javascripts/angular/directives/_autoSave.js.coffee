@@ -32,8 +32,8 @@ App.directive 'autoSave', ['$parse', '$timeout', 'Modal', ($parse, $timeout, Mod
       lastChange = new Date().getTime()
     ), true
 
-    $scope.$on('$locationChangeStart', (event, newLoc, curLoc) ->
-      if $scope.onLocationChange && $scope.onLocationChange(event, newLoc, curLoc) == false
+    $scope.$on('$routeChangeStart', (event, newLoc, curLoc) ->
+      if $scope.onRouteChange && $scope.onRouteChange(event, newLoc, curLoc) == false
         return
       if form.$dirty
         if !confirm("You have unsaved changes.\nAre you sure you want to leave this page?")
