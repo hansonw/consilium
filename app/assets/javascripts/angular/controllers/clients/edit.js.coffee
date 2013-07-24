@@ -11,7 +11,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     if $scope.locationInfoId
       $scope.title = 'Edit Location Info'
     else
-      $scope.title = 'Create Location Info'
+      $scope.title = 'Add Location Info'
   else if $scope.clientChangeId
     $scope.title = 'View Client History'
   else if $scope.clientId
