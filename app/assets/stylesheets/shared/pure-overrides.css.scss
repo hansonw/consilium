@@ -213,6 +213,17 @@ button, input, select, textarea {
         @include box-sizing(border-box);
         -webkit-font-smoothing: antialiased;
       }
+
+      .heading {
+        display: inline-block;
+        margin-top: 1em;
+        font-weight: bold;
+        color: #777;
+
+        @include respond-to(handhelds) {
+          display: table-row;
+        }
+      }
     }
   }
 

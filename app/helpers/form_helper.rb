@@ -32,6 +32,20 @@ module FormHelper
       end
     end
 
+    if field[:type] == 'heading'
+      return raw\
+        "<div class='pure-control-group' #{field[:if] && "data-ng-if='#{h showIf}'"}>
+          <label></label>
+          <div class='heading'>#{h field[:text]}</div>
+        </div>"
+    elsif field[:type] == 'separator'
+      return raw\
+        "<div class='pure-control-group' #{field[:if] && "data-ng-if='#{h showIf}'"}>
+          <label></label>
+          <hr class='soften'></hr>
+        </div>"
+    end
+
     return raw\
       "<div class='pure-control-group'
             #{field[:if] && "data-ng-if='#{h showIf}'"}>

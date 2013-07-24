@@ -646,6 +646,10 @@ class Client
           :id => 'riskInfo',
           :type => [
             {
+              :type => 'heading',
+              :text => 'General'
+            },
+            {
               :name => 'Type',
               :id => 'riskInfoType',
               :type => 'dropdown',
@@ -668,6 +672,10 @@ class Client
               :id => 'riskInfoLimit',
               :placeholder => 'Limit',
               :type => 'text',
+            },
+            {
+              :type => 'heading',
+              :text => 'Construction'
             },
             {
               :name => 'Stories',
@@ -888,7 +896,11 @@ class Client
               ]
             },
             {
-              :name => 'Renovations',
+              :type => 'heading',
+              :text => 'Renovations'
+            },
+            {
+              :name => '',
               :id => 'renovationsNoneKnown',
               :type => 'checkbox',
               :options => {
@@ -921,6 +933,10 @@ class Client
               :if => 'renovationsElectrical.yes'
             },
             {
+              :type => 'separator',
+              :if => 'renovationsElectrical.yes',
+            },
+            {
               :name => '',
               :id => 'renovationsPlumbing',
               :type => 'checkbox',
@@ -943,6 +959,10 @@ class Client
                 'complete' => 'Complete',
                 'partial' => 'Partial',
               },
+              :if => 'renovationsPlumbing.yes',
+            },
+            {
+              :type => 'separator',
               :if => 'renovationsPlumbing.yes',
             },
             {
@@ -971,6 +991,10 @@ class Client
               :if => 'renovationsHeating.yes',
             },
             {
+              :type => 'separator',
+              :if => 'renovationsHeating.yes',
+            },
+            {
               :name => '',
               :id => 'renovationsRoof',
               :type => 'checkbox',
@@ -994,6 +1018,14 @@ class Client
                 'partial' => 'Partial',
               },
               :if => 'renovationsRoof.yes',
+            },
+            {
+              :type => 'separator',
+              :if => 'renovationsRoof.yes',
+            },
+            {
+              :type => 'heading',
+              :text => 'Fire Protection'
             },
             {
               :name => 'Nearest Fire Hydrant',
@@ -1081,7 +1113,11 @@ class Client
               :type => 'textbox',
             },
             {
-              :name => 'Crime Protection Types',
+              :type => 'heading',
+              :text => 'Crime Protection'
+            },
+            {
+              :name => 'Protection Types',
               :id => 'protectionTypes',
               :type => 'checkbox',
               :options => {
@@ -1173,19 +1209,27 @@ class Client
               :type => 'textbox',
             },
             {
-              :name => 'Occupancy Insured',
+              :type => 'heading',
+              :text => 'Occupancy'
+            },
+            {
+              :name => 'Insured',
               :id => 'occupancyInsured',
               :placeholder => 'Description',
               :type => 'textbox',
             },
             {
-              :name => 'Occupancy Others',
+              :name => 'Others',
               :id => 'occupancyOthers',
               :placeholder => 'Description',
               :type => 'textbox',
             },
             {
-              :name => 'Exposures',
+              :type => 'heading',
+              :text => 'Exposures'
+            },
+            {
+              :name => '',
               :id => 'exposuresClear',
               :type => 'checkbox',
               :options => {
@@ -1681,6 +1725,10 @@ class Client
               :type => 'text',
             },
             {
+              :type => 'heading',
+              :text => 'Heating Cooling Systems',
+            },
+            {
               :id => 'surveyHeatingServiced',
               :name => '',
               :type => 'checkbox',
@@ -1703,6 +1751,10 @@ class Client
               :options => {
                 'yes' => 'Any use of temporary heating device(s)?'
               }
+            },
+            {
+              :type => 'heading',
+              :text => 'Electrical Systems',
             },
             {
               :id => 'surveyElectricalUpgrades',
@@ -1757,6 +1809,10 @@ class Client
               }
             },
             {
+              :type => 'heading',
+              :text => 'Housekeeping',
+            },
+            {
               :id => 'surveyAislesClear',
               :name => '',
               :type => 'checkbox',
@@ -1795,6 +1851,10 @@ class Client
               :options => {
                 'yes' => 'Well lit retail / traffic area free of trip hazards?'
               }
+            },
+            {
+              :type => 'heading',
+              :text => 'Flammable or Combustible Storage',
             },
             {
               :id => 'surveyDispensing',
@@ -1840,6 +1900,10 @@ class Client
               :options => {
                 'yes' => 'If there is refueling on site, is there a disaster plan?'
               }
+            },
+            {
+              :type => 'heading',
+              :text => 'Fire Protection Equipment',
             },
             {
               :id => 'surveyFireHall',
@@ -1914,6 +1978,10 @@ class Client
               }
             },
             {
+              :type => 'heading',
+              :text => 'Physical Protection',
+            },
+            {
               :id => 'surveyPerimeter',
               :name => '',
               :type => 'checkbox',
@@ -1960,6 +2028,10 @@ class Client
               }
             },
             {
+              :type => 'heading',
+              :text => 'Alarm Protection',
+            },
+            {
               :id => 'surveyULCEquipment',
               :name => 'ULC equipment',
               :type => 'textbox',
@@ -1977,6 +2049,10 @@ class Client
               :options => {
                 'yes' => 'Does alarm system include heat, motion and smoke?'
               }
+            },
+            {
+              :type => 'heading',
+              :text => 'Premises Liability Checklist',
             },
             {
               :id => 'surveySnowRemoval',
@@ -2056,6 +2132,10 @@ class Client
               :options => {
                 'yes' => 'Are all employees trained in emergency evacuation procedures?'
               }
+            },
+            {
+              :type => 'heading',
+              :text => 'Other',
             },
             {
               :name => 'Other/Notes',
@@ -2193,6 +2273,8 @@ class Client
   end
 
   def validate_field(obj, field, parent = nil)
+    return if field[:id].nil?
+
     field_name = field[:id].underscore.humanize + (parent ? ' in ' + parent[:id].underscore.humanize.downcase : '')
     val = obj[field[:id]]
     if val.nil?

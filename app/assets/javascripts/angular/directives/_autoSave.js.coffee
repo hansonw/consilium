@@ -50,11 +50,13 @@ App.directive 'autoSave', ['$parse', '$timeout', 'Modal', ($parse, $timeout, Mod
       if !$scope.readonly
         obj = $parse(objName)
         obj.assign($scope, if obj($scope) == value then '' else value)
+        form.$setDirty()
 
     $scope.toggleCheckbox = (objName) ->
       if !$scope.readonly
         obj = $parse(objName)
         obj.assign($scope, !obj($scope))
+        form.$setDirty()
 
     $scope.errorCount = ->
       ret = 0
