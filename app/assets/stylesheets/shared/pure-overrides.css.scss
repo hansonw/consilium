@@ -229,12 +229,12 @@ button, input, select, textarea {
           top: -3em;
           left: 9em;
           width: 200px;
-          padding: 5px;
+          padding: 7px;
           text-align: left;
           font-size: .875em;
           border-radius: 3px;
-          background: white;
-          border: 1px solid red;
+          color: white;
+          background: #D33;
         }
       }
 
@@ -242,9 +242,9 @@ button, input, select, textarea {
         @include respond-to(tablets, desktops, widescreens) {
           content: "\25BC";
           position: absolute;
-          bottom: -12px;
+          bottom: -11px;
           right: 6px;
-          color: red;
+          color: #D33;
         }
       }
 
@@ -259,7 +259,7 @@ button, input, select, textarea {
         .error-tooltip::before {
           @include respond-to(tablets, desktops, widescreens) {
             content: "\25B2";
-            top: -12px;
+            top: -11px;
             bottom: auto;
           }
         }
