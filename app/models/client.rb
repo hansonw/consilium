@@ -2247,7 +2247,7 @@ class Client
         end
       when 'phone'
         value = value.to_s
-        if !(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/i.match(value))
+        if !(/^([0-9][-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})(\s*(ext|x|extension)\.?\s*[0-9]+)?$/i.match(value))
           errors[field_name] << 'not valid phone number'
         end
       when 'email'

@@ -135,7 +135,8 @@ module FormHelper
               #{field[:min] && "ng-min='#{field[:min]}'"}
               #{field[:max] && "ng-max='#{field[:max]}'"}
               #{field[:type] == 'currency' && pattern('\d+(\.\d{1,2})?') + "title='No dollar sign and no comma(s) - cents are optional' restrict='[$,]'"}
-              #{field[:type] == 'phone' && pattern('^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$') + "title='Must have format: 1234567890, 123-456-7890, or 123.456.7890'"}
+              #{field[:type] == 'phone' && pattern('^([0-9][-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})(\s*(ext|x|extension)\.?\s*[0-9]+)?$')\
+                + "title='Use the format 1-123-456-7890 ext. 1234 (dashes, country code, ext. optional)'"}
             />"
     else
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
