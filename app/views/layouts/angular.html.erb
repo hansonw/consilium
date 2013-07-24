@@ -43,7 +43,7 @@
     </a>
     <div class="nav pure-u" data-ng-class="{'active': menuShouldShow()}" data-ng-show="isLoggedIn">
       <div class="pure-menu pure-menu-open">
-        <a class="pure-menu-heading">Consilium</a>
+        <a class="pure-menu-heading">Consilium <i data-ng-show="loading" class="loading-icon icon-spinner icon-spin icon-fixed-width"></i></a>
         <ul>
           <li data-ng-repeat="menuItem in menuItems"
               data-ng-class="{'pure-menu-selected': menuItemIsSelected(menuItem.link)}">

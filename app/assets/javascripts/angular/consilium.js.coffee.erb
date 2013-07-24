@@ -101,7 +101,6 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Rece
     else
       $rootScope._curMenuItem = path
     if (not $rootScope._showSubMenu = subMenu?) && path?
-      $rootScope.loading = true
       $rootScope._showMenu = false
       # HACK: wait until angular shows loading icon before actually going
       $timeout((-> $location.path(path)), 50)

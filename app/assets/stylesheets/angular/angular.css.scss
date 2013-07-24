@@ -48,6 +48,14 @@ body {
     width: 100%;
   }
 
+  .pure-menu-heading {
+    .loading-icon {
+      @include respond-to(handhelds, tablets) {
+        display: none !important;
+      }
+    }
+  }
+
   #mainMenuLink {
     @include transition();
 
