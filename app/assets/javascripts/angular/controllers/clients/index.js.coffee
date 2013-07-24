@@ -10,7 +10,8 @@ App.controller 'ClientsIndexCtrl', ['$scope', 'Client', 'Auth',\
   $scope.resultStart = 0
   $scope.moreResults = false
   $scope.showAdvancedSearch = false
-  $scope.clientsPredicate = 'company'
+  $scope.clientsPredicate = 'updated_at'
+  $scope.clientsReverse = true
 
   $scope.updateResults = (more) ->
     if more && ($scope.loading || !$scope.moreResults)
