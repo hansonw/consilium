@@ -10,8 +10,8 @@ class ClientChange
 
   # Empty values should be treated the same as missing values.
   def self.value_equals(a, b)
-    a_null = !a || a.empty?
-    b_null = !b || b.empty?
+    a_null = !a || (!a.is_a?(Fixnum) && a.empty?) || (a.is_a?(Fixnum) && a == 0)
+    b_null = !b || (!b.is_a?(Fixnum) && b.empty?) || (b.is_a?(Fixnum) && b == 0)
     if a_null != b_null
       return false
     elsif a_null
