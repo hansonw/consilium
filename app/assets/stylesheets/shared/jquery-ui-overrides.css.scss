@@ -26,7 +26,8 @@ body {
   .ui-datepicker-header {
     padding: .3em 0;
     color: #333;
-    font-size: 13px;
+    font-size: 16px;
+    font-weight: 200;
     border: none;
     border-radius: 0;
     -moz-border-radius: 2px 2px 0 0;
@@ -72,7 +73,7 @@ body {
     margin: 0;
     font-weight: normal;
     color: #4d4d4d;
-    font-size: 11px;
+    font-size: 13px;
   }
 
   td .ui-state-active,
