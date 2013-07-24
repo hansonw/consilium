@@ -578,6 +578,24 @@ class Client
               :placeholder => '(ex. A1A 1A1)',
               :type => 'text',
             },
+          ],
+        },
+        {
+          :name => 'Risk Info',
+          :id => 'riskInfo',
+          :type => [
+            {
+              :name => 'Type',
+              :id => 'riskInfoType',
+              :type => 'dropdown',
+              :placeholder => '(Risk Type)',
+              :options => [
+                'Commercial Building',
+                'Commercial Equipment',
+                'Commercial Stock',
+                'Other Commercial Risk',
+              ],
+            },
             {
               :type => 'separator',
             },
@@ -646,28 +664,6 @@ class Client
             #   :placeholder => 'Fire Protection Grade',
             #   :type => 'text',
             # },
-          ],
-        },
-        {
-          :name => 'Risk Info',
-          :id => 'riskInfo',
-          :type => [
-            {
-              :type => 'heading',
-              :text => 'General'
-            },
-            {
-              :name => 'Type',
-              :id => 'riskInfoType',
-              :type => 'dropdown',
-              :placeholder => '(Risk Type)',
-              :options => [
-                'Commercial Building',
-                'Commercial Equipment',
-                'Commercial Stock',
-                'Other Commercial Risk',
-              ],
-            },
             {
               :name => 'Notes',
               :id => 'riskInfoNotes',
@@ -680,10 +676,12 @@ class Client
               :placeholder => 'Limit',
               :type => 'text',
             },
-            {
-              :type => 'heading',
-              :text => 'Construction'
-            },
+          ]
+        },
+        {
+          :name => 'Construction',
+          :id => 'construction',
+          :type => [
             {
               :name => 'Stories',
               :id => 'constructionStories',
@@ -1030,10 +1028,12 @@ class Client
               :type => 'separator',
               :if => 'renovationsRoof.yes',
             },
-            {
-              :type => 'heading',
-              :text => 'Fire Protection'
-            },
+          ]
+        },
+        {
+          :name => 'Fire Protection',
+          :id => 'fireProtection',
+          :type => [
             {
               :name => 'Nearest Fire Hydrant',
               :id => 'fireHydrants',
@@ -1119,10 +1119,12 @@ class Client
               :id => 'otherFireInfo',
               :type => 'textbox',
             },
-            {
-              :type => 'heading',
-              :text => 'Crime Protection'
-            },
+          ]
+        },
+        {
+          :name => 'Crime Protection',
+          :id => 'crimeProtection',
+          :type => [
             {
               :name => 'Protection Types',
               :id => 'protectionTypes',
@@ -1219,10 +1221,12 @@ class Client
               :placeholder => 'Other Useful Info',
               :type => 'textbox',
             },
-            {
-              :type => 'heading',
-              :text => 'Occupancy'
-            },
+          ]
+        },
+        {
+          :name => 'Occupancy',
+          :id => 'occupancy',
+          :type => [
             {
               :name => 'Insured',
               :id => 'occupancyInsured',
@@ -1235,10 +1239,12 @@ class Client
               :placeholder => 'Description',
               :type => 'textbox',
             },
-            {
-              :type => 'heading',
-              :text => 'Exposures'
-            },
+          ]
+        },
+        {
+          :name => 'Exposure',
+          :id => 'exposure',
+          :type => [
             {
               :name => '',
               :id => 'exposuresClear',
