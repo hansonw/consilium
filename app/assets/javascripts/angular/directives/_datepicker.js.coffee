@@ -4,7 +4,7 @@ App.directive 'datepicker', ['$parse', ($parse) ->
 
     $elem.data 'date', null
 
-    $elem.datepicker
+    button = $elem.datepicker
       dateFormat: 'yy-mm-dd',
       onSelect: (date) ->
         $elem.data 'date', date
@@ -12,9 +12,13 @@ App.directive 'datepicker', ['$parse', ($parse) ->
         $parse($attr.model).assign $scope, unixTime
         $scope.$digest()
       ,
-      showOn: $attr.readonly? ? undefined : 'button',
-      buttonText: $attr.readonly? ? undefined : '<i class="icon-calendar"></i>',
-    .next().insertBefore($elem)
+      showOn: 'button',
+      buttonText: '<i class="icon-calendar"></i>',
+    .next()
+
+    # XXX: Checking if the scope is readonly sucks, but the directive is not being passed
+    # the readonly information for some reason.
+    if $scope.readonly then button.css('display', 'none') else button.insertBefore($elem)
 
     $scope.$watch $attr.model, ->
       savedDate = $parse($attr.model) $scope

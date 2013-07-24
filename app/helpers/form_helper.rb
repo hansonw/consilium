@@ -156,8 +156,8 @@ module FormHelper
               #{field[:prefill] && field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
               #{field[:prefill] && field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
               #{field[:prefill] && field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}
-              #{field[:required] && 'required'}
-              #{field[:readonly] && 'readonly'}
+              #{field[:required] && "required"}
+              #{field[:readonly] && "readonly"}
               #{field[:pattern] && pattern(field[:pattern])}
               #{field[:errorMessage] && "title='#{field[:errorMessage]}'"}
               #{field[:type] == 'date' && 'datepicker'}
