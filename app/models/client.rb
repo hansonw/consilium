@@ -579,25 +579,29 @@ class Client
               :type => 'text',
             },
             {
-              :name => '',
+              :type => 'separator',
+            },
+            {
+              :name => 'Risk was inspected',
               :id => 'inspection',
-              :type => 'checkbox',
+              :type => 'radio',
               :options => {
-                'yes' => 'This risk was not inspected',
+                'yes' => 'Yes',
+                'no' => 'No',
               },
             },
             {
               :name => 'Date Inspected',
               :id => 'inspectionDate',
               :type => 'date',
-              :if => '!inspection.yes',
+              :if => 'inspection != "no"',
             },
             {
               :name => 'Inspected by',
               :id => 'inspectedBy',
               :placeholder => 'Person/firm risk was inspected by',
               :type => 'text',
-              :if => '!inspection.yes',
+              :if => 'inspection != "no"',
             },
             {
               :name => 'This risk is',
@@ -611,11 +615,10 @@ class Client
                 'fair' => 'Fair',
                 'poor' => 'Poor',
               },
-              :if => '!inspection.yes',
+              :if => 'inspection != "no"',
             },
             {
               :type => 'separator',
-              :if => '!inspection.yes'
             },
             {
               :name => 'Scope of insured property',

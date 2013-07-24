@@ -1,6 +1,13 @@
 module FormHelper
   def model_name(field_name, parent_field, syncable)
-    return "#{parent_field}.#{field_name}" + (syncable ? '.value' : '')
+    return if field_name.nil?
+    # Pull out any expressions contained within the field name and add them back
+    # after we append |.value|, if we're going to.
+    expr = /(  *)(!)?(=)?(\=|<|>).*$/.match field_name
+    field_name = field_name.sub(expr.to_s, '')
+    model = "#{parent_field}.#{field_name}" + (syncable ? '.value' : '')
+    model = model + expr.to_s
+    return model
   end
 
   def form_field(field, parent_field, syncable = true, *model_parent)
@@ -23,7 +30,8 @@ module FormHelper
         if parts.length > 1
           showIf = parts.join('.') # checkbox
         else
-          showIf = parts[0] + ' == "yes"' # radio
+          # Append |== "yes"| if there is no expression contained within the conditional.
+          showIf = parts[0] + (if !(showIf.match /\=|<|>/) then ' == "yes"' else '' end) # radio
         end
 
         if negate
