@@ -1,7 +1,5 @@
 App.directive 'datepicker', ['$parse', ($parse) ->
   ($scope, $elem, $attr, $ctrl) ->
-    console.log '#' + $attr.model + 'Date'
-
     presElem = $elem.parent().find('input[type="text"]')
 
     $elem.data 'date', null
@@ -18,7 +16,10 @@ App.directive 'datepicker', ['$parse', ($parse) ->
       buttonText: '<i class="icon-calendar"></i>',
     .next().insertBefore($elem)
 
+    $scope.$watch $attr.model, ->
+      savedDate = $parse($attr.model) $scope
+      $elem.datepicker 'setDate', savedDate
+
     $elem.on 'change input propertychange paste keyup', (e) ->
       $elem.val $elem.data('date')
-      e.preventDefault()
 ]
