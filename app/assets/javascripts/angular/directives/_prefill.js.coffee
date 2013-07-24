@@ -34,3 +34,15 @@ App.directive 'prefillCalc', ['$parse', ($parse) ->
 
       setFieldValue($scope, $elem, $parse, model, calcValue)
 ]
+
+App.directive 'prefillWatch', ['$parse', ($parse) ->
+  ($scope, $elem, $attrs) ->
+    model = $attrs.ngModel
+    watch = $attrs.prefillWatch
+    $scope.$watch watch, ->
+      watchBlurred = ->
+        curVal = $parse(model)($scope)
+        $parse(model).assign($scope, $parse(watch)($scope)) if !curVal? || curVal == ''
+        $('[ng-model="' + watch + '"]').off('blur', watchBlurred)
+      $('[ng-model="' + watch + '"]').on('blur', watchBlurred)
+]

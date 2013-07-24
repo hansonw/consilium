@@ -128,6 +128,7 @@ module FormHelper
                 #{false && field[:placeholder] && "placeholder='#{field[:placeholder]}'"}
                 #{field[:prefill] && field[:prefill][:auto] && "prefill='#{field[:prefill][:auto]}'"}
                 #{field[:prefill] && field[:prefill][:calc] && "prefill-calc='#{field[:prefill][:calc]}'"}
+                #{field[:prefill] && field[:prefill][:watch] && "prefill-watch='#{field[:prefill][:watch]}'"}
                 #{field[:required] && 'required'}
                 #{field[:readonly] && 'readonly'}
                 rows='#{field[:boxRows]}'
@@ -137,6 +138,7 @@ module FormHelper
               ng-model='#{model}' placeholder='#{field[:placeholder]}'
               #{field[:prefill] && field[:prefill][:auto] && "prefill='#{field[:prefill][:auto]}'"}
               #{field[:prefill] && field[:prefill][:calc] && "prefill-calc='#{field[:prefill][:calc]}'"}
+                #{field[:prefill] && field[:prefill][:watch] && "prefill-watch='#{field[:prefill][:watch]}'"}
               #{field[:required] && 'required'}
               #{field[:readonly] && 'readonly'}
               #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
@@ -153,6 +155,7 @@ module FormHelper
               model='#{model}' placeholder='#{field[:placeholder] || "Select a date"}'
               #{field[:prefill] && field[:prefill][:auto] && "prefill='#{field[:prefill][:auto]}'"}
               #{field[:prefill] && field[:prefill][:calc] && "prefill-calc='#{field[:prefill][:calc]}'"}
+              #{field[:prefill] && field[:prefill][:watch] && "prefill-watch='#{field[:prefill][:watch]}'"}
               #{field[:required] && 'required'}
               #{field[:readonly] && 'readonly'}
               #{field[:pattern] && pattern(field[:pattern])}
@@ -164,6 +167,7 @@ module FormHelper
               ng-model='#{model}' placeholder='#{field[:placeholder]}'
               #{field[:prefill] && field[:prefill][:auto] && "prefill='#{field[:prefill][:auto]}'"}
               #{field[:prefill] && field[:prefill][:calc] && "prefill-calc='#{field[:prefill][:calc]}'"}
+              #{field[:prefill] && field[:prefill][:watch] && "prefill-watch='#{field[:prefill][:watch]}'"}
               #{field[:required] && 'required'}
               #{field[:readonly] && 'readonly'}
               #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
