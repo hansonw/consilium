@@ -59,7 +59,7 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
       )
     checkLogin: () ->
       if !@isLoggedIn()
-        $location.path('/auth/login')
+        window.location = '#/auth/login'
     logout: ->
       self = @
       $http.get(

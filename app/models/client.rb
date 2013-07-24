@@ -513,7 +513,7 @@ class Client
     {
       :name => 'Location Info',
       :id => 'locationInfos',
-      :editHref => 'clients/edit/{{clientId}}/locationInfo/{{$index}}',
+      :editHref => '#/clients/edit/{{clientId}}/locationInfo/{{$index}}{{ clientChangeId && "?change=" + clientChangeId }}',
       :createHref => '#/clients/edit/{{client.id}}/locationInfo/',
       :type => [
         {

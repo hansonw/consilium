@@ -640,7 +640,8 @@
     <h2 class="no-top-margin">Category</h2>
     <hr class="soften" />
     <select name="category" data-ng-model="coverage.category" size="<%= schedules.count + 1%>"
-            data-ng-change="coverage.type = ''" required>
+            data-ng-change="coverage.type = ''" data-ng-readonly="false" data-ng-disabled="false"
+            required>
       <option value="">Select a category...</option>
       <% schedules.each do |category| %>
         <option ng-class="<%= sectionId %>.<%= category[:id] %> && 'selected'"><%= category[:name] %></option>
@@ -654,7 +655,8 @@
       <option>             </option>
     </select>
     <% schedules.each do |category| %>
-      <select data-ng-model="coverage.type" data-ng-if="coverage.category == '<%= category[:name] %>'" size="<%= category[:type].count + 1 %>" required>
+      <select data-ng-model="coverage.type" data-ng-if="coverage.category == '<%= category[:name] %>'" size="<%= category[:type].count + 1 %>"
+              data-ng-readonly="false" data-ng-disabled="false" required>
         <option value="">Select a type...</option>
         <% category[:type].each do |type| %>
           <option ng-class="<%= sectionId %>.<%= category[:id] %>.<%= type[:id] %> && 'selected'"><%= type[:name] %></option>
@@ -674,7 +676,7 @@
       <% category[:type].each do |type| %>
         <% obj = [sectionId, category[:id], type[:id]].join('.') %>
         <span data-ng-init="coverageTypes.<%= category[:id] %>.<%= type[:id] %> = '<%= type[:name] %>'" />
-        <div class="pure-form-fields" data-ng-if="coverage.category == '<%= category[:name] %>' && coverage.type == '<%= type[:name] %>'">
+        <div class="pure-form-fields" data-ng-show="coverage.category == '<%= category[:name] %>' && coverage.type == '<%= type[:name] %>'">
           <% if !type[:type].nil? %>
             <%
               typesMenu = {
@@ -739,7 +741,7 @@
 
           <div class="pure-control-group">
             <label></label>
-            <button type="button" id="clearCoverage" data-ng-click="clearCoverage()" class="pull-right pure-button pure-button-error" eat-click>Clear Coverage</button>
+            <button type="button" id="clearCoverage" data-ng-show="!readonly" data-ng-click="clearCoverage()" class="pull-right pure-button pure-button-error" eat-click>Clear Coverage</button>
           </div>
        </div>
       <% end %>

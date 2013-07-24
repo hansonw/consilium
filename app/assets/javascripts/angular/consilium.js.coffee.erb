@@ -33,7 +33,7 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Rece
   $rootScope.logout = -> Auth.logout()
   Auth.watch (isLoggedIn) ->
     $rootScope.isLoggedIn = isLoggedIn
-    $location.path(if isLoggedIn then '/' else '/auth/login')
+    window.location = (if isLoggedIn then '#/' else '#/auth/login')
 
   $rootScope.online_status = true
   $rootScope.last_sync_success = true
@@ -63,9 +63,6 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Rece
   $rootScope.$on('$routeChangeSuccess', -> Offline.sync(offlineClasses))
   $rootScope.$on('$routeChangeStart', -> $rootScope.loading = true)
   $rootScope.$on('$viewContentLoaded', -> $rootScope.loading = false)
-
-  $rootScope.navigateTo = (path) ->
-    $location.path(path)
 
   $rootScope.scrollTo = (id) ->
     old = $location.hash()
@@ -103,7 +100,7 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Rece
     if (not $rootScope._showSubMenu = subMenu?) && path?
       $rootScope._showMenu = false
       # HACK: wait until angular shows loading icon before actually going
-      $timeout((-> $location.path(path)), 50)
+      $timeout((-> window.location = '#' + path), 50)
 
   $rootScope.menuItemIsSelected = (path) ->
     regex = /(\/)index+$/

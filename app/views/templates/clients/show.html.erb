@@ -100,7 +100,7 @@
                    :name => 'history',
                    :model => 'history',
                    :pagination => true,
-                   :rowHref => '#/clients/edit/{{ item.client_id }}/change/{{ item.id }}',
+                   :rowHref => '#/clients/edit/{{ item.client_id }}?change={{ item.id }}',
                    :fields => [
                      {
                        :name => 'Description',
@@ -125,7 +125,7 @@
                      },
                      {
                        :icon => 'icon-share-alt',
-                       :href => '#/clients/edit/{{ item.client_id }}/change/{{ item.id }}',
+                       :href => '#/clients/edit/{{ item.client_id }}?change={{ item.id }}',
                      }
                    ]
                  } %>

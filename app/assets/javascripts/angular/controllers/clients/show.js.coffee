@@ -26,13 +26,13 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
       # TODO: should be a modal
       RecentClients.removeClient($scope.clientId)
       alert('The requested client was not found.')
-      $location.path('/clients'))
+      window.location = '#/clients'
 
   $scope.deleteClient = ->
     # TODO: should be modal
     if confirm('Are you sure? This will delete the client for all other users.')
       $scope.client.$delete()
-      $location.path('/clients')
+      window.location = '#/clients')
 
   $scope.setClientChange = (change, index) ->
     doc = ($scope.genDocument ||= {})

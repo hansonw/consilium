@@ -42,7 +42,6 @@ Consilium::Application.routes.draw do
         get 'edit/:clientId' => 'home#app', :as => 'app_clients_edit'
         get 'edit/:clientId/locationInfo' => 'home#app', :as => 'app_clients_new_locationInfo'
         get 'edit/:clientId/locationInfo/:locationInfoId' => 'home#app', :as => 'app_clients_edit_locationInfo'
-        get 'edit/:clientId/change/:clientChangeId' => 'home#app', :as => 'app_clients_view_change'
       end
 
       scope :auth do

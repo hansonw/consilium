@@ -4,7 +4,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   Auth.checkLogin()
 
   $scope.clientId = $routeParams.clientId
-  $scope.clientChangeId = $routeParams.clientChangeId
+  $scope.clientChangeId = $location.search().change
   $scope.inLocationInfo = !!$location.path().match /\/locationInfo(\/.*)?$/
   $scope.locationInfoId = $routeParams.locationInfoId
   if $scope.inLocationInfo
@@ -40,7 +40,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
         RecentClients.logClientShow($scope.client)),
       (data) ->
         alert('The requested client was not found.')
-        $location.path('/clients'))
+        window.location = '#/clients')
   else if $scope.clientId
     $scope.client = Client.get(id: $scope.clientId,
       (->
@@ -62,7 +62,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       (data) ->
         RecentClients.removeClient($scope.clientId)
         alert('The requested client was not found.')
-        $location.path('/clients'))
+        window.location = '#/clients')
   else
     $scope.loading = false
     $scope.client = new Client()
@@ -96,7 +96,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
         $scope.client.generateId()
         $timeout($scope.saveForm, 0) # defer
       else
-        $location.path('/clients')
+        window.location '#/clients'
       # TODO: change the id in the address bar? not too important for mobile
     else if data.status == 422
       error_str = ''
@@ -113,14 +113,14 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
         if confirm('Errors are preventing the form from being saved.\nAre you sure you wish to leave? Any changes will be discarded.')
           $scope.clientForm.$setPristine()
           if $scope.clientId || $scope.savedOnce
-            $location.path("/clients/show/#{$scope.client.id}")
+            window.location = "#/clients/show/#{$scope.client.id}"
           else
             window.history.back()
       else if $scope.clientForm.$dirty
         $scope.saveForm(true, ->
-          $location.path("/clients/show/#{$scope.client.id}"))
+          window.location = "#/clients/show/#{$scope.client.id}")
       else
-        $location.path("/clients/show/#{$scope.client.id}")
+        window.location = "#/clients/show/#{$scope.client.id}"
     else
       window.history.back()
 ]

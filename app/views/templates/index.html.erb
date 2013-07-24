@@ -22,7 +22,7 @@
                        :name => 'history',
                        :model => 'history',
                        :limit => 5,
-                       :rowHref => '#/clients/edit/{{ item.client_id }}/change/{{ item.id }}',
+                       :rowHref => '#/clients/edit/{{ item.client_id }}?change={{ item.id }}',
                        :fields => [
                          {
                            :name => 'Description',
@@ -40,7 +40,7 @@
                        :actions => [
                          {
                            :icon => 'icon-share-alt',
-                           :href => '#/clients/edit/{{ item.client_id }}/change/{{ item.id }}',
+                           :href => '#/clients/edit/{{ item.client_id }}?change={{ item.id }}',
                          }
                        ]
                      } %>
