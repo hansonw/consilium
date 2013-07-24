@@ -65,23 +65,32 @@ App.directive 'autoSave', ['$parse', '$timeout', 'Modal', ($parse, $timeout, Mod
       plural = if ret == 1 then '' else 's'
       return "#{ret} error#{plural}"
 
+    errors = {
+      "minlength": "too short",
+      "maxlength": "too long",
+      "required": "required",
+      "phone": "not a valid phone number",
+      "email": "not a valid email",
+      "min": "too small",
+      "max": "too large",
+      "pattern": "in the wrong format",
+    }
+
     $scope.errorText = (error) ->
       error_str = ''
       for key, val of error
         if val != false
           for err in val
-            errors = {
-              "minlength": "too short",
-              "maxlength": "too long",
-              "required": "required",
-              "phone": "not a valid phone number",
-              "email": "not a valid email",
-              "min": "too small",
-              "max": "too large",
-              "pattern": "in the wrong format",
-            }
             error_str += " - #{err.$name} is #{errors[key]}\n"
       return error_str
+
+    $scope.getFieldError = (field) ->
+      if form[field] && form[field].$error
+        errs = []
+        for key, val of form[field].$error
+          errs.push("Field is #{errors[key]}") if val
+        return errs.join('<br />')
+      return ''
 
     $scope.saveForm = (manual = true, successCallback)->
       return if !form.$dirty || $scope.saving || $scope.readonly

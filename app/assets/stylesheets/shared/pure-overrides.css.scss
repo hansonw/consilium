@@ -171,6 +171,7 @@ button, input, select, textarea {
 
       label {
         padding-right: 10px;
+        position: relative;
         display: table-cell;
         @include respond-to(handhelds) { display: table-row; }
       }
@@ -212,6 +213,46 @@ button, input, select, textarea {
         transition: .3s linear border;
         @include box-sizing(border-box);
         -webkit-font-smoothing: antialiased;
+      }
+
+      .error-tooltip {
+        display: none;
+
+        @include respond-to(handhelds) {
+          color: red;
+          padding-top: 0.5em;
+        }
+
+        @include respond-to(tablets, desktops, widescreens) {
+          position: absolute;
+          z-index: 100;
+          top: -4em;
+          left: 9em;
+          width: 200px;
+          padding: 10px;
+          text-align: left;
+          font-size: .875em;
+          border-radius: 5px;
+          box-shadow: 0 1px 1px #aaa;
+          background: white;
+          border: 1px solid red;
+        }
+      }
+
+      .error-tooltip::before {
+        @include respond-to(tablets, desktops, widescreens) {
+          content: "\25BC";
+          position: absolute;
+          bottom: -15px;
+          right: 6px;
+          font-size: 16px;
+          line-height: 16px;
+          color: red;
+        }
+      }
+
+      .error-tooltip:not(:empty) {
+        display: block;
       }
 
       .heading {
