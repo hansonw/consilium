@@ -186,7 +186,7 @@ button, input, select, textarea {
       }
 
       input[readonly], textarea[readonly], select[readonly] {
-        border: 0;
+        border: 1px solid #ccc;
         box-shadow: none;
         background-color: transparent;
         color: black;
