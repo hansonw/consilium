@@ -1,4 +1,6 @@
 prefillWrapper = ($scope, $elem, $attrs, $parse, fn) ->
+  return if $scope.readonly
+
   model = $attrs.ngModel
   elem = $($elem)
 
@@ -37,6 +39,8 @@ App.directive 'prefillCalc', ['$parse', ($parse) ->
 
 App.directive 'prefillWatch', ['$parse', ($parse) ->
   ($scope, $elem, $attrs) ->
+    return if $scope.readonly
+
     model = $attrs.ngModel || $attrs.model
     watch = $attrs.prefillWatch
     expr = $attrs.prefillExpr
