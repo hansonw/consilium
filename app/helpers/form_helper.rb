@@ -61,7 +61,7 @@ module FormHelper
                 #{field[:required] && "class='required'"}
                 #{parent_field == 'client' && "data-ng-class='changedFields.#{field[:id]} && \"changed\"'"}>
            #{field[:name]}
-
+           <div class='error-tooltip' error-tooltip='#{field[:id]}' />
          </label>
          #{ng_input(field, model, model_parent[0])}
        </div>"
