@@ -8,10 +8,10 @@ App.directive 'animateSubsection', ['$timeout', '$rootScope', ($timeout, $rootSc
       element.css '-webkit-transform', 'scale3d(1, ' + scaleValue + ', 1)'
       element.css 'transform', 'scale3d(1, ' + scaleValue + ', 1)'
 
-    pushElements = (offset, animate = false, relative = true) ->
+    pushElements = (offset, animate = false) ->
       #Move all elements below up or down depending on height value
       $.each $elem.nextAll(), ->
-        $(this).data('offset', off_ = (relative && $(this).data('offset') || 0) + offset)
+        $(this).data('offset', off_ = ($(this).data('offset') || 0) + offset)
         if animate
           applyAnimate $(this), true
         else
@@ -42,8 +42,9 @@ App.directive 'animateSubsection', ['$timeout', '$rootScope', ($timeout, $rootSc
         # Undo tranforms and add heights
         $scope.timer = $timeout () ->
           applyAnimate $elem, false
-          $elem.height heightOriginal
-          pushElements 0, false, false
+          if $elem.height() != heightOriginal
+            pushElements height, false
+            $elem.height heightOriginal
           inner.hide()
         , transitionDuration * conversionFactor
       else
@@ -66,8 +67,9 @@ App.directive 'animateSubsection', ['$timeout', '$rootScope', ($timeout, $rootSc
         # Undo tranforms and add heights
         $scope.timer = $timeout () ->
           applyAnimate $elem, false
-          $elem.height heightOriginal + height
-          pushElements 0, false, false
+          if $elem.height() != heightOriginal + height
+            $elem.height heightOriginal + height
+            pushElements -height, false
         , transitionDuration * conversionFactor
 
       $elem.toggleClass 'active'
