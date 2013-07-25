@@ -67,8 +67,8 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     $scope.loading = false
     $scope.client = new Client()
 
-  # Override auto-saving's default onRouteChange
-  $scope.onRouteChange = (event) ->
+  # Override auto-saving's default onLocationChange
+  $scope.onLocationChange = (event) ->
     url = $location.url()
     if url.indexOf('locationInfo') >= 0
       if !$scope.clientForm.$valid

@@ -1,4 +1,4 @@
-App.directive 'autoSave', ['$parse', '$timeout', 'Modal', ($parse, $timeout, Modal) ->
+App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', ($location, $parse, $timeout, Modal) ->
   ($scope, $elem, attr) ->
     form = $scope[$elem.attr('name')]
     model = attr.autoSave
@@ -32,8 +32,13 @@ App.directive 'autoSave', ['$parse', '$timeout', 'Modal', ($parse, $timeout, Mod
       lastChange = new Date().getTime()
     ), true
 
-    $scope.$on('$routeChangeStart', (event, newLoc, curLoc) ->
-      if $scope.onRouteChange && $scope.onRouteChange(event, newLoc, curLoc) == false
+    oldPath = $location.path()
+    $scope.$on('$locationChangeStart', (event) ->
+      # Only hook route changes. We can't just listen to routeChangeStart because it can't be cancelled
+      if $location.path() == oldPath
+        return
+      oldPath = $location.path()
+      if $scope.onLocationChange && $scope.onLocationChange(event) == false
         return
       if form.$dirty
         if !confirm("You have unsaved changes.\nAre you sure you want to leave this page?")
