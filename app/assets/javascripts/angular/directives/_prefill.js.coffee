@@ -1,5 +1,8 @@
+prefillCheckIfElemValid = ($scope, $elem) ->
+  return $scope.readonly || $elem.is ':disabled'
+
 prefillWrapper = ($scope, $elem, $attrs, $parse, fn) ->
-  return if $scope.readonly
+  return if prefillCheckIfElemValid($scope, $elem)
 
   model = $attrs.ngModel
   elem = $($elem)
@@ -39,7 +42,7 @@ App.directive 'prefillCalc', ['$parse', ($parse) ->
 
 App.directive 'prefillWatch', ['$parse', ($parse) ->
   ($scope, $elem, $attrs) ->
-    return if $scope.readonly
+    return if prefillCheckIfElemValid($scope, $elem)
 
     model = $attrs.ngModel || $attrs.model
     watch = $attrs.prefillWatch

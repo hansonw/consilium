@@ -25,11 +25,6 @@ class Client
           :placeholder => 'Firstname Lastname',
           :type => 'text',
           :required => true,
-          :prefill => {
-            :type => 'watch',
-            :watch => 'client.company.value',
-            :expr => '123123',
-          },
         },
         {
           :name => 'Form of business',
