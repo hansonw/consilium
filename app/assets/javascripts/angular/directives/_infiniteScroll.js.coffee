@@ -6,9 +6,12 @@ App.directive 'infiniteScroll', ->
     doc = $(document)
     scrollMargin = parseInt(attr.scrollMargin) || 10
 
-    win.bind 'scroll', ->
+    win.on 'scroll', handler = ->
       bottom = domElem.position().top + domElem.height()
       distFromBottom = bottom - win.scrollTop() - win.height()
       if distFromBottom <= scrollMargin && attr.update?
         # apply seems necessary to force the request immediately
         $scope.$apply $scope.$eval(attr.update)
+
+    $scope.on '$destroy', ->
+      win.off 'scroll', handler

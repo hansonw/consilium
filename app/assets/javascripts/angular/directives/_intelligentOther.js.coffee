@@ -31,7 +31,7 @@ App.directive 'intelligentOther', ->
         $elem.removeClass('other-dropdown')
         $elem.parent().find('input').attr('type', 'hidden')
 
-    modalName = $attr.dropdownOther.split "." 
+    modalName = $attr.dropdownOther.split "."
     modalLength = modalName.length
     collectionField = modalName[modalLength - 2]
     modalCollection = modalName[modalLength - 3]
@@ -40,7 +40,7 @@ App.directive 'intelligentOther', ->
       options.push $(this).val()
 
     selectHtml = $("." + collectionField).html()
-    
+
     $("div#modal-" + modalCollection).bind('modal-toggle', ->
       intelligentWorkings(selectHtml, collectionField)
     )
