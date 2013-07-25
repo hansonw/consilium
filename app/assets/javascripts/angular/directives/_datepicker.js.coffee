@@ -24,6 +24,7 @@ App.directive 'datepicker', ['$parse', ($parse) ->
       savedDate = $parse($attr.model) $scope
       if savedDate?
         $elem.datepicker 'setDate', new Date(savedDate*1000)
+        $elem.data 'date', $elem.val()
       else
         $elem.val ''
 

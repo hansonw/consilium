@@ -37,13 +37,20 @@ App.directive 'prefillCalc', ['$parse', ($parse) ->
 
 App.directive 'prefillWatch', ['$parse', ($parse) ->
   ($scope, $elem, $attrs) ->
-    model = $attrs.ngModel
+    model = $attrs.ngModel || $attrs.model
     watch = $attrs.prefillWatch
     expr = $attrs.prefillExpr
     $scope.$watch watch, ->
       watchBlurred = ->
-        curVal = $parse(model)($scope)
-        $parse(model).assign($scope, $parse(expr)($scope)) if !curVal? || curVal == ''
-        $('[ng-model="' + watch + '"]').off('blur', watchBlurred)
-      $('[ng-model="' + watch + '"]').on('blur', watchBlurred)
+        try
+          curVal = $parse(model)($scope)
+          $parse(model).assign($scope, $parse(expr)($scope)) if !curVal? || curVal == ''
+          $('[ng-model="' + watch + '"]').off('blur', watchBlurred)
+        catch e
+          console.log JSON.stringify e
+
+      if $attrs.type == 'datepicker'
+        watchBlurred()
+      else
+        $('[ng-model="' + watch + '"]').on('blur', watchBlurred)
 ]

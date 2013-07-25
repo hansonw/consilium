@@ -293,6 +293,11 @@ class Client
           :name => 'Expiry Date',
           :id => 'prevTermEnd',
           :type => 'date',
+          :prefill => {
+            :type => 'watch',
+            :watch => 'policyInfos.prevTermStart.value',
+            :expr => 'policyInfos.prevTermStart.value + ' + 1.years.to_s,
+          },
         },
         {
           :name => 'Quote Required By',
@@ -357,6 +362,11 @@ class Client
           :name => 'Expiry Date',
           :id => 'prevTermEnd',
           :type => 'date',
+          :prefill => {
+            :type => 'watch',
+            :watch => 'prevPolicyInfos.prevTermStart.value',
+            :expr => 'prevPolicyInfos.prevTermStart.value + ' + 1.years.to_s,
+          },
         },
       ],
     },
@@ -1512,6 +1522,11 @@ class Client
               :name => 'Policy Expiry',
               :id => 'policyExpiry',
               :type => 'date',
+              :prefill => {
+                :type => 'watch',
+                :watch => 'autoSchedules.dateAdded.value',
+                :expr => 'autoSchedules.dateAdded.value + ' + 1.years.to_s,
+              },
             },
             {
               :name => 'Deleted',
