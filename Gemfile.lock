@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/DouglasSherk/ydocx.git
-  revision: 3074cfa0aeaed853e5c1c69ba25fd9fd7c876a69
+  revision: b5b3ae9f32010a51d327cfa43db43f844cf72ac3
   specs:
     ydocx (1.2.3)
       diff-lcs
