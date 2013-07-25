@@ -161,7 +161,8 @@ module FormHelper
               #{field[:pattern] && pattern(field[:pattern])}
               #{field[:errorMessage] && "title='#{field[:errorMessage]}'"}
               #{field[:type] == 'date' && 'datepicker'}
-            />"
+            />
+           <a class='ui-datepicker-clear' href=''><i class='icon-remove-sign'></i></a>"
     else
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='#{model}' placeholder='#{field[:placeholder]}'

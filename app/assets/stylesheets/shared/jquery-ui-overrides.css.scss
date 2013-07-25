@@ -2,8 +2,22 @@
 @import 'utilities';
 
 body {
+  $datepicker-clear-width: 27px;
+
   input[type='datepicker'] {
-    margin-right: -100%;
+    margin-right: -$datepicker-clear-width !important;
+  }
+
+  .ui-datepicker-clear {
+    @include transition();
+
+    vertical-align: middle;
+    width: $datepicker-clear-width;
+    margin-left: $datepicker-clear-width;
+
+    &, &:link, &:visited, &:hover, &:active {
+      color: #aaa;
+    }
   }
 
   .ui-datepicker-trigger {
