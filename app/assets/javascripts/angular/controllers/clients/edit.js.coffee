@@ -68,8 +68,9 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     $scope.client = new Client()
 
   # Override auto-saving's default onRouteChange
-  $scope.onRouteChange = (event, nextLoc, curLoc) ->
-    if $location.path().indexOf('locationInfo') >= 0
+  $scope.onRouteChange = (event) ->
+    url = $location.url()
+    if url.indexOf('locationInfo') >= 0
       if !$scope.clientForm.$valid
         if !$scope.clientForm.$dirty
           alert('Please fill out some basic information before continuing to this section.')
@@ -78,7 +79,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
         event.preventDefault()
         return false
       else if $scope.clientForm.$dirty
-        $scope.saveForm(true, -> $location.url(nextLoc))
+        $scope.saveForm(true, -> $location.url(url))
         event.preventDefault()
         return false
 
