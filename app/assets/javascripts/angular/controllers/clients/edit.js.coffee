@@ -107,7 +107,9 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
 
   $scope.done = ->
     if $scope.inLocationInfo
-      window.history.back()
+      # We don't want to undo any GET params we've set, like |change|, so we only
+      # alter the path, not the fully qualified URL.
+      $location.path("/clients/edit/#{$scope.client.id}")
     else if $scope.clientId || $scope.clientForm.$dirty
       if !$scope.clientForm.$valid
         if confirm('Errors are preventing the form from being saved.\nAre you sure you wish to leave? Any changes will be discarded.')
