@@ -70,7 +70,7 @@
     </div>
     <div id="toolbar" class="pure-u" data-ng-class="{'active': menuShouldShow()}">
       <div class="content">
-        <button class="pure-button pure-button-secondary pure-button-large" data-ng-class="{'pure-button-disabled': !saving && !clientForm.$dirty}"
+        <button class="pure-button pure-button-primary pure-button-large" data-ng-class="{'pure-button-disabled': !saving && !clientForm.$dirty}"
                 data-ng-show="!clientChangeId" type="submit">
           <span data-ng-if="saving">
             <i class="icon-spinner icon-spin"></i> Saving...
@@ -88,7 +88,7 @@
             Save ({{ errorCount() }})
           </span>
         </button>
-        <a data-ng-click="done()" class="pure-button pure-button-primary pure-button-large">{{ inLocationInfo ? "Back to Client" : "Done" }}</a>
+        <a data-ng-click="done()" class="pure-button pure-button-<%= if fields == Client::FIELDS then 'primary' else 'secondary' end %> pure-button-large">{{ inLocationInfo ? "Back to Client" : "Done" }}</a>
       </div>
     </div>
   </form>
