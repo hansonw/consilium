@@ -42,13 +42,13 @@ module FormHelper
 
     if field[:type] == 'heading'
       return raw\
-        "<div class='pure-control-group' #{field[:if] && "data-ng-show='#{h showIf}'"}>
+        "<div class='pure-control-group' #{field[:if] && "data-show-emit='#{h showIf}'"}>
           <label></label>
           <div class='heading'>#{h field[:text]}</div>
         </div>"
     elsif field[:type] == 'separator'
       return raw\
-        "<div class='pure-control-group' #{field[:if] && "data-ng-show='#{h showIf}'"}>
+        "<div class='pure-control-group' #{field[:if] && "data-show-emit='#{h showIf}'"}>
           <label></label>
           <hr class='soften'></hr>
         </div>"
@@ -56,12 +56,12 @@ module FormHelper
 
     return raw\
       "<div class='pure-control-group'
-            #{field[:if] && "data-ng-show='#{h showIf}'"}>
+            #{field[:if] && "data-show-emit='#{h showIf}'"}>
          <label for='#{field[:id]}'
                 #{field[:required] && "class='required'"}
                 #{parent_field == 'client' && "data-ng-class='changedFields.#{field[:id]} && \"changed\"'"}>
            #{field[:name]}
-           <div class='error-tooltip'>{{ getFieldError(\"#{field[:id]}\", \"#{parent_field}\") }}</div>
+
          </label>
          #{ng_input(field, model, model_parent[0])}
        </div>"

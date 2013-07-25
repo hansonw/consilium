@@ -87,26 +87,25 @@ App.directive 'animateSubsection', ['$timeout', '$rootScope', ($timeout, $rootSc
 
     applyAnimate contents, false
 
-    $rootScope.$on '$viewContentLoaded', ->
-      sectionStartsOpen = $elem.hasClass 'startOpen'
+    sectionStartsOpen = $elem.hasClass 'startOpen'
 
-      # Keep checking if the section has loaded and, when it has, expand it.
-      expandStartOpenSection = ->
-        if inner.height() == 0
-          $timeout (->
-            expandStartOpenSection()
-          ), 200
-          null
-        else
-          toggleSectionExpanded(true)
-
-      if sectionStartsOpen
+    # Keep checking if the section has loaded and, when it has, expand it.
+    expandStartOpenSection = ->
+      if inner.height() == 0
         $timeout (->
           expandStartOpenSection()
-        ), 0
+        ), 200
         null
       else
-        applyTranslate contents, -(contents.height() + padding)
+        toggleSectionExpanded(true)
+
+    if sectionStartsOpen
+      $timeout (->
+        expandStartOpenSection()
+      ), 0
+      null
+    else
+      applyTranslate contents, -(contents.height() + padding)
 
     # XXX:  Only problem with this is if you move it too fast, the elements dont move to the right spot.
     updateElement = ->
@@ -121,7 +120,7 @@ App.directive 'animateSubsection', ['$timeout', '$rootScope', ($timeout, $rootSc
         $elem.height heightOriginal + height
 
     $(window).resize updateElement
-    $scope.$watch 'client', updateElement, true
+    $scope.$on 'showEmit', updateElement
 
     $($elem.find 'a.section-edit').click ->
       toggleSectionExpanded(false)
