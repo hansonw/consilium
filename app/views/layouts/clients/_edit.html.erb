@@ -35,7 +35,7 @@
                     <% if field[:type].is_a? Array %>
                       <li data-ng-class="changedSections.<%= field[:id] %> && 'changed'">
                         <a href="" data-ng-click="scrollTo('<%= field[:id] %>')">
-                          <%= index + 1 %>. <%= field[:name] %>
+                          <%= getSectionId(index, fields) %>. <%= field[:name] %>
                         </a>
                       </li>
                     <% end %>
@@ -57,10 +57,10 @@
               <% if field[:type].is_a? Array %>
                 <% if field[:id].ends_with? 's' %>
                   <%= render :partial => 'templates/clients/field_table',
-                             :locals => { :field => field, :index => index + 1, :root => local_assigns[:root] } %>
+                             :locals => { :field => field, :index => getSectionId(index, fields), :root => local_assigns[:root] } %>
                 <% else %>
                   <%= render :partial => 'templates/clients/field_section',
-                             :locals => { :field => field, :index => index + 1, :root => local_assigns[:root] } %>
+                             :locals => { :field => field, :index => getSectionId(index, fields), :root => local_assigns[:root] } %>
                 <% end %>
               <% end %>
             <% end %>
