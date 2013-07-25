@@ -106,29 +106,26 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       alert("Please fix the following errors:\n" + error_str)
 
   $scope.done = ->
-    handleDone = ->
+    navigateToDoneURL = ->
       if $scope.inLocationInfo
         # We don't want to undo any GET params we've set, like |change|, so we only
         # alter the path, not the fully qualified URL.
         $location.path("/clients/edit/#{$scope.client.id}")
-      else if $scope.clientId || $scope.clientForm.$dirty
-        if !$scope.clientForm.$valid
-          if confirm('Errors are preventing the form from being saved.\nAre you sure you wish to leave? Any changes will be discarded.')
-            $scope.clientForm.$setPristine()
-            if $scope.clientId || $scope.savedOnce
-              $location.url("/clients/show/#{$scope.client.id}")
-            else
-              window.history.back()
-        else if $scope.clientForm.$dirty
-          $scope.saveForm(true, ->
-            $location.url("/clients/show/#{$scope.client.id}"))
-        else
-          $location.url("/clients/show/#{$scope.client.id}")
       else
-        window.history.back()
+        $location.url("/clients/show/#{$scope.client.id}")
 
-    if !$scope.readonly
-      $scope.saveForm(true, handleDone)
+    if $scope.clientId || $scope.clientForm.$dirty
+      if !$scope.clientForm.$valid
+        if confirm('Errors are preventing the form from being saved.\nAre you sure you wish to leave? Any changes will be discarded.')
+          $scope.clientForm.$setPristine()
+          if $scope.clientId || $scope.savedOnce
+            navigateToDoneURL()
+          else
+            window.history.back()
+      else if $scope.clientForm.$dirty
+        $scope.saveForm(true, navigateToDoneURL)
+      else
+        navigateToDoneURL()
     else
-      handleDone()
+      window.history.back()
 ]
