@@ -521,6 +521,16 @@ class Client
       :modalTitle => 'Create Location',
       :editHref => '#/clients/edit/{{clientId}}/location/{{$index}}{{ clientChangeId && "?change=" + clientChangeId }}',
       :createHref => '#/clients/edit/{{client.id}}/location/',
+      :displayFields => [
+        {
+          :name => 'Loc. #',
+          :content => '{{ item.locationNumber.value }}'
+        },
+        {
+          :name => 'Address',
+          :content => '{{ item.locationAddress.value }}'
+        },
+      ],
       :type => [
         {
           :name => 'Basic Location Info',
