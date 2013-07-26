@@ -120,7 +120,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       window.history.back()
 
   $scope.clientCompany = ->
-    $parse('client.company.value')($scope) || ''
+    $parse('client.company.value')($scope)
 
   $scope.title = ->
     if $scope.inLocation
@@ -130,9 +130,9 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       else
         return 'Location Info'
     else if $scope.clientChangeId
-      return 'History, Client ' + $scope.clientCompany()
+      return 'History' + (if $scope.clientCompany() then ': ' + $scope.clientCompany() else '')
     else if $scope.clientId
-      return 'Details, ' + $scope.clientCompany()
+      return 'Details' + (if $scope.clientCompany() then ': ' + $scope.clientCompany() else '')
     else
       return 'Client Details'
 ]
