@@ -135,6 +135,19 @@ $client-form-nav-padding: 50px;
 
 .client-header {
   @include box-sizing(border-box);
+  @include transition();
+
+  @include respond-to(tablets) {
+    &.active {
+      @include transform($nav-width-tablets, 0);
+    }
+  }
+
+  @include respond-to(handhelds) {
+    &.active {
+      @include transform($nav-width-handhelds, 0);
+    }
+  }
 
   @include respond-to(tallscreens) {
     position: fixed;
@@ -148,11 +161,11 @@ $client-form-nav-padding: 50px;
       left: $nav-width-widescreens;
     }
 
-    @include respond-to(tablets) {
+    @include respond-to(handhelds) {
       left: $collapsed-nav-width;
     }
 
-    @include respond-to(handhelds) {
+    @include respond-to(tablets) {
       left: $collapsed-nav-width;
     }
   }
