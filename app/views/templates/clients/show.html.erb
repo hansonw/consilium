@@ -1,3 +1,10 @@
+<% paths = {
+     "Home" => "#/",
+     "Clients" => "#/clients/index",
+     "{{ client.company.value }}" => "#/clients/show/{{ clientId }}",
+   }
+ %>
+
 <div id="main" data-ng-controller="ClientsShowCtrl" class="pure-form pure-u">
  <%= render :partial => 'templates/field_modal',
             :locals => {
@@ -34,7 +41,8 @@
               :syncable => false,
               :title => 'Generate Document',
               :submit_text => 'Generate & Download',
-              :submit_callback => 'generateDocument()'
+              :submit_callback => 'generateDocument()',
+              :paths => paths
             } %>
 
   <div class="content header pure-u-1">
@@ -43,11 +51,7 @@
       <span data-ng-show="!loading">{{ client.company.value }}</span>
     </h2>
     <%= render :partial => 'templates/breadcrumbs',
-               :locals => { :paths => {
-          "Home" => "#/",
-          "Clients" => "#/clients/index",
-          "{{ client.company.value }}" => "#/clients/show/{{ clientId }}",
-        }}
+               :locals => { :paths => paths }
      %>
   </div>
   <hr class="soften" />

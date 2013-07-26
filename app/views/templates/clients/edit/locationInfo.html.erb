@@ -1,13 +1,17 @@
 <% fields = Client::FIELDS.detect{|f| f[:id] == 'locationInfos'} %>
 <% fields = fields[:type] %>
 
-<%= render :layout => 'layouts/clients/edit', :locals => {:fields => fields, :root => 'client.locationInfos.value[locationInfoId]'} do %>
+<% paths = {
+     "Home" => "#/",
+     "Clients" => "#/clients/index",
+     "{{ (clientId || savedOnce) && (client.company.value || 'Client') }}" => "{{ '#/clients/show/' + client.id }}",
+     "{{ clientChangeId ? 'History' : 'Details' }}" => "#/clients/{{ clientChangeId ? 'edit/' + clientId + '/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}",
+     "{{ title() }}" => "#/clients/{{ clientChangeId ? 'edit/' + clientId + '/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}/locationInfo"
+   }
+ %>
+
+<%= render :layout => 'layouts/clients/edit', :locals => {:fields => fields, :root => 'client.locationInfos.value[locationInfoId]', :paths => paths} do %>
   <%= render :partial => 'templates/breadcrumbs',
-             :locals => { :paths => {
-        "Home" => "#/",
-        "Clients" => "#/clients/index",
-        "Edit Client" => "#/clients/{{ clientChangeId ? 'edit/' + clientId + '/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}",
-        "{{ title() }}" => "#/clients/{{ clientChangeId ? 'edit/' + clientId + '/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}/locationInfo"
-      }}
+             :locals => { :paths => paths }
    %>
 <% end %>

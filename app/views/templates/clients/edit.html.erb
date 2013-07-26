@@ -1,12 +1,15 @@
 <% fields = Client::FIELDS %>
 
-<%= render :layout => 'layouts/clients/edit', :locals => {:fields => fields} do %>
+<% paths = {
+     "Home" => "#/",
+     "Clients" => "#/clients/index",
+     "{{ (clientId || savedOnce) && (client.company.value || 'Client') }}" => "{{ '#/clients/show/' + client.id }}",
+     "{{ clientChangeId ? 'History' : 'Details' }}" => "#/clients/{{ clientChangeId ? 'edit/' + clientId + '/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}",
+   }
+%>
+
+<%= render :layout => 'layouts/clients/edit', :locals => {:fields => fields, :paths => paths} do %>
   <%= render :partial => 'templates/breadcrumbs',
-             :locals => { :paths => {
-        "Home" => "#/",
-        "Clients" => "#/clients/index",
-        "{{ (clientId || savedOnce) && (client.company.value || 'Client') }}" => "{{ '#/clients/show/' + client.id }}",
-        "{{ title() }}" => "#/clients/{{ clientChangeId ? 'edit/' + clientId + '/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}",
-      }}
+             :locals => { :paths => paths }
    %>
 <% end %>

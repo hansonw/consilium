@@ -9,7 +9,8 @@
                    :page_title => '{{ title() }}',
                    :title => field[:modalTitle],
                    :submit_callback => field[:submitCallback] || "addToField('#{field[:id]}', #{if defined? root then "'#{root}'" else 'null' end})",
-                   :root => local_assigns[:root]
+                   :root => local_assigns[:root],
+                   :paths => paths,
                  } %>
     <% end %>
   <% end %>

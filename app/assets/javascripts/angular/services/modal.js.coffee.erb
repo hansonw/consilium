@@ -28,7 +28,7 @@ App.factory 'Modal', ['$location', '$rootScope', ($location, $rootScope) ->
     _lastModalName: '',
     _activatingModal: false,
     _locationChangeStart: ->
-      if $('body').hasClass('modal-active') && $location.search().modalActive && !@_activatingModal
+      if $('body').hasClass('modal-active') && !@_activatingModal
         @toggleModal('', false)
       @_activatingModal = false
 

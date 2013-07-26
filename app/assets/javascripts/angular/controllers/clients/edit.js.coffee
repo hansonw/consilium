@@ -132,7 +132,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     else if $scope.clientChangeId
       return 'History, Client ' + $scope.clientCompany()
     else if $scope.clientId
-      return 'Client ' + $scope.clientCompany()
+      return 'Details, ' + $scope.clientCompany()
     else
-      return 'Client'
+      return 'Client Details'
 ]

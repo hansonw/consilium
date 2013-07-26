@@ -1,14 +1,13 @@
+<% paths ||= {} %>
+<% paths = paths.dup %>
+<% paths[local_assigns[:title] || field[:name].singularize] = paths.values.last + '?modalActive' %>
+
 <div id="modal-<%= field[:id] %>" class="modal pure-u">
   <div class="layout modal-inside" data-ng-class="{'active': menuShouldShow()}">
     <div class="header content pure-u-1">
-      <h2 class="no-bottom-margin"><%= local_assigns[:title] || "Add #{field[:name].singularize}" %></h2>
+      <h2 class="no-bottom-margin"><%= local_assigns[:title] || field[:name].singularize %></h2>
       <%= render :partial => 'templates/breadcrumbs',
-                 :locals => { :paths => {
-            "Home" => "#/",
-            local_assigns[:page] => local_assigns[:page_url],
-            local_assigns[:page_title] => {:modal_toggle => field[:id]},
-            local_assigns[:title] || "Add #{field[:name].singularize}" => '',
-          }}
+                 :locals => { :paths => paths }
        %>
     </div>
     <hr class="soften" />
