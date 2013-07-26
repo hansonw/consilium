@@ -38,6 +38,12 @@ $client-form-nav-padding: 50px;
       $nav-heading-height: 32px;
       $nav-heading-margin: 6px;
 
+      width: 245px;
+
+      @include respond-to(tallscreens) {
+        position: fixed;
+      }
+
       height: 100%;
       @include box-sizing(border-box);
       padding-bottom: 56px + 60px; // Don't cover the toolbar
