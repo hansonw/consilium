@@ -1356,17 +1356,29 @@ class Client
                 'yes' => 'Stated Amount',
               }
             },
+            { :type => 'separator' },
             {
-              :name => 'Replacement Cost',
+              :name => 'Coverage Type',
+              :id => 'coverageType',
+              :type => 'radio',
+              :options => {
+                'replacementCost' => 'Replacement Cost',
+                'actualCashValue' => 'Actual Cash Value',
+              }
+            },
+            {
+              :name => 'Amount',
               :id => 'replacementCost',
               :type => 'currency',
               :placeholder => '$ CAN (ex. 111.11)',
+              :if => 'coverageType == "replacementCost"',
             },
             {
-              :name => 'Actual Cash Value',
+              :name => 'Amount',
               :id => 'actualCashValue',
               :type => 'currency',
               :placeholder => '$ CAN (ex. 111.11)',
+              :if => 'coverageType != "replacementCost"',
             },
             {
               :name => 'Rate',
@@ -1378,10 +1390,10 @@ class Client
               :name => 'Premium',
               :id => 'premium',
               :type => 'currency',
-              :placeholder => '$ CAN (ex. 111.11), calculated from rate and replacement cost',
+              :placeholder => '$ CAN (ex. 111.11), calculated from rate and coverage amount',
               :prefill => {
                 :type => 'calc',
-                :expr => 'buildings.rate.value*(buildings.replacementCost.value || buildings.actualCashValue.value)/1000',
+                :expr => 'buildings.rate.value*(buildings.coverageType.value == "replacementCost" ? buildings.replacementCost.value : buildings.actualCashValue.value)/1000',
               },
             },
           ],
