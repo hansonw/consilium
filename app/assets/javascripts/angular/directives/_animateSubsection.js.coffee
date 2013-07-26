@@ -29,6 +29,8 @@ App.directive 'animateSubsection', ['$timeout', '$rootScope', ($timeout, $rootSc
         $timeout.cancel($scope.timer)
         $scope.timer = null
 
+      delay = if disableTransition then 0 else transitionDuration * conversionFactor
+
       if $elem.hasClass 'active'
         height = contents.height() + padding
 
@@ -46,7 +48,7 @@ App.directive 'animateSubsection', ['$timeout', '$rootScope', ($timeout, $rootSc
             pushElements height, false
             $elem.height heightOriginal
           inner.hide()
-        , transitionDuration * conversionFactor
+        , delay
       else
         if !inner.is(':visible')
           inner.show()
@@ -70,7 +72,7 @@ App.directive 'animateSubsection', ['$timeout', '$rootScope', ($timeout, $rootSc
           if $elem.height() != heightOriginal + height
             $elem.height heightOriginal + height
             pushElements -height, false
-        , transitionDuration * conversionFactor
+        , delay
 
       $elem.toggleClass 'active'
 
@@ -87,29 +89,14 @@ App.directive 'animateSubsection', ['$timeout', '$rootScope', ($timeout, $rootSc
 
     applyAnimate contents, false
 
-    sectionStartsOpen = $elem.hasClass 'startOpen'
-
-    # Keep checking if the section has loaded and, when it has, expand it.
-    expandStartOpenSection = ->
-      if inner.height() == 0
-        $timeout (->
-          expandStartOpenSection()
-        ), 200
-        null
-      else
-        toggleSectionExpanded(true)
-
-    if sectionStartsOpen
-      $timeout (->
-        expandStartOpenSection()
-      ), 0
-      null
+    if $elem.hasClass 'startOpen'
+      toggleSectionExpanded(true)
     else
       applyTranslate contents, -(contents.height() + padding)
 
     # XXX:  Only problem with this is if you move it too fast, the elements dont move to the right spot.
     updateElement = ->
-      if $elem.hasClass 'active'
+      if $elem.hasClass 'active' && contents.height()
         height = contents.height() + padding
         scaleAmount = 1 + height / div.outerHeight()
         applyAnimate div, false
