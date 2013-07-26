@@ -11,7 +11,7 @@
        data-ng-show="!clientChangeId">
       <i class="icon-plus pull-left"></i>
       <i class="icon-ellipsis-vertical pull-right"></i>
-      <span class="only-desktops"><%= field[:modalTitle] || "Add #{field[:name].singularize}" %></span>
+      <span class="only-desktops"><%= field[:buttonTitle] || "Add #{field[:name].singularize}" %></span>
     </a>
     <h3 class="no-top-margin no-bottom-margin"><%= index %>. <%= field[:name] %></h3>
   </div>
