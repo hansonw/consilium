@@ -518,6 +518,7 @@ class Client
     {
       :name => 'Locations',
       :id => 'locations',
+      :modalTitle => 'Create Location',
       :editHref => '#/clients/edit/{{clientId}}/location/{{$index}}{{ clientChangeId && "?change=" + clientChangeId }}',
       :createHref => '#/clients/edit/{{client.id}}/location/',
       :type => [
