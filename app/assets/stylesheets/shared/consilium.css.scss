@@ -4,12 +4,6 @@
 
 body {
   h1, h2, h3, h4, h5, h6 {
-    &.no-bottom-margin {
-      margin-bottom: 0;
-    }
-    &.no-top-margin {
-      margin-top: 0;
-    }
   }
 
   h1 {
@@ -195,5 +189,17 @@ body {
     content: "*";
     color: red;
     margin-left: -2px;
+  }
+
+  .affix {
+    position: fixed;
+  }
+
+  .no-bottom-margin {
+    margin-bottom: 0 !important;
+  }
+
+  .no-top-margin {
+    margin-top: 0 !important;
   }
 }

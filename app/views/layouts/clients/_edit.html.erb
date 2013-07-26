@@ -14,17 +14,19 @@
     <% end %>
   <% end %>
 
+  <div class="client-header">
+    <div class="content header pure-u-1">
+      <h2 class="no-bottom-margin">{{ title }}</h2>
+      <%= yield %>
+    </div>
+    <hr class="soften no-bottom-margin" />
+  </div>
+
   <form auto-save="client" syncable
         save-success="saveSuccess" save-error="saveError" data-ng-submit="saveForm()"
         name="clientForm" class="pure-form pure-form-aligned">
     <div id="main" class="pure-u">
-      <div class="content header pure-u-1">
-        <h2 class="no-bottom-margin">{{ title }}</h2>
-        <%= yield %>
-      </div>
-      <hr class="soften" />
-
-      <div class="content">
+      <div class="content has-header">
         <div class="client-form">
           <div class="form-nav">
             <div scroll-fix class="nav-container">

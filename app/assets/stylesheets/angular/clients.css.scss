@@ -4,9 +4,16 @@
 $client-form-nav-width: 250px;
 $client-form-nav-padding: 50px;
 
+.content.has-header {
+  @include respond-to(tallscreens) {
+    padding-top: 105px;
+  }
+}
+
 .client-form {
+  padding-top: 20px;
+
   @include respond-to(widescreens) {
-    padding-top: 20px;
     padding-left: $client-form-nav-width;
   }
 
@@ -119,6 +126,31 @@ $client-form-nav-padding: 50px;
   .data-table {
     background-color: $light-gray;
     @include ng-scope-hover();
+  }
+}
+
+.client-header {
+  @include box-sizing(border-box);
+
+  @include respond-to(tallscreens) {
+    position: fixed;
+    left: $nav-width-desktops;
+    right: 0;
+    top: 0;
+    background: white;
+    z-index: 1004;
+
+    @include respond-to(widescreens) {
+      left: $nav-width-widescreens;
+    }
+
+    @include respond-to(tablets) {
+      left: $collapsed-nav-width;
+    }
+
+    @include respond-to(handhelds) {
+      left: $collapsed-nav-width;
+    }
   }
 }
 
