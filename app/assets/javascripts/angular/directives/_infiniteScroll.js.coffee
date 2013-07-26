@@ -13,5 +13,5 @@ App.directive 'infiniteScroll', ->
         # apply seems necessary to force the request immediately
         $scope.$apply $scope.$eval(attr.update)
 
-    $scope.on '$destroy', ->
+    $scope.$on '$destroy', ->
       win.off 'scroll', handler
