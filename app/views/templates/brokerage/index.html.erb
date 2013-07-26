@@ -1,3 +1,9 @@
+<% paths = {
+     "Home" => "#/",
+     "Brokerage" => "#/brokerage/index",
+   }
+ %>
+
 <div id="main" class="pure-u" data-ng-controller="BrokerageIndexCtrl">
   <% fields = [
         {
@@ -68,7 +74,8 @@
                :field => contactsField,
                :page_title => 'Brokerage',
                :syncable => false,
-               :submit_callback => "addToField('contacts')"
+               :submit_callback => "addToField('contacts')",
+               :paths => paths,
              } %>
 
   <div class="content header pure-u-1">
@@ -77,10 +84,7 @@
     </h2>
 
     <%= render :partial => 'templates/breadcrumbs',
-               :locals => { :paths => {
-          "Home" => "#/",
-          "Brokerage" => "#/brokerage/index",
-        }}
+               :locals => { :paths => paths }
      %>
   </div>
   <hr class="soften" />
