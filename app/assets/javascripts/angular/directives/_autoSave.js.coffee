@@ -134,6 +134,7 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', ($locatio
 
       form.$setDirty()
       Modal.toggleModal(objName)
+      $scope.saveForm()
 
     $scope.editInField = (objName, root, index) ->
       root = model if !root? or root == ''

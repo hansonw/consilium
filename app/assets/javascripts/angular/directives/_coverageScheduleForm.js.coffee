@@ -30,6 +30,7 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
       store.assign($scope, collection)
       $scope.clientForm.$setDirty()
       Modal.toggleModal(form)
+      $scope.saveForm()
 
     $scope.editCoverageSchedule = (index) ->
       collection = store($scope) || {}
