@@ -41,6 +41,8 @@ App.directive 'intelligentOther', ->
 
     selectHtml = $("." + collectionField).html()
 
-    $("div#modal-" + modalCollection).bind('modal-toggle', ->
+    $("div#modal-" + modalCollection).on 'modal-toggle', handler = ->
       intelligentWorkings(selectHtml, collectionField)
-    )
+
+    $scope.$on '$destroy', ->
+      $("div#modal-" + modalCollection).off 'modal-toggle', handler

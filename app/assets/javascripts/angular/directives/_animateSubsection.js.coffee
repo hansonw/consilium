@@ -112,6 +112,6 @@ App.directive 'animateSubsection', ['$timeout', '$rootScope', ($timeout, $rootSc
     $scope.$on '$destroy', ->
       $(window).off 'resize', updateElement
 
-    $($elem.find 'a.section-edit').click ->
+    $elem.find('a.section-edit').click ->
       toggleSectionExpanded(false)
 ]

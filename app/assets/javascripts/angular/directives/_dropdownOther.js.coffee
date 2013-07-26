@@ -1,8 +1,8 @@
 App.directive 'dropdownOther', ['$parse', ($parse) ->
-  bindings = {}
-  options = {}
-
   return ($scope, $elem, $attrs) ->
+    bindings = ($scope._dropdownBindings ||= {})
+    options = ($scope._dropdownOptions ||= {})
+
     model = $attrs.dropdownOther
     type = if $elem.is('select') then 'select' else 'input'
     form = $scope[$elem.parents('form').attr('name')]

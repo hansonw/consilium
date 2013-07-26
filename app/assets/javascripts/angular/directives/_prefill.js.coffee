@@ -47,18 +47,25 @@ App.directive 'prefillWatch', ['$parse', ($parse) ->
     model = $attrs.ngModel || $attrs.model
     watch = $attrs.prefillWatch
     expr = $attrs.prefillExpr
-    $scope.$watch watch, ->
-      watchBlurred = ->
-        try
-          curVal = $parse(model)($scope)
-          watchVal = $parse(watch)($scope)
-          $parse(model).assign($scope, $parse(expr)($scope)) if (!curVal? || curVal == '') && watchVal?
-          $('[ng-model="' + watch + '"]').off('blur', watchBlurred)
-        catch e
-          console.log JSON.stringify e
 
+    attached = false
+    watchBlurred = ->
+      try
+        curVal = $parse(model)($scope)
+        watchVal = $parse(watch)($scope)
+        $parse(model).assign($scope, $parse(expr)($scope)) if (!curVal? || curVal == '') && watchVal?
+        $('[ng-model="' + watch + '"]').off('blur', watchBlurred)
+        attached = false
+      catch e
+        console.log JSON.stringify e
+
+    $scope.$watch watch, ->
       if $attrs.type == 'datepicker'
         watchBlurred()
-      else
+      else if !attached
+        attached = true
         $('[ng-model="' + watch + '"]').on('blur', watchBlurred)
+
+    $scope.$on '$destroy', ->
+      $('[ng-model="' + watch + '"]').off('blur', watchBlurred)
 ]
