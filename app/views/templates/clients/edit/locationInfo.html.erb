@@ -7,7 +7,7 @@
         "Home" => "#/",
         "Clients" => "#/clients/index",
         "Edit Client" => "#/clients/{{ clientChangeId ? 'edit/' + clientId + '/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}",
-        "{{ title }}" => "#/clients/{{ clientChangeId ? 'edit/' + clientId + '/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}/locationInfo"
+        "{{ title() }}" => "#/clients/{{ clientChangeId ? 'edit/' + clientId + '/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}/locationInfo"
       }}
    %>
 <% end %>

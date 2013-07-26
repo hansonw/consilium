@@ -137,6 +137,9 @@ $client-form-nav-padding: 50px;
   @include box-sizing(border-box);
   @include transition();
 
+  white-space: nowrap;
+  overflow-x: auto;
+
   @include respond-to(tablets) {
     &.active {
       @include transform($nav-width-tablets, 0);

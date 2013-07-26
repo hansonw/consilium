@@ -1,23 +1,12 @@
 # This doubles as the new client view (if no client ID is provided)
-App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$location', '$rootScope', 'Client', 'ClientChange', 'RecentClients', 'Auth', 'Modal', 'Flash',\
-                                   ($scope, $routeParams, $timeout, $location, $rootScope, Client, ClientChange, RecentClients, Auth, Modal, Flash) ->
+App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$location', '$parse', '$rootScope', 'Client', 'ClientChange', 'RecentClients', 'Auth', 'Modal', 'Flash',\
+                                   ($scope, $routeParams, $timeout, $location, $parse, $rootScope, Client, ClientChange, RecentClients, Auth, Modal, Flash) ->
   Auth.checkLogin()
 
   $scope.clientId = $routeParams.clientId
   $scope.clientChangeId = $location.search().change
   $scope.inLocationInfo = !!$location.path().match /\/locationInfo(\/.*)?$/
   $scope.locationInfoId = $routeParams.locationInfoId
-  if $scope.inLocationInfo
-    if $scope.locationInfoId
-      $scope.title = 'Edit Location Info'
-    else
-      $scope.title = 'Add Location Info'
-  else if $scope.clientChangeId
-    $scope.title = 'View Client History'
-  else if $scope.clientId
-    $scope.title = 'Edit Client'
-  else
-    $scope.title = 'Create Client'
 
   if $scope.readonly = !!$scope.clientChangeId
     $('input, textarea, select').attr('readonly', true)
@@ -129,4 +118,21 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
         navigateToDoneURL()
     else
       window.history.back()
+
+  $scope.clientCompany = ->
+    $parse('client.company.value')($scope) || ''
+
+  $scope.title = ->
+    if $scope.inLocationInfo
+      if $scope.locationInfoId
+        locationNumber = $parse('client.locationInfos.value[locationInfoId].locationNumber.value')($scope) || ''
+        return 'Location Info ' + locationNumber
+      else
+        return 'Location Info'
+    else if $scope.clientChangeId
+      return 'History, Client ' + $scope.clientCompany()
+    else if $scope.clientId
+      return 'Client ' + $scope.clientCompany()
+    else
+      return 'Client'
 ]

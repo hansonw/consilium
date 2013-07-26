@@ -6,7 +6,7 @@
         "Home" => "#/",
         "Clients" => "#/clients/index",
         "{{ (clientId || savedOnce) && (client.company.value || 'Client') }}" => "{{ '#/clients/show/' + client.id }}",
-        "{{ title }}" => "#/clients/{{ clientChangeId ? 'edit/' + clientId + '/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}",
+        "{{ title() }}" => "#/clients/{{ clientChangeId ? 'edit/' + clientId + '/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}",
       }}
    %>
 <% end %>
