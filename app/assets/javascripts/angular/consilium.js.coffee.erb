@@ -10,7 +10,14 @@ App.config ['$routeProvider', ($routeProvider) ->
   <% getAllAngularRoutes().each do |route| %>
   $routeProvider.when '<%= angularRouteAppPath(route).sub '#', '' %>',
     templateUrl: '<%= angularRouteFilePath(route) %>',
-    reloadOnSearch: false
+    reloadOnSearch: false,
+    # HACK: 'defer' the route change so the loading indicator has a chance to appear.
+    resolve: {
+      defer: ($q) ->
+        defer = $q.defer()
+        setTimeout (-> defer.resolve()), 0
+        return defer.promise
+    }
   <% end %>
   $routeProvider.otherwise
     templateUrl: '<%= angularRouteFilePath(app_templates_path) %>',
@@ -99,8 +106,7 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Rece
       $rootScope._curMenuItem = path
     if (not $rootScope._showSubMenu = subMenu?) && path?
       $rootScope._showMenu = false
-      # HACK: wait until angular shows loading icon before actually going
-      $timeout((-> $location.url(path)), 50)
+      $location.url(path)
 
   $rootScope.menuItemIsSelected = (path) ->
     regex = /(\/)index+$/
