@@ -6,7 +6,7 @@ App.directive 'scrollFix', ->
     offset = domElem.offset().top if domElem.is(':visible')
     origHeight = null
 
-    win.bind 'scroll resize', ->
+    win.on 'scroll resize', handler = ->
       return if not domElem.is(':visible')
       origHeight = domElem.height() if !origHeight?
       scrollFixCondition = Modernizr.mq($attr.scrollFixCondition || 'screen and (min-width:0)')
@@ -40,3 +40,6 @@ App.directive 'scrollFix', ->
         domElem.removeAttr 'style'
 
       domElem.data 'scroll-fix-condition', scrollFixCondition
+
+    $scope.$on '$destroy', ->
+      win.off 'scroll resize', handler
