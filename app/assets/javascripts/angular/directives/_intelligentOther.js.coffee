@@ -15,7 +15,7 @@ App.directive 'intelligentOther', ->
         modelString = "client." + modelCurrent
 
       currentValue = Object.byString($scope, modelCurrent) # Model for current modal in format client.modal_name
-      collection = Object.byString($scope, modelString) # All models for current modal client.model.modal_name where model can be something like locationInfos.value[locationInfoId]
+      collection = Object.byString($scope, modelString) # All models for current modal client.model.modal_name where model can be something like locations.value[locationId]
       collection = ((collection ||= {}).value ||= [])
       for field in collection then do (field) ->
         if currentValue? and field[collectionField]? and field[collectionField].value? and not (field[collectionField].value in options) and not (field[collectionField].value in check)

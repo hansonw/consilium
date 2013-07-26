@@ -5,8 +5,8 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
 
   $scope.clientId = $routeParams.clientId
   $scope.clientChangeId = $location.search().change
-  $scope.inLocationInfo = !!$location.path().match /\/locationInfo(\/.*)?$/
-  $scope.locationInfoId = $routeParams.locationInfoId
+  $scope.inLocation = !!$location.path().match /\/location(\/.*)?$/
+  $scope.locationId = $routeParams.locationId
 
   if $scope.readonly = !!$scope.clientChangeId
     $('input, textarea, select').attr('readonly', true)
@@ -33,14 +33,14 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   else if $scope.clientId
     $scope.client = Client.get(id: $scope.clientId,
       (->
-        if $scope.inLocationInfo
-          if !$scope.locationInfoId? || $scope.locationInfoId == ''
-            (($scope.client.locationInfos ||= {}).value ||= [])
-            $scope.client.locationInfos.value.push({})
-            $scope.locationInfoId = $scope.client.locationInfos.value.length - 1
-          if !$scope.client.locationInfos.value? || $scope.locationInfoId < 0 || $scope.locationInfoId >= $scope.client.locationInfos.value.length
+        if $scope.inLocation
+          if !$scope.locationId? || $scope.locationId == ''
+            (($scope.client.locations ||= {}).value ||= [])
+            $scope.client.locations.value.push({})
+            $scope.locationId = $scope.client.locations.value.length - 1
+          if !$scope.client.locations.value? || $scope.locationId < 0 || $scope.locationId >= $scope.client.locations.value.length
             alert('The requested location info was not found.')
-          Flash.set('client-focusSection', 'locationInfos')
+          Flash.set('client-focusSection', 'locations')
         else if Flash.get('client-focusSection')
           $timeout (->
             $rootScope.scrollTo(Flash.get('client-focusSection'))
@@ -59,7 +59,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   # Override auto-saving's default onLocationChange
   $scope.onLocationChange = (event) ->
     url = $location.url()
-    if url.indexOf('locationInfo') >= 0
+    if url.indexOf('location') >= 0
       if !$scope.clientForm.$valid
         if !$scope.clientForm.$dirty
           alert('Please fill out some basic information before continuing to this section.')
@@ -97,7 +97,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
 
   $scope.done = ->
     navigateToDoneURL = ->
-      if $scope.inLocationInfo
+      if $scope.inLocation
         # We don't want to undo any GET params we've set, like |change|, so we only
         # alter the path, not the fully qualified URL.
         $location.path("/clients/edit/#{$scope.client.id}")
@@ -123,9 +123,9 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     $parse('client.company.value')($scope) || ''
 
   $scope.title = ->
-    if $scope.inLocationInfo
-      if $scope.locationInfoId
-        locationNumber = $parse('client.locationInfos.value[locationInfoId].locationNumber.value')($scope) || ''
+    if $scope.inLocation
+      if $scope.locationId
+        locationNumber = $parse('client.locations.value[locationId].locationNumber.value')($scope) || ''
         return 'Location Info ' + locationNumber
       else
         return 'Location Info'

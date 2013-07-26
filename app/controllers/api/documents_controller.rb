@@ -61,11 +61,11 @@ class Api::DocumentsController < Api::ApiController
 
     # TODO: The docx markup language should support iteration over arbitrary collections.
     # For now, we have to hack in this collection that is generated using an iteration
-    # over all locationInfos.
+    # over all locations.
 
     data['buildings'] ||= []
-    if !data['locationInfos'].nil?
-      data['locationInfos'].each do |location|
+    if !data['locations'].nil?
+      data['locations'].each do |location|
         if !location['buildings'].nil?
           location['buildings'].each do |building|
             bldg = building.dup
@@ -104,7 +104,7 @@ class Api::DocumentsController < Api::ApiController
 
     bldgsField = nil
     Client::FIELDS.each do |field|
-      if field[:id] == 'locationInfos'
+      if field[:id] == 'locations'
         field[:type].each do |subfield|
           if subfield[:id] == 'buildings'
             bldgsField = subfield.dup

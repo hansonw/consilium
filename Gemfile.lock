@@ -14,7 +14,7 @@ GIT
 
 GIT
   remote: https://github.com/mongoid/mongoid.git
-  revision: 5d8397e24b673724f4b70ca2923a62bfe20e6e79
+  revision: 88599cf64c3d6df9a1277178ced69cd45d30c2f1
   specs:
     mongoid (4.0.0)
       activemodel (~> 4.0.0)
@@ -24,7 +24,7 @@ GIT
 
 GIT
   remote: https://github.com/plataformatec/devise.git
-  revision: b8ed2f31608eccb6df6d5bb2e66238d6dfc4bcfc
+  revision: c4d5a3fdaaeb15e60b4e78dde367809561c70f5b
   specs:
     devise (3.0.0)
       bcrypt-ruby (~> 3.0)
@@ -92,7 +92,7 @@ GEM
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (4.0.3)
+    jquery-ui-rails (4.0.4)
       jquery-rails
       railties (>= 3.1.0)
     json (1.8.0)

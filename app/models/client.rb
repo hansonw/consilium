@@ -516,10 +516,10 @@ class Client
     #   ],
     # },
     {
-      :name => 'Location Info',
-      :id => 'locationInfos',
-      :editHref => '#/clients/edit/{{clientId}}/locationInfo/{{$index}}{{ clientChangeId && "?change=" + clientChangeId }}',
-      :createHref => '#/clients/edit/{{client.id}}/locationInfo/',
+      :name => 'Locations',
+      :id => 'locations',
+      :editHref => '#/clients/edit/{{clientId}}/location/{{$index}}{{ clientChangeId && "?change=" + clientChangeId }}',
+      :createHref => '#/clients/edit/{{client.id}}/location/',
       :type => [
         {
           :name => 'Basic Location Info',

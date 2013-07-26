@@ -91,7 +91,7 @@
             Save ({{ errorCount() }})
           </span>
         </button>
-        <a data-ng-click="done()" class="pure-button pure-button-<%= if fields == Client::FIELDS then 'primary' else 'secondary' end %> pure-button-large">{{ inLocationInfo ? "Back to Client" : "Done" }}</a>
+        <a data-ng-click="done()" class="pure-button pure-button-<%= if fields == Client::FIELDS then 'primary' else 'secondary' end %> pure-button-large"><%= if fields == Client::FIELDS then 'Done' else 'Back to Client' end %></a>
       </div>
     </div>
   </form>
