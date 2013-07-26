@@ -29,8 +29,6 @@ App.directive 'animateSubsection', ['$timeout', '$rootScope', ($timeout, $rootSc
         $timeout.cancel($scope.timer)
         $scope.timer = null
 
-      delay = if disableTransition then 0 else transitionDuration * conversionFactor
-
       if $elem.hasClass 'active'
         height = contents.height() + padding
 
@@ -42,13 +40,17 @@ App.directive 'animateSubsection', ['$timeout', '$rootScope', ($timeout, $rootSc
 
         pushElements -height, !disableTransition
         # Undo tranforms and add heights
-        $scope.timer = $timeout () ->
+        fn = () ->
           applyAnimate $elem, false
           if $elem.height() != heightOriginal
             pushElements height, false
             $elem.height heightOriginal
           inner.hide()
-        , delay
+
+        if disableTransition
+          fn()
+        else
+          $scope.timer = $timeout fn, transitionDuration * conversionFactor
       else
         if !inner.is(':visible')
           inner.show()
@@ -67,12 +69,16 @@ App.directive 'animateSubsection', ['$timeout', '$rootScope', ($timeout, $rootSc
 
         pushElements height, !disableTransition
         # Undo tranforms and add heights
-        $scope.timer = $timeout () ->
+        fn = () ->
           applyAnimate $elem, false
           if $elem.height() != heightOriginal + height
             $elem.height heightOriginal + height
             pushElements -height, false
-        , delay
+
+        if disableTransition
+          fn()
+        else
+          $scope.timer = $timeout fn, transitionDuration * conversionFactor
 
       $elem.toggleClass 'active'
 
@@ -96,7 +102,7 @@ App.directive 'animateSubsection', ['$timeout', '$rootScope', ($timeout, $rootSc
 
     # XXX:  Only problem with this is if you move it too fast, the elements dont move to the right spot.
     updateElement = ->
-      if $elem.hasClass 'active' && contents.height()
+      if $elem.hasClass('active') && contents.height()
         height = contents.height() + padding
         scaleAmount = 1 + height / div.outerHeight()
         applyAnimate div, false
