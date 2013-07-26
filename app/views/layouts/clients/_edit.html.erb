@@ -78,10 +78,10 @@
           <span data-ng-if="saving">
             <i class="icon-spinner icon-spin"></i> Saving...
           </span>
-          <span data-ng-if="!saving && !clientForm.$dirty && client.isNew()">
+          <span data-ng-if="!saving && !clientForm.$dirty && !savedOnce">
             No changes
           </span>
-          <span data-ng-if="!saving && !clientForm.$dirty && !client.isNew()">
+          <span data-ng-if="!saving && !clientForm.$dirty && savedOnce">
             Saved
           </span>
           <span data-ng-if="!saving && clientForm.$dirty && clientForm.$valid">
