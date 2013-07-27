@@ -2228,6 +2228,62 @@ class Client
       ],
     },
     {
+      :name => 'Blanket Coverages',
+      :id => 'blanketCoverages',
+      :buttonTitle => 'Edit Coverage Scheds.',
+      :modalTitle => 'Blanket Coverage Schedules',
+      :createCallback => 'editCoverageSchedule()',
+      :submitCallback => 'saveCoverageSchedules()',
+      :editCallback => 'editCoverageSchedule($index)',
+      :partial => 'templates/clients/sections/coverage_schedules',
+      :type => [
+        # Primary field only, for the table. The rest are declared in the partia
+        {
+          :name => 'Type',
+          :id => 'type',
+          :required => true,
+          :type => 'text',
+        },
+        {
+          :id => 'category',
+          :required => true,
+          :type => 'text',
+        },
+        {
+          :id => 'subtype',
+          :type => 'radio',
+          :options => {
+            'broad' => 'Broad',
+            'named' => 'Named',
+            'nameOfEmployee' => 'Name',
+            'position' => 'Position',
+            'robbery' => 'Robbery',
+            'fourPoint' => '4 Point',
+            'sevenPoint' => '7 Point',
+            'limited' => 'Limited',
+            'profit' => 'Profit',
+            'nonProfit' => 'Non-Profit',
+          }
+        },
+        {
+          :id => 'replacementCost',
+          :type => 'currency'
+        },
+        {
+          :id => 'deductible',
+          :type => 'currency'
+        },
+        {
+          :id => 'coinsurance',
+          :type => 'text'
+        },
+        {
+          :id => 'limit',
+          :type => 'currency'
+        },
+      ],
+    },
+    {
       :name => 'Misc. Notes',
       :id => 'miscNote',
       :type => [

@@ -1,5 +1,3 @@
-<% sectionId = 'coverageSchedules' %>
-
 <%
   schedules = [
     {
@@ -635,7 +633,7 @@
   ]
 %>
 
-<div class="pure-g-r" id="coverageScheduleForm" coverage-schedule-form="<%= sectionId %>" coverage-schedule-model="<%= root %>.<%= sectionId %>.value">
+<div class="pure-g-r" id="coverageScheduleForm" coverage-schedule-form="<%= field[:id] %>" coverage-schedule-model="<%= local_assigns[:root] || 'client' %>.<%= field[:id] %>.value">
   <div class="pure-u-1-5">
     <h2 class="no-top-margin">Category</h2>
     <hr class="soften" />
@@ -644,7 +642,7 @@
             required>
       <option value="">Select a category...</option>
       <% schedules.each do |category| %>
-        <option ng-class="<%= sectionId %>.<%= category[:id] %> && 'selected'"><%= category[:name] %></option>
+        <option ng-class="<%= field[:id] %>.<%= category[:id] %> && 'selected'"><%= category[:name] %></option>
       <% end %>
     </select>
   </div>
@@ -659,7 +657,7 @@
               data-ng-readonly="false" data-ng-disabled="false" required>
         <option value="">Select a type...</option>
         <% category[:type].each do |type| %>
-          <option ng-class="<%= sectionId %>.<%= category[:id] %>.<%= type[:id] %> && 'selected'"><%= type[:name] %></option>
+          <option ng-class="<%= field[:id] %>.<%= category[:id] %>.<%= type[:id] %> && 'selected'"><%= type[:name] %></option>
         <% end %>
       </select>
     <% end %>
@@ -674,7 +672,7 @@
       <% # Hack the names into angular. %>
       <span data-ng-init="coverageCategories.<%= category[:id] %> = '<%= category[:name] %>'" />
       <% category[:type].each do |type| %>
-        <% obj = [sectionId, category[:id], type[:id]].join('.') %>
+        <% obj = [field[:id], category[:id], type[:id]].join('.') %>
         <span data-ng-init="coverageTypes.<%= category[:id] %>.<%= type[:id] %> = '<%= type[:name] %>'" />
         <div class="pure-form-fields" data-ng-show="coverage.category == '<%= category[:name] %>' && coverage.type == '<%= type[:name] %>'">
           <% if !type[:type].nil? %>
