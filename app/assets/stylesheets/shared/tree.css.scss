@@ -18,6 +18,12 @@ ul.tree {
     padding:0;
   }
 
+  .step:before {
+    background:white; /* same with body background */
+    top:0; /* (line-height/2) */
+    height:15px;
+  }
+
   ul {
     margin-left: $indentation;
     position: relative;
