@@ -8,6 +8,20 @@
    }
 %>
 
+<% content_for :sections do %>
+  <ul>
+    <% fields.each_with_index do |field, index| %>
+      <% if field[:type].is_a? Array %>
+        <li data-ng-class="changedSections.<%= field[:id] %> && 'changed'">
+          <a href="" data-ng-click="scrollTo('<%= field[:id] %>')">
+            <%= getSectionId(index, fields) %>. <%= field[:name] %>
+          </a>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= render :layout => 'layouts/clients/edit', :locals => {:fields => fields, :paths => paths} do %>
   <%= render :partial => 'templates/breadcrumbs',
              :locals => { :paths => paths }

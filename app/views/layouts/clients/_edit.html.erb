@@ -32,17 +32,10 @@
           <div class="form-nav">
             <div scroll-fix scroll-fix-margin="30" scroll-fix-condition="screen and (max-height: 767px)" class="nav-container">
               <div class="pure-menu pure-menu-open nav-box">
-                <a class="pure-menu-heading nav-heading">Sections</a>
-                <ul class="nav-list">
-                  <% fields.each_with_index do |field, index| %>
-                    <% if field[:type].is_a? Array %>
-                      <li data-ng-class="changedSections.<%= field[:id] %> && 'changed'">
-                        <a href="" data-ng-click="scrollTo('<%= field[:id] %>')">
-                          <%= getSectionId(index, fields) %>. <%= field[:name] %>
-                        </a>
-                      </li>
-                    <% end %>
-                  <% end %>
+                <a class="pure-menu-heading nav-heading tree-heading">Sections</a>
+                <ul class="tree">
+                  <li><a href="/clients/show/{{ clientId }}">Client</a></li>
+                  <%= yield :sections %>
                 </ul>
               </div>
             </div>
