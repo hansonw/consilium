@@ -1,5 +1,10 @@
 $indentation: 20px;
 
+.section-number {
+  min-width: 15px;
+  display: inline-block;
+}
+
 .pure-menu-heading.tree-heading {
   padding: 10px 15px;
 }

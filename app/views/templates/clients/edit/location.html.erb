@@ -18,7 +18,7 @@
         <% if field[:type].is_a? Array %>
           <li data-ng-class="changedSections.<%= field[:id] %> && 'changed'">
             <a href="" data-ng-click="scrollTo('<%= field[:id] %>')">
-              <%= getSectionId(index, fields) %>. <%= field[:name] %>
+              <span class="section-number"><%= getSectionId(index, fields) %>.</span> <%= field[:name] %>
             </a>
           </li>
         <% end %>
