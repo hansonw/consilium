@@ -6,58 +6,57 @@ $indentation: 20px;
 
 ul.tree {
   margin: 5px 0 !important;
-}
 
-ul.tree,
-ul.tree ul {
-  list-style:none;
-  margin:0;
-  padding:0;
-}
+  &, ul {
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
 
-ul.tree ul {
-  margin-left: $indentation;
-  position:relative;
-}
+  ul {
+    margin-left: $indentation;
+    position: relative;
 
-ul.tree ul:before {
-  content:"";
-  display:block;
-  width:0;
-  position:absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  border-left:1px dotted #999;
-}
+    &:before {
+      content: "";
+      display: block;
+      width: 0;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      border-left: 1px dotted #999;
+    }
 
-ul.tree li {
-  padding-left: 10px;
-}
+    li {
+      margin: 0;
+      padding-left: #{$indentation - 8px}; /* indentation + 2 */
+      line-height: 20px; /* default list item `line-height` */
+      position: relative;
 
-ul.tree ul li {
-  margin:0;
-  padding-left: #{$indentation - 8px}; /* indentation + 2 */
-  line-height:20px; /* default list item `line-height` */
-  position:relative;
-}
+      &:before {
+        content: "";
+        display: block;
+        width: #{$indentation - 10px}; /* same with indentation */
+        height: 0;
+        border-top: 1px dotted #999;
+        position: absolute;
+        top: 16px;
+        left: 0;
+      }
 
-ul.tree ul li:before {
-  content:"";
-  display:block;
-  width:#{$indentation - 10px}; /* same with indentation */
-  height:0;
-  border-top:1px dotted #999;
-  position:absolute;
-  top:16px;
-  left:0;
-}
+      &:last-child:before {
+        background:white; /* same with body background */
+        height:auto;
+        top:16px; /* (line-height/2) */
+        bottom:0;
+      }
+    }
+  }
 
-ul.tree ul li:last-child:before {
-  background:white; /* same with body background */
-  height:auto;
-  top:16px; /* (line-height/2) */
-  bottom:0;
+  li {
+    padding-left: 10px;
+  }
 }
 
 .pure-menu {
