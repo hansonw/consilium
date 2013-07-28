@@ -39,7 +39,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
             $scope.client.locations.value.push({})
             $scope.locationId = $scope.client.locations.value.length - 1
           if !$scope.client.locations.value? || $scope.locationId < 0 || $scope.locationId >= $scope.client.locations.value.length
-            alert('The requested location info was not found.')
+            alert('The requested location was not found.')
           Flash.set('client-focusSection', 'locations')
         else if Flash.get('client-focusSection')
           $timeout (->
@@ -126,9 +126,9 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     if $scope.inLocation
       if $scope.locationId
         locationNumber = $parse('client.locations.value[locationId].locationNumber.value')($scope) || ''
-        return 'Location Info ' + locationNumber
+        return 'Location ' + locationNumber
       else
-        return 'Location Info'
+        return 'Location '
     else if $scope.clientChangeId
       return 'History' + (if $scope.clientCompany() then ': ' + $scope.clientCompany() else '')
     else if $scope.clientId
