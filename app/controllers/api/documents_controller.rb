@@ -56,6 +56,10 @@ class Api::DocumentsController < Api::ApiController
     return data
   end
 
+  def abbreviate(str)
+    return str.split.map { |c| c[0].upcase }.join
+  end
+
   def gen_document(client_change, name)
     data = unwrap(client_change.client_data)
 
@@ -82,7 +86,10 @@ class Api::DocumentsController < Api::ApiController
 
     if brokerage = Brokerage.all.first
       broker_data = {
+        'date' => Time.now.strftime('%B %-d, %Y'),
+        'companyShort' => abbreviate(data['company']),
         'brokerOffice' => brokerage.name,
+        'brokerOfficeShort' => abbreviate(brokerage.name),
         'brokerAddress' => brokerage.address,
         'brokerWebsite' => brokerage.website,
         'brokerPhone' => brokerage.phone,
@@ -90,6 +97,10 @@ class Api::DocumentsController < Api::ApiController
         'brokerClients' => brokerage.clients,
         'primaryBroker' => brokerage.contacts.first && brokerage.contacts.first['name'],
       }
+
+      if !data['policyInfos'].nil? && !data['policyInfos'].empty?
+        broker_data['policyInsurer'] = data['policyInfos'].first['prevInsurer']
+      end
 
       broker_data.each do |key, val|
         fields << {:id => key, :type => 'text'}
