@@ -57,16 +57,16 @@
   <hr class="soften" />
 
   <div class="content client-show">
-    <div class="client-info pure-form pure-form-aligned well">
+    <div class="client-info pure-form pure-form-aligned well-light">
       <div class="section" id="basicInfo">
         <div class="client-buttons pull-right">
-          <a class="pure-button pure-button-success" data-ng-click="genFromRecent()"
+          <a class="pure-button pure-button-primary pure-button-large"
+             data-click-href="#/clients/edit/{{ clientId }}">
+            <i class="icon-edit"></i><span class="desc"> Edit Client Details</span>
+          </a>
+          <a class="pure-button pure-button-secondary pure-button-large" data-ng-click="genFromRecent()"
              data-ng-show="history.length">
             <i class="icon-file"></i><span class="desc"><span class="only-desktops"> Generate</span> Document</span>
-          </a>
-          <a class="pure-button pure-button-primary"
-             data-click-href="#/clients/edit/{{ clientId }}">
-            <i class="icon-edit"></i><span class="desc"> Details</span>
           </a>
         </div>
         <h3 class="no-top-margin">Client Summary</h3>
@@ -97,7 +97,7 @@
 
     <div class="client-docs well">
       <div class="section" id="basicInfo">
-        <h3 class="no-top-margin">Edit History</h3>
+        <h3 class="no-top-margin">History</h3>
       </div>
       <%= render :partial => 'templates/action_table',
                  :locals => {
@@ -121,16 +121,16 @@
                      }
                    ],
                    :actions => [
+                     #{
+                     #  :class => 'pure-button-success',
+                     #  :icon => 'icon-file',
+                     #  :click => 'setClientChange(item, pageGetIndex("history", $index))',
+                     #  :attrs => 'modal-toggle="genDocument"',
+                     #},
                      {
-                       :class => 'pure-button-success',
-                       :icon => 'icon-file',
-                       :click => 'setClientChange(item, pageGetIndex("history", $index))',
-                       :attrs => 'modal-toggle="genDocument"',
-                     },
-                     {
-                       :icon => 'icon-share-alt',
+                       :icon => 'icon-eye-open',
                        :href => '#/clients/edit/{{ item.client_id }}?change={{ item.id }}',
-                     }
+                     },
                    ]
                  } %>
       <div class="paginator" paginator="history"></div>
