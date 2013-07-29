@@ -78,29 +78,33 @@ class Api::DocumentsController < Api::ApiController
       end
     end
 
-    if brokerage = Brokerage.all.first
-      data['brokerOffice'] = brokerage.name
-      data['brokerAddress'] = brokerage.address
-      data['brokerWebsite'] = brokerage.website
-      data['brokerPhone'] = brokerage.phone
-      data['brokerFax'] = brokerage.fax
-      data['brokerContacts'] = brokerage.contacts
-      data['primaryBroker'] =
-        brokerage.contacts.first && brokerage.contacts.first['name']
-    end
-
     fields = Client::FIELDS.dup
-    fields << {:id => 'brokerOffice', :type => 'text'}
-    fields << {:id => 'brokerAddress', :type => 'text'}
-    fields << {:id => 'brokerWebsite', :type => 'text'}
-    fields << {:id => 'brokerPhone', :type => 'text'}
-    fields << {:id => 'brokerFax', :type => 'text'}
-    fields << {:id => 'brokerContacts', :type => [
-      {:id => 'name', :type => 'text'},
-      {:id => 'title', :type => 'text'},
-      {:id => 'email', :type => 'text'},
-      {:id => 'phone', :type => 'text'},
-    ]}
+
+    if brokerage = Brokerage.all.first
+      broker_data = {
+        'brokerOffice' => brokerage.name,
+        'brokerAddress' => brokerage.address,
+        'brokerWebsite' => brokerage.website,
+        'brokerPhone' => brokerage.phone,
+        'brokerFax' => brokerage.fax,
+        'brokerClients' => brokerage.clients,
+        'primaryBroker' => brokerage.contacts.first && brokerage.contacts.first['name'],
+      }
+
+      broker_data.each do |key, val|
+        fields << {:id => key, :type => 'text'}
+      end
+
+      data = data.merge(broker_data)
+
+      data['brokerContacts'] = brokerage.contacts
+      fields << {:id => 'brokerContacts', :type => [
+        {:id => 'name', :type => 'text'},
+        {:id => 'title', :type => 'text'},
+        {:id => 'email', :type => 'text'},
+        {:id => 'phone', :type => 'text'},
+      ]}
+    end
 
     bldgsField = nil
     Client::FIELDS.each do |field|
