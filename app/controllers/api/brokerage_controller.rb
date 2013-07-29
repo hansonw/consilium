@@ -28,7 +28,6 @@ class Api::BrokerageController < Api::ApiController
   end
 
   def brokerage_params
-    params.permit :name, :address, :website, :phone, :fax, :clients, :employees,
-                  :contacts => [[:name, :title, :email, :phone, :description]]
+    params.permit generate_permit_params(Brokerage::FIELDS)
   end
 end
