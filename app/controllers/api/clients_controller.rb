@@ -169,6 +169,6 @@ class Api::ClientsController < Api::ApiController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
-      params.permit(generate_permit_params(Client::FIELDS))
+      params.permit Client.generate_permit_params_wrapped
     end
 end

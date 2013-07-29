@@ -1,6 +1,9 @@
+require 'consilium_fields'
+
 class Brokerage
   include Mongoid::Document
   include Mongoid::Timestamps
+  include ConsiliumFields
 
   field :name, type: String
   field :address, type: String

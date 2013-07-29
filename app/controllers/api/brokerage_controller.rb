@@ -28,6 +28,6 @@ class Api::BrokerageController < Api::ApiController
   end
 
   def brokerage_params
-    params.permit generate_permit_params(Brokerage::FIELDS)
+    params.permit Brokerage.generate_permit_params
   end
 end

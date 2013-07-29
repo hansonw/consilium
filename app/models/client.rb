@@ -1,7 +1,10 @@
+require 'consilium_fields'
+
 class Client
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Attributes::Dynamic
+  include ConsiliumFields
 
   has_many :client_changes, dependent: :delete
   has_many :documents, dependent: :delete
@@ -2413,7 +2416,7 @@ class Client
     errors.clear
 
     # Custom validation.
-    expand_fields(Client::FIELDS).each do |field|
+    Client.expand_fields.each do |field|
       validate_field(self, field)
     end
 
