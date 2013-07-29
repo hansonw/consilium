@@ -38,7 +38,7 @@ module ConsiliumFields
         if field[:id]
           permitted[field[:id]] = [:updated_at,
             if field[:type].is_a? Array
-              {:value => generate_permit_params(field[:type])}
+              {:value => generate_permit_params_wrapped(field[:type])}
             elsif field[:type] == 'checkbox'
               {:value => field[:options].keys}
             else
