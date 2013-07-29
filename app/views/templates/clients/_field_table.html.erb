@@ -2,7 +2,7 @@
   <div id="<%= field[:id] %>" class="section">
     <a class="section-edit pull-right pure-button pure-button-success"
        <% if field.has_key?(:createHref) %>
-         <%= raw "data-ng-href='#{h field[:createHref]}'" %>
+         <%= raw "data-click-href='#{h field[:createHref]}'" %>
        <% elsif field.has_key?(:createCallback) %>
          <%= raw "data-ng-click='#{h field[:createCallback]}'" %>
        <% else %>

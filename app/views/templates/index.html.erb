@@ -30,8 +30,8 @@
                            :content => <<-END
                              {{ item.description | ellipsize: 40:1 }}
                              <div class="detail">
-                               on client <a data-ng-href="#/clients/show/{{ item.client_id }}" class="pretty" eat-click>{{ item.client_name }} </a>
-                               by <a data-ng-href="#/users/show/{{ item.user_id }}" class="email" eat-click>{{ item.user_email }}</a><br />
+                               on client <a data-click-href="#/clients/show/{{ item.client_id }}" class="pretty" eat-click>{{ item.client_name }} </a>
+                               by <a data-click-href="#/users/show/{{ item.user_id }}" class="email" eat-click>{{ item.user_email }}</a><br />
                                on <span class="date">{{ item.updated_at | date: 'medium'}}</span>
                              </div>
                            END
