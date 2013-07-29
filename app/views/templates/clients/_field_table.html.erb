@@ -31,8 +31,8 @@
                ],
                :actions => [
                  {
-                   :class => 'pure-button-primary',
-                   :icon => 'icon-edit',
+                   :class => '{{ !readonly && "pure-button-primary" }}',
+                   :icon => '{{ readonly ? "icon-eye-open" : "icon-edit" }}',
                    :click => field[:editCallback] ||
                              !field[:editHref] && "editInField('#{field[:id]}', '#{local_assigns[:root]}', $index)",
                    :href => field[:editHref],
