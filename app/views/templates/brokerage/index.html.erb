@@ -5,94 +5,18 @@
  %>
 
 <div id="main" class="pure-u" data-ng-controller="BrokerageIndexCtrl">
-  <% fields = [
-        {
-          :id => 'name',
-          :name => 'Name',
-          :placeholder => 'e.g. Insurance Company Inc.',
-          :type => 'text',
-        },
-        {
-          :id => 'address',
-          :name => 'Address',
-          :placeholder => 'e.g. 123 Main Street, Toronto ON A1B 3C4',
-          :type => 'text',
-        },
-        {
-          :id => 'website',
-          :name => 'Website',
-          :placeholder => 'e.g. www.insurancecompany.com',
-          :type => 'text',
-        },
-        {
-          :id => 'phone',
-          :name => 'Phone',
-          :placeholder => '(Area Code) - Number (ext.)',
-          :type => 'phone'
-        },
-        {
-          :id => 'fax',
-          :name => 'Fax',
-          :placeholder => '(Area Code) - Number',
-          :type => 'phone'
-        },
-        {
-          :id => 'clients',
-          :name => 'Number of clients',
-          :type => 'text',
-        },
-        {
-          :id => 'employees',
-          :name => 'Number of employees',
-          :type => 'text',
-        }
-     ]
-     contactsField = {
-        :id => 'contacts',
-        :name => 'Contacts',
-        :type => [
-          {
-            :id => 'name',
-            :name => 'Name',
-            :placeholder => 'Name',
-            :required => true,
-            :type => 'text',
-          },
-          {
-            :id => 'title',
-            :name => 'Title',
-            :placeholder => 'e.g. Producer, Marketer, Customer Service',
-            :required => true,
-            :type => 'text',
-          },
-          {
-            :id => 'email',
-            :name => 'Email',
-            :placeholder => 'e.g. john@consilium.ca',
-            :type => 'email',
-          },
-          {
-            :id => 'phone',
-            :name => 'Phone',
-            :placeholder => '(Area Code) - Number (ext.)',
-            :type => 'phone',
-          },
-          {
-            :id => 'description',
-            :name => 'Description of role',
-            :placeholder => 'Description of role in brokerage',
-            :type => 'textbox'
-          }
-      ]
-    } %>
-  <%= render :partial => 'templates/field_modal',
-             :locals => {
-               :field => contactsField,
-               :page_title => 'Brokerage',
-               :syncable => false,
-               :submit_callback => "addToField('contacts')",
-               :paths => paths,
-             } %>
+  <% Brokerage::FIELDS.each do |field| %>
+    <% if field[:type].is_a?(Array) %>
+      <%= render :partial => 'templates/field_modal',
+                 :locals => {
+                   :field => field,
+                   :page_title => 'Brokerage',
+                   :syncable => false,
+                   :submit_callback => "addToField('#{field[:id]}')",
+                   :paths => paths,
+                 } %>
+    <% end %>
+  <% end %>
 
   <div class="content header pure-u-1">
     <h2 class="no-bottom-margin">
@@ -118,59 +42,65 @@
         </div>
 
         <div class="pure-form-fields">
-          <% fields.each do |field| %>
-            <%= form_field field, 'brokerage', false %>
+          <% Brokerage::FIELDS.each do |field| %>
+            <% if !field[:type].is_a?(Array) %>
+              <%= form_field field, 'brokerage', false %>
+            <% end %>
           <% end %>
         </div>
       </div>
 
-      <div class="separator"></div>
+      <% Brokerage::FIELDS.each do |field| %>
+        <% if field[:type].is_a?(Array) %>
+          <div class="separator"></div>
 
-      <div class="well">
-        <div class="section">
-          <a class="section-edit pull-right pure-button pure-button-success" modal-toggle="contacts">
-            <i class="icon-plus"></i> <span class="only-desktops">Add Contact</span>
-          </a>
-          <h3 class="no-top-margin no-bottom-margin">Brokerage Contacts</h3>
-        </div>
+          <div class="well">
+            <div class="section">
+              <a class="section-edit pull-right pure-button pure-button-success" modal-toggle="contacts">
+                <i class="icon-plus"></i> <span class="only-desktops">Add <%= field[:name].singularize %></span>
+              </a>
+              <h3 class="no-top-margin no-bottom-margin">Brokerage <%= field[:name] %></h3>
+            </div>
 
-        <%= render :partial => 'templates/action_table',
-                   :locals => {
-                      :name => 'contacts',
-                      :model => "brokerage.contacts",
-                      :rowClick => "editInField('contacts', null, $index)",
-                      :fields => [
-                        {
-                          :name => 'Name',
-                          :content => '{{ item.name }}'
-                        },
-                        {
-                          :name => 'Title',
-                          :content => '{{ item.title }}'
-                        },
-                        {
-                          :name => 'Email',
-                          :class => 'email',
-                          :content => '{{ item.email }}',
-                        },
-                        {
-                          :name => 'Phone',
-                          :content => '{{ item.phone }}'
-                        },
-                      ],
-                      :actions => [
-                        {
-                          :icon => 'icon-edit',
-                          :click => "editInField('contacts', null, $index)",
-                        },
-                        {
-                          :class => 'pure-button-error',
-                          :icon => 'icon-trash',
-                          :click => "deleteFromField('contacts', null, $index)",
-                        },
-                      ],
-                    } %>
-      </div>
+            <%= render :partial => 'templates/action_table',
+                       :locals => {
+                          :name => field[:id],
+                          :model => "brokerage." + field[:id],
+                          :rowClick => "editInField('#{field[:id]}', null, $index)",
+                          :fields => [
+                            {
+                              :name => 'Name',
+                              :content => '{{ item.name }}'
+                            },
+                            {
+                              :name => 'Title',
+                              :content => '{{ item.title }}'
+                            },
+                            {
+                              :name => 'Email',
+                              :class => 'email',
+                              :content => '{{ item.email }}',
+                            },
+                            {
+                              :name => 'Phone',
+                              :content => '{{ item.phone }}'
+                            },
+                          ],
+                          :actions => [
+                            {
+                              :icon => 'icon-edit',
+                              :click => "editInField('#{field[:id]}', null, $index)",
+                            },
+                            {
+                              :class => 'pure-button-error',
+                              :icon => 'icon-trash',
+                              :click => "deleteFromField('#{field[:id]}', null, $index)",
+                            },
+                          ],
+                        } %>
+          </div>
+        <% end %>
+      <% end %>
 
       <div class="separator-xsmall"></div>
 
