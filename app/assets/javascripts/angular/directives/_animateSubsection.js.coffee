@@ -97,6 +97,12 @@ App.directive 'animateSubsection', ['$timeout', '$rootScope', ($timeout, $rootSc
 
     if $elem.hasClass 'startOpen'
       toggleSectionExpanded(true)
+      # TODO: HACK HACK HACK! We must add a delay to marking a startOpen section as expanded, otherwise
+      # it will be marked as 'active' too early. We should remove this hack once we properly support
+      # starting sections expanded.
+      $timeout (->
+        $scope.subsectionVisible[$attr.sectionId] = true
+      ), 1500
     else
       applyTranslate contents, -(contents.height() + padding)
 
