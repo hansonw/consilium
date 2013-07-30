@@ -420,3 +420,25 @@ body {
 .pure-table-full-width {
   width: 100%;
 }
+
+input[readonly], textarea[readonly], select[readonly] {
+  border: none !important;
+}
+
+select[readonly] {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  background: transparent !important;
+  outline: none !important;
+
+  // XXX: HACK HACK HACK! Prevent the dropdown arrow from showing up in Firefox and IE.
+  width: 1000%;
+}
+
+@-moz-document url-prefix() {
+  select[readonly] {
+    margin-left: -3px !important;
+  }
+}

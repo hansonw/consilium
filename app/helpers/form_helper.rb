@@ -73,6 +73,7 @@ module FormHelper
 
   def ng_input(field, model, *model_parent)
     r = ''
+
     case field[:type]
     when 'dropdown'
       dropdownString = "<div class='dropdown-field'>
