@@ -405,6 +405,17 @@ body {
       margin-bottom: 0.7em;
     }
   }
+
+  .pure-icon {
+    padding: 0;
+    border: none;
+
+    &, &:hover {
+      color: #666;
+      background-color: transparent;
+      background-image: none;
+    }
+  }
 }
 
 .pure-table {
