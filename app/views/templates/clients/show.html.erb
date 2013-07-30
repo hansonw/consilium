@@ -56,17 +56,20 @@
   </div>
   <hr class="soften" />
 
+  <div class="content">
+    <a class="pure-button pure-button-secondary pure-button-large" data-ng-click="genFromRecent()"
+       data-ng-show="history.length">
+      <i class="icon-file"></i><span class="desc"><span class="only-desktops"> Generate</span> Document</span>
+    </a>
+  </div>
+
   <div class="content client-show">
-    <div class="client-info pure-form pure-form-aligned well-light">
+    <div class="client-info pure-form pure-form-aligned well">
       <div class="section" id="basicInfo">
         <div class="client-buttons pull-right">
           <a class="pure-button pure-button-primary pure-button-large"
              data-click-href="#/clients/edit/{{ clientId }}">
             <i class="icon-edit"></i><span class="desc"> Edit Client Details</span>
-          </a>
-          <a class="pure-button pure-button-secondary pure-button-large" data-ng-click="genFromRecent()"
-             data-ng-show="history.length">
-            <i class="icon-file"></i><span class="desc"><span class="only-desktops"> Generate</span> Document</span>
           </a>
         </div>
         <h3 class="no-top-margin">Client Summary</h3>
