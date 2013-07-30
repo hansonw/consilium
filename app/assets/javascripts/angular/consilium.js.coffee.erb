@@ -12,12 +12,12 @@ App.config ['$routeProvider', ($routeProvider) ->
     templateUrl: '<%= angularRouteFilePath(route) %>',
     reloadOnSearch: false,
     # HACK: 'defer' the route change so the loading indicator has a chance to appear.
-    resolve: {
-      defer: ($q) ->
+    resolve:
+      defer: ['$q', ($q) ->
         defer = $q.defer()
         setTimeout (-> defer.resolve()), 0
-        return defer.promise
-    }
+        defer.promise
+      ]
   <% end %>
   $routeProvider.otherwise
     templateUrl: '<%= angularRouteFilePath(app_templates_path) %>',
