@@ -65,6 +65,7 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Rece
     # This causes a ridiculously massive memory leak
     return null
 
+  $rootScope.checkOnline()
   # Also sync every time we navigate to a different page.
   $rootScope.$on('$routeChangeSuccess', -> $timeout (-> Offline.sync(offlineClasses)), 2000)
   $rootScope.$on('$routeChangeStart', -> $rootScope.loading = true)
