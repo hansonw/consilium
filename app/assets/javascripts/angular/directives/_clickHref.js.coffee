@@ -15,13 +15,11 @@ App.directive 'clickHref', ['$location', '$parse', '$timeout', ($location, $pars
       else
         elem.html '<i class="icon-spin icon-spinner"></i> ' + elem.html()
 
-      $timeout (->
-        if attr.clickHref.indexOf('(') != -1
-          # It's a callback; call the function.
-          $parse(attr.clickHref)($scope)
-        else
-          window.location = attr.clickHref
-      ), 20
+      if attr.clickHref.indexOf('(') != -1
+        # It's a callback; call the function.
+        $parse(attr.clickHref)($scope)
+      else
+        window.location = attr.clickHref
 
       e.preventDefault()
 ]
