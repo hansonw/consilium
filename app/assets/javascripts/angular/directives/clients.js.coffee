@@ -5,4 +5,4 @@ App.directive 'advancedSearch', ->
       domElem.toggleClass 'active'
       domElem.find('i').toggleClass('icon-caret-down icon-caret-up')
       $scope.showAdvancedSearch = !$scope.showAdvancedSearch
-      $scope.$apply
+      $scope.$digest()

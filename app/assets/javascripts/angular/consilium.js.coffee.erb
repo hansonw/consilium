@@ -11,13 +11,6 @@ App.config ['$routeProvider', ($routeProvider) ->
   $routeProvider.when '<%= angularRouteAppPath(route).sub '#', '' %>',
     templateUrl: '<%= angularRouteFilePath(route) %>',
     reloadOnSearch: false,
-    # HACK: 'defer' the route change so the loading indicator has a chance to appear.
-    resolve:
-      defer: ['$q', ($q) ->
-        defer = $q.defer()
-        setTimeout (-> defer.resolve()), 0
-        defer.promise
-      ]
   <% end %>
   $routeProvider.otherwise
     templateUrl: '<%= angularRouteFilePath(app_templates_path) %>',
@@ -49,12 +42,12 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Rece
   $rootScope.checkOnline = ->
     online = Offline.online()
     if online != $rootScope.online_status
-      if $rootScope.online_status = online
-        # User just came online, so we should sync everything now.
-        Offline.sync(offlineClasses,
-          (-> $rootScope.last_sync_success = true),
-          (-> $rootScope.last_sync_success = false)
-        )
+      $rootScope.online_status = online
+      # User just came online, so we should sync everything now.
+      Offline.sync(offlineClasses,
+        (-> $rootScope.last_sync_success = true),
+        (-> $rootScope.last_sync_success = false)
+      )
     else if !$rootScope.last_sync_success
       Offline.sync(offlineClasses,
         (-> $rootScope.last_sync_success = true),
@@ -65,9 +58,8 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Rece
     # This causes a ridiculously massive memory leak
     return null
 
-  $rootScope.checkOnline()
   # Also sync every time we navigate to a different page.
-  $rootScope.$on('$routeChangeSuccess', -> Offline.sync(offlineClasses))
+  $rootScope.$on('$routeChangeSuccess', -> $timeout (-> Offline.sync(offlineClasses)), 2000)
   $rootScope.$on('$routeChangeStart', -> $rootScope.loading = true)
   $rootScope.$on('$viewContentLoaded', -> $rootScope.loading = false)
 

@@ -1,4 +1,4 @@
-App.directive 'clickHref', ['$location', '$parse', ($location, $parse) ->
+App.directive 'clickHref', ['$location', '$parse', '$timeout', ($location, $parse, $timeout) ->
   ($scope, $elem, attr) ->
     elem = $elem
     tag = $elem.get(0).tagName.toLowerCase()
@@ -15,12 +15,13 @@ App.directive 'clickHref', ['$location', '$parse', ($location, $parse) ->
       else
         elem.html '<i class="icon-spin icon-spinner"></i> ' + elem.html()
 
-      # It's a callback; call the function.
-      if attr.clickHref.indexOf('(') != -1
-        $parse(attr.clickHref)($scope)
-      else if attr.clickHref[0] == '#'
-        $location.url(attr.clickHref.slice(1))
-      else
-        window.location = attr.clickHref
+      $timeout (->
+        if attr.clickHref.indexOf('(') != -1
+          # It's a callback; call the function.
+          $parse(attr.clickHref)($scope)
+        else
+          window.location = attr.clickHref
+      ), 20
+
       e.preventDefault()
 ]

@@ -11,7 +11,8 @@ App.directive 'infiniteScroll', ->
       distFromBottom = bottom - win.scrollTop() - win.height()
       if distFromBottom <= scrollMargin && attr.update?
         # apply seems necessary to force the request immediately
-        $scope.$apply $scope.$eval(attr.update)
+        $scope.$eval(attr.update)
+        $scope.$digest()
 
     $scope.$on '$destroy', ->
       win.off 'scroll', handler
