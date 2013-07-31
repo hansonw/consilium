@@ -67,7 +67,6 @@ class Api::DocumentsController < Api::ApiController
 
     if brokerage = Brokerage.all.first
       broker_data = {
-        'date' => Time.now.strftime('%B %-d, %Y'),
         'companyShort' => abbreviate(data['company']),
         'brokerOffice' => brokerage.name,
         'brokerOfficeShort' => abbreviate(brokerage.name),
