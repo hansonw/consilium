@@ -63,25 +63,6 @@ class Api::DocumentsController < Api::ApiController
   def gen_document(client_change, name)
     data = unwrap(client_change.client_data)
 
-    # TODO: The docx markup language should support iteration over arbitrary collections.
-    # For now, we have to hack in this collection that is generated using an iteration
-    # over all locations.
-
-    data['buildings'] ||= []
-    if !data['locations'].nil?
-      data['locations'].each do |location|
-        if !location['buildings'].nil?
-          location['buildings'].each do |building|
-            bldg = building.dup
-            if !location['locationNumber'].nil?
-              bldg['locationNumber'] = location['locationNumber']
-            end
-            data['buildings'].push bldg
-          end
-        end
-      end
-    end
-
     fields = Client::FIELDS.dup
 
     if brokerage = Brokerage.all.first
@@ -98,38 +79,8 @@ class Api::DocumentsController < Api::ApiController
         'primaryBroker' => brokerage.contacts.first && brokerage.contacts.first['name'],
       }
 
-      if !data['policyInfos'].nil? && !data['policyInfos'].empty?
-        broker_data['policyInsurer'] = data['policyInfos'].first['prevInsurer']
-      end
-
-      broker_data.each do |key, val|
-        fields << {:id => key, :type => 'text'}
-      end
-
       data = data.merge(broker_data)
-
-      data['brokerContacts'] = brokerage.contacts
-      fields << {:id => 'brokerContacts', :type => [
-        {:id => 'name', :type => 'text'},
-        {:id => 'title', :type => 'text'},
-        {:id => 'email', :type => 'text'},
-        {:id => 'phone', :type => 'text'},
-      ]}
     end
-
-    bldgsField = nil
-    Client::FIELDS.each do |field|
-      if field[:id] == 'locations'
-        field[:type].each do |subfield|
-          if subfield[:id] == 'buildings'
-            bldgsField = subfield.dup
-            bldgsField[:type] << {:id => 'locationNumber', :type => 'text'}
-          end
-        end
-      end
-    end
-
-    fields << bldgsField if !bldgsField.nil?
 
     tmpfile = Tempfile.new(client_change.id.to_s)
     template_path = Rails.root.join('lib', 'docx_templates', 'default.docx')
