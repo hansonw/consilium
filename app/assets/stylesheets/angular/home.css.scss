@@ -1,3 +1,18 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.quick-actions {
+  color: #999;
+  margin-bottom: 10px;
+
+  a {
+    margin: 0 3px;
+  }
+
+  .quick-separator {
+    color: #ccc;
+    font-size: 50%;
+    vertical-align: middle;
+  }
+}
