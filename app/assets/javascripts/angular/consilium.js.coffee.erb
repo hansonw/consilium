@@ -31,8 +31,8 @@ App.config ["$httpProvider", ($httpProvider) ->
   delete $httpProvider.defaults.headers.common['X-Requested-With']
 ]
 
-App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'RecentClients', 'Offline', 'Auth',\
-         ($rootScope, $location, $anchorScroll, $timeout, Client, RecentClients, Offline, Auth) ->
+App.run ['$rootScope', '$location', '$timeout', 'Client', 'RecentClients', 'Offline', 'Auth',\
+         ($rootScope, $location, $timeout, Client, RecentClients, Offline, Auth) ->
 
   # NOTE: This is for presentation purposes only. The flag indicating whether or not the user
   # is functionally logged in or not is in the Auth service.
@@ -70,12 +70,6 @@ App.run ['$rootScope', '$location', '$anchorScroll', '$timeout', 'Client', 'Rece
   $rootScope.$on('$routeChangeSuccess', -> $timeout (-> Offline.sync(offlineClasses)), 2000)
   $rootScope.$on('$routeChangeStart', -> $rootScope.loading = true)
   $rootScope.$on('$viewContentLoaded', -> $rootScope.loading = false)
-
-  $rootScope.scrollTo = (id) ->
-    old = $location.hash()
-    $location.hash(id)
-    $anchorScroll()
-    $location.hash(old)
 
   $rootScope.menuItems = [
     name: 'Home',
