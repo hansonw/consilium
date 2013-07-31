@@ -15,8 +15,9 @@ App.directive 'clickHref', ['$location', '$parse', '$timeout', '$anchorScroll', 
         $anchorScroll()
         $location.hash(old)
 
-        if margin = parseInt(attr.clickHrefMargin)
-          body = $('body')
+        body = $('body')
+        margin = parseInt(attr.clickHrefMargin)
+        if margin && $(window).scrollTop() + $(window).height() < body.height()
           body.scrollTop body.scrollTop() - margin
       else
         firstI = elem.find('i').first()
