@@ -1,45 +1,44 @@
 App.directive 'scrollFix', ->
   ($scope, $elem, $attr) ->
-    domElem = $($elem[0])
     win = $(window)
     scrollFixMargin = parseInt($attr.scrollFixMargin) || 30
-    offset = domElem.offset().top if domElem.is(':visible')
+    offset = $elem.offset().top if $elem.is(':visible')
     origHeight = null
 
     win.on 'scroll resize', handler = ->
-      return if not domElem.is(':visible')
-      origHeight = domElem.height() if !origHeight?
+      return if not $elem.is(':visible')
+      origHeight = $elem.height() if !origHeight?
       scrollFixCondition = Modernizr.mq($attr.scrollFixCondition || 'screen and (min-width:0)')
-      wasScrollFixCondition = domElem.data 'scroll-fix-condition'
+      wasScrollFixCondition = $elem.data 'scroll-fix-condition'
 
-      offset = domElem.offset().top if !offset
+      offset = $elem.offset().top if !offset
 
       scrollTop = win.scrollTop()
 
-      if not scrollFixCondition and domElem.data 'scroll-fixed'
-        domElem.data 'scroll-fixed', false
-        domElem.removeAttr 'style'
-      else if scrollFixCondition and scrollFixMargin + scrollTop >= offset and not domElem.data 'scroll-fixed'
+      if not scrollFixCondition and $elem.data 'scroll-fixed'
+        $elem.data 'scroll-fixed', false
+        $elem.removeAttr 'style'
+      else if scrollFixCondition and scrollFixMargin + scrollTop >= offset and not $elem.data 'scroll-fixed'
         scrollFixTime = 500 if not wasScrollFixCondition
 
         setTimeout ( ->
-          domElem.data 'scroll-fixed', true
+          $elem.data 'scroll-fixed', true
 
-          paddingLeft = parseInt(domElem.css 'padding-left')
-          paddingRight = parseInt(domElem.css 'padding-right')
-          paddingBottom = parseInt(domElem.css 'padding-bottom')
+          paddingLeft = parseInt($elem.css 'padding-left')
+          paddingRight = parseInt($elem.css 'padding-right')
+          paddingBottom = parseInt($elem.css 'padding-bottom')
 
-          domElem.css 'top', scrollFixMargin
-          domElem.css 'width', domElem.parent().width() - paddingLeft - paddingRight
-          domElem.css 'left', domElem.offset().left
-          domElem.css 'position', 'fixed'
-          domElem.css 'max-height', origHeight + paddingBottom
+          $elem.css 'top', scrollFixMargin
+          $elem.css 'width', $elem.parent().width() - paddingLeft - paddingRight
+          $elem.css 'left', $elem.offset().left
+          $elem.css 'position', 'fixed'
+          $elem.css 'max-height', origHeight + paddingBottom
         ), scrollFixTime
-      else if scrollFixMargin + scrollTop < offset and domElem.data 'scroll-fixed'
-        domElem.data 'scroll-fixed', false
-        domElem.removeAttr 'style'
+      else if scrollFixMargin + scrollTop < offset and $elem.data 'scroll-fixed'
+        $elem.data 'scroll-fixed', false
+        $elem.removeAttr 'style'
 
-      domElem.data 'scroll-fix-condition', scrollFixCondition
+      $elem.data 'scroll-fix-condition', scrollFixCondition
 
     $scope.$on '$destroy', ->
       win.off 'scroll resize', handler
