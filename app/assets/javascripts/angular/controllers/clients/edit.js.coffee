@@ -105,18 +105,22 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
         $location.url("/clients/show/#{$scope.client.id}")
 
     if $scope.clientId || $scope.clientForm.$dirty
-      if !$scope.clientForm.$valid
-        if confirm('Errors are preventing the form from being saved.\nAre you sure you wish to leave? Any changes will be discarded.')
-          $scope.clientForm.$setPristine()
-          if $scope.clientId || $scope.savedOnce
-            navigateToDoneURL()
-          else
-            window.history.back()
-      else if $scope.clientForm.$dirty
-        $scope.saveForm(true, navigateToDoneURL)
+      if $scope.clientForm.$dirty
+        if !$scope.clientForm.$valid
+          if confirm('Errors are preventing the form from being saved.\nAre you sure you wish to leave? Any changes will be discarded.')
+            $scope.clientForm.$setPristine()
+            if $scope.clientId || $scope.savedOnce
+              navigateToDoneURL()
+            else
+              window.history.back()
+        else
+          # Client may or may not exist yet, but we can still try to save.
+          $scope.saveForm(true, navigateToDoneURL)
       else
+        # Client exists, no changes.
         navigateToDoneURL()
     else
+      # Went to create new client, didn't enter anything. Just go back
       window.history.back()
 
   $scope.clientCompany = ->
