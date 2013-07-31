@@ -152,18 +152,20 @@ body {
   .table-header {
     margin-bottom: 20px;
     display: table;
+    width: 100%;
 
     > * {
       display: table-cell;
     }
 
     .table-search {
-      width: 100%;
+      width: 50%;
       vertical-align: bottom;
+      text-align: right;
     }
 
     .table-buttons {
-      text-align: right;
+      width: 50%;
       vertical-align: top;
     }
   }
