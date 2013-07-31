@@ -175,8 +175,8 @@ $client-form-nav-padding: 50px;
 }
 
 .section-edit {
-  @include respond-to(widescreens) { width: 175px; }
-  @include respond-to(desktops) { width: 175px; }
+  @include respond-to(widescreens) { width: 220px; }
+  @include respond-to(desktops) { width: 220px; }
 }
 
 .form-content {

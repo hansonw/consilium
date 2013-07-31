@@ -400,6 +400,10 @@ body {
     background: #3A98AB;
   }
 
+  .pure-button-tiny {
+    padding: 2px 8px;
+  }
+
   h3 {
     @include respond-to(handhelds) {
       margin-bottom: 0.7em;

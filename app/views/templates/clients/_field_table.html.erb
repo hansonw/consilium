@@ -1,6 +1,6 @@
 <div class="well" data-ng-class="changedSections.<%= field[:id] %> && 'changed'">
   <div id="<%= field[:id] %>" class="section">
-    <a class="section-edit pull-right pure-button pure-button-success"
+    <button class="section-edit pull-right pure-button pure-button-success"
        <% if field.has_key?(:createHref) %>
          <%= raw "data-click-href='#{h field[:createHref]}'" %>
        <% elsif field.has_key?(:createCallback) %>
@@ -12,7 +12,7 @@
       <i class="icon-plus pull-left"></i>
       <i class="icon-ellipsis-vertical pull-right"></i>
       <span class="only-desktops"><%= field[:buttonTitle] || "Add #{field[:name].singularize}" %></span>
-    </a>
+    </button>
     <h3 class="no-top-margin no-bottom-margin"><%= index %>. <%= field[:name] %></h3>
   </div>
   <%= render :partial => 'templates/action_table',

@@ -1,11 +1,12 @@
-<div class="subsection <%= field[:class] %>" section-id="<%= field[:id] %>" data-ng-class="changedSections.<%= field[:id] %> && 'changed'" animate-subsection>
+<div class="subsection <%= field[:class] %>" section-id="<%= field[:id] %>"
+     data-ng-class="changedSections.<%= field[:id] %> && 'changed'"
+     data-ng-click="subsectionVisible['<%= field[:id] %>'] = true"
+     animate-subsection>
   <div class="slider well"></div>
   <div class="subsection-outer" data-ng-class="{'active': subsectionVisible['<%= field[:id] %>']}">
     <div id="<%= field[:id] %>" class="section">
-      <a class="section-edit pull-right pure-button pure-button-primary"
-         data-ng-click="subsectionVisible['<%= field[:id] %>'] = !subsectionVisible['<%= field[:id] %>']">
-        <i class="pull-left" data-ng-class="{'icon-caret-down': !subsectionVisible['<%= field[:id] %>'], 'icon-caret-up': subsectionVisible['<%= field[:id] %>']}"></i>
-        <span class="only-desktops">{{ subsectionVisible['<%= field[:id] %>'] ? 'Collapse' : 'Expand' }}</span>
+      <a class="pull-right section-expand pure-button pure-button-tiny" data-ng-click="subsectionVisible['<%= field[:id] %>'] = !subsectionVisible['<%= field[:id] %>']" eat-click>
+        <i class="icon-xlarge" data-ng-class="{'icon-collapse-alt': subsectionVisible['<%= field[:id] %>'], 'icon-expand-alt': !subsectionVisible['<%= field[:id] %>']}"></i>
       </a>
       <h3 class="no-top-margin no-bottom-margin"><%= index %>. <%= field[:name] %></h3>
     </div>
