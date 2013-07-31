@@ -15,8 +15,10 @@ App.directive 'clickHref', ['$location', '$parse', '$timeout', '$anchorScroll', 
         $anchorScroll()
         $location.hash(old)
 
+        margin = 50
+        margin = parseInt(attr.clickHrefMargin) if Modernizr.mq(attr.clickHrefCondition || 'screen and (min-width:0)')
+
         body = $('body')
-        margin = parseInt(attr.clickHrefMargin)
         if margin && $(window).scrollTop() + $(window).height() < body.height()
           body.scrollTop body.scrollTop() - margin
       else

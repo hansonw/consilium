@@ -17,7 +17,7 @@
       <% fields.each_with_index do |field, index| %>
         <% if field[:type].is_a? Array %>
           <li data-ng-class="changedSections.<%= field[:id] %> && 'changed'">
-            <a href="" data-click-href="#<%= field[:id] %>" click-href-margin="50">
+            <a href="" data-click-href="#<%= field[:id] %>" click-href-margin="145" click-href-condition="screen and (min-height: 768px)">
               <span class="section-number"><%= getSectionId(index, fields) %>.</span> <%= field[:name] %>
             </a>
           </li>
