@@ -67,7 +67,7 @@ App.run ['$rootScope', '$location', '$timeout', 'Client', 'RecentClients', 'Offl
 
   $rootScope.checkOnline()
   # Also sync every time we navigate to a different page.
-  $rootScope.$on('$routeChangeSuccess', -> $timeout (-> Offline.sync(offlineClasses)), 2000)
+  $rootScope.$on('$routeChangeSuccess', -> Offline.sync(offlineClasses))
   $rootScope.$on('$routeChangeStart', -> $rootScope.loading = true)
   $rootScope.$on('$viewContentLoaded', -> $rootScope.loading = false)
 
