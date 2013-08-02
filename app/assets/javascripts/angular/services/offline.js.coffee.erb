@@ -202,6 +202,7 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
             # Delete the temporary model from the local DB if it exists.
             angular.extend(this, storage.update(data) || getData(data))
             storage.setLastSynced(Date.now(), @id)
+            @_isNew = false
             success(this) if success
           , (data) =>
               if data.status == 410 # GONE; deleted from the server
