@@ -19,6 +19,57 @@ class Api::ClientsController < Api::ApiController
     return val.is_a?(Hash) && val['updated_at']
   end
 
+  def sync_collection(dst, new_data, last_synced)
+    if !dst.is_a?(Array)
+      return new_data
+    end
+
+    destMap = Hash[ dst.map { |m| [m['id'], m] } ]
+    newMap = Hash[ new_data.map { |m| [m['id'], m] } ]
+
+    result = []
+
+    dst.each do |val|
+      if !newMap[val['id']] && val['created_at'].to_i > last_synced
+        result << val
+      end
+    end
+
+    new_data.each do |val|
+      if !destMap[val['id']] && val['created_at'].to_i < last_synced
+        # deleted on server
+      elsif destMap[val['id']]
+        sync_fields(destMap[val['id']], val, last_synced)
+        result << destMap[val['id']]
+      else
+        result << val
+      end
+    end
+
+    result.sort! { |x, y| x['id'] <=> y['id'] }
+    return result
+  end
+
+  def sync_fields(dst, new_data, last_synced)
+    # Don't allow client timestamps to exceed the server time
+    # (otherwise client can provide an arbitrarily large one to prevent future editing)
+    cur_time = (Time.now.to_f * 1000).to_i
+
+    new_data.each do |key, val|
+      if valid_value(val)
+        val['updated_at'] = [val['updated_at'].to_i || 1e99, cur_time].min
+        if !valid_value(dst[key])
+          dst[key] = val
+        elsif val['value'].is_a?(Array) && val['value'].first && val['value'].first['id']
+          dst[key]['value'] = sync_collection(dst[key]['value'], val['value'], last_synced)
+          dst[key]['updated_at'] = [dst[key]['updated_at'].to_i || 0, val['updated_at'].to_i || 0].max
+        elsif val['updated_at'].to_i > dst[key]['updated_at'].to_i
+          dst[key] = val
+        end
+      end
+    end
+  end
+
   # GET /clients
   # GET /clients.json
   def index
@@ -37,6 +88,12 @@ class Api::ClientsController < Api::ApiController
         end
       end
       @clients = @clients.where(select)
+    end
+
+    if params[:last_synced]
+      @clients = @clients.where("this.updated_at > #{params[:last_synced].to_i * 1000}")
+    else
+      @clients = @clients.where('deleted' => nil)
     end
 
     if params[:short]
@@ -68,7 +125,7 @@ class Api::ClientsController < Api::ApiController
   # GET /clients/1
   # GET /clients/1.json
   def show
-    @client = Client.where(:id => params[:id]).first
+    @client = Client.where(:id => params[:id], 'deleted' => nil).first
     if @client.nil?
       render json: '', status: :gone
       return
@@ -123,20 +180,11 @@ class Api::ClientsController < Api::ApiController
   def update
     @client = Client.new(client_params)
 
-    # Don't allow client timestamps to exceed the server time
-    # (otherwise client can provide an arbitrarily large one to prevent future editing)
-    cur_time = (Time.now.to_f * 1000).to_i
-
-    if existing = Client.where(:id => params[:id]).first
+    if existing = Client.where(:id => params[:id], 'deleted' => nil).first
       # Sync all fields
-      @client.attributes.each do |key, val|
-        if valid_value(val) &&
-           (!valid_value(existing[key]) || val['updated_at'] > existing[key]['updated_at'])
-          existing[key] = val
-          existing[key]['updated_at'] = [val['updated_at'], cur_time].min
-        end
-      end
-      @client = existing
+      result = existing.attributes
+      sync_fields(result, @client.attributes, params[:last_synced].to_i)
+      @client.assign_attributes(result)
     else
       # Must have been deleted by someone else.
       render json: '', status: :gone
@@ -144,7 +192,7 @@ class Api::ClientsController < Api::ApiController
     end
 
     respond_to do |format|
-      if @client.save
+      if @client.upsert
         # Create a new client change if necessary.
         ClientChange.update_client(@client, @user.id)
         format.json { render json: get_json(@client) }
@@ -153,11 +201,18 @@ class Api::ClientsController < Api::ApiController
       end
     end
   end
-
+  
   # DELETE /clients/1
   # DELETE /clients/1.json
   def destroy
+    # Destroy dependencies
     @client.destroy
+
+    # Put it back with a deleted flag, so we can sync the deletion
+    @client = Client.new(@client.attributes)
+    @client['deleted'] = true
+    @client.save
+
     render json: ''
   end
 

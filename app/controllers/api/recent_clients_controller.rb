@@ -20,7 +20,7 @@ class Api::RecentClientsController < Api::ApiController
   def clean(rc)
     clients = []
     rc.clients.each do |client|
-      if !Client.where('id' => client['id']).empty?
+      if !Client.where('id' => client['id'], 'deleted' => nil).empty?
         clients << client
       end
     end
@@ -40,7 +40,8 @@ class Api::RecentClientsController < Api::ApiController
     # Prevent excessive timestamp spoofing
     cur_time = (Time.now.to_f * 1000).to_i
     merged.each do |client|
-      if !clientIds[client['id']] && unique.length < limit && !Client.where('id' => client['id']).empty?
+      if !clientIds[client['id']] && unique.length < limit &&
+         !Client.where('id' => client['id'], 'deleted' => nil).empty?
         clientIds[client['id']] = true
         client['timestamp'] = [client['timestamp'], cur_time].min
         unique << client

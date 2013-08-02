@@ -26,62 +26,107 @@ defaultMatch = (params, data) ->
       return false
   return true
 
+syncCollection = (dest, existing, last_synced) ->
+  return if !(existing instanceof Array)
+
+  destMap = {}
+  destMap[val.id] = val for val in dest
+  existingMap = {}
+  existingMap[val.id] = val for val in dest
+
+  updated = false
+  result = []
+  for val in dest
+    if !existingMap[val.id] && val.created_at < last_synced
+      # must have been deleted locally.
+      updated = true
+    else if existingMap[val.id]
+      updated ||= syncFields(val, existingMap[val.id])
+      result.push(val)
+    else
+      result.push(val)
+
+  for val in existing
+    if !destMap[val.id] && val.created_at > last_synced
+      updated = true
+      result.push(val)
+
+  result.sort((a, b) -> (a.id || '').localeCompare(b.id || ''))
+  angular.copy(result, dest)
+  return updated
+
 # By default, assume every field has a 'value' and 'updated_at'. Sync based on the latest
-syncFields = (dest, newData) ->
+syncFields = (dest, existing, last_synced) ->
   updated = false
   # Check each field individually, and update
-  for key, val of newData
+  for key, val of existing
     if val.updated_at?
-      if !dest[key]?.updated_at? || dest[key].updated_at < val.updated_at
+      if (dest[key]?.value instanceof Array) && dest[key].value[0]?.id? # supports deep merging?
+        if !dest[key].updated_at? || val.updated_at > dest[key].updated_at
+          dest[key].updated_at = val.updated_at
+        updated ||= syncCollection(dest[key].value, val.value, last_synced)
+      else if !dest[key]?.updated_at? || dest[key].updated_at < val.updated_at
         dest[key] = val
         updated = true
+
   return updated
 
 # Wraps the localstorage class.
 class LocalStorage
   constructor: (@AuthToken, @key, @sync_fn) ->
+    @obj_last_synced = {}
 
   storageKey: ->
     @AuthToken.get().email + ':' + @key
 
-  get_db: ->
+  getDB: ->
     try
       return angular.fromJson(window.localStorage.getItem(@storageKey()))
     catch err
       return {}
 
-  save_db: (db) ->
+  saveDB: (db) ->
     window.localStorage.setItem(@storageKey(), angular.toJson(db))
 
-  insert: (resource, overwrite = false) ->
+  getLastSynced: (obj) ->
+    return (obj? && @obj_last_synced[obj]) ||
+      +window.localStorage.getItem(@storageKey() + '.lastSynced') || 0
+
+  setLastSynced: (time, obj) ->
+    if obj?
+      @obj_last_synced[obj] = time
+    else
+      window.localStorage.setItem(@storageKey() + '.lastSynced', time)
+
+  update: (resource, overwrite = false) ->
     data = getData(resource)
 
-    db = @get_db() || {}
-    if db[data.id] && !overwrite
-      existing = db[data.id]
-      # Prioritize local deletions over changes (for now)
-      if existing.id == null
+    db = @getDB() || {}
+    need_update = false
+    if !overwrite && (existing = db[data.id])
+      if !existing.id? # deleted
         return existing
-      need_update = @sync_fn(data, existing)
+      need_update = @sync_fn(data, existing, @getLastSynced(data.id))
 
     db[data.id] = data
-    @save_db(db)
+    @saveDB(db)
     return if need_update then data else null
 
   delete: (id, permanent = false) ->
-    db = @get_db() || {}
+    db = @getDB() || {}
     if permanent
       delete db[id]
     else
       # Mark for deletion. Can't actually delete, or we won't be able to sync it
       db[id].id = null
-    @save_db(db)
+      db[id].updated_at = Date.now()
+    @saveDB(db)
 
   get: (id) ->
-    @get_db()?[id]
+    @getDB()?[id]
 
-  get_all: ->
-    @get_db()? && (key for val, key of @get_db())
+  getAll: ->
+    @getDB()? && (key for val, key of @getDB())
 
 # Wraps an angular HTTP resource with offline functionality.
 App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeout, AuthToken) -> {
@@ -121,26 +166,26 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
       constructor: (data = {}) ->
         rsrc = new resource(data)
         angular.extend(this, rsrc)
+
+        timestamp = Date.now()
+        @created_at ||= timestamp
+        @updated_at ||= timestamp
+
         # Generate a nearly guaranteed unique id.
         @generateId() if !@id
         @_save = rsrc.$save.bind(this)
         @_create = rsrc.$create.bind(this)
         @_delete = rsrc.$delete.bind(this)
 
-      _pad: (str, len) ->
-        while str.length < len
-          str = '0' + str
-        return str
-
-      isNew: ->
-        @IS_NEW
-
       generateId: ->
-        @id = Date.now().toString(16) + @_pad(Math.floor(Math.random() * 1e9).toString(16), 9)
-        @IS_NEW = true
+        @id = generateGUID()
+        @_isNew = true
 
       getData: ->
         getData(this)
+
+      isNew: ->
+        @_isNew || @created_at > storage.getLastSynced(@id)
 
       $save: (success, error) ->
         existing = storage.get(@id)
@@ -148,27 +193,28 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
           if val.value? && !angular.equals(val.value, existing?[key]?.value)
             @[key].updated_at = Date.now() # Estimate. Will be updated by the server
 
+        @created_at = @updated_at = Date.now() if @_isNew
+        storage.update(this, true)
+
         if online()
           save_fn = if @isNew() then @_create else @_save
-          save_fn(AuthToken.addAuthTokenToJSONRequest({}), (data) =>
+          save_fn(AuthToken.addAuthTokenToJSONRequest({last_synced: storage.getLastSynced(@id)}), (data) =>
             # Delete the temporary model from the local DB if it exists.
-            angular.extend(this, data)
-            storage.insert(data)
-            angular.extend(this, storage.get(@id))
-            success(data) if success
+            angular.extend(this, storage.update(data) || getData(data))
+            storage.setLastSynced(Date.now(), @id)
+            success(this) if success
           , (data) =>
               if data.status == 410 # GONE; deleted from the server
                 storage.delete(@id, true)
               else if data.status == 422 # Validation failed for some reason. Don't save
               else # can't reach the server, we'll just leave it as is
-                storage.insert(this)
-                OfflineResource.defer(=> success(data)) if success
+                storage.update(this)
+                OfflineResource.defer(=> success(this)) if success
                 return
               OfflineResource.defer(=> error(data)) if error
           )
         else
-          storage.insert(this)
-          success() if success
+          success(this) if success
 
       $delete: ->
         storage.delete(@id)
@@ -179,44 +225,52 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
       @defer: (fn) ->
         $timeout(fn, 0)
 
-      @syncWithLocal: (data) ->
-        existing = storage.insert(data)
-        if existing?
-          if existing.id != null
-            angular.extend(data, existing)
-            # After the server's done merging, take that as the 'truth'
-            offline = new OfflineResource(existing)
+      @synced_recently: ->
+        # Synced in the last 10 seconds
+        Date.now() - storage.getLastSynced() < 10
+
+      @syncObject: (data) ->
+        updated = storage.update(data)
+        if updated?
+          if updated.id != null
+            angular.extend(data, updated)
+            # Let the server possibly merge again.
+            # (e.g. to update the timestamps properly)
+            offline = new OfflineResource(updated)
             data.$save((data2) ->
-              storage.insert(data2, true)
-              angular.extend(data2, offline)
+              storage.update(data2, true)
+              angular.extend(offline, data2)
+              storage.setLastSynced(Date.now(), data.id)
             ) if online()
           else
-            data.$delete() if online()
+            data.$delete(-> storage.delete(id, true)) if online()
             return null
         else
+          storage.setLastSynced(Date.now(), data.id)
           offline = new OfflineResource(getData(data))
         return offline
 
       @sync: (success, error) ->
         # Super simple sync function that checks everything. Can easily be made more efficient
         if online()
-          resource.query(AuthToken.addAuthTokenToJSONRequest({}), (data) =>
-            serverIds = {}
+          last_sync = storage.getLastSynced()
+          resource.query(AuthToken.addAuthTokenToJSONRequest({last_synced: last_sync}), (data) =>
             for item in data
-              serverIds[item.id] = true
-              @syncWithLocal(item)
+              if item.deleted
+                storage.delete(item.id, true)
+              else
+                @syncObject(item)
 
-            for id, val of storage.get_db()
+            for id, val of storage.getDB()
               if !val.id?
                 offline = new OfflineResource(val)
                 offline.id = id
-                offline.$delete()
-                storage.delete(id, true)
-              else if val.IS_NEW
+                offline.$delete(-> storage.delete(id, true))
+              else if val.created_at > last_sync
                 offline = new OfflineResource(val)
                 offline.$save()
-              else if !serverIds[id]
-                storage.delete(id, true) # Server already deleted these.
+
+            storage.setLastSynced(Date.now())
             success(data) if success
           , error || angular.noop)
         else
@@ -235,17 +289,17 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
             else
               @defer(=> error(data)) if error
           else if match_fn
-            for val in storage.get_all()
+            for val in storage.getAll()
               if val.id? && match_fn(params, val)
                 angular.extend(res, val)
                 @defer(=> success(res)) if success
                 return
             @defer(=> error(data)) if error
 
-        if online()
+        if online() && !@synced_recently()
           resource.get(AuthToken.addAuthTokenToJSONRequest(params),
             (data) =>
-              @syncWithLocal(data)
+              @syncObject(data)
               queryLocal()
           , (data) =>
               if data.status == 410 # GONE; this means it was deleted
@@ -263,7 +317,7 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
       @query: (params, success, error) ->
         res = []
         queryLocal = (data) =>
-          stored = storage.get_all()
+          stored = storage.getAll()
           if stored != false
             start = params.start || 0
             limit = params.limit || 1e9
@@ -294,14 +348,14 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
           else
             @defer(=> error(data)) if error
 
-        if online()
+        if online() && !@synced_recently()
           resource.query(AuthToken.addAuthTokenToJSONRequest(params),
             (data) =>
               for result in data
                 if params['short']
                   res.push(new OfflineResource(getData(result)))
                 else
-                  res.push(@syncWithLocal(result))
+                  res.push(@syncObject(result))
               success(res) if success
             , queryLocal)
         else

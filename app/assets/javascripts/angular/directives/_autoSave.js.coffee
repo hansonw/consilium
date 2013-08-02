@@ -121,12 +121,16 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', ($locatio
         alert("Please fix the following errors:\n" + $scope.errorText(modalForm.$error))
         return
 
-      # Evaluation, validation code, etc. should go here.
-      # collection -- the collection of objects getting pushed to
-      # obj -- the object being pushed
+      obj.id ||= generateGUID()
+      obj.updated_at = Date.now()
+      obj.created_at ||= obj.updated_at
 
       if obj.$index?
         # Remove the index field and add it back
+        prev = collection[obj.$index]
+        for key, val of obj
+          if prev[key]?.value != val.value
+            val['updated_at'] = Date.now()
         collection[obj.$index] = obj
         delete obj.$index
       else
