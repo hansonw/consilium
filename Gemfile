@@ -27,16 +27,16 @@ gem 'jbuilder', '~> 1.0.1'
 gem 'mongoid', :git => 'https://github.com/mongoid/mongoid.git'
 
 # BSON extension for Mongoid.
-#gem 'bson_ext'
+# gem 'bson_ext'
 
 # Normalize (foundation for Pure.CSS)
-gem 'normalize-rails'
+# gem 'normalize-rails'
 
 # User authentication and registration.
 gem 'devise', :git => 'https://github.com/plataformatec/devise.git'
 
 # User permissions.
-gem 'cancan'
+# gem 'cancan'
 
 # AngularJS client-side MVC framework.
 gem 'angularjs-rails'
@@ -62,13 +62,13 @@ end
 # gem 'turbolinks'
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.0.0'
+# gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the app server
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-gem 'capistrano', group: :development
+# gem 'capistrano', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
