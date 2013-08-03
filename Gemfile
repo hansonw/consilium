@@ -21,10 +21,10 @@ gem 'jquery-ui-rails'
 gem 'modernizr-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.0.1'
+gem 'jbuilder', '~> 1.2.0'
 
 # MongoDB object mapper.
-gem 'mongoid', :git => 'https://github.com/mongoid/mongoid.git'
+gem 'mongoid', github: 'mongoid/mongoid'
 
 # BSON extension for Mongoid.
 # gem 'bson_ext'
@@ -33,7 +33,7 @@ gem 'mongoid', :git => 'https://github.com/mongoid/mongoid.git'
 # gem 'normalize-rails'
 
 # User authentication and registration.
-gem 'devise', :git => 'https://github.com/plataformatec/devise.git'
+gem 'devise', github: 'plataformatec/devise'
 
 # User permissions.
 # gem 'cancan'
@@ -42,7 +42,7 @@ gem 'devise', :git => 'https://github.com/plataformatec/devise.git'
 gem 'angularjs-rails'
 
 # YDocx for docx templating
-gem 'ydocx', :git => 'https://github.com/DouglasSherk/ydocx.git'
+gem 'ydocx', github: 'DouglasSherk/ydocx'
 
 # CORS handling from Rack
 gem 'rack-cors', :require => 'rack/cors'
