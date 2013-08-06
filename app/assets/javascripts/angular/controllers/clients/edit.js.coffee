@@ -1,6 +1,6 @@
 # This doubles as the new client view (if no client ID is provided)
-App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$location', '$parse', '$rootScope', 'Client', 'ClientChange', 'RecentClients', 'Auth', 'Modal', 'Flash',\
-                                   ($scope, $routeParams, $timeout, $location, $parse, $rootScope, Client, ClientChange, RecentClients, Auth, Modal, Flash) ->
+App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$location', '$parse', '$rootScope', 'Client', 'ClientChange', 'RecentClients', 'Auth', 'Modal', 'Flash', 'Scroll',\
+                                   ($scope, $routeParams, $timeout, $location, $parse, $rootScope, Client, ClientChange, RecentClients, Auth, Modal, Flash, Scroll) ->
   Auth.checkLogin()
 
   $scope.clientId = $routeParams.clientId
@@ -43,7 +43,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
           Flash.set('client-focusSection', 'locations')
         else if Flash.get('client-focusSection')
           $timeout (->
-            $rootScope.scrollTo(Flash.get('client-focusSection'))
+            Scroll.to Flash.get('client-focusSection'), 50
           ), 0
 
         $scope.loading = false

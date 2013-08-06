@@ -1,4 +1,4 @@
-App.directive 'clickHref', ['$location', '$parse', '$timeout', '$anchorScroll', ($location, $parse, $timeout, $anchorScroll) ->
+App.directive 'clickHref', ['$location', '$parse', '$timeout', 'Scroll', ($location, $parse, $timeout, Scroll) ->
   ($scope, $elem, attr) ->
     elem = $elem
     tag = $elem.get(0).tagName.toLowerCase()
@@ -10,17 +10,10 @@ App.directive 'clickHref', ['$location', '$parse', '$timeout', '$anchorScroll', 
 
     $elem.click (e) ->
       if attr.clickHref.slice(0, 1) == '#' && attr.clickHref.indexOf('/') == -1
-        old = $location.hash()
-        $location.hash(attr.clickHref.slice(1))
-        $anchorScroll()
-        $location.hash(old)
-
         margin = 50
         margin = parseInt(attr.clickHrefMargin) if Modernizr.mq(attr.clickHrefCondition || 'screen and (min-width:0)')
 
-        body = $('body')
-        if margin && $(window).scrollTop() + $(window).height() < body.height()
-          body.scrollTop body.scrollTop() - margin
+        Scroll.to attr.clickHref.slice(1), margin
       else
         firstI = elem.find('i').first()
         if firstI.length
