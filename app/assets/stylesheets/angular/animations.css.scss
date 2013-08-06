@@ -1,0 +1,16 @@
+@import '../shared/constants';
+@import '../shared/utilities';
+
+body {
+  .flash-on-update + table tr {
+    @include transition();
+
+    &.flash-create {
+      background-color: rgba(76, 180, 71, 0.5) !important;
+    }
+
+    &.flash-edit {
+      background-color: rgba(0, 120, 231, 0.5) !important;
+    }
+  }
+}

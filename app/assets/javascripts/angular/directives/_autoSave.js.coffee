@@ -1,4 +1,4 @@
-App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', ($location, $parse, $timeout, Modal) ->
+App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', ($location, $parse, $timeout, Modal, Flash) ->
   ($scope, $elem, attr) ->
     form = $scope[$elem.attr('name')]
     model = attr.autoSave
@@ -133,8 +133,13 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', ($locatio
             val['updated_at'] = Date.now()
         collection[obj.$index] = obj
         delete obj.$index
+        Flash.set 'flashType', 'edit'
       else
         collection.push(obj)
+        Flash.set 'flashType', 'create'
+
+      Flash.set 'flashCollection', objName
+      Flash.set 'flashId', obj.id
 
       form.$setDirty()
       Modal.toggleModal(objName)

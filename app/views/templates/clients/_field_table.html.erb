@@ -1,5 +1,5 @@
 <div class="well" data-ng-class="changedSections.<%= field[:id] %> && 'changed'">
-  <div id="<%= field[:id] %>" class="section">
+  <div id="<%= field[:id] %>" class="section flash-on-update">
     <button class="section-edit pull-right pure-button pure-button-success"
        <% if field.has_key?(:createHref) %>
          <%= raw "data-click-href='#{h field[:createHref]}'" %>
