@@ -36,7 +36,7 @@ gem 'mongoid', github: 'mongoid/mongoid'
 gem 'devise', github: 'plataformatec/devise'
 
 # User permissions.
-# gem 'cancan'
+gem 'cancan'
 
 # AngularJS client-side MVC framework.
 gem 'angularjs-rails'
