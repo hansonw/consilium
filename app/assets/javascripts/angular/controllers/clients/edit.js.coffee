@@ -127,16 +127,18 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     $parse('client.company.value')($scope)
 
   $scope.title = ->
+    title = ''
     if $scope.inLocation
       if $scope.locationId
         locationNumber = $parse('client.locations.value[locationId].locationNumber.value')($scope) || ''
-        return 'Location ' + locationNumber
+        title = 'Location ' + locationNumber
       else
-        return 'Location '
-    else if $scope.clientChangeId
-      return 'History' + (if $scope.clientCompany() then ': ' + $scope.clientCompany() else '')
-    else if $scope.clientId
-      return 'Details' + (if $scope.clientCompany() then ': ' + $scope.clientCompany() else '')
+        title = 'Location'
+    else if $scope.clientChangeId || $scope.clientId
+      title = $scope.clientCompany() || 'Client'
     else
-      return 'Client Details'
+      title = 'Client'
+
+    title = (if $scope.clientChangeId then 'History' else 'Details') +
+            (if title == '' then title else ': ' + title)
 ]
