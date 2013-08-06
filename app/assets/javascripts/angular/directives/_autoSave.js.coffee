@@ -125,10 +125,6 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', 
       
       if obj.$index?
         # Remove the index field and add it back
-        prev = collection[obj.$index]
-        for key, val of obj
-          if prev[key]?.value != val.value
-            val['updated_at'] = Date.now()
         collection[obj.$index] = obj
         delete obj.$index
         Flash.set 'flashType', 'edit'

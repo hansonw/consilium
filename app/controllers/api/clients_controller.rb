@@ -23,7 +23,7 @@ class Api::ClientsController < Api::ApiController
     if data.is_a?(Hash)
       # Don't allow client timestamps to exceed the server time
       # (otherwise client can provide an arbitrarily large one to prevent future editing)
-      cur_time = (Time.now.to_f * 1000).to_i
+      cur_time = Time.now.to_i
 
       if data['updated_at']
         data['updated_at'] = mark_new ? cur_time : [cur_time, data['updated_at'].to_i].min
@@ -79,7 +79,7 @@ class Api::ClientsController < Api::ApiController
 
   def sync_fields(dst, new_data, last_synced)
     # Use server timestamps for everything
-    cur_time = (Time.now.to_f * 1000).to_i
+    cur_time = Time.now.to_i
     updated = false
 
     new_data.each do |key, val|
