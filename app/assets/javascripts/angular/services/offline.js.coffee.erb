@@ -41,7 +41,7 @@ syncCollection = (dest, newData, last_synced) ->
       # must have been deleted locally.
       updated = true
     else if existingMap[val.id]
-      updated ||= syncFields(val, existingMap[val.id])
+      updated |= syncFields(val, existingMap[val.id])
       result.push(val)
     else
       result.push(val)
@@ -64,7 +64,7 @@ syncFields = (dest, newData, last_synced, overwrite) ->
       if (dest[key]?.value instanceof Array) && dest[key].value[0]?.id? # supports deep merging?
         if !dest[key].updated_at? || val.updated_at > dest[key].updated_at
           dest[key].updated_at = val.updated_at
-        updated ||= syncCollection(dest[key].value, val.value, last_synced)
+        updated |= syncCollection(dest[key].value, val.value, last_synced)
       else if !dest[key]?.updated_at? || dest[key].updated_at < val.updated_at
         dest[key] = val
         updated = true
@@ -75,16 +75,18 @@ syncFields = (dest, newData, last_synced, overwrite) ->
   return updated
 
 markCollectionChanges = (newData, oldData) ->
-    updated = (newData.length != oldData.length)
-    oldIDs = {}
+  # null oldData can be provided.
+  updated = (newData.length != oldData?.length)
+  oldIDs = {}
+  if oldData?
     oldIDs[val.id] = val for val in oldData
-    for val in newData
-      if old = oldIDs[val.id]
-        updated ||= markChanges(val, old)
-      else
-        val.created_at = val.updated_at = Date.now()
-        updated = true
-    return updated
+  for val in newData
+    if old = oldIDs[val.id]
+      updated |= markChanges(val, old)
+    else
+      val.created_at = val.updated_at = Date.now()
+      updated = true
+  return updated
 
 markChanges = (newData, oldData) ->
   updated = false
@@ -93,7 +95,7 @@ markChanges = (newData, oldData) ->
     valUpdated = false
     newVal = val?.value
     oldVal = oldData?[key]?.value
-    if (newVal instanceof Array) && (oldVal instanceof Array)
+    if (newVal instanceof Array)
       valUpdated = markCollectionChanges(newVal, oldVal)
     else
       valUpdated = !angular.equals(newVal, oldVal)

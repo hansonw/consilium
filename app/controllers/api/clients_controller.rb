@@ -19,6 +19,30 @@ class Api::ClientsController < Api::ApiController
     return val.is_a?(Hash) && val['updated_at']
   end
 
+  def fix_timestamps(data, mark_new = false)
+    if data.is_a?(Hash)
+      # Don't allow client timestamps to exceed the server time
+      # (otherwise client can provide an arbitrarily large one to prevent future editing)
+      cur_time = (Time.now.to_f * 1000).to_i
+
+      if data['updated_at']
+        data['updated_at'] = mark_new ? cur_time : [cur_time, data['updated_at'].to_i].min
+      end
+      if data['created_at']
+        data['created_at'] = mark_new ? cur_time : [cur_time, data['created_at'].to_i, data['updated_at'] || 1e99].min
+      end
+      if data['value']
+        fix_timestamps(data['value'])
+      end
+    elsif data.is_a?(Array)
+      data.each do |v|
+        fix_timestamps(v)
+      end
+    end
+
+    return data
+  end
+
   def sync_collection(dst, new_data, last_synced)
     updated = false
 
@@ -39,10 +63,10 @@ class Api::ClientsController < Api::ApiController
       if !destMap[val['id']] && val['created_at'].to_i < last_synced
         # deleted on server
       elsif destMap[val['id']]
-        updated ||= sync_fields(destMap[val['id']], val, last_synced)
+        updated |= sync_fields(destMap[val['id']], val, last_synced)
         result << destMap[val['id']]
       else
-        result << val
+        result << fix_timestamps(val, true)
         updated = true
       end
     end
@@ -62,12 +86,12 @@ class Api::ClientsController < Api::ApiController
       if valid_value(val)
         val_updated = true
         if !valid_value(dst[key])
-          dst[key] = val
+          dst[key] = fix_timestamps(val, true)
         elsif dst[key]['value'].is_a?(Array) && val['value'].is_a?(Array) &&
               val['value'].first && val['value'].first['id']
           val_updated = sync_collection(dst[key]['value'], val['value'], last_synced)
         elsif val['updated_at'].to_i > dst[key]['updated_at'].to_i
-          dst[key] = val
+          dst[key] = fix_timestamps(val)
         else
           val_updated = false
         end
@@ -83,29 +107,6 @@ class Api::ClientsController < Api::ApiController
     if updated
       dst['updated_at'] = cur_time
       dst['created_at'] ||= cur_time
-    end
-  end
-
-  def fix_timestamps(data)
-    if data.is_a?(Hash)
-      # Don't allow client timestamps to exceed the server time
-      # (otherwise client can provide an arbitrarily large one to prevent future editing)
-      cur_time = (Time.now.to_f * 1000).to_i
-
-      if data['updated_at']
-        data['updated_at'] = [cur_time, data['updated_at'].to_i].min
-      end
-      if data['created_at']
-        data['created_at'] = [cur_time, data['created_at'].to_i, data['updated_at'] || 1e99].min
-      end
-
-      data.each do |k, v|
-        fix_timestamps(v)
-      end
-    elsif data.is_a?(Array)
-      data.each do |v|
-        fix_timestamps(v)
-      end
     end
   end
 
@@ -215,7 +216,6 @@ class Api::ClientsController < Api::ApiController
       # Sync all fields
       result = existing.attributes
       sync_fields(result, @client.attributes, params[:last_synced].to_i)
-      fix_timestamps(result)
       @client.assign_attributes(result)
     else
       # Must have been deleted by someone else.
