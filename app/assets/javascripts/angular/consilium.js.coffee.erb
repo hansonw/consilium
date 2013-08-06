@@ -36,11 +36,14 @@ App.run ['$rootScope', '$location', '$timeout', 'Client', 'RecentClients', 'Offl
 
   # NOTE: This is for presentation purposes only. The flag indicating whether or not the user
   # is functionally logged in or not is in the Auth service.
-  $rootScope.isLoggedIn = true
+  $rootScope.isLoggedIn = Auth.isLoggedIn()
   $rootScope.logout = -> Auth.logout()
   Auth.watch (isLoggedIn) ->
     $rootScope.isLoggedIn = isLoggedIn
     $location.url(if isLoggedIn then '/' else '/auth/login')
+
+  if $location.url() != '/auth/login' && !Auth.isLoggedIn()
+    $location.url('/auth/login')
 
   $rootScope.online_status = true
   $rootScope.last_sync_success = true

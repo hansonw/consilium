@@ -39,7 +39,7 @@ App.factory 'AuthHttpInterceptor', ['$q', '$window', '$rootScope', 'AuthSessionS
 
 App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($http, $location, AuthToken, AuthSessionStatus) ->
   service =
-    _isLoggedIn: true
+    _isLoggedIn: AuthToken.get()?.email?.length
     _watches: []
     isLoggedIn: -> @_isLoggedIn
     login: (credentials) ->
