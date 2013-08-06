@@ -31,10 +31,8 @@ class ClientChange
 
     new_arr.map do |val|
       old_val = old_ids[val['id']]
-      if old_val.nil?
-        'created'
-      elsif val != old_val
-        'changed'
+      if val != old_val
+        get_changed_fields(val, old_val)
       else
         false
       end

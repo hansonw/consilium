@@ -19,7 +19,7 @@
              :locals => {
                :name => 'data',
                :model => "#{root || 'client'}.#{field[:id]}.value",
-               :rowClass => "changedFields.#{field[:id]}[$index]",
+               :rowClass => "{changed: changedFields.#{field[:id]}[$index]}",
                :rowClick => field[:editCallback] ||
                             !field[:editHref] && "editInField('#{field[:id]}', '#{local_assigns[:root]}', $index)",
                :rowHref => field[:editHref],

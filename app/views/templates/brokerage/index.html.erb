@@ -44,7 +44,7 @@
         <div class="pure-form-fields">
           <% Brokerage::FIELDS.each do |field| %>
             <% if !field[:type].is_a?(Array) %>
-              <%= form_field field, 'brokerage', false %>
+              <%= form_field field, 'brokerage', :syncable => false %>
             <% end %>
           <% end %>
         </div>

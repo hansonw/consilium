@@ -22,7 +22,11 @@
           <% else %>
             <div class="pure-form-fields">
               <% field[:type].each do |subfield| %>
-                <%= form_field subfield, field[:id], defined?(syncable) ? syncable : true, local_assigns[:root] %>
+                <%= form_field subfield, field[:id], {
+                      :syncable => defined?(syncable) ? syncable : true,
+                      :model_parent => local_assigns[:root],
+                      :changed => "{changed: changedFields.#{field[:id]}[#{field[:id]}.$index].#{subfield[:id]}}"
+                    } %>
               <% end %>
             </div>
           <% end %>

@@ -1,19 +1,22 @@
 module FormHelper
-  def model_name(field_name, parent_field, syncable)
+  def model_name(field_name, parent_field, options)
     return if field_name.nil?
     # Pull out any expressions contained within the field name and add them back
     # after we append |.value|, if we're going to.
     expr = /(  *)(!)?(=)?(\=|<|>).*$/.match field_name
     field_name = field_name.sub(expr.to_s, '')
-    model = "#{parent_field}.#{field_name}" + (syncable ? '.value' : '')
+    model = "#{parent_field}.#{field_name}" + (options[:syncable] ? '.value' : '')
     model = model + expr.to_s
     return model
   end
 
-  def form_field(field, parent_field, syncable = true, *model_parent)
+  def form_field(field, parent_field, options = {})
+    if !options.has_key?(:syncable)
+      options[:syncable] = true
+    end
     parent_field = 'client' if parent_field.nil?
 
-    model = model_name(field[:id], parent_field, syncable)
+    model = model_name(field[:id], parent_field, options)
     if field[:if]
       if field[:if].start_with? '$'
         showIf = field[:if][1..-1]
@@ -26,7 +29,7 @@ module FormHelper
         end
 
         parts = showIf.split('.')
-        parts[0] = model_name(parts[0], parent_field, syncable)
+        parts[0] = model_name(parts[0], parent_field, options)
         if parts.length > 1
           showIf = parts.join('.') # checkbox
         else
@@ -59,11 +62,11 @@ module FormHelper
             #{field[:if] && "data-show-emit='#{h showIf}'"}>
          <label for='#{field[:id]}'
                 #{field[:required] && "class='required'"}
-                #{"data-ng-class='{changed: changedFields.#{field[:id]}}'"}>
+                #{"data-ng-class='#{options[:changed] || "{changed: changedFields.#{field[:id]}}"}'"}>
            #{field[:name]}
            <div class='error-tooltip' error-tooltip='#{field[:id]}' />
          </label>
-         #{ng_input(field, model, model_parent[0])}
+         #{ng_input(field, model, options)}
        </div>"
   end
 
@@ -71,7 +74,7 @@ module FormHelper
     return "ng-pattern='/#{str}/' pattern='#{str}'"
   end
 
-  def ng_input(field, model, *model_parent)
+  def ng_input(field, model, options)
     r = ''
 
     case field[:type]
@@ -79,7 +82,7 @@ module FormHelper
       dropdownString = "<div class='dropdown-field'>
                           <select class='dropdown-list #{field[:id]}' name='#{field[:id]}'
                             data-dropdown-other='#{model}'
-                            #{field[:intelligentOther] && "model='#{h model_parent[0]}'"}
+                            #{field[:intelligentOther] && "model='#{h options[:model_parent]}'"}
                             #{field[:required] && 'required'}
                             #{field[:intelligentStates] && 'intelligentStates'}
                             #{field[:intelligentOther] && 'intelligent-other'}>

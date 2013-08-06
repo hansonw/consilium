@@ -17,11 +17,6 @@ $client-form-nav-padding: 50px;
     padding-left: $client-form-nav-width;
   }
 
-  label.changed {
-    background: $light-green;
-    @include border-radius(5px);
-  }
-
   .form-nav {
     @include transition();
 
@@ -89,10 +84,6 @@ $client-form-nav-padding: 50px;
     }
 
     tr.changed {
-      background: rgba(0, 120, 231, 0.2);
-    }
-
-    tr.created {
       background: darken($light-green, 10%);
     }
   }
@@ -139,6 +130,11 @@ $client-form-nav-padding: 50px;
     background-color: $light-gray;
     @include ng-scope-hover();
   }
+}
+
+label.changed {
+  background: $light-green;
+  @include border-radius(5px);
 }
 
 .client-header {
