@@ -19,7 +19,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   # TODO: error should be modal
   $scope.loading = true
   if $scope.clientChangeId
-    $scope.clientChange = ClientChange.get(id: $scope.clientChangeId,
+    $scope.clientChange = ClientChange.get({id: $scope.clientChangeId, location_id: $scope.locationId},
       (->
         $scope.loading = false
         $scope.client = $scope.clientChange.client_data

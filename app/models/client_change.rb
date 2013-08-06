@@ -1,3 +1,5 @@
+require 'andand'
+
 class ClientChange
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -21,13 +23,34 @@ class ClientChange
     end
   end
 
+  def self.collection_diff(new_arr, old_arr)
+    old_ids = {}
+    if old_arr.is_a?(Array)
+      old_ids = Hash[old_arr.map { |x| [x['id'], x] }]
+    end
+
+    new_arr.map do |val|
+      old_val = old_ids[val['id']]
+      if old_val.nil?
+        'created'
+      elsif val != old_val
+        'changed'
+      else
+        false
+      end
+    end
+  end
+
   def self.get_changed_fields(new_client, old_client)
-    changed_fields = []
+    changed_fields = {}
 
     new_client.each do |key, val|
       if val.is_a?(Hash) && val['value']
-        if !value_equals(val['value'], old_client && old_client[key] && old_client[key]['value'])
-          changed_fields << key
+        if !value_equals(val['value'], old_client.andand[key].andand['value'])
+          changed_fields[key] = true
+          if val['value'].is_a?(Array)
+            changed_fields[key] = collection_diff(val['value'], old_client.andand[key].andand['value'])
+          end
         end
       end
     end
@@ -35,14 +58,14 @@ class ClientChange
     unless old_client.nil?
       old_client.each do |key, val|
         if val.is_a?(Hash) && val['value']
-          if !value_equals(val['value'], new_client && new_client[key] && new_client[key]['value'])
-            changed_fields << key
+          if !value_equals(val['value'], new_client.andand[key].andand['value'])
+            changed_fields[key] ||= true
           end
         end
       end
     end
 
-    changed_fields.uniq
+    changed_fields
   end
 
   def self.get_change_description(new_client, old_client)
@@ -51,7 +74,7 @@ class ClientChange
     end
 
     changed_fields = get_changed_fields(new_client, old_client)
-    changed_fields = changed_fields.sort.map do |field_id|
+    changed_fields = changed_fields.keys.sort.map do |field_id|
       field_id.underscore.humanize.downcase
     end
 

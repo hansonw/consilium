@@ -32,7 +32,8 @@
         <%= " | orderBy:(#{model}Predicate + '.value || ' + #{model}Predicate):#{model}Reverse" if local_assigns[:sortable] && !sortable[:server_side] -%>
         <%= " | startFrom:pagination['#{model}'].start | limitTo:pagination['#{model}'].limit" if local_assigns[:pagination] %>"
         <%= local_assigns[:rowHref] && raw("data-click-href='#{h rowHref}'") %>
-        <%= local_assigns[:rowClick] && raw("data-ng-click='#{h rowClick}'") %> data-item-id="{{ item.id }}" >
+        <%= local_assigns[:rowClick] && raw("data-ng-click='#{h rowClick}'") %>
+        <%= local_assigns[:rowClass] && raw("data-ng-class='#{h rowClass}'") %> data-item-id="{{ item.id }}" >
       <% fields.each do |field| %>
         <td class="<%= field[:class] %>"><%= raw field[:content] %></td>
       <% end %>

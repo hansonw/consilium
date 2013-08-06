@@ -306,6 +306,16 @@ button, input, select, textarea {
 
         &.other-dropdown {
           width: $dropdown-width;
+
+          &[readonly] {
+            display: none;
+
+            + .other-field {
+              input {
+                margin: 0;
+              }
+            }
+          }
         }
       }
 

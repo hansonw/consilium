@@ -87,6 +87,14 @@ $client-form-nav-padding: 50px;
     .changed {
       background: darken($light-green, 10%);
     }
+
+    tr.changed {
+      background: rgba(0, 120, 231, 0.2);
+    }
+
+    tr.created {
+      background: darken($light-green, 10%);
+    }
   }
 
   .transitionOn {

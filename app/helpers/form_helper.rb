@@ -59,7 +59,7 @@ module FormHelper
             #{field[:if] && "data-show-emit='#{h showIf}'"}>
          <label for='#{field[:id]}'
                 #{field[:required] && "class='required'"}
-                #{parent_field == 'client' && "data-ng-class='changedFields.#{field[:id]} && \"changed\"'"}>
+                #{"data-ng-class='{changed: changedFields.#{field[:id]}}'"}>
            #{field[:name]}
            <div class='error-tooltip' error-tooltip='#{field[:id]}' />
          </label>

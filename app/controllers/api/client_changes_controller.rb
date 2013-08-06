@@ -1,5 +1,6 @@
 require 'ydocx/document'
 require 'tempfile'
+require 'andand'
 
 class Api::ClientChangesController < Api::ApiController
   before_action :set_client_change, only: [:edit, :destroy]
@@ -60,12 +61,24 @@ class Api::ClientChangesController < Api::ApiController
       :updated_at.lt => @client_change.updated_at
     }).desc(:created_at).first
 
-    changed_fields = ClientChange.get_changed_fields(
-        @client_change.client_data, prev_change && prev_change.client_data)
+    cur_data = @client_change.client_data
+    prev_data = prev_change.andand.client_data
 
-    changed_sections = changed_fields.map do |field_id|
+    if params.has_key? :location_id
+      cur_data = cur_data.andand['locations'].andand['value'].andand[params[:location_id].to_i]
+      prev_data = prev_data.andand['locations'].andand['value'].andand[params[:location_id].to_i]
+    end
+
+    changed_fields = ClientChange.get_changed_fields(cur_data, prev_data)
+
+    field_list = Client::FIELDS
+    if params.has_key? :location_id
+      field_list = field_list.find { |f| f[:id] == 'locations' }[:type]
+    end
+
+    changed_sections = Hash[changed_fields.keys.map { |field_id, val|
       section = 'basicInfo'
-      Client::FIELDS.each do |field|
+      field_list.each do |field|
         if field[:type].is_a?(Array)
           if field[:id] == field_id
             section = field_id
@@ -78,12 +91,12 @@ class Api::ClientChangesController < Api::ApiController
           end
         end
       end
-      section
-    end
+      [section, true]
+    }]
 
     attrs = {
-      :changed_fields => Hash[changed_fields.map {|c| [c, true]}],
-      :changed_sections => Hash[changed_sections.map {|c| [c, true]}],
+      :changed_fields => changed_fields,
+      :changed_sections => changed_sections,
     }
 
     respond_to do |format|
