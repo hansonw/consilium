@@ -26,8 +26,8 @@ defaultMatch = (params, data) ->
       return false
   return true
 
-syncCollection = (dest, existing, last_synced) ->
-  return if !(existing instanceof Array)
+syncCollection = (dest, newData, last_synced) ->
+  return if !(newData instanceof Array)
 
   destMap = {}
   destMap[val.id] = val for val in dest
@@ -46,7 +46,7 @@ syncCollection = (dest, existing, last_synced) ->
     else
       result.push(val)
 
-  for val in existing
+  for val in newData
     if !destMap[val.id] && val.created_at > last_synced
       updated = true
       result.push(val)
@@ -56,10 +56,10 @@ syncCollection = (dest, existing, last_synced) ->
   return updated
 
 # By default, assume every field has a 'value' and 'updated_at'. Sync based on the latest
-syncFields = (dest, existing, last_synced) ->
+syncFields = (dest, newData, last_synced, overwrite) ->
   updated = false
   # Check each field individually, and update
-  for key, val of existing
+  for key, val of newData
     if val.updated_at?
       if (dest[key]?.value instanceof Array) && dest[key].value[0]?.id? # supports deep merging?
         if !dest[key].updated_at? || val.updated_at > dest[key].updated_at
@@ -68,6 +68,47 @@ syncFields = (dest, existing, last_synced) ->
       else if !dest[key]?.updated_at? || dest[key].updated_at < val.updated_at
         dest[key] = val
         updated = true
+
+  if newData.updated_at > dest.updated_at
+    dest.updated_at = newData.updated_at
+
+  return updated
+
+markCollectionChanges = (newData, oldData) ->
+    updated = (newData.length != oldData.length)
+    oldIDs = {}
+    oldIDs[val.id] = val for val in oldData
+    for val in newData
+      if old = oldIDs[val.id]
+        updated ||= markChanges(val, old)
+      else
+        val.created_at = val.updated_at = Date.now()
+        updated = true
+    return updated
+
+markChanges = (newData, oldData) ->
+  updated = false
+
+  for key, val of newData
+    valUpdated = false
+    newVal = val?.value
+    oldVal = oldData?[key]?.value
+    if (newVal instanceof Array) && (oldVal instanceof Array)
+      valUpdated = markCollectionChanges(newVal, oldVal)
+    else
+      valUpdated = !angular.equals(newVal, oldVal)
+    if valUpdated
+      val.updated_at = Date.now()
+      val.created_at ||= val.updated_at
+    updated ||= valUpdated
+
+  for key, val of oldData
+    if val? && !newData[key]?
+      updated = true
+
+  if updated
+    newData.updated_at = Date.now()
+    newData.created_at ||= newData.updated_at
 
   return updated
 
@@ -96,17 +137,21 @@ class LocalStorage
     if obj?
       @obj_last_synced[obj] = time
     else
-      window.localStorage.setItem(@storageKey() + '.lastSynced', time)
+      window.localStorage.setItem(@storageKey() + '.lastSynced', time)  
 
   update: (resource, overwrite = false) ->
     data = getData(resource)
 
     db = @getDB() || {}
     need_update = false
-    if !overwrite && (existing = db[data.id])
+    existing = db[data.id]
+    if !overwrite && existing
       if !existing.id? # deleted
         return existing
       need_update = @sync_fn(data, existing, @getLastSynced(data.id))
+    else
+      markChanges(data, existing)
+      angular.extend(resource, data)
 
     db[data.id] = data
     @saveDB(db)
@@ -188,12 +233,6 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
         @_isNew || @created_at > storage.getLastSynced(@id)
 
       $save: (success, error) ->
-        existing = storage.get(@id)
-        for key, val of @getData()
-          if val.value? && !angular.equals(val.value, existing?[key]?.value)
-            @[key].updated_at = Date.now() # Estimate. Will be updated by the server
-
-        @created_at = @updated_at = Date.now() if @_isNew
         storage.update(this, true)
 
         if online()

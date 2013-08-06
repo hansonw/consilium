@@ -122,9 +122,7 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', 
         return
 
       obj.id ||= generateGUID()
-      obj.updated_at = Date.now()
-      obj.created_at ||= obj.updated_at
-
+      
       if obj.$index?
         # Remove the index field and add it back
         prev = collection[obj.$index]

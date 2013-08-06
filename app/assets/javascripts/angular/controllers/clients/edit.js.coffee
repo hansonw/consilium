@@ -36,7 +36,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
         if $scope.inLocation
           if !$scope.locationId? || $scope.locationId == ''
             (($scope.client.locations ||= {}).value ||= [])
-            $scope.client.locations.value.push({})
+            $scope.client.locations.value.push({id: generateGUID()})
             $scope.locationId = $scope.client.locations.value.length - 1
           if !$scope.client.locations.value? || $scope.locationId < 0 || $scope.locationId >= $scope.client.locations.value.length
             alert('The requested location was not found.')

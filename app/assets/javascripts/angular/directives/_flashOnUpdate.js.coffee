@@ -3,7 +3,6 @@ App.directive 'flashOnUpdate', ['$rootScope', 'Flash', ($rootScope, Flash) ->
   link: ($scope, elem, attrs) ->
     $scope.$on '$locationChangeStart', ->
       if Flash.get('flashCollection') == attrs.id
-        console.log attrs.id
         flashId = Flash.get 'flashId'
         if $("tr[data-item-id='#{flashId}']").length
           type = Flash.get 'flashType'

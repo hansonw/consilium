@@ -5,7 +5,6 @@ App.directive 'scrollSpy', ->
 
     win.on 'scroll resize', handler = ->
       scrollTop = win.scrollTop()
-      console.log scrollTop
 
     $scope.$on '$destroy', ->
       win.off 'scroll resize', handler

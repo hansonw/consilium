@@ -20,9 +20,7 @@ class Api::ClientsController < Api::ApiController
   end
 
   def sync_collection(dst, new_data, last_synced)
-    if !dst.is_a?(Array)
-      return new_data
-    end
+    updated = false
 
     destMap = Hash[ dst.map { |m| [m['id'], m] } ]
     newMap = Hash[ new_data.map { |m| [m['id'], m] } ]
@@ -32,6 +30,8 @@ class Api::ClientsController < Api::ApiController
     dst.each do |val|
       if !newMap[val['id']] && val['created_at'].to_i > last_synced
         result << val
+      else
+        updated = true
       end
     end
 
@@ -39,33 +39,72 @@ class Api::ClientsController < Api::ApiController
       if !destMap[val['id']] && val['created_at'].to_i < last_synced
         # deleted on server
       elsif destMap[val['id']]
-        sync_fields(destMap[val['id']], val, last_synced)
+        updated ||= sync_fields(destMap[val['id']], val, last_synced)
         result << destMap[val['id']]
       else
         result << val
+        updated = true
       end
     end
 
     result.sort! { |x, y| x['id'] <=> y['id'] }
-    return result
+    dst.replace(result)
+
+    return updated
   end
 
   def sync_fields(dst, new_data, last_synced)
-    # Don't allow client timestamps to exceed the server time
-    # (otherwise client can provide an arbitrarily large one to prevent future editing)
+    # Use server timestamps for everything
     cur_time = (Time.now.to_f * 1000).to_i
+    updated = false
 
     new_data.each do |key, val|
       if valid_value(val)
-        val['updated_at'] = [val['updated_at'].to_i || 1e99, cur_time].min
+        val_updated = true
         if !valid_value(dst[key])
           dst[key] = val
-        elsif val['value'].is_a?(Array) && val['value'].first && val['value'].first['id']
-          dst[key]['value'] = sync_collection(dst[key]['value'], val['value'], last_synced)
-          dst[key]['updated_at'] = [dst[key]['updated_at'].to_i || 0, val['updated_at'].to_i || 0].max
+        elsif dst[key]['value'].is_a?(Array) && val['value'].is_a?(Array) &&
+              val['value'].first && val['value'].first['id']
+          val_updated = sync_collection(dst[key]['value'], val['value'], last_synced)
         elsif val['updated_at'].to_i > dst[key]['updated_at'].to_i
           dst[key] = val
+        else
+          val_updated = false
         end
+
+        if val_updated
+          dst[key]['updated_at'] = cur_time
+          dst[key]['created_at'] ||= cur_time
+          updated = true
+        end
+      end
+    end
+
+    if updated
+      dst['updated_at'] = cur_time
+      dst['created_at'] ||= cur_time
+    end
+  end
+
+  def fix_timestamps(data)
+    if data.is_a?(Hash)
+      # Don't allow client timestamps to exceed the server time
+      # (otherwise client can provide an arbitrarily large one to prevent future editing)
+      cur_time = (Time.now.to_f * 1000).to_i
+
+      if data['updated_at']
+        data['updated_at'] = [cur_time, data['updated_at'].to_i].min
+      end
+      if data['created_at']
+        data['created_at'] = [cur_time, data['created_at'].to_i, data['updated_at'] || 1e99].min
+      end
+
+      data.each do |k, v|
+        fix_timestamps(v)
+      end
+    elsif data.is_a?(Array)
+      data.each do |v|
+        fix_timestamps(v)
       end
     end
   end
@@ -149,20 +188,12 @@ class Api::ClientsController < Api::ApiController
   def create
      @client = Client.new(client_params)
 
-    # Don't allow client timestamps to exceed the server time
-    # (otherwise client can provide an arbitrarily large one to prevent future editing)
-    cur_time = (Time.now.to_f * 1000).to_i
-
     if existing = Client.where(:id => params[:id]).first
       render json: '', status: :conflict
       return
     else
       @client._id = params[:id]
-      @client.attributes.each do |key, val|
-        if valid_value(val)
-          val['updated_at'] = [val['updated_at'], cur_time].min
-        end
-      end
+      fix_timestamps(@client.attributes)
     end
 
     respond_to do |format|
@@ -184,6 +215,7 @@ class Api::ClientsController < Api::ApiController
       # Sync all fields
       result = existing.attributes
       sync_fields(result, @client.attributes, params[:last_synced].to_i)
+      fix_timestamps(result)
       @client.assign_attributes(result)
     else
       # Must have been deleted by someone else.
