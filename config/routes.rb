@@ -5,6 +5,8 @@ Consilium::Application.routes.draw do
 
   devise_for :users, :controllers => {:registrations => 'users/registrations'}
 
+  resources :brokerages
+
   scope :api do
     resources :clients, :controller => 'api/clients'
     post 'clients/:id' => 'api/clients#create'

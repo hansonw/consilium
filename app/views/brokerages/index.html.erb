@@ -1,0 +1,41 @@
+<h1>Listing brokerages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Website</th>
+      <th>Phone</th>
+      <th>Fax</th>
+      <th>Clients</th>
+      <th>Employees</th>
+      <th>Contacts</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @brokerages.each do |brokerage| %>
+      <tr>
+        <td><%= brokerage.name %></td>
+        <td><%= brokerage.address %></td>
+        <td><%= brokerage.website %></td>
+        <td><%= brokerage.phone %></td>
+        <td><%= brokerage.fax %></td>
+        <td><%= brokerage.clients %></td>
+        <td><%= brokerage.employees %></td>
+        <td><%= brokerage.contacts %></td>
+        <td><%= link_to 'Show', brokerage %></td>
+        <td><%= link_to 'Edit', edit_brokerage_path(brokerage) %></td>
+        <td><%= link_to 'Destroy', brokerage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Brokerage', new_brokerage_path %>
