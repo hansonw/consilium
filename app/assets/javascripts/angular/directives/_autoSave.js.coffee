@@ -32,18 +32,24 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', 
       lastChange = new Date().getTime()
     ), true
 
-    oldPath = $location.path()
-    $scope.$on('$locationChangeStart', (event) ->
+    sameRoute = (url1, url2) ->
+      if url1.length > url2.length
+        return sameRoute(url2, url1)
+      url2.indexOf(url1) == 0 && (url1.length == url2.length || url2[url1.length] == '?')
+
+    oldUrl = $location.absUrl()
+    $scope.$on('$locationChangeStart', (event, newUrl) ->
       # Only hook route changes. We can't just listen to routeChangeStart because it can't be cancelled
-      if $location.path() == oldPath
+      if sameRoute(oldUrl, newUrl)
         return
-      oldPath = $location.path()
-      if $scope.onLocationChange && $scope.onLocationChange(event) == false
+      if $scope.onLocationChange && $scope.onLocationChange(event, newUrl) == false
         return
       if form.$dirty
         if !confirm("You have unsaved changes.\nAre you sure you want to leave this page?")
           $scope.$emit('stopButtonSpinning')
-          event.preventDefault())
+          event.preventDefault()
+          return
+      oldUrl = newUrl)
 
     $(window).on('beforeunload', unloadHandler = ->
       if form.$dirty then 'You have unsaved changes.' else undefined)

@@ -39,7 +39,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
           RecentClients.logClientShow($scope.client)),
         (data) ->
           alert('The requested client was not found.')
-          $location.url('/clients'))
+          $location.url('/clients/index'))
     )
     loadChange()
   else if $scope.clientId
@@ -63,15 +63,14 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       (data) ->
         RecentClients.removeClient($scope.clientId)
         alert('The requested client was not found.')
-        $location.url('/clients'))
+        $location.url('/clients/index'))
   else
     $scope.loading = false
     $scope.client = new Client()
 
   # Override auto-saving's default onLocationChange
-  $scope.onLocationChange = (event) ->
-    url = $location.url()
-    if url.indexOf('location') >= 0
+  $scope.onLocationChange = (event, newUrl) ->
+    if newUrl.indexOf('location') >= 0
       if !$scope.clientForm.$valid
         if !$scope.clientForm.$dirty
           alert('Please fill out some basic information before continuing to this section.')
@@ -81,7 +80,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
         event.preventDefault()
         return false
       else if $scope.clientForm.$dirty
-        $scope.saveForm(true, -> $location.url(url))
+        $scope.saveForm(true, -> window.location = newUrl)
         event.preventDefault()
         return false
 
@@ -99,7 +98,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
         $scope.client.generateId()
         $timeout($scope.saveForm, 0) # defer
       else
-        $location.url('/clients')
+        $location.url('/clients/index')
       # TODO: change the id in the address bar? not too important for mobile
     else if data.status == 422
       error_str = ''
