@@ -58,6 +58,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
             Scroll.to Flash.get('client-focusSection'), 50
           ), 0
 
+        console.log (Date.now() - $rootScope.timer) / 1000
         $scope.loading = false
         RecentClients.logClientShow($scope.client)),
       (data) ->

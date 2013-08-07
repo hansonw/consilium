@@ -12,12 +12,14 @@ App.config ['$routeProvider', ($routeProvider) ->
     templateUrl: '<%= angularRouteFilePath(route) %>',
     reloadOnSearch: false,
     # HACK: 'defer' the route change so the loading indicator has a chance to appear.
+    <% if angularRouteAppPath(route)['/clients/edit'] %>
     resolve:
       defer: ['$q', ($q) ->
         defer = $q.defer()
         setTimeout (-> defer.resolve()), 0
         return defer.promise
       ]
+    <% end %>
   <% end %>
   $routeProvider.otherwise
     templateUrl: '<%= angularRouteFilePath(app_templates_path) %>',
@@ -70,8 +72,10 @@ App.run ['$rootScope', '$location', '$timeout', 'Client', 'RecentClients', 'Offl
 
   $rootScope.checkOnline()
   # Also sync every time we navigate to a different page.
-  $rootScope.$on('$routeChangeSuccess', -> Offline.sync(offlineClasses))
-  $rootScope.$on('$routeChangeStart', -> $rootScope.loading = true)
+  # $rootScope.$on('$routeChangeSuccess', -> Offline.sync(offlineClasses))
+
+  $rootScope.timer = 0
+  $rootScope.$on('$routeChangeStart', -> $rootScope.loading = true; $rootScope.timer = Date.now())
   $rootScope.$on('$viewContentLoaded', -> $rootScope.loading = false)
 
   $rootScope.menuItems = [
