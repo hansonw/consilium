@@ -1,0 +1,11 @@
+App.factory 'Scroll', ['$location', '$anchorScroll', ($location, $anchorScroll) ->
+  to: (hash, margin = 0) ->
+    old = $location.hash()
+    $location.hash(hash)
+    $anchorScroll()
+    $location.hash(old)
+
+    body = $('body')
+    if margin && $(window).scrollTop() + $(window).height() < body.height()
+      body.scrollTop body.scrollTop() - margin
+]

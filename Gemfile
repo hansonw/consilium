@@ -33,7 +33,7 @@ gem 'mongoid', github: 'mongoid/mongoid'
 # gem 'normalize-rails'
 
 # User authentication and registration.
-gem 'devise', github: 'plataformatec/devise'
+gem 'devise'
 
 # User permissions.
 gem 'cancan'
