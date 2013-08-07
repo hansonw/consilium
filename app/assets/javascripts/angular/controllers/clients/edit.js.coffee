@@ -15,6 +15,8 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
     $('input[type=checkbox]').attr('disabled', true)
     $('input[type=radio]').attr('disabled', true)
     $('select').attr('disabled', true)
+    # clear values of null options
+    $('select[readonly] option[value=""]').html('')
 
   # TODO: error should be modal
   $scope.loading = true
