@@ -106,7 +106,7 @@
 
       <div class="button-group">
         <button class="pure-button pure-button-secondary pure-button-large"
-                data-ng-class="{'pure-button-disabled': !saving && !brokerageForm.$dirty}" type="submit">
+                data-ng-disabled="!saving && !brokerageForm.$dirty" type="submit">
           <span data-ng-if="saving">
             <i class="icon-spinner icon-spin"></i> Saving...
           </span>

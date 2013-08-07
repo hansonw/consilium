@@ -47,6 +47,21 @@
             <aside data-ng-show="clientChange" class="edit-description">
               <b>{{ clientChange.user_email }}</b> made this change on {{ clientChange.updated_at | date: 'MMM d, y h:mm a' }}:<br />
               <div class="description">{{ clientChange.description }}</div>
+              <div class="buttons">
+                <button class="pure-button prevButton"
+                        data-click-href="#/clients/edit/{{ clientId }}?change={{ prevChangeId }}"
+                        data-ng-disabled="!prevChangeId">
+                  <i class="icon-angle-left icon-fixed-width"></i> Prev. Change
+                </button>
+                <div class="counter">
+                  Change {{ curChangeNum }} / {{ changeCount }}
+                </div>
+                <button class="pure-button nextButton" 
+                        data-click-href="#/clients/edit/{{ clientId }}?change={{ nextChangeId }}"
+                        ng-disabled="!nextChangeId">
+                  Next Change <i class="icon-angle-right icon-fixed-width"></i>
+                </button>
+              </div>
             </aside>
 
             <% fields.each_with_index do |field, index| %>
@@ -66,7 +81,7 @@
     </div>
     <div id="toolbar" class="pure-u" data-ng-class="{'active': menuShouldShow()}">
       <div class="content">
-        <button class="pure-button pure-button-primary pure-button-large" data-ng-class="{'pure-button-disabled': !saving && !clientForm.$dirty}"
+        <button class="pure-button pure-button-primary pure-button-large" data-ng-disabled="!saving && !clientForm.$dirty"
                 data-ng-show="!clientChangeId" type="submit">
           <span data-ng-if="saving">
             <i class="icon-spinner icon-spin"></i> Saving...

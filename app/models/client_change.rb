@@ -45,9 +45,10 @@ class ClientChange
     new_client.each do |key, val|
       if val.is_a?(Hash) && val['value']
         if !value_equals(val['value'], old_client.andand[key].andand['value'])
-          changed_fields[key] = true
           if val['value'].is_a?(Array)
             changed_fields[key] = collection_diff(val['value'], old_client.andand[key].andand['value'])
+          else
+            changed_fields[key] = 'Previous value: ' + (old_client.andand[key].andand['value'] || '(empty)')
           end
         end
       end
@@ -57,7 +58,7 @@ class ClientChange
       old_client.each do |key, val|
         if val.is_a?(Hash) && val['value']
           if !value_equals(val['value'], new_client.andand[key].andand['value'])
-            changed_fields[key] ||= true
+            changed_fields[key] ||= 'Previous value: ' + val['value']
           end
         end
       end

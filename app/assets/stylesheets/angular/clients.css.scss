@@ -68,6 +68,27 @@ $client-form-nav-padding: 50px;
       color: #ddd;
       margin-top: 4px;
     }
+
+    .buttons {
+      position: relative;
+      margin-top: 1em;
+
+      .prevButton {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+      }
+
+      .counter {
+        padding: .5em 1.5em;
+      }
+
+      .nextButton {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
+    }
   }
 
   .well.changed, .changed .well {

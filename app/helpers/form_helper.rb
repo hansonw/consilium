@@ -57,12 +57,15 @@ module FormHelper
         </div>"
     end
 
+    changed = options[:changed] || "changedFields.#{field[:id]}"
+
     return raw\
       "<div class='pure-control-group'
             #{field[:if] && "data-show-emit='#{h showIf}'"}>
          <label for='#{field[:id]}'
                 #{field[:required] && "class='required'"}
-                #{"data-ng-class='#{options[:changed] || "{changed: changedFields.#{field[:id]}}"}'"}>
+                data-ng-class='{changed: #{changed}}'
+                title='{{ #{changed} }}'>
            #{field[:name]}
            <div class='error-tooltip' error-tooltip='#{field[:id]}' />
          </label>

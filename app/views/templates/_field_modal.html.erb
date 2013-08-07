@@ -25,7 +25,7 @@
                 <%= form_field subfield, field[:id], {
                       :syncable => defined?(syncable) ? syncable : true,
                       :model_parent => local_assigns[:root],
-                      :changed => "{changed: changedFields.#{field[:id]}[#{field[:id]}.$index].#{subfield[:id]}}"
+                      :changed => "changedFields.#{field[:id]}[#{field[:id]}.$index].#{subfield[:id]}"
                     } %>
               <% end %>
             </div>

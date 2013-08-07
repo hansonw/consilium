@@ -42,6 +42,7 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', 
         return
       if form.$dirty
         if !confirm("You have unsaved changes.\nAre you sure you want to leave this page?")
+          $scope.$emit('stopButtonSpinning')
           event.preventDefault())
 
     $(window).on('beforeunload', unloadHandler = ->

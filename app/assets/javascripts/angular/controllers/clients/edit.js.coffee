@@ -21,17 +21,27 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   # TODO: error should be modal
   $scope.loading = true
   if $scope.clientChangeId
-    $scope.clientChange = ClientChange.get({id: $scope.clientChangeId, location_id: $scope.locationId},
-      (->
-        $scope.loading = false
-        $scope.client = $scope.clientChange.client_data
-        $scope.changedFields = $scope.clientChange.changed_fields
-        $scope.changedSections = $scope.clientChange.changed_sections
-        $scope.client.id = $scope.clientId
-        RecentClients.logClientShow($scope.client)),
-      (data) ->
-        alert('The requested client was not found.')
-        $location.url('/clients'))
+    $scope.$on('$locationChangeSuccess', loadChange = ->
+      $scope.clientChangeId = $location.search().change
+      clientChange = ClientChange.get({id: $scope.clientChangeId, location_id: $scope.locationId},
+        (->
+          $scope.$emit('stopButtonSpinner')
+          $scope.loading = false
+          $scope.clientChange = clientChange
+          $scope.client = clientChange.client_data
+          $scope.changedFields = clientChange.changed_fields
+          $scope.changedSections = clientChange.changed_sections
+          $scope.prevChangeId = clientChange.prev_change_id
+          $scope.nextChangeId = clientChange.next_change_id
+          $scope.curChangeNum = clientChange.cur_change_num
+          $scope.changeCount = clientChange.change_count
+          $scope.client.id = $scope.clientId
+          RecentClients.logClientShow($scope.client)),
+        (data) ->
+          alert('The requested client was not found.')
+          $location.url('/clients'))
+    )
+    loadChange()
   else if $scope.clientId
     $scope.client = Client.get(id: $scope.clientId,
       (->
@@ -67,6 +77,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
           alert('Please fill out some basic information before continuing to this section.')
         else
           alert('Please fix errors in this form before continuing.')
+        $scope.$emit('stopButtonSpinner')
         event.preventDefault()
         return false
       else if $scope.clientForm.$dirty

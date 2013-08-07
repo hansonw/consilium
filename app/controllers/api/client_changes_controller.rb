@@ -56,10 +56,17 @@ class Api::ClientChangesController < Api::ApiController
       return
     end
 
-    prev_change = ClientChange.where({
+    prev_changes = ClientChange.where({
       'client_id' => @client_change.client_id,
-      :updated_at.lt => @client_change.updated_at
-    }).desc(:created_at).first
+      :id.lt => @client_change.id
+    }).desc(:id)
+
+    prev_change = prev_changes.first
+
+    next_change = ClientChange.where({
+      'client_id' => @client_change.client_id,
+      :id.gt => @client_change.id
+    }).asc(:id).first
 
     cur_data = @client_change.client_data
     prev_data = prev_change.andand.client_data
@@ -97,6 +104,10 @@ class Api::ClientChangesController < Api::ApiController
     attrs = {
       :changed_fields => changed_fields,
       :changed_sections => changed_sections,
+      :prev_change_id => prev_change.andand.id.to_s,
+      :next_change_id => next_change.andand.id.to_s,
+      :cur_change_num => prev_changes.length + 1,
+      :change_count => ClientChange.where('client_id' => @client_change.client_id).length,
     }
 
     respond_to do |format|
