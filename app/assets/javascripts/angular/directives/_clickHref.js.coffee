@@ -28,6 +28,8 @@ App.directive 'clickHref', ['$location', '$parse', '$timeout', 'Scroll', ($locat
         if attr.clickHref.indexOf('(') != -1
           # It's a callback; call the function.
           $parse(attr.clickHref)($scope)
+        else if attr.clickHref[0] == '#'
+          $location.url(attr.clickHref.slice(1))
         else
           window.location = attr.clickHref
 
