@@ -1,8 +1,4 @@
-<% environment.context_class.instance_eval { include ActionView::Helpers } %>
 <% environment.context_class.instance_eval { include AngularRoutingHelper } %>
-<% environment.context_class.instance_eval { include AngularTemplateCachingHelper } %>
-<% environment.context_class.instance_eval { include ActionDispatch::Routing } %>
-<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
 
 window.App = angular.module('Consilium', ['ngResource'])
 

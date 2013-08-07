@@ -1,7 +1,7 @@
-include ActionDispatch::Routing
-include Rails.application.routes.url_helpers
-
 module AngularRoutingHelper
+  include ActionDispatch::Routing
+  include Rails.application.routes.url_helpers
+
   DIRECTORY_PATH_SEPARATOR = '/'
 
   def getAllAngularRoutes
