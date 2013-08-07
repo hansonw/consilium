@@ -6,6 +6,8 @@ class Client
   include Mongoid::Attributes::Dynamic
   include ConsiliumFields
 
+  belongs_to :brokerage
+
   has_many :client_changes, dependent: :delete
   has_many :documents, dependent: :delete
 

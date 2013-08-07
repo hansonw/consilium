@@ -1,6 +1,8 @@
 class User
   include Mongoid::Document
 
+  belongs_to :brokerage
+
   has_many :client_changes
   has_many :documents
   has_one :recent_clients

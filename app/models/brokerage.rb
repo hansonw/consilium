@@ -5,6 +5,9 @@ class Brokerage
   include Mongoid::Timestamps
   include ConsiliumFields
 
+  has_many :clients
+  has_many :users
+
   field :name, type: String
   field :address, type: String
   field :website, type: String
