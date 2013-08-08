@@ -34,10 +34,12 @@
 
     <div class="pure-form-fields" data-ng-show="coverage.type">
       <% obj = 'curCoverage' %>
+      <% changedCoverage = 'changedCoverages[coverage.category][coverage.type]' %>
 
       <% # We can't use the form helper for this; we have to dynamically add/remove checkboxes. %>
       <div class="pure-control-group" data-ng-if="curCoverageType.type">
-        <label for="subtype">Types</label>
+        <label for="subtype" data-ng-class="{changed: <%= changedCoverage %>.subtype}"
+               title="{{ <%= changedCoverage %>.subtype }}">Types</label>
         <div class="checkbox-container">
           <div data-ng-repeat="(id, name) in curCoverageType.type" class="checkbox-field"
                data-ng-click="toggleRadio('curCoverage.subtype.value', id)">
@@ -56,7 +58,7 @@
           :if => '$curCoverageType.replacementCost'
         }
       %>
-      <%= form_field replacementCost, obj %>
+      <%= form_field replacementCost, obj, :changed => "#{changedCoverage}.replacementCost" %>
 
       <%
         coinsurance = {
@@ -70,7 +72,7 @@
           },
         }
       %>
-      <%= form_field coinsurance, obj %>
+      <%= form_field coinsurance, obj, :changed => "#{changedCoverage}.coinsurance" %>
 
       <%
         deductible = {
@@ -80,7 +82,7 @@
           :placeholder => '$ CAN (ex. 111.11)',
         }
       %>
-      <%= form_field deductible, obj %>
+      <%= form_field deductible, obj, :changed => "#{changedCoverage}.deductible" %>
 
       <%
         limit = {
@@ -94,7 +96,7 @@
           },
         }
       %>
-      <%= form_field limit, obj %>
+      <%= form_field limit, obj, :changed => "#{changedCoverage}.limit" %>
 
       <div class="pure-control-group">
         <label></label>

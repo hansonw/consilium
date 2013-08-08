@@ -39,14 +39,22 @@ class ClientChange
     end
   end
 
+  def self.hash_diff(new_hash, old_hash)
+    d = new_hash.diff(old_hash)
+    Hash[d.keys.map { |k| [k, true] }]
+  end
+
   def self.get_changed_fields(new_client, old_client)
     changed_fields = {}
 
     new_client.each do |key, val|
       if val.is_a?(Hash) && val['value']
-        if !value_equals(val['value'], old_client.andand[key].andand['value'])
+        old_val = old_client.andand[key].andand['value']
+        if !value_equals(val['value'], old_val)
           if val['value'].is_a?(Array)
-            changed_fields[key] = collection_diff(val['value'], old_client.andand[key].andand['value'])
+            changed_fields[key] = collection_diff(val['value'], old_val)
+          elsif old_val.is_a?(Hash)
+            changed_fields[key] = hash_diff(val['value'] || {}, old_val)
           else
             changed_fields[key] = 'Previous value: ' + (old_client.andand[key].andand['value'] || '(empty)')
           end
@@ -58,7 +66,7 @@ class ClientChange
       old_client.each do |key, val|
         if val.is_a?(Hash) && val['value']
           if !value_equals(val['value'], new_client.andand[key].andand['value'])
-            changed_fields[key] ||= 'Previous value: ' + val['value']
+            changed_fields[key] ||= 'Previous value: ' + val['value'].to_s
           end
         end
       end

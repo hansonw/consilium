@@ -65,7 +65,7 @@ module FormHelper
          <label for='#{field[:id]}'
                 #{field[:required] && "class='required'"}
                 data-ng-class='{changed: #{changed}}'
-                title='{{ #{changed} }}'>
+                title='#{field[:type] == 'checkbox' ? 'Highlighted fields were changed' : "{{ #{changed} }}"}'>
            #{field[:name]}
            <div class='error-tooltip' error-tooltip='#{field[:id]}' />
          </label>
@@ -116,8 +116,10 @@ module FormHelper
           click_action = "toggleCheckbox('#{model}.#{key}')"
           checked = "#{model}.#{key}"
         end
+        changed = options[:changed] || "changedFields.#{field[:id]}"
         checkboxString += "<div class='checkbox-field'
-                            ng-click=\"#{click_action}\">
+                                ng-click=\"#{click_action}\"
+                                ng-class=\"{changed: #{changed}.#{key}}\">
                             <input name='#{field[:id]}'
                                 type='#{field[:type]}'
                                 value='#{key}'
