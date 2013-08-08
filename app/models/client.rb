@@ -23,6 +23,7 @@ class Client
           :placeholder => 'Name of Company',
           :type => 'text',
           :required => true,
+          :primary => true,
         },
         {
           :name => 'Name',
@@ -30,6 +31,7 @@ class Client
           :placeholder => 'Firstname Lastname',
           :type => 'text',
           :required => true,
+          :primary => true,
         },
         {
           :name => 'Form of business',
@@ -134,6 +136,7 @@ class Client
           :placeholder => 'Firstname Lastname',
           :type => 'text',
           :required => true,
+          :primary => true,
         },
         {
           :name => 'Title',
@@ -209,12 +212,14 @@ class Client
           :id => 'lossDate',
           :type => 'date',
           :required => true,
+          :primary => true,
         },
         {
           :name => 'Type of Claim',
           :id => 'claimType',
           :placeholder => '(ex. Commercial)',
           :type => 'text',
+          :primary => true,
         },
         {
           :name => 'Description',
@@ -247,6 +252,7 @@ class Client
           :required => true,
           :placeholder => 'Name',
           :type => 'text',
+          :primary => true,
         },
         {
           :name => 'Policy Type',
@@ -261,7 +267,8 @@ class Client
             'Environmental',
             'WSIB Alternative',
             'Other',
-          ]
+          ],
+          :primary => true,
         },
         {
           :name => 'Policy Number',
@@ -316,6 +323,7 @@ class Client
           :required => true,
           :placeholder => 'Name',
           :type => 'text',
+          :primary => true,
         },
         {
           :name => 'Policy Type',
@@ -330,7 +338,8 @@ class Client
             'Environmental',
             'WSIB Alternative',
             'Other',
-          ]
+          ],
+          :primary => true,
         },
         {
           :name => 'Policy Number',
@@ -488,6 +497,7 @@ class Client
           :required => true,
           :type => 'text',
           :placeholder => 'Operation or product type',
+          :primary => true,
         },
         {
           :name => 'Annual % or $',
@@ -526,16 +536,6 @@ class Client
       :buttonTitle => 'Create Location',
       :editHref => '#/clients/edit/{{clientId}}/location/{{$index}}{{ clientChangeId && "?change=" + clientChangeId }}',
       :createHref => '#/clients/edit/{{client.id}}/location/',
-      :displayFields => [
-        {
-          :name => 'Loc. #',
-          :content => '{{ item.locationNumber.value }}'
-        },
-        {
-          :name => 'Address',
-          :content => '{{ item.locationAddress.value }}'
-        },
-      ],
       :type => [
         {
           :name => 'Basic Location Info',
@@ -548,6 +548,7 @@ class Client
               :placeholder => '# (ex. 1111)',
               :type => 'text',
               :required => true,
+              :primary => true,
             },
             {
               :name => 'This location is',
@@ -564,6 +565,7 @@ class Client
               :id => 'locationAddress',
               :placeholder => 'Address (apt., suite, bldg.)',
               :type => 'text',
+              :primary => true,
             },
             {
               :name => 'City',
@@ -1325,6 +1327,7 @@ class Client
               :type => 'text',
               :placeholder => '#',
               :required => true,
+              :primary => true,
             },
             {
               :name => 'Address',
@@ -1335,6 +1338,7 @@ class Client
                 :type => 'static',
                 :text => 'Same as Location',
               },
+              :primary => true,
             },
             {
               :name => 'Description',
@@ -1419,6 +1423,7 @@ class Client
               :id => 'type',
               :required => true,
               :type => 'text',
+              :primary => true,
             },
             {
               :id => 'category',
@@ -2101,12 +2106,14 @@ class Client
               :required => true,
               :placeholder => '# ( ex. 1111)',
               :type => 'text',
+              :primary => true,
             },
             {
               :name => 'Unit #',
               :id => 'unitNumber',
               :placeholder => '# ( ex. 1111)',
               :type => 'text',
+              :primary => true,
             },
             {
               :name => 'Owner',
@@ -2233,6 +2240,7 @@ class Client
                 'Other',
               ],
               :intelligentOther => true,
+              :primary => true,
             },
             {
               :name => 'Item #',
@@ -2240,6 +2248,7 @@ class Client
               :type => 'text',
               :placeholder => '#',
               :required => true,
+              :primary => true,
             },
             {
               :name => 'Year',
@@ -2303,6 +2312,7 @@ class Client
                 'Other',
               ],
               :intelligentOther => true,
+              :primary => true,
             },
             {
               :name => 'Item #',
@@ -2310,6 +2320,7 @@ class Client
               :type => 'text',
               :placeholder => '#',
               :required => true,
+              :primary => true,
             },
             {
               :name => 'Year',
@@ -2364,12 +2375,14 @@ class Client
               :id => 'driver',
               :type => 'text',
               :placeholder => '#',
+              :primary => true,
             },
             {
               :name => 'Name',
               :id => 'name',
               :type => 'text',
               :placeholder => 'Firstname Lastname',
+              :primary => true,
             },
             {
               :name => 'License #',
@@ -2411,6 +2424,7 @@ class Client
               :name => 'Performed on',
               :id => 'surveyDate',
               :type => 'date',
+              :primary => true,
             },
             {
               :name => 'Person interviewed',
@@ -2848,6 +2862,7 @@ class Client
               :id => 'photoNotes',
               :placeholder => 'Take a note',
               :type => 'text',
+              :primary => true,
             },
             {
               :name => 'Organize Photos By',
@@ -2880,6 +2895,7 @@ class Client
           :id => 'type',
           :required => true,
           :type => 'text',
+          :primary => true,
         },
         {
           :id => 'category',

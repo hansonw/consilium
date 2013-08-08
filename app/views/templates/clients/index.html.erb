@@ -40,17 +40,7 @@
                  :infiniteScroll => 'updateResults(true)',
                  :rowHref => '#/clients/show/{{ item.id }}',
                  :sortable => {:server_side => true},
-                 :fields => [
-                   {
-                     :name => 'Company',
-                     :class => 'company',
-                     :content => '{{ item.company.value }}'
-                   },
-                   {
-                     :name => 'Name',
-                     :class => 'name',
-                     :content => '{{ item.name.value }}'
-                   },
+                 :fields => getPrimaryFieldsFromModel(Client::FIELDS) | [
                    {
                      :name => 'Updated At',
                      :class => 'updated_at',

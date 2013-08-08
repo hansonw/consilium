@@ -4,18 +4,7 @@
              :model => 'clients.clients',
              :limit => local_assigns[:limit],
              :rowHref => '#/clients/show/{{ item.id }}',
-             :fields => [
-               {
-                 :name => 'Company',
-                 :class => 'company',
-                 :content => '{{ item.company }}'
-               },
-               {
-                 :name => 'Name',
-                 :class => 'name',
-                 :content => '{{ item.name }}'
-               },
-             ],
+             :fields => getPrimaryFieldsFromModel(Client::FIELDS),
              :actions => [
                {
                  :class => 'pure-icon',

@@ -23,13 +23,7 @@
                :rowClick => field[:editCallback] ||
                             !field[:editHref] && "editInField('#{field[:id]}', '#{local_assigns[:root]}', $index)",
                :rowHref => field[:editHref],
-               :fields => field[:displayFields] || [
-                 {
-                   # TODO/HACK: We should dynamically get this by recursively going down the tree.
-                   :name => (field[:type].first.has_key?(:type) && field[:type].first[:type].is_a?(Array)) ? field[:type].first[:type].first[:name] : field[:type].first[:name],
-                   :content => "{{ item.#{(field[:type].first.has_key?(:type) && field[:type].first[:type].is_a?(Array)) ? field[:type].first[:type].first[:id] : field[:type].first[:id]}.value }}"
-                 },
-               ],
+               :fields => getPrimaryFieldsFromModel(field[:type]),
                :actions => [
                  {
                    :class => '{{ !readonly && "pure-button-primary" }}',
