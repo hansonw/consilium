@@ -59,6 +59,7 @@ class Brokerage
           :placeholder => 'Name',
           :required => true,
           :type => 'text',
+          :primary => true,
         },
         {
           :id => 'title',
@@ -66,6 +67,7 @@ class Brokerage
           :placeholder => 'e.g. Producer, Marketer, Customer Service',
           :required => true,
           :type => 'text',
+          :primary => true,
         },
         {
           :id => 'email',
@@ -84,8 +86,30 @@ class Brokerage
           :name => 'Description of role',
           :placeholder => 'Description of role in brokerage',
           :type => 'textbox'
-        }
-      ]
+        },
+      ],
+    },
+    {
+      :id => 'users',
+      :name => 'Users',
+      :type => [
+        {
+          :id => 'name',
+          :name => 'Name',
+          :placeholder => 'Name',
+          :required => true,
+          :type => 'text',
+          :primary => true,
+        },
+        {
+          :id => 'email',
+          :name => 'Email',
+          :placeholder => 'e.g. john@consilium.ca',
+          :required => true,
+          :type => 'email',
+          :primary => true,
+        },
+      ],
     },
   ]
 end
