@@ -22,24 +22,24 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   $scope.loading = true
   if $scope.clientChangeId
     $scope.$on('$locationChangeSuccess', loadChange = ->
-      $scope.clientChangeId = $location.search().change
-      clientChange = ClientChange.get({id: $scope.clientChangeId, location_id: $scope.locationId},
-        (->
-          $scope.$emit('stopButtonSpinner')
-          $scope.loading = false
-          $scope.clientChange = clientChange
-          $scope.client = clientChange.client_data
-          $scope.changedFields = clientChange.changed_fields
-          $scope.changedSections = clientChange.changed_sections
-          $scope.prevChangeId = clientChange.prev_change_id
-          $scope.nextChangeId = clientChange.next_change_id
-          $scope.curChangeNum = clientChange.cur_change_num
-          $scope.changeCount = clientChange.change_count
-          $scope.client.id = $scope.clientId
-          RecentClients.logClientShow($scope.client)),
-        (data) ->
-          alert('The requested client was not found.')
-          $location.url('/clients/index'))
+      if $scope.clientChangeId = $location.search().change
+        clientChange = ClientChange.get({id: $scope.clientChangeId, location_id: $scope.locationId},
+          (->
+            $scope.$emit('stopButtonSpinner')
+            $scope.loading = false
+            $scope.clientChange = clientChange
+            $scope.client = clientChange.client_data
+            $scope.changedFields = clientChange.changed_fields
+            $scope.changedSections = clientChange.changed_sections
+            $scope.prevChangeId = clientChange.prev_change_id
+            $scope.nextChangeId = clientChange.next_change_id
+            $scope.curChangeNum = clientChange.cur_change_num
+            $scope.changeCount = clientChange.change_count
+            $scope.client.id = $scope.clientId
+            RecentClients.logClientShow($scope.client)),
+          (data) ->
+            alert('The requested client was not found.')
+            $location.url('/clients/index'))
     )
     loadChange()
   else if $scope.clientId
