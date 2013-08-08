@@ -12,6 +12,14 @@ class ClientChange
 
   # Empty values should be treated the same as missing values.
   def self.value_equals(a, b)
+    if a.is_a?(Hash)
+      a = a.keep_if { |k, v| v }
+    end
+
+    if b.is_a?(Hash)
+      b = b.keep_if { |k, v| v }
+    end
+
     a_null = !a || (!a.is_a?(Fixnum) && a.empty?) || (a.is_a?(Fixnum) && a == 0)
     b_null = !b || (!b.is_a?(Fixnum) && b.empty?) || (b.is_a?(Fixnum) && b == 0)
     if a_null != b_null
@@ -29,19 +37,37 @@ class ClientChange
       old_ids = Hash[old_arr.map { |x| [x['id'], x] }]
     end
 
-    new_arr.map do |val|
+    result = new_arr.map do |val|
       old_val = old_ids[val['id']]
       if val != old_val
-        get_changed_fields(val, old_val)
+        ch = get_changed_fields(val, old_val)
+        ch.empty? ? nil : ch
       else
-        false
+        nil
       end
+    end
+
+    if result.compact.empty? && new_arr.length == old_arr.length
+      return nil
+    else
+      return result
     end
   end
 
   def self.hash_diff(new_hash, old_hash)
     d = new_hash.diff(old_hash)
     Hash[d.keys.map { |k| [k, true] }]
+  end
+
+  def self.value_diff(new_val, old_val)
+    val = new_val || old_val
+    if val.is_a?(Array)
+      collection_diff(new_val || [], old_val || [])
+    elsif val.is_a?(Hash)
+      hash_diff(new_val || {}, old_val || {})
+    else
+      'Previous value: ' + (old_val || '(empty)')
+    end
   end
 
   def self.get_changed_fields(new_client, old_client)
@@ -51,28 +77,23 @@ class ClientChange
       if val.is_a?(Hash) && val['value']
         old_val = old_client.andand[key].andand['value']
         if !value_equals(val['value'], old_val)
-          if val['value'].is_a?(Array)
-            changed_fields[key] = collection_diff(val['value'], old_val)
-          elsif old_val.is_a?(Hash)
-            changed_fields[key] = hash_diff(val['value'] || {}, old_val)
-          else
-            changed_fields[key] = 'Previous value: ' + (old_client.andand[key].andand['value'] || '(empty)')
-          end
+          changed_fields[key] = value_diff(val['value'], old_val)
         end
       end
     end
 
     unless old_client.nil?
       old_client.each do |key, val|
-        if val.is_a?(Hash) && val['value']
-          if !value_equals(val['value'], new_client.andand[key].andand['value'])
-            changed_fields[key] ||= 'Previous value: ' + val['value'].to_s
+        new_val = new_client.andand[key]
+        if !new_val.is_a?(Hash) || !new_val['value']
+          if val.is_a?(Hash) && val['value']
+            changed_fields[key] = value_diff(nil, val['value'])
           end
         end
       end
     end
 
-    changed_fields
+    changed_fields.keep_if { |k, v| v }
   end
 
   def self.get_change_description(new_client, old_client)
