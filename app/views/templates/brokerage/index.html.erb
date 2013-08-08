@@ -12,7 +12,7 @@
                    :field => field,
                    :page_title => 'Brokerage',
                    :syncable => false,
-                   :submit_callback => "addToField('#{field[:id]}')",
+                   :submit_callback => field[:onSave] || "addToField('#{field[:id]}')",
                    :paths => paths,
                  } %>
     <% end %>

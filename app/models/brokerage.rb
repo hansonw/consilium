@@ -92,6 +92,7 @@ class Brokerage
     {
       :id => 'users',
       :name => 'Users',
+      :onSave => 'createUser()',
       :type => [
         {
           :id => 'name',
@@ -108,6 +109,18 @@ class Brokerage
           :required => true,
           :type => 'email',
           :primary => true,
+        },
+        {
+          :id => 'password',
+          :name => 'Password',
+          :type => 'password',
+          :required => true,
+        },
+        {
+          :id => 'password_confirm',
+          :name => 'Confirm Password',
+          :type => 'password',
+          :required => true,
         },
       ],
     },

@@ -7,4 +7,12 @@ App.controller 'BrokerageIndexCtrl', ['$scope', 'Brokerage', 'Auth', 'Modal',\
     -> $scope.loading = false
   , -> $scope.loading = false
   )
+
+  $scope.createUser = ->
+    if $scope.users.password != $scope.users.password_confirm
+      alert 'Passwords do not match.'
+      return false
+
+    Modal.toggleModal()
+    return true
 ]
