@@ -8,6 +8,8 @@ class Api::ClientsController < Api::ApiController
     obj.attributes.each do |key, val|
       if key == "_id"
         ret[:id] = val.to_s
+      elsif key == "updated_at" || key == "created_at"
+        ret[key] = val.to_i
       else
         ret[key] = val
       end

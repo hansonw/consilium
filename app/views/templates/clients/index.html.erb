@@ -44,12 +44,12 @@
                    {
                      :name => 'Updated At',
                      :class => 'updated_at',
-                     :content => '{{ item.updated_at | date: \'MMM d, y hh:mm a\' }}'
+                     :content => '{{ item.updated_at*1000 | date: \'MMM d, y hh:mm a\' }}'
                    },
                    {
                      :name => 'Created At',
                      :class => 'created_at',
-                     :content => '{{ item.created_at | date: \'MMM d, y hh:mm a\' }}'
+                     :content => '{{ item.created_at*1000 | date: \'MMM d, y hh:mm a\' }}'
                    }
                  ],
                  :actions => [

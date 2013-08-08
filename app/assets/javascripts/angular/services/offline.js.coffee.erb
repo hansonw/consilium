@@ -11,6 +11,9 @@ getData = (resource) ->
 
 # Checks if a mobile device has a connection (always true on desktop)
 online = ->
+  if window.DEBUG_ONLINE?
+    return window.DEBUG_ONLINE
+
   connection_type = navigator.network?.connection?.type
   if connection_type?
     return connection_type != Connection?.NONE
