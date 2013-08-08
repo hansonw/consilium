@@ -1,6 +1,6 @@
 <div data-ng-controller="ClientsEditCtrl">
   <% fields.each do |field| %>
-    <% if field[:type].is_a?(Array) && field[:id].ends_with?('s') %>
+    <% if field[:type].is_a?(Array) && field[:id].ends_with?('s') && field[:id] != 'locations' %>
       <%= render :partial => 'templates/field_modal',
                  :locals => {
                    :field => field,

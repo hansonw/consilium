@@ -1,0 +1,78 @@
+App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
+  ($scope, elem, attrs) ->
+    $scope.coverageCategories =
+      <%= Client::FIELDS.find { |f| f[:id] == 'locations' }[:type].find { |f| f[:id] == 'coverageSchedules' }[:coverages].to_json %>
+
+    coverageLookup = {}
+    for category in $scope.coverageCategories
+      coverageLookup[category.name] = {}
+      for type in category.type
+        coverageLookup[category.name][type.name] = type
+
+    form = attrs.coverageScheduleForm
+    model = attrs.coverageScheduleModel
+    obj = $parse(form)
+    store = $parse(model)
+
+    $scope.saveCoverageSchedules = ->
+      coverageSchedules = obj($scope) || {}
+
+      collection = []
+      for cat, data of coverageSchedules
+        for type, coverage of data
+          if !angular.equals(coverage, {})
+            coverage.category = {value: cat}
+            coverage.type = {value: type}
+            collection.push(coverage)
+
+      store.assign($scope, collection)
+      $scope.clientForm.$setDirty()
+      Modal.toggleModal(form)
+      $scope.saveForm(false)
+
+    $scope.editCoverageSchedule = (index) ->
+      collection = store($scope) || {}
+      coverageSchedules = {}
+      for coverage, i in collection
+        (coverageSchedules[coverage.category.value] ||= {})[coverage.type.value] =
+          subtype: coverage.subtype,
+          replacementCost: coverage.replacementCost,
+          coinsurance: coverage.coinsurance,
+          deductible: coverage.deductible,
+          limit: coverage.limit
+
+        if i == index
+          $scope.coverage =
+            category: coverage.category.value,
+            type: coverage.type.value
+
+      obj.assign($scope, coverageSchedules)
+      $scope.switchCoverage()
+      Modal.toggleModal(form)
+
+    $scope.emptyCoverage = (category, type) ->
+      coverageSchedules = obj($scope) || {}
+      if !type?
+        return $.isEmptyObject(coverageSchedules[category])
+      return $.isEmptyObject(coverageSchedules[category]?[type])
+
+    prevCov = null
+    $scope.switchCoverage = ->
+      coverageSchedules = obj($scope) || {}
+
+      if prevCov? && $.isEmptyObject(coverageSchedules[prevCov.category]?[prevCov.type])
+        delete coverageSchedules[prevCov.category]?[prevCov.type]
+
+      if cat = coverageLookup[$scope.coverage?.category]?[$scope.coverage?.type]
+        $scope.curCoverage = ((coverageSchedules[$scope.coverage.category] ||= {})[$scope.coverage.type] ||= {})
+        $scope.curCoverageType = cat
+        prevCov = angular.copy($scope.coverage)
+
+      obj.assign($scope, coverageSchedules)
+
+    $scope.clearCoverage = ->
+      coverageSchedules = obj($scope) || {}
+      delete coverageSchedules[$scope.coverage.category]?[$scope.coverage.type]
+      obj.assign($scope, coverageSchedules)
+      $scope.switchCoverage()
+]

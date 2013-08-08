@@ -1456,6 +1456,638 @@ class Client
               :type => 'currency'
             },
           ],
+          :coverages => [
+            {
+              :name => 'Property',
+              :id => 'property',
+              :type => [
+                {
+                  :name => 'Building',
+                  :id => 'building',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                  :replacementCost => true,
+                },
+                {
+                  :name => 'Equipment',
+                  :id => 'equipment',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                  :replacementCost => true,
+                },
+                {
+                  :name => 'Stock',
+                  :id => 'stock',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Property of Every Description (POED) ***',
+                  :id => 'poed',
+                },
+                {
+                  :name => 'Contents of Every Description (COED) ***',
+                  :id => 'coed',
+                },
+                {
+                  :name => 'Office Contents (Broad)',
+                  :id => 'officeContents',
+                },
+                {
+                  :name => 'Electronic Data Processing Systems (Broad)',
+                  :id => 'electronicDataProcessing',
+                },
+                {
+                  :name => 'Valuable Papers & Records (Broad)',
+                  :id => 'valuablePapersRecords',
+                },
+                {
+                  :name => 'Accounts Receivable (Broad)',
+                  :id => 'accountsReceivable',
+                },
+                {
+                  :name => 'Residential Condominiums (Broad)',
+                  :id => 'residentialCondominiums',
+                },
+                {
+                  :name => 'Commercial Condominiums (Broad)',
+                  :id => 'commercialCondominiums',
+                },
+                {
+                  :name => 'Contractor’s Equipment',
+                  :id => 'contractorsEquipment',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Tool Floater',
+                  :id => 'toolFloater',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Transportation Floater',
+                  :id => 'transportationFloater',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Motor Truck Cargo – Owner’s',
+                  :id => 'motorTruckCargoOwner',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Motor Truck Cargo – Truckmen’s',
+                  :id => 'motorTruckCargoTruckmen',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Trip Transit (Broad)',
+                  :id => 'tripTransit',
+                },
+                {
+                  :name => 'Builders Risk',
+                  :id => 'buildersRisk',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Installation Floater',
+                  :id => 'installationFloater',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Bailees’ Customers',
+                  :id => 'baileesCustomers',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Warehouseman’s Legal Liability',
+                  :id => 'warehousemansLiability',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Equipment Dealer’s Stock',
+                  :id => 'dealersStock',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Equipment Dealer’s Equipment',
+                  :id => 'dealersEquipment',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Exhibition Floater',
+                  :id => 'exhibitionFloater',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Fine Arts Floater (Broad)',
+                  :id => 'fineArtsFloater',
+                },
+                {
+                  :name => 'Signs Floater (Broad)',
+                  :id => 'signsFloater',
+                },
+                {
+                  :name => 'Misc. Property Floater',
+                  :id => 'miscPropertyFloater',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Furriers Block (Broad)',
+                  :id => 'furriersBlock',
+                },
+                {
+                  :name => 'Furriers Customers – Custody Rider (Broad)',
+                  :id => 'furriersCustomersCustody',
+                },
+                {
+                  :name => 'Furriers Customers – Legal Liability Rider (Broad)',
+                  :id => 'furriersCustomersLiability',
+                },
+                {
+                  :name => 'Jewelers Block (Broad)',
+                  :id => 'jewelersBlock',
+                },
+                {
+                  :name => 'Heavy Equipment in Use',
+                  :id => 'heavyEquipmentInUse',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Small Equipment in Use',
+                  :id => 'smallEquipmentInUse',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Real Property',
+                  :id => 'realProperty',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Other Transportation',
+                  :id => 'otherTransport',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Other Bailees Floater',
+                  :id => 'otherBaileesFloater',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Installment Sales Floater',
+                  :id => 'installmentSalesFloater',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Other Sales Operations',
+                  :id => 'otherSalesOperations',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Other Construction',
+                  :id => 'otherConstruction',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Difference in Conditions',
+                  :id => 'differenceInConditions',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Other Misc. Floaters',
+                  :id => 'otherMiscFloaters',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Misc. Wording (Broad)',
+                  :id => 'miscWordingBroad',
+                },
+                {
+                  :name => 'Misc. Wording (Named)',
+                  :id => 'miscWordingNamed',
+                },
+              ],
+            },
+            {
+              :name => 'Business Income',
+              :id => 'businessIncome',
+              :type => [
+                {
+                  :name => 'Business Income',
+                  :id =>'businessIncome',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Extended Business Income',
+                  :id =>'extendedBusinessIncome',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Rental Income',
+                  :id =>'rentalIncome',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Extended Rental Income',
+                  :id =>'extendedRentalIncome',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Extra Expense',
+                  :id =>'extraExpense',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+              ],
+            },
+            {
+              :name => 'Business Interruption',
+              :id => 'businessInterruption',
+              :type => [
+                {
+                  :name => 'Profits (Broad/Named)',
+                  :id => 'profits',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Gross Earnings–Mercantile or Non-Manufacturing ',
+                  :id => 'grossEMOrNM',
+                },
+                {
+                  :name => 'Gross Earnings–Manufacturing',
+                  :id => 'grossEarningsManufacturing',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Earnings – No Co-Insurance',
+                  :id => 'earningsNoCons',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Rent or Rental Value',
+                  :id => 'rentRentalValue',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Gross Rentals',
+                  :id => 'grossRentals',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Extra Expense',
+                  :id => 'extraExpense',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Other Business Interruption',
+                  :id => 'otherBusinessInterruption',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'named' => 'Named Perils',
+                  },
+                },
+                {
+                  :name => 'Misc. Wording (Broad)',
+                  :id => 'miscWordingBroad',
+                },
+                {
+                  :name => 'Misc. Wording (Named)',
+                  :id => 'miscWordingNamed',
+                },
+              ],
+            },
+            {
+              :name => 'Crime',
+              :id => 'crime',
+              :type => [
+                {
+                  :name => 'Comprehensive 3 D',
+                  :id => 'comprehensive3D',
+                },
+                {
+                  :name => 'Employee Dishonesty (Individual)',
+                  :id => 'employeeDishonestyIndivid',
+                },
+                {
+                  :name => 'Employee Dishonesty (Scheduled - attach)',
+                  :id => 'employeeDishonestySched',
+                  :type => {
+                    'named' => 'Named Perils',
+                    'position' => 'Position',
+                  },
+                },
+                {
+                  :name => 'Money & Securities',
+                  :id => 'moneySecurities',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'robbery' => 'Robbery',
+                  },
+                },
+                {
+                  :name => 'Money Orders & Counterfeit Paper Currency',
+                  :id => 'moneyOrders',
+                },
+                {
+                  :name => 'Depositors Forgery',
+                  :id => 'depositorsForgery',
+                },
+                {
+                  :name => 'Damage to Building by Burglary or Robbery',
+                  :id => 'damageBuild',
+                },
+                {
+                  :name => 'Stock & Equipment Burglary',
+                  :id => 'sAndEBurglary',
+                },
+                {
+                  :name => 'Safe Burglary',
+                  :id => 'safeBurglary',
+                },
+                {
+                  :name => 'Safe Deposit Box Burglary & Robbery',
+                  :id => 'safeDepositBoxBurglary',
+                },
+                {
+                  :name => 'Safe Deposit Box Securities (Broad)',
+                  :id => 'safeDepositBoxSecurities',
+                },
+                {
+                  :name => 'Office Burglary & Robbery',
+                  :id => 'officeBurglary',
+                  :type => {
+                    'fourPoint' => '4 Point',
+                    'sevenPoint' => '7 Point',
+                  },
+                },
+                {
+                  :name => 'Store Burglary & Robbery (Seven Point)',
+                  :id => 'storeBurglary',
+                },
+                {
+                  :name => 'Church Theft',
+                  :id => 'churchTheft',
+                },
+                {
+                  :name => 'Misc. Wording',
+                  :id => 'miscWording',
+                },
+              ],
+            },
+            {
+              :name => 'Liability',
+              :id => 'liability',
+              :type => [
+                {
+                  :name => 'Commercial General Liability (Occurrence Form)',
+                  :id => 'commercialGeneralLiability',
+                },
+                {
+                  :name => 'Comprehensive General Liability',
+                  :id => 'comprehensiveGeneralLiability',
+                },
+                {
+                  :name => 'Owners’, Landlords’, and Tenants’ Liability',
+                  :id => 'ownersLandlords',
+                },
+                {
+                  :name => 'Tenants’ Legal Liability',
+                  :id => 'tenantsLegalLiability',
+                  :type => {
+                    'broad' => 'Broad Form',
+                    'limited' => 'Limited',
+                  },
+                },
+                {
+                  :name => 'Non-Owned Automobile Liability (SPF 6)',
+                  :id => 'nonOwnedAutoLiability',
+                },
+                {
+                  :name => 'Worldwide Non-owned Automobile Liability',
+                  :id => 'wwNonOwnedAuto',
+                },
+                {
+                  :name => 'Voluntary Compensation',
+                  :id => 'voluntaryComensation',
+                },
+                {
+                  :name => 'Professional Liability',
+                  :id => 'professionalLiability',
+                },
+                {
+                  :name => 'Directors’ & Officers Liability',
+                  :id => 'directorsOfficersLiability',
+                  :type => {
+                    'profit' => 'Profit',
+                    'nonProfit' => 'Non profit',
+                  },
+                },
+                {
+                  :name => 'Employers’ Bodily Injury Liability',
+                  :id => 'employersBodilyInjury',
+                },
+                {
+                  :name => 'Wrap-up Liability',
+                  :id => 'wrapUpLiability',
+                },
+                {
+                  :name => 'Pollution Liability',
+                  :id => 'pollutionLiability',
+                },
+                {
+                  :name => 'Excess Liability',
+                  :id => 'excessLiability',
+                },
+                {
+                  :name => 'Misc. Wording',
+                  :id => 'miscWording',
+                },
+              ],
+            },
+            {
+              :name => 'Umbrella',
+              :id => 'umbrella',
+              :type => [
+                {
+                  :name => 'Umbrella Liability',
+                  :id => 'umbrellaLiability',
+                },
+                {
+                  :name => 'Misc. Wording',
+                  :id => 'miscWording',
+                },
+              ],
+            },
+            {
+              :name => 'Machinery Breakdown',
+              :id => 'machineryBreakdown',
+              :type => [
+                {
+                  :name => 'Machinery Breakdown',
+                  :id => 'machineryBreakdown',
+                },
+                {
+                  :name => 'Business Interruption (Actual Loss)',
+                  :id => 'businessInterruptionAL',
+                },
+                {
+                  :name => 'Business Interruption (Loss of Profit)',
+                  :id => 'businessInterruptionLOP',
+                },
+                {
+                  :name => 'Business Interruption (Gross Earnings)',
+                  :id => 'businessInterruptionGE',
+                },
+                {
+                  :name => 'Business Interruption (Rent or Rental Value)',
+                  :id => 'businessInterruptionRRV',
+                },
+                {
+                  :name => 'Business Interruption (Extra Expense)',
+                  :id => 'businessInterruptionEE',
+                },
+                {
+                  :name => 'Misc. Wording',
+                  :id => 'miscWording',
+                },
+              ],
+            },
+            {
+              :name => 'Other',
+              :id => 'other',
+              :type => [
+                {
+                  :name => 'Fees to Substantiate Loss',
+                  :id => 'feesToSubstantiateLoss',
+                },
+                {
+                  :name => 'Glass',
+                  :id => 'glass',
+                },
+                {
+                  :name => 'Additional Insured',
+                  :id => 'additionalInsured',
+                },
+                {
+                  :name => 'Exclusion of Asbestos Related Claims',
+                  :id => 'execlusionOfAsbestosRelated',
+                },
+                {
+                  :name => 'Blanket Machinery Breakdown',
+                  :id => 'blanketMachinery',
+                },
+                {
+                  :name => 'Misc. Wording',
+                  :id => 'miscWording',
+                },
+              ],
+            },
+          ],
         },
         {
           :name => 'Auto Schedule',
