@@ -14,6 +14,7 @@ module TableHelper
         :content => "{{ item.#{field[:id]}.value || item.#{field[:id]} }}"
       }
       primaryField[:class] = field[:type] if field[:type] != 'text'
+      primaryField[:content] = "{{ (item.#{field[:id]}.value || item.#{field[:id]}) * 1000 | date: 'yyyy-MM-dd' }}" if field[:type] == 'date'
       primaryFields.push primaryField
     end
 
