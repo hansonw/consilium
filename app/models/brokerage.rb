@@ -50,16 +50,6 @@ class Brokerage
       :type => 'phone'
     },
     {
-      :id => 'clients',
-      :name => 'Number of clients',
-      :type => 'text',
-    },
-    {
-      :id => 'employees',
-      :name => 'Number of employees',
-      :type => 'text',
-    },
-    {
       :id => 'contacts',
       :name => 'Contacts',
       :type => [

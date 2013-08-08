@@ -1,6 +1,9 @@
 class User
   include Mongoid::Document
 
+  DEFAULT = 0
+  ADMIN = 1
+
   belongs_to :brokerage
 
   has_many :client_changes

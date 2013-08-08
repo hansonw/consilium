@@ -2,6 +2,16 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    user ||= User.new
+
+    can :manage, Brokerage, Brokerage do |brokerage|
+      user[:brokerage] == brokerage && user[:permission] == User::MANAGE
+    end
+
+    can :manage, Client, Client do |client|
+      user[:brokerage] == client[:brokerage]
+    end
+
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

@@ -1,5 +1,6 @@
 module AngularRoutingHelper
   include ActionDispatch::Routing
+  include ActionDispatch::Integration::Runner
   include Rails.application.routes.url_helpers
 
   DIRECTORY_PATH_SEPARATOR = '/'
@@ -10,7 +11,9 @@ module AngularRoutingHelper
     Rails.application.routes.routes.each do |route|
       path = angularRouteRawPath(route.path.spec.to_s)
 
-      if path.start_with?(app_root_path) && path != (app_templates_path + '/:path.html') && path != app_root_path
+      if path.start_with?(app_root_path) &&
+         path != (app_templates_path + '/:path.html') &&
+         path != app_root_path
         routes.push path
       end
     end

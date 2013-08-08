@@ -1,5 +1,13 @@
 class BrokeragesController < ApplicationController
+  layout "brokerages"
+
   before_action :set_brokerage, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
+  load_and_authorize_resource
+
+  rescue_from CanCan::AccessDenied do |exception|
+    render json: expception.message, status: :access_denied
+  end
 
   # GET /brokerages
   # GET /brokerages.json
@@ -69,6 +77,6 @@ class BrokeragesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def brokerage_params
-      params.require(:brokerage).permit(:name, :address, :website, :phone, :fax, :clients, :employees, :contacts)
+      params.require(:brokerage).permit(:name, :address, :website, :phone, :fax, :contacts)
     end
 end

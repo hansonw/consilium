@@ -1,6 +1,6 @@
 <h1>Listing brokerages</h1>
 
-<table>
+<table border="1" cellpadding="5px">
   <thead>
     <tr>
       <th>Name</th>
@@ -8,8 +8,6 @@
       <th>Website</th>
       <th>Phone</th>
       <th>Fax</th>
-      <th>Clients</th>
-      <th>Employees</th>
       <th>Contacts</th>
       <th></th>
       <th></th>
@@ -25,8 +23,6 @@
         <td><%= brokerage.website %></td>
         <td><%= brokerage.phone %></td>
         <td><%= brokerage.fax %></td>
-        <td><%= brokerage.clients %></td>
-        <td><%= brokerage.employees %></td>
         <td><%= brokerage.contacts %></td>
         <td><%= link_to 'Show', brokerage %></td>
         <td><%= link_to 'Edit', edit_brokerage_path(brokerage) %></td>
