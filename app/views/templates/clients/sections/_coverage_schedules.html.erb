@@ -43,7 +43,8 @@
         <div class="checkbox-container">
           <div data-ng-repeat="(id, name) in curCoverageType.type" class="checkbox-field"
                data-ng-click="toggleRadio('curCoverage.subtype.value', id)">
-            <input name="subtype" type="radio" ng-value="id" ng-checked="curCoverage.subtype.value == id">
+            <input name="subtype" type="radio" ng-value="id" ng-checked="curCoverage.subtype.value == id"
+                   ng-disabled="readonly" ng-readonly="readonly">
             <label for="subtype" class="checkbox-label">{{ name }}</label>
           </div>
         </div>
