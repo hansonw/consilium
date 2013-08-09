@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/DouglasSherk/ydocx.git
-  revision: c37da83b11a7823521e9809eccc7ef8ef1231dd2
+  revision: 4a233b8b65c5c809b5d5d8caaf3307b34a888787
   specs:
     ydocx (1.2.3)
       andand
@@ -63,7 +63,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
-    devise (3.0.1)
+    devise (3.0.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
