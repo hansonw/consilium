@@ -1,8 +1,6 @@
 class Api::RecentClientsController < Api::ApiController
   before_action :set_recent_clients, only: [:edit, :destroy]
 
-  respond_to :json
-
   def get_json(obj)
     ret = {}
     obj.attributes.each do |key, val|

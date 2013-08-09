@@ -4,8 +4,6 @@ require 'tempfile'
 class Api::DocumentsController < Api::ApiController
   before_action :set_document, only: [:edit, :destroy]
 
-  respond_to :json
-
   def get_json(obj)
     ret = {}
     obj.attributes.each do |key, val|

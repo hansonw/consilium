@@ -1,8 +1,6 @@
 class Api::ClientsController < Api::ApiController
   before_action :set_client, only: [:edit, :destroy]
 
-  respond_to :json
-
   def get_json(obj)
     ret = {}
     obj.attributes.each do |key, val|

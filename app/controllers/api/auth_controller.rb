@@ -5,8 +5,6 @@
 class Api::AuthController < Api::ApiController
   skip_before_filter :json_authenticate, :only => [:login]
 
-  respond_to :json
-
   # POST api/auth/login
   # params: username, password
   def login

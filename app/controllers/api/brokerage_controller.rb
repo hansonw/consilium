@@ -1,6 +1,4 @@
 class Api::BrokerageController < Api::ApiController
-  respond_to :json
-
   def show
     @brokerage = Brokerage.all.first
     respond_to do |format|

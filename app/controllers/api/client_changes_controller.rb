@@ -5,8 +5,6 @@ require 'andand'
 class Api::ClientChangesController < Api::ApiController
   before_action :set_client_change, only: [:edit, :destroy]
 
-  respond_to :json
-
   def get_json(obj, attrs = {})
     ret = {}
     obj.attributes.each do |key, val|
