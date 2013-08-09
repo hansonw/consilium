@@ -20,8 +20,8 @@ class ClientChange
       b = b.keep_if { |k, v| v }
     end
 
-    a_null = !a || (!a.is_a?(Fixnum) && a.empty?) || (a.is_a?(Fixnum) && a == 0)
-    b_null = !b || (!b.is_a?(Fixnum) && b.empty?) || (b.is_a?(Fixnum) && b == 0)
+    a_null = !a || a.respond_to?(:empty?) && a.empty?
+    b_null = !b || b.respond_to?(:empty?) && b.empty?
     if a_null != b_null
       return false
     elsif a_null
@@ -31,7 +31,7 @@ class ClientChange
     end
   end
 
-  def self.collection_diff(new_arr, old_arr)
+  def self.collection_diff(new_arr, old_arr, fields)
     old_ids = {}
     if old_arr.is_a?(Array)
       old_ids = Hash[old_arr.map { |x| [x['id'], x] }]
@@ -40,7 +40,7 @@ class ClientChange
     result = new_arr.map do |val|
       old_val = old_ids[val['id']]
       if val != old_val
-        ch = get_changed_fields(val, old_val)
+        ch = get_changed_fields(val, old_val, fields)
         ch.empty? ? nil : ch
       else
         nil
@@ -59,25 +59,42 @@ class ClientChange
     Hash[d.keys.map { |k| [k, true] }]
   end
 
-  def self.value_diff(new_val, old_val)
+  def self.value_diff(new_val, old_val, field)
     val = new_val || old_val
     if val.is_a?(Array)
-      collection_diff(new_val || [], old_val || [])
+      collection_diff(new_val || [], old_val || [], field.andand[:type])
     elsif val.is_a?(Hash)
       hash_diff(new_val || {}, old_val || {})
     else
-      'Previous value: ' + (old_val || '(empty)')
+      type = field.andand[:type]
+      val = case type
+            when 'date'
+              old_val.to_i > 0 && Time.at(old_val.to_i).strftime('%F')
+            when 'radio'
+              field.andand[:options].andand[old_val] || old_val
+            else
+              old_val = old_val.to_s
+              !old_val.empty? && old_val
+            end
+      'Previous value: ' + (val || '(empty)')
     end
   end
 
-  def self.get_changed_fields(new_client, old_client)
+  def self.get_changed_fields(new_client, old_client, fields = Client::FIELDS)
     changed_fields = {}
+
+    field_map = {}
+    if fields
+      Client.expand_fields(fields).each do |field|
+        field_map[field[:id]] = field
+      end
+    end
 
     new_client.each do |key, val|
       if val.is_a?(Hash) && val['value']
         old_val = old_client.andand[key].andand['value']
         if !value_equals(val['value'], old_val)
-          changed_fields[key] = value_diff(val['value'], old_val)
+          changed_fields[key] = value_diff(val['value'], old_val, field_map[key])
         end
       end
     end
@@ -87,7 +104,7 @@ class ClientChange
         new_val = new_client.andand[key]
         if !new_val.is_a?(Hash) || !new_val['value']
           if val.is_a?(Hash) && val['value']
-            changed_fields[key] = value_diff(nil, val['value'])
+            changed_fields[key] = value_diff(nil, val['value'], field_map[key])
           end
         end
       end

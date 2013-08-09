@@ -74,12 +74,12 @@ class Api::ClientChangesController < Api::ApiController
       prev_data = prev_data.andand['locations'].andand['value'].andand[params[:location_id].to_i]
     end
 
-    changed_fields = ClientChange.get_changed_fields(cur_data, prev_data)
-
     field_list = Client::FIELDS
     if params.has_key? :location_id
       field_list = field_list.find { |f| f[:id] == 'locations' }[:type]
     end
+
+    changed_fields = ClientChange.get_changed_fields(cur_data, prev_data, field_list)
 
     changed_sections = Hash[changed_fields.keys.map { |field_id, val|
       section = 'basicInfo'
