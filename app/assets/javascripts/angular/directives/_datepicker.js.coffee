@@ -1,7 +1,10 @@
 App.directive 'datepicker', ['$parse', ($parse) ->
   ($scope, $elem, $attr, $ctrl) ->
+    formName = $elem.parents('form').attr('name')
+    form = formName && $scope[formName]
     presElem = $elem.parent().find('input[type="text"]')
     clearElem = $elem.parent().find('a')
+    model = $parse($attr.model)
 
     $elem.data 'date', null
 
@@ -10,7 +13,9 @@ App.directive 'datepicker', ['$parse', ($parse) ->
       onSelect: (date) ->
         $elem.data 'date', date
         unixTime = Math.floor($elem.datepicker('getDate').getTime()/1000)
-        $parse($attr.model).assign $scope, unixTime
+        if form && unixTime != model($scope)
+          form.$setDirty()
+        model.assign $scope, unixTime
         $scope.$digest()
         clearElem.css 'opacity', '1.0'
       ,
@@ -24,8 +29,8 @@ App.directive 'datepicker', ['$parse', ($parse) ->
     clearElem.css 'display', 'none' if $scope.readonly
 
     $scope.$watch $attr.model, ->
-      savedDate = $parse($attr.model) $scope
-      if savedDate?
+      savedDate = model($scope)
+      if savedDate
         $elem.datepicker 'setDate', new Date(savedDate*1000)
         $elem.data 'date', $elem.val()
         clearElem.css 'opacity', '1.0'
@@ -39,7 +44,8 @@ App.directive 'datepicker', ['$parse', ($parse) ->
     clearElem.click (e) ->
       $elem.datepicker 'setDate', null
       $elem.data 'date', null
-      $parse($attr.model).assign $scope, null
+      model.assign $scope, ""
+      form.$setDirty() if form
       $scope.$digest()
       clearElem.css 'opacity', '0.0'
 ]

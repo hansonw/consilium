@@ -311,7 +311,7 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
                 offline = new OfflineResource(val)
                 offline.id = id
                 offline.$delete(-> storage.delete(id, true))
-              else if val.created_at > last_sync
+              else if val.updated_at > last_sync
                 offline = new OfflineResource(val)
                 offline.$save()
 
