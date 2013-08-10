@@ -8,6 +8,8 @@ Consilium::Application.routes.draw do
   resources :brokerages
 
   scope :api do
+    resources :users, :controller => 'api/users'
+
     resources :clients, :controller => 'api/clients'
     post 'clients/:id' => 'api/clients#create'
 
