@@ -38,6 +38,8 @@ App.run ['$rootScope', '$location', '$timeout', 'Client', 'RecentClients', 'Offl
   $rootScope.logout = -> Auth.logout()
   Auth.watch (isLoggedIn) ->
     $rootScope.isLoggedIn = isLoggedIn
+    if isLoggedIn
+      $rootScope.updateMenu()
     $location.url(if isLoggedIn then '/' else '/auth/login')
 
   if $location.url() != '/auth/login' && !Auth.isLoggedIn()
@@ -74,21 +76,26 @@ App.run ['$rootScope', '$location', '$timeout', 'Client', 'RecentClients', 'Offl
   $rootScope.$on('$routeChangeStart', -> $rootScope.loading = true; $rootScope.timer = Date.now())
   $rootScope.$on('$viewContentLoaded', -> $rootScope.loading = false)
 
-  $rootScope.menuItems = [
-    name: 'Home',
-    link: '/index'
-  ,
-    name: 'Clients'
-    link: '/clients/index',
-  ,
-    name: 'Brokerage'
-    link: '/brokerage/index'
-  ]
-
   $rootScope._curMenuItem = null
   $rootScope._curSubMenuItem = null
   $rootScope._showMenu = false
   $rootScope._showSubMenu = false
+
+  $rootScope.updateMenu = ->    
+    $rootScope.menuItems = [
+      name: 'Home',
+      link: '/index'
+    ]
+    if Auth.isBroker()
+      $rootScope.menuItems = $rootScope.menuItems.concat([
+        name: 'Clients'
+        link: '/clients/index',
+      ,
+        name: 'Brokerage'
+        link: '/brokerage/index'
+      ])
+      
+  $rootScope.updateMenu()
 
   $rootScope.menuItemIsCaretExpanded = (path) ->
     return $rootScope._curMenuItem == path and $rootScope._showSubMenu

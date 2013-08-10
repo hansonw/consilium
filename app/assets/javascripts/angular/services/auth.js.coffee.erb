@@ -3,7 +3,7 @@
 
 App.factory 'AuthToken', ['$resource', ($resource) ->
   get: ->
-    return {email: '', auth_token: ''} if not @_get()
+    return {email: '', auth_token: '', permissions: 0} if not @_get()
     $.parseJSON(@_get())
   set: (authToken) ->
     localStorage.setItem('authToken', authToken)
@@ -41,6 +41,9 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
   service =
     _isLoggedIn: AuthToken.get()?.email?.length
     _watches: []
+    CLIENT: (1<<0),
+    BROKER: (1<<1),
+    ADMIN: (1<<2),
     isLoggedIn: -> @_isLoggedIn
     login: (credentials) ->
       self = @
@@ -57,9 +60,24 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
         # TODO: Find a better way to display login failiure
         alert('Login Failed')
       )
+    hasPermissions: (level) ->
+      AuthToken.get()?.permissions >= level
+    isBroker: ->
+      @hasPermissions(@BROKER)
     checkLogin: () ->
       if !@isLoggedIn()
         $location.url('/auth/login')
+        return false
+      return true
+    checkPermissions: (level) ->
+      if @checkLogin()
+        if !@hasPermissions(level)
+          $location.url('/auth/forbidden')
+          $location.replace()
+          return false
+      return true
+    checkBroker: ->
+      @checkPermissions(@BROKER)
     logout: ->
       self = @
       $http.get(

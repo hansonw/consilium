@@ -2,7 +2,7 @@
 
 <% paths = {
      "Home" => "#/",
-     "Clients" => "#/clients/index",
+     "{{ isBroker ? 'Clients' : null }}" => "#/clients/index",
      "{{ (clientId || savedOnce) && (client.company.value || 'Client') }}" => "{{ '#/clients/show/' + client.id }}",
      "{{ clientChangeId ? 'History' : 'Details' }}" => "#/clients/{{ clientChangeId ? 'edit/' + clientId + '/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}",
    }

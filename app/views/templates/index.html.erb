@@ -2,9 +2,17 @@
   <div class="content header pure-u-1">
     <h1 class="center">Consilium</h1>
     <hr class="soften">
-    <div class="center quick-actions">Quick actions: <a class="pretty" href="" data-click-href="#/clients/new">Create Client</a> <span class="quick-separator">&diams;</span> <a class="pretty" href="" data-click-href="#/clients/index">Search for Client</a></div>
+    <div class="center quick-actions" data-ng-if="isBroker">
+      Quick actions:
+      <a class="pretty" href="" data-click-href="#/clients/new">Create Client</a>
+      <span class="quick-separator">&diams;</span>
+      <a class="pretty" href="" data-click-href="#/clients/index">Search for Client</a>
+    </div>
+    <div class="center quick-actions" data-ng-if="!isBroker">
+      Welcome! Here are your applications:
+    </div>
   </div>
-  <div class="content">
+  <div class="content" data-ng-if="isBroker">
     <div class="client-landing">
       <div class="recent-client">
         <h4>Some of your most recent clients</h4>
@@ -48,5 +56,28 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="content" data-ng-if="!isBroker">
+    <%= render :partial => 'templates/action_table',
+                   :locals => {
+                     :name => 'clients',
+                     :model => 'clients',
+                     :rowHref => '#/clients/show/{{ item.id }}',
+                     :sortable => {:server_side => true},
+                     :fields => getPrimaryFieldsFromModel(Client::FIELDS) | [
+                       {
+                         :name => 'Updated At',
+                         :class => 'updated_at',
+                         :content => '{{ item.updated_at*1000 | date: \'MMM d, y hh:mm a\' }}'
+                       },
+                     ],
+                     :actions => [
+                       {
+                         :class => 'pure-icon',
+                         :icon => 'icon-angle-right',
+                         :href => '#/clients/show/{{ item.id }}',
+                       }
+                     ]
+                   } %>
   </div>
 </div>

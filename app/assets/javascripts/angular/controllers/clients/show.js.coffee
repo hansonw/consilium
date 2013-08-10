@@ -1,6 +1,7 @@
 App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filter', 'Client', 'ClientChange', 'Document', 'RecentClients', 'Auth', 'Modal',\
                                    ($scope, $routeParams, $location, $filter, Client, ClientChange, Document, RecentClients, Auth, Modal) ->
   Auth.checkLogin()
+  $scope.isBroker = Auth.isBroker()
 
   $scope.clientId = $routeParams.clientId
   $scope.loading = $scope.historyLoading = $scope.documentsLoading = true

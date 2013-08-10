@@ -1,6 +1,6 @@
 App.controller 'ClientsRecentCtrl', ['$scope', 'RecentClients', 'Auth',\
                                      ($scope, RecentClients, Auth) ->
-  Auth.checkLogin()
+  Auth.checkBroker()
 
   $scope.clientsLoading = true
   $scope.clientsError = false

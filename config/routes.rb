@@ -49,6 +49,7 @@ Consilium::Application.routes.draw do
       scope :auth do
         get '' => 'home#app', :as => 'app_auth'
         get 'login' => 'home#app', :as => 'app_auth_login'
+        get 'forbidden' => 'home#app', :as => 'app_auth_forbidden'
       end
 
       scope :brokerage do

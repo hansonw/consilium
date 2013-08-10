@@ -9,7 +9,7 @@ class User
 
   has_many :client_changes
   has_many :documents
-  has_one :recent_clients
+  has_one :recent_clients, class_name: 'RecentClients'
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -49,4 +49,6 @@ class User
 
   ## Token authenticatable
   field :authentication_token, :type => String
+
+  field :permissions, :type => Integer, :default => 2
 end

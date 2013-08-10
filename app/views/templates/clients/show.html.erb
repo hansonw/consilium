@@ -1,6 +1,6 @@
 <% paths = {
      "Home" => "#/",
-     "Clients" => "#/clients/index",
+     "{{ isBroker ? 'Clients' : null }}" => "#/clients/index",
      "{{ client.company.value }}" => "#/clients/show/{{ clientId }}",
    }
  %>
@@ -56,7 +56,7 @@
   </div>
   <hr class="soften" />
 
-  <div class="content">
+  <div class="content" data-ng-if="Auth.isBroker()">
     <a class="pure-button pure-button-secondary pure-button-large" data-ng-click="genFromRecent()"
        data-ng-show="history.length">
       <i class="icon-file"></i><span class="desc"><span class="only-desktops"> Generate</span> Document</span>

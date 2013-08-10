@@ -16,6 +16,7 @@ class Api::AuthController < Api::ApiController
       resource.ensure_authentication_token!
       render json: {
         :auth_token => resource.authentication_token,
+        :permissions => resource.permissions,
         :expiry_ts => (Time.now + Devise.timeout_in).to_i
       }
     else

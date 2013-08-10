@@ -2,6 +2,7 @@
 App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$location', '$parse', '$rootScope', 'Client', 'ClientChange', 'RecentClients', 'Auth', 'Modal', 'Flash', 'Scroll',\
                                    ($scope, $routeParams, $timeout, $location, $parse, $rootScope, Client, ClientChange, RecentClients, Auth, Modal, Flash, Scroll) ->
   Auth.checkLogin()
+  $scope.isBroker = Auth.isBroker()
 
   $scope.clientId = $routeParams.clientId
   $scope.clientChangeId = $location.search().change

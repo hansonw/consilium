@@ -1,6 +1,6 @@
 App.controller 'BrokerageIndexCtrl', ['$scope', 'Brokerage', 'Auth', 'Modal',\
                                       ($scope, Brokerage, Auth, Modal) ->
-  Auth.checkLogin()
+  Auth.checkBroker()
 
   $scope.loading = true
   $scope.brokerage = Brokerage.get(
