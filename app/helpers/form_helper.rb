@@ -208,25 +208,23 @@ module FormHelper
   def actionHandleDefault(action, id, rowHref)
     newAction = action
 
-    if action == :delete || action == :show || action == :edit
-      if action == :delete
-        newAction = {
-          :icon => 'icon-trash',
-          :class => 'pure-button-error',
-          :click => "deleteFromField('#{id}', null, $index)",
-        }
-      elsif action == :show
-        newAction = {
-          :icon => 'icon-angle-right',
-          :href => rowHref,
-          :class => 'pure-icon',
-        }
-      elsif action == :edit
-        newAction = {
-          :icon => 'icon-edit',
-          :click => "editInField('#{id}', null, $index)"
-        }
-      end
+    if action == :delete
+      newAction = {
+        :icon => 'icon-trash',
+        :class => 'pure-button-error',
+        :click => "deleteFromField('#{id}', null, $index)",
+      }
+    elsif action == :show
+      newAction = {
+        :icon => 'icon-angle-right',
+        :href => rowHref,
+        :class => 'pure-icon',
+      }
+    elsif action == :edit
+      newAction = {
+        :icon => 'icon-edit',
+        :click => "editInField('#{id}', null, $index)"
+      }
     end
 
     newAction
