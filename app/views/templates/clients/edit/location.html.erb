@@ -15,7 +15,7 @@
     <li><a href="/clients/edit/{{ clientId }}">Location</a></li>
     <ul>
       <% fields.each_with_index do |field, index| %>
-        <% field = fieldAsCollection(field) %>
+        <% if field = fieldAsCollection(field) %>
           <li data-ng-class="changedSections.<%= field[:id] %> && 'changed'">
             <a href="" data-click-href="#<%= field[:id] %>" click-href-margin="145" click-href-condition="screen and (min-height: 768px)">
               <span class="section-number"><%= getSectionId(index, fields) %>.</span> <%= field[:name] %>
