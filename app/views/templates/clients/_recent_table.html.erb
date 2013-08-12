@@ -5,11 +5,5 @@
              :limit => local_assigns[:limit],
              :rowHref => '#/clients/show/{{ item.id }}',
              :fields => getPrimaryFieldsFromModel(Client::FIELDS),
-             :actions => [
-               {
-                 :class => 'pure-icon',
-                 :icon => 'icon-angle-right',
-                 :href => '#/clients/show/{{ item.id }}',
-               },
-             ],
+             :actions => [:show],
            } %>

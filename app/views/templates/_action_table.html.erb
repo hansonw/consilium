@@ -1,3 +1,19 @@
+<% # Start by doing some cleanup on the passed parameters. %>
+<% if !local_assigns[:field].nil? %>
+  <% if field.is_a?(Hash) %>
+    <% name = field[:id] if local_assigns[:name].nil? %>
+    <% model = field[:id] if local_assigns[:model].nil? %>
+    <% rowClick = "editInField('#{field[:id]}', null, $index)" if local_assigns[:rowClick] == true %>
+    <% fields = getPrimaryFieldsFromModel(field[:type]) if local_assigns[:fields].nil? %>
+  <% elsif field.is_a?(Class) %>
+    <% id = field.to_s.downcase.pluralize %>
+    <% name = id if local_assigns[:name].nil? %>
+    <% model = id if local_assigns[:model].nil? %>
+    <% rowClick = "editInField('#{id}', null, $index)" if local_assigns[:rowClick] == true %>
+    <% fields = getPrimaryFieldsFromModel(field::FIELDS) if local_assigns[:fields].nil? %>
+  <% end %>
+<% end %>
+
 <table class="<%= name %>-table pure-table pure-table-horizontal pure-table-full-width"
        <%= local_assigns[:infiniteScroll] && "infinite-scroll data-update='#{local_assigns[:infiniteScroll]}'" %>
        <%= local_assigns[:pagination] && raw("pagination='#{model}' pagination-limit='10'") %> >
@@ -39,6 +55,7 @@
       <% end %>
       <td class="actions align-right">
         <% actions.each do |action| %>
+          <% action = actionHandleDefault(action, local_assigns[:id] || name, rowHref) %>
           <a <% if !action[:href].nil? %>data-click-href="<%= action[:href] %>"<% end %> data-ng-click="<%= action[:click] %>"
              class="pure-button pure-button-small <%= action[:class] %>" <%= raw action[:attrs] %> eat-click>
             <i class="<%= action[:icon] %> icon-large"></i>

@@ -17,13 +17,13 @@
   </div>
   <%= render :partial => 'templates/action_table',
              :locals => {
+               :field => field,
                :name => 'data',
                :model => "#{root}.#{field[:id]}.value",
                :rowClass => "{changed: changedFields.#{field[:id]}[$index]}",
                :rowClick => field[:editCallback] ||
                             !field[:editHref] && "editInField('#{field[:id]}', '#{local_assigns[:root]}', $index)",
                :rowHref => field[:editHref],
-               :fields => getPrimaryFieldsFromModel(field[:type]),
                :actions => [
                  {
                    :class => '{{ !readonly && "pure-button-primary" }}',

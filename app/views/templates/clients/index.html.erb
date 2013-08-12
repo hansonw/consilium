@@ -35,8 +35,7 @@
 
     <%= render :partial => 'templates/action_table',
                :locals => {
-                 :name => 'clients',
-                 :model => 'clients',
+                 :field => Client,
                  :infiniteScroll => 'updateResults(true)',
                  :rowHref => '#/clients/show/{{ item.id }}',
                  :sortable => {:server_side => true},
@@ -52,13 +51,7 @@
                      :content => '{{ item.created_at*1000 | date: \'MMM d, y hh:mm a\' }}'
                    }
                  ],
-                 :actions => [
-                   {
-                     :class => 'pure-icon',
-                     :icon => 'icon-angle-right',
-                     :href => '#/clients/show/{{ item.id }}',
-                   }
-                 ]
+                 :actions => [:show],
                } %>
   </div>
 </div>

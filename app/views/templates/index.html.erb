@@ -45,13 +45,7 @@
                            END
                          }
                        ],
-                       :actions => [
-                         {
-                           :class => 'pure-icon',
-                           :icon => 'icon-angle-right',
-                           :href => '#/clients/edit/{{ item.client_id }}?change={{ item.id }}',
-                         }
-                       ]
+                       :actions => [:show],
                      } %>
         </div>
       </div>
@@ -60,8 +54,7 @@
   <div class="content" data-ng-if="!isBroker">
     <%= render :partial => 'templates/action_table',
                    :locals => {
-                     :name => 'clients',
-                     :model => 'clients',
+                     :field => Client,
                      :rowHref => '#/clients/show/{{ item.id }}',
                      :sortable => {:server_side => true},
                      :fields => getPrimaryFieldsFromModel(Client::FIELDS) | [
@@ -71,13 +64,7 @@
                          :content => '{{ item.updated_at*1000 | date: \'MMM d, y hh:mm a\' }}'
                        },
                      ],
-                     :actions => [
-                       {
-                         :class => 'pure-icon',
-                         :icon => 'icon-angle-right',
-                         :href => '#/clients/show/{{ item.id }}',
-                       }
-                     ]
+                     :actions => [:show],
                    } %>
   </div>
 </div>

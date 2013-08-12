@@ -123,19 +123,7 @@
                        END
                      }
                    ],
-                   :actions => [
-                     #{
-                     #  :class => 'pure-button-success',
-                     #  :icon => 'icon-file',
-                     #  :click => 'setClientChange(item, pageGetIndex("history", $index))',
-                     #  :attrs => 'modal-toggle="genDocument"',
-                     #},
-                     {
-                       :class => 'pure-icon',
-                       :icon => 'icon-angle-right',
-                       :href => '#/clients/edit/{{ item.client_id }}?change={{ item.id }}',
-                     },
-                   ]
+                   :actions => [:show],
                  } %>
       <div class="paginator" paginator="history"></div>
     </div>
@@ -146,6 +134,7 @@
       </div>
       <%= render :partial => 'templates/action_table',
                  :locals => {
+                   :field => Document::FIELDS,
                    :name => 'documents',
                    :model => 'documents',
                    :rowHref => '/api/documents/{{ item.id }}',

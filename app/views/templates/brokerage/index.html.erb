@@ -65,21 +65,10 @@
 
             <%= render :partial => 'templates/action_table',
                        :locals => {
-                         :name => field[:id],
+                         :field => field,
                          :model => "brokerage." + field[:id],
-                         :rowClick => "editInField('#{field[:id]}', null, $index)",
-                         :fields => getPrimaryFieldsFromModel(field[:type]),
-                         :actions => [
-                           {
-                             :icon => 'icon-edit',
-                             :click => "editInField('#{field[:id]}', null, $index)",
-                           },
-                           {
-                             :class => 'pure-button-error',
-                             :icon => 'icon-trash',
-                             :click => "deleteFromField('#{field[:id]}', null, $index)",
-                           },
-                         ],
+                         :rowClick => true,
+                         :actions => [:edit, :delete],
                        } %>
           </div>
         <% end %>

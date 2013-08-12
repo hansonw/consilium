@@ -7,4 +7,8 @@ class Document
   belongs_to :client_change
   field :description, type: String
   field :template, type: String
+
+  FIELDS = [
+    
+  ]
 end
