@@ -1,6 +1,9 @@
 App.controller 'ClientsIndexCtrl', ['$scope', 'Client', 'Auth',\
                                     ($scope, Client, Auth) ->
-  Auth.checkBroker()
+  Auth.checkLogin()
+  if !Auth.isBroker()
+    $location.url('/')
+    $location.replace()
 
   results_per_page = 20
 

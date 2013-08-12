@@ -24,10 +24,9 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
       )
     ),
     (data, header) ->
-      # TODO: should be a modal
       RecentClients.removeClient($scope.clientId)
-      alert('The requested client was not found.')
-      $location.url('/clients/index')
+      $location.url('/clients/notfound')
+      $location.replace()
 
   $scope.deleteClient = ->
     # TODO: should be modal

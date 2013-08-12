@@ -81,7 +81,7 @@ App.run ['$rootScope', '$location', '$timeout', 'Client', 'RecentClients', 'Offl
   $rootScope._showMenu = false
   $rootScope._showSubMenu = false
 
-  $rootScope.updateMenu = ->    
+  $rootScope.updateMenu = ->
     $rootScope.menuItems = [
       name: 'Home',
       link: '/index'
@@ -94,7 +94,7 @@ App.run ['$rootScope', '$location', '$timeout', 'Client', 'RecentClients', 'Offl
         name: 'Brokerage'
         link: '/brokerage/index'
       ])
-      
+
   $rootScope.updateMenu()
 
   $rootScope.menuItemIsCaretExpanded = (path) ->
