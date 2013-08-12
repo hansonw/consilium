@@ -111,7 +111,7 @@
                    :fields => [
                      {
                        :name => 'Description',
-                       :class => 'description',
+                       :id => 'description',
                        :content => <<-END
                          <b>{{ pageGetIndex('history', $index) == 0 ? "Current revision: " : "" }}</b>
                          {{ item.description | ellipsize: (pageGetIndex('history', $index) == 0 ? 20 : 40):1 }}

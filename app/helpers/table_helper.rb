@@ -11,6 +11,7 @@ module TableHelper
       next if !field[:primary]
       primaryField = {
         :name => field[:name],
+        :id => field[:id],
         :content => "{{ item.#{field[:id]}.value || item.#{field[:id]} }}"
       }
       primaryField[:class] = field[:type] if field[:type] != 'text'
