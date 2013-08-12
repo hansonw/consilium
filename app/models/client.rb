@@ -87,7 +87,6 @@ class Client
           :id => 'country',
           :placeholder => '',
           :type => 'dropdown',
-          :intelligentStates => true,
           :options => [
             'Canada',
             'Other',
@@ -219,6 +218,7 @@ class Client
           :id => 'claimType',
           :placeholder => '(ex. Commercial)',
           :type => 'text',
+          :intelligentText => true,
           :primary => true,
         },
         {
@@ -252,6 +252,7 @@ class Client
           :required => true,
           :placeholder => 'Name',
           :type => 'text',
+          :intelligentText => true,
           :primary => true,
         },
         {
@@ -323,6 +324,7 @@ class Client
           :required => true,
           :placeholder => 'Name',
           :type => 'text',
+          :intelligentText => true,
           :primary => true,
         },
         {
@@ -497,6 +499,7 @@ class Client
           :required => true,
           :type => 'text',
           :placeholder => 'Operation or product type',
+          :intelligentText => true,
           :primary => true,
         },
         {
@@ -577,7 +580,6 @@ class Client
               :name => 'Country',
               :id => 'country',
               :type => 'dropdown',
-              :intelligentStates => true,
               :options => [
                 'Canada',
                 'Other',
@@ -2132,6 +2134,7 @@ class Client
               :name => 'Finance Company',
               :id => 'financeCompany',
               :placeholder => 'Some Truck Co.',
+              :intelligentText => true,
               :type => 'text',
             },
             {
@@ -2144,6 +2147,7 @@ class Client
               :name => 'Make',
               :id => 'make',
               :placeholder => '(ex. Ford)',
+              :intelligentText => true,
               :type => 'text',
             },
             {
@@ -2174,6 +2178,7 @@ class Client
               :name => 'Lessor',
               :id => 'lessor',
               :placeholder => '(ex. Owned)',
+              :intelligentText => true,
               :type => 'text',
             },
             {
@@ -2261,6 +2266,7 @@ class Client
               :id => 'make',
               :type => 'text',
               :placeholder => 'Manufacturer',
+              :intelligentText => true,
             },
             {
               :name => 'Model',
@@ -2279,6 +2285,7 @@ class Client
               :id => 'lessor',
               :type => 'text',
               :placeholder => 'Lessor',
+              :intelligentText => true,
             },
             {
               :name => 'Description',
@@ -2333,6 +2340,7 @@ class Client
               :id => 'make',
               :type => 'text',
               :placeholder => 'Manufacturer',
+              :intelligentText => true,
             },
             {
               :name => 'Model',
@@ -2351,6 +2359,7 @@ class Client
               :id => 'lessor',
               :type => 'text',
               :placeholder => 'Lessor',
+              :intelligentText => true,
             },
             {
               :name => 'Description',

@@ -86,7 +86,6 @@ module FormHelper
                             data-dropdown-other='#{model}'
                             #{field[:intelligentOther] && "model='#{h options[:model_parent]}'"}
                             #{field[:required] && 'required'}
-                            #{field[:intelligentStates] && 'intelligentStates'}
                             #{field[:intelligentOther] && 'intelligent-other'}
                             #{field[:readonly] && 'readonly'}>
                           <option value=''>#{field[:placeholder]}</option>"
@@ -184,6 +183,8 @@ module FormHelper
               #{field[:min] && "ng-min='#{field[:min]}'"}
               #{field[:max] && "ng-max='#{field[:max]}'"}
               #{field[:pattern] && pattern(field[:pattern])}
+              #{field[:intelligentText] && "model='#{h options[:model_parent]}'"}
+              #{field[:intelligentText] && 'intelligent-text'}
               #{field[:errorMessage] && "title='#{field[:errorMessage]}'"}
             />"
     end
