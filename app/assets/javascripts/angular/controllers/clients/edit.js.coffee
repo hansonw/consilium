@@ -39,8 +39,8 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
             $scope.client.id = $scope.clientId
             RecentClients.logClientShow($scope.client)),
           (data) ->
-            alert('The requested client was not found.')
-            $location.url('/clients/index'))
+            $location.url('/clients/notfound')
+            $location.replace())
     )
     loadChange()
   else if $scope.clientId

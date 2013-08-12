@@ -34,4 +34,5 @@ App.directive 'clickHref', ['$location', '$parse', '$timeout', 'Scroll', ($locat
           window.location = attr.clickHref
 
       e.preventDefault()
+      return false
 ]

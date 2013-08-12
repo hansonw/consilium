@@ -116,7 +116,7 @@
                          <b>{{ pageGetIndex('history', $index) == 0 ? "Current revision: " : "" }}</b>
                          {{ item.description | ellipsize: (pageGetIndex('history', $index) == 0 ? 20 : 40):1 }}
                          <div class="detail">
-                           by <a data-click-href="#/users/show/{{ item.user_id }}" class="email">{{ item.user_email }}</a>
+                           by <a data-ng-href="#/users/show/{{ item.user_id }}" eat-click>{{ item.user_email }}</a>
                            <span class="except-desktops"><br /></span>
                            on <span class="date">{{ item.updated_at | date: 'MMM d, y h:mm a' }}</span>
                          </div>
