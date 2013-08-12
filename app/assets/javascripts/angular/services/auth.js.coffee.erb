@@ -57,8 +57,10 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
         self._isLoggedIn = true
         self._notifyWatches()
       ).error((data, status, headers, config) ->
-        # TODO: Find a better way to display login failiure
-        alert('Login Failed')
+        if status == 403
+          alert('Invalid email or password.')
+        else
+          alert('Could not connect to the Consilium servers. Please try again later.')
       )
     hasPermissions: (level) ->
       AuthToken.get()?.permissions >= level

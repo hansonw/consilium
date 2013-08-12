@@ -4,11 +4,6 @@ App.controller 'AuthLoginCtrl', ['$scope', '$http', '$location', '$rootScope', '
   if Auth.isLoggedIn()
     $location.url('/')
 
-  $scope.loginData =
-    email: ''
-    password: ''
-
-  $scope.login =
-    submit: (form) ->
-      Auth.login($scope.loginData)
+  $scope.login = ->
+    Auth.login($scope.loginData)
 ]

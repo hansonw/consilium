@@ -2,7 +2,7 @@
   <h1 class="center">Consilium</h1>
   <hr class="soften" />
   <div class="separator-small"></div>
-  <form name="loginForm" class="pure-form pure-form-aligned" data-ng-submit="login.submit(loginForm)">
+  <form name="loginForm" class="pure-form pure-form-aligned" data-ng-submit="login()">
     <div class="pure-form-fields">
       <div class="pure-control-group">
         <%= label_tag 'email', 'Email Address' %>
@@ -16,7 +16,7 @@
     <div class="login-buttons">
       <button class="pure-button" data-click-href="/users/forgot_password" type="button">Forgot Password</button>
       <button class="pure-button pure-button-secondary" data-click-href="/users/sign_up" type="button">Sign Up</button>
-      <button class="pure-button pure-button-primary" data-ng-click="login.submit(loginForm)" type="submit">Login</button>
+      <button class="pure-button pure-button-primary" type="submit">Login</button>
     </div>
   </form>
 </div>
