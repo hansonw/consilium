@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= Rails.application.class.parent %></title>
+  <%% if Rails.env.phonegap? || Rails.env.phonegap_staging? %>
+    <link href="css/application.css" media="all" rel="stylesheet" />
+    <script src="js/application.js"></script>
+    <script src="phonegap.js"></script>
+  <%% else %>
+    <%%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%%= csrf_meta_tags %>
+  <%% end %>
+<% if options.angular? %>
+  <%% if Rails.env.phonegap? || Rails.env.phonegap_staging? %>
+    <%% phonegapAllTemplates.each do |path, content| %>
+      <script type="text/ng-template" id="<%%= path %>">
+       <%%= raw content %>
+      </script>
+    <%% end %>
+  <%% end %>
+<% end %>
+</head>
+<body>
+
+<%%= yield %>
+
+</body>
+</html>

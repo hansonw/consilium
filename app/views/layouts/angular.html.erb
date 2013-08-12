@@ -19,7 +19,7 @@
   </script>
 
   <% if Rails.env.phonegap? || Rails.env.phonegap_staging? %>
-    <% angularAllTemplates.each do |path, content| %>
+    <% phonegapAllTemplates.each do |path, content| %>
       <script type="text/ng-template" id="<%= path %>">
        <%= raw content %>
       </script>

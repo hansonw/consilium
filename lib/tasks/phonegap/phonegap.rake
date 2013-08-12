@@ -22,7 +22,7 @@ end
 namespace :phonegap do
   desc "Export website as PhoneGap application."
   task :export => :environment do
-    include AngularTemplateCachingHelper
+    include PhonegapTemplateCachingHelper
 
     puts "Exporting PhoneGap project"
 
@@ -74,7 +74,7 @@ namespace :phonegap do
     puts "* layouts (index.html)"
     public_source = File.expand_path('../../../../public', __FILE__)
     file = File.open("#{project_path}/index.html", "w")
-    file.write angularRenderRoot
+    file.write phonegapRenderRoot
     file.close
 
     # Copy config file
