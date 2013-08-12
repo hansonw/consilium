@@ -6,9 +6,13 @@ App.directive 'intelligentOther', ['$parse', ($parse) ->
     modalCollection = fields[0]
 
     defaultOptions = []
+    placeholder = ''
     $.each $elem.find('option'), ->
-      if $(this).val() != 'Other'
-        defaultOptions.push($(this).val())
+      val = $(this).val()
+      if val != 'Other'
+        defaultOptions.push val
+        if val == ''
+          placeholder = $(this).html()
 
     getValues = (model, fields) ->
       ret = []
@@ -34,7 +38,8 @@ App.directive 'intelligentOther', ['$parse', ($parse) ->
           values.push(value)
 
       $elem.empty()
-      $elem.append($('<option>').val(value).html(value)) for value in values
+      for value in values
+        $elem.append($('<option>').val(value).html(if value == '' then placeholder else value))
 
     $("div#modal-" + modalCollection).on 'modal-toggle', updateValues
     $scope.$on '$destroy', ->
