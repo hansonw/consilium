@@ -2,5 +2,5 @@
 <% environment.context_class.instance_eval { include AngularHostHelper } %>
 
 App.factory 'User', ['$resource', ($resource) ->
-  $resource('<%= angularApiPath('/api/users/:id') %>', {format: 'json', id: '@id'}, {'save': {method: 'PUT'}})
+  $resource('<%= angularApiPath('/api/users/:id') %>', {format: 'json', id: '@id'}, {'update': {method: 'PUT'}})
 ]

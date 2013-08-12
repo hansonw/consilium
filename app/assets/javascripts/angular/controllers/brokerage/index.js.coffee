@@ -1,5 +1,5 @@
-App.controller 'BrokerageIndexCtrl', ['$scope', 'Brokerage', 'Auth', 'Modal',\
-                                      ($scope, Brokerage, Auth, Modal) ->
+App.controller 'BrokerageIndexCtrl', ['$scope', 'Brokerage', 'Auth', 'Modal', 'User',\
+                                      ($scope, Brokerage, Auth, Modal, User) ->
   Auth.checkBroker()
 
   $scope.loading = true
@@ -12,6 +12,8 @@ App.controller 'BrokerageIndexCtrl', ['$scope', 'Brokerage', 'Auth', 'Modal',\
     if $scope.users.password != $scope.users.password_confirm
       alert 'Passwords do not match.'
       return false
+
+    User.save($scope.users)
 
     Modal.toggleModal()
     return true

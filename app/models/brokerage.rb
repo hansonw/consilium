@@ -92,7 +92,6 @@ class Brokerage
     {
       :id => 'users',
       :name => 'Users',
-      :onSave => 'createUser()',
       :type => [
         {
           :id => 'name',
