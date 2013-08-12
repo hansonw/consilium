@@ -51,15 +51,15 @@
                 <button class="pure-button prevButton"
                         data-click-href="#/clients/edit/{{ clientId }}?change={{ prevChangeId }}"
                         data-ng-disabled="!prevChangeId">
-                  <i class="icon-angle-left icon-fixed-width"></i> Prev. Change
+                  <i class="icon-angle-left icon-fixed-width"></i> Prev.<span class="only-desktops"> Change</span>
                 </button>
                 <div class="counter">
-                  Change {{ curChangeNum }} / {{ changeCount }}
+                  <span class="only-desktops">Change </span>{{ curChangeNum }} / {{ changeCount }}
                 </div>
-                <button class="pure-button nextButton" 
+                <button class="pure-button nextButton"
                         data-click-href="#/clients/edit/{{ clientId }}?change={{ nextChangeId }}"
                         ng-disabled="!nextChangeId">
-                  Next Change <i class="icon-angle-right icon-fixed-width"></i>
+                  Next<span class="only-desktops"> Change</span> <i class="icon-angle-right icon-fixed-width"></i>
                 </button>
               </div>
             </aside>
