@@ -191,4 +191,17 @@ module FormHelper
 
     return raw r.gsub("\n", "").squeeze(' ')
   end
+
+  def fieldAsCollection(field)
+    if field[:type].is_a?(Class)
+      field = field.dup()
+      # Link the field to the class that it's referring to's fields.
+      field[:type] = field[:type]::FIELDS
+      return field
+    elsif field[:type].is_a?(Array)
+      return field
+    else
+      return nil
+    end
+  end
 end

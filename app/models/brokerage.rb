@@ -92,36 +92,7 @@ class Brokerage
     {
       :id => 'users',
       :name => 'Users',
-      :type => [
-        {
-          :id => 'name',
-          :name => 'Name',
-          :placeholder => 'Name',
-          :required => true,
-          :type => 'text',
-          :primary => true,
-        },
-        {
-          :id => 'email',
-          :name => 'Email',
-          :placeholder => 'e.g. john@consilium.ca',
-          :required => true,
-          :type => 'email',
-          :primary => true,
-        },
-        {
-          :id => 'password',
-          :name => 'Password',
-          :type => 'password',
-          :required => true,
-        },
-        {
-          :id => 'password_confirm',
-          :name => 'Confirm Password',
-          :type => 'password',
-          :required => true,
-        },
-      ],
+      :type => User,
     },
   ]
 end

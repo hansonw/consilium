@@ -6,7 +6,7 @@
 
 <div id="main" class="pure-u" data-ng-controller="BrokerageIndexCtrl">
   <% Brokerage::FIELDS.each do |field| %>
-    <% if field[:type].is_a?(Array) %>
+    <% if field = fieldAsCollection(field) %>
       <%= render :partial => 'templates/field_modal',
                  :locals => {
                    :field => field,
@@ -43,7 +43,8 @@
 
         <div class="pure-form-fields">
           <% Brokerage::FIELDS.each do |field| %>
-            <% if !field[:type].is_a?(Array) %>
+            <% if fieldAsCollection(field).nil? %>
+              <% puts field %>
               <%= form_field field, 'brokerage', :syncable => false %>
             <% end %>
           <% end %>
@@ -51,7 +52,7 @@
       </div>
 
       <% Brokerage::FIELDS.each do |field| %>
-        <% if field[:type].is_a?(Array) %>
+        <% if field = fieldAsCollection(field) %>
           <div class="separator"></div>
 
           <div class="well">

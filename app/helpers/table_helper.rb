@@ -3,9 +3,13 @@ module TableHelper
     primaryFields = []
 
     # Recurse down the model until we find a section that has primary fields.
-    while model.is_a?(Array) && !model[0][:type].nil? && model[0][:type].is_a?(Array)
-      model = model[0][:type]
-    end
+    begin
+      isArray = model.is_a?(Array) && !model[0][:type].nil? && model[0][:type].is_a?(Array)
+      isClass = model.is_a?(Class)
+
+      model = model[0][:type] if isArray
+      model = model::FIELDS if isClass
+    end until !isArray && !isClass
 
     model.each do |field|
       next if !field[:primary]

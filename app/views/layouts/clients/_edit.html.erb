@@ -1,6 +1,6 @@
 <div data-ng-controller="ClientsEditCtrl">
   <% fields.each do |field| %>
-    <% if field[:type].is_a?(Array) && field[:id].ends_with?('s') && field[:id] != 'locations' %>
+    <% if field[:id].ends_with?('s') && field[:id] != 'locations' && field = fieldAsCollection(field) %>
       <%= render :partial => 'templates/field_modal',
                  :locals => {
                    :field => field,
@@ -65,8 +65,9 @@
             </aside>
 
             <% fields.each_with_index do |field, index| %>
-              <% if field[:type].is_a? Array %>
-                <% if field[:id].ends_with? 's' %>
+              <% fieldId = field[:id] %>
+              <% if field = fieldAsCollection(field) %>
+                <% if fieldId.ends_with? 's' %>
                   <%= render :partial => 'templates/clients/field_table',
                              :locals => { :field => field, :index => getSectionId(index, fields), :root => local_assigns[:root] } %>
                 <% else %>
