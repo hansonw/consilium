@@ -14,7 +14,6 @@ module FormHelper
     if !options.has_key?(:syncable)
       options[:syncable] = true
     end
-    parent_field = 'client' if parent_field.nil?
 
     model = model_name(field[:id], parent_field, options)
     if field[:if]
@@ -88,7 +87,7 @@ module FormHelper
                             #{field[:intelligentOther] && "model='#{h options[:model_parent]}'"}
                             #{field[:required] && 'required'}
                             #{field[:intelligentStates] && 'intelligentStates'}
-                            #{field[:intelligentOther] && 'intelligent-other'}>
+                            #{field[:intelligentOther] && 'intelligent-other'}
                             #{field[:readonly] && 'readonly'}>
                           <option value=''>#{field[:placeholder]}</option>"
       field[:options].each do |option|

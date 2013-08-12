@@ -121,7 +121,10 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', 
     $scope.addToField = (objName, root) ->
       obj = $scope[objName] || {}
       root = model if !root? or root == ''
-      collection = Object.byString($scope, root + '.' + objName + (syncable && '.value' || ''))
+      parsed = $parse(root + '.' + objName + (syncable && '.value' || ''))
+      collection = parsed($scope)
+      if !collection?
+        collection = parsed.assign($scope, [])
 
       modalForm = $scope[objName + 'Form']
       if !modalForm.$valid
@@ -129,7 +132,7 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', 
         return
 
       obj.id ||= generateGUID()
-      
+
       if obj.$index?
         # Remove the index field and add it back
         collection[obj.$index] = obj
@@ -145,10 +148,14 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', 
       form.$setDirty()
       Modal.toggleModal(objName)
       $scope.saveForm(false)
+      $scope[objName] = {}
 
     $scope.editInField = (objName, root, index) ->
       root = model if !root? or root == ''
-      collection = Object.byString($scope, root + '.' + objName + (syncable && '.value' || ''))
+      parsed = $parse(root + '.' + objName + (syncable && '.value' || ''))
+      collection = parsed($scope)
+      if !collection?
+        collection = parsed.assign($scope, [])
 
       if index < collection.length
         $scope[objName] = angular.copy(collection[index])
@@ -157,7 +164,10 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', 
 
     $scope.deleteFromField = (objName, root, index) ->
       root = model if !root? or root == ''
-      collection = Object.byString($scope, root + '.' + objName + (syncable && '.value' || ''))
+      parsed = $parse(root + '.' + objName + (syncable && '.value' || ''))
+      collection = parsed($scope)
+      if !collection?
+        collection = parsed.assign($scope, [])
 
       if index < collection.length
         collection.splice(index, 1)

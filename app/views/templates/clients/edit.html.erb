@@ -22,7 +22,7 @@
   </ul>
 <% end %>
 
-<%= render :layout => 'layouts/clients/edit', :locals => {:fields => fields, :paths => paths} do %>
+<%= render :layout => 'layouts/clients/edit', :locals => {:fields => fields, :paths => paths, :root => 'client'} do %>
   <%= render :partial => 'templates/breadcrumbs',
              :locals => { :paths => paths }
    %>
