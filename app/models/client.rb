@@ -3037,7 +3037,7 @@ class Client
       if field[:required]
         errors[field_name] << 'is required'
       end
-    elsif val['updated_at'].nil? && parent.nil? # TODO: for now, let's just ignore it on subfields
+    elsif val['updated_at'].nil?
       errors[field_name] << 'must contain "updated_at"'
     elsif val['value'].nil?
       if field[:type].is_a?(Array)

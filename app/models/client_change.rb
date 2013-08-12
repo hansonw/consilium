@@ -10,6 +10,8 @@ class ClientChange
   field :client_data, type: Hash
   field :description, type: String
 
+  SQUASH_TIME = 5*60 # 5 minutes
+
   # Empty values should be treated the same as missing values.
   def self.value_equals(a, b)
     if a.is_a?(Hash)
@@ -133,7 +135,7 @@ class ClientChange
   def self.update_client(client, user_id)
     changes = ClientChange.where('client_id' => client.id).desc(:updated_at)
     last_change = changes.first
-    if !last_change.nil? && last_change.user_id == user_id && Time.now - last_change.updated_at < 60
+    if !last_change.nil? && last_change.user_id == user_id && Time.now - last_change.updated_at < SQUASH_TIME
       # Merge into previous if it's within a minute
       if last_change.description = get_change_description(client.attributes, changes.second && changes.second.client_data)
         last_change.client_data = client.attributes

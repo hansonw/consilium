@@ -88,6 +88,7 @@ markCollectionChanges = (newData, oldData) ->
       updated |= markChanges(val, old)
     else
       val.created_at = val.updated_at = unix_timestamp()
+      markChanges(val)
       updated = true
   return updated
 
@@ -142,7 +143,7 @@ class LocalStorage
     if obj?
       @obj_last_synced[obj] = time
     else
-      window.localStorage.setItem(@storageKey() + '.lastSynced', time)  
+      window.localStorage.setItem(@storageKey() + '.lastSynced', time)
 
   update: (resource, overwrite = false) ->
     data = getData(resource)
