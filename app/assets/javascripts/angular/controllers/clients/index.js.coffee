@@ -1,5 +1,5 @@
-App.controller 'ClientsIndexCtrl', ['$scope', 'Client', 'Auth',\
-                                    ($scope, Client, Auth) ->
+App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', 'Auth',\
+                                    ($scope, $location, Client, Auth) ->
   Auth.checkLogin()
   if !Auth.isBroker()
     $location.url('/')
