@@ -20,7 +20,9 @@ module ConsiliumFields
       expand_fields(node).each do |field|
         if field[:id]
           permitted <<
-            if field[:type].is_a? Array
+            if field[:type].is_a? Class
+              {field[:id] => generate_permit_params(field[:type]::FIELDS)}
+            elsif field[:type].is_a? Array
               {field[:id] => generate_permit_params(field[:type])}
             elsif field[:type] == 'checkbox'
               {field[:id] => field[:options].keys}
@@ -37,7 +39,9 @@ module ConsiliumFields
       expand_fields(node).each do |field|
         if field[:id]
           permitted[field[:id]] = [:created_at, :updated_at,
-            if field[:type].is_a? Array
+            if field[:type].is_a? Class
+              {:value => [:id, :created_at, :updated_at, generate_permit_params_wrapped(field[:type]::FIELDS)]}
+            elsif field[:type].is_a? Array
               {:value => [:id, :created_at, :updated_at, generate_permit_params_wrapped(field[:type])]}
             elsif field[:type] == 'checkbox'
               {:value => field[:options].keys}
