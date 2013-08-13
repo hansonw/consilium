@@ -29,6 +29,9 @@ App.directive 'intelligent', ['$parse', ($parse) ->
             $elem[0].selectionEnd = match.length
             e.preventDefault()
 
+      $elem.on 'blur', ->
+        $parse($attr.ngModel).assign($scope, $elem.val())
+
     model = $parse($attr.model)
     modalCollection = fields[0]
 
