@@ -4,7 +4,7 @@
    }
  %>
 
-<div id="main" class="pure-u" data-ng-controller="BrokerageIndexCtrl">
+<div data-ng-controller="BrokerageIndexCtrl">
   <% Brokerage::FIELDS.each do |field| %>
     <% if field = fieldAsCollection(field) %>
       <%= render :partial => 'templates/field_modal',
@@ -18,81 +18,82 @@
     <% end %>
   <% end %>
 
-  <div class="content header pure-u-1">
-    <h2 class="no-bottom-margin">
-      Brokerage
-    </h2>
-
-    <%= render :partial => 'templates/breadcrumbs',
-               :locals => { :paths => paths }
-     %>
-  </div>
-  <hr class="soften" />
-
-  <div class="content" data-ng-show="loading">
-    <h3 class="no-top-margin"><i class="icon-spinner icon-spin icon-large"></i> Loading...</h3>
+  <div class="client-header" data-ng-class="{'active': menuShouldShow()}">
+    <div class="content header pure-u-1">
+      <h2 class="no-bottom-margin">Brokerage</h2>
+      <%= render :partial => 'templates/breadcrumbs',
+                 :locals => { :paths => paths }
+      %>
+    </div>
+    <hr class="soften no-bottom-margin" />
   </div>
 
-  <div class="content" data-ng-show="!loading">
-    <form auto-save="brokerage" name="brokerageForm" data-ng-submit="saveForm()"
-          class="brokerage-form pure-form pure-form-aligned">
-      <div class="well">
-        <div class="section" id="basicInfo">
-          <h3 class="no-top-margin no-bottom-margin">Office Info.</h3>
-        </div>
+  <div id="main" class="pure-u">
+    <div class="content has-header" data-ng-show="loading">
+      <h3 class="no-top-margin"><i class="icon-spinner icon-spin icon-large"></i> Loading...</h3>
+    </div>
 
-        <div class="pure-form-fields">
-          <% Brokerage::FIELDS.each do |field| %>
-            <% if fieldAsCollection(field).nil? %>
-              <% puts field %>
-              <%= form_field field, 'brokerage', :syncable => false %>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-
-      <% Brokerage::FIELDS.each do |field| %>
-        <% if field = fieldAsCollection(field) %>
-          <div class="separator"></div>
-
-          <div class="well">
-            <div class="section">
-              <a class="section-edit pull-right pure-button pure-button-success" modal-toggle="<%= field[:id] %>">
-                <i class="icon-plus"></i> <span class="only-desktops">Add <%= field[:name].singularize %></span>
-              </a>
-              <h3 class="no-top-margin no-bottom-margin">Brokerage <%= field[:name] %></h3>
-            </div>
-
-            <%= render :partial => 'templates/action_table',
-                       :locals => {
-                         :field => field,
-                         :model => "brokerage." + field[:id],
-                         :rowClick => true,
-                         :actions => [:edit, :delete],
-                       } %>
+    <div class="content has-header" data-ng-show="!loading">
+      <form auto-save="brokerage" name="brokerageForm" data-ng-submit="saveForm()"
+            class="brokerage-form pure-form pure-form-aligned">
+        <div class="well">
+          <div class="section" id="basicInfo">
+            <h3 class="no-top-margin no-bottom-margin">Office Info.</h3>
           </div>
+
+          <div class="pure-form-fields">
+            <% Brokerage::FIELDS.each do |field| %>
+              <% if fieldAsCollection(field).nil? %>
+                <% puts field %>
+                <%= form_field field, 'brokerage', :syncable => false %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <% Brokerage::FIELDS.each do |field| %>
+          <% if field = fieldAsCollection(field) %>
+            <div class="separator"></div>
+
+            <div class="well">
+              <div class="section">
+                <a class="section-edit pull-right pure-button pure-button-success" modal-toggle="<%= field[:id] %>">
+                  <i class="icon-plus"></i> <span class="only-desktops">Add <%= field[:name].singularize %></span>
+                </a>
+                <h3 class="no-top-margin no-bottom-margin">Brokerage <%= field[:name] %></h3>
+              </div>
+
+              <%= render :partial => 'templates/action_table',
+                         :locals => {
+                           :field => field,
+                           :model => "brokerage." + field[:id],
+                           :rowClick => true,
+                           :actions => [:edit, :delete],
+                         } %>
+            </div>
+          <% end %>
         <% end %>
-      <% end %>
 
-      <div class="separator-xsmall"></div>
+        <div class="separator-xsmall"></div>
 
-      <div class="button-group">
-        <button class="pure-button pure-button-secondary pure-button-large"
-                data-ng-disabled="!saving && !brokerageForm.$dirty" type="submit">
-          <span data-ng-if="saving">
-            <i class="icon-spinner icon-spin"></i> Saving...
-          </span>
-          <span data-ng-if="!saving && !brokerageForm.$dirty">
-            Saved
-          </span>
-          <span data-ng-if="!saving && brokerageForm.$dirty && brokerageForm.$valid">
-            Save
-          </span>
-          <span data-ng-if="!saving && brokerageForm.$dirty && !brokerageForm.$valid">
-            Save ({{ errorCount() }})
-          </span>
-        </button>
-      </div>
-    </form>
+        <div class="button-group">
+          <button class="pure-button pure-button-secondary pure-button-large"
+                  data-ng-disabled="!saving && !brokerageForm.$dirty" type="submit">
+            <span data-ng-if="saving">
+              <i class="icon-spinner icon-spin"></i> Saving...
+            </span>
+            <span data-ng-if="!saving && !brokerageForm.$dirty">
+              Saved
+            </span>
+            <span data-ng-if="!saving && brokerageForm.$dirty && brokerageForm.$valid">
+              Save
+            </span>
+            <span data-ng-if="!saving && brokerageForm.$dirty && !brokerageForm.$valid">
+              Save ({{ errorCount() }})
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

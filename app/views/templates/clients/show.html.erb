@@ -5,7 +5,7 @@
    }
  %>
 
-<div id="main" data-ng-controller="ClientsShowCtrl" class="pure-form pure-u">
+<div data-ng-controller="ClientsShowCtrl">
  <%= render :partial => 'templates/field_modal',
             :locals => {
               :field => {
@@ -45,121 +45,125 @@
               :paths => paths
             } %>
 
-  <div class="content header pure-u-1">
-    <h2 class="no-bottom-margin">
-      <i data-ng-show="loading" class="icon-spinner icon-spin"></i>
-      <span data-ng-show="!loading">{{ client.company.value }}</span>
-    </h2>
-    <%= render :partial => 'templates/breadcrumbs',
-               :locals => { :paths => paths }
-     %>
-  </div>
-  <hr class="soften" />
-
-  <div class="content" data-ng-if="Auth.isBroker()">
-    <a class="pure-button pure-button-secondary pure-button-large" data-ng-click="genFromRecent()"
-       data-ng-show="history.length">
-      <i class="icon-file"></i><span class="desc"><span class="only-desktops"> Generate</span> Document</span>
-    </a>
+  <div class="client-header" data-ng-class="{'active': menuShouldShow()}">
+    <div class="content header pure-u-1">
+      <h2 class="no-bottom-margin">
+        <i data-ng-show="loading" class="icon-spinner icon-spin"></i>
+        <span data-ng-show="!loading">{{ client.company.value }}</span>
+      </h2>
+      <%= render :partial => 'templates/breadcrumbs',
+                 :locals => { :paths => paths }
+      %>
+    </div>
+    <hr class="soften no-bottom-margin" />
   </div>
 
-  <div class="content client-show">
-    <div class="client-info pure-form pure-form-aligned well">
-      <div class="section" id="basicInfo">
-        <div class="client-buttons pull-right">
-          <a class="pure-button pure-button-primary pure-button-large"
-             data-click-href="#/clients/edit/{{ clientId }}">
-            <i class="icon-edit"></i><span class="desc"> Edit Client Details</span>
-          </a>
-        </div>
-        <h3 class="no-top-margin">Client Summary</h3>
+  <div id="main" class="client-show pure-form pure-u">
+    <div class="content has-header">
+      <div data-ng-if="isBroker">
+        <a class="pure-button pure-button-secondary pure-button-large" data-ng-click="genFromRecent()"
+           data-ng-show="history.length">
+          <i class="icon-file"></i> <span class="desc">Generate Document</span>
+        </a>
       </div>
 
-      <div data-ng-show="loading">
-        <h3 class="no-top-margin"><i class="icon-spinner icon-spin icon-large"></i> Loading...</h3>
+      <div class="client-info pure-form pure-form-aligned well">
+        <div class="section" id="basicInfo">
+          <div class="client-buttons pull-right">
+            <a class="pure-button pure-button-primary pure-button-large"
+               data-click-href="#/clients/edit/{{ clientId }}">
+              <i class="icon-edit"></i><span class="desc"> Edit Client Details</span>
+            </a>
+          </div>
+          <h3 class="no-top-margin">Client Summary</h3>
+        </div>
+
+        <div data-ng-show="loading">
+          <h3 class="no-top-margin"><i class="icon-spinner icon-spin icon-large"></i> Loading...</h3>
+        </div>
+        <div data-ng-show="!loading">
+          <div class="pure-control-group">
+            <label for="name">Company</label>
+            <span class="value">{{ client.company.value }}</span>
+          </div>
+          <div class="pure-control-group">
+            <label for="address">Address</label>
+            <span class="value">{{ client.address.value }}</span>
+          </div>
+          <div class="pure-control-group">
+            <label for="city_and_province">City and Province</label>
+            <span class="value">{{ client.city.value }} {{ client.province.value }}</span>
+          </div>
+          <div class="pure-control-group">
+            <label for="phone">Phone</label>
+            <span class="value">{{ client.phone.value }}</span>
+          </div>
+        </div>
       </div>
-      <div data-ng-show="!loading">
-        <div class="pure-control-group">
-          <label for="name">Company</label>
-          <span class="value">{{ client.company.value }}</span>
+
+      <div class="client-docs well">
+        <div class="section" id="basicInfo">
+          <h3 class="no-top-margin">History</h3>
         </div>
-        <div class="pure-control-group">
-          <label for="address">Address</label>
-          <span class="value">{{ client.address.value }}</span>
-        </div>
-        <div class="pure-control-group">
-          <label for="city_and_province">City and Province</label>
-          <span class="value">{{ client.city.value }} {{ client.province.value }}</span>
-        </div>
-        <div class="pure-control-group">
-          <label for="phone">Phone</label>
-          <span class="value">{{ client.phone.value }}</span>
-        </div>
+        <%= render :partial => 'templates/action_table',
+                   :locals => {
+                     :name => 'history',
+                     :model => 'history',
+                     :pagination => true,
+                     :rowHref => '#/clients/edit/{{ item.client_id }}?change={{ item.id }}',
+                     :fields => [
+                       {
+                         :name => 'Description',
+                         :id => 'description',
+                         :content => <<-END
+                           <b>{{ pageGetIndex('history', $index) == 0 ? "Current revision: " : "" }}</b>
+                           {{ item.description | ellipsize: (pageGetIndex('history', $index) == 0 ? 20 : 40):1 }}
+                           <div class="detail">
+                             by <a data-ng-href="#/users/show/{{ item.user_id }}" eat-click>{{ item.user_email }}</a>
+                             <span class="except-desktops"><br /></span>
+                             on <span class="date">{{ item.updated_at | date: 'MMM d, y h:mm a' }}</span>
+                           </div>
+                         END
+                       }
+                     ],
+                     :actions => [:show],
+                   } %>
+        <div class="paginator" paginator="history"></div>
       </div>
+
+      <!-- <div class="client-docs well">
+        <div class="section" id="basicInfo">
+          <h3 class="no-top-margin">Generated Documents</h3>
+        </div>
+        <%= render :partial => 'templates/action_table',
+                   :locals => {
+                     :field => Document::FIELDS,
+                     :name => 'documents',
+                     :model => 'documents',
+                     :rowHref => '/api/documents/{{ item.id }}',
+                     :fields => [
+                       {
+                         :name => 'Description',
+                         :class => 'description',
+                         :content => <<-END
+                           {{ item.description | ellipsize: 40:1 }}
+                           <div class="detail">
+                             generated by <a data-ng-href="#/users/show/{{ item.user_id }}" class="email">{{ item.user_email }}</a>
+                             <span class="except-desktops"><br /></span>
+                             on <span class="date">{{ item.updated_at | date: 'MMM d, y h:mm a' }}</span>
+                           </div>
+                         END
+                       }
+                     ],
+                     :actions => [
+                       {
+                         :class => 'pure-button-success',
+                         :icon => 'icon-download-alt',
+                         :href => '/api/documents/{{ item.id }}',
+                       }
+                     ]
+                   } %>
+      </div> -->
     </div>
-
-    <div class="client-docs well">
-      <div class="section" id="basicInfo">
-        <h3 class="no-top-margin">History</h3>
-      </div>
-      <%= render :partial => 'templates/action_table',
-                 :locals => {
-                   :name => 'history',
-                   :model => 'history',
-                   :pagination => true,
-                   :rowHref => '#/clients/edit/{{ item.client_id }}?change={{ item.id }}',
-                   :fields => [
-                     {
-                       :name => 'Description',
-                       :id => 'description',
-                       :content => <<-END
-                         <b>{{ pageGetIndex('history', $index) == 0 ? "Current revision: " : "" }}</b>
-                         {{ item.description | ellipsize: (pageGetIndex('history', $index) == 0 ? 20 : 40):1 }}
-                         <div class="detail">
-                           by <a data-ng-href="#/users/show/{{ item.user_id }}" eat-click>{{ item.user_email }}</a>
-                           <span class="except-desktops"><br /></span>
-                           on <span class="date">{{ item.updated_at | date: 'MMM d, y h:mm a' }}</span>
-                         </div>
-                       END
-                     }
-                   ],
-                   :actions => [:show],
-                 } %>
-      <div class="paginator" paginator="history"></div>
-    </div>
-
-    <!-- <div class="client-docs well">
-      <div class="section" id="basicInfo">
-        <h3 class="no-top-margin">Generated Documents</h3>
-      </div>
-      <%= render :partial => 'templates/action_table',
-                 :locals => {
-                   :field => Document::FIELDS,
-                   :name => 'documents',
-                   :model => 'documents',
-                   :rowHref => '/api/documents/{{ item.id }}',
-                   :fields => [
-                     {
-                       :name => 'Description',
-                       :class => 'description',
-                       :content => <<-END
-                         {{ item.description | ellipsize: 40:1 }}
-                         <div class="detail">
-                           generated by <a data-ng-href="#/users/show/{{ item.user_id }}" class="email">{{ item.user_email }}</a>
-                           <span class="except-desktops"><br /></span>
-                           on <span class="date">{{ item.updated_at | date: 'MMM d, y h:mm a' }}</span>
-                         </div>
-                       END
-                     }
-                   ],
-                   :actions => [
-                     {
-                       :class => 'pure-button-success',
-                       :icon => 'icon-download-alt',
-                       :href => '/api/documents/{{ item.id }}',
-                     }
-                   ]
-                 } %>
-    </div> -->
   </div>
 </div>
