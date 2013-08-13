@@ -31,6 +31,8 @@ module ConsiliumFields
             end
         end
       end
+      permitted << 'id'
+      permitted << '_id'
       permitted
     end
 
@@ -51,6 +53,8 @@ module ConsiliumFields
           ]
         end
       end
+      permitted << [:created_at, :updated_at, {:value => :id}]
+      permitted << [:created_at, :updated_at, {:value => :_id}]
       permitted
     end
   end

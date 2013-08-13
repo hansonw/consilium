@@ -18,6 +18,8 @@ class User
          :recoverable, :rememberable, :trackable, :validatable,
          :token_authenticatable
 
+  field :name, :type => String, :default => ""
+
   ## Database authenticatable
   field :email,              :type => String, :default => ""
   field :encrypted_password, :type => String, :default => ""
@@ -75,11 +77,11 @@ class User
       :type => 'password',
       :required => true,
     },
-    {
-      :id => 'password_confirm',
-      :name => 'Confirm Password',
-      :type => 'password',
-      :required => true,
-    },
+    #{
+    #  :id => 'password_confirm',
+    #  :name => 'Confirm Password',
+    #  :type => 'password',
+    #  :required => true,
+    #},
   ]
 end

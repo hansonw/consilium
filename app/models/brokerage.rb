@@ -1,9 +1,11 @@
 require 'consilium_fields'
+require 'consilium_field_references'
 
 class Brokerage
   include Mongoid::Document
   include Mongoid::Timestamps
   include ConsiliumFields
+  include ConsiliumFieldReferences
 
   has_many :clients
   has_many :users
