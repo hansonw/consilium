@@ -14,7 +14,7 @@ class window.Util
     # Find the last consecutive group of digits and increment it while preserving leading zeros.
     # This should handle most use cases (e.g. if suffixes or prefixes are used)
     matches = value.match(/[0-9]+/g)
-    if matches.length
+    if matches?
       match = matches[matches.length-1]
       inc = @_pad(String(+match + 1), match.length)
       index = value.lastIndexOf(match)

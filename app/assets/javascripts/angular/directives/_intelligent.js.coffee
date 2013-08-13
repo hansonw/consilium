@@ -74,6 +74,4 @@ App.directive 'intelligent', ['$parse', ($parse) ->
           $elem.append($('<option>').val(value).html(if value == '' then placeholder else value))
 
     $("div#modal-" + modalCollection).on 'modal-toggle', updateValues
-    $scope.$on '$destroy', ->
-      $("div#modal-" + modalCollection).off 'modal-toggle', updateValues
 ]

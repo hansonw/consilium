@@ -76,13 +76,18 @@ App.directive 'prefillSequence', ['$parse', ($parse) ->
 
     parentModel = $parse(attrs.prefillSequence)
     model = attrs.ngModel
+    parsed = $parse(model)
     fields = model.split('.')
     container = fields[0]
 
-    prefillWrapper $scope, $elem, attrs, $parse, ->
-      c = parentModel($scope)?[container]?.value
-      if c? && c.length > 0
-        prevValue = $parse(fields.slice(1).join('.'))(c[c.length-1])
+    $("div#modal-" + container).on 'modal-toggle', ->
+      value = parsed($scope)
+      if !value? || value == ''
+        c = parentModel($scope)?[container]?.value
+        if c? && c.length > 0
+          prevValue = $parse(fields.slice(1).join('.'))(c[c.length-1])
+        else
+          prevValue = '0'
         if prevValue?
-          setFieldValue($scope, $elem, $parse, model, Util.increment(prevValue))
+          parsed.assign($scope, Util.increment(prevValue))
 ]
