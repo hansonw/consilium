@@ -40,7 +40,7 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
       change.description + ' by ' + change.user_email + ' at ' + $filter('date')(change.updated_at, 'medium')
     if index == 0
       doc.changeDescription = "Current revision (#{doc.changeDescription})"
-    doc.description = change.description
+    doc.description = change.client_company
     doc.client_change_id = change.id
 
   $scope.genFromRecent = ->

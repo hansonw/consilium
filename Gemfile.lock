@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/DouglasSherk/ydocx.git
-  revision: 4a233b8b65c5c809b5d5d8caaf3307b34a888787
+  revision: 99b7fabd9010b1e34019e23d6ba6da9a287e2494
   specs:
     ydocx (1.2.3)
       andand
@@ -13,7 +13,7 @@ GIT
 
 GIT
   remote: git://github.com/mongoid/mongoid.git
-  revision: 85e146637503522939b3a6b942c84d1bbc55c00a
+  revision: 3f07dd3f211d4c7e3feb2260b05b0b7ae6d1882e
   specs:
     mongoid (4.0.0)
       activemodel (~> 4.0.0)
@@ -74,7 +74,7 @@ GEM
       multi_json (~> 1.0)
     hike (1.2.3)
     htmlentities (4.3.1)
-    i18n (0.6.4)
+    i18n (0.6.5)
     jbuilder (1.2.1)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -92,8 +92,8 @@ GEM
     mini_portile (0.5.1)
     minitest (4.7.5)
     modernizr-rails (2.6.2.3)
-    moped (1.5.0)
-    multi_json (1.7.8)
+    moped (1.5.1)
+    multi_json (1.7.9)
     murmurhash3 (0.1.3)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)

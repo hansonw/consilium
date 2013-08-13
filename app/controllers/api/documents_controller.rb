@@ -72,7 +72,7 @@ class Api::DocumentsController < Api::ApiController
         'brokerWebsite' => brokerage.website,
         'brokerPhone' => brokerage.phone,
         'brokerFax' => brokerage.fax,
-        'brokerClients' => brokerage.clients,
+        'brokerContacts' => brokerage.contacts,
         'primaryBroker' => brokerage.contacts.first && brokerage.contacts.first['name'],
       }
 
