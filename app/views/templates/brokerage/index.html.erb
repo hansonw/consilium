@@ -44,7 +44,6 @@
           <div class="pure-form-fields">
             <% Brokerage::FIELDS.each do |field| %>
               <% if fieldAsCollection(field).nil? %>
-                <% puts field %>
                 <%= form_field field, 'brokerage', :syncable => false %>
               <% end %>
             <% end %>

@@ -2,7 +2,7 @@ class Api::BrokerageController < Api::ApiController
   def show
     @brokerage = Brokerage.all.first
     respond_to do |format|
-      format.json { render json: @brokerage }
+      format.json { render json: @brokerage.serialize_references }
     end
   end
 
@@ -11,19 +11,24 @@ class Api::BrokerageController < Api::ApiController
     params[:contacts] ||= []
 
     if @brokerage = Brokerage.all.first
-      @brokerage.serialize_references
-      puts @brokerage.inspect
-      @brokerage.update(brokerage_params)
-      @brokerage.deserialize_references
+      filtered_params = nil
+      begin
+        filtered_params = @brokerage.update_references(brokerage_params)
+        throw if !filtered_params[:errors].empty?
+      rescue
+        render json: filtered_params[:errors], status: :unprocessable_entity
+        return
+      end
+      @brokerage.update(filtered_params[:params])
     else
       @brokerage = Brokerage.new(brokerage_params)
     end
 
     respond_to do |format|
       if @brokerage.save
-        format.json { render json: @brokerage }
+        render json: @brokerage.serialize_references
       else
-        format.json { render json: @brokerage.errors, status: :unprocessable_entity }
+        render json: @brokerage.errors, status: :unprocessable_entity
       end
     end
   end
