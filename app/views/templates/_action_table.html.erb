@@ -16,7 +16,7 @@
 
 <table class="<%= name %>-table pure-table pure-table-horizontal pure-table-full-width"
        <%= local_assigns[:infiniteScroll] && "infinite-scroll data-update='#{local_assigns[:infiniteScroll]}'" %>
-       <%= local_assigns[:pagination] && raw("pagination='#{model}' pagination-limit='10'") %> >
+       <%= local_assigns[:pagination] && raw("pagination='#{model}' pagination-limit='5'") %> >
   <thead>
     <tr>
       <% fields.each do |field| %>
