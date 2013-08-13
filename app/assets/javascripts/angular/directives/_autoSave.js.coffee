@@ -131,7 +131,7 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', 
         alert("Please fix the following errors:\n" + $scope.errorText(modalForm.$error))
         return
 
-      obj.id ||= generateGUID()
+      obj.id ||= Util.generateGUID()
 
       if obj.$index?
         # Remove the index field and add it back

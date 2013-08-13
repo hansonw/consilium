@@ -69,3 +69,20 @@ App.directive 'prefillWatch', ['$parse', ($parse) ->
     $scope.$on '$destroy', ->
       $('[ng-model="' + watch + '"]').off('blur', watchBlurred)
 ]
+
+App.directive 'prefillSequence', ['$parse', ($parse) ->
+  ($scope, $elem, attrs) ->
+    return if prefillCheckIfElemValid($scope, $elem)
+
+    parentModel = $parse(attrs.prefillSequence)
+    model = attrs.ngModel
+    fields = model.split('.')
+    container = fields[0]
+
+    prefillWrapper $scope, $elem, attrs, $parse, ->
+      c = parentModel($scope)?[container]?.value
+      if c? && c.length > 0
+        prevValue = $parse(fields.slice(1).join('.'))(c[c.length-1])
+        if prevValue?
+          setFieldValue($scope, $elem, $parse, model, Util.increment(prevValue))
+]

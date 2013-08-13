@@ -25,7 +25,7 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
       for cat, data of coverageSchedules
         for type, coverage of data
           if !angular.equals(coverage, {})
-            coverage.id = existingIDs[cat]?[type] || generateGUID()
+            coverage.id = existingIDs[cat]?[type] || Util.generateGUID()
             coverage.category = {value: cat}
             coverage.type = {value: type}
             collection.push(coverage)

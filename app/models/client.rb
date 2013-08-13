@@ -550,6 +550,7 @@ class Client
               :id => 'locationNumber',
               :placeholder => '# (ex. 1111)',
               :type => 'text',
+              # This is sequenced in the controller.
               :required => true,
               :primary => true,
             },
@@ -1328,6 +1329,7 @@ class Client
               :id => 'buildingNumber',
               :type => 'text',
               :placeholder => '#',
+              :prefill => {:type => 'sequence'},
               :required => true,
               :primary => true,
             },
@@ -2108,6 +2110,7 @@ class Client
               :required => true,
               :placeholder => '# ( ex. 1111)',
               :type => 'text',
+              :prefill => {:type => 'sequence'},
               :primary => true,
             },
             {
@@ -2252,6 +2255,7 @@ class Client
               :id => 'itemNumber',
               :type => 'text',
               :placeholder => '#',
+              :prefill => {:type => 'sequence'},
               :required => true,
               :primary => true,
             },
@@ -2326,6 +2330,7 @@ class Client
               :id => 'itemNumber',
               :type => 'text',
               :placeholder => '#',
+              :prefill => {:type => 'sequence'},
               :required => true,
               :primary => true,
             },
@@ -2384,6 +2389,7 @@ class Client
               :id => 'driver',
               :type => 'text',
               :placeholder => '#',
+              :prefill => {:type => 'sequence'},
               :primary => true,
             },
             {

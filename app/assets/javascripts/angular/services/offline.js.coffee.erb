@@ -87,7 +87,7 @@ markCollectionChanges = (newData, oldData) ->
     if old = oldIDs[val.id]
       updated |= markChanges(val, old)
     else
-      val.created_at = val.updated_at = unix_timestamp()
+      val.created_at = val.updated_at = Util.unixTimestamp()
       markChanges(val)
       updated = true
   return updated
@@ -104,7 +104,7 @@ markChanges = (newData, oldData) ->
     else
       valUpdated = !angular.equals(newVal, oldVal)
     if valUpdated
-      val.updated_at = unix_timestamp()
+      val.updated_at = Util.unixTimestamp()
       val.created_at ||= val.updated_at
     updated ||= valUpdated
 
@@ -113,7 +113,7 @@ markChanges = (newData, oldData) ->
       updated = true
 
   if updated
-    newData.updated_at = unix_timestamp()
+    newData.updated_at = Util.unixTimestamp()
     newData.created_at ||= newData.updated_at
 
   return updated
@@ -170,7 +170,7 @@ class LocalStorage
     else
       # Mark for deletion. Can't actually delete, or we won't be able to sync it
       db[id].id = null
-      db[id].updated_at = unix_timestamp()
+      db[id].updated_at = Util.unixTimestamp()
     @saveDB(db)
 
   get: (id) ->
@@ -218,7 +218,7 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
         rsrc = new resource(data)
         angular.extend(this, rsrc)
 
-        timestamp = unix_timestamp()
+        timestamp = Util.unixTimestamp()
         @created_at ||= timestamp
         @updated_at ||= timestamp
 
@@ -229,7 +229,7 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
         @_delete = rsrc.$delete.bind(this)
 
       generateId: ->
-        @id = generateGUID()
+        @id = Util.generateGUID()
         @_isNew = true
 
       getData: ->
@@ -246,7 +246,7 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
           save_fn(AuthToken.addAuthTokenToJSONRequest({last_synced: storage.getLastSynced(@id)}), (data) =>
             # Delete the temporary model from the local DB if it exists.
             angular.extend(this, storage.update(data) || getData(data))
-            storage.setLastSynced(unix_timestamp(), @id)
+            storage.setLastSynced(Util.unixTimestamp(), @id)
             @_isNew = false
             success(this) if success
           , (data) =>
@@ -273,7 +273,7 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
 
       @synced_recently: ->
         # Synced in the last 10 seconds
-        unix_timestamp() - storage.getLastSynced() < 10
+        Util.unixTimestamp() - storage.getLastSynced() < 10
 
       @syncObject: (data) ->
         updated = storage.update(data)
@@ -286,13 +286,13 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
             data.$save((data2) ->
               storage.update(data2, true)
               angular.extend(offline, data2)
-              storage.setLastSynced(unix_timestamp(), data.id)
+              storage.setLastSynced(Util.unixTimestamp(), data.id)
             ) if online()
           else
             data.$delete(-> storage.delete(id, true)) if online()
             return null
         else
-          storage.setLastSynced(unix_timestamp(), data.id)
+          storage.setLastSynced(Util.unixTimestamp(), data.id)
           offline = new OfflineResource(getData(data))
         return offline
 
@@ -316,7 +316,7 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
                 offline = new OfflineResource(val)
                 offline.$save()
 
-            storage.setLastSynced(unix_timestamp())
+            storage.setLastSynced(Util.unixTimestamp())
             success(data) if success
           , error || angular.noop)
         else
