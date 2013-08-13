@@ -160,7 +160,7 @@ class Client
             'Vice President',
             'Other',
           ],
-          :intelligentOther => true,
+          :intelligent => true,
           :otherPlaceholder => 'Specify',
         },
         {
@@ -218,7 +218,7 @@ class Client
           :id => 'claimType',
           :placeholder => '(ex. Commercial)',
           :type => 'text',
-          :intelligentText => true,
+          :intelligent => true,
           :primary => true,
         },
         {
@@ -252,7 +252,7 @@ class Client
           :required => true,
           :placeholder => 'Name',
           :type => 'text',
-          :intelligentText => true,
+          :intelligent => true,
           :primary => true,
         },
         {
@@ -324,7 +324,7 @@ class Client
           :required => true,
           :placeholder => 'Name',
           :type => 'text',
-          :intelligentText => true,
+          :intelligent => true,
           :primary => true,
         },
         {
@@ -499,7 +499,7 @@ class Client
           :required => true,
           :type => 'text',
           :placeholder => 'Operation or product type',
-          :intelligentText => true,
+          :intelligent => true,
           :primary => true,
         },
         {
@@ -2128,13 +2128,13 @@ class Client
                 'Owner-operator',
                 'Other',
               ],
-              :intelligentOther => true,
+              :intelligent => true,
             },
             {
               :name => 'Finance Company',
               :id => 'financeCompany',
               :placeholder => 'Some Truck Co.',
-              :intelligentText => true,
+              :intelligent => true,
               :type => 'text',
             },
             {
@@ -2147,7 +2147,7 @@ class Client
               :name => 'Make',
               :id => 'make',
               :placeholder => '(ex. Ford)',
-              :intelligentText => true,
+              :intelligent => true,
               :type => 'text',
             },
             {
@@ -2178,7 +2178,7 @@ class Client
               :name => 'Lessor',
               :id => 'lessor',
               :placeholder => '(ex. Owned)',
-              :intelligentText => true,
+              :intelligent => true,
               :type => 'text',
             },
             {
@@ -2244,7 +2244,7 @@ class Client
                 'Fine Arts',
                 'Other',
               ],
-              :intelligentOther => true,
+              :intelligent => true,
               :primary => true,
             },
             {
@@ -2266,7 +2266,7 @@ class Client
               :id => 'make',
               :type => 'text',
               :placeholder => 'Manufacturer',
-              :intelligentText => true,
+              :intelligent => true,
             },
             {
               :name => 'Model',
@@ -2285,7 +2285,7 @@ class Client
               :id => 'lessor',
               :type => 'text',
               :placeholder => 'Lessor',
-              :intelligentText => true,
+              :intelligent => true,
             },
             {
               :name => 'Description',
@@ -2318,7 +2318,7 @@ class Client
                 'Fine Arts',
                 'Other',
               ],
-              :intelligentOther => true,
+              :intelligent => true,
               :primary => true,
             },
             {
@@ -2340,7 +2340,7 @@ class Client
               :id => 'make',
               :type => 'text',
               :placeholder => 'Manufacturer',
-              :intelligentText => true,
+              :intelligent => true,
             },
             {
               :name => 'Model',
@@ -2359,7 +2359,7 @@ class Client
               :id => 'lessor',
               :type => 'text',
               :placeholder => 'Lessor',
-              :intelligentText => true,
+              :intelligent => true,
             },
             {
               :name => 'Description',

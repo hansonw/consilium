@@ -84,9 +84,9 @@ module FormHelper
       dropdownString = "<div class='dropdown-field'>
                           <select class='dropdown-list #{field[:id]}' name='#{field[:id]}'
                             data-dropdown-other='#{model}'
-                            #{field[:intelligentOther] && "model='#{h options[:model_parent]}'"}
+                            #{field[:intelligent] && "model='#{h options[:model_parent]}'"}
                             #{field[:required] && 'required'}
-                            #{field[:intelligentOther] && 'intelligent-other'}
+                            #{field[:intelligent] && 'intelligent'}
                             #{field[:readonly] && 'readonly'}>
                           <option value=''>#{field[:placeholder]}</option>"
       field[:options].each do |option|
@@ -183,8 +183,8 @@ module FormHelper
               #{field[:min] && "ng-min='#{field[:min]}'"}
               #{field[:max] && "ng-max='#{field[:max]}'"}
               #{field[:pattern] && pattern(field[:pattern])}
-              #{field[:intelligentText] && "model='#{h options[:model_parent]}'"}
-              #{field[:intelligentText] && 'intelligent-text'}
+              #{field[:intelligent] && "model='#{h options[:model_parent]}'"}
+              #{field[:intelligent] && 'intelligent'}
               #{field[:errorMessage] && "title='#{field[:errorMessage]}'"}
             />"
     end
