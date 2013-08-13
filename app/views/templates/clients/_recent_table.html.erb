@@ -4,6 +4,18 @@
              :model => 'clients.clients',
              :limit => local_assigns[:limit],
              :rowHref => '#/clients/show/{{ item.id }}',
-             :fields => getPrimaryFieldsFromModel(Client::FIELDS),
+             :fields =>  [
+               {
+                 :name => 'Client',
+                 :id => 'client',
+                 :content => <<-END
+                   {{ item.company }}
+                   <div class="detail">
+                     Primary contact: {{ item.name }}<br />
+                     last viewed on <span class="date">{{ item.timestamp | date: 'medium'}}</span>
+                   </div>
+                 END
+               }
+             ],
              :actions => [:show],
            } %>

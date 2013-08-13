@@ -440,6 +440,17 @@ label.changed {
   }
 }
 
+.pure-table {
+  .detail {
+    font-size: 80%;
+    margin-top: 3px;
+
+    .date {
+      color: #999;
+    }
+  }
+}
+
 .clients-table {
   word-wrap: break-word;
 
@@ -476,15 +487,6 @@ label.changed {
     width: auto;
     @include respond-to(tablets, handhelds) {
       width: 100%;
-    }
-  }
-
-  .detail {
-    font-size: 80%;
-    margin-top: 3px;
-
-    .date {
-      color: #999;
     }
   }
 
