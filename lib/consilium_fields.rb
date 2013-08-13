@@ -31,6 +31,12 @@ module ConsiliumFields
             end
         end
       end
+
+      assocs = get_associations
+      assocs.each do |assoc|
+        permitted << assoc.singularize + "_id"
+      end
+
       permitted << 'id'
       permitted << '_id'
       permitted
@@ -55,7 +61,18 @@ module ConsiliumFields
       end
       permitted << [:created_at, :updated_at, {:value => :id}]
       permitted << [:created_at, :updated_at, {:value => :_id}]
+
+      assocs = get_associations
+      assocs.each do |assoc|
+        permitted << [:created_at, :updated_at, {:value => assoc.singularize + "_id"}]
+      end
+
       permitted
     end
   end
+
+  private
+    def get_associations
+      self.reflect_on_all_associations(:has_many).map(&:name)
+    end
 end

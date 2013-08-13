@@ -14,7 +14,7 @@ class Api::BrokerageController < Api::ApiController
       filtered_params = nil
       begin
         filtered_params = @brokerage.update_references(brokerage_params)
-        throw if !filtered_params[:errors].empty?
+        throw Error if !filtered_params[:errors].empty?
       rescue
         render json: filtered_params[:errors], status: :unprocessable_entity
         return
@@ -24,12 +24,10 @@ class Api::BrokerageController < Api::ApiController
       @brokerage = Brokerage.new(brokerage_params)
     end
 
-    respond_to do |format|
-      if @brokerage.save
-        render json: @brokerage.serialize_references
-      else
-        render json: @brokerage.errors, status: :unprocessable_entity
-      end
+    if @brokerage.save
+      render json: @brokerage.serialize_references
+    else
+      render json: @brokerage.errors, status: :unprocessable_entity
     end
   end
 

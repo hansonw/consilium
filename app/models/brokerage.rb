@@ -10,6 +10,7 @@ class Brokerage
   has_many :clients
   has_many :users
 
+  field :_id, type: String
   field :name, type: String
   field :address, type: String
   field :website, type: String
