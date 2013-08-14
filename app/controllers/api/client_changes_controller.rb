@@ -3,7 +3,7 @@ require 'tempfile'
 require 'andand'
 
 class Api::ClientChangesController < Api::ApiController
-  before_action :set_client_change, only: [:edit, :destroy]
+  load_and_authorize_resource
 
   def get_json(obj, attrs = {})
     ret = {}
@@ -32,6 +32,7 @@ class Api::ClientChangesController < Api::ApiController
   def index
     @client_changes = ClientChange.all
     if params[:client_id]
+      authorize! :read, Client.find(params[:client_id])
       @client_changes = @client_changes.where('client_id' => params[:client_id])
     end
     @client_changes = @client_changes.desc(:created_at)
@@ -39,6 +40,8 @@ class Api::ClientChangesController < Api::ApiController
     if params[:short]
       @client_changes = @client_changes.only(:id, :user, :client, :description, :updated_at)
     end
+
+    @client_changes = current_ability.select(@client_changes)
 
     respond_to do |format|
       format.json { render json: @client_changes.map{ |d| get_json(d) } }
@@ -48,12 +51,6 @@ class Api::ClientChangesController < Api::ApiController
   # GET /client_changes/1
   # GET /client_changes/1.json
   def show
-    @client_change = ClientChange.where(:id => params[:id]).first
-    if @client_change.nil?
-      render json: '', status: :gone
-      return
-    end
-
     prev_changes = ClientChange.where({
       'client_id' => @client_change.client_id,
       :id.lt => @client_change.id
@@ -112,17 +109,4 @@ class Api::ClientChangesController < Api::ApiController
       format.json { render json: get_json(@client_change, attrs) }
     end
   end
-
-  # DELETE /client_changes/1
-  # DELETE /client_changes/1.json
-  def destroy
-    @client_change.destroy
-    render json: ''
-  end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_client_change
-      @client_change = ClientChange.find(params[:id])
-    end
 end

@@ -6,6 +6,7 @@ class Api::BrokerageController < Api::ApiController
     end
   end
 
+  # POST /api/brokerage.json
   def create
     # Empty arrays are nil
     params[:contacts] ||= []

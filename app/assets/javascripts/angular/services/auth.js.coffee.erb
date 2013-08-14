@@ -41,9 +41,9 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
   service =
     _isLoggedIn: AuthToken.get()?.email?.length
     _watches: []
-    CLIENT: (1<<0),
-    BROKER: (1<<1),
-    ADMIN: (1<<2),
+    CLIENT: 1,
+    BROKER: 2,
+    ADMIN:  3,
     isLoggedIn: -> @_isLoggedIn
     login: (credentials) ->
       self = @

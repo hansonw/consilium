@@ -233,7 +233,7 @@ class Api::ClientsController < Api::ApiController
       end
     end
   end
-  
+
   # DELETE /clients/1
   # DELETE /clients/1.json
   def destroy

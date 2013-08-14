@@ -1,15 +1,16 @@
 class User
   include Mongoid::Document
 
-  CLIENT = 1<<0
-  BROKER = 1<<1
-  ADMIN = 1<<2
+  CLIENT = 1
+  BROKER = 2
+  ADMIN  = 3
 
   belongs_to :brokerage
 
   has_many :client_changes
-  has_many :documents
-  has_one :recent_clients, class_name: 'RecentClients'
+  has_many :documents, dependent: :delete
+  has_many :user_permissions, dependent: :delete
+  has_one :recent_clients, class_name: 'RecentClients', dependent: :delete
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -52,7 +53,7 @@ class User
   ## Token authenticatable
   field :authentication_token, :type => String
 
-  field :permissions, :type => Integer, :default => 2
+  field :permissions, :type => Integer, :default => BROKER
 
   FIELDS = [
     {

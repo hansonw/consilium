@@ -10,6 +10,7 @@ class Client
 
   has_many :client_changes, dependent: :delete
   has_many :documents, dependent: :delete
+  has_many :user_permissions, dependent: :delete
 
   FIELDS = [
     {
