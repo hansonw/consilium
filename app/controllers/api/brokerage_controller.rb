@@ -11,11 +11,8 @@ class Api::BrokerageController < Api::ApiController
     params[:contacts] ||= []
 
     if @brokerage = Brokerage.all.first
-      filtered_params = nil
-      begin
-        filtered_params = @brokerage.update_references(brokerage_params)
-        throw Error if !filtered_params[:errors].empty?
-      rescue
+      filtered_params = @brokerage.update_references(brokerage_params)
+      if !filtered_params[:errors].empty?
         render json: filtered_params[:errors], status: :unprocessable_entity
         return
       end

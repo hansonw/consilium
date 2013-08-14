@@ -15,9 +15,6 @@ module ConsiliumFieldReferences
 
     assocs = get_associations
     assocs.each do |assoc|
-      assoc_ids = (assoc.to_s.singularize + "_ids").to_sym
-      params[assoc_ids] = []
-
       if !params[assoc].nil?
         params[assoc].each do |elem|
           klass = assoc.to_s.singularize.capitalize.constantize
@@ -29,17 +26,15 @@ module ConsiliumFieldReferences
           end
 
           if !instance.nil?
+            instance[self.class.to_s.downcase + "_id"] = self[:_id]
             instance.update(elem)
           else
             instance = klass.new(elem)
           end
 
-          puts self[:_id]
           instance[self.class.to_s.downcase + "_id"] = self[:_id]
 
-          if instance.save
-            params[assoc_ids].push elem[:_id]
-          else
+          if !instance.save
             retval[:errors].push instance.errors
           end
         end
