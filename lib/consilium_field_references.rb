@@ -21,7 +21,7 @@ module ConsiliumFieldReferences
 
           instance = nil
           begin
-            instance = klass.find(elem[:_id])
+            instance = klass.find(elem[:_id] || elem[:id])
           rescue
           end
 
