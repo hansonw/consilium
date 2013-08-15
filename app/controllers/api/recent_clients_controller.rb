@@ -1,6 +1,4 @@
 class Api::RecentClientsController < Api::ApiController
-  before_action :set_recent_clients, only: [:edit, :destroy]
-
   def get_json(obj)
     ret = {}
     obj.attributes.each do |key, val|
@@ -104,19 +102,7 @@ class Api::RecentClientsController < Api::ApiController
     end
   end
 
-  # DELETE /recent_clients/1
-  # DELETE /recent_clients/1.json
-  def destroy
-    @recent_clients.destroy
-    render json: ''
-  end
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_recent_clients
-      @recent_clients = RecentClients.find(:user_id => @user.id)
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def recent_client_params
       params.permit(:clients => [[:id, :company, :name, :timestamp]])

@@ -1,5 +1,5 @@
 class Api::ClientsController < Api::ApiController
-  before_action :set_client, only: [:edit, :destroy]
+  load_and_authorize_resource :only => [:destroy]
 
   def get_json(obj)
     ret = {}
@@ -137,7 +137,7 @@ class Api::ClientsController < Api::ApiController
     end
 
     if params[:short]
-      @clients = @clients.only(:id, :company, :name, :updated_at, :created_at)
+      @clients = @clients.only(:id, :brokerage_id, :company, :name, :updated_at, :created_at)
     end
 
     if order_by = params[:order_by]
@@ -157,6 +157,8 @@ class Api::ClientsController < Api::ApiController
       @clients = @clients.skip(params[:start] || 0).limit(params[:limit] || 0)
     end
 
+    @clients = current_ability.select(@clients)
+
     respond_to do |format|
       format.json { render json: @clients.map{ |c| get_json(c) } }
     end
@@ -171,23 +173,17 @@ class Api::ClientsController < Api::ApiController
       return
     end
 
+    authorize! :read, @client
+
     respond_to do |format|
       format.json { render json: get_json(@client) }
     end
   end
 
-  # GET /clients/new
-  def new
-    @client = Client.new
-  end
-
-  # GET /clients/1/edit
-  def edit
-  end
-
   # POST /clients/:id
   def create
-     @client = Client.new(client_params)
+    authorize! :create, Client
+    @client = Client.new(client_params)
 
     if existing = Client.where(:id => params[:id]).first
       render json: '', status: :conflict
@@ -214,6 +210,7 @@ class Api::ClientsController < Api::ApiController
 
     if existing = Client.where(:id => params[:id], 'deleted' => nil).first
       # Sync all fields
+      authorize! :update, existing
       result = existing.attributes
       sync_fields(result, @client.attributes, params[:last_synced].to_i)
       @client.assign_attributes(result)
@@ -249,11 +246,6 @@ class Api::ClientsController < Api::ApiController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_client
-      @client = Client.find(params[:id])
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
       params.permit Client.generate_permit_params_wrapped

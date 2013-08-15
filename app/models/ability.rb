@@ -7,12 +7,12 @@ class Ability
     if user.permissions > User::CLIENT
       if user.permissions == User::ADMIN
         can :manage, Brokerage, :id => user.brokerage.id
-        can :manage, User do |_user|
-          user.brokerage == _user.brokerage
-        end
+        can :manage, User, :brokerage_id => user.brokerage.id
       else
         can :read, Brokerage, :id => user.brokerage.id
         can :manage, User, :id => user.id
+        can :read, User, :brokerage_id => user.brokerage.id
+        cannot :manage, User
       end
 
       can :manage, Client, :brokerage_id => user.brokerage.id
