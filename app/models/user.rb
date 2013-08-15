@@ -1,4 +1,4 @@
-class User
+class User < ProxyCurrentUser
   include Mongoid::Document
 
   CLIENT = 1
@@ -86,13 +86,15 @@ class User
     #},
   ]
 
+  def password_required?
+    return true if current_user == nil || current_user == self
+    current_user.cannot? :manage, self
+  end
+
   def ability
     @ability ||= Ability.new(self)
   end
 
-  def password_required?
-    self.cannot? :manage, self
-  end
-
   delegate :can?, :cannot?, :to => :ability
+  delegate :current_user, :to => ProxyCurrentUser
 end
