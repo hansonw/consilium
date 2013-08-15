@@ -75,7 +75,7 @@ class User
       :id => 'password',
       :name => 'Password',
       :type => 'password',
-      :required => true,
+      #:required => true,
     },
     #{
     #  :id => 'password_confirm',
@@ -84,4 +84,14 @@ class User
     #  :required => true,
     #},
   ]
+
+  def ability
+    @ability ||= Ability.new(self)
+  end
+
+  def password_required?
+    self.cannot? :manage, self
+  end
+
+  delegate :can?, :cannot?, :to => :ability
 end

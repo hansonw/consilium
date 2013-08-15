@@ -5,11 +5,15 @@ class Ability
     user ||= User.new
 
     can :manage, Brokerage, Brokerage do |brokerage|
-      user[:brokerage] == brokerage && user[:permission] == User::MANAGE
+      user[:brokerage] == brokerage && user[:permission] == User::ADMIN
     end
 
     can :manage, Client, Client do |client|
       user[:brokerage] == client[:brokerage]
+    end
+
+    can :manage, User, User do |_user|
+      user[:brokerage] == _user[:brokerage] && user[:permission] == User::ADMIN
     end
 
     # Define abilities for the passed in user here. For example:
