@@ -42,6 +42,7 @@ module ConsiliumFieldReferences
       end
     end
 
+    self.reload_relations
     retval
   end
 
