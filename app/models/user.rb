@@ -76,6 +76,7 @@ class User < ProxyCurrentUser
       :id => 'password',
       :name => 'Password',
       :type => 'password',
+      :if => '$!readonly',
       #:required => true,
     },
     #{

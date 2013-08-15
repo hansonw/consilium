@@ -5,27 +5,7 @@ require 'andand'
 class Api::ClientChangesController < Api::ApiController
   load_and_authorize_resource
 
-  def get_json(obj, attrs = {})
-    ret = {}
-    obj.attributes.each do |key, val|
-      if key == "_id"
-        ret[:id] = val.to_s
-      elsif key == "user_id"
-        ret[:user_id] = val.to_s
-        ret[:user_email] = obj.user ? obj.user.email : 'deleted'
-      elsif key == "client_id"
-        ret[:client_id] = val.to_s
-        ret[:client_company] = obj.client ? obj.client.company['value'] : 'deleted'
-      elsif key == "created_at"
-        # convert to milliseconds, Javascript's default format
-        ret[key] = (val.to_f * 1000).to_i
-      else
-        ret[key] = val
-      end
-    end
-
-    ret.merge(attrs)
-  end
+  #needs user.email, client.company
 
   # GET /client_changes
   # GET /client_changes.json

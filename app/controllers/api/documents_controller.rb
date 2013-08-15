@@ -4,25 +4,7 @@ require 'tempfile'
 class Api::DocumentsController < Api::ApiController
   before_action :set_document, only: [:destroy]
 
-  def get_json(obj)
-    ret = {}
-    obj.attributes.each do |key, val|
-      if key == "_id"
-        ret[:id] = val.to_s
-      elsif key == "user_id"
-        ret[:user_id] = val.to_s
-        ret[:user_email] = obj.user ? obj.user.email : 'deleted'
-      elsif key == "client_change_id"
-        ret[:client_change_id] = val.to_s
-      elsif key == "created_at"
-        # convert to milliseconds, Javascript's default format
-        ret[key] = (val.to_f * 1000).to_i
-      else
-        ret[key] = val
-      end
-    end
-    ret
-  end
+  # needs user.email
 
   # GET /documents
   # GET /documents.json

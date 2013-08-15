@@ -1,19 +1,4 @@
 class Api::BrokerageController < Api::ApiController
-  def get_json(obj)
-    return obj.map { |c| get_json(c) } if obj.is_a?(Array)
-    return obj if !obj.respond_to?(:attributes)
-
-    ret = {}
-    obj.attributes.each do |key, val|
-      if key == "_id"
-        ret[:id] = val.to_s
-      else
-        ret[key] = get_json(val)
-      end
-    end
-    ret
-  end
-
   def show
     @brokerage = current_user.brokerage
     respond_to do |format|

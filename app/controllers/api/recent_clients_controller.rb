@@ -1,52 +1,4 @@
 class Api::RecentClientsController < Api::ApiController
-  def get_json(obj)
-    ret = {}
-    obj.attributes.each do |key, val|
-      if key == "_id"
-        ret[:id] = val.to_s
-      elsif key == "user_id"
-        ret[:user_id] = val.to_s
-      else
-        ret[key] = val
-      end
-    end
-    ret
-  end
-
-  def clean(rc)
-    clients = []
-    rc.clients.each do |client|
-      if !Client.where('id' => client['id'], 'deleted' => nil).empty?
-        clients << client
-      end
-    end
-    rc.clients = clients
-    rc.save
-  end
-
-  def merge_clients(a, b)
-    merged = a + b
-    merged = merged.sort { |x, y|
-      y['timestamp'] - x['timestamp']
-    }
-
-    limit = 10
-    unique = []
-    clientIds = {}
-    # Prevent excessive timestamp spoofing
-    cur_time = (Time.now.to_f * 1000).to_i
-    merged.each do |client|
-      if !clientIds[client['id']] && unique.length < limit &&
-         !Client.where('id' => client['id'], 'deleted' => nil).empty?
-        clientIds[client['id']] = true
-        client['timestamp'] = [client['timestamp'], cur_time].min
-        unique << client
-      end
-    end
-
-    return unique
-  end
-
   # GET /recent_clients
   # GET /recent_clients.json
   def index
@@ -108,4 +60,37 @@ class Api::RecentClientsController < Api::ApiController
       params.permit(:clients => [[:id, :company, :name, :timestamp]])
     end
 
+    def clean(rc)
+      clients = []
+      rc.clients.each do |client|
+        if !Client.where('id' => client['id'], 'deleted' => nil).empty?
+          clients << client
+        end
+      end
+      rc.clients = clients
+      rc.save
+    end
+
+    def merge_clients(a, b)
+      merged = a + b
+      merged = merged.sort { |x, y|
+        y['timestamp'] - x['timestamp']
+      }
+
+      limit = 10
+      unique = []
+      clientIds = {}
+      # Prevent excessive timestamp spoofing
+      cur_time = (Time.now.to_f * 1000).to_i
+      merged.each do |client|
+        if !clientIds[client['id']] && unique.length < limit &&
+           !Client.where('id' => client['id'], 'deleted' => nil).empty?
+          clientIds[client['id']] = true
+          client['timestamp'] = [client['timestamp'], cur_time].min
+          unique << client
+        end
+      end
+
+      return unique
+    end
 end

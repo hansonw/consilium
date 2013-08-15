@@ -9,15 +9,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   $scope.inLocation = !!$location.path().match /\/location(\/.*)?$/
   $scope.locationId = $routeParams.locationId
 
-  if $scope.readonly = !!$scope.clientChangeId
-    $('input, textarea, select').attr('readonly', true)
-    $('input, textarea').attr('placeholder', '')
-    # readonly isn't enough for checkboxes and selects
-    $('input[type=checkbox]').attr('disabled', true)
-    $('input[type=radio]').attr('disabled', true)
-    $('select').attr('disabled', true)
-    # clear values of null options
-    $('select[readonly] option[value=""]').html('')
+  $scope.readonly = !!$scope.clientChangeId
 
   # TODO: error should be modal
   $scope.loading = true

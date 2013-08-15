@@ -32,6 +32,18 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', 
       lastChange = new Date().getTime()
     ), true
 
+    $scope.$watch 'readonly', (newVal, oldVal) ->
+      $('input, textarea, select').attr('readonly', newVal)
+      # readonly isn't enough for checkboxes and selects
+      $('input[type=checkbox]').attr('disabled', newVal)
+      $('input[type=radio]').attr('disabled', newVal)
+      $('select').attr('disabled', newVal)
+
+      if newVal == true
+        # clear placeholders
+        $('input, textarea').attr('placeholder', '')
+        $('select[readonly] option[value=""]').html('')
+
     sameRoute = (url1, url2) ->
       if url1.length > url2.length
         return sameRoute(url2, url1)

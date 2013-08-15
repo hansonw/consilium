@@ -66,6 +66,8 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
       AuthToken.get()?.permissions >= level
     isBroker: ->
       @hasPermissions(@BROKER)
+    isAdmin: ->
+      @hasPermissions(@ADMIN)
     checkLogin: () ->
       if !@isLoggedIn()
         $location.url('/auth/login')
@@ -80,6 +82,8 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
       return true
     checkBroker: ->
       @checkPermissions(@BROKER)
+    checkAdmin: ->
+      @checkPermissions(@ADMIN)
     logout: ->
       self = @
       $http.get(

@@ -449,6 +449,8 @@ label.changed {
       color: #999;
     }
   }
+
+  @include ng-scope-hover();
 }
 
 .clients-table {
@@ -477,8 +479,6 @@ label.changed {
   .regular {
     font-weight: 500;
   }
-
-  @include ng-scope-hover();
 }
 
 .history-table {
@@ -489,8 +489,6 @@ label.changed {
       width: 100%;
     }
   }
-
-  @include ng-scope-hover();
 }
 
 .documents-table {

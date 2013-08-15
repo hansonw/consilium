@@ -40,7 +40,7 @@
                              <div class="detail">
                                on <a data-ng-href="#/clients/show/{{ item.client_id }}" eat-click>{{ item.client_company }} </a>
                                by <a data-ng-href="#/users/show/{{ item.user_id }}" eat-click>{{ item.user_email }}</a><br />
-                               on <span class="date">{{ item.updated_at | date: 'medium'}}</span>
+                               on <span class="date">{{ item.updated_at*1000 | date: 'medium'}}</span>
                              </div>
                            END
                          }

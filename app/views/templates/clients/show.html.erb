@@ -121,7 +121,7 @@
                            <div class="detail">
                              by <a data-ng-href="#/users/show/{{ item.user_id }}" eat-click>{{ item.user_email }}</a>
                              <span class="except-desktops"><br /></span>
-                             on <span class="date">{{ item.updated_at | date: 'MMM d, y h:mm a' }}</span>
+                             on <span class="date">{{ item.updated_at*1000 | date: 'MMM d, y h:mm a' }}</span>
                            </div>
                          END
                        }
