@@ -43,6 +43,7 @@ class Api::BrokerageController < Api::ApiController
     @brokerage.update(filtered_params[:params])
 
     if @brokerage.save
+      @brokerage.reload_relations
       render json: get_json(@brokerage.serialize_references)
     else
       render json: @brokerage.errors, status: :unprocessable_entity
