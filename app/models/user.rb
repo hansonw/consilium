@@ -87,7 +87,7 @@ class User < ProxyCurrentUser
   ]
 
   def password_required?
-    return true if current_user == nil || current_user == self
+    return true if current_user == nil
     current_user.cannot? :manage, self
   end
 

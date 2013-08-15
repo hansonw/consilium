@@ -26,7 +26,6 @@ module ConsiliumFieldReferences
           end
 
           if !instance.nil?
-            instance[self.class.to_s.downcase + "_id"] = self[:_id]
             instance.update(elem)
           else
             instance = klass.new(elem)
