@@ -19,8 +19,6 @@ class ProxyCurrentUser
   end
 
   def self.current_user=(usr)
-    puts "!@#!@#!@#!@#!@#"
-    puts usr.inspect
     Thread.current[:current_user] = usr
   end
 end
