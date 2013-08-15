@@ -63,7 +63,7 @@ syncFields = (dest, newData, last_synced, overwrite) ->
   updated = false
   # Check each field individually, and update
   for key, val of newData
-    if val.updated_at?
+    if val?.updated_at?
       if (dest[key]?.value instanceof Array) && dest[key].value[0]?.id? # supports deep merging?
         if !dest[key].updated_at? || val.updated_at > dest[key].updated_at
           dest[key].updated_at = val.updated_at

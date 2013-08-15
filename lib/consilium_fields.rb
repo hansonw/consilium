@@ -43,10 +43,10 @@ module ConsiliumFields
     end
 
     def generate_permit_params_wrapped(node = self::FIELDS)
-      permitted = {}
+      permitted = []
       expand_fields(node).each do |field|
         if field[:id]
-          permitted[field[:id]] = [:created_at, :updated_at,
+          permitted << {field[:id] => [:created_at, :updated_at,
             if field[:type].is_a? Class
               {:value => [:id, :created_at, :updated_at, generate_permit_params_wrapped(field[:type]::FIELDS)]}
             elsif field[:type].is_a? Array
@@ -56,17 +56,17 @@ module ConsiliumFields
             else
               :value
             end
-          ]
+          ]}
         end
       end
-      permitted << [:created_at, :updated_at, {:value => :id}]
-      permitted << [:created_at, :updated_at, {:value => :_id}]
 
       assocs = get_associations
       assocs.each do |assoc|
         permitted << assoc.to_s.singularize + "_id"
       end
 
+      permitted << 'id'
+      permitted << '_id'
       permitted
     end
 
