@@ -84,6 +84,8 @@ class Api::ClientsController < Api::ApiController
       fix_timestamps(@client.attributes)
     end
 
+    @client.brokerage = current_user.brokerage
+
     respond_to do |format|
       if @client.save
         ClientChange.update_client(@client, @user.id)
