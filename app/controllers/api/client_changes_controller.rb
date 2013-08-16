@@ -4,8 +4,7 @@ require 'andand'
 
 class Api::ClientChangesController < Api::ApiController
   load_and_authorize_resource
-
-  #needs user.email, client.company
+  render_related_fields :user => [:email], :client => [:company]
 
   # GET /client_changes
   # GET /client_changes.json
@@ -24,7 +23,7 @@ class Api::ClientChangesController < Api::ApiController
     @client_changes = current_ability.select(@client_changes)
 
     respond_to do |format|
-      format.json { render json: @client_changes.map{ |d| get_json(d) } }
+      format.json { render json: get_json(@client_changes) }
     end
   end
 

@@ -12,7 +12,7 @@ class Api::RecentClientsController < Api::ApiController
     end
 
     respond_to do |format|
-      format.json { render json: @recent_clients.map { |c| get_json(c) } }
+      format.json { render json: get_json(@recent_clients.to_a) }
     end
   end
 

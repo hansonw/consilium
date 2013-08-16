@@ -4,11 +4,17 @@ class Api::ApiController < ApplicationController
 
   respond_to :json
 
+  @@related_fields = {}
+
   rescue_from CanCan::AccessDenied do |exception|
     render json: '', :status => :forbidden
   end
 
   private
+    def self.render_related_fields(fields)
+      @@related_fields = fields
+    end
+
     def set_current_user
       ProxyCurrentUser.subclasses.each do |proxy|
         # XXX: This can potentially cause memory leaks on Thin and Puma.
@@ -26,8 +32,8 @@ class Api::ApiController < ApplicationController
       end
     end
 
-    def get_json(obj, attrs = {})
-      return obj.map { |c| get_json(c) } if obj.is_a?(Array)
+    def get_json_impl(obj, attrs = {})
+      return obj.map { |c| get_json_impl(c, attrs) } if obj.is_a?(Array)
       return obj if !obj.respond_to?(:attributes)
 
       ret = {}
@@ -39,10 +45,27 @@ class Api::ApiController < ApplicationController
         elsif key == "created_at" || key == "updated_at"
           ret[key] = val.to_i
         else
-          ret[key] = get_json(val)
+          ret[key] = get_json_impl(val)
         end
       end
 
       ret.merge(attrs)
+    end
+
+    def get_json(obj, attrs = {})
+      return obj.map { |c| get_json(c, attrs) } if obj.is_a?(Array)
+
+      related_attrs = {}
+      @@related_fields.each do |field, subfields|
+        if obj.respond_to?(field)
+          related_obj = obj.send(field)
+          related_attrs[field] = {}
+          subfields.each do |subfield|
+            related_attrs[field][subfield] = related_obj[subfield]
+          end
+        end
+      end
+
+      get_json_impl(obj, attrs.merge(related_attrs))
     end
 end

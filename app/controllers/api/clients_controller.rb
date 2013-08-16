@@ -51,7 +51,7 @@ class Api::ClientsController < Api::ApiController
     @clients = current_ability.select(@clients)
 
     respond_to do |format|
-      format.json { render json: @clients.map{ |c| get_json(c) } }
+      format.json { render json: get_json(@clients) }
     end
   end
 

@@ -45,7 +45,7 @@
           </div>
           <div data-ng-show="!loading" class="form-content">
             <aside data-ng-show="clientChange" class="edit-description">
-              <b>{{ clientChange.user_email }}</b> made this change on {{ clientChange.updated_at*1000 | date: 'MMM d, y h:mm a' }}:<br />
+              <b>{{ clientChange.user.email }}</b> made this change on {{ clientChange.updated_at*1000 | date: 'MMM d, y h:mm a' }}:<br />
               <div class="description">{{ clientChange.description }}</div>
               <div class="buttons">
                 <button class="pure-button prevButton"

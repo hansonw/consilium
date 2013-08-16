@@ -3,8 +3,7 @@ require 'tempfile'
 
 class Api::DocumentsController < Api::ApiController
   before_action :set_document, only: [:destroy]
-
-  # needs user.email
+  render_related_fields :user => [:email]
 
   # GET /documents
   # GET /documents.json
@@ -18,7 +17,7 @@ class Api::DocumentsController < Api::ApiController
     @documents = current_ability.select(@documents)
 
     respond_to do |format|
-      format.json { render json: @documents.map{ |d| get_json(d) } }
+      format.json { render json: get_json(@documents) }
     end
   end
 
