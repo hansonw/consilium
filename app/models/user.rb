@@ -1,3 +1,5 @@
+require 'proxy_current_user'
+
 class User < ProxyCurrentUser
   include Mongoid::Document
 
