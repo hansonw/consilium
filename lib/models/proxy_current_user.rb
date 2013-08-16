@@ -1,11 +1,12 @@
 # Hacky class to proxy the current_user to a model. This is a really bad way of
 # doing this, but there's no real cleaner way.
-class ProxyCurrentUser
+module ProxyCurrentUser
   # Very expensive, don't run this often.
   def self.subclasses
     def self.each_subclass
       ObjectSpace.each_object(Class) { |candidate|
-        yield candidate if candidate < self
+        puts candidate
+        yield candidate if candidate.extends self
       }
     end
 

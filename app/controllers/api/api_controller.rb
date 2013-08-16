@@ -16,10 +16,7 @@ class Api::ApiController < ApplicationController
     end
 
     def set_current_user
-      ProxyCurrentUser.subclasses.each do |proxy|
-        # XXX: This can potentially cause memory leaks on Thin and Puma.
-        proxy.current_user = current_user
-      end
+      ProxyCurrentUser.current_user = current_user
     end
 
     def verified_request?

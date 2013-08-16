@@ -1,6 +1,6 @@
 require 'proxy_current_user'
 
-class User < ProxyCurrentUser
+class User
   include Mongoid::Document
 
   CLIENT = 1
@@ -99,5 +99,5 @@ class User < ProxyCurrentUser
   end
 
   delegate :can?, :cannot?, :to => :ability
-  delegate :current_user, :to => ProxyCurrentUser
+  delegate :current_user, :subclasses, :to => ProxyCurrentUser
 end
