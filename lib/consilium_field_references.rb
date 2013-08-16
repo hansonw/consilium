@@ -19,11 +19,7 @@ module ConsiliumFieldReferences
         params[assoc].each do |elem|
           klass = assoc.to_s.singularize.capitalize.constantize
 
-          instance = nil
-          begin
-            instance = klass.find(elem[:_id] || elem[:id])
-          rescue
-          end
+          instance = klass.where(:id => elem[:_id] || elem[:id]).first
 
           if !instance.nil?
             instance.update(elem)
