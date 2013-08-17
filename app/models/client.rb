@@ -4,6 +4,7 @@ class Client
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Attributes::Dynamic
+  include Mongoid::Paranoia
   include ConsiliumFields
 
   belongs_to :brokerage

@@ -5,7 +5,6 @@ module ProxyCurrentUser
   def self.subclasses
     def self.each_subclass
       ObjectSpace.each_object(Class) { |candidate|
-        puts candidate
         yield candidate if candidate.extends self
       }
     end

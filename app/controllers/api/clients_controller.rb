@@ -129,12 +129,6 @@ class Api::ClientsController < Api::ApiController
   def destroy
     # Destroy dependencies
     @client.destroy
-
-    # Put it back with a deleted flag, so we can sync the deletion
-    @client = Client.new(@client.attributes)
-    @client['deleted'] = true
-    @client.save
-
     render json: ''
   end
 

@@ -1,4 +1,8 @@
 module ConsiliumFieldReferences
+  # Converts references from object.referenceCollection to
+  # object[:referenceCollection]. Don't save after using this. In general, this
+  # should only be used for presentation purposes (i.e. turning into JSON for
+  # the client).
   def serialize_references
     assocs = get_associations
     assocs.each do |assoc|
@@ -15,6 +19,20 @@ module ConsiliumFieldReferences
 
     assocs = get_associations
     assocs.each do |assoc|
+      # Check for elements that are on the saved model, but not on the params.
+      # This means that the updated params must have included a deletion.
+      self.send(assoc).each do |elem|
+        if !params[assoc].nil?
+          existing = params[assoc].select do |param|
+            (param[:_id] || param[:id]).to_s == (elem[:_id] || elem[:id]).to_s
+          end
+          # No matching object was found. Delete it.
+          elem.destroy if existing.empty?
+        end
+      end
+
+      # Check for elements that are on the params. This includes anything
+      # that either hasn't been changed, has been updated, or has been created.
       if !params[assoc].nil?
         params[assoc].each do |elem|
           klass = assoc.to_s.singularize.capitalize.constantize

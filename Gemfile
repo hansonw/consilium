@@ -25,6 +25,8 @@ gem 'jbuilder', '~> 1.2.0'
 
 # MongoDB object mapper.
 gem 'mongoid', github: 'mongoid/mongoid'
+# Mongoid Paranoia addon for shallow deletion.
+gem 'mongoid-paranoia', github: 'simi/mongoid-paranoia' # before first release
 
 # BSON extension for Mongoid.
 # gem 'bson_ext'

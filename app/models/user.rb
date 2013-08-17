@@ -2,6 +2,7 @@ require 'proxy_current_user'
 
 class User
   include Mongoid::Document
+  include Mongoid::Paranoia
 
   CLIENT = 1
   BROKER = 2
