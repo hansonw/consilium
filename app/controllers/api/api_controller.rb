@@ -4,15 +4,16 @@ class Api::ApiController < ApplicationController
 
   respond_to :json
 
-  @@related_fields = {}
-
   rescue_from CanCan::AccessDenied do |exception|
     render json: '', :status => :forbidden
   end
 
   private
-    def self.render_related_fields(fields)
-      @@related_fields = fields
+    class << self
+      attr_accessor :related_fields
+      def render_related_fields(fields)
+        @related_fields = fields
+      end
     end
 
     def set_current_user
@@ -53,12 +54,14 @@ class Api::ApiController < ApplicationController
       return obj.map { |c| get_json(c, attrs) } if obj.is_a?(Array)
 
       related_attrs = {}
-      @@related_fields.each do |field, subfields|
-        if obj.respond_to?(field)
-          related_obj = obj.send(field)
-          related_attrs[field] = {}
-          subfields.each do |subfield|
-            related_attrs[field][subfield] = related_obj[subfield]
+      if self.class.related_fields
+        self.class.related_fields.each do |field, subfields|
+          if obj.respond_to?(field)
+            related_obj = obj.send(field)
+            related_attrs[field] = {}
+            subfields.each do |subfield|
+              related_attrs[field][subfield] = related_obj[subfield]
+            end
           end
         end
       end
