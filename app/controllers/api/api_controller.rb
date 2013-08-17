@@ -57,10 +57,11 @@ class Api::ApiController < ApplicationController
       if self.class.related_fields
         self.class.related_fields.each do |field, subfields|
           if obj.respond_to?(field)
-            related_obj = obj.send(field)
-            related_attrs[field] = {}
-            subfields.each do |subfield|
-              related_attrs[field][subfield] = related_obj[subfield]
+            if related_obj = obj.send(field)
+              related_attrs[field] = {}
+              subfields.each do |subfield|
+                related_attrs[field][subfield] = related_obj[subfield]
+              end
             end
           end
         end

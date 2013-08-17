@@ -37,7 +37,7 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
   $scope.setClientChange = (change, index) ->
     doc = ($scope.genDocument ||= {})
     doc.changeDescription =
-      change.description + ' by ' + change.user.email + ' at ' + $filter('date')(change.updated_at, 'medium')
+      change.description + ' by ' + change.user?.email + ' at ' + $filter('date')(change.updated_at, 'medium')
     if index == 0
       doc.changeDescription = "Current revision (#{doc.changeDescription})"
     doc.description = change.client?.company?.value
