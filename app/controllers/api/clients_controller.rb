@@ -4,7 +4,16 @@ class Api::ClientsController < Api::ApiController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.any_of(
+    if params[:last_synced]
+      @clients = Client.unscoped.where(
+        "this.updated_at > #{params[:last_synced].to_i * 1000} || " +
+        "this.deleted_at > #{params[:last_synced].to_i * 1000}",
+      )
+    else
+      @clients = Client.all
+    end
+
+    @clients = @clients.any_of(
       {"company.value" => /#{Regexp.escape(params[:query] || '')}/i},
       {"name.value" => /#{Regexp.escape(params[:query] || '')}/i},
       {"emailAddress.value" => /#{Regexp.escape(params[:query] || '')}/i},
@@ -19,12 +28,6 @@ class Api::ClientsController < Api::ApiController
         end
       end
       @clients = @clients.where(select)
-    end
-
-    if params[:last_synced]
-      @clients = @clients.where("this.updated_at > #{params[:last_synced].to_i * 1000}")
-    else
-      @clients = @clients.where('deleted' => nil)
     end
 
     if params[:short]
@@ -58,7 +61,7 @@ class Api::ClientsController < Api::ApiController
   # GET /clients/1
   # GET /clients/1.json
   def show
-    @client = Client.where(:id => params[:id], 'deleted' => nil).first
+    @client = Client.where(:id => params[:id]).first
     if @client.nil?
       render json: '', status: :gone
       return
@@ -101,7 +104,7 @@ class Api::ClientsController < Api::ApiController
   def update
     @client = Client.new(client_params)
 
-    if existing = Client.where(:id => params[:id], 'deleted' => nil).first
+    if existing = Client.where(:id => params[:id]).first
       # Sync all fields
       authorize! :update, existing
       result = existing.attributes

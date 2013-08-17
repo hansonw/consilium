@@ -302,7 +302,7 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
           last_sync = storage.getLastSynced()
           resource.query(AuthToken.addAuthTokenToJSONRequest({last_synced: last_sync}), (data) =>
             for item in data
-              if item.deleted
+              if item.deleted_at
                 storage.delete(item.id, true)
               else
                 @syncObject(item)
