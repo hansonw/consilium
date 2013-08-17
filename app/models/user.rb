@@ -101,9 +101,20 @@ class User
     @ability ||= Ability.new(self)
   end
 
+  def save
+    if valid?
+      generate_reset_password_token if encrypted_password.blank? || password.blank?
+
+      # TODO: Send an email asking them to change their password.
+    end
+
+    super
+  end
+
   def send_user_welcome
     Mailer.user_welcome({
       :to => self[:email],
+      :token => reset_password_token,
       :variables => {
         :name => self[:name],
         :brokerage => self.brokerage[:name],
