@@ -4,6 +4,8 @@ class User
   include Mongoid::Document
   include Mongoid::Paranoia
 
+  after_create :send_user_welcome
+
   CLIENT = 1
   BROKER = 2
   ADMIN  = 3
@@ -97,6 +99,16 @@ class User
 
   def ability
     @ability ||= Ability.new(self)
+  end
+
+  def send_user_welcome
+    Mailer.user_welcome({
+      :to => self[:email],
+      :variables => {
+        :name => self[:name],
+        :brokerage => self.brokerage[:name],
+      },
+    }).deliver
   end
 
   delegate :can?, :cannot?, :to => :ability

@@ -49,6 +49,9 @@ gem 'ydocx', github: 'DouglasSherk/ydocx'
 # CORS handling from Rack
 gem 'rack-cors', :require => 'rack/cors'
 
+# PostageApp email handling
+gem 'postageapp'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
