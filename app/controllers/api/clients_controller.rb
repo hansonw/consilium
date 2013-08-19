@@ -84,6 +84,7 @@ class Api::ClientsController < Api::ApiController
       return
     else
       @client._id = params[:id]
+      @client.editing_time = params[:client][:editing_time]
       fix_timestamps(@client.attributes)
     end
 
@@ -110,6 +111,7 @@ class Api::ClientsController < Api::ApiController
       result = existing.attributes
       sync_fields(result, @client.attributes, params[:last_synced].to_i)
       @client.assign_attributes(result)
+      @client.editing_time = params[:client][:editing_time]
     else
       # Must have been deleted by someone else.
       render json: '', status: :gone

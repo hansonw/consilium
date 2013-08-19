@@ -7,7 +7,14 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', 
     error = $parse(attr.saveError)($scope)
 
     saveTimeout = 10000
-    lastChange = new Date().getTime()
+    lastChange = Date.now()
+
+    # an "AFK" timer; if there's a delay between edits it probably means the user got distracted
+    editTimeout = 20000
+    # modals could take a while, so allot 5mins
+    modalEditTimeout = 60000 * 5
+    lastEdit = Date.now()
+    lastModalToggle = Date.now()
 
     $scope.saving = false
 
@@ -24,13 +31,24 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', 
       if !form.$dirty || !form.$valid || $scope.readonly
         return
 
+      time = Date.now()
+      if time - lastEdit < editTimeout ||
+         lastEdit == lastModalToggle && time - lastEdit < modalEditTimeout
+        $scope.editingTime ||= $scope[model].editing_time || 0
+        $scope.editingTime += (time - lastEdit) / 1000
+      lastEdit = time
+
       $scope._saveTimer = $timeout (->
         time = new Date().getTime()
         if time - lastChange >= saveTimeout
           $scope.saveForm(false)
       ), saveTimeout
-      lastChange = new Date().getTime()
+      lastChange = time
     ), true
+
+    # accurately measure how long it takes to edit modals
+    $('.modal').on 'modal-toggle', ->
+      lastModalToggle = lastEdit = Date.now()
 
     $scope.$watch 'readonly', (newVal, oldVal) ->
       $('input, textarea, select').attr('readonly', newVal)
@@ -119,6 +137,8 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', 
         return
 
       $scope.saving = true
+      $scope[model].editing_time = Math.round($scope.editingTime)
+
       $scope[model].$save(
         (data) ->
           $scope.saving = false

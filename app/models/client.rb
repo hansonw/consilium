@@ -13,6 +13,8 @@ class Client
   has_many :documents, dependent: :delete
   has_many :user_permissions, dependent: :delete
 
+  field :editing_time, type: Integer, default: 0
+
   FIELDS = [
     {
       :name => 'Basic Client Info',

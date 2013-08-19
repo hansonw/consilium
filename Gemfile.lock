@@ -13,7 +13,7 @@ GIT
 
 GIT
   remote: git://github.com/mongoid/mongoid.git
-  revision: f4be91d037fd9048872f847a71286f9512aa862a
+  revision: 80ed36f0b7697df988ec8ba15003a6c055686707
   specs:
     mongoid (4.0.0)
       activemodel (~> 4.0.0)
@@ -71,7 +71,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
-    devise (3.0.2)
+    devise (3.0.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -156,7 +156,7 @@ GEM
     thread_safe (0.1.2)
       atomic
     tilt (1.4.1)
-    treetop (1.4.14)
+    treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
