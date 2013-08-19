@@ -101,13 +101,23 @@ class User
     @ability ||= Ability.new(self)
   end
 
-  def save
-    if valid?
-      generate_reset_password_token if encrypted_password.blank? || password.blank?
+  def reset_password
+    if encrypted_password.blank? || password.blank?
+      generate_reset_password_token
 
-      # TODO: Send an email asking them to change their password.
+      Mailer.reset_password({
+        :to => self[:email],
+        :token => reset_password_token,
+        :variables => {
+          :name => self[:name],
+          :brokerage => self.brokerage[:name],
+        }
+      }).deliver
     end
+  end
 
+  def save
+    reset_password if valid?
     super
   end
 
