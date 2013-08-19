@@ -4,8 +4,6 @@ class User
   include Mongoid::Document
   include Mongoid::Paranoia
 
-  after_create :send_user_welcome
-
   CLIENT = 1
   BROKER = 2
   ADMIN  = 3
@@ -101,34 +99,35 @@ class User
     @ability ||= Ability.new(self)
   end
 
-  def reset_password
-    if encrypted_password.blank? || password.blank?
-      generate_reset_password_token
+  protected
 
-      Mailer.reset_password({
-        :to => self[:email],
-        :token => reset_password_token,
-        :variables => {
-          :name => self[:name],
-          :brokerage => self.brokerage[:name],
-        }
-      }).deliver
-    end
+  set_callback(:save, :before) do |document|
+    reset_password if valid? && (encrypted_password.blank? || password.blank?)
   end
 
-  def save
-    reset_password if valid?
-    super
-  end
-
-  def send_user_welcome
+  set_callback(:create, :after) do |document|
     Mailer.user_welcome({
+      :to => document[:email],
+      :token => reset_password_token,
+      :variables => {
+        :name => document[:name],
+        :brokerage => document.brokerage[:name],
+      },
+    }).deliver
+  end
+
+  private
+
+  def reset_password
+    generate_reset_password_token
+
+    Mailer.reset_password({
       :to => self[:email],
       :token => reset_password_token,
       :variables => {
         :name => self[:name],
         :brokerage => self.brokerage[:name],
-      },
+      }
     }).deliver
   end
 
