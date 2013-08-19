@@ -84,7 +84,12 @@ class Api::ClientsController < Api::ApiController
       return
     else
       @client._id = params[:id]
-      @client.editing_time = params[:client][:editing_time]
+      @client.editing_time = params[:client][:editing_time].to_i
+      # There's no way it takes more than 1 second per byte to enter.
+      limit = @client.to_json.length
+      if @client.editing_time > limit
+        @client.editing_time = limit
+      end
       fix_timestamps(@client.attributes)
     end
 
@@ -111,7 +116,20 @@ class Api::ClientsController < Api::ApiController
       result = existing.attributes
       sync_fields(result, @client.attributes, params[:last_synced].to_i)
       @client.assign_attributes(result)
-      @client.editing_time = params[:client][:editing_time]
+      editing_time = params[:client][:editing_time].to_i
+      if !@client.editing_time || editing_time >= @client.editing_time
+        diff = editing_time - @client.editing_time
+        # Prevent client from tampering too much with this.
+        last_change = ClientChange.where('client_id' => @client.id).desc(:updated_at).first
+        if last_change
+          # Can't possibly be more than the time between now and the previous recorded change.
+          last_diff = Time.now.to_i - last_change.updated_at.to_i
+          if diff > last_diff
+            editing_time = @client.editing_time + last_diff
+          end
+        end
+        @client.editing_time = editing_time
+      end
     else
       # Must have been deleted by someone else.
       render json: '', status: :gone
