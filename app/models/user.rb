@@ -1,8 +1,10 @@
 require 'proxy_current_user'
+require 'andand'
 
 class User
   include Mongoid::Document
   include Mongoid::Paranoia
+  include ActionView::Helpers::HostHelper
 
   CLIENT = 1
   BROKER = 2
@@ -112,8 +114,9 @@ class User
   set_callback(:create, :after) do |document|
     Mailer.user_welcome({
       :to => document[:email],
-      :token => reset_password_token,
       :variables => {
+        :activation_url => "#{site_host}/app#/users/reset_password?token=#{reset_password_token.to_s}&activate=true",
+        :token => reset_password_token,
         :name => document[:name],
         :brokerage => document.brokerage[:name],
       },
@@ -127,8 +130,8 @@ class User
 
     Mailer.reset_password({
       :to => self[:email],
-      :token => reset_password_token,
       :variables => {
+        :token => reset_password_token,
         :name => self[:name],
         :brokerage => self.brokerage[:name],
       }
