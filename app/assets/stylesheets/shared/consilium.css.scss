@@ -54,6 +54,12 @@ body {
       border: rgb(238, 211, 215);
       color: rgb(185, 74, 72);
     }
+
+    &.alert-success {
+      background: rgb(223, 240, 216);
+      border: rgb(214, 233, 198);
+      color: rgb(70, 136, 71);
+    }
   }
 
   .center {
