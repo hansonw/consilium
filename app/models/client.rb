@@ -51,6 +51,15 @@ class Client
           ]
         },
         {
+          :name => 'Application Type',
+          :id => 'type',
+          :type => 'dropdown',
+          :placeholder => 'Generic',
+          :options => [
+            'Solar',
+          ]
+        },
+        {
           :name => 'Account Number',
           :id => 'accountNumber',
           :placeholder => 'Account Number',
@@ -630,6 +639,183 @@ class Client
                 'Commercial Stock',
                 'Other Commercial Risk',
               ],
+              :clientType => '',
+            },
+            {
+              :name => 'Type of project',
+              :id => 'solarProjectType',
+              :type => 'dropdown',
+              :clientType => 'solar',
+              :options => [
+                'Photovoltaic (PV)',
+                'Concentrating Solar Power (CSP)',
+                'Other'
+              ]
+            },
+            {
+              :name => 'Type of solar PV mounting',
+              :id => 'pvMountingType',
+              :type => 'radio',
+              :clientType => 'solar',
+              :options => {
+                'rooftop' => 'Rooftop',
+                'ground' => 'Ground',
+              },
+              :if => 'solarProjectType == "Photovoltaic (PV)"'
+            },
+            {
+              :name => 'Mounting structure/device',
+              :id => 'solarMountingStructure',
+              :type => 'dropdown',
+              :clientType => 'solar',
+              :options => [
+                'Non-combustible',
+                'Combustible',
+                'Sun-tracker',
+                'Stationary',
+              ]
+            },
+            {
+              :type => 'heading',
+              :clientType => 'solar',
+              :text => 'Roof-top Mounted',
+              :if => 'pvMountingType == "rooftop"',
+            },
+            {
+              :name => 'Type and use of attached structure',
+              :id => 'solarStructureType',
+              :type => 'text',
+              :clientType => 'solar',
+              :if => 'pvMountingType == "rooftop"',
+            },
+            {
+              :name => 'Location operation',
+              :id => 'solarLocationOperation',
+              :type => 'radio',
+              :clientType => 'solar',
+              :options => {
+                'yearRound' => 'Year Round',
+                'seasonal' => 'Seasonal',
+              },
+              :if => 'pvMountingType == "rooftop"',
+            },
+            {
+              :name => '',
+              :id => 'solarRoofLeased',
+              :type => 'checkbox',
+              :clientType => 'solar',
+              :options => {
+                'yes' => 'Is the roof leased?',
+              },
+              :if => 'pvMountingType == "rooftop"',
+            },
+            {
+              :name => '',
+              :id => 'solarEngineeringEvaluation',
+              :type => 'checkbox',
+              :clientType => 'solar',
+              :options => {
+                'yes' => 'Structural engineering evaluation completed?',
+              },
+              :if => 'pvMountingType == "rooftop"',
+            },
+            {
+              :type => 'separator',
+              :clientType => 'solar',
+              :if => 'solarProjectType == "Photovoltaic (PV)"'
+            },
+            {
+              :type => 'heading',
+              :text => 'Photovolatic Module Information',
+              :clientType => 'solar',
+              :if => 'solarProjectType == "Photovoltaic (PV)"'
+            },
+            {
+              :name => 'PV manufacturer',
+              :id => 'pvManufacturer',
+              :type => 'text',
+              :if => 'solarProjectType == "Photovoltaic (PV)"'
+            },
+            {
+              :name => 'PV panels',
+              :id => 'pvPanels',
+              :type => 'text',
+              :placeholder => 'Number of PV panels',
+              :if => 'solarProjectType == "Photovoltaic (PV)"'
+            },
+            {
+              :name => 'Nameplate capacity',
+              :id => 'pvCapacity',
+              :type => 'text',
+              :placeholder => 'Generating capacity (kW/MW)',
+              :if => 'solarProjectType == "Photovoltaic (PV)"'
+            },
+            {
+              :name => 'Inverter manufacturer',
+              :id => 'pvInverterManufacturer',
+              :type => 'text',
+              :if => 'solarProjectType == "Photovoltaic (PV)"'
+            },
+            {
+              :name => 'Number of inverters',
+              :id => 'pvInverterCount',
+              :type => 'text',
+              :if => 'solarProjectType == "Photovoltaic (PV)"'
+            },
+            {
+              :name => 'Number of transformers',
+              :id => 'pvTransformerCount',
+              :type => 'text',
+              :if => 'solarProjectType == "Photovoltaic (PV)"'
+            },
+            {
+              :name => '',
+              :id => 'pvEquipmentUsed',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Is any component of the equipment used?'
+              },
+              :if => 'solarProjectType == "Photovoltaic (PV)"'
+            },
+            {
+              :name => 'Equipment Details',
+              :id => 'pvEquipmentDetails',
+              :type => 'text',
+              :placeholder => 'Provide details including age',
+              :if => ['solarProjectType == "Photovoltaic (PV)"', 'pvEquipmentUsed.yes']
+            },
+            {
+              :name => 'Equipment Type',
+              :id => 'pvEquipmentType',
+              :type => 'dropdown',
+              :options => [
+                'Self-owned',
+                'Leased',
+                'Community/Joint ownership',
+              ],
+              :if => 'solarProjectType == "Photovoltaic (PV)"'
+            },
+            {
+              :name => 'Year Installed',
+              :id => 'pvYearInstalled',
+              :type => 'text',
+              :if => 'solarProjectType == "Photovoltaic (PV)"'
+            },
+            {
+              :name => 'Installer',
+              :id => 'pvInstaller',
+              :type => 'text',
+              :placeholder => 'Who completed the installation?',
+              :if => 'solarProjectType == "Photovoltaic (PV)"'
+            },
+            {
+              :name => '',
+              :id => 'pvInstallerSIA',
+              :type => 'checkbox',
+              :options => {
+                'yes' => 'Is installer a CanSIA member?'
+              },
+              :if => 'solarProjectType == "Photovoltaic (PV)"'
             },
             {
               :type => 'separator',
@@ -1752,6 +1938,22 @@ class Client
                 },
                 {
                   :name => 'Misc. Wording (Named)',
+                  :id => 'miscWordingNamed',
+                },
+                {
+                  :name => 'Windstorm/Hail',
+                  :id => 'miscWordingNamed',
+                },
+                {
+                  :name => 'Flood',
+                  :id => 'miscWordingNamed',
+                },
+                {
+                  :name => 'Earthquake',
+                  :id => 'miscWordingNamed',
+                },
+                {
+                  :name => 'Lightning',
                   :id => 'miscWordingNamed',
                 },
               ],

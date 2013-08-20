@@ -10,47 +10,67 @@ module FormHelper
     return model
   end
 
+  def parse_if(field_if, parent_field, options)
+    if field_if.is_a?(Array)
+      ifs = field_if.map { |f| parse_if(f, parent_field, options) }
+      return ifs.join(' && ')
+    end
+
+    if field_if.start_with? '$'
+      field_if[1..-1]
+    else
+      negate = false
+      showIf = field_if
+      if field_if.start_with? '!'
+        showIf = field_if[1..-1]
+        negate = true
+      end
+
+      parts = showIf.split('.')
+      parts[0] = model_name(parts[0], parent_field, options)
+      if parts.length > 1
+        showIf = parts.join('.') # checkbox
+      else
+        # Append |== "yes"| if there is no expression contained within the conditional.
+        showIf = parts[0] + (if !(showIf.match /\=|<|>/) then ' == "yes"' else '' end) # radio
+      end
+
+      if negate
+        showIf = "!(#{showIf})"
+      end
+
+      showIf
+    end
+  end
+
   def form_field(field, parent_field, options = {})
     if !options.has_key?(:syncable)
       options[:syncable] = true
     end
 
     model = model_name(field[:id], parent_field, options)
+    showIf = nil
     if field[:if]
-      if field[:if].start_with? '$'
-        showIf = field[:if][1..-1]
+      showIf = parse_if(field[:if], parent_field, options)
+    end
+
+    if field[:clientType]
+      if field[:clientType] == '' # generic
+        showIf = "#{showIf ? showIf + ' && ' : ''}!client.type.value"
       else
-        negate = false
-        showIf = field[:if]
-        if field[:if].start_with? '!'
-          showIf = field[:if][1..-1]
-          negate = true
-        end
-
-        parts = showIf.split('.')
-        parts[0] = model_name(parts[0], parent_field, options)
-        if parts.length > 1
-          showIf = parts.join('.') # checkbox
-        else
-          # Append |== "yes"| if there is no expression contained within the conditional.
-          showIf = parts[0] + (if !(showIf.match /\=|<|>/) then ' == "yes"' else '' end) # radio
-        end
-
-        if negate
-          showIf = "!(#{showIf})"
-        end
+        showIf = "#{showIf ? showIf + ' && ' : ''}client.type.value == '#{field[:clientType].capitalize}'"
       end
     end
 
     if field[:type] == 'heading'
       return raw\
-        "<div class='pure-control-group' #{field[:if] && "data-show-emit='#{h showIf}'"}>
+        "<div class='pure-control-group' #{showIf && "data-show-emit='#{h showIf}'"}>
           <label></label>
           <div class='heading'>#{h field[:text]}</div>
         </div>"
     elsif field[:type] == 'separator'
       return raw\
-        "<div class='pure-control-group' #{field[:if] && "data-show-emit='#{h showIf}'"}>
+        "<div class='pure-control-group' #{showIf && "data-show-emit='#{h showIf}'"}>
           <label></label>
           <hr class='soften'></hr>
         </div>"
@@ -60,7 +80,7 @@ module FormHelper
 
     return raw\
       "<div class='pure-control-group'
-            #{field[:if] && "data-show-emit='#{h showIf}'"}>
+            #{showIf && "data-show-emit='#{h showIf}'"}>
          <label for='#{field[:id]}'
                 #{field[:required] && "class='required'"}
                 data-ng-class='{changed: #{changed}}'
