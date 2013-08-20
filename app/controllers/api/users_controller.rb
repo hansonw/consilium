@@ -1,5 +1,6 @@
 class Api::UsersController < Api::ApiController
-  load_and_authorize_resource
+  skip_before_filter :json_authenticate, :only => [:show]
+  load_and_authorize_resource :except => [:show]
 
   # GET /api/users
   def index
@@ -8,7 +9,14 @@ class Api::UsersController < Api::ApiController
 
   # GET /api/users/1
   def show
-    render json: @user
+    if !params[:reset_password_token].nil?
+      @user = User.where(:id => params[:id], :reset_password_token => params[:reset_password_token]).first
+      render json: '', status: @user.nil? ? :forbidden : :ok
+    else
+      authorize! :show, User
+      @user = User.where(:id => params[:id])
+      render json: @user
+    end
   end
 
   # POST /api/users/1.json
