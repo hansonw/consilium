@@ -28,8 +28,9 @@ body {
 
   .alert {
     background: #cce1ef;
-    padding: 20px;
-    color: #163246;
+    padding: 1em;
+    border-radius: 3px;
+    margin: 10px 0;
 
     .alert-inner {
       display: table;
@@ -46,6 +47,12 @@ body {
       p {
         overflow: auto;
       }
+    }
+
+    &.alert-error {
+      background: rgb(242, 222, 222);
+      border: rgb(238, 211, 215);
+      color: rgb(185, 74, 72);
     }
   }
 

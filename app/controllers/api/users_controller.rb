@@ -39,6 +39,10 @@ class Api::UsersController < Api::ApiController
   end
 
   # GET /api/users/1.json/reset_password
+  # Note that here and in reset_password, we must be careful not to provide
+  # information as to whether or not a user actually exists. Thus, if either
+  # the user doesn't exist, or the reset token was wrong, we must provide
+  # the same status (forbidden).
   def reset_password_valid
     @user = User.where(:id => params[:id], :reset_password_token => params[:reset_password_token]).first
     render json: '', status: @user.nil? ? :forbidden : :ok
@@ -46,7 +50,17 @@ class Api::UsersController < Api::ApiController
 
   # PUT /api/users/1.json/reset_password
   def reset_password
-    render json: '', status: :gone
+    @user = User.where(:id => params[:id], :reset_password_token => params[:reset_password_token]).first
+    render json: '', status: :forbidden if @user.nil?
+
+    @user[:password] = @user[:password_confirmation] = params[:password]
+    @user[:reset_password_token] = nil
+
+    if @user.save
+      render json: '', status: :ok
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
   end
 
   private
