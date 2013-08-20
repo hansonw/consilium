@@ -9,6 +9,8 @@ Consilium::Application.routes.draw do
 
   scope :api do
     resources :users, :controller => 'api/users'
+    get 'users/:id/reset_password' => 'api/users#reset_password_valid'
+    put 'users/:id/reset_password' => 'api/users#reset_password'
 
     resources :clients, :controller => 'api/clients'
     post 'clients/:id' => 'api/clients#create'

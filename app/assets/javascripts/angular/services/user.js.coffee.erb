@@ -2,5 +2,8 @@
 <% environment.context_class.instance_eval { include HostHelper } %>
 
 App.factory 'User', ['$resource', ($resource) ->
-  $resource('<%= angularApiPath('/api/users/:id') %>', {format: 'json', id: '@id'}, {'update': {method: 'PUT'}})
+  service = $resource('<%= angularApiPath('/api/users/:id') %>', {format: 'json', id: '@id'}, {'update': {method: 'PUT'}})
+  service.ResetPassword =
+    $resource('<%= angularApiPath('/api/users/:id/reset_password') %>', {format: 'json', id: '@id'}, {'update': {method: 'PUT'}})
+  service
 ]

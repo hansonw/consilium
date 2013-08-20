@@ -1,23 +1,15 @@
 class Api::UsersController < Api::ApiController
-  skip_before_filter :json_authenticate, :only => [:show]
-  load_and_authorize_resource :except => [:show]
+  skip_before_filter :json_authenticate, :only => [:reset_password_valid, :reset_password]
+  load_and_authorize_resource :except => [:reset_password_valid, :reset_password]
 
   # GET /api/users
   def index
     render json: @users
   end
 
-  # GET /api/users/1
+  # GET /api/users/1.json
   def show
-    if !params[:reset_password_token].nil?
-      @user = User.where(:id => params[:id], :reset_password_token => params[:reset_password_token]).first
-      render json: '', status: @user.nil? ? :forbidden : :ok
-    else
-      json_authenticate
-      authorize! :show, User
-      @user = User.where(:id => params[:id])
-      render json: @user
-    end
+    render json: @user
   end
 
   # POST /api/users/1.json
@@ -44,6 +36,17 @@ class Api::UsersController < Api::ApiController
   def destroy
     @user.destroy
     head :no_content
+  end
+
+  # GET /api/users/1.json/reset_password
+  def reset_password_valid
+    @user = User.where(:id => params[:id], :reset_password_token => params[:reset_password_token]).first
+    render json: '', status: @user.nil? ? :forbidden : :ok
+  end
+
+  # PUT /api/users/1.json/reset_password
+  def reset_password
+    render json: '', status: :gone
   end
 
   private
