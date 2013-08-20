@@ -923,12 +923,14 @@ class Client
               :name => 'PV manufacturer',
               :id => 'pvManufacturer',
               :type => 'text',
+              :clientType => 'solar',
               :if => 'solarProjectType == "Photovoltaic (PV)"'
             },
             {
               :name => 'PV panels',
               :id => 'pvPanels',
               :type => 'text',
+              :clientType => 'solar',
               :placeholder => 'Number of PV panels',
               :if => 'solarProjectType == "Photovoltaic (PV)"'
             },
@@ -936,6 +938,7 @@ class Client
               :name => 'Nameplate capacity',
               :id => 'pvCapacity',
               :type => 'text',
+              :clientType => 'solar',
               :placeholder => 'Generating capacity (kW/MW)',
               :if => 'solarProjectType == "Photovoltaic (PV)"'
             },
@@ -943,24 +946,28 @@ class Client
               :name => 'Inverter manufacturer',
               :id => 'pvInverterManufacturer',
               :type => 'text',
+              :clientType => 'solar',
               :if => 'solarProjectType == "Photovoltaic (PV)"'
             },
             {
               :name => 'Number of inverters',
               :id => 'pvInverterCount',
               :type => 'text',
+              :clientType => 'solar',
               :if => 'solarProjectType == "Photovoltaic (PV)"'
             },
             {
               :name => 'Number of transformers',
               :id => 'pvTransformerCount',
               :type => 'text',
+              :clientType => 'solar',
               :if => 'solarProjectType == "Photovoltaic (PV)"'
             },
             {
               :name => '',
               :id => 'pvEquipmentUsed',
               :type => 'checkbox',
+              :clientType => 'solar',
               :options => {
                 'yes' => 'Is any component of the equipment used?'
               },
@@ -970,6 +977,7 @@ class Client
               :name => 'Equipment Details',
               :id => 'pvEquipmentDetails',
               :type => 'text',
+              :clientType => 'solar',
               :placeholder => 'Provide details including age',
               :if => ['solarProjectType == "Photovoltaic (PV)"', 'pvEquipmentUsed.yes']
             },
@@ -977,6 +985,7 @@ class Client
               :name => 'Equipment Type',
               :id => 'pvEquipmentType',
               :type => 'dropdown',
+              :clientType => 'solar',
               :options => [
                 'Self-owned',
                 'Leased',
@@ -988,12 +997,14 @@ class Client
               :name => 'Year Installed',
               :id => 'pvYearInstalled',
               :type => 'text',
+              :clientType => 'solar',
               :if => 'solarProjectType == "Photovoltaic (PV)"'
             },
             {
               :name => 'Installer',
               :id => 'pvInstaller',
               :type => 'text',
+              :clientType => 'solar',
               :placeholder => 'Who completed the installation?',
               :if => 'solarProjectType == "Photovoltaic (PV)"'
             },
@@ -1001,10 +1012,122 @@ class Client
               :name => '',
               :id => 'pvInstallerSIA',
               :type => 'checkbox',
+              :clientType => 'solar',
               :options => {
                 'yes' => 'Is installer a CanSIA member?'
               },
               :if => 'solarProjectType == "Photovoltaic (PV)"'
+            },
+            {
+              :type => 'separator',
+              :clientType => 'solar',
+            },
+            {
+              :name => '',
+              :id => 'solarPreventativeMaintenance',
+              :type => 'checkbox',
+              :clientType => 'solar',
+              :options => {
+                'yes' => 'Is there a written preventative maintenance program in place?'
+              }
+            },
+            {
+              :name => 'Describe',
+              :id => 'solarPreventativeMaintenanceDescribe',
+              :type => 'text',
+              :clientType => 'solar',
+              :placeholder => 'If no, what plans exist for maintenance of PV modules and associated equipment?',
+              :if => '!solarPreventativeMaintenance.yes'
+            },
+            {
+              :name => 'Spares',
+              :id => 'solarSpares',
+              :type => 'text',
+              :clientType => 'solar',
+              :placeholder => 'Details of spares kept off premises',
+            },
+            {
+              :name => '',
+              :id => 'solarOwnSubstation',
+              :type => 'checkbox',
+              :clientType => 'solar',
+              :options => {
+                'yes' => 'Does applicant own any substation on site?'
+              }
+            },
+            {
+              :name => 'Non-owned substation distance',
+              :id => 'solarNonOwnedDistance',
+              :type => 'text',
+              :clientType => 'solar',
+              :placeholder => 'Distance of non-owned substation from site location',
+            },
+            {
+              :name => 'Power lines to non-owned substation',
+              :id => 'solarNonOwnedDistance',
+              :type => 'radio',
+              :clientType => 'solar',
+              :options => {
+                'buried' => 'Buried',
+                'onSurface' => 'On surface',
+                'overhead' => 'Overhead',
+              }
+            },
+            {
+              :name => 'Annual power generation revenue',
+              :id => 'solarAnnualRevenue',
+              :type => 'text',
+              :clientType => 'solar',
+              :placeholder => 'Expected annual revenue from power generation',
+            },
+            {
+              :name => '',
+              :id => 'solarSystemLog',
+              :type => 'checkbox',
+              :clientType => 'solar',
+              :options => {
+                'yes' => 'Do you maintain a log of your system performance?',
+              }
+            },
+            {
+              :name => '',
+              :id => 'solarSCADA',
+              :type => 'checkbox',
+              :clientType => 'solar',
+              :options => {
+                'yes' => 'Is SCADA system provided?'
+              }
+            },
+            {
+              :name => 'SCADA signal',
+              :id => 'solarSCADASignal',
+              :type => 'text',
+              :clientType => 'solar',
+              :placeholder => 'If yes, where does the SCADA system signal?',
+              :if => 'solarSCADA.yes'
+            },
+            {
+              :name => 'Contingency plans',
+              :id => 'solarContingencyPlans',
+              :type => 'text',
+              :clientType => 'solar',
+              :placeholder => 'Please describe contingency plans in place for critical equipment failure (i.e. inverters)',
+            },
+            {
+              :name => '',
+              :id => 'solarWarranty',
+              :type => 'checkbox',
+              :clientType => 'solar',
+              :options => {
+                'yes' => 'Is equipment under manufacturer’s warranty?'
+              }
+            },
+            {
+              :name => 'Warranty expiry',
+              :id => 'solarWarrantyExpiry',
+              :type => 'date',
+              :clientType => 'solar',
+              :if => 'solarWarranty.yes'
             },
             {
               :type => 'separator',
