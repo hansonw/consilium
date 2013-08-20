@@ -1,9 +1,7 @@
 class Api::BrokerageController < Api::ApiController
   def show
     @brokerage = current_user.brokerage
-    respond_to do |format|
-      format.json { render json: get_json(@brokerage.serialize_references) }
-    end
+    render json: get_json(@brokerage.serialize_references)
   end
 
   # POST /api/brokerage.json
