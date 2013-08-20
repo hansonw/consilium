@@ -2,6 +2,11 @@
 
 window.App = angular.module('Consilium', ['ngResource'])
 
+# Paths that are allowed to be accessed without logging in.
+unauthorizedPaths = [
+  '/auth/reset_password',
+]
+
 App.config ['$routeProvider', ($routeProvider) ->
   <% getAllAngularRoutes().each do |route| %>
   $routeProvider.when '<%= angularRouteAppPath(route).sub '#', '' %>',
@@ -42,7 +47,7 @@ App.run ['$rootScope', '$location', '$timeout', 'Client', 'RecentClients', 'Offl
       $rootScope.updateMenu()
     $location.url(if isLoggedIn then '/' else '/auth/login')
 
-  if $location.url() != '/auth/login' && !Auth.isLoggedIn()
+  if $location.url() != '/auth/login' && !Auth.isLoggedIn() && !Auth.locationAllowedUnauthorized()
     $location.url('/auth/login')
 
   $rootScope.online_status = true
