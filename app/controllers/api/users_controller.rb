@@ -51,11 +51,12 @@ class Api::UsersController < Api::ApiController
   # PUT /api/users/1.json/reset_password
   def reset_password
     @user = User.where(:id => params[:id], :reset_password_token => params[:reset_password_token]).first
-    render json: '', status: :forbidden if @user.nil?
+    if @user.nil?
+      render json: '', status: :forbidden
+      return
+    end
 
-    @user[:password] = @user[:password_confirmation] = params[:password]
-    @user[:reset_password_token] = nil
-
+    @user.update_attributes({:password => params[:password], :password_confirmation => params[:password], :reset_password_token => nil})
     if @user.save
       render json: '', status: :ok
     else
