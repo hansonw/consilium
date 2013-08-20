@@ -1,5 +1,5 @@
 <% environment.context_class.instance_eval { include ActionView::Helpers } %>
-<% environment.context_class.instance_eval { include AngularHostHelper } %>
+<% environment.context_class.instance_eval { include HostHelper } %>
 
 App.factory 'Document', ['$resource', 'Auth', ($resource, Auth) ->
   resource = $resource('<%= angularApiPath('/api/documents/:id') %>', {format: 'json', id: '@id'}, {'save': {method: 'PUT'}})

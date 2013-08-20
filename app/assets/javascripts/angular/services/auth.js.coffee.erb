@@ -1,5 +1,5 @@
 <% environment.context_class.instance_eval { include ActionView::Helpers } %>
-<% environment.context_class.instance_eval { include AngularHostHelper } %>
+<% environment.context_class.instance_eval { include HostHelper } %>
 
 App.factory 'AuthToken', ['$resource', ($resource) ->
   get: ->

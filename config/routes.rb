@@ -58,6 +58,10 @@ Consilium::Application.routes.draw do
       scope :brokerage do
         get 'index' => 'home#app', :as => 'app_brokerage'
       end
+
+      scope :users do
+        get 'reset_password' => 'home#app', :as => 'app_users_reset_password'
+      end
     end
   end
 

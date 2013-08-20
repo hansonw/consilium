@@ -116,6 +116,8 @@ class User
       :to => document[:email],
       :variables => {
         :activation_url => "#{site_host}/app#/users/reset_password?token=#{reset_password_token.to_s}&activate=true",
+        :site_url => "#{site_host}/app#",
+        :email => document[:email],
         :token => reset_password_token,
         :name => document[:name],
         :brokerage => document.brokerage[:name],
