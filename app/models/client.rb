@@ -1064,7 +1064,7 @@ class Client
             },
             {
               :name => 'Power lines to non-owned substation',
-              :id => 'solarNonOwnedDistance',
+              :id => 'solarNonOwnedPowerLines',
               :type => 'radio',
               :clientType => 'solar',
               :options => {
@@ -3134,7 +3134,7 @@ class Client
               :if => 'surveyRefueling.yes'
             },
             {
-              :id => 'surveyDisasterPlan',
+              :id => 'surveyRefuelingDisasterPlan',
               :name => '',
               :type => 'checkbox',
               :if => 'surveyRefueling.yes',

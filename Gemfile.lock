@@ -23,7 +23,7 @@ GIT
 
 GIT
   remote: git://github.com/simi/mongoid-paranoia.git
-  revision: 4c8433ef7c33cd4bee52176cc654cd69f8786f8c
+  revision: 02de92ffb5921e5fb51101133998db264335e576
   specs:
     mongoid-paranoia (0.1)
       activemodel (~> 4.0.0)

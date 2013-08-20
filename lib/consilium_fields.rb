@@ -15,6 +15,26 @@ module ConsiliumFields
       return fields.flatten
     end
 
+    def verify_unique_ids(fields = self::FIELDS)
+      ids = {}
+      self.expand_fields(fields).each do |field|
+        if field[:id]
+          if field[:type].is_a?(Array) && field[:id].ends_with?('s')
+            if !verify_unique_ids(field[:type])
+              return false
+            end
+          end
+          if ids[field[:id]]
+            p field
+            return false
+          end
+          ids[field[:id]] = true
+        end
+      end
+
+      return true
+    end
+
     def generate_permit_params(node = self::FIELDS)
       permitted = []
       expand_fields(node).each do |field|
