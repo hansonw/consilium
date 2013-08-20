@@ -427,6 +427,195 @@ class Client
           :otherPlaceholder => 'Specify',
         },
         {
+          :type => 'separator',
+          :clientType => 'solar',
+        },
+        {
+          :name => 'Annual energy generation',
+          :id => 'solarAnnualEnergy',
+          :type => 'text',
+          :clientType => 'solar',
+          :placeholder => 'Annual energy generation by location (kWh)'
+        },
+        {
+          :name => 'Energy sold to',
+          :id => 'solarEnergySoldTo',
+          :type => 'checkbox',
+          :clientType => 'solar',
+          :options => {
+            'utility' => 'Utility',
+            'host' => 'Host',
+            'other' => 'Other',
+          }
+        },
+        {
+          :name => 'Describe',
+          :id => 'solarEnergySoldToOther',
+          :type => 'text',
+          :clientType => 'solar',
+          :placeholder => 'Describe other',
+          :if => 'solarAnnualEnergy.other',
+        },
+        {
+          :name => 'Utility',
+          :id => 'solarUtility',
+          :type => 'text',
+          :clientType => 'solar',
+          :placeholder => 'Name of utility/local distribution company'
+        },
+        {
+          :name => 'Host',
+          :id => 'solarHost',
+          :type => 'text',
+          :clientType => 'solar',
+          :placeholder => 'Name of owner of leased site location (host)',
+        },
+        {
+          :name => 'Lessor',
+          :id => 'solarLessor',
+          :type => 'text',
+          :clientType => 'solar',
+          :placeholder => 'Name of lessor of leased equipment',
+        },
+        {
+          :name => '',
+          :id => 'solarProjectRestricted',
+          :type => 'checkbox',
+          :clientType => 'solar',
+          :options => {
+            'yes' => 'Is project access restricted?'
+          }
+        },
+        {
+          :name => 'Describe',
+          :id => 'solarProjectRestrictedDescribe',
+          :type => 'text',
+          :clientType => 'solar',
+          :placeholder => 'If restricted, describe',
+          :if => 'solarProjectRestricted.yes'
+        },
+        {
+          :name => '',
+          :id => 'solarTransmission',
+          :type => 'checkbox',
+          :clientType => 'solar',
+          :options => {
+            'yes' => 'Do you own or maintain any electric transmission distribution lines or substations?'
+          }
+        },
+        {
+          :name => 'Describe',
+          :id => 'solarTransmissionDescribe',
+          :type => 'text',
+          :clientType => 'solar',
+          :placeholder => 'If yes, describe line length (km) and number of substations',
+          :if => 'solarTransmission.yes'
+        },
+        {
+          :type => 'separator',
+          :clientType => 'solar',
+        },
+        {
+          :name => 'Non-workers\' compensation',
+          :id => 'solarNonWorkersCompensation',
+          :type => 'text',
+          :clientType => 'solar',
+          :placeholder => 'Number of employees not covered by workers compensation',
+        },
+        {
+          :name => 'Non-covered employee class',
+          :id => 'solarNonWorkersCompensationClass',
+          :type => 'dropdown',
+          :clientType => 'solar',
+          :if => 'solarNonWorkersCompensation > 0',
+          :options => [
+            'Office',
+            'Other',
+          ]
+        },
+        {
+          :type => 'separator',
+          :clientType => 'solar',
+        },
+        {
+          :name => 'Sub-contracts',
+          :id => 'solarSubcontracts',
+          :type => 'text',
+          :clientType => 'solar',
+          :placeholder => 'If any work is subcontracted, describe type of work contracted',
+        },
+        {
+          :name => '',
+          :id => 'solarSubcontractorCoverage',
+          :type => 'checkbox',
+          :clientType => 'solar',
+          :options => {
+            'yes' => 'Subcontractor coverage required',
+          }
+        },
+        {
+          :name => 'Limit required',
+          :id => 'solarSubcontractorCoverageLimit',
+          :type => 'text',
+          :clientType => 'solar',
+          :placeholder => 'Limit required for subcontractors',
+          :if => 'solarSubcontractorCoverage.yes'
+        },
+        {
+          :name => '',
+          :id => 'solarSubcontractorCoverageAdditionalInsured',
+          :type => 'checkbox',
+          :clientType => 'solar',
+          :options => {
+            'yes' => 'Are you named as an additional insured?',
+          },
+          :if => 'solarSubcontractorCoverage.yes'
+        },
+        {
+          :name => '',
+          :id => 'solarSubcontractorCoverageWaive',
+          :type => 'checkbox',
+          :clientType => 'solar',
+          :options => {
+            'yes' => 'Do you waive your rights of subrogation?',
+          },
+          :if => 'solarSubcontractorCoverage.yes'
+        },
+        {
+          :name => '',
+          :id => 'solarSubcontractorCoverageCertificates',
+          :type => 'checkbox',
+          :clientType => 'solar',
+          :options => {
+            'yes' => 'Are certificates of insurance required for all subcontractors?',
+          },
+          :if => 'solarSubcontractorCoverage.yes'
+        },
+        {
+          :type => 'separator',
+          :clientType => 'solar',
+        },
+        {
+          :name => '',
+          :id => 'solarSubcontractorCoveragePlannedSites',
+          :type => 'checkbox',
+          :clientType => 'solar',
+          :options => {
+            'yes' => 'Are any site(s) planned or in the process of construction?'
+          }
+        },
+        {
+          :name => 'Describe',
+          :id => 'solarSubcontractorCoveragePlannedDescribe',
+          :type => 'text',
+          :clientType => 'solar',
+          :placeholder => 'If yes, describe',
+          :if => 'solarSubcontractorCoveragePlannedSites.yes'
+        },
+        {
+          :type => 'separator',
+        },
+        {
           :name => 'Annual gross receipts',
           :id => 'annualGrossReceipts',
           :placeholder => '$ CAN (ex. 111.11)',
