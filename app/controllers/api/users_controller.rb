@@ -13,6 +13,7 @@ class Api::UsersController < Api::ApiController
       @user = User.where(:id => params[:id], :reset_password_token => params[:reset_password_token]).first
       render json: '', status: @user.nil? ? :forbidden : :ok
     else
+      json_authenticate
       authorize! :show, User
       @user = User.where(:id => params[:id])
       render json: @user
