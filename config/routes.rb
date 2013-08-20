@@ -9,8 +9,6 @@ Consilium::Application.routes.draw do
 
   scope :api do
     resources :users, :controller => 'api/users'
-    get 'users/:id/reset_password' => 'api/users#reset_password_valid'
-    put 'users/:id/reset_password' => 'api/users#reset_password'
 
     resources :clients, :controller => 'api/clients'
     post 'clients/:id' => 'api/clients#create'
@@ -28,6 +26,8 @@ Consilium::Application.routes.draw do
 
     post 'auth/login' => 'api/auth#login'
     get 'auth/logout' => 'api/auth#logout'
+    get 'auth/:id/reset_password' => 'api/auth#reset_password_valid'
+    put 'auth/:id/reset_password' => 'api/auth#reset_password'
   end
 
   scope :app do
@@ -55,14 +55,11 @@ Consilium::Application.routes.draw do
         get '' => 'home#app', :as => 'app_auth'
         get 'login' => 'home#app', :as => 'app_auth_login'
         get 'forbidden' => 'home#app', :as => 'app_auth_forbidden'
+        get 'reset_password' => 'home#app', :as => 'app_auth_reset_password'
       end
 
       scope :brokerage do
         get 'index' => 'home#app', :as => 'app_brokerage'
-      end
-
-      scope :users do
-        get 'reset_password' => 'home#app', :as => 'app_users_reset_password'
       end
     end
   end

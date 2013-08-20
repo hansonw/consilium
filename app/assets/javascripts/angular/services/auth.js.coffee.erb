@@ -37,6 +37,10 @@ App.factory 'AuthHttpInterceptor', ['$q', '$window', '$rootScope', 'AuthSessionS
     )
 ]
 
+App.factory 'AuthResetPassword', ['$resource', ($resource) ->
+  $resource('<%= angularApiPath('/api/auth/:id/reset_password') %>', {format: 'json', id: '@id'}, {'update': {method: 'PUT'}})
+]
+
 App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($http, $location, AuthToken, AuthSessionStatus) ->
   service =
     _isLoggedIn: AuthToken.get()?.email?.length
