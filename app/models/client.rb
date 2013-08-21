@@ -66,6 +66,7 @@ class Client
           :id => 'accountNumber',
           :placeholder => 'Account Number',
           :type => 'text',
+          :unique => true,
         },
         {
           :name => 'Address',
@@ -151,6 +152,7 @@ class Client
           :type => 'text',
           :required => true,
           :primary => true,
+          :unique => true,
         },
         {
           :name => 'Title',
@@ -757,6 +759,7 @@ class Client
               # This is sequenced in the controller.
               :required => true,
               :primary => true,
+              :unique => true,
             },
             {
               :name => 'This location is',
@@ -1836,6 +1839,7 @@ class Client
               :prefill => {:type => 'sequence'},
               :required => true,
               :primary => true,
+              :unique => true,
             },
             {
               :name => 'Address',
@@ -2632,6 +2636,7 @@ class Client
               :type => 'text',
               :prefill => {:type => 'sequence'},
               :primary => true,
+              :unique => true,
             },
             {
               :name => 'Unit #',
@@ -2639,6 +2644,7 @@ class Client
               :placeholder => '# ( ex. 1111)',
               :type => 'text',
               :primary => true,
+              :unique => true,
             },
             {
               :name => 'Owner',
@@ -2778,6 +2784,7 @@ class Client
               :prefill => {:type => 'sequence'},
               :required => true,
               :primary => true,
+              :unique => true,
             },
             {
               :name => 'Year',
@@ -2853,6 +2860,7 @@ class Client
               :prefill => {:type => 'sequence'},
               :required => true,
               :primary => true,
+              :unique => true,
             },
             {
               :name => 'Year',
@@ -2918,6 +2926,7 @@ class Client
               :type => 'text',
               :placeholder => 'Firstname Lastname',
               :primary => true,
+              :unique => true,
             },
             {
               :name => 'License #',

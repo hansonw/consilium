@@ -8,7 +8,7 @@ App.directive 'unique', ['$parse', '$injector', ($parse, $injector) ->
 
       # The model we're validating is part of a collection that is entered via modal.
       if model?
-        for collectionElem in $parse(model)($scope)
+        for collectionElem in ($parse(model + '.value || ' + model)($scope) || [])
           if collectionElem[attr.name] == viewValue || collectionElem[attr.name]?.value == viewValue
             foundMatch = true
             break
@@ -20,7 +20,7 @@ App.directive 'unique', ['$parse', '$injector', ($parse, $injector) ->
         # Resolve the dependency to an actual class.
         dependency = $injector.get dependency
         collection = dependency.query {}, (->
-          for collectionElem in collection
+          for collectionElem in (collection || [])
             if (collectionElem[attr.name] == viewValue || collectionElem[attr.name]?.value == viewValue) &&
                (collectionElem.id != $scope[rootModel].id)
               foundMatch = true
