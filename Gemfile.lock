@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/DouglasSherk/ydocx.git
-  revision: 99b7fabd9010b1e34019e23d6ba6da9a287e2494
+  revision: 5d9672f3b693ebc7fd07a36484ffcca1ee881ee1
   specs:
     ydocx (1.2.3)
       andand
@@ -78,8 +78,7 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.4)
     erubis (2.7.0)
-    execjs (1.4.0)
-      multi_json (~> 1.0)
+    execjs (2.0.0)
     hike (1.2.3)
     htmlentities (4.3.1)
     i18n (0.6.5)
