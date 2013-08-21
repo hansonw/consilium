@@ -2,11 +2,6 @@
 
 window.App = angular.module('Consilium', ['ngResource'])
 
-# Paths that are allowed to be accessed without logging in.
-unauthorizedPaths = [
-  '/auth/reset_password',
-]
-
 App.config ['$routeProvider', ($routeProvider) ->
   <% getAllAngularRoutes().each do |route| %>
   $routeProvider.when '<%= angularRouteAppPath(route).sub '#', '' %>',

@@ -325,7 +325,7 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
         else
           @defer(error) if error
 
-      @get: (params, success, error) ->
+      @get: (params, success, error, local = false) ->
         res = new OfflineResource(params)
         res.IS_NEW = false
 
@@ -345,7 +345,7 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
                 return
             @defer(=> error(data)) if error
 
-        if online() && !@synced_recently()
+        if online() && !@synced_recently() && !local
           resource.get(AuthToken.addAuthTokenToJSONRequest(params),
             (data) =>
               @syncObject(data)
@@ -363,7 +363,7 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
 
         return res
 
-      @query: (params, success, error) ->
+      @query: (params, success, error, local = false) ->
         res = []
         queryLocal = (data) =>
           stored = storage.getAll()
@@ -397,7 +397,7 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
           else
             @defer(=> error(data)) if error
 
-        if online() && !@synced_recently()
+        if online() && !@synced_recently() && !local
           resource.query(AuthToken.addAuthTokenToJSONRequest(params),
             (data) =>
               for result in data

@@ -28,6 +28,7 @@ class Client
           :type => 'text',
           :required => true,
           :primary => true,
+          :unique => true,
         },
         {
           :name => 'Name',
@@ -36,6 +37,7 @@ class Client
           :type => 'text',
           :required => true,
           :primary => true,
+          :unique => true,
         },
         {
           :name => 'Form of business',
