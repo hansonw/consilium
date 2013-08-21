@@ -21,7 +21,8 @@ App.directive 'unique', ['$parse', '$injector', ($parse, $injector) ->
         dependency = $injector.get dependency
         collection = dependency.query {}, (->
           for collectionElem in collection
-            if collectionElem[attr.name] == viewValue || collectionElem[attr.name]?.value == viewValue
+            if (collectionElem[attr.name] == viewValue || collectionElem[attr.name]?.value == viewValue) &&
+               (collectionElem.id != $scope[rootModel].id)
               foundMatch = true
               break
           ctrl.$setValidity 'unique', !foundMatch
