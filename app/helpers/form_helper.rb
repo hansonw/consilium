@@ -107,6 +107,7 @@ module FormHelper
                             #{field[:intelligent] && "model='#{h options[:model_parent]}'"}
                             #{field[:required] && 'required'}
                             #{field[:intelligent] && 'intelligent'}
+                            #{field[:unique] && 'unique'}
                             #{field[:readonly] && 'readonly'}>
                           <option value=''>#{field[:placeholder]}</option>"
       field[:options].each do |option|
@@ -144,6 +145,7 @@ module FormHelper
                                 ng-checked=\"#{checked}\"
                                 #{field[:required] && 'required'}
                                 #{field[:readonly] && 'readonly'}
+                                #{field[:unique] && 'unique'}
                             />
                             <label for='#{field[:id]}' class='checkbox-label'>#{option}</label>
                           </div>"
@@ -158,6 +160,7 @@ module FormHelper
                 #{field[:prefill] && field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}
                 #{field[:required] && 'required'}
                 #{field[:readonly] && 'readonly'}
+                #{field[:unique] && 'unique'}
                 rows='#{field[:boxRows]}'
             /></textarea>"
     when 'currency', 'phone'
@@ -168,6 +171,7 @@ module FormHelper
               #{field[:prefill] && field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}
               #{field[:required] && 'required'}
               #{field[:readonly] && 'readonly'}
+              #{field[:unique] && 'unique'}
               #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
               #{field[:maxlength] && "ng-maxlength='#{field[:maxlength]}'"}
               #{field[:min] && "ng-min='#{field[:min]}'"}
@@ -185,6 +189,7 @@ module FormHelper
               #{field[:prefill] && field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}
               #{field[:required] && "required"}
               #{field[:readonly] && "readonly"}
+              #{field[:unique] && 'unique'}
               #{field[:pattern] && pattern(field[:pattern])}
               #{field[:errorMessage] && "title='#{field[:errorMessage]}'"}
               #{field[:type] == 'date' && 'datepicker'}
@@ -199,6 +204,7 @@ module FormHelper
               #{field[:prefill] && field[:prefill][:type] == 'sequence' && "prefill-sequence='#{h options[:model_parent]}'"}
               #{field[:required] && 'required'}
               #{field[:readonly] && 'readonly'}
+              #{field[:unique] && 'unique'}
               #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
               #{field[:maxlength] && "ng-maxlength='#{field[:maxlength]}'"}
               #{field[:min] && "ng-min='#{field[:min]}'"}

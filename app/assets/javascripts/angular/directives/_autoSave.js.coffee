@@ -119,6 +119,7 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', 
         "min": "too small",
         "max": "too large",
         "pattern": "in the wrong format",
+        "unique": "not unique",
       }
       error_str = ''
       for key, val of error

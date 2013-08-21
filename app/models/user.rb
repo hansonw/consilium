@@ -68,6 +68,7 @@ class User
       :required => true,
       :type => 'text',
       :primary => true,
+      :unique => true,
     },
     {
       :id => 'email',
@@ -76,6 +77,7 @@ class User
       :required => true,
       :type => 'email',
       :primary => true,
+      :unique => true,
     },
     {
       :id => 'password',

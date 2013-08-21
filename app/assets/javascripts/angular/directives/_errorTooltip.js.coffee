@@ -14,6 +14,7 @@ App.directive 'errorTooltip', ->
       "min": "too small",
       "max": "too large",
       "pattern": "in the wrong format",
+      "unique": "not unique",
     }
 
     dom_field.on('focus', -> elem.html '')

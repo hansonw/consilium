@@ -15,7 +15,8 @@
       <div class="form-content">
         <form name="<%= field[:id] %>Form"
               class="pure-form pure-form-aligned"
-              data-ng-submit="<%= submit_callback %>">
+              data-ng-submit="<%= submit_callback %>"
+              data-collection="<%= local_assigns[:root] %>.<%= field[:id] %>">
           <% if field[:partial] %>
             <%= render :partial => field[:partial],
                        :locals => local_assigns %>
