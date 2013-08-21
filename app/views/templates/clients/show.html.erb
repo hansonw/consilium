@@ -29,7 +29,8 @@
                   {
                     :name => 'Template',
                     :id => 'template',
-                    :placeholder => 'Submission Template',
+                    :required => true,
+                    :placeholder => 'Select a template..',
                     :type => 'dropdown',
                     :options => []
                   },
@@ -60,10 +61,12 @@
 
   <div id="main" class="client-show pure-form pure-u">
     <div class="content has-header">
-      <div data-ng-if="isBroker">
-        <a class="pure-button pure-button-secondary pure-button-large" data-ng-click="genFromRecent()"
-           data-ng-show="history.length">
-          <i class="icon-file"></i> <span class="desc">Generate Document</span>
+      <div class="button-group" data-ng-if="isBroker">
+        <a class="pure-button pure-button-secondary pure-button-large" data-ng-click="genFromRecent()">
+          <i class="icon-file"></i> Generate Document
+        </a>
+        <a class="pure-button pure-button-secondary pure-button-large" data-click-href="#/clients/templates/{{ client.id }}">
+          <i class="icon-edit"></i> <span class="only-desktops">Edit</span> Templates
         </a>
       </div>
 

@@ -41,7 +41,7 @@ class Api::DocumentsController < Api::ApiController
     return str.split.map { |c| c[0].upcase }.join
   end
 
-  def gen_document(client_change, name)
+  def gen_document(client_change, name, template = 'default.docx')
     data = unwrap(client_change.client_data)
 
     fields = Client::FIELDS.dup
@@ -63,7 +63,7 @@ class Api::DocumentsController < Api::ApiController
     end
 
     tmpfile = Tempfile.new(client_change.id.to_s)
-    template_path = Rails.root.join('lib', 'docx_templates', 'default.docx')
+    template_path = Rails.root.join('lib', 'docx_templates', template)
     YDocx::Document.fill_template(template_path, data, fields, tmpfile.path)
 
     send_data(File.binread(tmpfile.path), :filename => name + '.docx')
@@ -80,12 +80,15 @@ class Api::DocumentsController < Api::ApiController
 
     authorize! :read, @document
 
-    gen_document(@document.client_change, @document.description)
+    gen_document(@document.client_change, @document.description, @document.template)
   end
 
   # GET /documents/client/:id
   def client
     @client = Client.find(params[:id])
+    authorize! :read, @client
+    authorize! :read, Document
+
     last_change = ClientChange.where('client_id' => @client.id).desc(:updated_at).first
     if last_change.nil?
       render json: '', status: :not_found
@@ -99,11 +102,15 @@ class Api::DocumentsController < Api::ApiController
   # PUT /documents/:id.json
   # Creates if a non-existent ID is provided.
   def update
+    authorize! :manage, Document
+
     if params[:id]
       @document = Document.find(params[:id])
       success = @document.update_attributes(document_params)
     else
       @document = Document.new(document_params)
+      @templates = get_templates
+      @document.template = @templates.find { |t| t[:name] == @document.template }[:file]
       @document.user_id = @user.id
       if change = ClientChange.find(params[:client_change_id])
         @document.client_id = change.client_id
@@ -123,6 +130,19 @@ class Api::DocumentsController < Api::ApiController
     end
   end
 
+  def get_templates
+    template_path = Rails.root.join('lib', 'docx_templates')
+    Dir.glob("#{template_path}/*.docx").map do |f|
+      name = File.basename(f, '.docx')
+      {:name => name.humanize.titleize, :file => File.basename(f)}
+    end
+  end
+
+  def templates
+    authorize! :read, Document
+    render json: get_templates
+  end
+
   # DELETE /documents/1
   # DELETE /documents/1.json
   def destroy
@@ -139,6 +159,6 @@ class Api::DocumentsController < Api::ApiController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
-      params.permit(:description)
+      params.permit(:description, :template)
     end
 end

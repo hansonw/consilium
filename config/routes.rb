@@ -18,6 +18,7 @@ Consilium::Application.routes.draw do
 
     resources :documents, :controller => 'api/documents'
     get 'documents/client/:id' => 'api/documents#client'
+    get 'documents/templates/:clientId' => 'api/documents#templates'
     put 'documents' => 'api/documents#update'
 
     resources :client_changes, :controller => 'api/client_changes'
@@ -48,6 +49,7 @@ Consilium::Application.routes.draw do
         get 'edit/:clientId' => 'home#app', :as => 'app_clients_edit'
         get 'edit/:clientId/location/' => 'home#app', :as => 'app_clients_new_location'
         get 'edit/:clientId/location/:locationId' => 'home#app', :as => 'app_clients_edit_location'
+        get 'templates/:clientId' => 'home#app', :as => 'app_clients_templates'
         get 'notfound' => 'home#app', :as => 'app_clients_notfound'
       end
 

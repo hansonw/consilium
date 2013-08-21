@@ -1,0 +1,60 @@
+<% paths = {
+     "Home" => "#/",
+     "Clients" => "#/clients/index",
+     "{{ client.company.value }}" => "#/clients/show/{{ clientId }}",
+     "Edit Templates" => "#/clients/templates/{{ clientId }}",
+   }
+ %>
+
+<div data-ng-controller="ClientsTemplatesCtrl">
+  <%= render :partial => 'templates/field_modal',
+             :locals => {
+               :field => field,
+               :page => 'Clients',
+               :page_url => '#/clients/',
+               :page_title => '{{ title() }}',
+               :title => field[:modalTitle],
+               :submit_callback => field[:submitCallback] || "addToField('#{field[:id]}', #{if defined? root then "'#{root}'" else 'null' end})",
+               :root => local_assigns[:root],
+               :paths => paths,
+             } %>
+
+  <div class="client-header" data-ng-class="{'active': menuShouldShow()}">
+    <div class="content header pure-u-1">
+      <h2 class="no-bottom-margin">
+        <i data-ng-show="loading" class="icon-spinner icon-spin"></i>
+        <span data-ng-show="!loading">Edit Templates: {{ client.company.value }}</span>
+      </h2>
+      <%= render :partial => 'templates/breadcrumbs',
+                 :locals => { :paths => paths }
+      %>
+    </div>
+    <hr class="soften no-bottom-margin" />
+  </div>
+
+  <div id="main" class="client-show pure-form pure-u">
+    <div class="content has-header">
+      <%= render :partial => 'templates/action_table',
+                   :locals => {
+                     :name => 'templates',
+                     :model => 'templates',
+                     :pagination => true,
+                     :rowClick => 'editTemplate(item)',
+                     :fields => [
+                       {
+                         :name => 'Template Name',
+                         :id => 'name',
+                         :content => '{{ item.name }}'
+                       }
+                     ],
+                     :actions => [
+                      {
+                        :class => 'pure-button-primary',
+                        :icon => 'icon-edit',
+                        :click => 'editTemplate(item)'
+                      }
+                     ]
+                   } %>
+    </div>
+  </div>
+</div>

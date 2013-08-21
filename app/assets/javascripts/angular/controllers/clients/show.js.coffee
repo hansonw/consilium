@@ -1,5 +1,5 @@
-App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filter', 'Client', 'ClientChange', 'Document', 'RecentClients', 'Auth', 'Modal',\
-                                   ($scope, $routeParams, $location, $filter, Client, ClientChange, Document, RecentClients, Auth, Modal) ->
+App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filter', 'Client', 'ClientChange', 'Document', 'RecentClients', 'DocumentTemplate', 'Auth', 'Modal',\
+                                   ($scope, $routeParams, $location, $filter, Client, ClientChange, Document, RecentClients, DocumentTemplate, Auth, Modal) ->
   Auth.checkLogin()
   $scope.isBroker = Auth.isBroker()
 
@@ -22,6 +22,11 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
           $scope.documentsLoading = false
           $scope.documentsError = true)
       )
+      $scope.templates = DocumentTemplate.query({client_id: $scope.client.id},
+        (->
+          select = $('select[name=template]')
+          for template in $scope.templates
+            select.append("<option>#{template.name}</option>")))
     ),
     (data, header) ->
       RecentClients.removeClient($scope.clientId)
