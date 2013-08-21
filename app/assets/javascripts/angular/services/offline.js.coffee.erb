@@ -239,10 +239,10 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
         @_isNew || @created_at > storage.getLastSynced(@id)
 
       $save: (success, error) ->
-        if existing = storage.get(@id)
-          data = getData(this)
-          markChanges(data, existing)
-          angular.extend(this, data)
+        existing = storage.get(@id)
+        data = getData(this)
+        markChanges(data, existing)
+        angular.extend(this, data)
 
         if online()
           save_fn = if @isNew() then @_create else @_save
