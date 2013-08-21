@@ -6,8 +6,7 @@ App.directive 'unique', ['$parse', ($parse) ->
     ctrl.$parsers.unshift (viewValue) ->
       foundMatch = false
 
-      collection = $parse(model)($scope)
-      for collectionElem in collection
+      for collectionElem in $parse(model)($scope)
         if collectionElem[attr.name] == viewValue
           foundMatch = true
           break
