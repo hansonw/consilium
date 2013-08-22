@@ -58,7 +58,7 @@
           <% action = actionHandleDefault(action, local_assigns[:id] || name, local_assigns[:rowHref] && rowHref) %>
           <a <% if !action[:href].nil? %>data-click-href="<%= action[:href] %>"<% end %> data-ng-click="<%= action[:click] %>"
              class="pure-button pure-button-small <%= action[:class] %>" <%= raw action[:attrs] %> eat-click>
-            <i class="<%= action[:icon] %> icon-large"></i>
+            <i class="<%= action[:icon] %> icon-large"></i> <%= action[:text] %>
           </a>
         <% end %>
       </td>
