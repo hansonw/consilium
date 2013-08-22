@@ -6,6 +6,12 @@
 
   <br />
 
+  <form id="templateUploader" action="/api/documents/templates/{{ clientId }}" method="post" enctype="multipart/form-data">
+    <input name="upload" type="file" class="hide" />
+    <input name="template" type="hidden" value="{{ template.file }}" />
+    <input name="section" type="hidden" value="{{ section.id }}" />
+  </form>
+
   <%= render :partial => 'templates/action_table',
              :locals => {
                :name => 'sections',
@@ -16,8 +22,11 @@
                    :id => 'section',
                    :content => <<-END
                      <b>{{ item.name }}</b>
-                     <div class="detail">
-                       {{ item.updated_by ? 'Last updated by ' + item.updated_by : 'Unchanged' }}
+                     <div class="detail" ng-show="item.updated_at">
+                      Updated by {{ item.updated_by }} on {{ item.updated_at * 1000 | date: 'medium' }}
+                     </div>
+                     <div class="detail" ng-show="!item.updated_at">
+                      Unchanged
                      </div>
                    END
                  }
@@ -27,21 +36,21 @@
                    :class => 'pure-button-success',
                    :icon => 'icon-download-alt',
                    :text => 'Original',
-                   :href => '/api/documents/client/{{ clientId }}?template={{ template.file }}&section={{ item.id }}&original',
-                   :attrs => 'data-ng-show="{{ item.updated_by }}" no-spin',
+                   :href => '/api/documents/client/{{ clientId }}?template={{ template.file }}&section={{ item.id }}&original=true',
+                   :attrs => 'data-ng-show="item.updated_by" no-spin',
                  },
                  {
                    :class => 'pure-button-success',
                    :icon => 'icon-download-alt',
-                   :text => 'Download',
+                   :text => '<span class="only-desktops">Download</span>',
                    :href => '/api/documents/client/{{ clientId }}?template={{ template.file }}&section={{ item.id }}',
-                   :attrs => 'no-spin',
+                   :attrs => 'no-spin="true"',
                  },
                  {
-                   :class => 'pure-button-primary',
-                   :icon => 'icon-upload-alt',
-                   :text => 'Upload',
-                   :click => 'uploadSection(template, item)',
+                   :class => 'pure-button-primary upload-button',
+                   :icon => '{{ uploading == item.id ? "icon-spin icon-spinner" : "icon-upload-alt" }} icon-fixed-width',
+                   :text => '<span class="only-desktops">Upload</span>',
+                   :click => 'uploadSection(item)',
                  },
                ]
              } %>

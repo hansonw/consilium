@@ -152,9 +152,15 @@ class Api::DocumentsController < Api::ApiController
     end
   end
 
+  # GET /documents/templates/:client_id
   def templates
     authorize! :read, Document
     render json: get_templates
+  end
+
+  # POST /documents/templates/:client_id
+  def upload_template
+    render json: params[:client_id]
   end
 
   # DELETE /documents/1

@@ -2,6 +2,6 @@
 <% environment.context_class.instance_eval { include HostHelper } %>
 
 App.factory 'DocumentTemplate', ['$resource', 'Auth', ($resource, Auth) ->
-  resource = $resource('<%= angularApiPath('/api/documents/templates/:client_id') %>', {format: 'json'})
+  resource = $resource('<%= angularApiPath('/api/documents/templates/:client_id') %>', {format: 'json', client_id: '@client_id'})
   return Auth.wrapActions(resource)
 ]

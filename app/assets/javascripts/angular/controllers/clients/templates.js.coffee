@@ -30,4 +30,36 @@ App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', '
     ]
     $scope.template = template
     Modal.toggleModal('templateEditor')
+
+  form = $('#templateUploader')
+  upload = form.find('input[name="upload"]')
+
+  $scope.uploadSection = (section) ->
+    upload.click()
+    $scope.section = section
+
+  upload.on('change', (evt) ->
+    if evt.target.files.length == 1
+      if FileReader?
+        reader = new FileReader()
+        reader.onloadend = ->
+          new DocumentTemplate({
+            client_id: $scope.clientId
+            template: $scope.template.file,
+            section: $scope.section.id,
+            data: reader.result,
+          }).$save(->
+            $scope.uploading = null
+            $scope.section.updated_by = Auth.getEmail()
+            $scope.section.updated_at = Util.unixTimestamp()
+          , ->
+            $scope.uploading = null
+          )
+        $scope.uploading = $scope.section.id
+        $scope.$digest()
+        reader.readAsDataURL(evt.target.files[0])
+        form[0].reset()
+      else
+        form.submit()
+  )
 ]

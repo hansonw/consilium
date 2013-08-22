@@ -89,6 +89,8 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
       @checkPermissions(@BROKER)
     checkAdmin: ->
       @checkPermissions(@ADMIN)
+    getEmail: ->
+      AuthToken.get().email
     logout: ->
       self = @
       $http.get(
