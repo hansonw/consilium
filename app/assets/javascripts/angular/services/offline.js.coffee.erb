@@ -303,8 +303,14 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
         # Super simple sync function that checks everything. Can easily be made more efficient
         if online()
           last_sync = storage.getLastSynced()
+          if Util.unixTimestamp() - last_sync > 60*60*24
+            # More than a day old; do a full sync
+            last_sync = 0
+
           resource.query(AuthToken.addAuthTokenToJSONRequest({last_synced: last_sync}), (data) =>
+            ids = {}
             for item in data
+              ids[item.id] = true
               if item.deleted_at
                 storage.delete(item.id, true)
               else
@@ -318,6 +324,8 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
               else if val.updated_at > last_sync
                 offline = new OfflineResource(val)
                 offline.$save()
+              else if last_sync == 0 && !ids[val.id]
+                storage.delete(val.id, true)
 
             storage.setLastSynced(Util.unixTimestamp())
             success(data) if success
