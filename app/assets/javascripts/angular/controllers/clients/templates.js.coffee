@@ -1,5 +1,5 @@
-App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', 'Auth', 'Client', 'Modal', 'RecentClients', 'DocumentTemplate', \
-                                        ($scope, $location, $routeParams, Auth, Client, Modal, RecentClients, DocumentTemplate) ->
+App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', '$timeout', 'Auth', 'Client', 'Modal', 'RecentClients', 'DocumentTemplate', \
+                                        ($scope, $location, $routeParams, $timeout, Auth, Client, Modal, RecentClients, DocumentTemplate) ->
   Auth.checkBroker()
 
   $scope.clientId = $routeParams.clientId
@@ -35,30 +35,36 @@ App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', '
   upload = form.find('input[name="upload"]')
 
   $scope.uploadSection = (section) ->
-    upload.click()
+    # Calling it here causes a nested $scope.$apply(). Not really sure why
+    $timeout((-> upload.click()), 0)
     $scope.section = section
 
   upload.on('change', (evt) ->
     if evt.target.files.length == 1
       if FileReader?
-        reader = new FileReader()
-        reader.onloadend = ->
-          new DocumentTemplate({
-            client_id: $scope.clientId
-            template: $scope.template.file,
-            section: $scope.section.id,
-            data: reader.result,
-          }).$save(->
-            $scope.uploading = null
-            $scope.section.updated_by = Auth.getEmail()
-            $scope.section.updated_at = Util.unixTimestamp()
-          , ->
-            $scope.uploading = null
-          )
-        $scope.uploading = $scope.section.id
-        $scope.$digest()
-        reader.readAsDataURL(evt.target.files[0])
-        form[0].reset()
+        file = evt.target.files[0]
+        if file.name.match /\.docx$/
+          reader = new FileReader()
+          reader.onloadend = ->
+            new DocumentTemplate({
+              client_id: $scope.clientId
+              template: $scope.template.file,
+              section: $scope.section.id,
+              data: reader.result,
+            }).$save(->
+              $scope.uploading = null
+              $scope.section.updated_by = Auth.getEmail()
+              $scope.section.updated_at = Util.unixTimestamp()
+            , ->
+              $scope.uploading = null
+              alert 'Could not process the given document.'
+            )
+          $scope.uploading = $scope.section.id
+          $scope.$digest()
+          reader.readAsDataURL(file)
+          form[0].reset()
+        else
+          alert 'You must upload a Word document (docx).'
       else
         form.submit()
   )
