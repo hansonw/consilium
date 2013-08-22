@@ -1,4 +1,4 @@
-App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', ($location, $parse, $timeout, Modal, Flash) ->
+App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Hierarchy', 'Modal', 'Flash', ($location, $parse, $timeout, Hierarchy, Modal, Flash) ->
   ($scope, $elem, attr) ->
     form = $scope[$elem.attr('name')]
     model = attr.autoSave
@@ -151,15 +151,15 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', 
           error(data) if error
       )
 
-    $scope.addToField = (objName, root) ->
-      obj = $scope[objName] || {}
-      root = model if !root? or root == ''
-      parsed = $parse(root + '.' + objName + (syncable && '.value' || ''))
+    $scope.addToField = ->
+      objName = @node
+      obj = @writeNode[objName] || {}
+      root = @modelPath(true) || model
+      parsed = $parse(root)
       collection = parsed($scope)
-      if !collection?
-        collection = parsed.assign($scope, [])
+      collection = parsed.assign($scope, []) if !collection?
 
-      modalForm = $scope[objName + 'Form']
+      modalForm = @[objName + 'Form']
       if !modalForm.$valid
         alert("Please fix the following errors:\n" + $scope.errorText(modalForm.$error))
         return
@@ -183,24 +183,26 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Modal', 'Flash', 
       $scope.saveForm(false)
       $scope[objName] = {}
 
-    $scope.editInField = (objName, root, index) ->
-      root = model if !root? or root == ''
-      parsed = $parse(root + '.' + objName + (syncable && '.value' || ''))
+    $scope.editInField = (index) ->
+      objName = @node
+      node = Hierarchy.findWriteNode(objName)
+      root = node.modelPath(true) || model
+      parsed = $parse(root)
       collection = parsed($scope)
-      if !collection?
-        collection = parsed.assign($scope, [])
+      collection = parsed.assign($scope, []) if !collection?
 
       if index < collection.length
-        $scope[objName] = angular.copy(collection[index])
-        $scope[objName].$index = index
+        node[objName] = angular.copy(collection[index])
+        node[objName].$index = index
         Modal.toggleModal(objName)
 
-    $scope.deleteFromField = (objName, root, index) ->
-      root = model if !root? or root == ''
-      parsed = $parse(root + '.' + objName + (syncable && '.value' || ''))
+    $scope.deleteFromField = (index) ->
+      objName = @node
+      node = Hierarchy.findWriteNode(objName)
+      root = node.modelPath(true) || model
+      parsed = $parse(root)
       collection = parsed($scope)
-      if !collection?
-        collection = parsed.assign($scope, [])
+      collection = parsed.assign($scope, []) if !collection?
 
       if index < collection.length
         collection.splice(index, 1)

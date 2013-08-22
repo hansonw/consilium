@@ -1,8 +1,7 @@
 App.controller 'AnonymousCtrl', ['$scope', 'Hierarchy', ($scope, Hierarchy) ->
-  $scope.anon = true
+  $scope.modelPath = (includeShadow = null) ->
+    Hierarchy.modelPath($scope, includeShadow)
 
-  $scope.modelPath = ->
-    Hierarchy.modelPath($scope)
-
-  window.scope = $scope
+  $scope.findWriteNode = (name) ->
+    Hierarchy.findWriteNode($scope, name)
 ]

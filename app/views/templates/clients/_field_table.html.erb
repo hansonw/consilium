@@ -1,4 +1,4 @@
-<div class="well" data-ng-class="changedSections.<%= field[:id] %> && 'changed'">
+<div class="well" data-ng-class="changedSections.<%= field[:id] %> && 'changed'" <%= node_tag field[:id], :field => true %>>
   <div id="<%= field[:id] %>" class="section flash-on-update">
     <button class="section-edit pull-right pure-button pure-button-success"
        <% if field.has_key?(:createHref) %>
@@ -22,21 +22,21 @@
                :model => "#{root}.#{field[:id]}.value",
                :rowClass => "{changed: changedFields.#{field[:id]}[$index]}",
                :rowClick => field[:editCallback] ||
-                            !field[:editHref] && "editInField('#{field[:id]}', '#{local_assigns[:root]}', $index)",
+                            !field[:editHref] && "editInField($index)",
                :rowHref => field[:editHref],
                :actions => [
                  {
                    :class => '{{ !readonly && "pure-button-primary" }}',
                    :icon => '{{ readonly ? "icon-eye-open" : "icon-edit" }}',
                    :click => field[:editCallback] ||
-                             !field[:editHref] && "editInField('#{field[:id]}', '#{local_assigns[:root]}', $index)",
+                             !field[:editHref] && "editInField($index)",
                    :href => field[:editHref],
                  },
                  {
                    :class => 'pure-button-error',
                    :icon => 'icon-trash',
                    :click => field[:deleteCallback] ||
-                             "deleteFromField('#{field[:id]}', '#{local_assigns[:root]}', $index)",
+                             "deleteFromField($index)",
                    :attrs => "data-ng-show='!clientChangeId'"
                  },
                ],

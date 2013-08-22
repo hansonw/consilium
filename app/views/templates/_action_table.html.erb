@@ -3,13 +3,13 @@
   <% if field.is_a?(Hash) %>
     <% name = field[:id] if local_assigns[:name].nil? %>
     <% model = field[:id] if local_assigns[:model].nil? %>
-    <% rowClick = "editInField('#{field[:id]}', null, $index)" if local_assigns[:rowClick] == true %>
+    <% rowClick = "editInField($index)" if local_assigns[:rowClick] == true %>
     <% fields = getPrimaryFieldsFromModel(field[:type]) if local_assigns[:fields].nil? %>
   <% elsif field.is_a?(Class) %>
     <% id = field.to_s.downcase.pluralize %>
     <% name = id if local_assigns[:name].nil? %>
     <% model = id if local_assigns[:model].nil? %>
-    <% rowClick = "editInField('#{id}', null, $index)" if local_assigns[:rowClick] == true %>
+    <% rowClick = "editInField($index)" if local_assigns[:rowClick] == true %>
     <% fields = getPrimaryFieldsFromModel(field::FIELDS) if local_assigns[:fields].nil? %>
   <% end %>
 <% end %>

@@ -155,7 +155,7 @@ module FormHelper
       r = "<div class='checkbox-container'>" + checkboxString + "</div>"
     when 'textbox'
       # Textarea placeholders cause weird bugs in IE10. Disabled for now.
-      r = "<textarea name='#{field[:id]}' ng-model='#{model}'
+      r = "<textarea name='#{field[:id]}' ng-model='writeNode.#{model}'
                 #{false && field[:placeholder] && "placeholder='#{field[:placeholder]}'"}
                 #{field[:prefill] && field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
                 #{field[:prefill] && field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
@@ -168,7 +168,7 @@ module FormHelper
             /></textarea>"
     when 'currency', 'phone'
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
-              ng-model='#{model}' placeholder='#{field[:placeholder]}'
+              ng-model='writeNode.#{model}' placeholder='#{field[:placeholder]}'
               data-root='#{root}'
               #{field[:prefill] && field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
               #{field[:prefill] && field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
@@ -185,7 +185,7 @@ module FormHelper
                 + "title='Use the format 1-123-456-7890 ext. 1234 (dashes, country code, ext. optional)'"}
             />"
     when 'date'
-      r = "<input type='hidden' ng-model='#{model}' />
+      r = "<input type='hidden' ng-model='writeNode.#{model}' />
            <input name='#{field[:id]}' type='datepicker'
               model='#{model}' placeholder='#{field[:placeholder] || "Select a date"}'
               data-root='#{root}'
@@ -202,7 +202,7 @@ module FormHelper
            <a class='ui-datepicker-clear' href=''><i class='icon-remove-sign'></i></a>"
     else
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
-              ng-model='#{model}' placeholder='#{field[:placeholder]}'
+              ng-model='writeNode.#{model}' placeholder='#{field[:placeholder]}'
               data-root='#{root}'
               #{field[:prefill] && field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
               #{field[:prefill] && field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
@@ -221,6 +221,8 @@ module FormHelper
               #{field[:errorMessage] && "title='#{field[:errorMessage]}'"}
             />"
     end
+
+    r = "<node name='#{field[:id]}' field>#{r}</node>"
 
     return raw r.gsub("\n", "").squeeze(' ')
   end
@@ -256,7 +258,7 @@ module FormHelper
     elsif action == :edit
       newAction = {
         :icon => 'icon-edit',
-        :click => "editInField('#{id}', null, $index)"
+        :click => "editInField($index)"
       }
     end
 

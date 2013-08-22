@@ -8,7 +8,7 @@
                    :page_url => '#/clients/',
                    :page_title => '{{ title() }}',
                    :title => field[:modalTitle],
-                   :submit_callback => field[:submitCallback] || "addToField('#{field[:id]}', #{if defined? root then "'#{root}'" else 'null' end})",
+                   :submit_callback => field[:submitCallback] || "addToField()",
                    :root => local_assigns[:root],
                    :paths => paths,
                  } %>
@@ -23,85 +23,88 @@
     <hr class="soften no-bottom-margin" />
   </div>
 
-  <form auto-save="client" syncable
-        save-success="saveSuccess" save-error="saveError" data-ng-submit="saveForm()"
-        name="clientForm" class="pure-form pure-form-aligned">
-    <div id="main" class="pure-u">
-      <div class="content has-header">
-        <div class="client-form">
-          <div class="form-nav">
-            <div scroll-spy scroll-fix scroll-fix-margin="30" scroll-fix-condition="screen and (max-height: 767px)" class="nav-container">
-              <div class="pure-menu pure-menu-open nav-box">
-                <a class="pure-menu-heading nav-heading tree-heading">Sections</a>
-                <ul class="tree">
-                  <li><a href="/clients/show/{{ clientId }}">Client</a></li>
-                  <%= yield :sections %>
-                </ul>
+    <form auto-save="client" syncable
+          save-success="saveSuccess" save-error="saveError" data-ng-submit="saveForm()"
+          name="clientForm" class="pure-form pure-form-aligned">
+      <div <%= node_tag 'client', :root => true, :writeNode => true %>>
+        <div id="main" class="pure-u">
+          <div class="content has-header">
+            <div class="client-form">
+              <div class="form-nav">
+                <div scroll-spy scroll-fix scroll-fix-margin="30" scroll-fix-condition="screen and (max-height: 767px)" class="nav-container">
+                  <div class="pure-menu pure-menu-open nav-box">
+                    <a class="pure-menu-heading nav-heading tree-heading">Sections</a>
+                    <ul class="tree">
+                      <li><a href="/clients/show/{{ clientId }}">Client</a></li>
+                      <%= yield :sections %>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div data-ng-show="loading" class="form-content">
+                <h3 class="no-top-margin"><i class="icon-spinner icon-spin icon-large"></i> Loading...</h3>
+              </div>
+              <div data-ng-show="!loading" class="form-content">
+                <aside data-ng-show="clientChange" class="edit-description">
+                  <b>{{ clientChange.user.email }}</b> made this change on {{ clientChange.updated_at*1000 | date: 'MMM d, y h:mm a' }}:<br />
+                  <div class="description">{{ clientChange.description }}</div>
+                  <div class="buttons">
+                    <button class="pure-button prevButton"
+                            data-click-href="#/clients/edit/{{ clientId }}?change={{ prevChangeId }}"
+                            data-ng-disabled="!prevChangeId">
+                      <i class="icon-angle-left icon-fixed-width"></i> Prev.<span class="only-desktops"> Change</span>
+                    </button>
+                    <div class="counter">
+                      <span class="only-desktops">Change </span>{{ curChangeNum }} / {{ changeCount }}
+                    </div>
+                    <button class="pure-button nextButton"
+                            data-click-href="#/clients/edit/{{ clientId }}?change={{ nextChangeId }}"
+                            ng-disabled="!nextChangeId">
+                      Next<span class="only-desktops"> Change</span> <i class="icon-angle-right icon-fixed-width"></i>
+                    </button>
+                  </div>
+                </aside>
+
+                <% fields.each_with_index do |field, index| %>
+                  <% fieldId = field[:id] %>
+                  <% if field = fieldAsCollection(field) %>
+                    <% if fieldId.ends_with? 's' %>
+                      <%= render :partial => 'templates/clients/field_table',
+                                 :locals => { :field => field, :index => getSectionId(index, fields), :root => local_assigns[:root] } %>
+                    <% else %>
+                      <%= render :partial => 'templates/clients/field_section',
+                                 :locals => { :field => field, :index => getSectionId(index, fields), :root => local_assigns[:root] } %>
+                    <% end %>
+                  <% end %>
+                <% end %>
               </div>
             </div>
           </div>
-          <div data-ng-show="loading" class="form-content">
-            <h3 class="no-top-margin"><i class="icon-spinner icon-spin icon-large"></i> Loading...</h3>
-          </div>
-          <div data-ng-show="!loading" class="form-content">
-            <aside data-ng-show="clientChange" class="edit-description">
-              <b>{{ clientChange.user.email }}</b> made this change on {{ clientChange.updated_at*1000 | date: 'MMM d, y h:mm a' }}:<br />
-              <div class="description">{{ clientChange.description }}</div>
-              <div class="buttons">
-                <button class="pure-button prevButton"
-                        data-click-href="#/clients/edit/{{ clientId }}?change={{ prevChangeId }}"
-                        data-ng-disabled="!prevChangeId">
-                  <i class="icon-angle-left icon-fixed-width"></i> Prev.<span class="only-desktops"> Change</span>
-                </button>
-                <div class="counter">
-                  <span class="only-desktops">Change </span>{{ curChangeNum }} / {{ changeCount }}
-                </div>
-                <button class="pure-button nextButton"
-                        data-click-href="#/clients/edit/{{ clientId }}?change={{ nextChangeId }}"
-                        ng-disabled="!nextChangeId">
-                  Next<span class="only-desktops"> Change</span> <i class="icon-angle-right icon-fixed-width"></i>
-                </button>
-              </div>
-            </aside>
-
-            <% fields.each_with_index do |field, index| %>
-              <% fieldId = field[:id] %>
-              <% if field = fieldAsCollection(field) %>
-                <% if fieldId.ends_with? 's' %>
-                  <%= render :partial => 'templates/clients/field_table',
-                             :locals => { :field => field, :index => getSectionId(index, fields), :root => local_assigns[:root] } %>
-                <% else %>
-                  <%= render :partial => 'templates/clients/field_section',
-                             :locals => { :field => field, :index => getSectionId(index, fields), :root => local_assigns[:root] } %>
-                <% end %>
-              <% end %>
-            <% end %>
+        </div>
+        <div id="toolbar" class="pure-u" data-ng-class="{'active': menuShouldShow()}">
+          <div class="content">
+            <button class="pure-button pure-button-primary pure-button-large" data-ng-disabled="!saving && !clientForm.$dirty"
+                    data-ng-show="!clientChangeId" type="submit">
+              <span data-ng-if="saving">
+                <i class="icon-spinner icon-spin"></i> Saving...
+              </span>
+              <span data-ng-if="!saving && !clientForm.$dirty && !savedOnce">
+                No changes
+              </span>
+              <span data-ng-if="!saving && !clientForm.$dirty && savedOnce">
+                Saved
+              </span>
+              <span data-ng-if="!saving && clientForm.$dirty && clientForm.$valid">
+                Save
+              </span>
+              <span data-ng-if="!saving && clientForm.$dirty && !clientForm.$valid">
+                Save ({{ errorCount() }})
+              </span>
+            </button>
+            <a data-click-href="done()" class="pure-button pure-button-<%= if fields == Client::FIELDS then 'primary' else 'secondary' end %> pure-button-large"><%= if fields == Client::FIELDS then 'Done' else 'Back to Client' end %></a>
           </div>
         </div>
       </div>
-    </div>
-    <div id="toolbar" class="pure-u" data-ng-class="{'active': menuShouldShow()}">
-      <div class="content">
-        <button class="pure-button pure-button-primary pure-button-large" data-ng-disabled="!saving && !clientForm.$dirty"
-                data-ng-show="!clientChangeId" type="submit">
-          <span data-ng-if="saving">
-            <i class="icon-spinner icon-spin"></i> Saving...
-          </span>
-          <span data-ng-if="!saving && !clientForm.$dirty && !savedOnce">
-            No changes
-          </span>
-          <span data-ng-if="!saving && !clientForm.$dirty && savedOnce">
-            Saved
-          </span>
-          <span data-ng-if="!saving && clientForm.$dirty && clientForm.$valid">
-            Save
-          </span>
-          <span data-ng-if="!saving && clientForm.$dirty && !clientForm.$valid">
-            Save ({{ errorCount() }})
-          </span>
-        </button>
-        <a data-click-href="done()" class="pure-button pure-button-<%= if fields == Client::FIELDS then 'primary' else 'secondary' end %> pure-button-large"><%= if fields == Client::FIELDS then 'Done' else 'Back to Client' end %></a>
-      </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>

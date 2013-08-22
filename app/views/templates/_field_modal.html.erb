@@ -13,34 +13,33 @@
     <hr class="soften" />
     <div class="content">
       <div class="form-content">
-        <% if local_assigns[:submit_callback] %>
+        <div <%= node_tag local_assigns[:root], :root => true, :shadow => true %>>
           <form name="<%= field[:id] %>Form"
                 class="pure-form pure-form-aligned"
                 data-ng-submit="<%= submit_callback %>"
-                data-collection="<%= local_assigns[:root] %>.<%= field[:id] %>">
-        <% end %>
-          <% if field[:partial] %>
-            <%= render :partial => field[:partial],
-                       :locals => local_assigns %>
-          <% else %>
-            <div class="pure-form-fields">
-              <% field[:type].each do |subfield| %>
-                <%= form_field subfield, field[:id], {
-                      :syncable => defined?(syncable) ? syncable : true,
-                      :model_parent => local_assigns[:root],
-                      :changed => "changedFields.#{field[:id]}[#{field[:id]}.$index].#{subfield[:id]}"
-                    } %>
-              <% end %>
+                data-collection="<%= local_assigns[:root] %>.<%= field[:id] %>"
+                <%= node_tag field[:id], :field => true, :writeNode => true, :syncable => local_assigns[:syncable] %>>
+            <% if field[:partial] %>
+              <%= render :partial => field[:partial],
+                         :locals => local_assigns %>
+            <% else %>
+              <div class="pure-form-fields">
+                <% field[:type].each do |subfield| %>
+                  <%= form_field subfield, field[:id], {
+                        :syncable => defined?(syncable) ? syncable : true,
+                        :model_parent => local_assigns[:root],
+                        :changed => "changedFields.#{field[:id]}[#{field[:id]}.$index].#{subfield[:id]}"
+                      } %>
+                <% end %>
+              </div>
+            <% end %>
+            <div class="separator"></div>
+            <div class="pull-right">
+              <button data-ng-show="!readonly" type="submit" class="pure-button pure-button-primary"><%= local_assigns[:submit_text] || 'Save' %></button>
+              <button class="pure-button {{ readonly ? 'pure-button-primary' : 'pure-button-error' }}" modal-toggle="<%= field[:id] %>">{{ readonly ? "Close" : "Cancel" }}</button>
             </div>
-          <% end %>
-          <div class="separator"></div>
-          <div class="pull-right">
-            <button data-ng-show="!readonly" type="submit" class="pure-button pure-button-primary"><%= local_assigns[:submit_text] || 'Save' %></button>
-            <button class="pure-button {{ readonly ? 'pure-button-primary' : 'pure-button-error' }}" modal-toggle="<%= field[:id] %>">{{ readonly ? "Close" : "Cancel" }}</button>
-          </div>
-      <% if local_assigns[:submit_callback] %>
-        </form>
-      <% end %>
+          </form>
+        </div>
       </div>
     </div>
   </div>

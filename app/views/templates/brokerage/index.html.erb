@@ -12,7 +12,7 @@
                    :field => field,
                    :page_title => 'Brokerage',
                    :syncable => false,
-                   :submit_callback => field[:onSave] || "addToField('#{field[:id]}')",
+                   :submit_callback => field[:submitCallback] || "addToField()",
                    :paths => paths,
                    :root => 'brokerage',
                  } %>
@@ -37,74 +37,78 @@
     <div class="content has-header" data-ng-show="!loading">
       <form auto-save="brokerage" name="brokerageForm" data-ng-submit="saveForm()"
             class="pure-form pure-form-aligned">
-        <div class="well">
-          <div class="section" id="basicInfo">
-            <h3 class="no-top-margin no-bottom-margin">Office Info.</h3>
-          </div>
-
-          <div class="pure-form-fields">
-            <% Brokerage::FIELDS.each do |field| %>
-              <% if fieldAsCollection(field).nil? %>
-                <%= form_field field, 'brokerage', :syncable => false %>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-
-        <% Brokerage::FIELDS.each do |field| %>
-          <% if field = fieldAsCollection(field) %>
-            <div class="separator"></div>
-
-            <div class="well">
-              <div class="section">
-                <a class="section-edit pull-right pure-button pure-button-success" modal-toggle="<%= field[:id] %>"
-                   data-ng-show="!readonly">
-                  <i class="icon-plus"></i> <span class="only-desktops">Add <%= field[:name].singularize %></span>
-                </a>
-                <h3 class="no-top-margin no-bottom-margin">Brokerage <%= field[:name] %></h3>
-              </div>
-
-              <%= render :partial => 'templates/action_table',
-                         :locals => {
-                           :field => field,
-                           :model => "brokerage." + field[:id],
-                           :rowClick => true,
-                            :actions => [
-                             {
-                               :class => '{{ !readonly && "pure-button-primary" }}',
-                               :icon => '{{ readonly ? "icon-eye-open" : "icon-edit" }}',
-                               :click => "editInField('#{field[:id]}', null, $index)",
-                             },
-                             {
-                               :class => 'pure-button-error',
-                               :icon => 'icon-trash',
-                               :click => "deleteFromField('#{field[:id]}', null, $index)",
-                               :attrs => "data-ng-show='!readonly'"
-                             },
-                           ],
-                         } %>
+        <div <%= node_tag 'brokerage', :root => true, :writeNode => true, :syncable => false %>>
+          <div class="well">
+            <div class="section" id="basicInfo">
+              <h3 class="no-top-margin no-bottom-margin">Office Info.</h3>
             </div>
+
+            <div class="pure-form-fields">
+              <% Brokerage::FIELDS.each do |field| %>
+                <% if fieldAsCollection(field).nil? %>
+                  <%= form_field field, 'brokerage', :syncable => false %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+
+          <% Brokerage::FIELDS.each do |field| %>
+            <% if field = fieldAsCollection(field) %>
+              <div <%= node_tag field[:id], :field => true %>>
+                <div class="separator"></div>
+
+                <div class="well">
+                  <div class="section">
+                    <a class="section-edit pull-right pure-button pure-button-success" modal-toggle="<%= field[:id] %>"
+                       data-ng-show="!readonly">
+                      <i class="icon-plus"></i> <span class="only-desktops">Add <%= field[:name].singularize %></span>
+                    </a>
+                    <h3 class="no-top-margin no-bottom-margin">Brokerage <%= field[:name] %></h3>
+                  </div>
+
+                  <%= render :partial => 'templates/action_table',
+                             :locals => {
+                               :field => field,
+                               :model => "brokerage." + field[:id],
+                               :rowClick => true,
+                                :actions => [
+                                 {
+                                   :class => '{{ !readonly && "pure-button-primary" }}',
+                                   :icon => '{{ readonly ? "icon-eye-open" : "icon-edit" }}',
+                                   :click => "editInField($index)",
+                                 },
+                                 {
+                                   :class => 'pure-button-error',
+                                   :icon => 'icon-trash',
+                                   :click => "deleteFromField($index)",
+                                   :attrs => "data-ng-show='!readonly'"
+                                 },
+                               ],
+                             } %>
+                </div>
+              </div>
+            <% end %>
           <% end %>
-        <% end %>
 
-        <div class="separator-xsmall"></div>
+          <div class="separator-xsmall"></div>
 
-        <div class="button-group" data-ng-show="!readonly">
-          <button class="pure-button pure-button-secondary pure-button-large"
-                  data-ng-disabled="!saving && !brokerageForm.$dirty" type="submit">
-            <span data-ng-if="saving">
-              <i class="icon-spinner icon-spin"></i> Saving...
-            </span>
-            <span data-ng-if="!saving && !brokerageForm.$dirty">
-              Saved
-            </span>
-            <span data-ng-if="!saving && brokerageForm.$dirty && brokerageForm.$valid">
-              Save
-            </span>
-            <span data-ng-if="!saving && brokerageForm.$dirty && !brokerageForm.$valid">
-              Save ({{ errorCount() }})
-            </span>
-          </button>
+          <div class="button-group" data-ng-show="!readonly">
+            <button class="pure-button pure-button-secondary pure-button-large"
+                    data-ng-disabled="!saving && !brokerageForm.$dirty" type="submit">
+              <span data-ng-if="saving">
+                <i class="icon-spinner icon-spin"></i> Saving...
+              </span>
+              <span data-ng-if="!saving && !brokerageForm.$dirty">
+                Saved
+              </span>
+              <span data-ng-if="!saving && brokerageForm.$dirty && brokerageForm.$valid">
+                Save
+              </span>
+              <span data-ng-if="!saving && brokerageForm.$dirty && !brokerageForm.$valid">
+                Save ({{ errorCount() }})
+              </span>
+            </button>
+          </div>
         </div>
       </form>
     </div>
