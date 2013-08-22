@@ -1,5 +1,5 @@
-App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', 'Auth', 'Client', 'RecentClients', 'DocumentTemplate', \
-                                        ($scope, $location, $routeParams, Auth, Client, RecentClients, DocumentTemplate) ->
+App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', 'Auth', 'Client', 'Modal', 'RecentClients', 'DocumentTemplate', \
+                                        ($scope, $location, $routeParams, Auth, Client, Modal, RecentClients, DocumentTemplate) ->
   Auth.checkBroker()
 
   $scope.clientId = $routeParams.clientId
@@ -21,5 +21,13 @@ App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', '
   )
 
   $scope.editTemplate = (template) ->
-    Modal.toggleModal('template')
+    # Don't show Save/Cancel, only show Close
+    $scope.readonly = true
+    template.sections = [
+      {id: 'executiveSummary', name: 'Executive Summary'},
+      {id: 'servicePlan', name: 'Broker Service Plan'},
+      {id: 'claimsManagement', name: 'Claims Management'},
+    ]
+    $scope.template = template
+    Modal.toggleModal('templateEditor')
 ]

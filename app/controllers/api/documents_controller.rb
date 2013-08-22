@@ -41,7 +41,7 @@ class Api::DocumentsController < Api::ApiController
     return str.split.map { |c| c[0].upcase }.join
   end
 
-  def gen_document(client_change, name, template = 'default.docx')
+  def gen_document(client_change, name, options = {})
     data = unwrap(client_change.client_data)
 
     fields = Client::FIELDS.dup
@@ -62,11 +62,16 @@ class Api::DocumentsController < Api::ApiController
       data = data.merge(broker_data)
     end
 
-    tmpfile = Tempfile.new(client_change.id.to_s)
-    template_path = Rails.root.join('lib', 'docx_templates', template)
-    YDocx::Document.fill_template(template_path, data, fields, tmpfile.path)
+    gen_opts = {}
+    if options[:section]
+      gen_opts[:extract_section] = options[:section]
+    end
 
-    send_data(File.binread(tmpfile.path), :filename => name + '.docx')
+    tmpfile = Tempfile.new(client_change.id.to_s)
+    template_path = Rails.root.join('lib', 'docx_templates', options[:template] || 'default.docx')
+    YDocx::Document.fill_template(template_path, data, fields, tmpfile.path, gen_opts)
+
+    send_data File.binread(tmpfile.path), :filename => options[:filename] || (name + '.docx')
   end
 
   # GET /documents/1
@@ -80,7 +85,7 @@ class Api::DocumentsController < Api::ApiController
 
     authorize! :read, @document
 
-    gen_document(@document.client_change, @document.description, @document.template)
+    gen_document @document.client_change, @document.description, :template => @document.template
   end
 
   # GET /documents/client/:id
@@ -95,7 +100,16 @@ class Api::DocumentsController < Api::ApiController
       return
     end
 
-    gen_document(last_change, @client.company['value'])
+    options = {}
+    if params[:template]
+      if template = get_templates.find { |t| t[:file] == params[:template] }
+        options[:template] = params[:template]
+        options[:section] = params[:section]
+        options[:filename] = (params[:section] ? params[:section].underscore.humanize + ' for ' : '') + @client.company['value']
+      end
+    end
+
+    gen_document last_change, @client.company['value'], options
   end
 
   # PUT /documents/:id

@@ -1,0 +1,58 @@
+<div class="template-editor" ng-show="template.sections">
+  <aside>
+    This template has several sections you can edit.<br />
+    Download the section you want to edit, make the desired changes, and re-upload it.
+  </aside>
+
+  <br />
+
+  <%= render :partial => 'templates/action_table',
+             :locals => {
+               :name => 'sections',
+               :model => 'template.sections',
+               :fields => [
+                 {
+                   :name => 'Section',
+                   :id => 'section',
+                   :content => <<-END
+                     <b>{{ item.name }}</b>
+                     <div class="detail">
+                       {{ item.updated_by ? 'Last updated by ' + item.updated_by : 'Unchanged' }}
+                     </div>
+                   END
+                 }
+               ],
+               :actions => [
+                 {
+                   :class => 'pure-button-success',
+                   :icon => 'icon-download-alt',
+                   :text => 'Original',
+                   :href => '/api/documents/client/{{ clientId }}?template={{ template.file }}&section={{ item.id }}&original',
+                   :attrs => 'data-ng-show="{{ item.updated_by }}" no-spin',
+                 },
+                 {
+                   :class => 'pure-button-success',
+                   :icon => 'icon-download-alt',
+                   :text => 'Download',
+                   :href => '/api/documents/client/{{ clientId }}?template={{ template.file }}&section={{ item.id }}',
+                   :attrs => 'no-spin',
+                 },
+                 {
+                   :class => 'pure-button-primary',
+                   :icon => 'icon-upload-alt',
+                   :text => 'Upload',
+                   :click => 'uploadSection(template, item)',
+                 },
+               ]
+             } %>
+</div>
+
+<div ng-show="!template.sections">
+  <p>This template cannot be customized.</p>
+</div>
+
+<p>
+  <button class="pure-button pure-button-primary">
+    Preview Generated Document
+  </button>
+</p>

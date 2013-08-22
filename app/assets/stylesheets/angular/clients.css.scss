@@ -561,3 +561,13 @@ label.changed {
     margin-right: 0px;
   }
 }
+
+.template-editor {
+  .sections-table {
+    .actions {
+      .pure-button {
+        width: auto;
+      }
+    }
+  }
+}

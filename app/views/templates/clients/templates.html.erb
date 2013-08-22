@@ -9,12 +9,14 @@
 <div data-ng-controller="ClientsTemplatesCtrl">
   <%= render :partial => 'templates/field_modal',
              :locals => {
-               :field => field,
+               :field => {
+                 :id => 'templateEditor',
+                 :partial => 'templates/clients/template_editor',
+               },
                :page => 'Clients',
                :page_url => '#/clients/',
                :page_title => '{{ title() }}',
-               :title => field[:modalTitle],
-               :submit_callback => field[:submitCallback] || "addToField('#{field[:id]}', #{if defined? root then "'#{root}'" else 'null' end})",
+               :title => '{{ template.name }}',
                :root => local_assigns[:root],
                :paths => paths,
              } %>
