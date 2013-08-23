@@ -69,7 +69,7 @@ class Api::DocumentsController < Api::ApiController
       if !params[:original] && params[:section]
         existing = DocumentTemplateSection.where({
           :client => @client,
-          :template => template,
+          :document_template_id => template.id,
           :name => params[:section],
         }).desc(:created_at).first
 
@@ -80,7 +80,7 @@ class Api::DocumentsController < Api::ApiController
       end
     end
 
-    send_data doc.generate, :filename => filename
+    send_data doc.generate(options), :filename => filename
   end
 
   # PUT /documents/:id

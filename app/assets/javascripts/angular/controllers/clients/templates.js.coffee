@@ -4,12 +4,12 @@ App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', '
 
   $scope.clientId = $routeParams.clientId
   $scope.loading = true
+  $scope.templatesLoading = true
 
   $scope.client = Client.get({id: $scope.clientId},
     (->
       $scope.loading = false
       RecentClients.logClientShow($scope.client)
-      $scope.templatesLoading = true
       $scope.templates = DocumentTemplate.query({client_id: $scope.clientId},
         (-> $scope.templatesLoading = false),
         (-> $scope.templatesLoading = false; $scope.templatesError = true ))
