@@ -51,6 +51,7 @@
                   <div class="buttons">
                     <button class="pure-button prevButton"
                             data-click-href="#/clients/edit/{{ clientId }}?change={{ prevChangeId }}"
+                            timed-spin="1"
                             data-ng-disabled="!prevChangeId">
                       <i class="icon-angle-left icon-fixed-width"></i> Prev.<span class="only-desktops"> Change</span>
                     </button>
@@ -59,6 +60,7 @@
                     </div>
                     <button class="pure-button nextButton"
                             data-click-href="#/clients/edit/{{ clientId }}?change={{ nextChangeId }}"
+                            timed-spin="1"
                             ng-disabled="!nextChangeId">
                       Next<span class="only-desktops"> Change</span> <i class="icon-angle-right icon-fixed-width"></i>
                     </button>

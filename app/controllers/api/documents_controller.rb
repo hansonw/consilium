@@ -38,7 +38,7 @@ class Api::DocumentsController < Api::ApiController
     authorize! :read, @client
     authorize! :read, Document
 
-    last_change = ClientChange.where('client_id' => @client.id).desc(:updated_at).first
+    last_change = ClientChange.where('client_id' => @client.id, 'type' => 'client').desc(:updated_at).first
     if last_change.nil?
       render json: '', status: :not_found
       return
@@ -59,14 +59,21 @@ class Api::DocumentsController < Api::ApiController
 
     options = {}
     filename = doc.description + '.docx'
-    if params[:section]
+    if params[:version]
+      existing = DocumentTemplateSection.find(params[:version])
+      if existing
+        filename = existing.name.underscore.humanize + ' for ' + doc.description + '.docx'
+        send_data existing.data.to_s, :filename => filename
+        return
+      end
+    elsif params[:section]
       section = template.sections
 
       options[:section] = params[:section]
       filename = (params[:section] ? params[:section].underscore.humanize + ' for ' : '') + doc.description + '.docx'
 
       # Send the existing replacement section if one already exists.
-      if !params[:original] && params[:section]
+      if !params[:original]
         existing = DocumentTemplateSection.where({
           :client => @client,
           :document_template_id => template.id,
@@ -173,6 +180,12 @@ class Api::DocumentsController < Api::ApiController
       head :unprocessable_entity
     end
 
+    prev_templ = DocumentTemplateSection.where({
+      :client => client,
+      :document_template_id => template.id,
+      :name => section
+    }).desc(:created_at).first
+
     templ = DocumentTemplateSection.new({
       :client => client,
       :user => @user,
@@ -180,8 +193,17 @@ class Api::DocumentsController < Api::ApiController
       :name => section,
       :data => Moped::BSON::Binary.new(:generic, data),
     })
-
     templ.save!
+
+    ClientChange.new({
+      :client => client,
+      :user => @user,
+      :type => 'template',
+      :new_section => templ,
+      :old_section => prev_templ,
+      :description => "Edited #{template.name.downcase} template",
+    }).save!
+
     head :no_content
   end
 

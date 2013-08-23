@@ -1,14 +1,15 @@
-App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', '$timeout', 'Auth', 'Client', 'Modal', 'RecentClients', 'DocumentTemplate', \
-                                        ($scope, $location, $routeParams, $timeout, Auth, Client, Modal, RecentClients, DocumentTemplate) ->
+App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', '$timeout', 'Auth', 'Client', 'ClientChange', 'Modal', 'RecentClients', 'DocumentTemplate', \
+                                        ($scope, $location, $routeParams, $timeout, Auth, Client, ClientChange, Modal, RecentClients, DocumentTemplate) ->
   Auth.checkBroker()
 
   $scope.clientId = $routeParams.clientId
-  $scope.loading = true
+  $scope.clientChangeId = $location.search().change
+  $scope.loading = if $scope.clientChangeId then 2 else 1
   $scope.templatesLoading = true
 
   $scope.client = Client.get({id: $scope.clientId},
     (->
-      $scope.loading = false
+      $scope.loading -= 1
       RecentClients.logClientShow($scope.client)
       $scope.templates = DocumentTemplate.query({client_id: $scope.clientId},
         (-> $scope.templatesLoading = false),
@@ -19,6 +20,18 @@ App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', '
       $location.url('/clients/notfound')
       $location.replace()
   )
+
+  if $scope.clientChangeId
+    $scope.clientChange = ClientChange.get({id: $scope.clientChangeId},
+      (->
+        $scope.loading -= 1
+        if $scope.clientChange.type != 'template'
+          $location.url('/clients/notfound')
+          $location.replace()),
+      (->
+        $location.url('/clients/notfound')
+        $location.replace())
+    )
 
   $scope.editTemplate = (template) ->
     # Don't show Save/Cancel, only show Close

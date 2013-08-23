@@ -17,7 +17,7 @@ class Api::ClientChangesController < Api::ApiController
     @client_changes = @client_changes.desc(:created_at)
 
     if params[:short]
-      @client_changes = @client_changes.only(:id, :user, :client, :description, :updated_at)
+      @client_changes = @client_changes.only(:id, :user, :client, :type, :description, :updated_at)
     end
 
     @client_changes = current_ability.select(@client_changes)
@@ -33,8 +33,19 @@ class Api::ClientChangesController < Api::ApiController
   # GET /client_changes/1
   # GET /client_changes/1.json
   def show
+    if @client_change.new_section
+      attrs = {
+        :template => @client_change.new_section.document_template.file,
+        :section_id => @client_change.new_section.name,
+        :section_name => @client_change.new_section.name.underscore.humanize.titleize
+      }
+      render json: get_json(@client_change, attrs)
+      return
+    end
+
     prev_changes = ClientChange.where({
       'client_id' => @client_change.client_id,
+      'new_section_id' => nil,
       :id.lt => @client_change.id
     }).desc(:id)
 
@@ -42,6 +53,7 @@ class Api::ClientChangesController < Api::ApiController
 
     next_change = ClientChange.where({
       'client_id' => @client_change.client_id,
+      'new_section_id' => nil,
       :id.gt => @client_change.id
     }).asc(:id).first
 
@@ -84,7 +96,7 @@ class Api::ClientChangesController < Api::ApiController
       :prev_change_id => prev_change.andand.id.to_s,
       :next_change_id => next_change.andand.id.to_s,
       :cur_change_num => prev_changes.length + 1,
-      :change_count => ClientChange.where('client_id' => @client_change.client_id).length,
+      :change_count => ClientChange.where('client_id' => @client_change.client_id, 'new_section_id' => nil).length,
     }
 
     respond_to do |format|

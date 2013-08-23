@@ -18,10 +18,13 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       if $scope.clientChangeId = $location.search().change
         clientChange = ClientChange.get({id: $scope.clientChangeId, location_id: $scope.locationId},
           (->
-            $scope.$emit('stopButtonSpinner')
             $scope.loading = false
             $scope.clientChange = clientChange
             $scope.client = clientChange.client_data
+            if !$scope.client
+              $location.url('/clients/notfound')
+              $location.replace()
+
             $scope.changedFields = clientChange.changed_fields
             $scope.changedSections = clientChange.changed_sections
             $scope.prevChangeId = clientChange.prev_change_id

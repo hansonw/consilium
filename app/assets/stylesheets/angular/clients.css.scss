@@ -575,3 +575,17 @@ label.changed {
     }
   }
 }
+
+.client-templates {
+  padding-top: 20px;
+
+  .edit-description {
+    margin-bottom: 30px;
+
+    .description {
+      font-size: 120%;
+      color: #ddd;
+      margin-top: 4px;
+    }
+  }
+}

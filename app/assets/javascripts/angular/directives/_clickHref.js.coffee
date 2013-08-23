@@ -22,9 +22,6 @@ App.directive 'clickHref', ['$location', '$parse', '$timeout', 'Scroll', ($locat
           elem.html '<i class="icon-spin icon-spinner"></i> ' + elem.html()
           firstI = elem.find('i').first()
 
-        $scope.$on 'stopButtonSpinner', ->
-          firstI.removeClass('icon-spin icon-spinner')
-
         if attr.timedSpin
           $timeout((-> firstI.removeClass('icon-spin icon-spinner')), +attr.timedSpin * 1000)
 

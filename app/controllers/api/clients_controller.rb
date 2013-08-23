@@ -120,7 +120,7 @@ class Api::ClientsController < Api::ApiController
       if !@client.editing_time || editing_time >= @client.editing_time
         diff = editing_time - @client.editing_time
         # Prevent client from tampering too much with this.
-        last_change = ClientChange.where('client_id' => @client.id).desc(:updated_at).first
+        last_change = ClientChange.where('client_id' => @client.id, 'type' => 'client').desc(:updated_at).first
         if last_change
           # Can't possibly be more than the time between now and the previous recorded change.
           last_diff = Time.now.to_i - last_change.updated_at.to_i

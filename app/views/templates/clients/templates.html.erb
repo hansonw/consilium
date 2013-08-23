@@ -34,8 +34,8 @@
     <hr class="soften no-bottom-margin" />
   </div>
 
-  <div id="main" class="client-show pure-form pure-u">
-    <div class="content has-header">
+  <div id="main" class="client-templates pure-form pure-u">
+    <div class="content has-header" data-ng-show="!clientChangeId">
       <%= render :partial => 'templates/action_table',
                    :locals => {
                      :name => 'templates',
@@ -57,6 +57,39 @@
                       }
                      ]
                    } %>
+    </div>
+    <div class="content has-header" data-ng-show="clientChangeId">
+      <div data-ng-show="loading">
+        <h3 class="no-top-margin"><i class="icon-spinner icon-spin icon-large"></i> Loading...</h3>
+      </div>
+      <div data-ng-show="!loading">
+        <aside data-ng-show="clientChange" class="edit-description">
+          <b>{{ clientChange.user.email }}</b> made this change on {{ clientChange.updated_at*1000 | date: 'MMM d, y h:mm a' }}:<br />
+          <div class="description">{{ clientChange.description }}</div>
+        </aside>
+
+        The section {{ clientChange.section_name }} was updated.
+
+        <p>
+          <button class="pure-button pure-button-primary"
+                  data-click-href="/api/documents/client/{{ clientId }}?template={{ clientChange.template }}&section={{ clientChange.section_id }}&original=true"
+                  timed-spin="3">
+            <i class="icon-download-alt"></i> Original
+          </button>
+          <button class="pure-button pure-button-primary"
+                  data-ng-show="clientChange.old_section_id
+                  "
+                  data-click-href="/api/documents/client/{{ clientId }}?template={{ clientChange.template }}&version={{ clientChange.old_section_id }}"
+                  timed-spin="3">
+            <i class="icon-download-alt"></i> Previous Version
+          </button>
+          <button class="pure-button pure-button-primary"
+                  data-click-href="/api/documents/client/{{ clientId }}?template={{ clientChange.template }}&version={{ clientChange.new_section_id }}"
+                  timed-spin="3">
+            <i class="icon-download-alt"></i> Updated Version
+          </button>
+        </p>
+      </div>
     </div>
   </div>
 </div>

@@ -57,7 +57,7 @@ class Document
     ydocx_opts = {}
     if options[:section]
       ydocx_opts[:extract_section] = options[:section]
-    else
+    elsif
       # Mongoid doesn't have a built in group_by. This is close enough.
       # (map groups by section, reduce selects the latest from each set)
 

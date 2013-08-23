@@ -6,7 +6,11 @@ class ClientChange
 
   belongs_to :user
   belongs_to :client # for indexing purposes
+  belongs_to :new_section, :class_name => 'DocumentTemplateSection'
+  belongs_to :old_section, :class_name => 'DocumentTemplateSection'
   has_many :documents, dependent: :delete
+
+  field :type, type: String
   field :client_data, type: Hash
   field :description, type: String
 
@@ -133,7 +137,7 @@ class ClientChange
   end
 
   def self.update_client(client, user_id)
-    changes = ClientChange.where('client_id' => client.id).desc(:updated_at)
+    changes = ClientChange.where('client_id' => client.id, 'type' => 'client').desc(:updated_at)
     last_change = changes.first
     if !last_change.nil? && last_change.user_id == user_id && Time.now - last_change.updated_at < SQUASH_TIME
       # Merge into previous if it's within a minute
@@ -148,6 +152,7 @@ class ClientChange
         ClientChange.new(
           :user_id => user_id,
           :client_id => client.id,
+          :type => 'client',
           :client_data => client.attributes,
           :description => desc,
         ).save
