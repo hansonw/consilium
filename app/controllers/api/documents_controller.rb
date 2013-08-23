@@ -62,14 +62,49 @@ class Api::DocumentsController < Api::ApiController
       data = data.merge(broker_data)
     end
 
-    gen_opts = {}
+    ydocx_opts = {}
     if options[:section]
-      gen_opts[:extract_section] = options[:section]
+      ydocx_opts[:extract_section] = options[:section]
+    else
+      # Mongoid doesn't have a built in group_by. This is close enough.
+      # (map groups by section, reduce selects the latest from each set)
+
+      map = %Q{
+        function() {
+          emit(this.section, this);
+        }
+      }
+
+      reduce = %Q{
+        function(key, values) {
+          var max_time = 0, ret = null;
+          values.forEach(function(value) {
+            if (value.created_at > max_time) {
+              max_time = value.created_at
+              ret = value;
+            }
+          });
+          return ret;
+        }
+      }
+
+      sections = DocumentTemplate.where({
+        :client => client_change.client,
+        :template => options[:template],
+      }).map_reduce(map, reduce).out(inline: true)
+
+      ydocx_opts[:replace_sections] = {}
+      sections.each do |section|
+        section = section['value']
+        tmpfile = Tempfile.new(section['section'])
+        File.binwrite(tmpfile.path, section['data'])
+        ydocx_opts[:replace_sections][section['section']] = YDocx::Document.extract_document(tmpfile.path)
+      end
     end
 
     tmpfile = Tempfile.new(client_change.id.to_s)
     template_path = Rails.root.join('lib', 'docx_templates', options[:template] || 'default.docx')
-    YDocx::Document.fill_template(template_path, data, fields, tmpfile.path, gen_opts)
+    YDocx::Document.fill_template(template_path, data, fields, tmpfile.path, ydocx_opts)
 
     send_data File.binread(tmpfile.path), :filename => options[:filename] || (name + '.docx')
   end
@@ -79,7 +114,7 @@ class Api::DocumentsController < Api::ApiController
   def show
     @document = Document.where(:id => params[:id]).first
     if @document.nil?
-      render json: '', status: :gone
+      head :gone
       return
     end
 
@@ -105,7 +140,21 @@ class Api::DocumentsController < Api::ApiController
       if template = get_templates.find { |t| t[:file] == params[:template] }
         options[:template] = params[:template]
         options[:section] = params[:section]
-        options[:filename] = (params[:section] ? params[:section].underscore.humanize + ' for ' : '') + @client.company['value']
+        options[:filename] = (params[:section] ? params[:section].underscore.humanize + ' for ' : '') + @client.company['value'] + '.docx'
+
+        # Send the existing replacement section if one already exists.
+        if !params[:original] && params[:section]
+          existing = DocumentTemplate.where({
+            :client_id => @client.id,
+            :template => template[:file],
+            :section => params[:section],
+          }).desc(:created_at).first
+
+          if existing
+            send_data existing.data.to_s, :filename => options[:filename]
+            return
+          end
+        end
       end
     end
 
@@ -155,12 +204,68 @@ class Api::DocumentsController < Api::ApiController
   # GET /documents/templates/:client_id
   def templates
     authorize! :read, Document
-    render json: get_templates
+    templates = get_templates
+    templates.each do |template|
+      # TODO: actually retrieve from the document
+      if template[:file] == 'solar_proposal.docx'
+        template[:sections] = [
+          {:id => 'executiveSummary', :name => 'Executive Summary'},
+          {:id => 'terms', :name => 'General Terms'},
+          {:id => 'servicePlan', :name => 'Broker Service Plan'},
+          {:id => 'claimsManagement', :name => 'Claims Management'},
+        ]
+      else
+        template[:sections] = []
+      end
+
+      template[:sections].each do |section|
+        update = DocumentTemplate.where({
+          :client_id => params[:client_id],
+          :template => template[:file],
+          :section => section[:id]
+        }).desc(:updated_at).first
+
+        if update
+          section[:updated_at] = update.created_at.to_i
+          section[:updated_by] = update.user.email
+        end
+      end
+    end
+    render json: templates
   end
 
   # POST /documents/templates/:client_id
   def upload_template
-    render json: params[:client_id]
+    client = Client.find(params[:client_id])
+    authorize! :manage, client
+    authorize! :create, Document
+
+    template = params[:template]
+    section = params[:section]
+    data = params[:data]
+
+    template = get_templates.find { |t| t[:file] == template }
+    if template.nil?
+      head :bad_request
+    end
+
+    # data is in data-uri format; format is roughly
+    #   data:application/data-type;charset....,<base 64 encoded data>
+    data = data.split(',')[1]
+    if data.nil? || (data = Base64.decode64(data)).empty?
+      head :unprocessable_entity
+    end
+
+    templ = DocumentTemplate.new({
+      :client => client,
+      :user => @user,
+      :template => template[:file],
+      :section => section,
+      :data => Moped::BSON::Binary.new(:generic, data),
+    })
+
+    templ.save!
+    head :no_content
   end
 
   # DELETE /documents/1
@@ -168,7 +273,7 @@ class Api::DocumentsController < Api::ApiController
   def destroy
     authorize! :delete, @document
     @document.destroy
-    render json: ''
+    head :no_content
   end
 
   private
