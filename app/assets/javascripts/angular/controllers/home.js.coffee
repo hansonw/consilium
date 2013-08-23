@@ -5,7 +5,7 @@ App.controller 'HomeCtrl', ['$scope', 'Client', 'ClientChange', 'Auth',\
   if Auth.isBroker()
     $scope.isBroker = true
     $scope.historyLoading = true
-    $scope.history = ClientChange.query({short: true},
+    $scope.history = ClientChange.query({short: true, limit: 5},
       (->
         $scope.historyLoading = false),
       (->
@@ -18,5 +18,5 @@ App.controller 'HomeCtrl', ['$scope', 'Client', 'ClientChange', 'Auth',\
         $scope.clientsLoading = false),
       (->
         $scope.clientsLoading = false
-        $scope.clientsError = true))    
+        $scope.clientsError = true))
 ]

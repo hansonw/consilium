@@ -13,9 +13,9 @@ class User
   belongs_to :brokerage
 
   has_many :client_changes
+  has_many :document_template_sections
   has_many :documents, dependent: :delete
   has_many :user_permissions, dependent: :delete
-  has_many :document_templates, dependent: :delete
   has_one :recent_clients, class_name: 'RecentClients', dependent: :delete
 
   # Include default devise modules. Others available are:

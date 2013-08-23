@@ -21,6 +21,9 @@ class Api::ClientChangesController < Api::ApiController
     end
 
     @client_changes = current_ability.select(@client_changes)
+    if params[:limit]
+      @client_changes = @client_changes.take(params[:limit].to_i)
+    end
 
     respond_to do |format|
       format.json { render json: get_json(@client_changes) }
