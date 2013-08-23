@@ -88,10 +88,14 @@ class Api::DocumentsController < Api::ApiController
         }
       }
 
-      sections = DocumentTemplate.where({
-        :client => client_change.client,
-        :template => options[:template],
-      }).map_reduce(map, reduce).out(inline: true)
+      if DocumentTemplate.exists?
+        sections = DocumentTemplate.where({
+          :client => client_change.client,
+          :template => options[:template],
+        }).map_reduce(map, reduce).out(inline: true)
+      else
+        sections = []
+      end
 
       ydocx_opts[:replace_sections] = {}
       sections.each do |section|
