@@ -15,16 +15,18 @@ App.directive 'clickHref', ['$location', '$parse', '$timeout', 'Scroll', ($locat
 
         Scroll.to attr.clickHref.slice(1), margin
       else
-        if !attr.noSpin
+        firstI = elem.find('i').first()
+        if firstI.length
+          firstI.addClass 'icon-spin icon-spinner'
+        else
+          elem.html '<i class="icon-spin icon-spinner"></i> ' + elem.html()
           firstI = elem.find('i').first()
-          if firstI.length
-            firstI.addClass 'icon-spin icon-spinner'
-          else
-            elem.html '<i class="icon-spin icon-spinner"></i> ' + elem.html()
-            firstI = elem.find('i').first()
 
-          $scope.$on 'stopButtonSpinner', ->
-            firstI.removeClass('icon-spin icon-spinner')
+        $scope.$on 'stopButtonSpinner', ->
+          firstI.removeClass('icon-spin icon-spinner')
+
+        if attr.timedSpin
+          $timeout((-> firstI.removeClass('icon-spin icon-spinner')), +attr.timedSpin * 1000)
 
         if attr.clickHref.indexOf('(') != -1
           # It's a callback; call the function.

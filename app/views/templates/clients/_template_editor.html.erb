@@ -37,14 +37,14 @@
                    :icon => 'icon-download-alt',
                    :text => 'Original',
                    :href => '/api/documents/client/{{ clientId }}?template={{ template.file }}&section={{ item.id }}&original=true',
-                   :attrs => 'data-ng-show="item.updated_by" no-spin="true"',
+                   :attrs => 'data-ng-show="item.updated_by" timed-spin="3"',
                  },
                  {
                    :class => 'pure-button-success',
                    :icon => 'icon-download-alt',
                    :text => '<span class="only-desktops">Download</span>',
                    :href => '/api/documents/client/{{ clientId }}?template={{ template.file }}&section={{ item.id }}',
-                   :attrs => 'no-spin="true"',
+                   :attrs => 'timed-spin="3"',
                  },
                  {
                    :class => 'pure-button-primary upload-button',
@@ -63,7 +63,7 @@
 <p>
   <button class="pure-button pure-button-primary"
           data-click-href="/api/documents/client/{{ clientId }}?template={{ template.file }}"
-          no-spin="true">
+          timed-spin="3">
     Preview Generated Document
   </button>
 </p>
