@@ -14,11 +14,13 @@
     <div class="content">
       <div class="form-content">
         <div <%= node_tag local_assigns[:root], :root => true, :shadow => true %>>
+        <% if local_assigns[:submit_callback] %>
           <form name="<%= field[:id] %>Form"
                 class="pure-form pure-form-aligned"
                 data-ng-submit="<%= submit_callback %>"
                 data-collection="<%= local_assigns[:root] %>.<%= field[:id] %>"
                 <%= node_tag field[:id], :field => true, :writeNode => true, :syncable => local_assigns[:syncable] %>>
+        <% end %>
             <% if field[:partial] %>
               <%= render :partial => field[:partial],
                          :locals => local_assigns %>
@@ -38,7 +40,9 @@
               <button data-ng-show="!readonly" type="submit" class="pure-button pure-button-primary"><%= local_assigns[:submit_text] || 'Save' %></button>
               <button class="pure-button {{ readonly ? 'pure-button-primary' : 'pure-button-error' }}" modal-toggle="<%= field[:id] %>">{{ readonly ? "Close" : "Cancel" }}</button>
             </div>
+        <% if local_assigns[:submit_callback] %>
           </form>
+        <% end %>
         </div>
       </div>
     </div>
