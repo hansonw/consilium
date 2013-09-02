@@ -44,7 +44,7 @@ gem 'cancan'
 gem 'angularjs-rails'
 
 # YDocx for docx templating
-gem 'ydocx', github: 'DouglasSherk/ydocx'
+gem 'ydocx', github: 'DouglasSherk/ydocx', :require => 'zip'
 
 # CORS handling from Rack
 gem 'rack-cors', :require => 'rack/cors'
