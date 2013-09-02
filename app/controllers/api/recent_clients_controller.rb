@@ -57,7 +57,7 @@ class Api::RecentClientsController < Api::ApiController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def recent_client_params
-      params.permit(:clients => [[:id, :company, :name, :timestamp]])
+      params.permit(:clients => [[:id, :companyName, :timestamp]])
     end
 
     def clean(rc)

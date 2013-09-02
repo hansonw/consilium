@@ -40,7 +40,7 @@ class Document
 
     if brokerage = Brokerage.all.first
       broker_data = {
-        'companyShort' => abbreviate(data['company']),
+        'companyShort' => abbreviate(data['companyName']),
         'brokerOffice' => brokerage.name,
         'brokerOfficeShort' => abbreviate(brokerage.name),
         'brokerAddress' => brokerage.address,

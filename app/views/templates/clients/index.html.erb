@@ -45,6 +45,11 @@
                      :id => 'updated_at',
                      :content => '{{ item.updated_at*1000 | date: \'MMM d, y hh:mm a\' }}'
                    },
+                   {
+                     :name => 'Created At',
+                     :id => 'created_at',
+                     :content => '{{ item.created_at*1000 | date: \'MMM d, y hh:mm a\' }}'
+                   },
                  ],
                  :actions => [:show],
                } %>

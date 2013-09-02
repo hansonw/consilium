@@ -56,9 +56,9 @@ module FormHelper
 
     if field[:clientType]
       if field[:clientType] == '' # generic
-        showIf = "#{showIf ? showIf + ' && ' : ''}!client.type.value"
+        showIf = "#{showIf ? showIf + ' && ' : ''}!client.businessSector.value"
       else
-        showIf = "#{showIf ? showIf + ' && ' : ''}client.type.value == '#{field[:clientType].capitalize}'"
+        showIf = "#{showIf ? showIf + ' && ' : ''}client.businessSector.value == '#{field[:clientType].capitalize}'"
       end
     end
 

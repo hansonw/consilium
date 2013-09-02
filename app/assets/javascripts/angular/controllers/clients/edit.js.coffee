@@ -140,7 +140,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       window.history.back()
 
   $scope.clientCompany = ->
-    $parse('client.company.value')($scope)
+    $parse('client.companyName.value')($scope)
 
   $scope.title = ->
     title = ''

@@ -9,9 +9,8 @@
                  :name => 'Client',
                  :id => 'client',
                  :content => <<-END
-                   {{ item.company }}
+                   {{ item.companyName }}
                    <div class="detail">
-                     Primary contact: {{ item.name }}<br />
                      last viewed on <span class="date">{{ item.timestamp | date: 'medium'}}</span>
                    </div>
                  END

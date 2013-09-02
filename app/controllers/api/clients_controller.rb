@@ -14,9 +14,7 @@ class Api::ClientsController < Api::ApiController
     end
 
     @clients = @clients.any_of(
-      {"company.value" => /#{Regexp.escape(params[:query] || '')}/i},
-      {"name.value" => /#{Regexp.escape(params[:query] || '')}/i},
-      {"emailAddress.value" => /#{Regexp.escape(params[:query] || '')}/i},
+      {"companyName.value" => /#{Regexp.escape(params[:query] || '')}/i},
     )
 
     if params[:filter]
@@ -31,7 +29,7 @@ class Api::ClientsController < Api::ApiController
     end
 
     if params[:short]
-      @clients = @clients.only(:id, :brokerage_id, :company, :name, :updated_at, :created_at)
+      @clients = @clients.only(:id, :brokerage_id, :companyName, :updated_at, :created_at)
     end
 
     if order_by = params[:order_by]

@@ -23,8 +23,8 @@ class Client
       :class => 'startOpen',
       :type => [
         {
-          :name => 'Company',
-          :id => 'company',
+          :name => 'Company Name',
+          :id => 'companyName',
           :placeholder => 'Name of Company',
           :type => 'text',
           :required => true,
@@ -32,17 +32,18 @@ class Client
           :unique => true,
         },
         {
-          :name => 'Name',
-          :id => 'name',
-          :placeholder => 'Firstname Lastname',
-          :type => 'text',
+          :name => 'Business Sector',
+          :id => 'businessSector',
+          :type => 'dropdown',
+          :options => [
+            'Generic',
+            'Solar',
+          ],
           :required => true,
-          :primary => true,
-          :unique => true,
         },
         {
-          :name => 'Form of business',
-          :id => 'businessType',
+          :name => 'Form of Business',
+          :id => 'formOfBusiness',
           :type => 'dropdown',
           :options => [
             'Individual',
@@ -51,15 +52,6 @@ class Client
             'Trust',
             'Limited Liability Company',
             'Corporation',
-          ]
-        },
-        {
-          :name => 'Application Type',
-          :id => 'type',
-          :type => 'dropdown',
-          :placeholder => 'Generic',
-          :options => [
-            'Solar',
           ]
         },
         {
@@ -89,9 +81,12 @@ class Client
             'Alberta',
             'British Columbia',
             'Manitoba',
-            'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories',
+            'New Brunswick',
+            'Newfoundland and Labrador',
+            'Northwest Territories',
             'Nova Scotia',
-            'Nunavut', 'Ontario',
+            'Nunavut',
+            'Ontario',
             'Prince Edward Island',
             'Quebec',
             'Saskatchewan',
@@ -132,13 +127,6 @@ class Client
           :id => 'fax',
           :placeholder => 'Area code - phone #, ext #',
           :type => 'phone',
-        },
-        {
-          :name => 'Email',
-          # TODO: if id is set to email, the text resets after it is saved.
-          :id => 'emailAddress',
-          :placeholder => 'Email (ex. john@consilium.ca)',
-          :type => 'email',
         },
       ],
     },
