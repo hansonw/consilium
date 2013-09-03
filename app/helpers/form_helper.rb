@@ -101,8 +101,10 @@ module FormHelper
 
     case field[:type]
     when 'dropdown'
+      # A fake ng-model needs to be provided in order to validate it properly.
       dropdownString = "<div class='dropdown-field'>
                           <select class='dropdown-list #{field[:id]}' name='#{field[:id]}'
+                            ng-model='devnull'
                             data-root='#{root}'
                             data-dropdown-other='#{model}'
                             #{field[:intelligent] && "model='#{h options[:model_parent]}'"}

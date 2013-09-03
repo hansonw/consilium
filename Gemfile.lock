@@ -13,13 +13,13 @@ GIT
 
 GIT
   remote: git://github.com/mongoid/mongoid.git
-  revision: f84b327fe61814844d55796896a92681fd2523c1
+  revision: 38de2e96edc8f64fbe3cdbe062f1d91e9feb388d
   specs:
     mongoid (4.0.0)
       activemodel (~> 4.0.0)
       moped (~> 1.5)
       origin (~> 1.0)
-      tzinfo (~> 0.3.22)
+      tzinfo (~> 0.3.37)
 
 GIT
   remote: git://github.com/simi/mongoid-paranoia.git
