@@ -1,6 +1,10 @@
 App.directive 'unique', ['$parse', '$injector', ($parse, $injector) ->
   require: 'ngModel',
   link: ($scope, elem, attr, ctrl) ->
+    # Case-insensitive match
+    match = (a, b) ->
+      a?.toLowerCase() == b?.toLowerCase()
+
     ctrl.$parsers.unshift (viewValue) ->
       model = $scope.modelPath()
       root = $scope.root
@@ -10,7 +14,7 @@ App.directive 'unique', ['$parse', '$injector', ($parse, $injector) ->
       # The model we're validating is part of a collection that is entered via modal.
       if model? && model != root
         for collectionElem in ($parse(model)($scope) || [])
-          if collectionElem[attr.name] == viewValue || collectionElem[attr.name]?.value == viewValue
+          if match(collectionElem[attr.name]?.value || collectionElem[attr.name], viewValue)
             foundMatch = true
             break
         ctrl.$setValidity 'unique', !foundMatch
@@ -21,7 +25,7 @@ App.directive 'unique', ['$parse', '$injector', ($parse, $injector) ->
         if !!root.match re
           unqualified_root = root.replace re, ''
           for collectionElem in ($parse(unqualified_root)($scope) || [])
-            if collectionElem[attr.name] == viewValue || collectionElem[attr.name]?.value == viewValue
+            if match(collectionElem[attr.name]?.value || collectionElem[attr.name], viewValue)
               foundMatch = true
               break
           ctrl.$setValidity 'unique', !foundMatch
@@ -33,20 +37,14 @@ App.directive 'unique', ['$parse', '$injector', ($parse, $injector) ->
           # Resolve the dependency to an actual class.
           dependencyClass = $injector.get dependencyClass
 
-          # Prepend a '__' to prevent it from overwriting anything we actually care about.
-          dependency = '__' + dependency
-
           collection = dependencyClass.query {}, (->
-            id = $parse(model)($scope).id
+            id = $parse(model)($scope)?.id
             for collectionElem in (collection || [])
-              $scope[dependency] = collectionElem
-              modelValue = $parse('__' + root + '.' + attr.name)($scope)
+              modelValue = $parse(attr.name)(collectionElem)
               if collectionElem.id != id # Allow changing name back to original
-                if modelValue == viewValue || modelValue?.value == viewValue
+                if match(modelValue?.value || modelValue, viewValue)
                   foundMatch = true
                   break
-            # Destroy the dependency we added because it was only for $parse().
-            delete $scope[dependency]
 
             ctrl.$setValidity 'unique', !foundMatch
           ),
