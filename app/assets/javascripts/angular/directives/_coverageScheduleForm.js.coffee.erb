@@ -75,7 +75,7 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
         delete coverageSchedules[prevCov.category]?[prevCov.type]
 
       if cat = coverageLookup[$scope.coverage?.category]?[$scope.coverage?.type]
-        $scope.curCoverage = ((coverageSchedules[$scope.coverage.category] ||= {})[$scope.coverage.type] ||= {})
+        ($scope.writeNode ||= {}).curCoverage = ((coverageSchedules[$scope.coverage.category] ||= {})[$scope.coverage.type] ||= {})
         $scope.curCoverageType = cat
         prevCov = angular.copy($scope.coverage)
 

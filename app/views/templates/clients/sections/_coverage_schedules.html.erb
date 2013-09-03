@@ -93,7 +93,7 @@
           :placeholder => '$ CAN (ex. 111.11)',
           :prefill => {
             :type => 'calc',
-            :expr => obj + '.replacementCost.value',
+            :expr => 'writeNode.' + obj + '.replacementCost.value',
           },
         }
       %>
