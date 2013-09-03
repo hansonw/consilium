@@ -144,9 +144,9 @@ class Client
           :unique => true,
         },
         {
-          :name => 'Title',
-          :id => 'title',
-          :placeholder => 'Mr./Mrs./Dr. (etc)',
+          :name => 'Salutation',
+          :id => 'salutation',
+          :placeholder => 'Mr./Ms./Dr. (etc)',
           :type => 'text',
         },
         {
@@ -162,7 +162,7 @@ class Client
             'Owner',
             'President',
             'Principal',
-            'Secretary',
+            'Admin. Assistant',
             'Vice President',
             'Other',
           ],
