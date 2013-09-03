@@ -18,9 +18,15 @@ App.directive 'errorTooltip', ['$timeout', ($timeout) ->
         "unique": "not unique",
       }
 
-      domField.on('focus', -> elem.html '')
-      domField.on('blur', ->
-        if form[field] && form[field].$error && !form[field].$pristine
+      if domField.is('select')
+        eventType = 'change'
+      else
+        domField.on('focus', -> elem.html '')
+        eventType = 'blur'
+      domField.on(eventType, (event) ->
+        if domField.is('select') && domField.val() == '' && domField.attr('required')
+          elem.html 'Field is required'
+        else if form[field] && form[field].$error && !form[field].$pristine
           errs = []
           for key, val of form[field].$error
             errs.push("Field is #{errors[key]}") if val
