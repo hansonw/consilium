@@ -8,6 +8,10 @@ App.directive 'dropdownOther', ['$parse', ($parse) ->
     form = $scope[$elem.parents('form').attr('name')]
     (bindings[model] ||= {})[type] = $elem
 
+    setValidity = (val) ->
+      if $attrs.required
+        form.$setValidity('required', val != '', ctrl)
+
     if type == 'select'
       $scope.$watch model, (newVal, oldVal) ->
         options[model] = {}
@@ -36,6 +40,8 @@ App.directive 'dropdownOther', ['$parse', ($parse) ->
       $.each $elem.find('option'), ->
         (options[model] ||= {})[$(this).val()] = true
 
+      # HACK: this doesn't actually exist in the form. Angular only checks the $name, so create a fake control
+      ctrl = {$name: $elem.attr('name')}
       $elem.change ->
         input = bindings[model]['input']
         if $elem.val() != 'Other'
@@ -47,7 +53,11 @@ App.directive 'dropdownOther', ['$parse', ($parse) ->
           $parse(model).assign($scope, $elem.val())
           bindings[model]['select'].addClass('other-dropdown')
           input.attr('type', 'text')
+
+        setValidity($elem.val())
         form.$setDirty()
+
+      setValidity($parse(model)($scope))
     else
       $elem.on 'input', ->
         select = bindings[model]['select']
