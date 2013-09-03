@@ -1,7 +1,7 @@
 linkNode = ($scope, elem, attrs) ->
   $scope.node = attrs.node || attrs.name
-  $scope.root = $scope.node if attrs.root?
   $scope.shadow = $scope.node if attrs.shadow?
+  $scope.root = $scope.node if attrs.root?
   $scope.writeNode = $scope if attrs.writeNode?
   $scope.syncable = !!attrs.syncable if attrs.syncable?
   $scope.isField = true if attrs.field?
