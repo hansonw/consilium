@@ -1165,12 +1165,6 @@ class Client
             {
               :type => 'separator',
             },
-            {
-              :name => 'Scope of insured property',
-              :id => 'scopeOfInsuredProperty',
-              :type => 'text',
-              :placeholder => 'e.g. equipment, stock, business interruption',
-            },
             # {
             #   :name => 'Municipal Fire Zone',
             #   :id => 'municipalFireZone',
