@@ -37,12 +37,14 @@ App.directive 'unique', ['$parse', '$injector', ($parse, $injector) ->
           dependency = '__' + dependency
 
           collection = dependencyClass.query {}, (->
+            id = $parse(model)($scope).id
             for collectionElem in (collection || [])
               $scope[dependency] = collectionElem
               modelValue = $parse('__' + root + '.' + attr.name)($scope)
-              if modelValue == viewValue || modelValue?.value == viewValue
-                foundMatch = true
-                break
+              if collectionElem.id != id # Allow changing name back to original
+                if modelValue == viewValue || modelValue?.value == viewValue
+                  foundMatch = true
+                  break
             # Destroy the dependency we added because it was only for $parse().
             delete $scope[dependency]
 
