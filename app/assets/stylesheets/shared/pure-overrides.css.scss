@@ -215,6 +215,10 @@ button, input, select, textarea {
         -webkit-font-smoothing: antialiased;
       }
 
+      > span {
+        margin: 0;
+      }
+
       .error-tooltip {
         display: none;
 
