@@ -169,7 +169,7 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Hierarchy', 'Moda
       if obj.$index?
         # Remove the index field and add it back
         if deleteValue
-          collection.splice(obj.$index)
+          collection.splice(obj.$index, 1)
         else
           collection[obj.$index] = obj
           delete obj.$index
