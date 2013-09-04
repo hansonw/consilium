@@ -2,7 +2,6 @@
   <%= standard_form_tags field, model %>
   <%= prefill_form_tags field %>
   <%= pattern(field[:pattern]) if field[:pattern] %>
-  <%= "model='#{h options[:model_parent]}'" if field[:intelligent] %>
   <%= "intelligent" if field[:intelligent] %>
   <%= "title='#{field[:errorMessage]}'" if field[:errorMessage] %>
 />

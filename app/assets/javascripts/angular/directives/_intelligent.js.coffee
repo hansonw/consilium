@@ -35,7 +35,7 @@ App.directive 'intelligent', ['$parse', ($parse) ->
       $elem.on 'blur', ->
         $parse($attr.ngModel).assign($scope, $elem.val())
 
-    model = $parse($attr.model)
+    model = $parse($scope.root)
     modalCollection = fields[0]
 
     getValues = (model, fields) ->
