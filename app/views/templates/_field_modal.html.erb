@@ -40,7 +40,14 @@
             <div class="separator"></div>
             <div class="pull-right">
               <button data-ng-show="!readonly" type="submit" class="pure-button pure-button-primary"><%= local_assigns[:submit_text] || 'Save' %></button>
-              <button class="pure-button {{ readonly ? 'pure-button-primary' : 'pure-button-error' }}" modal-toggle="<%= field[:id] %>">{{ readonly ? "Close" : "Cancel" }}</button>
+              <% if local_assigns[:delete_callback] %>
+                <button type="button" class="pure-button pure-button-error"
+                        data-ng-show="!readonly && writeNode.<%= field[:id] %>.$index != null"
+                        data-ng-click="<%= h delete_callback %>">
+                  Delete
+                </button>
+              <% end %>
+              <button class="pure-button {{ readonly ? 'pure-button-primary' : 'pure-button' }}" modal-toggle="<%= field[:id] %>">{{ readonly ? "Close" : "Cancel" }}</button>
               </div>
           <% if local_assigns[:submit_callback] %>
             </form>

@@ -8,7 +8,8 @@
                    :page_url => '#/clients/',
                    :page_title => '{{ title() }}',
                    :title => field[:modalTitle],
-                   :submit_callback => field[:submitCallback] || "addToField()",
+                   :submit_callback => field[:submitCallback] || "saveField()",
+                   :delete_callback => "saveField(true)",
                    :root => local_assigns[:root],
                    :paths => paths,
                  } %>

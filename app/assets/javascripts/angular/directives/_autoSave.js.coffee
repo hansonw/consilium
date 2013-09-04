@@ -151,7 +151,7 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Hierarchy', 'Moda
           error(data) if error
       )
 
-    $scope.addToField = ->
+    $scope.saveField = (deleteValue = false) ->
       objName = @node
       obj = @writeNode[objName] || {}
       root = @modelPath(true) || model
@@ -168,9 +168,12 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Hierarchy', 'Moda
 
       if obj.$index?
         # Remove the index field and add it back
-        collection[obj.$index] = obj
-        delete obj.$index
-        Flash.set 'flashType', 'edit'
+        if deleteValue
+          collection.splice(obj.$index)
+        else
+          collection[obj.$index] = obj
+          delete obj.$index
+          Flash.set 'flashType', 'edit'
       else
         collection.push(obj)
         Flash.set 'flashType', 'create'
