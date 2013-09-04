@@ -12,7 +12,7 @@
 
 <% content_for :sections do %>
   <ul class="step">
-    <li><a href="/clients/edit/{{ clientId }}">Location</a></li>
+    <li><a href="#/clients/edit/{{ clientId }}/location/{{ locationId }}">Location</a></li>
     <ul>
       <% fields.each_with_index do |field, index| %>
         <% if field = fieldAsCollection(field) %>
