@@ -3,6 +3,8 @@ App.directive 'intelligent', ['$parse', ($parse) ->
     isSelect = $elem.is('select')
     if isSelect
       fields = $attr.dropdownOther.split "."
+      fields = fields.slice(1) if fields[0] == 'writeNode'
+
       defaultOptions = []
       placeholder = ''
       $.each $elem.find('option'), ->
@@ -13,8 +15,7 @@ App.directive 'intelligent', ['$parse', ($parse) ->
             placeholder = $(this).html()
     else
       fields = $attr.ngModel.split "."
-      if fields[0] == 'writeNode'
-        fields = fields.slice(1)
+      fields = fields.slice(1) if fields[0] == 'writeNode'
 
       values = []
       $elem.on 'keypress', (e) ->
@@ -35,7 +36,6 @@ App.directive 'intelligent', ['$parse', ($parse) ->
       $elem.on 'blur', ->
         $parse($attr.ngModel).assign($scope, $elem.val())
 
-    model = $parse($scope.root)
     modalCollection = fields[0]
 
     getValues = (model, fields) ->
@@ -58,6 +58,7 @@ App.directive 'intelligent', ['$parse', ($parse) ->
       if !locations? || locations == 0
         locations = 1
 
+      model = $parse($scope.root)
       $scope.locationId = 0
       values = []
       while $scope.locationId < locations
