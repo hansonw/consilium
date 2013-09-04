@@ -20,7 +20,6 @@
             <form name="<%= field[:id] %>Form"
                   class="pure-form pure-form-aligned"
                   data-ng-submit="<%= submit_callback %>"
-                  data-collection="<%= local_assigns[:root] %>.<%= field[:id] %>"
                   <%= !field[:partial] && node_tag(field[:id], :field => true, :writeNode => true, :syncable => local_assigns[:syncable]) %>>
           <% end %>
             <% if field[:partial] %>

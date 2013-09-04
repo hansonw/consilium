@@ -19,7 +19,7 @@
   <div class="client-header" data-ng-class="{'active': menuShouldShow()}">
     <div class="content header pure-u-1">
       <h2 class="no-bottom-margin">{{ title() }}</h2>
-      <%= yield %>
+      <%= yield :breadcrumbs %>
     </div>
     <hr class="soften no-bottom-margin" />
   </div>

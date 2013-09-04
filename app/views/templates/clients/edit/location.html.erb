@@ -27,9 +27,11 @@
   </ul>
 <% end %>
 
-
-<%= render :layout => 'layouts/clients/edit', :locals => {:fields => fields, :root => 'client.locations.value[locationId]', :paths => paths} do %>
+<% content_for :breadcrumbs do %>
   <%= render :partial => 'templates/breadcrumbs',
              :locals => { :paths => paths }
    %>
+<% end %>
+
+<%= render :layout => 'layouts/clients/edit', :locals => {:fields => fields, :root => 'client.locations.value[locationId]', :paths => paths} do %>
 <% end %>

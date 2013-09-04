@@ -88,7 +88,7 @@ module FormHelper
            #{field[:name]}
            <div class='error-tooltip' error-tooltip='#{field[:id]}' />
          </label>
-         #{ng_input(field, model, options, parent_field)}
+         #{ng_input(field, model, options)}
        </div>"
   end
 
@@ -96,14 +96,13 @@ module FormHelper
     return "ng-pattern='/#{str}/' pattern='#{str}'"
   end
 
-  def ng_input(field, model, options, root)
+  def ng_input(field, model, options)
     r = ''
 
     case field[:type]
     when 'dropdown'
       dropdownString = "<div class='dropdown-field'>
                           <select class='dropdown-list #{field[:id]}' name='#{field[:id]}'
-                            data-root='#{root}'
                             data-dropdown-other='#{model}'
                             #{field[:intelligent] && "model='#{h options[:model_parent]}'"}
                             #{field[:required] && 'required'}
@@ -144,7 +143,6 @@ module FormHelper
                                 type='#{field[:type]}'
                                 value='#{key}'
                                 ng-checked=\"#{checked}\"
-                                data-root='#{root}'
                                 #{field[:required] && 'required'}
                                 #{field[:readonly] && 'readonly'}
                                 #{field[:unique] && 'unique'}
@@ -163,13 +161,11 @@ module FormHelper
                 #{field[:required] && 'required'}
                 #{field[:readonly] && 'readonly'}
                 #{field[:unique] && 'unique'}
-                data-root='#{root}'
                 rows='#{field[:boxRows]}'
             /></textarea>"
     when 'currency', 'phone'
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='writeNode.#{model}' placeholder='#{field[:placeholder]}'
-              data-root='#{root}'
               #{field[:prefill] && field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
               #{field[:prefill] && field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
               #{field[:prefill] && field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}
@@ -188,7 +184,6 @@ module FormHelper
       r = "<input type='hidden' ng-model='writeNode.#{model}' />
            <input name='#{field[:id]}' type='datepicker'
               model='#{model}' placeholder='#{field[:placeholder] || "Select a date"}'
-              data-root='#{root}'
               #{field[:prefill] && field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
               #{field[:prefill] && field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
               #{field[:prefill] && field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}
@@ -203,7 +198,6 @@ module FormHelper
     else
       r = "<input name='#{field[:id]}' type='#{field[:type]}'
               ng-model='writeNode.#{model}' placeholder='#{field[:placeholder]}'
-              data-root='#{root}'
               #{field[:prefill] && field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
               #{field[:prefill] && field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
               #{field[:prefill] && field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}
