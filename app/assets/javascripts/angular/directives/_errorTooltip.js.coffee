@@ -6,6 +6,9 @@ App.directive 'errorTooltip', ['$timeout', ($timeout) ->
       domField = elem.parents('.pure-control-group').find(":input[name='#{field}']")
       form = $scope[parentForm.attr('name')]
 
+      if modal = parentForm.attr('node')
+        $('div#modal-' + modal).on 'modal-toggle', -> elem.html ''
+
       errors = {
         "minlength": "too short",
         "maxlength": "too long",
