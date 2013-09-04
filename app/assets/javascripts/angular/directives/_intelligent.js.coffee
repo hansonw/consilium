@@ -13,6 +13,9 @@ App.directive 'intelligent', ['$parse', ($parse) ->
             placeholder = $(this).html()
     else
       fields = $attr.ngModel.split "."
+      if fields[0] == 'writeNode'
+        fields = fields.slice(1)
+
       values = []
       $elem.on 'keypress', (e) ->
         val = ($elem.val() || '')

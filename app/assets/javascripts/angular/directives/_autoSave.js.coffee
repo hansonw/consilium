@@ -184,7 +184,7 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Hierarchy', 'Moda
       form.$setDirty()
       Modal.toggleModal(objName)
       $scope.saveForm(false)
-      $scope[objName] = {}
+      @writeNode[objName] = {}
 
     $scope.editInField = (index) ->
       objName = @node

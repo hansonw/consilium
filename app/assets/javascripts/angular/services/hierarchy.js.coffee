@@ -1,6 +1,6 @@
 App.factory 'Hierarchy', ['$rootScope', ($rootScope) ->
   modelPath: ($scope, includeShadow = null) ->
-    path = ''
+    path = []
     scope = $scope
     while scope
       if !scope.node || (includeShadow == false && scope.shadow == scope.node)
@@ -9,10 +9,9 @@ App.factory 'Hierarchy', ['$rootScope', ($rootScope) ->
 
       node = scope.node
       node += '.value' if scope.isField && scope.syncable != false
-      path = node + path
+      path.splice(0, 0, node)
       scope = scope.$parent
-      path = ('.' + path) if scope?.node? && (includeShadow == true || scope?.shadow? != scope?.node?)
-    path
+    path.join '.'
   ,
   findWriteNode: (name, $scope = null) ->
     $scope ||= $rootScope

@@ -78,6 +78,8 @@ App.directive 'prefillSequence', ['$parse', ($parse) ->
     model = attrs.ngModel
     parsed = $parse(model)
     fields = model.split('.')
+    if fields[0] == 'writeNode'
+      fields = fields.slice(1)
     container = fields[0]
 
     $("div#modal-" + container).on 'modal-toggle', ->
