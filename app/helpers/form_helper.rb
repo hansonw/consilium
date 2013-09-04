@@ -5,7 +5,7 @@ module FormHelper
     # after we append |.value|, if we're going to.
     expr = /(  *)(!)?(=)?(\=|<|>).*$/.match field_name
     field_name = field_name.sub(expr.to_s, '')
-    model = "#{parent_field}.#{field_name}" + (options[:syncable] ? '.value' : '')
+    model = "writeNode.#{parent_field}.#{field_name}" + (options[:syncable] ? '.value' : '')
     model = model + expr.to_s
     return model
   end
@@ -98,7 +98,7 @@ module FormHelper
 
   def standard_form_tags(field, model, opts = {})
     raw "name='#{field[:id]}'
-    #{opts[:model] != false && "ng-model='writeNode.#{model}'"}
+    #{opts[:model] != false && "ng-model='#{model}'"}
     #{opts[:placeholder] != false && "placeholder='#{field[:placeholder] || opts[:placeholder]}'"}
     #{field[:required] && 'required'}
     #{field[:readonly] && 'readonly'}
@@ -148,11 +148,11 @@ module FormHelper
     when 'checkbox', 'radio'
       checkboxString = ""
       field[:options].each do |key, option|
-        click_action = "toggleRadio('writeNode.#{model}', '#{key}')"
-        checked = "writeNode.#{model} == '#{key}'"
+        click_action = "toggleRadio('#{model}', '#{key}')"
+        checked = "#{model} == '#{key}'"
         if field[:type] == 'checkbox'
-          click_action = "toggleCheckbox('writeNode.#{model}.#{key}')"
-          checked = "writeNode.#{model}.#{key}"
+          click_action = "toggleCheckbox('#{model}.#{key}')"
+          checked = "#{model}.#{key}"
         end
         changed = options[:changed] || "changedFields.#{field[:id]}"
         checkboxString += "<div class='checkbox-field'
