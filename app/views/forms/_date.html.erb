@@ -1,0 +1,11 @@
+<input type="hidden" ng-model="writeNode.<%= model %>" />
+<input type="datepicker"
+  <% # Don't add an ng-model, since we're faking it with the hidden field. %>
+  <%= standard_form_tags field, model, :model => false, :placeholder => 'Select a date' %>
+  <%= prefill_form_tags field %>
+  <%= pattern(field[:pattern]) if field[:pattern] %>
+  <%= "title='#{field[:errorMessage]}'" if field[:errorMessage] %>
+  model="<%= model %>"
+  datepicker
+/>
+<a class="ui-datepicker-clear" href=""><i class="icon-remove-sign"></i></a>

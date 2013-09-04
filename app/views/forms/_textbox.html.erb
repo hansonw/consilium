@@ -1,0 +1,6 @@
+<textarea
+  <% # Textbox placeholders cause weird bugs in IE10. Disabling for now. %>
+  <%= standard_form_tags field, model, :placeholder => false %>
+  <%= prefill_form_tags field %>
+  rows='<%= field[:boxRows] %>'
+/></textarea>

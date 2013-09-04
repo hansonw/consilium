@@ -1,0 +1,6 @@
+<input type="text"
+  <%= standard_form_tags field, model %>
+  <%= prefill_form_tags field %>
+  <%= raw pattern('^([0-9][-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})(\s*(ext|x|extension)\.?\s*[0-9]+)?$') %>
+  title="Use the format 1-123-456-7890 ext. 1234 (dashes, country code, ext. optional)"
+/>

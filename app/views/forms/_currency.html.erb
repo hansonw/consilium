@@ -1,0 +1,7 @@
+<input type="text"
+  <%= standard_form_tags field, model %>
+  <%= prefill_form_tags field %>
+  <%= raw pattern('\d+(\.\d{1,2})?') %>
+  title="No dollar sign and no comma(s) - cents are optional"
+  restrict="[$,]"
+/>

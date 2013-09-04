@@ -96,6 +96,25 @@ module FormHelper
     return "ng-pattern='/#{str}/' pattern='#{str}'"
   end
 
+  def standard_form_tags(field, model, opts = {})
+    raw "name='#{field[:id]}'
+    #{opts[:model] != false && "ng-model='writeNode.#{model}'"}
+    #{opts[:placeholder] != false && "placeholder='#{field[:placeholder] || opts[:placeholder]}'"}
+    #{field[:required] && 'required'}
+    #{field[:readonly] && 'readonly'}
+    #{field[:unique] && 'unique'}
+    #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
+    #{field[:maxlength] && "ng-maxlength='#{field[:maxlength]}'"}
+    #{field[:min] && "ng-min='#{field[:min]}'"}
+    #{field[:max] && "ng-max='#{field[:max]}'"}"
+  end
+
+  def prefill_form_tags(field)
+    raw "#{field[:prefill] && field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
+    #{field[:prefill] && field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
+    #{field[:prefill] && field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}"
+  end
+
   def ng_input(field, model, options)
     r = ''
 
@@ -151,69 +170,11 @@ module FormHelper
                           </div>"
       end
       r = "<div class='checkbox-container'>" + checkboxString + "</div>"
-    when 'textbox'
-      # Textarea placeholders cause weird bugs in IE10. Disabled for now.
-      r = "<textarea name='#{field[:id]}' ng-model='writeNode.#{model}'
-                #{false && field[:placeholder] && "placeholder='#{field[:placeholder]}'"}
-                #{field[:prefill] && field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
-                #{field[:prefill] && field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
-                #{field[:prefill] && field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}
-                #{field[:required] && 'required'}
-                #{field[:readonly] && 'readonly'}
-                #{field[:unique] && 'unique'}
-                rows='#{field[:boxRows]}'
-            /></textarea>"
-    when 'currency', 'phone'
-      r = "<input name='#{field[:id]}' type='#{field[:type]}'
-              ng-model='writeNode.#{model}' placeholder='#{field[:placeholder]}'
-              #{field[:prefill] && field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
-              #{field[:prefill] && field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
-              #{field[:prefill] && field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}
-              #{field[:required] && 'required'}
-              #{field[:readonly] && 'readonly'}
-              #{field[:unique] && 'unique'}
-              #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
-              #{field[:maxlength] && "ng-maxlength='#{field[:maxlength]}'"}
-              #{field[:min] && "ng-min='#{field[:min]}'"}
-              #{field[:max] && "ng-max='#{field[:max]}'"}
-              #{field[:type] == 'currency' && pattern('\d+(\.\d{1,2})?') + "title='No dollar sign and no comma(s) - cents are optional' restrict='[$,]'"}
-              #{field[:type] == 'phone' && pattern('^([0-9][-. ]?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})(\s*(ext|x|extension)\.?\s*[0-9]+)?$')\
-                + "title='Use the format 1-123-456-7890 ext. 1234 (dashes, country code, ext. optional)'"}
-            />"
-    when 'date'
-      r = "<input type='hidden' ng-model='writeNode.#{model}' />
-           <input name='#{field[:id]}' type='datepicker'
-              model='#{model}' placeholder='#{field[:placeholder] || "Select a date"}'
-              #{field[:prefill] && field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
-              #{field[:prefill] && field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
-              #{field[:prefill] && field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}
-              #{field[:required] && "required"}
-              #{field[:readonly] && "readonly"}
-              #{field[:unique] && 'unique'}
-              #{field[:pattern] && pattern(field[:pattern])}
-              #{field[:errorMessage] && "title='#{field[:errorMessage]}'"}
-              #{field[:type] == 'date' && 'datepicker'}
-            />
-           <a class='ui-datepicker-clear' href=''><i class='icon-remove-sign'></i></a>"
+    when 'textbox', 'currency', 'phone', 'date'
+      r = render :partial => "forms/#{field[:type]}", :locals => {:field => field, :model => model}
     else
-      r = "<input name='#{field[:id]}' type='#{field[:type]}'
-              ng-model='writeNode.#{model}' placeholder='#{field[:placeholder]}'
-              #{field[:prefill] && field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
-              #{field[:prefill] && field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
-              #{field[:prefill] && field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}
-              #{field[:prefill] && field[:prefill][:type] == 'sequence' && "prefill-sequence='#{h options[:model_parent]}'"}
-              #{field[:required] && 'required'}
-              #{field[:readonly] && 'readonly'}
-              #{field[:unique] && 'unique'}
-              #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
-              #{field[:maxlength] && "ng-maxlength='#{field[:maxlength]}'"}
-              #{field[:min] && "ng-min='#{field[:min]}'"}
-              #{field[:max] && "ng-max='#{field[:max]}'"}
-              #{field[:pattern] && pattern(field[:pattern])}
-              #{field[:intelligent] && "model='#{h options[:model_parent]}'"}
-              #{field[:intelligent] && 'intelligent'}
-              #{field[:errorMessage] && "title='#{field[:errorMessage]}'"}
-            />"
+      # XXX: In the future, we shouldn't need to pass options. Instead, hierarchical scopes can be used for intelligence.
+      r = render :partial => 'forms/text', :locals => {:field => field, :model => model, :options => options}
     end
 
     r = "<node name='#{field[:id]}' field>#{r}</node>"
