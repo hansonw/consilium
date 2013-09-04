@@ -148,11 +148,11 @@ module FormHelper
     when 'checkbox', 'radio'
       checkboxString = ""
       field[:options].each do |key, option|
-        click_action = "toggleRadio('#{model}', '#{key}')"
-        checked = "#{model} == '#{key}'"
+        click_action = "toggleRadio('writeNode.#{model}', '#{key}')"
+        checked = "writeNode.#{model} == '#{key}'"
         if field[:type] == 'checkbox'
-          click_action = "toggleCheckbox('#{model}.#{key}')"
-          checked = "#{model}.#{key}"
+          click_action = "toggleCheckbox('writeNode.#{model}.#{key}')"
+          checked = "writeNode.#{model}.#{key}"
         end
         changed = options[:changed] || "changedFields.#{field[:id]}"
         checkboxString += "<div class='checkbox-field'

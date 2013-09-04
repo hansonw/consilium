@@ -91,15 +91,15 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Hierarchy', 'Moda
     )
 
     $scope.toggleRadio = (objName, value) ->
-      if !$scope.readonly
+      if !@.readonly
         obj = $parse(objName)
-        obj.assign($scope, if obj($scope) == value then '' else value)
+        obj.assign(@, if obj(@) == value then '' else value)
         form.$setDirty()
 
     $scope.toggleCheckbox = (objName) ->
-      if !$scope.readonly
+      if !@.readonly
         obj = $parse(objName)
-        obj.assign($scope, !obj($scope))
+        obj.assign($scope, !obj(@))
         form.$setDirty()
 
     $scope.errorCount = ->
