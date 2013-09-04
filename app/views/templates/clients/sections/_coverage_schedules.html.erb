@@ -3,9 +3,8 @@
     <h2 class="no-top-margin">Category</h2>
     <hr class="soften" />
     <select name="category" data-ng-model="coverage.category" size="2"
-            data-ng-change="coverage.type = ''; switchCoverage()" data-ng-readonly="false" data-ng-disabled="false"
-            required>
-      <option value="">Select a category...</option>
+            data-ng-change="coverage.type = ''; switchCoverage()" data-ng-if="true"
+            data-ng-readonly="false" data-ng-disabled="false" required>
       <option ng-repeat="category in coverageCategories"
               ng-class="{selected: !emptyCoverage(category.name)}">{{ category.name }}</option>
     </select>
@@ -42,8 +41,8 @@
                title="{{ <%= changedCoverage %>.subtype }}">Types</label>
         <div class="checkbox-container">
           <div data-ng-repeat="(id, name) in curCoverageType.type" class="checkbox-field"
-               data-ng-click="toggleRadio('curCoverage.subtype.value', id)">
-            <input name="subtype" type="radio" ng-value="id" ng-checked="curCoverage.subtype.value == id"
+               data-ng-click="toggleRadio('writeNode.curCoverage.subtype.value', id)">
+            <input name="subtype" type="radio" ng-value="id" ng-checked="writeNode.curCoverage.subtype.value == id"
                    ng-disabled="readonly" ng-readonly="readonly">
             <label for="subtype" class="checkbox-label">{{ name }}</label>
           </div>
