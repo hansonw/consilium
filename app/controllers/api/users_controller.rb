@@ -13,6 +13,7 @@ class Api::UsersController < Api::ApiController
   def create
     authorize! :create, User
     @user = User.new(user_params)
+    @user.brokerage = current_user.brokerage
     if @user.save
       render action: 'show', status: :created, location: user
     else

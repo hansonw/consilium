@@ -4,4 +4,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     # In order to use #url_for, you must include routing helpers explicitly. For instance, `include Rails.application.routes.url_helpers
     '/app'
   end
+
+  protected
+    def sign_up_params
+      params.require(:user).permit User.generate_permit_params | [:password_confirmation]
+    end
 end

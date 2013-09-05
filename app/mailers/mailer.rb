@@ -4,7 +4,11 @@ class Mailer < PostageApp::Mailer
   default :from => DEFAULT_FROM
 
   def user_welcome(params = {})
-    simple_mail(params[:variables].andand[:token].nil? ? 'user_welcome' : 'user_welcome_activate', params)
+    if params[:permissions] == User::ADMIN
+      simple_mail('user_welcome_admin', params)
+    else
+      simple_mail(params[:variables].andand[:token].nil? ? 'user_welcome' : 'user_welcome_activate', params)
+    end
   end
 
   def reset_password(params = {})

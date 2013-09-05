@@ -76,10 +76,16 @@ class User
 
   set_callback(:save, :before) do |document|
     reset_password if valid? && (encrypted_password.blank? || password.blank?)
+  end
 
-    # HACK! Temporarily tie the user to the first brokerage until we block out
-    # this registration path or create a new brokerage for a first user.
-    document.brokerage = Brokerage.all.first
+  set_callback(:create, :before) do |document|
+    # If the user doesn't have a brokerage when they're saved, they should be
+    # given their own new one.
+    if document.brokerage.nil?
+      brokerage = Brokerage.new
+      document.brokerage = brokerage if brokerage.save
+      document[:permissions] = ADMIN
+    end
   end
 
   set_callback(:create, :after) do |document|
@@ -93,6 +99,7 @@ class User
         :name => document[:name],
         :brokerage => document.brokerage[:name],
       },
+      :permissions => document[:permissions]
     }).deliver
   end
 
