@@ -5,14 +5,14 @@ require 'fileutils'
 
 class Zipper
   def self.zip(dir, zip_dir)
-    Zip::ZipFile.open(zip_dir, Zip::ZipFile::CREATE) do |zipfile|
+    Zip::File.open(zip_dir, Zip::File::CREATE) do |zipfile|
       Find.find(dir) do |path|
         Find.prune if File.basename(path)[0] == ?.
         dest = /#{dir}\/(\w.*)/.match(path.to_s)
           # Skip files if they exists
           begin
             zipfile.add(dest[1],path) if dest
-          rescue Zip::ZipEntryExistsError
+          rescue Zip::EntryExistsError
           end
       end
     end
