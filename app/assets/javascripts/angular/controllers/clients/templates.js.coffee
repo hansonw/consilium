@@ -6,6 +6,7 @@ App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', '
   $scope.clientChangeId = $location.search().change
   $scope.loading = if $scope.clientChangeId then 2 else 1
   $scope.templatesLoading = true
+  $scope.downloadMenu = {}
 
   $scope.client = Client.get({id: $scope.clientId},
     (->

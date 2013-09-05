@@ -33,18 +33,23 @@
                ],
                :actions => [
                  {
-                   :class => 'pure-button-success',
-                   :icon => 'icon-download-alt',
-                   :text => 'Original',
-                   :href => '/api/documents/client/{{ clientId }}?template={{ template.file }}&section={{ item.id }}&original=true',
-                   :attrs => 'data-ng-show="item.updated_by" timed-spin="3"',
-                 },
-                 {
-                   :class => 'pure-button-success',
-                   :icon => 'icon-download-alt',
-                   :text => '<span class="only-desktops">Download</span>',
+                   :class => 'pure-button-success download-button',
+                   :icon => 'icon-download-alt icon-fixed-width',
                    :href => '/api/documents/client/{{ clientId }}?template={{ template.file }}&section={{ item.id }}',
                    :attrs => 'timed-spin="3"',
+                   :text => <<-END
+                      <span class="only-desktops">Download</span>
+                      <i class="icon-caret-down icon-fixed-width" data-ng-show="item.updated_by"
+                         data-toggle="download-menu-{{ item.id }}" eat-click>
+                      </i>
+                      <div class="pure-menu pure-menu-open hide" id="download-menu-{{ item.id }}">
+                        <ul click-href="/api/documents/client/{{ clientId }}?template={{ template.file }}&section={{ item.id }}&original=true" data-toggle="download-menu-{{ item.id }}">
+                          <li>
+                            Download Original
+                          </li>
+                        </ul>
+                      </div>
+                   END
                  },
                  {
                    :class => 'pure-button-primary upload-button',

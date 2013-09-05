@@ -568,6 +568,29 @@ label.changed {
       .pure-button {
         width: auto;
       }
+
+      .download-button {
+        width: 90px;
+        position: relative;
+
+        .pure-menu {
+          position: absolute;
+          top: 100%;
+          margin-top: 5px;
+          width: 150px;
+
+          ul {
+            padding: 7px 20px;
+            text-align: left;
+            color: #777;
+            text-shadow: none;
+
+            &:hover {
+              background: #eee;
+            }
+          }
+        }
+      }
     }
 
     .ng-scope {
