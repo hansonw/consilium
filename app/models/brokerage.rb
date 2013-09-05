@@ -4,6 +4,7 @@ require 'consilium_field_references'
 class Brokerage
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Paranoia
   include ConsiliumFields
   include ConsiliumFieldReferences
 

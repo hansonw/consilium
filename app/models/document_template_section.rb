@@ -1,5 +1,6 @@
 class DocumentTemplateSection
   include Mongoid::Document
+  include Mongoid::Paranoia
   include Mongoid::Timestamps
   include Mongoid::Paranoia
 
