@@ -60,7 +60,7 @@ class Api::DocumentsController < Api::ApiController
     options = {}
     filename = doc.description + '.docx'
     if params[:version]
-      existing = DocumentTemplateSection.find(params[:version])
+      existing = DocumentTemplateSection.unscoped.find(params[:version])
       if existing
         filename = existing.name.underscore.humanize + ' for ' + doc.description + '.docx'
         send_data existing.data.to_s, :filename => filename

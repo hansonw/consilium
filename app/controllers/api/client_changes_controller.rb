@@ -33,11 +33,13 @@ class Api::ClientChangesController < Api::ApiController
   # GET /client_changes/1
   # GET /client_changes/1.json
   def show
-    if @client_change.new_section
+    if @client_change.type == 'template'
+      new_section = DocumentTemplateSection.unscoped.find(@client_change.new_section_id)
       attrs = {
-        :template => @client_change.new_section.document_template.file,
-        :section_id => @client_change.new_section.name,
-        :section_name => @client_change.new_section.name.underscore.humanize.titleize
+        :template => new_section.document_template.file,
+        :section_id => new_section.name,
+        :section_name => new_section.name.underscore.humanize.titleize,
+        :reverted => @client_change.new_section.nil?
       }
       render json: get_json(@client_change, attrs)
       return

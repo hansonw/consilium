@@ -82,6 +82,9 @@
         </aside>
 
         The section {{ clientChange.section_name }} was updated.
+        <span data-ng-show="clientChange.reverted">
+          <b>This change has been reverted.</b>
+        </span>
 
         <p>
           <button class="pure-button pure-button-primary"
