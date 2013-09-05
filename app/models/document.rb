@@ -41,14 +41,8 @@ class Document
     if brokerage = Brokerage.all.first
       broker_data = {
         'companyShort' => abbreviate(data['companyName']),
-        'brokerOffice' => brokerage.name,
-        'brokerOfficeShort' => abbreviate(brokerage.name),
-        'brokerAddress' => brokerage.address,
-        'brokerWebsite' => brokerage.website,
-        'brokerPhone' => brokerage.phone,
-        'brokerFax' => brokerage.fax,
-        'brokerContacts' => brokerage.contacts,
-        'primaryBroker' => brokerage.contacts.first && brokerage.contacts.first['name'],
+        'brokerageShort' => abbreviate(brokerage.name),
+        'brokerage' => brokerage.as_document,
       }
 
       data = data.merge(broker_data)
@@ -57,7 +51,7 @@ class Document
     ydocx_opts = {}
     if options[:section]
       ydocx_opts[:extract_section] = options[:section]
-    elsif
+    else
       # Mongoid doesn't have a built in group_by. This is close enough.
       # (map groups by section, reduce selects the latest from each set)
 
