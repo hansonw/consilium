@@ -1,3 +1,4 @@
+require 'consilium_fields'
 require 'proxy_current_user'
 require 'andand'
 
