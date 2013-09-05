@@ -46,14 +46,22 @@
                        {
                          :name => 'Template Name',
                          :id => 'name',
-                         :content => '{{ item.name }}'
+                         :content => <<-END
+                           <b>{{ item.name }}</b>
+                           <div class="detail" ng-show="item.updated_at">
+                            Updated by {{ item.updated_by }} on {{ item.updated_at * 1000 | date: 'medium' }}
+                           </div>
+                           <div class="detail" ng-show="!item.updated_at">
+                            Unchanged
+                           </div>
+                         END
                        }
                      ],
                      :actions => [
                       {
-                        :class => 'pure-button-primary',
+                        :class => '{{ item.sections.length && "pure-button-primary" }}',
                         :icon => 'icon-edit',
-                        :click => 'editTemplate(item)'
+                        :click => 'editTemplate(item)',
                       }
                      ]
                    } %>

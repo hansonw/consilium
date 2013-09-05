@@ -62,7 +62,7 @@ App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', '
             }).$save(->
               $scope.uploading = null
               $scope.section.updated_by = Auth.getEmail()
-              $scope.section.updated_at = Util.unixTimestamp()
+              $scope.template.updated_at = $scope.section.updated_at = Util.unixTimestamp()
             , ->
               $scope.uploading = null
               alert 'Could not process the given document.'

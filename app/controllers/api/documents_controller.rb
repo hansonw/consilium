@@ -151,6 +151,7 @@ class Api::DocumentsController < Api::ApiController
           section['updated_by'] = update.user.email
         end
       end
+      template['updated_at'] = template.sections.map { |s| s['updated_at'] || 0 }.max
     end
     render json: get_json(templates)
   end

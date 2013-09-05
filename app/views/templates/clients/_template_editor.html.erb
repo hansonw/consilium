@@ -23,7 +23,7 @@
                    :content => <<-END
                      <b>{{ item.name }}</b>
                      <div class="detail" ng-show="item.updated_at">
-                      Updated by {{ item.updated_by }} on {{ item.updated_at * 1000 | date: 'medium' }}
+                      Updated on {{ item.updated_at * 1000 | date: 'medium' }}
                      </div>
                      <div class="detail" ng-show="!item.updated_at">
                       Unchanged
