@@ -101,10 +101,21 @@ class Api::DocumentsController < Api::ApiController
       success = @document.update_attributes(document_params)
     else
       @document = Document.new(document_params)
-      @templates = get_templates
-      @document.template = @templates.find { |t| t[:name] == @document.template }[:file]
+      template = DocumentTemplate.where(:name => params[:template]).first
+      if !template
+        head :bad_request
+        return
+      end
+      @document.document_template = template
       @document.user_id = @user.id
       if change = ClientChange.find(params[:client_change_id])
+        if change.type == 'template'
+          change = ClientChange.where(
+            :client => change.client,
+            :created_at.lt => change.created_at,
+            :type => 'client'
+          ).desc(:created_at).first
+        end
         @document.client_id = change.client_id
         @document.client_change_id = change.id
         success = @document.save!
@@ -119,14 +130,6 @@ class Api::DocumentsController < Api::ApiController
       else
         format.json { render json: @document.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  def get_templates
-    template_path = Rails.root.join('lib', 'docx_templates')
-    Dir.glob("#{template_path}/*.docx").map do |f|
-      name = File.basename(f, '.docx')
-      {:name => name.humanize.titleize, :file => File.basename(f)}
     end
   end
 
@@ -165,11 +168,13 @@ class Api::DocumentsController < Api::ApiController
     template = DocumentTemplate.where(:file => params[:template]).first
     if template.nil?
       head :bad_request
+      return
     end
 
     section = params[:section]
     if template.sections.find { |t| t['id'] == section }.nil?
       head :bad_request
+      return
     end
 
     data = params[:data]
@@ -179,6 +184,7 @@ class Api::DocumentsController < Api::ApiController
     data = data.split(',')[1]
     if data.nil? || (data = Base64.decode64(data)).empty?
       head :unprocessable_entity
+      return
     end
 
     prev_templ = DocumentTemplateSection.where({
@@ -224,6 +230,6 @@ class Api::DocumentsController < Api::ApiController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
-      params.permit(:description, :template)
+      params.permit(:description)
     end
 end

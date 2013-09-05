@@ -3,7 +3,8 @@ App.directive 'modalToggle', ['Modal', (Modal) ->
     $($elem).click (e) ->
       targetId = attr.modalToggle
       Modal.toggleModal(targetId)
-      $scope[targetId] = {}
+      # Preserve the original object; could be referred to by a writeNode
+      angular.copy($scope[targetId], {})
       $scope[targetId + 'Form']?.$setPristine()?
       e.preventDefault()
 

@@ -66,7 +66,8 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
       alert('Error occurred generating document.')
     )
 
-    $scope.genDocument = {}
+    # Preserve the original object; it's referred to by a writeNode
+    angular.copy($scope.genDocument, {})
     Modal.toggleModal('genDocument')
 
   $scope.deleteDocument = (index) ->

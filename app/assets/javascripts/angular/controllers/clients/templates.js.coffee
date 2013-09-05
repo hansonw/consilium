@@ -35,6 +35,10 @@ App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', '
     )
 
   $scope.editTemplate = (template) ->
+    if !template.sections?.length
+      alert 'This template cannot be edited.'
+      return
+
     # Don't show Save/Cancel, only show Close
     $scope.readonly = true
     $scope.template = template

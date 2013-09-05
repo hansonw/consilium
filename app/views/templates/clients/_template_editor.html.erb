@@ -1,7 +1,12 @@
 <div class="template-editor" ng-show="template.sections">
   <aside>
-    This template has several sections you can edit.<br />
-    Download the section you want to edit, make the desired changes, and re-upload it.
+    This document template has several sections you can edit.<br />
+    <ol>
+      <li>Download the section you wish to edit.</li>
+      <li>Make your desired changes in Microsoft Word, and save.</li>
+      <li>Upload the changed document back to the appropriate section.</li>
+    </ol>
+    Future documents generated will use your updated section.
   </aside>
 
   <br />
@@ -18,14 +23,14 @@
                :model => 'template.sections',
                :fields => [
                  {
-                   :name => 'Section',
+                   :name => 'Template Section',
                    :id => 'section',
                    :content => <<-END
                      <b>{{ item.name }}</b>
                      <div class="detail" ng-show="item.updated_at">
-                      Updated on {{ item.updated_at * 1000 | date: 'medium' }}
+                      Updated by {{ item.updated_by }} on {{ item.updated_at * 1000 | date: 'medium' }}
                      </div>
-                     <div class="detail" ng-show="!item.updated_at">
+                     <div class="detail unchanged" ng-show="!item.updated_at">
                       Unchanged
                      </div>
                    END
@@ -62,13 +67,13 @@
 </div>
 
 <div ng-show="!template.sections.length">
-  <p>This template cannot be customized.</p>
+  <p>This document template cannot be customized.</p>
 </div>
 
 <p>
   <button class="pure-button pure-button-primary"
           data-click-href="/api/documents/client/{{ clientId }}?template={{ template.file }}"
           timed-spin="3">
-    Preview Generated Document
+    Preview Final Document
   </button>
 </p>

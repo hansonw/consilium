@@ -448,6 +448,10 @@ label.changed {
     .date {
       color: #999;
     }
+
+    &.unchanged {
+      color: #aaa;
+    }
   }
 
   @include ng-scope-hover();
