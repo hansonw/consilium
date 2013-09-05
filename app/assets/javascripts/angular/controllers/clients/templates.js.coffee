@@ -52,6 +52,30 @@ App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', '
     $timeout((-> upload.click()), 0)
     $scope.section = section
 
+  $scope.resetSection = (index) ->
+    if index?
+      section = $scope.template.sections[index]
+    else if !confirm 'Are you sure? This will delete all uploaded sections for this template.'
+      return
+
+    new DocumentTemplate().$delete({
+      client_id: $scope.clientId,
+      template: $scope.template.file,
+      section: section?.id
+    }, ->
+      if section
+        delete section.updated_at
+        delete section.updated_by
+      else
+        delete $scope.template.updated_at
+        for section in $scope.template.sections
+          delete section.updated_at
+          delete section.updated_by
+    , ->
+      alert 'Error reverting this section.'
+    )
+
+  $scope.uploading = {}
   upload.on('change', (evt) ->
     if evt.target.files.length == 1
       if FileReader?
@@ -59,20 +83,21 @@ App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', '
         if file.name.match /\.docx$/
           reader = new FileReader()
           reader.onloadend = ->
+            section = $scope.section # This could change while uploading.
             new DocumentTemplate({
               client_id: $scope.clientId
               template: $scope.template.file,
-              section: $scope.section.id,
+              section: section.id,
               data: reader.result,
             }).$save(->
-              $scope.uploading = null
-              $scope.section.updated_by = Auth.getEmail()
-              $scope.template.updated_at = $scope.section.updated_at = Util.unixTimestamp()
+              $scope.uploading[section.id] = false
+              section.updated_by = Auth.getEmail()
+              $scope.template.updated_at = section.updated_at = Util.unixTimestamp()
             , ->
-              $scope.uploading = null
+              $scope.uploading[section.id] = false
               alert 'Could not process the given document.'
             )
-          $scope.uploading = $scope.section.id
+          $scope.uploading[$scope.section.id] = true
           $scope.$digest()
           reader.readAsDataURL(file)
           form[0].reset()

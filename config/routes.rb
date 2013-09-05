@@ -20,6 +20,7 @@ Consilium::Application.routes.draw do
     get 'documents/client/:id' => 'api/documents#client'
     get 'documents/templates/:client_id' => 'api/documents#templates'
     post 'documents/templates/:client_id' => 'api/documents#upload_template'
+    delete 'documents/templates/:client_id' => 'api/documents#revert_template'
     put 'documents' => 'api/documents#update'
 
     resources :client_changes, :controller => 'api/client_changes'

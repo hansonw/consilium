@@ -214,6 +214,33 @@ class Api::DocumentsController < Api::ApiController
     head :no_content
   end
 
+  # DELETE /documents/templates/:client_id
+  def revert_template
+    client = Client.find(params[:client_id])
+    authorize! :manage, client
+    authorize! :create, Document
+
+    template = DocumentTemplate.where(:file => params[:template]).first
+    if !template
+      head :bad_request
+      return
+    end
+
+    sections = DocumentTemplateSection.where(
+      :client => client,
+      :document_template_id => template.id,
+    )
+
+    if params[:section]
+      sections.where(:name => params[:section])
+    end
+
+    # Mongoid paranoia doesn't work with batch delete o_O
+    sections.each { |s| s.delete }
+
+    head :no_content
+  end
+
   # DELETE /documents/1
   # DELETE /documents/1.json
   def destroy

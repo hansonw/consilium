@@ -49,16 +49,17 @@
                       </i>
                       <div class="pure-menu pure-menu-open hide" id="download-menu-{{ item.id }}">
                         <ul click-href="/api/documents/client/{{ clientId }}?template={{ template.file }}&section={{ item.id }}&original=true" data-toggle="download-menu-{{ item.id }}">
-                          <li>
-                            Download Original
-                          </li>
+                          <li>Download Original</li>
+                        </ul>
+                        <ul ng-click="resetSection($index)" eat-click data-toggle="download-menu-{{ item.id }}">
+                          <li>Restore Original</li>
                         </ul>
                       </div>
                    END
                  },
                  {
                    :class => 'pure-button-primary upload-button',
-                   :icon => '{{ uploading == item.id ? "icon-spin icon-spinner" : "icon-upload-alt" }} icon-fixed-width',
+                   :icon => '{{ uploading[item.id] ? "icon-spin icon-spinner" : "icon-upload-alt" }} icon-fixed-width',
                    :text => '<span class="only-desktops">Upload</span>',
                    :click => 'uploadSection(item)',
                  },
@@ -75,5 +76,11 @@
           data-click-href="/api/documents/client/{{ clientId }}?template={{ template.file }}"
           timed-spin="3">
     Preview Final Document
+  </button>
+
+  <button class="pure-button pure-button-error"
+          data-ng-click="resetSection()"
+          timed-spin="3">
+    Restore Original Sections
   </button>
 </p>
