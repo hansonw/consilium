@@ -5,6 +5,7 @@ class User
   include Mongoid::Document
   include Mongoid::Paranoia
   include ActionView::Helpers::HostHelper
+  include ConsiliumFields
 
   CLIENT = 1
   BROKER = 2
@@ -60,40 +61,6 @@ class User
   field :authentication_token, :type => String
 
   field :permissions, :type => Integer, :default => BROKER
-
-  FIELDS = [
-    {
-      :id => 'name',
-      :name => 'Name',
-      :placeholder => 'Name',
-      :required => true,
-      :type => 'text',
-      :primary => true,
-      :unique => true,
-    },
-    {
-      :id => 'email',
-      :name => 'Email',
-      :placeholder => 'e.g. john@consilium.ca',
-      :required => true,
-      :type => 'email',
-      :primary => true,
-      :unique => true,
-    },
-    {
-      :id => 'password',
-      :name => 'Password',
-      :type => 'password',
-      :if => '$!readonly',
-      #:required => true,
-    },
-    #{
-    #  :id => 'password_confirm',
-    #  :name => 'Confirm Password',
-    #  :type => 'password',
-    #  :required => true,
-    #},
-  ]
 
   def password_required?
     return true if current_user == nil

@@ -1,0 +1,19 @@
+---
+- :id: name
+  :name: Name
+  :placeholder: Name
+  :required: true
+  :type: text
+  :primary: true
+  :unique: true
+- :id: email
+  :name: Email
+  :placeholder: e.g. john@consilium.ca
+  :required: true
+  :type: email
+  :primary: true
+  :unique: true
+- :id: password
+  :name: Password
+  :type: password
+  :if: $!readonly

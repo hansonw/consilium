@@ -1,6 +1,7 @@
 module ConsiliumFields
   def self.included(klass)
     klass.extend ClassMethods
+    klass.const_set :FIELDS, YAML::load(File.open(Rails.root.join("config", "models", "#{klass.to_s.downcase}.yml")))
   end
 
   module ClassMethods
