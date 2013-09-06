@@ -51,9 +51,8 @@ class Api::ClientsController < Api::ApiController
 
     @clients = current_ability.select(@clients)
 
-    respond_to do |format|
-      format.json { render json: get_json(@clients) }
-    end
+    @clients.map! { |client| client = client.serialize_references }
+    render json: get_json(@clients)
   end
 
   # GET /clients/1
@@ -67,9 +66,7 @@ class Api::ClientsController < Api::ApiController
 
     authorize! :read, @client
 
-    respond_to do |format|
-      format.json { render json: get_json(@client) }
-    end
+    render json: get_json(@client.serialize_references)
   end
 
   # POST /clients/:id
@@ -93,13 +90,18 @@ class Api::ClientsController < Api::ApiController
 
     @client.brokerage = current_user.brokerage
 
-    respond_to do |format|
-      if @client.save
-        ClientChange.update_client(@client, @user.id)
-        format.json { render json: get_json(@client) }
-      else
-        format.json { render json: @client.errors, status: :unprocessable_entity }
-      end
+    filtered_params = @client.update_references(client_params)
+    if !filtered_params[:errors].empty?
+      render json: filtered_params[:errors], status: :unprocessable_entity
+      return
+    end
+    @client.update(filtered_params[:params])
+
+    if @client.save
+      ClientChange.update_client(@client, @user.id)
+      render json: get_json(@client.serialize_references)
+    else
+      render json: @client.errors, status: :unprocessable_entity
     end
   end
 
@@ -134,14 +136,19 @@ class Api::ClientsController < Api::ApiController
       return
     end
 
-    respond_to do |format|
-      if @client.upsert
-        # Create a new client change if necessary.
-        ClientChange.update_client(@client, @user.id)
-        format.json { render json: get_json(@client) }
-      else
-        format.json { render json: @client.errors, status: :unprocessable_entity }
-      end
+    filtered_params = @client.update_references(client_params)
+    if !filtered_params[:errors].empty?
+      render json: filtered_params[:errors], status: :unprocessable_entity
+      return
+    end
+    @client.update(filtered_params[:params])
+
+    if @client.upsert
+      # Create a new client change if necessary.
+      ClientChange.update_client(@client, @user.id)
+      render json: get_json(@client.serialize_references)
+    else
+      render json: @client.errors, status: :unprocessable_entity
     end
   end
 

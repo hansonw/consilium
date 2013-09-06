@@ -3,7 +3,7 @@ if Rails.env == 'development'
 else
   require 'consilium_fields'
 end
-
+require 'consilium_field_references'
 require 'client_contact'
 
 class Client
@@ -12,10 +12,12 @@ class Client
   include Mongoid::Attributes::Dynamic
   include Mongoid::Paranoia
   include ConsiliumFields
+  include ConsiliumFieldReferences
 
   belongs_to :brokerage
 
   has_many :client_changes, dependent: :delete
+  has_many :client_contacts, dependent: :delete
   has_many :documents, dependent: :delete
   has_many :user_permissions, dependent: :delete
   has_many :document_template_sections, dependent: :delete
