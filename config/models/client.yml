@@ -83,6 +83,11 @@
     :type: phone
 - :name: Client Contacts
   :id: clientContacts
+#:createCallback: editClientContact()
+#:submitCallback: saveClientContact()
+#:editCallback: editClientContacts($index)
+  :modalPartial: templates/clients/sections/client_contacts_modal
+#:tablePartial: templates/clients/sections/client_contacts_table
   :type:
   - :name: Name
     :id: name
@@ -1296,7 +1301,7 @@
     :createCallback: editCoverageSchedule()
     :submitCallback: saveCoverageSchedules()
     :editCallback: editCoverageSchedule($index)
-    :partial: templates/clients/sections/coverage_schedules
+    :modalPartial: templates/clients/sections/coverage_schedules
     :type:
     - :name: Type
       :id: type
@@ -2231,7 +2236,7 @@
   :createCallback: editCoverageSchedule()
   :submitCallback: saveCoverageSchedules()
   :editCallback: editCoverageSchedule($index)
-  :partial: templates/clients/sections/coverage_schedules
+  :modalPartial: templates/clients/sections/coverage_schedules
   :type:
   - :name: Type
     :id: type

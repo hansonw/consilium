@@ -1,0 +1,20 @@
+<div id="clientContactsForm" <%= node_tag local_assigns[:root], :root => true, :shadow => true %>>
+  <div <%= node_tag field[:id], :field => true, :writeNode => true, :syncable => local_assigns[:syncable] %>>
+    <div class="pure-form-fields">
+      <% field[:type].each do |subfield| %>
+        <%= form_field subfield, field[:id], {
+              :syncable => defined?(syncable) ? syncable : true,
+              :model_parent => local_assigns[:root],
+              :changed => "changedFields.#{field[:id]}[#{field[:id]}.$index].#{subfield[:id]}"
+            } %>
+      <% end %>
+    </div>
+  </div>
+  <br>
+  <aside ng-show="clientContacts.users">
+    <button class="pure-button pure-button-success"><i class="icon-plus"></i> <i class="icon-user icon-large"></i></button>&nbsp;&nbsp;Click here to allow {{ clientContacts.name.value || 'this contact' }} to manage {{ client.companyName.value }}. They will be sent an email with instructions.
+  </aside>
+  <aside ng-hide="clientContacts.users">
+    <button class="pure-button pure-button-error"><i class="icon-minus"></i> <i class="icon-user icon-large"></i></button>&nbsp;&nbsp;Click here to disallow {{ clientContacts.name.value || 'this contact' }} from managing {{ client.companyName.value }}.
+  </aside>
+</div>

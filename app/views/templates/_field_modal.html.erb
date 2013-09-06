@@ -13,17 +13,17 @@
     <hr class="soften" />
     <div class="content">
       <div class="form-content">
-        <% if !field[:partial] %>
+        <% if !field[:modalPartial] %>
           <div <%= node_tag local_assigns[:root], :root => true, :shadow => true %>>
         <% end %>
           <% if local_assigns[:submit_callback] %>
             <form name="<%= field[:id] %>Form"
                   class="pure-form pure-form-aligned"
                   data-ng-submit="<%= submit_callback %>"
-                  <%= !field[:partial] && node_tag(field[:id], :field => true, :writeNode => true, :syncable => local_assigns[:syncable]) %>>
+                  <%= !field[:modalPartial] && node_tag(field[:id], :field => true, :writeNode => true, :syncable => local_assigns[:syncable]) %>>
           <% end %>
-            <% if field[:partial] %>
-              <%= render :partial => field[:partial],
+            <% if field[:modalPartial] %>
+              <%= render :partial => field[:modalPartial],
                          :locals => local_assigns %>
             <% else %>
               <div class="pure-form-fields">
@@ -51,7 +51,7 @@
           <% if local_assigns[:submit_callback] %>
             </form>
           <% end %>
-        <% if !field[:partial] %>
+        <% if !field[:modalPartial] %>
           </div>
         <% end %>
       </div>
