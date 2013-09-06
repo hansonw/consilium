@@ -4,6 +4,8 @@ else
   require 'consilium_fields'
 end
 
+require 'client_contact'
+
 class Client
   include Mongoid::Document
   include Mongoid::Timestamps
