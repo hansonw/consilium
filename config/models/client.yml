@@ -742,6 +742,7 @@
       :clientType: solar
       :if: solarWarranty.yes
     - :type: separator
+      :clientType: solar
     - :name: Risk was inspected
       :id: inspection
       :type: radio
@@ -791,10 +792,7 @@
     - :name: Area
       :id: constructionArea
       :placeholder: '# Only'
-      :type: text
-    - :name: Area Units
-      :id: constructionAreaUnit
-      :type: dropdown
+      :type: units
       :options:
       - Sq. ft.
       - Sq. m.

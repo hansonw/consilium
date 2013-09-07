@@ -47,6 +47,8 @@ module ConsiliumFields
               {field[:id] => generate_permit_params(field[:type])}
             elsif field[:type] == 'checkbox'
               {field[:id] => field[:options].keys}
+            elsif field[:type] == 'units'
+              {field[:id] => [:qty, :unit]}
             else
               field[:id]
             end
@@ -74,6 +76,8 @@ module ConsiliumFields
               {:value => [:id, :created_at, :updated_at, generate_permit_params_wrapped(field[:type])]}
             elsif field[:type] == 'checkbox'
               {:value => field[:options].keys}
+            elsif field[:type] == 'units'
+              {:value => [:qty, :unit]}
             else
               :value
             end

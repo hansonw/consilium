@@ -98,7 +98,7 @@ $client-form-nav-padding: 50px;
 
   .changed {
     .changed {
-      background: darken($light-green, 10%);
+      background: darken($light-green, 10%) !important;
     }
 
     tr.changed {

@@ -1,0 +1,20 @@
+<div class="units-container">
+  <div class="units-field">
+    <div class="text-field"
+         ng-class="{changed: changedFields.<%= field[:id] %>.qty}"
+         title="{{ changedFields.<%= field[:id] %>.qty }}">
+      <input type="text"
+        <%= standard_form_tags field, model + '.qty' %>
+        <%= prefill_form_tags field %>
+      />
+    </div>
+    <select ng-model="<%= model %>.unit"
+            ng-class="{changed: changedFields.<%= field[:id] %>.unit}"
+            title="{{ changedFields.<%= field[:id] %>.unit }}">
+      <option value="">Units</option>
+      <% field[:options].each do |option| %>
+        <option><%= option %></option>
+      <% end %>
+    </select>
+  </div>
+</div>

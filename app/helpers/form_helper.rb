@@ -77,14 +77,16 @@ module FormHelper
     end
 
     changed = options[:changed] || "changedFields.#{field[:id]}"
+    change_attrs =
+      "data-ng-class='{changed: #{changed}}'
+       title='#{field[:type] == 'checkbox' ? 'Highlighted fields were changed' : "{{ #{changed} }}"}'"
 
     return raw\
       "<div class='pure-control-group'
             #{showIf && "data-show-emit='#{h showIf}'"}>
          <label for='#{field[:id]}'
                 #{field[:required] && "class='required'"}
-                data-ng-class='{changed: #{changed}}'
-                title='#{field[:type] == 'checkbox' ? 'Highlighted fields were changed' : "{{ #{changed} }}"}'>
+                #{field[:type] != 'units' && change_attrs}>
            #{field[:name]}
            <div class='error-tooltip' error-tooltip='#{field[:id]}' />
          </label>
@@ -169,7 +171,7 @@ module FormHelper
                           </div>"
       end
       r = "<div class='checkbox-container'>" + checkboxString + "</div>"
-    when 'textbox', 'currency', 'phone', 'date'
+    when 'textbox', 'currency', 'phone', 'date', 'units'
       r = render :partial => "forms/#{field[:type]}", :locals => {:field => field, :model => model}
     else
       # XXX: In the future, we shouldn't need to pass options. Instead, hierarchical scopes can be used for intelligence.

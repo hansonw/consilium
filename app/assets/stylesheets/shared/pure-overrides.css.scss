@@ -354,6 +354,44 @@ button, input, select, textarea {
       cursor: default;
     }
   }
+
+  .units-container {
+    display: inline-block;
+    width: 100%;
+    margin: 0 !important;
+
+    .units-field {
+      display: table-row;
+      border-spacing: 0;
+      width: 100%;
+
+      @include respond-to(handhelds) { display: table-row; }
+
+      .text-field {
+        display: table-cell;
+        width: 100%;
+
+        input {
+          margin: 0;
+          @include border-radius(3px 0 0 3px);
+        }
+      }
+
+      select {
+        width: 10em;
+        height: 14px;
+        margin: 0 0 0 -3px;
+        display: table-cell;
+
+        @include box-sizing(content-box);
+        @include border-radius(0 3px 3px 0);
+
+        &.changed {
+          margin-left: 3px;
+        }
+      }
+    }
+  }
 }
 
 body {

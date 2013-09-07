@@ -65,14 +65,19 @@ class ClientChange
     Hash[d.keys.map { |k| [k, true] }]
   end
 
-  def self.value_diff(new_val, old_val, field)
+  def self.value_diff(new_val, old_val, field = nil)
     val = new_val || old_val
+    type = field.andand[:type]
     if val.is_a?(Array)
       collection_diff(new_val || [], old_val || [], field.andand[:type])
+    elsif type == 'units'
+      return {
+        :qty => value_diff(new_val.andand['qty'], old_val.andand['qty']),
+        :unit => value_diff(new_val.andand['unit'], old_val.andand['unit']),
+      }
     elsif val.is_a?(Hash)
       hash_diff(new_val || {}, old_val || {})
     else
-      type = field.andand[:type]
       val = case type
             when 'date'
               old_val.to_i > 0 && Time.at(old_val.to_i).strftime('%F')

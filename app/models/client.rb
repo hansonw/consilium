@@ -1,4 +1,8 @@
-require 'consilium_fields'
+if Rails.env == 'development'
+  require_dependency 'consilium_fields'
+else
+  require 'consilium_fields'
+end
 
 class Client
   include Mongoid::Document
