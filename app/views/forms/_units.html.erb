@@ -11,7 +11,7 @@
     <select ng-model="<%= model %>.unit"
             ng-class="{changed: changedFields.<%= field[:id] %>.unit}"
             title="{{ changedFields.<%= field[:id] %>.unit }}">
-      <option value="">Units</option>
+      <option value="">Select unit...</option>
       <% field[:options].each do |option| %>
         <option><%= option %></option>
       <% end %>
