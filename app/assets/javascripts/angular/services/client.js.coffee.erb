@@ -5,7 +5,7 @@ App.factory 'Client', ['Offline', (Offline) ->
   Offline.wrap 'Client', '<%= angularApiPath('/api/clients/:id') %>',
     (params, val) ->
       if params.query?
-        if !val.companyName?.value?.match?(///#{params.query}///i)?
+        if !val.company_name?.value?.match?(///#{params.query}///i)?
           return false
       if params.filter?
         for key, str of params.filter

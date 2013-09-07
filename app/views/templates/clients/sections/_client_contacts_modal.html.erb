@@ -12,9 +12,9 @@
   </div>
   <br>
   <aside ng-show="clientContacts.users">
-    <button class="pure-button pure-button-success"><i class="icon-plus"></i> <i class="icon-user icon-large"></i></button>&nbsp;&nbsp;Click here to allow {{ clientContacts.name.value || 'this contact' }} to manage {{ client.companyName.value }}. They will be sent an email with instructions.
+    <button class="pure-button pure-button-success"><i class="icon-plus"></i> <i class="icon-user icon-large"></i></button>&nbsp;&nbsp;Click here to allow {{ clientContacts.name.value || 'this contact' }} to manage {{ client.company_name.value }}. They will be sent an email with instructions.
   </aside>
   <aside ng-hide="clientContacts.users">
-    <button class="pure-button pure-button-error"><i class="icon-minus"></i> <i class="icon-user icon-large"></i></button>&nbsp;&nbsp;Click here to disallow {{ clientContacts.name.value || 'this contact' }} from managing {{ client.companyName.value }}.
+    <button class="pure-button pure-button-error"><i class="icon-minus"></i> <i class="icon-user icon-large"></i></button>&nbsp;&nbsp;Click here to disallow {{ clientContacts.name.value || 'this contact' }} from managing {{ client.company_name.value }}.
   </aside>
 </div>

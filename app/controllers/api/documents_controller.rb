@@ -53,7 +53,7 @@ class Api::DocumentsController < Api::ApiController
 
     doc = Document.new({
       :client_change_id => last_change.id,
-      :description => @client.companyName['value'],
+      :description => @client.company_name['value'],
       :document_template_id => template.id,
     })
 

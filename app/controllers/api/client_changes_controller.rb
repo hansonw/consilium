@@ -4,7 +4,7 @@ require 'andand'
 
 class Api::ClientChangesController < Api::ApiController
   load_and_authorize_resource
-  render_related_fields :user => [:email], :client => [:companyName]
+  render_related_fields :user => [:email], :client => [:company_name]
 
   # GET /client_changes
   # GET /client_changes.json

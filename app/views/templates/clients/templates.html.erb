@@ -1,7 +1,7 @@
 <% paths = {
      "Home" => "#/",
      "Clients" => "#/clients/index",
-     "{{ client.companyName.value }}" => "#/clients/show/{{ clientId }}",
+     "{{ client.company_name.value }}" => "#/clients/show/{{ clientId }}",
      "Edit Document Templates" => "#/clients/templates/{{ clientId }}",
    }
  %>
@@ -25,7 +25,7 @@
     <div class="content header pure-u-1">
       <h2 class="no-bottom-margin">
         <i data-ng-show="loading" class="icon-spinner icon-spin"></i>
-        <span data-ng-show="!loading">Edit Document Templates: {{ client.companyName.value }}</span>
+        <span data-ng-show="!loading">Edit Document Templates: {{ client.company_name.value }}</span>
       </h2>
       <%= render :partial => 'templates/breadcrumbs',
                  :locals => { :paths => paths }

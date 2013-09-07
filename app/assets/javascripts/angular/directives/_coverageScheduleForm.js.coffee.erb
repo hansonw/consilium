@@ -1,7 +1,7 @@
 App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
   ($scope, elem, attrs) ->
     $scope.coverageCategories =
-      <%= Client::FIELDS.find { |f| f[:id] == 'locations' }[:type].find { |f| f[:id] == 'coverageSchedules' }[:coverages].to_json %>
+      <%= Client::FIELDS.find { |f| f[:id] == 'locations' }[:type].find { |f| f[:id] == 'coverage_schedules' }[:coverages].to_json %>
 
     coverageLookup = {}
     for category in $scope.coverageCategories

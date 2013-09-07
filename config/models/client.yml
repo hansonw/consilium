@@ -1,24 +1,24 @@
 ---
 - :name: Basic Client Info
-  :id: basicClientInfo
+  :id: basic_client_info
   :class: startOpen
   :type:
   - :name: Company Name
-    :id: companyName
+    :id: company_name
     :placeholder: Name of Company
     :type: text
     :required: true
     :primary: true
     :unique: true
   - :name: Business Sector
-    :id: businessSector
+    :id: business_sector
     :type: dropdown
     :options:
     - Generic
     - Solar
     :required: true
   - :name: Form of Business
-    :id: formOfBusiness
+    :id: form_of_business
     :type: dropdown
     :options:
     - Individual
@@ -28,7 +28,7 @@
     - Limited Liability Company
     - Corporation
   - :name: Account Number
-    :id: accountNumber
+    :id: account_number
     :placeholder: Account Number
     :type: text
     :unique: true
@@ -66,7 +66,7 @@
     - Canada
     - Other
   - :name: Postal Code
-    :id: postalCode
+    :id: postal_code
     :placeholder: e.g. A1B 2C3
     :type: text
   - :name: Web Site
@@ -82,35 +82,30 @@
     :placeholder: 'Area code - phone #, ext #'
     :type: phone
 - :name: Client Contacts
-  :id: clientContacts
-#:createCallback: editClientContact()
-#:submitCallback: saveClientContact()
-#:editCallback: editClientContacts($index)
-#:modalPartial: templates/clients/sections/client_contacts_modal
-#:tablePartial: templates/clients/sections/client_contacts_table
+  :id: client_contacts
   :type: !ruby/class 'ClientContact'
 - :name: Business Ops
-  :id: businessOp
+  :id: business_op
   :type:
   - :name: Industry Code
-    :id: industryCode
+    :id: industry_code
     :placeholder: Industry Code (ex. 111111)
     :type: text
   - :name: Description of operations
-    :id: descriptionOperations
+    :id: description_operations
     :placeholder: Description of operations
     :type: textbox
     :boxRows: 5
 - :name: Claims Info
-  :id: claimsInfos
+  :id: claims_infos
   :type:
   - :name: Loss Date
-    :id: lossDate
+    :id: loss_date
     :type: date
     :required: true
     :primary: true
   - :name: Type of Claim
-    :id: claimType
+    :id: claim_type
     :placeholder: (ex. Commercial)
     :type: text
     :intelligent: true
@@ -121,7 +116,7 @@
     :type: textbox
     :boxRows: 2
   - :name: Amount Paid
-    :id: amountPaid
+    :id: amount_paid
     :placeholder: $ CAN (ex. 111.11)
     :type: currency
   - :name: Reserve
@@ -129,17 +124,17 @@
     :placeholder: $ CAN (ex. 111.11)
     :type: currency
 - :name: Policy Info
-  :id: policyInfos
+  :id: policy_infos
   :type:
   - :name: Insurer
-    :id: prevInsurer
+    :id: prev_insurer
     :required: true
     :placeholder: Name
     :type: text
     :intelligent: true
     :primary: true
   - :name: Policy Type
-    :id: prevPolicyType
+    :id: prev_policy_type
     :required: true
     :type: dropdown
     :options:
@@ -152,44 +147,44 @@
     - Other
     :primary: true
   - :name: Policy Number
-    :id: prevPolicyNumber
+    :id: prev_policy_number
     :placeholder: '# (ex. AAA1111111)'
     :type: text
   - :name: Premium
-    :id: prevPremium
+    :id: prev_premium
     :placeholder: $ CAN (ex. 111.11)
     :type: currency
   - :name: ''
-    :id: prevPremiumMonthlyOrAnnual
+    :id: prev_premium_monthly_or_annual
     :type: radio
     :options:
       annually: Annually
       monthly: Monthly
   - :name: Inception Date
-    :id: prevTermStart
+    :id: prev_term_start
     :type: date
   - :name: Expiry Date
-    :id: prevTermEnd
+    :id: prev_term_end
     :type: date
     :prefill:
       :type: watch
       :watch: policyInfos.prevTermStart.value
       :expr: policyInfos.prevTermStart.value + 31557600.0
   - :name: Quote Required By
-    :id: quoteRequiredBy
+    :id: quote_required_by
     :type: date
 - :name: Prev. Policy Info
-  :id: prevPolicyInfos
+  :id: prev_policy_infos
   :type:
   - :name: Insurer
-    :id: prevInsurer
+    :id: prev_insurer
     :required: true
     :placeholder: Name
     :type: text
     :intelligent: true
     :primary: true
   - :name: Policy Type
-    :id: prevPolicyType
+    :id: prev_policy_type
     :required: true
     :type: dropdown
     :options:
@@ -202,41 +197,41 @@
     - Other
     :primary: true
   - :name: Policy Number
-    :id: prevPolicyNumber
+    :id: prev_policy_number
     :placeholder: '# (ex. AAA1111111)'
     :type: text
   - :name: Premium
-    :id: prevPremium
+    :id: prev_premium
     :placeholder: $ CAN (ex. 111.11)
     :type: currency
   - :name: ''
-    :id: prevPremiumMonthlyOrAnnual
+    :id: prev_premium_monthly_or_annual
     :type: radio
     :options:
       annually: Annually
       monthly: Monthly
   - :name: Inception Date
-    :id: prevTermStart
+    :id: prev_term_start
     :type: date
   - :name: Expiry Date
-    :id: prevTermEnd
+    :id: prev_term_end
     :type: date
     :prefill:
       :type: watch
       :watch: prevPolicyInfos.prevTermStart.value
       :expr: prevPolicyInfos.prevTermStart.value + 31557600.0
 - :name: Liability Info
-  :id: liabilityInfo
+  :id: liability_info
   :type:
   - :name: In Business Since
-    :id: businessStartDate
+    :id: business_start_date
     :type: date
   - :name: Full Time Employees
-    :id: fullTimeEmployees
+    :id: full_time_employees
     :placeholder: '#'
     :type: text
   - :name: Part Time Employees
-    :id: partTimeEmployees
+    :id: part_time_employees
     :placeholder: '#'
     :type: text
   - :name: Covered by
@@ -250,12 +245,12 @@
   - :type: separator
     :clientType: solar
   - :name: Annual energy generation
-    :id: solarAnnualEnergy
+    :id: solar_annual_energy
     :type: text
     :clientType: solar
     :placeholder: Annual energy generation by location (kWh)
   - :name: Energy sold to
-    :id: solarEnergySoldTo
+    :id: solar_energy_sold_to
     :type: checkbox
     :clientType: solar
     :options:
@@ -263,157 +258,157 @@
       host: Host
       other: Other
   - :name: Describe
-    :id: solarEnergySoldToOther
+    :id: solar_energy_sold_to_other
     :type: text
     :clientType: solar
     :placeholder: Describe other
-    :if: solarAnnualEnergy.other
+    :if: solar_annual_energy.other
   - :name: Utility
-    :id: solarUtility
+    :id: solar_utility
     :type: text
     :clientType: solar
     :placeholder: Name of utility/local distribution company
   - :name: Host
-    :id: solarHost
+    :id: solar_host
     :type: text
     :clientType: solar
     :placeholder: Name of owner of leased site location (host)
   - :name: Lessor
-    :id: solarLessor
+    :id: solar_lessor
     :type: text
     :clientType: solar
     :placeholder: Name of lessor of leased equipment
   - :name: ''
-    :id: solarProjectRestricted
+    :id: solar_project_restricted
     :type: checkbox
     :clientType: solar
     :options:
       'yes': Is project access restricted?
   - :name: Describe
-    :id: solarProjectRestrictedDescribe
+    :id: solar_project_restricted_describe
     :type: text
     :clientType: solar
     :placeholder: If restricted, describe
-    :if: solarProjectRestricted.yes
+    :if: solar_project_restricted.yes
   - :name: ''
-    :id: solarTransmission
+    :id: solar_transmission
     :type: checkbox
     :clientType: solar
     :options:
       'yes': Do you own or maintain any electric transmission distribution lines or
         substations?
   - :name: Describe
-    :id: solarTransmissionDescribe
+    :id: solar_transmission_describe
     :type: text
     :clientType: solar
     :placeholder: If yes, describe line length (km) and number of substations
-    :if: solarTransmission.yes
+    :if: solar_transmission.yes
   - :type: separator
     :clientType: solar
   - :name: Non-workers' compensation
-    :id: solarNonWorkersCompensation
+    :id: solar_non_workers_compensation
     :type: text
     :clientType: solar
     :placeholder: Number of employees not covered by workers compensation
   - :name: Non-covered employee class
-    :id: solarNonWorkersCompensationClass
+    :id: solar_non_workers_compensation_class
     :type: dropdown
     :clientType: solar
-    :if: solarNonWorkersCompensation > 0
+    :if: solar_non_workers_compensation > 0
     :options:
     - Office
     - Other
   - :type: separator
     :clientType: solar
   - :name: Sub-contracts
-    :id: solarSubcontracts
+    :id: solar_subcontracts
     :type: text
     :clientType: solar
     :placeholder: If any work is subcontracted, describe type of work contracted
   - :name: ''
-    :id: solarSubcontractorCoverage
+    :id: solar_subcontractor_coverage
     :type: checkbox
     :clientType: solar
     :options:
       'yes': Subcontractor coverage required
   - :name: Limit required
-    :id: solarSubcontractorCoverageLimit
+    :id: solar_subcontractor_coverage_limit
     :type: text
     :clientType: solar
     :placeholder: Limit required for subcontractors
-    :if: solarSubcontractorCoverage.yes
+    :if: solar_subcontractor_coverage.yes
   - :name: ''
-    :id: solarSubcontractorCoverageAdditionalInsured
+    :id: solar_subcontractor_coverage_additional_insured
     :type: checkbox
     :clientType: solar
     :options:
       'yes': Are you named as an additional insured?
-    :if: solarSubcontractorCoverage.yes
+    :if: solar_subcontractor_coverage.yes
   - :name: ''
-    :id: solarSubcontractorCoverageWaive
+    :id: solar_subcontractor_coverage_waive
     :type: checkbox
     :clientType: solar
     :options:
       'yes': Do you waive your rights of subrogation?
-    :if: solarSubcontractorCoverage.yes
+    :if: solar_subcontractor_coverage.yes
   - :name: ''
-    :id: solarSubcontractorCoverageCertificates
+    :id: solar_subcontractor_coverage_certificates
     :type: checkbox
     :clientType: solar
     :options:
       'yes': Are certificates of insurance required for all subcontractors?
-    :if: solarSubcontractorCoverage.yes
+    :if: solar_subcontractor_coverage.yes
   - :type: separator
     :clientType: solar
   - :name: ''
-    :id: solarSubcontractorCoveragePlannedSites
+    :id: solar_subcontractor_coverage_planned_sites
     :type: checkbox
     :clientType: solar
     :options:
       'yes': Are any site(s) planned or in the process of construction?
   - :name: Describe
-    :id: solarSubcontractorCoveragePlannedDescribe
+    :id: solar_subcontractor_coverage_planned_describe
     :type: text
     :clientType: solar
     :placeholder: If yes, describe
-    :if: solarSubcontractorCoveragePlannedSites.yes
+    :if: solar_subcontractor_coveragePlannedSites.yes
   - :type: separator
   - :name: Annual gross receipts
-    :id: annualGrossReceipts
+    :id: annual_gross_receipts
     :placeholder: $ CAN (ex. 111.11)
     :type: currency
   - :name: Canadian %
-    :id: canadianPercent
+    :id: canadian_percent
     :placeholder: '% (ex. 11)'
     :type: text
   - :name: US. %
-    :id: americanPercent
+    :id: american_percent
     :placeholder: '% (ex. 11)'
     :type: text
   - :name: Foreign %
-    :id: foreignPercent
+    :id: foreign_percent
     :placeholder: '% (ex. 11)'
     :type: text
   - :name: Annual Payroll
-    :id: annualPayroll
+    :id: annual_payroll
     :placeholder: $ CAN (ex. 111.11)
     :type: currency
 - :name: Exposure/Receipts
-  :id: exposureOrReceipts
+  :id: exposure_or_receipts
   :type:
   - :name: Operation or Product Type
-    :id: operationOrProductType
+    :id: operation_or_product_type
     :required: true
     :type: text
     :placeholder: Operation or product type
     :intelligent: true
     :primary: true
   - :name: Annual % or $
-    :id: annualPercentOrDollar
+    :id: annual_percent_or_dollar
     :type: text
     :placeholder: $ CAN (ex. 111.11) or % (ex. 48%)
   - :name: Change from Last Year
-    :id: changeFromLastYear
+    :id: change_from_last_year
     :type: text
     :placeholder: $ CAN (ex. 111.11) or % (ex. 48%)
 - :name: Locations
@@ -424,30 +419,30 @@
   :createHref: '#/clients/edit/{{client.id}}/location/'
   :type:
   - :name: Basic Location Info
-    :id: basicLocationInfo
+    :id: basic_location_info
     :class: startOpen
     :type:
     - :name: Location Number
-      :id: locationNumber
+      :id: location_number
       :placeholder: '# (ex. 1111)'
       :type: text
       :required: true
       :primary: true
       :unique: true
     - :name: This location is
-      :id: locationType
+      :id: location_type
       :type: dropdown
       :placeholder: ''
       :options:
       - Urban
       - Rural
     - :name: Address
-      :id: locationAddress
+      :id: location_address
       :placeholder: Address (apt., suite, bldg.)
       :type: text
       :primary: true
     - :name: City
-      :id: locationCity
+      :id: location_city
       :placeholder: City
       :type: text
     - :name: Country
@@ -474,14 +469,14 @@
       - Saskatchewan
       - Yukon Territory
     - :name: Postal Code
-      :id: locationPostalCode
+      :id: location_postal_code
       :placeholder: (ex. A1A 1A1)
       :type: text
   - :name: Risk Info
-    :id: riskInfo
+    :id: risk_info
     :type:
     - :name: Type
-      :id: riskInfoType
+      :id: risk_info_type
       :type: dropdown
       :placeholder: (Risk Type)
       :options:
@@ -491,7 +486,7 @@
       - Other Commercial Risk
       :clientType: ''
     - :name: Type of project
-      :id: solarProjectType
+      :id: solar_project_type
       :type: dropdown
       :clientType: solar
       :options:
@@ -499,15 +494,15 @@
       - Concentrating Solar Power (CSP)
       - Other
     - :name: Type of solar PV mounting
-      :id: pvMountingType
+      :id: pv_mounting_type
       :type: radio
       :clientType: solar
       :options:
         rooftop: Rooftop
         ground: Ground
-      :if: solarProjectType == "Photovoltaic (PV)"
+      :if: solar_project_type == "Photovoltaic (PV)"
     - :name: Mounting structure/device
-      :id: solarMountingStructure
+      :id: solar_mounting_structure
       :type: dropdown
       :clientType: solar
       :options:
@@ -518,148 +513,148 @@
     - :type: heading
       :clientType: solar
       :text: Roof-top Mounted
-      :if: pvMountingType == "rooftop"
+      :if: pv_mounting_type == "rooftop"
     - :name: Type and use of attached structure
-      :id: solarStructureType
+      :id: solar_structure_type
       :type: text
       :clientType: solar
-      :if: pvMountingType == "rooftop"
+      :if: pv_mounting_type == "rooftop"
     - :name: Location operation
-      :id: solarLocationOperation
+      :id: solar_location_operation
       :type: radio
       :clientType: solar
       :options:
         yearRound: Year Round
         seasonal: Seasonal
-      :if: pvMountingType == "rooftop"
+      :if: pv_mounting_type == "rooftop"
     - :name: ''
-      :id: solarRoofLeased
+      :id: solar_roof_leased
       :type: checkbox
       :clientType: solar
       :options:
         'yes': Is the roof leased?
-      :if: pvMountingType == "rooftop"
+      :if: pv_mounting_type == "rooftop"
     - :name: ''
-      :id: solarEngineeringEvaluation
+      :id: solar_engineering_evaluation
       :type: checkbox
       :clientType: solar
       :options:
         'yes': Structural engineering evaluation completed?
-      :if: pvMountingType == "rooftop"
+      :if: pv_mounting_type == "rooftop"
     - :type: separator
       :clientType: solar
-      :if: solarProjectType == "Photovoltaic (PV)"
+      :if: solar_project_type == "Photovoltaic (PV)"
     - :type: heading
       :text: Photovolatic Module Information
       :clientType: solar
-      :if: solarProjectType == "Photovoltaic (PV)"
+      :if: solar_project_type == "Photovoltaic (PV)"
     - :name: PV manufacturer
-      :id: pvManufacturer
+      :id: pv_manufacturer
       :type: text
       :clientType: solar
-      :if: solarProjectType == "Photovoltaic (PV)"
+      :if: solar_project_type == "Photovoltaic (PV)"
     - :name: PV panels
-      :id: pvPanels
+      :id: pv_panels
       :type: text
       :clientType: solar
       :placeholder: Number of PV panels
-      :if: solarProjectType == "Photovoltaic (PV)"
+      :if: solar_project_type == "Photovoltaic (PV)"
     - :name: Nameplate capacity
-      :id: pvCapacity
+      :id: pv_capacity
       :type: text
       :clientType: solar
       :placeholder: Generating capacity (kW/MW)
-      :if: solarProjectType == "Photovoltaic (PV)"
+      :if: solar_project_type == "Photovoltaic (PV)"
     - :name: Inverter manufacturer
-      :id: pvInverterManufacturer
+      :id: pv_inverter_manufacturer
       :type: text
       :clientType: solar
-      :if: solarProjectType == "Photovoltaic (PV)"
+      :if: solar_project_type == "Photovoltaic (PV)"
     - :name: Number of inverters
-      :id: pvInverterCount
+      :id: pv_inverter_count
       :type: text
       :clientType: solar
-      :if: solarProjectType == "Photovoltaic (PV)"
+      :if: solar_project_type == "Photovoltaic (PV)"
     - :name: Number of transformers
-      :id: pvTransformerCount
+      :id: pv_transformer_count
       :type: text
       :clientType: solar
-      :if: solarProjectType == "Photovoltaic (PV)"
+      :if: solar_project_type == "Photovoltaic (PV)"
     - :name: ''
-      :id: pvEquipmentUsed
+      :id: pv_equipment_used
       :type: checkbox
       :clientType: solar
       :options:
         'yes': Is any component of the equipment used?
-      :if: solarProjectType == "Photovoltaic (PV)"
+      :if: solar_project_type == "Photovoltaic (PV)"
     - :name: Equipment Details
-      :id: pvEquipmentDetails
+      :id: pv_equipment_details
       :type: text
       :clientType: solar
       :placeholder: Provide details including age
       :if:
-      - solarProjectType == "Photovoltaic (PV)"
-      - pvEquipmentUsed.yes
+      - solar_project_type == "Photovoltaic (PV)"
+      - pv_equipment_used.yes
     - :name: Equipment Type
-      :id: pvEquipmentType
+      :id: pv_equipment_type
       :type: dropdown
       :clientType: solar
       :options:
       - Self-owned
       - Leased
       - Community/Joint ownership
-      :if: solarProjectType == "Photovoltaic (PV)"
+      :if: solar_project_type == "Photovoltaic (PV)"
     - :name: Year Installed
-      :id: pvYearInstalled
+      :id: pv_year_installed
       :type: text
       :clientType: solar
-      :if: solarProjectType == "Photovoltaic (PV)"
+      :if: solar_project_type == "Photovoltaic (PV)"
     - :name: Installer
-      :id: pvInstaller
+      :id: pv_installer
       :type: text
       :clientType: solar
       :placeholder: Who completed the installation?
-      :if: solarProjectType == "Photovoltaic (PV)"
+      :if: solar_project_type == "Photovoltaic (PV)"
     - :name: ''
-      :id: pvInstallerSIA
+      :id: pv_installer_sia
       :type: checkbox
       :clientType: solar
       :options:
         'yes': Is installer a CanSIA member?
-      :if: solarProjectType == "Photovoltaic (PV)"
+      :if: solar_project_type == "Photovoltaic (PV)"
     - :type: separator
       :clientType: solar
     - :name: ''
-      :id: solarPreventativeMaintenance
+      :id: solar_preventative_maintenance
       :type: checkbox
       :clientType: solar
       :options:
         'yes': Is there a written preventative maintenance program in place?
     - :name: Describe
-      :id: solarPreventativeMaintenanceDescribe
+      :id: solar_preventative_maintenance_describe
       :type: text
       :clientType: solar
       :placeholder: If no, what plans exist for maintenance of PV modules and associated
         equipment?
-      :if: '!solarPreventativeMaintenance.yes'
+      :if: '!solar_preventative_maintenance.yes'
     - :name: Spares
-      :id: solarSpares
+      :id: solar_spares
       :type: text
       :clientType: solar
       :placeholder: Details of spares kept off premises
     - :name: ''
-      :id: solarOwnSubstation
+      :id: solar_own_substation
       :type: checkbox
       :clientType: solar
       :options:
         'yes': Does applicant own any substation on site?
     - :name: Non-owned substation distance
-      :id: solarNonOwnedDistance
+      :id: solar_non_owned_distance
       :type: text
       :clientType: solar
       :placeholder: Distance of non-owned substation from site location
     - :name: Power lines to non-owned substation
-      :id: solarNonOwnedPowerLines
+      :id: solar_non_owned_power_lines
       :type: radio
       :clientType: solar
       :options:
@@ -667,45 +662,45 @@
         onSurface: On surface
         overhead: Overhead
     - :name: Annual power generation revenue
-      :id: solarAnnualRevenue
+      :id: solar_annual_revenue
       :type: text
       :clientType: solar
       :placeholder: Expected annual revenue from power generation
     - :name: ''
-      :id: solarSystemLog
+      :id: solar_system_log
       :type: checkbox
       :clientType: solar
       :options:
         'yes': Do you maintain a log of your system performance?
     - :name: ''
-      :id: solarSCADA
+      :id: solar_scada
       :type: checkbox
       :clientType: solar
       :options:
         'yes': Is SCADA system provided?
     - :name: SCADA signal
-      :id: solarSCADASignal
+      :id: solar_scada_signal
       :type: text
       :clientType: solar
       :placeholder: If yes, where does the SCADA system signal?
-      :if: solarSCADA.yes
+      :if: solar_scada.yes
     - :name: Contingency plans
-      :id: solarContingencyPlans
+      :id: solar_contingency_plans
       :type: text
       :clientType: solar
       :placeholder: Please describe contingency plans in place for critical equipment
         failure (i.e. inverters)
     - :name: ''
-      :id: solarWarranty
+      :id: solar_warranty
       :type: checkbox
       :clientType: solar
       :options:
         'yes': Is equipment under manufacturer’s warranty?
     - :name: Warranty expiry
-      :id: solarWarrantyExpiry
+      :id: solar_warranty_expiry
       :type: date
       :clientType: solar
-      :if: solarWarranty.yes
+      :if: solar_warranty.yes
     - :type: separator
       :clientType: solar
     - :name: Risk was inspected
@@ -715,16 +710,16 @@
         'yes': 'Yes'
         'no': 'No'
     - :name: Date Inspected
-      :id: inspectionDate
+      :id: inspection_date
       :type: date
       :if: inspection != "no"
     - :name: Inspected by
-      :id: inspectedBy
+      :id: inspected_by
       :placeholder: Person/firm risk was inspected by
       :type: text
       :if: inspection != "no"
     - :name: This risk is
-      :id: riskSeverity
+      :id: risk_severity
       :type: radio
       :options:
         excellent: Excellent
@@ -736,33 +731,33 @@
       :if: inspection != "no"
     - :type: separator
     - :name: Notes
-      :id: riskInfoNotes
+      :id: risk_info_notes
       :placeholder: Other useful info.
       :type: textbox
     - :name: Limit
-      :id: riskInfoLimit
+      :id: risk_info_limit
       :placeholder: Limit
       :type: text
   - :name: Construction
     :id: construction
     :type:
     - :name: Stories
-      :id: constructionStories
+      :id: construction_stories
       :placeholder: '# of Floors'
       :type: text
     - :name: Year Built
-      :id: yearBuilt
+      :id: year_built
       :placeholder: '#'
       :type: text
     - :name: Area
-      :id: constructionArea
+      :id: construction_area
       :placeholder: '# Only'
       :type: units
       :options:
       - Sq. ft.
       - Sq. m.
     - :name: Walls
-      :id: constructionWalls
+      :id: construction_walls
       :type: dropdown
       :placeholder: Select a material..
       :options:
@@ -783,7 +778,7 @@
       - Masonry veneer
       - Other
     - :name: Floors
-      :id: constructionFloors
+      :id: construction_floors
       :type: dropdown
       :placeholder: Select a material..
       :options:
@@ -800,7 +795,7 @@
       - Brick or stone
       - Other
     - :name: Basement
-      :id: constructionBasement
+      :id: construction_basement
       :type: dropdown
       :placeholder: Select a material..
       :options:
@@ -816,7 +811,7 @@
       - Unfinished (crawl space)
       - Other
     - :name: Roof
-      :id: constructionRoof
+      :id: construction_roof
       :type: dropdown
       :placeholder: Select a material..
       :options:
@@ -828,7 +823,7 @@
       - Steel Deck
       - Other
     - :name: Roof Covering
-      :id: constructionRoofCovering
+      :id: construction_roof_covering
       :type: dropdown
       :placeholder: Select a material..
       :options:
@@ -850,7 +845,7 @@
       - Glass/poly on metal
       - Other
     - :name: Electrical Type
-      :id: constructionElectrical
+      :id: construction_electrical
       :type: dropdown
       :placeholder: ''
       :options:
@@ -858,7 +853,7 @@
       - Fuses
       - Breakers & Fuses
     - :name: Plumbing Type
-      :id: constructionPlumbing
+      :id: construction_plumbing
       :type: dropdown
       :placeholder: ''
       :options:
@@ -871,7 +866,7 @@
       - Steel
       - Other
     - :name: Heating Type
-      :id: constructionHeating
+      :id: construction_heating
       :type: dropdown
       :placeholder: ''
       :options:
@@ -909,7 +904,7 @@
       - Geothermal
       - Other (describe)
     - :name: Fuel
-      :id: constructionFuel
+      :id: construction_fuel
       :type: dropdown
       :placeholder: Fuel type
       :options:
@@ -929,89 +924,89 @@
     - :type: heading
       :text: Renovations
     - :name: ''
-      :id: renovationsNoneKnown
+      :id: renovations_none_known
       :type: checkbox
       :options:
         'yes': None Known
     - :name: ''
-      :id: renovationsElectrical
+      :id: renovations_electrical
       :type: checkbox
       :options:
         'yes': Electrical
     - :name: Year of Renovation
-      :id: renovationsElectricalYear
+      :id: renovations_electrical_year
       :type: text
       :placeholder: '#'
-      :if: renovationsElectrical.yes
+      :if: renovations_electrical.yes
     - :name: ''
-      :id: renovationsElectricalCompletePartial
+      :id: renovations_electrical_complete_partial
       :type: radio
       :options:
         complete: Complete
         partial: Partial
-      :if: renovationsElectrical.yes
+      :if: renovations_electrical.yes
     - :type: separator
-      :if: renovationsElectrical.yes
+      :if: renovations_electrical.yes
     - :name: ''
-      :id: renovationsPlumbing
+      :id: renovations_plumbing
       :type: checkbox
       :options:
         'yes': Plumbing
     - :name: Year of Renovation
-      :id: renovationsPlumbingYear
+      :id: renovations_plumbing_year
       :type: text
       :placeholder: '#'
-      :if: renovationsPlumbing.yes
+      :if: renovations_plumbing.yes
     - :name: ''
-      :id: renovationsPlumbingCompletePartial
+      :id: renovations_plumbing_complete_partial
       :type: radio
       :options:
         complete: Complete
         partial: Partial
-      :if: renovationsPlumbing.yes
+      :if: renovations_plumbing.yes
     - :type: separator
-      :if: renovationsPlumbing.yes
+      :if: renovations_plumbing.yes
     - :name: ''
-      :id: renovationsHeating
+      :id: renovations_heating
       :type: checkbox
       :options:
         'yes': Heating
     - :name: Year of Renovation
-      :id: renovationsHeatingYear
+      :id: renovations_heating_year
       :type: text
       :placeholder: '#'
-      :if: renovationsHeating.yes
+      :if: renovations_heating.yes
     - :name: ''
-      :id: renovationsHeatingCompletePartial
+      :id: renovations_heating_complete_partial
       :type: radio
       :options:
         complete: Complete
         partial: Partial
-      :if: renovationsHeating.yes
+      :if: renovations_heating.yes
     - :type: separator
-      :if: renovationsHeating.yes
+      :if: renovations_heating.yes
     - :name: ''
-      :id: renovationsRoof
+      :id: renovations_roof
       :type: checkbox
       :options:
         'yes': Roof
     - :name: Year of Renovation
-      :id: renovationsRoofYear
+      :id: renovations_roof_year
       :type: text
       :placeholder: '#'
-      :if: renovationsRoof.yes
+      :if: renovations_roof.yes
     - :name: ''
-      :id: renovationsRoofCompletePartial
+      :id: renovations_roof_complete_partial
       :type: radio
       :options:
         complete: Complete
         partial: Partial
-      :if: renovationsRoof.yes
+      :if: renovations_roof.yes
   - :name: Fire Protection
-    :id: fireProtection
+    :id: fire_protection
     :type:
     - :name: Nearest Fire Hydrant
-      :id: fireHydrants
+      :id: fire_hydrants
       :type: dropdown
       :placeholder: Select distance
       :options:
@@ -1020,7 +1015,7 @@
       - Within 300m
       - Over 300m
     - :name: Nearest Fire Department
-      :id: fireDepartment
+      :id: fire_department
       :type: dropdown
       :placeholder: Select distance
       :options:
@@ -1030,7 +1025,7 @@
       - Within 13km
       - Over 13km
     - :name: Extinguishing System
-      :id: extinguishingSystem
+      :id: extinguishing_system
       :type: dropdown
       :placeholder: Select a type..
       :options:
@@ -1039,7 +1034,7 @@
       - None
       - Other
     - :name: Extinguishing Agent
-      :id: extinguishingAgent
+      :id: extinguishing_agent
       :type: radio
       :placeholder: Select a type...
       :options:
@@ -1051,7 +1046,7 @@
         dryChemical: Dry Chemical
         automaticCO2: Automatic CO2
     - :name: Fire Alarm
-      :id: fireAlarm
+      :id: fire_alarm
       :type: dropdown
       :placeholder: Select a type..
       :options:
@@ -1063,7 +1058,7 @@
       - Local Alarm
       - Other
     - :name: Coverage %
-      :id: coveragePercent
+      :id: coverage_percent
       :placeholder: '%'
       :type: text
     - :id: standpipe
@@ -1071,13 +1066,13 @@
       :options:
         'yes': Standpipe & Hose
     - :name: Other Info
-      :id: otherFireInfo
+      :id: other_fire_info
       :type: textbox
   - :name: Crime Protection
-    :id: crimeProtection
+    :id: crime_protection
     :type:
     - :name: Protection Types
-      :id: protectionTypes
+      :id: protection_types
       :type: checkbox
       :options:
         deadbolt: Doors – deadbolt
@@ -1114,13 +1109,13 @@
         glassBreakageDetect: Windows – Glass breakage detectors
         other: Other (describe)
     - :name: Describe if other
-      :id: protectionTypesOther
+      :id: protection_types_other
       :type: text
-      :if: protectionTypes.other
+      :if: protection_types.other
     - :type: separator
-      :if: protectionTypes.other
+      :if: protection_types.other
     - :name: Burglar Alarm
-      :id: burglarAlarm
+      :id: burglar_alarm
       :type: dropdown
       :placeholder: Select a type..
       :options:
@@ -1133,7 +1128,7 @@
       - Local
       - Other
     - :name: Safe Type
-      :id: safeType
+      :id: safe_type
       :type: radio
       :options:
         fire: Fire
@@ -1141,7 +1136,7 @@
         vault: Vault
         none: None
     - :name: Safe Class
-      :id: safeClass
+      :id: safe_class
       :type: dropdown
       :options:
       - '1'
@@ -1151,48 +1146,48 @@
       - '5'
       - Other
     - :name: Other
-      :id: crimeProtectionOther
+      :id: crime_protection_other
       :placeholder: Other Useful Info
       :type: textbox
   - :name: Occupancy
     :id: occupancy
     :type:
     - :name: Insured
-      :id: occupancyInsured
+      :id: occupancy_insured
       :placeholder: Description
       :type: textbox
     - :name: Others
-      :id: occupancyOthers
+      :id: occupancy_others
       :placeholder: Description
       :type: textbox
   - :name: Exposure
     :id: exposure
     :type:
     - :name: ''
-      :id: exposuresClear
+      :id: exposures_clear
       :type: checkbox
       :options:
         'yes': Clear in all directions
     - :name: Left of Insured
-      :id: exposuresLeft
+      :id: exposures_left
       :placeholder: Description (ex. clear)
       :type: textbox
-      :if: '!exposuresClear.yes'
+      :if: '!exposures_clear.yes'
     - :name: Right of Insured
-      :id: exposuresRight
+      :id: exposures_right
       :placeholder: Description (ex. clear)
       :type: textbox
-      :if: '!exposuresClear.yes'
+      :if: '!exposures_clear.yes'
     - :name: Behind Insured
-      :id: exposuresBehind
+      :id: exposures_behind
       :placeholder: Description (ex. clear)
       :type: textbox
-      :if: '!exposuresClear.yes'
+      :if: '!exposures_clear.yes'
   - :name: Buildings
     :id: buildings
     :type:
     - :name: 'Building #'
-      :id: buildingNumber
+      :id: building_number
       :type: text
       :placeholder: '#'
       :prefill:
@@ -1219,29 +1214,29 @@
       :prefill:
         :type: static
         :text: 90%
-      :if: '!statedAmount.yes'
+      :if: '!stated_amount.yes'
     - :name: ''
-      :id: statedAmount
+      :id: stated_amount
       :type: checkbox
       :options:
         'yes': Stated Amount
     - :type: separator
     - :name: Coverage Type
-      :id: coverageType
+      :id: coverage_type
       :type: radio
       :options:
-        replacementCost: Replacement Cost
-        actualCashValue: Actual Cash Value
+        replacement_cost: Replacement Cost
+        actual_cash_value: Actual Cash Value
     - :name: Amount
-      :id: replacementCost
+      :id: replacement_cost
       :type: currency
       :placeholder: $ CAN (ex. 111.11)
-      :if: coverageType == "replacementCost"
+      :if: coverage_type == "replacement_cost"
     - :name: Amount
-      :id: actualCashValue
+      :id: actual_cash_value
       :type: currency
       :placeholder: $ CAN (ex. 111.11)
-      :if: coverageType != "replacementCost"
+      :if: coverage_type != "replacement_cost"
     - :name: Rate
       :id: rate
       :type: currency
@@ -1252,10 +1247,10 @@
       :placeholder: $ CAN (ex. 111.11), calculated from rate and coverage amount
       :prefill:
         :type: calc
-        :expr: 'buildings.rate.value*(buildings.coverageType.value == "replacementCost"
-          ? buildings.replacementCost.value : buildings.actualCashValue.value)/1000'
+        :expr: 'buildings.rate.value*(buildings.coverage_type.value == "replacement_cost"
+          ? buildings.replacement_cost.value : buildings.actual_cash_value.value)/1000'
   - :name: Coverage Sched.
-    :id: coverageSchedules
+    :id: coverage_schedules
     :buttonTitle: Edit Coverage Scheds.
     :modalTitle: Coverage Schedules
     :createCallback: editCoverageSchedule()
@@ -1284,7 +1279,7 @@
         limited: Limited
         profit: Profit
         nonProfit: Non-Profit
-    - :id: replacementCost
+    - :id: replacement_cost
       :type: currency
     - :id: deductible
       :type: currency
@@ -1301,13 +1296,13 @@
         :type:
           broad: Broad Form
           named: Named Perils
-        :replacementCost: true
+        :replacement_cost: true
       - :name: Equipment
         :id: equipment
         :type:
           broad: Broad Form
           named: Named Perils
-        :replacementCost: true
+        :replacement_cost: true
       - :name: Stock
         :id: stock
         :type:
@@ -1318,188 +1313,188 @@
       - :name: Contents of Every Description (COED) ***
         :id: coed
       - :name: Office Contents (Broad)
-        :id: officeContents
+        :id: office_contents
       - :name: Electronic Data Processing Systems (Broad)
-        :id: electronicDataProcessing
+        :id: electronic_data_processing
       - :name: Valuable Papers & Records (Broad)
-        :id: valuablePapersRecords
+        :id: valuable_papers_records
       - :name: Accounts Receivable (Broad)
-        :id: accountsReceivable
+        :id: accounts_receivable
       - :name: Residential Condominiums (Broad)
-        :id: residentialCondominiums
+        :id: residential_condominiums
       - :name: Commercial Condominiums (Broad)
-        :id: commercialCondominiums
+        :id: commercial_condominiums
       - :name: Contractor’s Equipment
-        :id: contractorsEquipment
+        :id: contractors_equipment
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Tool Floater
-        :id: toolFloater
+        :id: tool_floater
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Transportation Floater
-        :id: transportationFloater
+        :id: transportation_floater
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Motor Truck Cargo – Owner’s
-        :id: motorTruckCargoOwner
+        :id: motor_truck_cargo_owner
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Motor Truck Cargo – Truckmen’s
-        :id: motorTruckCargoTruckmen
+        :id: motor_truck_cargo_truckmen
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Trip Transit (Broad)
-        :id: tripTransit
+        :id: trip_transit
       - :name: Builders Risk
-        :id: buildersRisk
+        :id: builders_risk
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Installation Floater
-        :id: installationFloater
+        :id: installation_floater
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Bailees’ Customers
-        :id: baileesCustomers
+        :id: bailees_customers
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Warehouseman’s Legal Liability
-        :id: warehousemansLiability
+        :id: warehousemans_liability
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Equipment Dealer’s Stock
-        :id: dealersStock
+        :id: dealers_stock
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Equipment Dealer’s Equipment
-        :id: dealersEquipment
+        :id: dealers_equipment
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Exhibition Floater
-        :id: exhibitionFloater
+        :id: exhibition_floater
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Fine Arts Floater (Broad)
-        :id: fineArtsFloater
+        :id: fine_arts_floater
       - :name: Signs Floater (Broad)
-        :id: signsFloater
+        :id: signs_floater
       - :name: Misc. Property Floater
-        :id: miscPropertyFloater
+        :id: misc_property_floater
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Furriers Block (Broad)
-        :id: furriersBlock
+        :id: furriers_block
       - :name: Furriers Customers – Custody Rider (Broad)
-        :id: furriersCustomersCustody
+        :id: furriers_customers_custody
       - :name: Furriers Customers – Legal Liability Rider (Broad)
-        :id: furriersCustomersLiability
+        :id: furriers_customers_liability
       - :name: Jewelers Block (Broad)
-        :id: jewelersBlock
+        :id: jewelers_block
       - :name: Heavy Equipment in Use
-        :id: heavyEquipmentInUse
+        :id: heavy_equipment_in_use
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Small Equipment in Use
-        :id: smallEquipmentInUse
+        :id: small_equipment_in_use
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Real Property
-        :id: realProperty
+        :id: real_property
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Other Transportation
-        :id: otherTransport
+        :id: other_transport
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Other Bailees Floater
-        :id: otherBaileesFloater
+        :id: other_bailees_floater
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Installment Sales Floater
-        :id: installmentSalesFloater
+        :id: installment_sales_floater
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Other Sales Operations
-        :id: otherSalesOperations
+        :id: other_sales_operations
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Other Construction
-        :id: otherConstruction
+        :id: other_construction
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Difference in Conditions
-        :id: differenceInConditions
+        :id: difference_in_conditions
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Other Misc. Floaters
-        :id: otherMiscFloaters
+        :id: other_misc_floaters
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Misc. Wording (Broad)
-        :id: miscWordingBroad
+        :id: misc_wording_broad
       - :name: Misc. Wording (Named)
-        :id: miscWordingNamed
+        :id: misc_wording_named
       - :name: Windstorm/Hail
-        :id: miscWordingNamed
+        :id: misc_wording_named
       - :name: Flood
-        :id: miscWordingNamed
+        :id: misc_wording_named
       - :name: Earthquake
-        :id: miscWordingNamed
+        :id: misc_wording_named
       - :name: Lightning
-        :id: miscWordingNamed
+        :id: misc_wording_named
     - :name: Business Income
-      :id: businessIncome
+      :id: business_income
       :type:
       - :name: Business Income
-        :id: businessIncome
+        :id: business_income
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Extended Business Income
-        :id: extendedBusinessIncome
+        :id: extended_business_income
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Rental Income
-        :id: rentalIncome
+        :id: rental_income
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Extended Rental Income
-        :id: extendedRentalIncome
+        :id: extended_rental_income
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Extra Expense
-        :id: extraExpense
+        :id: extra_expense
         :type:
           broad: Broad Form
           named: Named Perils
     - :name: Business Interruption
-      :id: businessInterruption
+      :id: business_interruption
       :type:
       - :name: Profits (Broad/Named)
         :id: profits
@@ -1507,164 +1502,164 @@
           broad: Broad Form
           named: Named Perils
       - :name: 'Gross Earnings–Mercantile or Non-Manufacturing '
-        :id: grossEMOrNM
+        :id: gross_em_or_nm
       - :name: Gross Earnings–Manufacturing
-        :id: grossEarningsManufacturing
+        :id: gross_earnings_manufacturing
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Earnings – No Co-Insurance
-        :id: earningsNoCons
+        :id: earnings_no_cons
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Rent or Rental Value
-        :id: rentRentalValue
+        :id: rent_rental_value
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Gross Rentals
-        :id: grossRentals
+        :id: gross_rentals
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Extra Expense
-        :id: extraExpense
+        :id: extra_expense
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Other Business Interruption
-        :id: otherBusinessInterruption
+        :id: other_business_interruption
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Misc. Wording (Broad)
-        :id: miscWordingBroad
+        :id: misc_wording_broad
       - :name: Misc. Wording (Named)
-        :id: miscWordingNamed
+        :id: misc_wording_named
     - :name: Crime
       :id: crime
       :type:
       - :name: Comprehensive 3 D
-        :id: comprehensive3D
+        :id: comprehensive3_d
       - :name: Employee Dishonesty (Individual)
-        :id: employeeDishonestyIndivid
+        :id: employee_dishonesty_individ
       - :name: Employee Dishonesty (Scheduled - attach)
-        :id: employeeDishonestySched
+        :id: employee_dishonesty_sched
         :type:
           named: Named Perils
           position: Position
       - :name: Money & Securities
-        :id: moneySecurities
+        :id: money_securities
         :type:
           broad: Broad Form
           robbery: Robbery
       - :name: Money Orders & Counterfeit Paper Currency
-        :id: moneyOrders
+        :id: money_orders
       - :name: Depositors Forgery
-        :id: depositorsForgery
+        :id: depositors_forgery
       - :name: Damage to Building by Burglary or Robbery
-        :id: damageBuild
+        :id: damage_build
       - :name: Stock & Equipment Burglary
-        :id: sAndEBurglary
+        :id: s_and_e_burglary
       - :name: Safe Burglary
-        :id: safeBurglary
+        :id: safe_burglary
       - :name: Safe Deposit Box Burglary & Robbery
-        :id: safeDepositBoxBurglary
+        :id: safe_deposit_box_burglary
       - :name: Safe Deposit Box Securities (Broad)
-        :id: safeDepositBoxSecurities
+        :id: safe_deposit_box_securities
       - :name: Office Burglary & Robbery
-        :id: officeBurglary
+        :id: office_burglary
         :type:
           fourPoint: 4 Point
           sevenPoint: 7 Point
       - :name: Store Burglary & Robbery (Seven Point)
-        :id: storeBurglary
+        :id: store_burglary
       - :name: Church Theft
-        :id: churchTheft
+        :id: church_theft
       - :name: Misc. Wording
-        :id: miscWording
+        :id: misc_wording
     - :name: Liability
       :id: liability
       :type:
       - :name: Commercial General Liability (Occurrence Form)
-        :id: commercialGeneralLiability
+        :id: commercial_general_liability
       - :name: Comprehensive General Liability
-        :id: comprehensiveGeneralLiability
+        :id: comprehensive_general_liability
       - :name: Owners’, Landlords’, and Tenants’ Liability
-        :id: ownersLandlords
+        :id: owners_landlords
       - :name: Tenants’ Legal Liability
-        :id: tenantsLegalLiability
+        :id: tenants_legal_liability
         :type:
           broad: Broad Form
           limited: Limited
       - :name: Non-Owned Automobile Liability (SPF 6)
-        :id: nonOwnedAutoLiability
+        :id: non_owned_auto_liability
       - :name: Worldwide Non-owned Automobile Liability
-        :id: wwNonOwnedAuto
+        :id: ww_non_owned_auto
       - :name: Voluntary Compensation
-        :id: voluntaryComensation
+        :id: voluntary_comensation
       - :name: Professional Liability
-        :id: professionalLiability
+        :id: professional_liability
       - :name: Directors’ & Officers Liability
-        :id: directorsOfficersLiability
+        :id: directors_officers_liability
         :type:
           profit: Profit
           nonProfit: Non profit
       - :name: Employers’ Bodily Injury Liability
-        :id: employersBodilyInjury
+        :id: employers_bodily_injury
       - :name: Wrap-up Liability
-        :id: wrapUpLiability
+        :id: wrap_up_liability
       - :name: Pollution Liability
-        :id: pollutionLiability
+        :id: pollution_liability
       - :name: Excess Liability
-        :id: excessLiability
+        :id: excess_liability
       - :name: Misc. Wording
-        :id: miscWording
+        :id: misc_wording
     - :name: Umbrella
       :id: umbrella
       :type:
       - :name: Umbrella Liability
-        :id: umbrellaLiability
+        :id: umbrella_liability
       - :name: Misc. Wording
-        :id: miscWording
+        :id: misc_wording
     - :name: Machinery Breakdown
-      :id: machineryBreakdown
+      :id: machinery_breakdown
       :type:
       - :name: Machinery Breakdown
-        :id: machineryBreakdown
+        :id: machinery_breakdown
       - :name: Business Interruption (Actual Loss)
-        :id: businessInterruptionAL
+        :id: business_interruption_al
       - :name: Business Interruption (Loss of Profit)
-        :id: businessInterruptionLOP
+        :id: business_interruption_lop
       - :name: Business Interruption (Gross Earnings)
-        :id: businessInterruptionGE
+        :id: business_interruption_ge
       - :name: Business Interruption (Rent or Rental Value)
-        :id: businessInterruptionRRV
+        :id: business_interruption_rrv
       - :name: Business Interruption (Extra Expense)
-        :id: businessInterruptionEE
+        :id: business_interruption_ee
       - :name: Misc. Wording
-        :id: miscWording
+        :id: misc_wording
     - :name: Other
       :id: other
       :type:
       - :name: Fees to Substantiate Loss
-        :id: feesToSubstantiateLoss
+        :id: fees_to_substantiate_loss
       - :name: Glass
         :id: glass
       - :name: Additional Insured
-        :id: additionalInsured
+        :id: additional_insured
       - :name: Exclusion of Asbestos Related Claims
-        :id: execlusionOfAsbestosRelated
+        :id: execlusion_of_asbestos_related
       - :name: Blanket Machinery Breakdown
-        :id: blanketMachinery
+        :id: blanket_machinery
       - :name: Misc. Wording
-        :id: miscWording
+        :id: misc_wording
   - :name: Auto Schedule
-    :id: autoSchedules
+    :id: auto_schedules
     :type:
     - :name: 'Item #'
-      :id: itemNumber
+      :id: item_number
       :required: true
       :placeholder: '# ( ex. 1111)'
       :type: text
@@ -1673,7 +1668,7 @@
       :primary: true
       :unique: true
     - :name: 'Unit #'
-      :id: unitNumber
+      :id: unit_number
       :placeholder: '# ( ex. 1111)'
       :type: text
       :primary: true
@@ -1689,7 +1684,7 @@
       - Other
       :intelligent: true
     - :name: Finance Company
-      :id: financeCompany
+      :id: finance_company
       :placeholder: Some Truck Co.
       :intelligent: true
       :type: text
@@ -1707,11 +1702,11 @@
       :placeholder: (ex. F250 Super Duty XL)
       :type: text
     - :name: Serial Number
-      :id: serialNumber
+      :id: serial_number
       :placeholder: (ex. 1FTFE1160WHA00001)
       :type: text
     - :name: 'Plate #'
-      :id: plateNumber
+      :id: plate_number
       :placeholder: 'license plate # (ex. 111 111)'
       :type: text
     - :name: Colour
@@ -1724,10 +1719,10 @@
       :intelligent: true
       :type: text
     - :name: Date Added
-      :id: dateAdded
+      :id: date_added
       :type: date
     - :name: Policy Expiry
-      :id: policyExpiry
+      :id: policy_expiry
       :type: date
       :prefill:
         :type: watch
@@ -1741,7 +1736,7 @@
       :placeholder: $ CAN (ex. 111.11)
       :type: currency
     - :name: Premium Credit
-      :id: premiumCredit
+      :id: premium_credit
       :placeholder: $ CAN (ex. 111.11)
       :type: currency
     - :name: Cargo
@@ -1749,11 +1744,11 @@
       :placeholder: $ CAN (ex. 111.11)
       :type: currency
     - :name: Cargo Credit
-      :id: cargoCredit
+      :id: cargo_credit
       :placeholder: $ CAN (ex. 111.11)
       :type: currency
   - :name: Equip. Schedule
-    :id: equipmentSchedules
+    :id: equipment_schedules
     :type:
     - :name: Type
       :id: type
@@ -1769,7 +1764,7 @@
       :intelligent: true
       :primary: true
     - :name: 'Item #'
-      :id: itemNumber
+      :id: item_number
       :type: text
       :placeholder: '#'
       :prefill:
@@ -1791,7 +1786,7 @@
       :type: text
       :placeholder: Model
     - :name: Serial Number
-      :id: serialNumber
+      :id: serial_number
       :type: text
       :placeholder: ex. A1234567890
     - :name: Lessor
@@ -1808,7 +1803,7 @@
       :type: text
       :placeholder: ''
   - :name: Misc. Schedule
-    :id: miscellaneousSchedules
+    :id: miscellaneous_schedules
     :type:
     - :name: Type
       :id: type
@@ -1824,7 +1819,7 @@
       :intelligent: true
       :primary: true
     - :name: 'Item #'
-      :id: itemNumber
+      :id: item_number
       :type: text
       :placeholder: '#'
       :prefill:
@@ -1846,7 +1841,7 @@
       :type: text
       :placeholder: Model
     - :name: Serial Number
-      :id: serialNumber
+      :id: serial_number
       :type: text
       :placeholder: ex. A1234567890
     - :name: Lessor
@@ -1879,11 +1874,11 @@
       :primary: true
       :unique: true
     - :name: 'License #'
-      :id: licenseNumber
+      :id: license_number
       :type: text
       :placeholder: ex. S3372-17979-01010
     - :name: Date Employed
-      :id: dateEmployed
+      :id: date_employed
       :type: date
     - :name: Accidents
       :id: accidents
@@ -1894,275 +1889,275 @@
       :type: text
       :placeholder: Number of convictions and type
   - :name: Loss Control Surveys
-    :id: lossControlSurveys
+    :id: loss_control_surveys
     :buttonTitle: Add Survey
     :type:
     - :name: Performed by
-      :id: surveyPerformedBy
+      :id: survey_performed_by
       :placeholder: Name
       :type: text
     - :name: Performed on
-      :id: surveyDate
+      :id: survey_date
       :type: date
       :primary: true
     - :name: Person interviewed
-      :id: surveyInterviewee
+      :id: survey_interviewee
       :placeholder: Name
       :type: text
     - :type: heading
       :text: Heating Cooling Systems
-    - :id: surveyHeatingServiced
+    - :id: survey_heating_serviced
       :name: ''
       :type: checkbox
       :options:
         'yes': Has heating / cooling systems been serviced in past 12 months?
-    - :id: surveyCombClearance
+    - :id: survey_comb_clearance
       :name: ''
       :type: checkbox
       :options:
         'yes': Is there adequate clearance to combustibles?
-    - :id: surveyTemporaryHeating
+    - :id: survey_temporary_heating
       :name: ''
       :type: checkbox
       :options:
         'yes': Any use of temporary heating device(s)?
     - :type: heading
       :text: Electrical Systems
-    - :id: surveyElectricalUpgrades
+    - :id: survey_electrical_upgrades
       :name: ''
       :type: checkbox
       :options:
         'yes': Any electrical upgrades that we should be aware of?
-    - :id: surveyElectricalUpgradesComment
+    - :id: survey_electrical_upgrades_comment
       :name: Describe
       :type: text
-      :if: surveyElectricalUpgrades.yes
-    - :id: surveyExtensionCords
+      :if: survey_electrical_upgrades.yes
+    - :id: survey_extension_cords
       :name: ''
       :type: checkbox
       :options:
         'yes': Any extension cords in use?
-    - :id: surveyService
+    - :id: survey_service
       :name: ''
       :type: checkbox
       :options:
         'yes': Size of Service and on breakers?
-    - :id: surveyServiceComment
+    - :id: survey_service_comment
       :name: Describe
       :type: text
-      :if: surveyService.yes
-    - :id: surveyWiring
+      :if: survey_service.yes
+    - :id: survey_wiring
       :name: ''
       :type: checkbox
       :options:
         'yes': Wiring supported and in good condition?
-    - :id: surveyThermScan
+    - :id: survey_therm_scan
       :name: ''
       :type: checkbox
       :options:
         'yes': Has thermo-graphic scan been performed?
     - :type: heading
       :text: Housekeeping
-    - :id: surveyAislesClear
+    - :id: survey_aisles_clear
       :name: ''
       :type: checkbox
       :options:
         'yes': Aisles free and clear of obstructions?
-    - :id: surveyStockRooms
+    - :id: survey_stock_rooms
       :name: ''
       :type: checkbox
       :options:
         'yes': Stock rooms organized and well lit?
-    - :id: surveyCrossDoc
+    - :id: survey_cross_doc
       :name: ''
       :type: checkbox
       :options:
         'yes': Cross dock clear and safe?
-    - :id: surveyTrashClear
+    - :id: survey_trash_clear
       :name: ''
       :type: checkbox
       :options:
         'yes': Trash and pallets clear from building 50'?
-    - :id: surveyWellLit
+    - :id: survey_well_lit
       :name: ''
       :type: checkbox
       :options:
         'yes': Well lit retail / traffic area free of trip hazards?
     - :type: heading
       :text: Flammable or Combustible Storage
-    - :id: surveyDispensing
+    - :id: survey_dispensing
       :name: ''
       :type: checkbox
       :options:
         'yes': Dispensing operations and related safety precautions?
-    - :id: surveyDispensingComment
+    - :id: survey_dispensing_comment
       :name: Describe
       :type: text
-      :if: surveyDispensing.yes
-    - :id: surveySolventStorage
+      :if: survey_dispensing.yes
+    - :id: survey_solvent_storage
       :name: ''
       :type: checkbox
       :options:
         'yes': Are proper storage of solvents and flammables present?
-    - :id: surveyRefueling
+    - :id: survey_refueling
       :name: ''
       :type: checkbox
       :options:
         'yes': Are there any refueling tanks on site?
-    - :id: surveyRefuelingComment
+    - :id: survey_refueling_comment
       :name: Describe
       :type: text
-      :if: surveyRefueling.yes
-    - :id: surveyRefuelingDisasterPlan
+      :if: survey_refueling.yes
+    - :id: survey_refueling_disaster_plan
       :name: ''
       :type: checkbox
-      :if: surveyRefueling.yes
+      :if: survey_refueling.yes
       :options:
         'yes': If there is refueling on site, is there a disaster plan?
     - :type: heading
       :text: Fire Protection Equipment
-    - :id: surveyFireHall
+    - :id: survey_fire_hall
       :name: ''
       :type: checkbox
       :options:
         'yes': Distance to Fire Hall and type of fire hall?
-    - :id: surveyFireHallComment
+    - :id: survey_fire_hall_comment
       :name: Distance and Type
       :type: text
-      :if: surveyFireHall.yes
-    - :id: surveyFireExtinguishers
+      :if: survey_fire_hall.yes
+    - :id: survey_fire_extinguishers
       :name: ''
       :type: checkbox
       :options:
         'yes': Are there fire extinguishers present?
-    - :id: surveyFireExtinguishersComment
+    - :id: survey_fire_extinguishers_comment
       :name: Size and type
       :type: text
-      :if: surveyFireExtinguishers.yes
-    - :id: surveyExtinguishersServiced
+      :if: survey_fire_extinguishers.yes
+    - :id: survey_extinguishers_serviced
       :name: ''
       :type: checkbox
       :options:
         'yes': Fire extinguishers serviced in last 12 months?
-    - :id: surveyExtinguishersServicedComment
+    - :id: survey_extinguishers_serviced_comment
       :name: By whom?
       :type: text
-      :if: surveyExtinguishersServiced.yes
-    - :id: surveyAlarmPanel
+      :if: survey_extinguishers_serviced.yes
+    - :id: survey_alarm_panel
       :name: ''
       :type: checkbox
       :options:
         'yes': Fire alarm panel free of trouble signs?
-    - :id: surveyAutomaticSprinkler
+    - :id: survey_automatic_sprinkler
       :name: ''
       :type: checkbox
       :options:
         'yes': Is there an automatic sprinkler?
-    - :id: surveyAutomaticSprinklerComment
+    - :id: survey_automatic_sprinkler_comment
       :name: History of Testing
       :type: text
-      :if: surveyAutomaticSprinkler.yes
-    - :id: surveyStandpipe
+      :if: survey_automatic_sprinkler.yes
+    - :id: survey_standpipe
       :name: ''
       :type: checkbox
       :options:
         'yes': Standpipe and hose tested and inspected last 12 months?
     - :type: heading
       :text: Physical Protection
-    - :id: surveyPerimeter
+    - :id: survey_perimeter
       :name: ''
       :type: checkbox
       :options:
         'yes': Is there any perimeter fencing?
-    - :id: surveyPerimeterComment
+    - :id: survey_perimeter_comment
       :name: Fenced %
       :type: text
-      :if: surveyPerimeter.yes
-    - :id: surveyExteriorLighting
+      :if: survey_perimeter.yes
+    - :id: survey_exterior_lighting
       :name: ''
       :type: checkbox
       :options:
         'yes': Is exterior lighting adequate present and working?
-    - :id: surveyObstructions
+    - :id: survey_obstructions
       :name: ''
       :type: checkbox
       :options:
         'yes': Access points free of obstructions?
-    - :id: surveyAdequateExposure
+    - :id: survey_adequate_exposure
       :name: ''
       :type: checkbox
       :options:
         'yes': Are doors, windows and locks adequate for exposure?
-    - :id: surveyBurglarResistant
+    - :id: survey_burglar_resistant
       :name: ''
       :type: checkbox
       :options:
         'yes': Is there burglar resistant glass and or window (door) bars present?
     - :type: heading
       :text: Alarm Protection
-    - :id: surveyULCEquipment
+    - :id: survey_ulc_equipment
       :name: ULC equipment
       :type: textbox
-    - :id: surveyAlarmCompany
+    - :id: survey_alarm_company
       :name: Alarm company
       :type: text
       :placeholder: Name and address
-    - :id: surveyHeatMotion
+    - :id: survey_heat_motion
       :name: ''
       :type: checkbox
       :options:
         'yes': Does alarm system include heat, motion and smoke?
     - :type: heading
       :text: Premises Liability Checklist
-    - :id: surveySnowRemoval
+    - :id: survey_snow_removal
       :name: ''
       :type: checkbox
       :options:
         'yes': Do you hire snow removal?
-    - :id: surveyCertificates
+    - :id: survey_certificates
       :name: ''
       :type: checkbox
       :options:
         'yes': Do you gather certificates of insurance from any contractor that is
           doing work on your premises?
-    - :id: surveyCertificateFile
+    - :id: survey_certificate_file
       :name: How long do you keep those certificates on file?
       :type: text
-      :if: surveyCertificates.yes
-    - :id: surveyCertificateCopy
+      :if: survey_certificates.yes
+    - :id: survey_certificate_copy
       :name: ''
       :type: checkbox
       :options:
         'yes': Could we have a copy of the certificate that your broker created for
           you?
-      :if: surveyCertificates.yes
-    - :id: surveySlipAndFall
+      :if: survey_certificates.yes
+    - :id: survey_slip_and_fall
       :name: ''
       :type: checkbox
       :options:
         'yes': Do you have a slip and fall policy?
-    - :id: surveyDisasterPlan
+    - :id: survey_disaster_plan
       :name: ''
       :type: checkbox
       :options:
         'yes': May we see a copy of your disaster plan that your broker / agent helped
           you to prepare?
-    - :id: surveyFireDoors
+    - :id: survey_fire_doors
       :name: ''
       :type: checkbox
       :options:
         'yes': Are all fire doors free and clear of obstructions?
-    - :id: surveyFireExits
+    - :id: survey_fire_exits
       :name: ''
       :type: checkbox
       :options:
         'yes': Are all fire exits properly identified?
-    - :id: surveyFireExitsOperable
+    - :id: survey_fire_exits_operable
       :name: ''
       :type: checkbox
       :options:
         'yes': Are all fire exit doors operable (not chained or locked)?
-    - :id: surveyTrained
+    - :id: survey_trained
       :name: ''
       :type: checkbox
       :options:
@@ -2170,19 +2165,19 @@
     - :type: heading
       :text: Other
     - :name: Other/Notes
-      :id: surveyOther
+      :id: survey_other
       :placeholder: Notes
       :type: textbox
   - :name: Photos
     :id: photos
     :type:
     - :name: Notes
-      :id: photoNotes
+      :id: photo_notes
       :placeholder: Take a note
       :type: text
       :primary: true
     - :name: Organize Photos By
-      :id: organizePhotos
+      :id: organize_photos
       :type: dropdown
       :placeholder: Date
       :options:
@@ -2190,7 +2185,7 @@
       - Date
       - Photographer
 - :name: Blanket Coverages
-  :id: blanketCoverages
+  :id: blanket_coverages
   :buttonTitle: Edit Coverage Scheds.
   :modalTitle: Blanket Coverage Schedules
   :createCallback: editCoverageSchedule()
@@ -2219,7 +2214,7 @@
       limited: Limited
       profit: Profit
       nonProfit: Non-Profit
-  - :id: replacementCost
+  - :id: replacement_cost
     :type: currency
   - :id: deductible
     :type: currency
@@ -2228,21 +2223,21 @@
   - :id: limit
     :type: currency
 - :name: Misc. Notes
-  :id: miscNote
+  :id: misc_note
   :type:
   - :name: Notes
     :id: notes
     :placeholder: Other Useful Info
     :type: textbox
 - :name: Declaration
-  :id: Declaration
+  :id: declaration
   :type:
   - :name: I have known this client since
-    :id: dateKnown
+    :id: date_known
     :type: date
-    :if: '!newClient.yes'
+    :if: '!new_client.yes'
   - :name: ''
-    :id: newClient
+    :id: new_client
     :type: checkbox
     :options:
       'yes': This client is new to my office.

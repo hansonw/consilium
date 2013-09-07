@@ -4,7 +4,7 @@
 <% paths = {
      "Home" => "#/",
      "{{ isBroker ? 'Clients' : null }}" => "#/clients/index",
-     "{{ (clientId || savedOnce) && (client.companyName.value || 'Client') }}" => "{{ '#/clients/show/' + client.id }}",
+     "{{ (clientId || savedOnce) && (client.company_name.value || 'Client') }}" => "{{ '#/clients/show/' + client.id }}",
      "{{ clientChangeId ? 'History' : 'Details' }}" => "#/clients/{{ clientChangeId ? 'edit/' + clientId + '/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}",
      "{{ title() }}" => "#/clients/{{ clientChangeId ? 'edit/' + clientId + '/' + clientChangeId : (clientId ? 'edit/' + clientId : 'new') }}/location"
    }

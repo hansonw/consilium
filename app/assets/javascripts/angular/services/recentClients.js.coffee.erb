@@ -32,7 +32,7 @@ App.factory 'RecentClients', ['Offline', (Offline) ->
             break
         res.clients.splice(0, 0, {
           id: client.id,
-          companyName: client.companyName?.value,
+          company_name: client.company_name?.value,
           timestamp: Date.now(),
         })
         res.clients = res.clients.splice(0, @limit)

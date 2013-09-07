@@ -9,9 +9,9 @@
                  :name => 'Client',
                  :id => 'client',
                  :content => <<-END
-                   {{ item.companyName }}
+                   {{ item.company_name }}
                    <div class="detail">
-                     last viewed on <span class="date">{{ item.timestamp | date: 'medium'}}</span>
+                     last viewed on <span class="date">{{ item.timestamp | date: 'medium' }}</span>
                    </div>
                  END
                }

@@ -47,10 +47,10 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
             newLoc = {id: Util.generateGUID()}
             len = $scope.client.locations.value.length
             if len > 0
-              if prev = $scope.client.locations.value[len-1].locationNumber?.value
-                newLoc.locationNumber = {value: Util.increment(prev)}
+              if prev = $scope.client.locations.value[len-1].location_number?.value
+                newLoc.location_number = {value: Util.increment(prev)}
             else
-              newLoc.locationNumber = {value: '1'}
+              newLoc.location_number = {value: '1'}
             $scope.client.locations.value.push(newLoc)
             $scope.locationId = $scope.client.locations.value.length - 1
           if !$scope.client.locations.value? || $scope.locationId < 0 || $scope.locationId >= $scope.client.locations.value.length
@@ -140,14 +140,14 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       window.history.back()
 
   $scope.clientCompany = ->
-    $parse('client.companyName.value')($scope)
+    $parse('client.company_name.value')($scope)
 
   $scope.title = ->
     title = ''
     if $scope.inLocation
       if $scope.locationId
-        locationNumber = $parse('client.locations.value[locationId].locationNumber.value')($scope) || ''
-        title = 'Location ' + locationNumber
+        location_number = $parse('client.locations.value[locationId].location_number.value')($scope) || ''
+        title = 'Location ' + location_number
       else
         title = 'Location'
     else if $scope.clientChangeId || $scope.clientId
