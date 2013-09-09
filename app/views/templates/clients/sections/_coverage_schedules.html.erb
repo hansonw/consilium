@@ -3,8 +3,9 @@
     <h2 class="no-top-margin">Category</h2>
     <hr class="soften" />
     <select name="category" data-ng-model="coverage.category" size="2"
-            data-ng-change="coverage.type = ''; switchCoverage()" data-ng-if="true"
+            data-ng-change="coverage.type = ''; switchCoverage()" data-ng-if="coverage"
             data-ng-readonly="false" data-ng-disabled="false" required>
+      <option value="">Select a category...</option>
       <option ng-repeat="category in coverageCategories"
               ng-class="{selected: !emptyCoverage(category.name)}">{{ category.name }}</option>
     </select>
@@ -92,7 +93,7 @@
           :placeholder => '$ CAN (ex. 111.11)',
           :prefill => {
             :type => 'calc',
-            :expr => 'writeNode.' + obj + '.replacementCost.value',
+            :expr => 'writeNode.' + obj + '.replacementCost.value || ""',
           },
         }
       %>

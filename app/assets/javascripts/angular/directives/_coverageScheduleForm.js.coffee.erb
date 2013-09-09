@@ -1,5 +1,6 @@
 App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
   ($scope, elem, attrs) ->
+    $scope.coverage = {}
     $scope.coverageCategories =
       <%= Client::FIELDS.find { |f| f[:id] == 'locations' }[:type].find { |f| f[:id] == 'coverage_schedules' }[:coverages].to_json %>
 
@@ -14,20 +15,22 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
     obj = $parse(form)
     store = $parse(model)
 
-    $scope.saveCoverageSchedules = ->
+    root = $scope.rootController()
+    root.saveCoverageSchedules = ->
       coverageSchedules = obj($scope) || {}
 
-      existingIDs = {}
+      existing = {}
       for cov in (store($scope) || [])
-        (existingIDs[cov.category.value] ||= {})[cov.type.value] = cov.id
+        (existing[cov.category.value] ||= {})[cov.type.value] = cov
 
       collection = []
       for cat, data of coverageSchedules
         for type, coverage of data
           if !angular.equals(coverage, {})
-            coverage.id = existingIDs[cat]?[type] || Util.generateGUID()
-            coverage.category = {value: cat}
-            coverage.type = {value: type}
+            exist = existing[cat]?[type]
+            coverage.id = exist?.id || Util.generateGUID()
+            coverage.category = exist?.category || {value: cat}
+            coverage.type = exist?.type || {value: type}
             collection.push(coverage)
 
       store.assign($scope, collection)
@@ -35,7 +38,7 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
       Modal.toggleModal(form)
       $scope.saveForm(false)
 
-    $scope.editCoverageSchedule = (index) ->
+    root.editCoverageSchedule = (index) ->
       collection = store($scope) || {}
 
       $scope.changedCoverages = {}
