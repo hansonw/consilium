@@ -564,6 +564,16 @@ label.changed {
   #clearCoverage {
     margin-right: 0px;
   }
+
+  .type-header {
+    position: relative;
+
+    button {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+  }
 }
 
 .template-editor {

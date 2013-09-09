@@ -1,7 +1,6 @@
 <div class="pure-g-r" id="coverageScheduleForm" coverage-schedule-form="<%= field[:id] %>" coverage-schedule-model="<%= local_assigns[:root] %>.<%= field[:id] %>.value">
   <div class="pure-u-1-5">
-    <h2 class="no-top-margin">Category</h2>
-    <hr class="soften" />
+    <h3 class="no-top-margin">Category</h3>
     <select name="category" data-ng-model="coverage.category" size="2"
             data-ng-change="coverage.type = ''; switchCoverage()" data-ng-if="coverage"
             data-ng-readonly="false" data-ng-disabled="false" required>
@@ -11,8 +10,14 @@
     </select>
   </div>
   <div class="pure-u-2-5">
-    <h2 class="no-top-margin">Type</h2>
-    <hr class="soften" />
+    <div class="type-header">
+      <h3 class="no-top-margin">Type</h3>
+      <button type="button" data-ng-click="addCoverageType()"
+              class="pure-button pure-button-success pure-button-small"
+              data-ng-show="coverage.category">
+        <i class="icon-plus"></i> Add Type
+      </button>
+    </div>
     <select size="2" data-ng-if="!coverage.category" disabled>
       <option>             </option>
     </select>
@@ -26,8 +31,7 @@
     </div>
   </div>
   <div class="pure-u-2-5 pure-form pure-form-aligned">
-    <h2 class="no-top-margin">Values</h2>
-    <hr class="soften" />
+    <h3 class="no-top-margin">Values</h3>
     <div data-ng-show="!coverage.category || !coverage.type">
       Please select a category and type.
     </div>
@@ -51,15 +55,15 @@
       </div>
 
       <%
-        replacementCost = {
+        replacement_cost = {
           :name => 'Replacement cost',
-          :id => 'replacementCost',
+          :id => 'replacement_cost',
           :type => 'currency',
           :placeholder => '$ CAN (ex. 111.11)',
-          :if => '$curCoverageType.replacementCost'
+          :if => '$curCoverageType.replacement_cost'
         }
       %>
-      <%= form_field replacementCost, obj, :changed => "#{changedCoverage}.replacementCost" %>
+      <%= form_field replacement_cost, obj, :changed => "#{changedCoverage}.replacement_cost" %>
 
       <%
         coinsurance = {
@@ -68,8 +72,8 @@
           :type => 'text',
           :placeholder => '(ex. 90%)',
           :prefill => {
-            :type => 'static',
-            :text => '90%',
+            :type => 'calc',
+            :expr => 'curCoverageType.coinsurance || "90%"',
           },
         }
       %>
@@ -81,6 +85,10 @@
           :id => 'deductible',
           :type => 'currency',
           :placeholder => '$ CAN (ex. 111.11)',
+          :prefill => {
+            :type => 'calc',
+            :expr => 'curCoverageType.deductible || "1000"',
+          },
         }
       %>
       <%= form_field deductible, obj, :changed => "#{changedCoverage}.deductible" %>
@@ -93,7 +101,7 @@
           :placeholder => '$ CAN (ex. 111.11)',
           :prefill => {
             :type => 'calc',
-            :expr => 'writeNode.' + obj + '.replacementCost.value || ""',
+            :expr => 'writeNode.' + obj + '.replacement_cost.value || curCoverageType.limit || ""',
           },
         }
       %>

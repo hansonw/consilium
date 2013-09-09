@@ -44,9 +44,12 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
       $scope.changedCoverages = {}
       coverageSchedules = {}
       for coverage, i in collection
+        if !coverageLookup[coverage.category.value]?[coverage.type.value]?
+          $scope.addType(coverage.category.value, coverage.type.value)
+
         (coverageSchedules[coverage.category.value] ||= {})[coverage.type.value] =
           subtype: coverage.subtype,
-          replacementCost: coverage.replacementCost,
+          replacement_cost: coverage.replacement_cost,
           coinsurance: coverage.coinsurance,
           deductible: coverage.deductible,
           limit: coverage.limit
@@ -63,6 +66,23 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
       obj.assign($scope, coverageSchedules)
       $scope.switchCoverage()
       Modal.toggleModal(form)
+
+    root.addCoverageType = ->
+      if curCategory = $scope.coverage?.category
+        console.log curCategory
+        name = prompt('Enter the name of the new coverage type.')
+        if name?
+          if coverageLookup[curCategory][name]?
+            alert('That coverage type already exists.')
+          else
+            $scope.addType(curCategory, name)
+
+    $scope.addType = (cat, name) ->
+      newType = {name: name}
+      (coverageLookup[cat] ||= {})[name] = newType
+      for category in $scope.coverageCategories
+        if category.name == cat
+          category.type.push(newType)
 
     $scope.emptyCoverage = (category, type) ->
       coverageSchedules = obj($scope) || {}

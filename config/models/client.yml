@@ -1289,370 +1289,257 @@
       :type: currency
     :coverages:
     - :name: Property
-      :id: property
       :type:
       - :name: Building
-        :id: building
         :type:
           broad: Broad Form
           named: Named Perils
         :replacement_cost: true
       - :name: Equipment
-        :id: equipment
         :type:
           broad: Broad Form
           named: Named Perils
         :replacement_cost: true
       - :name: Stock
-        :id: stock
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Property of Every Description (POED) ***
-        :id: poed
       - :name: Contents of Every Description (COED) ***
-        :id: coed
       - :name: Office Contents (Broad)
-        :id: office_contents
       - :name: Electronic Data Processing Systems (Broad)
-        :id: electronic_data_processing
       - :name: Valuable Papers & Records (Broad)
-        :id: valuable_papers_records
       - :name: Accounts Receivable (Broad)
-        :id: accounts_receivable
       - :name: Residential Condominiums (Broad)
-        :id: residential_condominiums
       - :name: Commercial Condominiums (Broad)
-        :id: commercial_condominiums
       - :name: Contractor’s Equipment
-        :id: contractors_equipment
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Tool Floater
-        :id: tool_floater
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Transportation Floater
-        :id: transportation_floater
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Motor Truck Cargo – Owner’s
-        :id: motor_truck_cargo_owner
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Motor Truck Cargo – Truckmen’s
-        :id: motor_truck_cargo_truckmen
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Trip Transit (Broad)
-        :id: trip_transit
       - :name: Builders Risk
-        :id: builders_risk
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Installation Floater
-        :id: installation_floater
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Bailees’ Customers
-        :id: bailees_customers
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Warehouseman’s Legal Liability
-        :id: warehousemans_liability
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Equipment Dealer’s Stock
-        :id: dealers_stock
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Equipment Dealer’s Equipment
-        :id: dealers_equipment
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Exhibition Floater
-        :id: exhibition_floater
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Fine Arts Floater (Broad)
-        :id: fine_arts_floater
       - :name: Signs Floater (Broad)
-        :id: signs_floater
       - :name: Misc. Property Floater
-        :id: misc_property_floater
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Furriers Block (Broad)
-        :id: furriers_block
       - :name: Furriers Customers – Custody Rider (Broad)
-        :id: furriers_customers_custody
       - :name: Furriers Customers – Legal Liability Rider (Broad)
-        :id: furriers_customers_liability
       - :name: Jewelers Block (Broad)
-        :id: jewelers_block
       - :name: Heavy Equipment in Use
-        :id: heavy_equipment_in_use
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Small Equipment in Use
-        :id: small_equipment_in_use
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Real Property
-        :id: real_property
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Other Transportation
-        :id: other_transport
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Other Bailees Floater
-        :id: other_bailees_floater
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Installment Sales Floater
-        :id: installment_sales_floater
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Other Sales Operations
-        :id: other_sales_operations
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Other Construction
-        :id: other_construction
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Difference in Conditions
-        :id: difference_in_conditions
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Other Misc. Floaters
-        :id: other_misc_floaters
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Misc. Wording (Broad)
-        :id: misc_wording_broad
       - :name: Misc. Wording (Named)
-        :id: misc_wording_named
       - :name: Windstorm/Hail
-        :id: misc_wording_named
       - :name: Flood
-        :id: misc_wording_named
       - :name: Earthquake
-        :id: misc_wording_named
       - :name: Lightning
-        :id: misc_wording_named
     - :name: Business Income
-      :id: business_income
       :type:
       - :name: Business Income
-        :id: business_income
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Extended Business Income
-        :id: extended_business_income
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Rental Income
-        :id: rental_income
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Extended Rental Income
-        :id: extended_rental_income
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Extra Expense
-        :id: extra_expense
         :type:
           broad: Broad Form
           named: Named Perils
     - :name: Business Interruption
-      :id: business_interruption
       :type:
       - :name: Profits (Broad/Named)
-        :id: profits
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: 'Gross Earnings–Mercantile or Non-Manufacturing '
-        :id: gross_em_or_nm
       - :name: Gross Earnings–Manufacturing
-        :id: gross_earnings_manufacturing
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Earnings – No Co-Insurance
-        :id: earnings_no_cons
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Rent or Rental Value
-        :id: rent_rental_value
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Gross Rentals
-        :id: gross_rentals
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Extra Expense
-        :id: extra_expense
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Other Business Interruption
-        :id: other_business_interruption
         :type:
           broad: Broad Form
           named: Named Perils
       - :name: Misc. Wording (Broad)
-        :id: misc_wording_broad
       - :name: Misc. Wording (Named)
-        :id: misc_wording_named
     - :name: Crime
-      :id: crime
       :type:
       - :name: Comprehensive 3 D
-        :id: comprehensive3_d
       - :name: Employee Dishonesty (Individual)
-        :id: employee_dishonesty_individ
       - :name: Employee Dishonesty (Scheduled - attach)
-        :id: employee_dishonesty_sched
         :type:
           named: Named Perils
           position: Position
       - :name: Money & Securities
-        :id: money_securities
         :type:
           broad: Broad Form
           robbery: Robbery
       - :name: Money Orders & Counterfeit Paper Currency
-        :id: money_orders
       - :name: Depositors Forgery
-        :id: depositors_forgery
       - :name: Damage to Building by Burglary or Robbery
-        :id: damage_build
       - :name: Stock & Equipment Burglary
-        :id: s_and_e_burglary
       - :name: Safe Burglary
-        :id: safe_burglary
       - :name: Safe Deposit Box Burglary & Robbery
-        :id: safe_deposit_box_burglary
       - :name: Safe Deposit Box Securities (Broad)
-        :id: safe_deposit_box_securities
       - :name: Office Burglary & Robbery
-        :id: office_burglary
         :type:
           fourPoint: 4 Point
           sevenPoint: 7 Point
       - :name: Store Burglary & Robbery (Seven Point)
-        :id: store_burglary
       - :name: Church Theft
-        :id: church_theft
       - :name: Misc. Wording
-        :id: misc_wording
     - :name: Liability
-      :id: liability
       :type:
       - :name: Commercial General Liability (Occurrence Form)
-        :id: commercial_general_liability
       - :name: Comprehensive General Liability
-        :id: comprehensive_general_liability
       - :name: Owners’, Landlords’, and Tenants’ Liability
-        :id: owners_landlords
       - :name: Tenants’ Legal Liability
-        :id: tenants_legal_liability
         :type:
           broad: Broad Form
           limited: Limited
       - :name: Non-Owned Automobile Liability (SPF 6)
-        :id: non_owned_auto_liability
       - :name: Worldwide Non-owned Automobile Liability
-        :id: ww_non_owned_auto
       - :name: Voluntary Compensation
-        :id: voluntary_comensation
       - :name: Professional Liability
-        :id: professional_liability
       - :name: Directors’ & Officers Liability
-        :id: directors_officers_liability
         :type:
           profit: Profit
           nonProfit: Non profit
       - :name: Employers’ Bodily Injury Liability
-        :id: employers_bodily_injury
       - :name: Wrap-up Liability
-        :id: wrap_up_liability
       - :name: Pollution Liability
-        :id: pollution_liability
       - :name: Excess Liability
-        :id: excess_liability
       - :name: Misc. Wording
-        :id: misc_wording
     - :name: Umbrella
-      :id: umbrella
       :type:
       - :name: Umbrella Liability
-        :id: umbrella_liability
       - :name: Misc. Wording
-        :id: misc_wording
     - :name: Machinery Breakdown
-      :id: machinery_breakdown
       :type:
       - :name: Machinery Breakdown
-        :id: machinery_breakdown
       - :name: Business Interruption (Actual Loss)
-        :id: business_interruption_al
       - :name: Business Interruption (Loss of Profit)
-        :id: business_interruption_lop
       - :name: Business Interruption (Gross Earnings)
-        :id: business_interruption_ge
       - :name: Business Interruption (Rent or Rental Value)
-        :id: business_interruption_rrv
       - :name: Business Interruption (Extra Expense)
-        :id: business_interruption_ee
       - :name: Misc. Wording
-        :id: misc_wording
     - :name: Other
-      :id: other
       :type:
       - :name: Fees to Substantiate Loss
-        :id: fees_to_substantiate_loss
       - :name: Glass
-        :id: glass
       - :name: Additional Insured
-        :id: additional_insured
       - :name: Exclusion of Asbestos Related Claims
-        :id: execlusion_of_asbestos_related
       - :name: Blanket Machinery Breakdown
-        :id: blanket_machinery
       - :name: Misc. Wording
         :id: misc_wording
   - :name: Auto Schedule
