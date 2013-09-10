@@ -190,6 +190,7 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Hierarchy', 'Moda
       objName = @node
       node = Hierarchy.findWriteNode(objName)
       root = node.modelPath(true) || model
+
       parsed = $parse(root)
       collection = parsed($scope)
       collection = parsed.assign($scope, []) if !collection?

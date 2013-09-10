@@ -3,39 +3,65 @@ module ConsiliumFieldReferences
   # object[:referenceCollection]. Don't save after using this. In general, this
   # should only be used for presentation purposes (i.e. turning into JSON for
   # the client).
-  def serialize_references
+  def serialize_references(syncable = false)
     assocs = get_associations
     assocs.each do |assoc|
-      self[assoc] = []
+      assoc = assoc.to_s.underscore.to_sym
+
+      if syncable
+        self[assoc] = {
+          :updated_at => nil,
+          :created_at => nil,
+          :value => [],
+        }
+      else
+        self[assoc] = []
+      end
+
       self.send(assoc).each do |elem|
-        self[assoc].push elem
+        if syncable
+          self[assoc][:value].push elem
+        else
+          self[assoc].push elem
+        end
       end
     end
     self
   end
 
-  def update_references(params)
+  def update_references(params, syncable = false)
     retval = {:params => params, :errors => []}
 
     assocs = get_associations
     assocs.each do |assoc|
+      assoc = assoc.to_s.underscore.to_sym
+
+      existing =
+        if syncable
+          params[assoc].andand[:value]
+        else
+          params[assoc]
+        end
+
       # Check for elements that are on the saved model, but not on the params.
       # This means that the updated params must have included a deletion.
       self.send(assoc).each do |elem|
-        if !params[assoc].nil?
-          existing = params[assoc].select do |param|
+        if !existing.nil?
+          found = existing.select do |param|
             (param[:_id] || param[:id]).to_s == (elem[:_id] || elem[:id]).to_s
           end
           # No matching object was found. Delete it.
-          elem.destroy if existing.empty?
+          elem.destroy if found.empty?
+        else
+          elem.destroy
         end
       end
 
       # Check for elements that are on the params. This includes anything
       # that either hasn't been changed, has been updated, or has been created.
-      if !params[assoc].nil?
-        params[assoc].each do |elem|
-          klass = assoc.to_s.singularize.capitalize.constantize
+      if !existing.nil?
+        existing.each do |elem|
+          klass = assoc.to_s.camelize.singularize.constantize
 
           instance = klass.where(:id => elem[:_id] || elem[:id]).first
 
@@ -45,15 +71,15 @@ module ConsiliumFieldReferences
             instance = klass.new(elem)
           end
 
-          instance[self.class.to_s.downcase + "_id"] = self[:_id]
+          instance[self.class.to_s.underscore + "_id"] = self[:_id]
 
           if !instance.save
             retval[:errors].push instance.errors
           end
         end
-
-        params.delete(assoc)
       end
+
+      params.delete(assoc)
     end
 
     self.reload_relations
