@@ -73,7 +73,7 @@
           :placeholder => '(ex. 90%)',
           :prefill => {
             :type => 'calc',
-            :expr => 'curCoverageType.coinsurance || "90%"',
+            :expr => 'curCoverageType.coinsurance || ""',
           },
         }
       %>
@@ -87,7 +87,7 @@
           :placeholder => '$ CAN (ex. 111.11)',
           :prefill => {
             :type => 'calc',
-            :expr => 'curCoverageType.deductible || "1000"',
+            :expr => 'curCoverageType.deductible || ""',
           },
         }
       %>
