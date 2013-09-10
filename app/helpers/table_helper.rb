@@ -13,13 +13,14 @@ module TableHelper
 
     model.each do |field|
       next if !field[:primary]
+      value = "item.#{field[:id]}.value != null ? item.#{field[:id]}.value : item.#{field[:id]}"
       primaryField = {
         :name => field[:name],
         :id => field[:id],
-        :content => "{{ item.#{field[:id]}.value || item.#{field[:id]} }}"
+        :content => "{{ #{value} }}"
       }
       primaryField[:class] = field[:type] if field[:type] != 'text'
-      primaryField[:content] = "{{ (item.#{field[:id]}.value || item.#{field[:id]}) * 1000 | date: 'yyyy-MM-dd' }}" if field[:type] == 'date'
+      primaryField[:content] = "{{ (#{value}) * 1000 | date: 'yyyy-MM-dd' }}" if field[:type] == 'date'
       primaryFields.push primaryField
     end
 

@@ -20,7 +20,7 @@
                :field => field,
                :name => 'data',
                :model => "#{root}.#{field[:id]}.value",
-               :rowClass => "{changed: changedFields.#{field[:id]}[$index]}",
+               :rowClass => "changedFields.#{field[:id]}[$index].type",
                :rowClick => field[:editCallback] ||
                             !field[:editHref] && "editInField($index)",
                :rowHref => field[:editHref],

@@ -101,8 +101,13 @@ $client-form-nav-padding: 50px;
       background: darken($light-green, 10%) !important;
     }
 
-    tr.changed {
+    tr.edited, tr.added {
       background: darken($light-green, 10%);
+    }
+
+    tr.deleted {
+      background: darken($light-red, 5%);
+      text-decoration: line-through;
     }
   }
 

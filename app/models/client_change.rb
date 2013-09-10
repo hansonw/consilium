@@ -39,25 +39,43 @@ class ClientChange
 
   def self.collection_diff(new_arr, old_arr, fields)
     old_ids = {}
+    old_ids = Hash[old_arr.map { |x| [x['id'], x] }] if old_arr.is_a?(Array)
+    new_ids = Hash[new_arr.map { |x| [x['id'], x] }]
+
+    primary_field = Client.expand_fields(fields).find { |f| f[:primary] && f[:type] == 'text' }.andand[:id]
+
+    # Merge old array into new array; this way we can see deletions in the change view.
+    arr = new_arr.clone
     if old_arr.is_a?(Array)
-      old_ids = Hash[old_arr.map { |x| [x['id'], x] }]
+      old_arr.each do |x|
+        if !new_ids[x['id']]
+          arr << x
+        end
+      end
+      arr.sort! { |x, y| x['id'] <=> y['id'] }
     end
 
-    result = new_arr.map do |val|
+    result = arr.map do |val|
       old_val = old_ids[val['id']]
-      if val != old_val
+      if !new_ids[val['id']]
+        {:type => :deleted}
+      elsif val != old_val
         ch = get_changed_fields(val, old_val, fields)
-        ch.empty? ? nil : ch
+        ch.empty? ? nil : {
+          :change => ch,
+          :name => primary_field && val[primary_field].andand['value'],
+          :type => old_val.nil? ? :added : :edited,
+        }
       else
         nil
       end
     end
 
-    if result.compact.empty? && new_arr.length == old_arr.length
-      return nil
-    else
-      return result
+    if result.compact.empty?
+      result = nil
     end
+
+    result
   end
 
   def self.hash_diff(new_hash, old_hash)
@@ -124,21 +142,64 @@ class ClientChange
     changed_fields.keep_if { |k, v| v }
   end
 
+  def self.humanize(str)
+    str.underscore.humanize.downcase
+  end
+
   def self.get_change_description(new_client, old_client)
     if old_client.nil?
       return 'Created new client ' + new_client['company_name']['value']
     end
 
-    changed_fields = get_changed_fields(new_client, old_client)
-    changed_fields = changed_fields.keys.sort.map do |field_id|
-      field_id.underscore.humanize.downcase
+    changed = []
+    added = []
+    deleted = []
+    get_changed_fields(new_client, old_client).sort.each do |field_id, diff|
+      if diff.is_a?(Array)
+        diff.compact!
+        if diff.length > 1
+          changed << humanize(field_id)
+        else
+          diff = diff.first
+          name = diff[:name] ? " (#{diff[:name]})" : ''
+          field_name = humanize(field_id).singularize
+          if diff[:type] == :added
+            added << "#{field_name}#{name}"
+          elsif diff[:type] == :deleted
+            deleted << "#{field_name}#{name}"
+          else
+            desc = "#{field_name}#{name}"
+            if diff[:change].keys.length <= 3
+              fields = diff[:change].keys.map { |id| humanize(id) }.join(', ')
+              desc = fields + ' of ' + desc
+            end
+            changed << desc
+          end
+        end
+      else
+        changed << humanize(field_id)
+      end
     end
 
-    if changed_fields.empty?
+    res = []
+
+    if !changed.empty?
+      res << 'edited ' + changed.join(', ')
+    end
+    if !added.empty?
+      res << 'added ' + added.join(', ')
+    end
+    if !deleted.empty?
+      res << 'deleted ' + deleted.join(', ')
+    end
+
+    if res.empty?
       return nil
     end
 
-    return 'Edited ' + changed_fields.join(', ')
+    res = res.join(', ')
+    res[0] = res[0].capitalize
+    res
   end
 
   def self.update_client(client, user_id)

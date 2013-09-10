@@ -54,9 +54,9 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
           deductible: coverage.deductible,
           limit: coverage.limit
 
-        if $scope.changedFields?[form]?[i]
+        if $scope.changedFields?[form]?[i]?.change
           ($scope.changedCoverages[coverage.category.value] ||= {})[coverage.type.value] =
-            $scope.changedFields[form][i]
+            $scope.changedFields[form][i].change
 
         if i == index
           $scope.coverage =
