@@ -16,6 +16,22 @@ module ConsiliumFields
       return fields.flatten
     end
 
+    def expand_fields_with_references(node = self::FIELDS)
+      node.map do |field|
+        if field[:type].is_a? Array
+          f = field.dup
+          f[:type] = expand_fields_with_references(f[:type])
+          f
+        elsif field[:type].is_a? Class
+          f = field.dup
+          f[:type] = field[:type]::FIELDS
+          f
+        else
+          field
+        end
+      end
+    end
+
     def verify_unique_ids(fields = self::FIELDS)
       ids = {}
       self.expand_fields(fields).each do |field|

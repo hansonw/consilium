@@ -168,8 +168,8 @@
     :type: date
     :prefill:
       :type: watch
-      :watch: policyInfos.prevTermStart.value
-      :expr: policyInfos.prevTermStart.value + 31557600.0
+      :watch: policy_infos.prev_term_start.value
+      :expr: policy_infos.prev_term_start.value + 31557600.0
   - :name: Quote Required By
     :id: quote_required_by
     :type: date
@@ -218,8 +218,8 @@
     :type: date
     :prefill:
       :type: watch
-      :watch: prevPolicyInfos.prevTermStart.value
-      :expr: prevPolicyInfos.prevTermStart.value + 31557600.0
+      :watch: prev_policy_infos.prev_term_start.value
+      :expr: prev_policy_infos.prev_term_start.value + 31557600.0
 - :name: Liability Info
   :id: liability_info
   :type:
@@ -371,7 +371,7 @@
     :type: text
     :clientType: solar
     :placeholder: If yes, describe
-    :if: solar_subcontractor_coveragePlannedSites.yes
+    :if: solar_subcontractor_coverage_planned_sites.yes
   - :type: separator
   - :name: Annual gross receipts
     :id: annual_gross_receipts
@@ -1895,8 +1895,8 @@
       :type: date
       :prefill:
         :type: watch
-        :watch: autoSchedules.dateAdded.value
-        :expr: autoSchedules.dateAdded.value + 31557600.0
+        :watch: auto_schedules.date_added.value
+        :expr: auto_schedules.date_added.value + 31557600.0
     - :name: Deleted
       :id: deleted
       :type: date
