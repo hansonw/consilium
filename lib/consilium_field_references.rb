@@ -78,18 +78,16 @@ module ConsiliumFieldReferences
 
           if !instance.nil?
             instance.update(elem)
-            relation = self.send(assoc).select { |existing_elem| (existing_elem[:id] || existing_elem[:_id]) == (instance[:id] || instance[:_id]) }
-            relation = instance
-            if !relation.save
-              retval[:errors].push relation.errors
-            end
           else
             instance = klass.new(elem)
-            if instance.save
-              self.send(assoc).push(instance)
-            else
-              retval[:errors].push instance.errors
-            end
+            # HACK! Write the id that we expect the main object referred from
+            # to get when it is saved. We should really be using the
+            # object.relation class methods instead.
+            instance[self.class.to_s.underscore + '_id'] = params[:id]
+          end
+
+          if !instance.save
+            retval[:errors].push instance.errors
           end
         end
       end
