@@ -8,4 +8,5 @@ class ClientContact
   include ConsiliumFields
 
   belongs_to :client
+  has_one :user
 end

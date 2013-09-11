@@ -1,11 +1,12 @@
 GIT
   remote: git://github.com/DouglasSherk/ydocx.git
-  revision: 9938db3ffb6173a357136151a36e8f48469c4dcd
+  revision: 487078be4caf1f1c28c5b823014bc41735317ebc
   specs:
     ydocx (1.2.3)
       andand
       diff-lcs
       htmlentities
+      money
       murmurhash3
       nokogiri
       roman-numerals
@@ -100,6 +101,8 @@ GEM
     mini_portile (0.5.1)
     minitest (4.7.5)
     modernizr-rails (2.6.2.3)
+    money (5.1.1)
+      i18n (~> 0.6.0)
     moped (1.5.1)
     multi_json (1.8.0)
     murmurhash3 (0.1.3)

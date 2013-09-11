@@ -39,3 +39,6 @@
   :id: other
   :placeholder: Main, Direct, Toll, Fax, Pager, Cell, Home
   :type: text
+- :name: User
+  :id: user
+  :type: !ruby/class 'User'
