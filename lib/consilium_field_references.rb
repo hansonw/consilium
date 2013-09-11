@@ -3,11 +3,24 @@ module ConsiliumFieldReferences
     klass.extend ClassMethods
   end
 
+  # Checks to make sure at least one field has been marked as autosynced.
+  def check_if_autosynced_references
+    if self.class.autosynced_references.nil? || self.class.autosynced_references.empty?
+      puts "When you include ConsiliumFieldReferences, you must mark a field to
+            be autosynced on your model by using |autosync_references :name|"
+      return true
+    end
+
+    return false
+  end
+
   # Converts references from object.referenceCollection to
   # object[:referenceCollection]. Don't save after using this. In general, this
   # should only be used for presentation purposes (i.e. turning into JSON for
   # the client).
   def serialize_references(syncable = false)
+    return nil if self.check_if_autosynced_references
+
     assocs = self.class.autosynced_references
     assocs.each do |assoc|
       # Convert the association to underscore. e.g. ClientContact -> client_contact
@@ -34,13 +47,17 @@ module ConsiliumFieldReferences
     self
   end
 
+  # Creates a new model from a passed hash and creates any references on it as well.
   def new_with_references(params, syncable = false)
     self.id = params[:id]
     self.update_with_references(params, syncable)
   end
 
+  # Updates any references on a model, including all CRUD operations for them.
   def update_with_references(params, syncable = false)
     retval = {:params => params, :errors => []}
+
+    return nil if self.check_if_autosynced_references
 
     assocs = self.class.autosynced_references
     assocs.each do |assoc|
