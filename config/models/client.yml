@@ -1076,37 +1076,37 @@
       :type: checkbox
       :options:
         deadbolt: Doors – deadbolt
-        breakageResistantGlass: Breakage resistant glass
-        windowsBarred: Windows - barred
-        windowsWireMesh: Windows – wire mesh
-        steelBars: Steel bars on openings
+        breakage_resistant_glass: Breakage resistant glass
+        windows_barred: Windows - barred
+        windows_wire_mesh: Windows – wire mesh
+        steel_bars: Steel bars on openings
         cameras: 'Surveillance cameras '
         watchmen: Watchmen/security guards
         fence: Fence
-        guardDog: Guard Dog
-        windowsULC: Windows – ULC security film
-        comboLock: Additional combination lock
-        additionalKey: Additional key
-        fineWireProtection: Alarm "fine wire" protecting openings
+        guard_dog: Guard Dog
+        windows_uLC: Windows – ULC security film
+        combo_lock: Additional combination lock
+        additional_key: Additional key
+        fine_wire_protection: Alarm "fine wire" protecting openings
         concealed: Camera with concealed VCR recording on film
-        commonWalls: Common tenant walls reinforced with steel mesh
-        electronicLock: Electronic lock
-        visibleEntrance: Entrance visible from street
-        sturdyDoors: Exterior doors of sturdy construction, inside hinges
-        extLighting: Exterior lighting
-        holdupButtons: Hold-up buttons
-        metalDoors: Metal loading doors, secured internally
-        motionLighting: Motion sensitive lighting
-        multipleLocks: Multiple lock styles
+        common_walls: Common tenant walls reinforced with steel mesh
+        electronic_lock: Electronic lock
+        visible_entrance: Entrance visible from street
+        sturdy_doors: Exterior doors of sturdy construction, inside hinges
+        ext_lighting: Exterior lighting
+        holdup_buttons: Hold-up buttons
+        metal_doors: Metal loading doors, secured internally
+        motion_lighting: Motion sensitive lighting
+        multiple_locks: Multiple lock styles
         perimeter: Perimeter fence and lockable gate
-        nightIllumination: Property/lot illuminated at night
-        blockedSkylight: Skylight/Roof AC openings blocked off
-        steelPost: Steel post (front & rear) to prevent vehicle entry
-        stockSecured: Stock secured – separate enclosure
-        stockroomMotion: Stockroom ceiling entirely covered by motion sensor
-        warehouseAlarm: Warehouse area alarmed separately from office
-        warningSigns: Warning signs
-        glassBreakageDetect: Windows – Glass breakage detectors
+        night_illumination: Property/lot illuminated at night
+        blocked_skylight: Skylight/Roof AC openings blocked off
+        steel_post: Steel post (front & rear) to prevent vehicle entry
+        stock_secured: Stock secured – separate enclosure
+        stockroom_motion: Stockroom ceiling entirely covered by motion sensor
+        warehouse_alarm: Warehouse area alarmed separately from office
+        warning_signs: Warning signs
+        glass_breakage_detect: Windows – Glass breakage detectors
         other: Other (describe)
     - :name: Describe if other
       :id: protection_types_other
