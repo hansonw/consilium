@@ -6,6 +6,13 @@
   :required: true
   :primary: true
   :unique: true
+- :name: Email
+  :id: email
+  :placeholder: Email (ex. john@consilium.ca)
+  :type: email
+  :required: true
+  :primary: true
+  :unique: true
 - :name: Salutation
   :id: salutation
   :placeholder: Mr./Ms./Dr. (etc)
@@ -31,10 +38,6 @@
   :id: phone
   :placeholder: 'Area code - phone #, ext #'
   :type: phone
-- :name: Email
-  :id: email
-  :placeholder: Email (ex. john@consilium.ca)
-  :type: email
 - :name: Other
   :id: other
   :placeholder: Main, Direct, Toll, Fax, Pager, Cell, Home
