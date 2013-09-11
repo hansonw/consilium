@@ -1,11 +1,16 @@
 module ConsiliumFieldReferences
+  def self.included(klass)
+    klass.extend ClassMethods
+  end
+
   # Converts references from object.referenceCollection to
   # object[:referenceCollection]. Don't save after using this. In general, this
   # should only be used for presentation purposes (i.e. turning into JSON for
   # the client).
   def serialize_references(syncable = false)
-    assocs = get_associations
+    assocs = self.class.autosynced_references
     assocs.each do |assoc|
+      # Convert the association to underscore. e.g. ClientContact -> client_contact
       assoc = assoc.to_s.underscore.to_sym
 
       if syncable
@@ -29,14 +34,20 @@ module ConsiliumFieldReferences
     self
   end
 
-  def update_references(params, syncable = false)
+  def new_with_references(params, syncable = false)
+    self.id = params[:id]
+    self.update_with_references(params, syncable)
+  end
+
+  def update_with_references(params, syncable = false)
     retval = {:params => params, :errors => []}
 
-    assocs = get_associations
+    assocs = self.class.autosynced_references
     assocs.each do |assoc|
+      # Convert the association to underscore. e.g. ClientContact -> client_contact
       assoc = assoc.to_s.underscore.to_sym
 
-      existing =
+      params_assoc =
         if syncable
           params[assoc].andand[:value]
         else
@@ -46,8 +57,8 @@ module ConsiliumFieldReferences
       # Check for elements that are on the saved model, but not on the params.
       # This means that the updated params must have included a deletion.
       self.send(assoc).each do |elem|
-        if !existing.nil?
-          found = existing.select do |param|
+        if !params_assoc.nil?
+          found = params_assoc.select do |param|
             (param[:_id] || param[:id]).to_s == (elem[:_id] || elem[:id]).to_s
           end
           # No matching object was found. Delete it.
@@ -59,22 +70,26 @@ module ConsiliumFieldReferences
 
       # Check for elements that are on the params. This includes anything
       # that either hasn't been changed, has been updated, or has been created.
-      if !existing.nil?
-        existing.each do |elem|
+      if !params_assoc.nil?
+        params_assoc.each do |elem|
           klass = assoc.to_s.camelize.singularize.constantize
 
           instance = klass.where(:id => elem[:_id] || elem[:id]).first
 
           if !instance.nil?
             instance.update(elem)
+            relation = self.send(assoc).select { |existing_elem| (existing_elem[:id] || existing_elem[:_id]) == (instance[:id] || instance[:_id]) }
+            relation = instance
+            if !relation.save
+              retval[:errors].push relation.errors
+            end
           else
             instance = klass.new(elem)
-          end
-
-          instance[self.class.to_s.underscore + "_id"] = self[:_id]
-
-          if !instance.save
-            retval[:errors].push instance.errors
+            if instance.save
+              self.send(assoc).push(instance)
+            else
+              retval[:errors].push instance.errors
+            end
           end
         end
       end
@@ -82,12 +97,18 @@ module ConsiliumFieldReferences
       params.delete(assoc)
     end
 
+    self.update(params)
     self.reload_relations
     retval
   end
 
-  private
-    def get_associations
-      self.reflect_on_all_associations(:has_many).map(&:name)
+  module ClassMethods
+    def autosync_references(ref)
+      (@autosynced_references ||= []).push ref
     end
+
+    def autosynced_references
+      @autosynced_references
+    end
+  end
 end

@@ -72,30 +72,28 @@ class Api::ClientsController < Api::ApiController
   # POST /clients/:id
   def create
     authorize! :create, Client
-    @client = Client.new(client_params)
+    @client = Client.new
 
     if existing = Client.where(:id => params[:id]).first
       render json: '', status: :conflict
       return
-    else
-      @client._id = params[:id]
-      @client.editing_time = params[:client][:editing_time].to_i
-      # There's no way it takes more than 1 second per byte to enter.
-      limit = @client.to_json.length
-      if @client.editing_time > limit
-        @client.editing_time = limit
-      end
-      fix_timestamps(@client.attributes)
     end
 
-    @client.brokerage = current_user.brokerage
-
-    filtered_params = @client.update_references(client_params, true)
+    filtered_params = @client.new_with_references(client_params, true)
     if !filtered_params[:errors].empty?
       render json: filtered_params[:errors], status: :unprocessable_entity
       return
     end
-    @client.update(filtered_params[:params])
+
+    @client.editing_time = params[:client][:editing_time].to_i
+    # There's no way it takes more than 1 second per byte to enter.
+    limit = @client.to_json.length
+    if @client.editing_time > limit
+      @client.editing_time = limit
+    end
+    fix_timestamps(@client.attributes)
+
+    @client.brokerage = current_user.brokerage
 
     if @client.save
       ClientChange.update_client(@client, @user.id)
@@ -111,13 +109,12 @@ class Api::ClientsController < Api::ApiController
     # XXX: Trust the client to provide accurate updated_at and created_at
     # timestamps for references.
     if @client = Client.where(:id => params[:id]).first
-      filtered_params = @client.update_references(client_params, true)
+      filtered_params = @client.update_with_references(client_params, true)
       if !filtered_params[:errors].empty?
         render json: filtered_params[:errors], status: :unprocessable_entity
         return
       end
     end
-    @client = Client.new(filtered_params[:params])
 
     if existing = Client.where(:id => params[:id]).first
       # Sync all fields
