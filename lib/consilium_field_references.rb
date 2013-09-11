@@ -97,10 +97,12 @@ module ConsiliumFieldReferences
             instance.update(elem)
           else
             instance = klass.new(elem)
-            # HACK! Write the id that we expect the main object referred from
-            # to get when it is saved. We should really be using the
-            # object.relation class methods instead.
-            instance[self.class.to_s.underscore + '_id'] = params[:id]
+            if instance.valid?
+              # HACK! Write the id that we expect the main object referred from
+              # to get when it is saved. We should really be using the
+              # object.relation class methods instead.
+              instance[self.class.to_s.underscore + '_id'] = params[:id]
+            end
           end
 
           if !instance.save
