@@ -57,6 +57,18 @@ module ConsiliumFieldReferences
     return nil if self.check_if_autosynced_references
 
     assocs = self.class.autosynced_references
+
+    params_no_references = params.dup
+    assocs.each do |assoc|
+      params_no_references.delete assoc
+    end
+
+    self.update(params_no_references)
+    if !self.save
+      retval[:errors].push self.errors
+      return retval
+    end
+
     assocs.each do |assoc|
       params_assoc =
         if syncable
@@ -98,30 +110,26 @@ module ConsiliumFieldReferences
           end
         else
           instance = klass.new(:id => (elem[:_id] || elem[:id]))
+          # HACK! Write the id that we expect the main object referred from
+          # to get when it is saved. We should really be using the
+          # object.relation class methods instead.
+          instance[self.class.to_s.underscore + '_id'] = params[:id]
           if defined? instance.new_with_references
             filtered_elem = instance.new_with_references(elem, syncable)
             retval[:errors] |= filtered_elem[:errors]
           else
             instance.update(elem)
           end
-
-          if instance.valid?
-            # HACK! Write the id that we expect the main object referred from
-            # to get when it is saved. We should really be using the
-            # object.relation class methods instead.
-            instance[self.class.to_s.underscore + '_id'] = params[:id]
-          end
         end
 
         if !instance.save
           retval[:errors].push instance.errors
+        else
+          instance.reload_relations
         end
       end
-
-      params.delete(assoc)
     end
 
-    self.update(params)
     self.reload_relations
     retval
   end

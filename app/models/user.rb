@@ -8,6 +8,11 @@ class User
   include ActionView::Helpers::HostHelper
   include ConsiliumFields
 
+  before_validation :check_references
+  before_save :check_password
+  before_create :maybe_give_brokerage
+  after_create :send_welcome_email
+
   CLIENT = 1
   BROKER = 2
   ADMIN  = 3
@@ -65,7 +70,6 @@ class User
   field :permissions, :type => Integer, :default => BROKER
 
   def password_required?
-    return false
     return true if current_user == nil
     current_user.cannot? :manage, self
   end
@@ -76,32 +80,41 @@ class User
 
   protected
 
-  set_callback(:save, :before) do |document|
-    reset_password if valid? && (encrypted_password.blank? || password.blank?)
-  end
-
-  set_callback(:create, :before) do |document|
-    # If the user doesn't have a brokerage when they're saved, they should be
-    # given their own new one.
-    if document.brokerage.nil?
-      brokerage = Brokerage.new
-      document.brokerage = brokerage if brokerage.save
-      document[:permissions] = ADMIN
+  def check_references
+    # Resolve references up the hierarchy in case this user was created for
+    # a client contact.
+    if self.brokerage.nil? && !self.client_contact.nil?
+      self.brokerage = self.client_contact.client.brokerage
+      self[:permissions] = 1
     end
   end
 
-  set_callback(:create, :after) do |document|
+  def check_password
+    reset_password if valid? && (encrypted_password.blank? || password.blank?)
+  end
+
+  def maybe_give_brokerage
+    # If the user doesn't have a brokerage when they're saved, they should be
+    # given their own new one.
+    if self.brokerage.nil? && self.client_contact.nil?
+      brokerage = Brokerage.new
+      self.brokerage = brokerage if brokerage.save
+      self[:permissions] = ADMIN
+    end
+  end
+
+  def send_welcome_email
     Mailer.user_welcome({
-      :to => document[:email],
+      :to => self[:email],
       :variables => {
-        :activation_url => "#{site_host}/app#/auth/reset_password?id=#{document[:id]}&token=#{reset_password_token.to_s}&activate",
+        :activation_url => "#{site_host}/app#/auth/reset_password?id=#{self[:id]}&token=#{self.reset_password_token.to_s}&activate",
         :site_url => "#{site_host}/app#",
-        :email => document[:email],
-        :token => reset_password_token,
-        :name => document[:name],
-        :brokerage => document.brokerage[:name],
+        :email => self[:email],
+        :token => self.reset_password_token,
+        :name => self[:name],
+        :brokerage => self.brokerage[:name],
       },
-      :permissions => document[:permissions]
+      :permissions => self[:permissions]
     }).deliver
   end
 
@@ -110,14 +123,12 @@ class User
   def reset_password
     reset_password_token
 
-    brokerage = self.brokerage || self.client_contact.andand.client.andand.brokerage
-
     Mailer.reset_password({
       :to => self[:email],
       :variables => {
         :token => reset_password_token,
         :name => self[:name],
-        :brokerage => brokerage.andand[:name] || 'Temp',
+        :brokerage => self.brokerage[:name],
       }
     }).deliver
   end

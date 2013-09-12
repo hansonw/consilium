@@ -18,12 +18,11 @@ class Api::BrokerageController < Api::ApiController
       current_user.save
     end
 
-    filtered_params = @brokerage.update_references(brokerage_params)
+    filtered_params = @brokerage.update_with_references(brokerage_params)
     if !filtered_params[:errors].empty?
       render json: filtered_params[:errors], status: :unprocessable_entity
       return
     end
-    @brokerage.update(filtered_params[:params])
 
     if @brokerage.save
       render json: get_json(@brokerage.serialize_references)

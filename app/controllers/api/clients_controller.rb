@@ -79,6 +79,8 @@ class Api::ClientsController < Api::ApiController
       return
     end
 
+    @client.brokerage = current_user.brokerage
+
     filtered_params = @client.new_with_references(client_params, true)
     if !filtered_params[:errors].empty?
       render json: filtered_params[:errors], status: :unprocessable_entity
@@ -92,8 +94,6 @@ class Api::ClientsController < Api::ApiController
       @client.editing_time = limit
     end
     fix_timestamps(@client.attributes)
-
-    @client.brokerage = current_user.brokerage
 
     if @client.save
       ClientChange.update_client(@client, @user.id)
