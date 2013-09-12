@@ -140,7 +140,7 @@ class Api::DocumentsController < Api::ApiController
     authorize! :read, Document
 
     DocumentTemplate.sync
-    templates = DocumentTemplate.all.to_a
+    templates = DocumentTemplate.asc(:name).to_a
     templates.each do |template|
       template.sections.each do |section|
         update = DocumentTemplateSection.where({
