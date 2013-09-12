@@ -16,8 +16,11 @@ App.directive 'clientContactsForm', [ ->
         if $scope.writeNode.client_contacts.user = !$scope.writeNode.client_contacts.user
           contact = $scope.writeNode.client_contacts
           user =
-            id: Util.generateGUID()
-            name: contact.name
-            email: contact.email
+            updated_at: null
+            created_at: null
+            value:
+              id: Util.generateGUID()
+              name: contact.name
+              email: contact.email
           $scope.writeNode.client_contacts.user = user
 ]

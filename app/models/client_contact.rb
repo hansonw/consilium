@@ -1,4 +1,5 @@
 require 'consilium_fields'
+require 'consilium_field_references'
 
 class ClientContact
   include Mongoid::Document
@@ -6,7 +7,10 @@ class ClientContact
   include Mongoid::Paranoia
   include Mongoid::Attributes::Dynamic
   include ConsiliumFields
+  include ConsiliumFieldReferences
 
   belongs_to :client
   has_one :user
+
+  autosync_references :user
 end

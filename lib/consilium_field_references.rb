@@ -23,9 +23,6 @@ module ConsiliumFieldReferences
 
     assocs = self.class.autosynced_references
     assocs.each do |assoc|
-      # Convert the association to underscore. e.g. ClientContact -> client_contact
-      assoc = assoc.to_s.underscore.to_sym
-
       if syncable
         self[assoc] = {
           :updated_at => nil,
@@ -61,19 +58,19 @@ module ConsiliumFieldReferences
 
     assocs = self.class.autosynced_references
     assocs.each do |assoc|
-      # Convert the association to underscore. e.g. ClientContact -> client_contact
-      assoc = assoc.to_s.underscore.to_sym
-
       params_assoc =
         if syncable
           params[assoc].andand[:value]
         else
           params[assoc]
-        end
+        end || []
+      params_assoc = [params_assoc] unless params_assoc.is_a?(Array)
 
       # Check for elements that are on the saved model, but not on the params.
       # This means that the updated params must have included a deletion.
-      self.send(assoc).each do |elem|
+      existing_assocs = self.send(assoc) || []
+      existing_assocs = [existing_assocs] unless existing_assocs.is_a?(Array)
+      existing_assocs.each do |elem|
         if !params_assoc.nil?
           found = params_assoc.select do |param|
             (param[:_id] || param[:id]).to_s == (elem[:_id] || elem[:id]).to_s
@@ -87,27 +84,37 @@ module ConsiliumFieldReferences
 
       # Check for elements that are on the params. This includes anything
       # that either hasn't been changed, has been updated, or has been created.
-      if !params_assoc.nil?
-        params_assoc.each do |elem|
-          klass = assoc.to_s.camelize.singularize.constantize
+      params_assoc.each do |elem|
+        klass = assoc.to_s.camelize.singularize.constantize
 
-          instance = klass.where(:id => elem[:_id] || elem[:id]).first
+        instance = klass.where(:id => elem[:_id] || elem[:id]).first
 
-          if !instance.nil?
-            instance.update(elem)
+        if !instance.nil?
+          if defined? instance.update_with_references
+            filtered_elem = instance.update_with_references(elem, syncable)
+            retval[:errors] |= filtered_elem[:errors]
           else
-            instance = klass.new(elem)
-            if instance.valid?
-              # HACK! Write the id that we expect the main object referred from
-              # to get when it is saved. We should really be using the
-              # object.relation class methods instead.
-              instance[self.class.to_s.underscore + '_id'] = params[:id]
-            end
+            instance.update(elem)
+          end
+        else
+          instance = klass.new(:id => (elem[:_id] || elem[:id]))
+          if defined? instance.new_with_references
+            filtered_elem = instance.new_with_references(elem, syncable)
+            retval[:errors] |= filtered_elem[:errors]
+          else
+            instance.update(elem)
           end
 
-          if !instance.save
-            retval[:errors].push instance.errors
+          if instance.valid?
+            # HACK! Write the id that we expect the main object referred from
+            # to get when it is saved. We should really be using the
+            # object.relation class methods instead.
+            instance[self.class.to_s.underscore + '_id'] = params[:id]
           end
+        end
+
+        if !instance.save
+          retval[:errors].push instance.errors
         end
       end
 

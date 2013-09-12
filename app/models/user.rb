@@ -12,6 +12,7 @@ class User
   BROKER = 2
   ADMIN  = 3
 
+  belongs_to :client_contact
   belongs_to :brokerage
 
   has_many :client_changes
@@ -64,6 +65,7 @@ class User
   field :permissions, :type => Integer, :default => BROKER
 
   def password_required?
+    return false
     return true if current_user == nil
     current_user.cannot? :manage, self
   end
@@ -106,14 +108,16 @@ class User
   private
 
   def reset_password
-    generate_reset_password_token
+    reset_password_token
+
+    brokerage = self.brokerage || self.client_contact.andand.client.andand.brokerage
 
     Mailer.reset_password({
       :to => self[:email],
       :variables => {
         :token => reset_password_token,
         :name => self[:name],
-        :brokerage => self.brokerage[:name],
+        :brokerage => brokerage.andand[:name] || 'Temp',
       }
     }).deliver
   end
