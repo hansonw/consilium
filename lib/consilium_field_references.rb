@@ -33,7 +33,10 @@ module ConsiliumFieldReferences
         self[assoc] = []
       end
 
-      self.send(assoc).each do |elem|
+      existing_assocs = self.send(assoc) || []
+      existing_assocs = [existing_assocs] unless existing_assocs.is_a?(Array)
+      existing_assocs.each do |elem|
+        elem = elem.serialize_references(syncable) if defined? elem.serialize_references
         if syncable
           self[assoc][:value].push elem
         else

@@ -13,7 +13,9 @@ App.directive 'clientContactsForm', [ ->
           "permission to manage #{($scope.client.company_name || {value: 'this client'}).value}. " +
           "They will be sent an email with instructions. Are you sure you want to do this?")
 
-        if $scope.writeNode.client_contacts.user = !$scope.writeNode.client_contacts.user
+        if $scope.writeNode.client_contacts.user
+          delete $scope.writeNode.client_contacts.user
+        else
           contact = $scope.writeNode.client_contacts
           user =
             updated_at: null

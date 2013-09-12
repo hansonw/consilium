@@ -5,6 +5,7 @@ require 'andand'
 class User
   include Mongoid::Document
   include Mongoid::Paranoia
+  include Mongoid::Timestamps
   include ActionView::Helpers::HostHelper
   include ConsiliumFields
 
@@ -85,7 +86,7 @@ class User
     # a client contact.
     if self.brokerage.nil? && !self.client_contact.nil?
       self.brokerage = self.client_contact.client.brokerage
-      self[:permissions] = 1
+      self[:permissions] = CLIENT
     end
   end
 
