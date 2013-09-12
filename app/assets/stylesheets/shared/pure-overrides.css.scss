@@ -219,6 +219,10 @@ button, input, select, textarea {
         margin: 0;
       }
 
+      .error-tooltip-container {
+        position: relative;
+      }
+
       .error-tooltip {
         display: none;
 
@@ -230,7 +234,7 @@ button, input, select, textarea {
         @include respond-to(tablets, desktops, widescreens) {
           position: absolute;
           z-index: 100;
-          top: -3em;
+          bottom: 1em;
           left: 6em;
           width: 200px;
           padding: 7px;
@@ -256,8 +260,8 @@ button, input, select, textarea {
       &:first-child {
         .error-tooltip {
           @include respond-to(tablets, desktops, widescreens) {
-            top: auto;
-            bottom: -3em;
+            top: 2em;
+            bottom: auto;
           }
         }
         .error-tooltip::before {

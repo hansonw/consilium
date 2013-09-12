@@ -1,4 +1,4 @@
-module FormHelper
+  module FormHelper
   def model_name(field_name, parent_field, options)
     return if field_name.nil?
     # Pull out any expressions contained within the field name and add them back
@@ -87,8 +87,10 @@ module FormHelper
          <label for='#{field[:id]}'
                 #{field[:required] && "class='required'"}
                 #{field[:type] != 'units' && change_attrs}>
+           <div class='error-tooltip-container'>
+            <div class='error-tooltip' error-tooltip='#{field[:id]}' />
+           </div>
            #{field[:name]}
-           <div class='error-tooltip' error-tooltip='#{field[:id]}' />
          </label>
          #{ng_input(field, model, options)}
        </div>"
