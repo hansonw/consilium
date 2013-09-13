@@ -32,10 +32,15 @@ class Api::ApiController < ApplicationController
 
     def get_json_impl(obj, attrs = {})
       return obj.map { |c| get_json_impl(c, attrs) } if obj.is_a?(Array)
-      return obj if !obj.respond_to?(:attributes)
+
+      if obj.respond_to?(:attributes)
+        obj = obj.attributes
+      elsif !obj.is_a?(Hash)
+        return obj
+      end
 
       ret = {}
-      obj.attributes.each do |key, val|
+      obj.each do |key, val|
         if key == "_id"
           ret[:id] = val.to_s
         elsif val.is_a?(Moped::BSON::ObjectId)

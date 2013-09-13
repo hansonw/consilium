@@ -35,7 +35,7 @@ syncCollection = (dest, newData, last_synced) ->
   destMap = {}
   destMap[val.id] = val for val in dest
   existingMap = {}
-  existingMap[val.id] = val for val in dest
+  existingMap[val.id] = val for val in newData
 
   updated = false
   result = []
@@ -44,7 +44,7 @@ syncCollection = (dest, newData, last_synced) ->
       # must have been deleted locally.
       updated = true
     else if existingMap[val.id]
-      updated |= syncFields(val, existingMap[val.id])
+      updated |= syncFields(val, existingMap[val.id], last_synced)
       result.push(val)
     else
       result.push(val)
@@ -64,7 +64,9 @@ syncFields = (dest, newData, last_synced, overwrite) ->
   # Check each field individually, and update
   for key, val of newData
     if val?.updated_at?
-      if (dest[key]?.value instanceof Array) && dest[key].value[0]?.id? # supports deep merging?
+      if (dest[key]?.value instanceof Array) && (val.value instanceof Array) &&
+         (dest[key].value[0]?.id? || dest[key].value.length == 0) &&
+         (val.value[0]?.id? || val.value.length == 0) # supports deep merging?
         if !dest[key].updated_at? || val.updated_at > dest[key].updated_at
           dest[key].updated_at = val.updated_at
         updated |= syncCollection(dest[key].value, val.value, last_synced)
@@ -247,7 +249,6 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
         if online()
           save_fn = if @isNew() then @_create else @_save
           save_fn(AuthToken.addAuthTokenToJSONRequest({last_synced: storage.getLastSynced(@id)}), (data) =>
-            # Delete the temporary model from the local DB if it exists.
             angular.extend(this, storage.update(data) || getData(data))
             storage.setLastSynced(Util.unixTimestamp(), @id)
             @_isNew = false
