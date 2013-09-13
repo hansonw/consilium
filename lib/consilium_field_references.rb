@@ -25,8 +25,8 @@ module ConsiliumFieldReferences
     assocs.each do |assoc|
       if syncable
         self[assoc] = {
-          :updated_at => nil,
-          :created_at => nil,
+          :updated_at => 0,
+          :created_at => 99999999999999,
           :value => [],
         }
       else
@@ -37,8 +37,16 @@ module ConsiliumFieldReferences
       existing_assocs = [existing_assocs] unless existing_assocs.is_a?(Array)
       existing_assocs.each do |elem|
         elem = elem.serialize_references(syncable) if defined? elem.serialize_references
+
         if syncable
           self[assoc][:value].push elem
+
+          if elem[:updated_at].to_i > self[assoc][:updated_at]
+            self[assoc][:updated_at] = elem[:updated_at].to_i
+          end
+          if elem[:created_at].to_i < self[assoc][:created_at]
+            self[assoc][:created_at] = elem[:created_at].to_i
+          end
         else
           self[assoc].push elem
         end
