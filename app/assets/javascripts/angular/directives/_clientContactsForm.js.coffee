@@ -18,11 +18,8 @@ App.directive 'clientContactsForm', [ ->
         else
           contact = $scope.writeNode.client_contacts
           user =
-            updated_at: null
-            created_at: null
-            value:
-              id: Util.generateGUID()
-              name: contact.name
-              email: contact.email
+            id: Util.generateGUID()
+            name: contact.name.value
+            email: contact.email.value
           $scope.writeNode.client_contacts.user = user
 ]

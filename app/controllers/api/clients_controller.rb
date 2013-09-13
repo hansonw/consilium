@@ -51,7 +51,7 @@ class Api::ClientsController < Api::ApiController
 
     @clients = current_ability.select(@clients)
 
-    @clients.map! { |client| client = client.serialize_references(true) }
+    @clients.map! { |client| client = client.serialize_references }
     render json: get_json(@clients)
   end
 
@@ -66,7 +66,7 @@ class Api::ClientsController < Api::ApiController
 
     authorize! :read, @client
 
-    render json: get_json(@client.serialize_references(true))
+    render json: get_json(@client.serialize_references)
   end
 
   # POST /clients/:id
@@ -81,7 +81,7 @@ class Api::ClientsController < Api::ApiController
 
     @client.brokerage = current_user.brokerage
 
-    filtered_params = @client.new_with_references(client_params, true)
+    filtered_params = @client.new_with_references(client_params)
     if !filtered_params[:errors].empty?
       render json: filtered_params[:errors], status: :unprocessable_entity
       return
@@ -97,7 +97,7 @@ class Api::ClientsController < Api::ApiController
 
     if @client.save
       ClientChange.update_client(@client, @user.id)
-      render json: get_json(@client.serialize_references(true))
+      render json: get_json(@client.serialize_references)
     else
       render json: @client.errors, status: :unprocessable_entity
     end
@@ -109,7 +109,7 @@ class Api::ClientsController < Api::ApiController
     # XXX: Trust the client to provide accurate updated_at and created_at
     # timestamps for references.
     if @client = Client.where(:id => params[:id]).first
-      filtered_params = @client.update_with_references(client_params, true)
+      filtered_params = @client.update_with_references(client_params)
       if !filtered_params[:errors].empty?
         render json: filtered_params[:errors], status: :unprocessable_entity
         return
@@ -145,7 +145,7 @@ class Api::ClientsController < Api::ApiController
     if @client.upsert
       # Create a new client change if necessary.
       ClientChange.update_client(@client, @user.id)
-      render json: get_json(@client.serialize_references(true))
+      render json: get_json(@client.serialize_references)
     else
       render json: @client.errors, status: :unprocessable_entity
     end

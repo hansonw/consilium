@@ -18,11 +18,14 @@ module ConsiliumFieldReferences
   # object[:referenceCollection]. Don't save after using this. In general, this
   # should only be used for presentation purposes (i.e. turning into JSON for
   # the client).
-  def serialize_references(syncable = false)
+  def serialize_references
     return nil if self.check_if_autosynced_references
 
     assocs = self.class.autosynced_references
     assocs.each do |assoc|
+      assoc_class = assoc.to_s.camelize.singularize.constantize
+      syncable = assoc_class.syncable?
+
       if syncable
         self[assoc] = {
           :updated_at => 0,
@@ -36,7 +39,7 @@ module ConsiliumFieldReferences
       existing_assocs = self.send(assoc) || []
       existing_assocs = [existing_assocs] unless existing_assocs.is_a?(Array)
       existing_assocs.each do |elem|
-        elem = elem.serialize_references(syncable) if defined? elem.serialize_references
+        elem = elem.serialize_references if defined? elem.serialize_references
 
         if syncable
           self[assoc][:value].push elem
@@ -58,13 +61,13 @@ module ConsiliumFieldReferences
   end
 
   # Creates a new model from a passed hash and creates any references on it as well.
-  def new_with_references(params, syncable = false)
+  def new_with_references(params)
     self.id = params[:id]
-    self.update_with_references(params, syncable)
+    self.update_with_references(params)
   end
 
   # Updates any references on a model, including all CRUD operations for them.
-  def update_with_references(params, syncable = false)
+  def update_with_references(params)
     retval = {:params => params, :errors => []}
 
     return nil if self.check_if_autosynced_references
@@ -83,6 +86,9 @@ module ConsiliumFieldReferences
     end
 
     assocs.each do |assoc|
+      assoc_class = assoc.to_s.camelize.singularize.constantize
+      syncable = assoc_class.syncable?
+
       params_assoc =
         if syncable
           params[assoc].andand[:value]
@@ -116,7 +122,7 @@ module ConsiliumFieldReferences
 
         if !instance.nil?
           if defined? instance.update_with_references
-            filtered_elem = instance.update_with_references(elem, syncable)
+            filtered_elem = instance.update_with_references(elem)
             retval[:errors] |= filtered_elem[:errors]
           else
             instance.update(elem)
@@ -128,7 +134,7 @@ module ConsiliumFieldReferences
           # object.relation class methods instead.
           instance[self.class.to_s.underscore + '_id'] = params[:id]
           if defined? instance.new_with_references
-            filtered_elem = instance.new_with_references(elem, syncable)
+            filtered_elem = instance.new_with_references(elem)
             retval[:errors] |= filtered_elem[:errors]
           else
             instance.update(elem)

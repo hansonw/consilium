@@ -16,6 +16,8 @@ class Client
 
   belongs_to :brokerage
 
+  syncable
+
   autosync_references :client_contacts
 
   has_many :client_changes, dependent: :delete

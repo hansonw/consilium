@@ -12,5 +12,7 @@ class ClientContact
   belongs_to :client
   has_one :user
 
+  syncable
+
   autosync_references :user
 end
