@@ -26,7 +26,7 @@ module ConsiliumFieldReferences
       if syncable
         self[assoc] = {
           :updated_at => 0,
-          :created_at => 99999999999999,
+          :created_at => nil,
           :value => [],
         }
       else
@@ -44,6 +44,8 @@ module ConsiliumFieldReferences
           if elem[:updated_at].to_i > self[assoc][:updated_at]
             self[assoc][:updated_at] = elem[:updated_at].to_i
           end
+
+          self[assoc][:created_at] ||= elem[:created_at].to_i
           if elem[:created_at].to_i < self[assoc][:created_at]
             self[assoc][:created_at] = elem[:created_at].to_i
           end
