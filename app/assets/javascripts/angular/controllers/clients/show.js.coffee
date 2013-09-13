@@ -67,7 +67,7 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
     )
 
     # Preserve the original object; it's referred to by a writeNode
-    angular.copy($scope.genDocument, {})
+    angular.copy({}, $scope.genDocument)
     Modal.toggleModal('genDocument')
 
   $scope.deleteDocument = (index) ->
