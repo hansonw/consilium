@@ -9,8 +9,9 @@ prefillWrapper = ($scope, $elem, $attrs, $parse, fn) ->
 
   elem.focus ->
     value = $parse(model)($scope)
-    if !value? || value == ''
-      fn(model, value)
+    if !elem.val()? || elem.val() == ''
+      if !value? || value == ''
+        fn(model, value)
 
 setFieldValue = ($scope, $elem, $parse, model, value) ->
   $parse(model).assign($scope, value)

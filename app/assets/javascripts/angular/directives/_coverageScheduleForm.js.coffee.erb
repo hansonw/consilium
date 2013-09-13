@@ -98,7 +98,9 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
         delete coverageSchedules[prevCov.category]?[prevCov.type]
 
       if cat = coverageLookup[$scope.coverage?.category]?[$scope.coverage?.type]
-        ($scope.writeNode ||= {}).curCoverage = ((coverageSchedules[$scope.coverage.category] ||= {})[$scope.coverage.type] ||= {})
+        elem.find('input.ng-invalid').each -> $(@).val('')
+        elem.find('.error-tooltip').each -> $(@).html('')
+        ($scope.writeNode ||= {}).curCoverage = angular.copy((coverageSchedules[$scope.coverage.category] ||= {})[$scope.coverage.type] ||= {})
         $scope.curCoverageType = cat
         prevCov = angular.copy($scope.coverage)
 

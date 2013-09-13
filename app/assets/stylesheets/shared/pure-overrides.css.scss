@@ -221,14 +221,16 @@ button, input, select, textarea {
 
       .error-tooltip-container {
         position: relative;
+        margin: 0;
       }
 
       .error-tooltip {
         display: none;
+        margin: 0;
 
         @include respond-to(handhelds) {
           color: red;
-          padding-top: 0.5em;
+          padding-bottom: 0.5em;
         }
 
         @include respond-to(tablets, desktops, widescreens) {
