@@ -40,6 +40,7 @@ module ConsiliumFieldReferences
       existing_assocs = [existing_assocs] unless existing_assocs.is_a?(Array)
       existing_assocs.each do |elem|
         elem = elem.serialize_references if defined? elem.serialize_references
+        elem.strip_blacklisted_fields
 
         if syncable
           self[assoc][:value].push elem

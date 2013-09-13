@@ -4,6 +4,12 @@ module ConsiliumFields
     klass.const_set :FIELDS, YAML::load(File.open(Rails.root.join("config", "models", "#{klass.to_s.underscore}.yml")))
   end
 
+  def strip_blacklisted_fields
+    self.attributes.each do |key, val|
+      self.attributes.delete(key) if self.class.blacklisted_fields.include? key.to_sym
+    end
+  end
+
   module ClassMethods
     def expand_fields(node = self::FIELDS)
       fields = node.map do |field|
@@ -122,6 +128,14 @@ module ConsiliumFields
 
     def syncable?
       @syncable
+    end
+
+    def blacklist_fields(fields)
+      @blacklisted_fields = fields
+    end
+
+    def blacklisted_fields
+      @blacklisted_fields
     end
 
     private
