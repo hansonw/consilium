@@ -126,7 +126,7 @@ module ConsiliumFields
 
     private
       def get_associations
-        self.reflect_on_all_associations(:has_many).map(&:name)
+        self.reflect_on_all_associations([:has_many, :has_one, :belongs_to]).map(&:name)
       end
 
   end

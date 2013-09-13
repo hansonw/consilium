@@ -62,7 +62,7 @@ module ConsiliumFieldReferences
 
   # Creates a new model from a passed hash and creates any references on it as well.
   def new_with_references(params)
-    self.id = params[:id]
+    self.id = (params[:_id] || params[:id])
     self.update_with_references(params)
   end
 
@@ -132,7 +132,7 @@ module ConsiliumFieldReferences
           # HACK! Write the id that we expect the main object referred from
           # to get when it is saved. We should really be using the
           # object.relation class methods instead.
-          instance[self.class.to_s.underscore + '_id'] = params[:id]
+          instance[self.class.to_s.underscore + '_id'] = (params[:_id] || params[:id])
           if defined? instance.new_with_references
             filtered_elem = instance.new_with_references(elem)
             retval[:errors] |= filtered_elem[:errors]

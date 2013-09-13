@@ -9,14 +9,14 @@ class User
   include ActionView::Helpers::HostHelper
   include ConsiliumFields
 
+  CLIENT = 1
+  BROKER = 2
+  ADMIN  = 3
+
   before_validation :check_references
   before_save :check_password
   before_create :maybe_give_brokerage
   after_create :send_welcome_email
-
-  CLIENT = 1
-  BROKER = 2
-  ADMIN  = 3
 
   belongs_to :client_contact
   belongs_to :brokerage
@@ -27,11 +27,17 @@ class User
   has_many :user_permissions, dependent: :delete
   has_one :recent_clients, class_name: 'RecentClients', dependent: :delete
 
+  validates :name, :uniqueness => {:scope => [:deleted_at, :brokerage_id]}, :if => :name_required?
+  validates :email, :uniqueness => {:scope => :deleted_at}, :if => :email_required?
+  validates :password, :presence => true, :if => :password_required?, :length => {in: 8..20}, :allow_blank => true
+  validates :password_confirmation, :confirmation => true, :if => :password_required?
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
+  # :validatable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
+         :recoverable, :rememberable, :trackable,
          :token_authenticatable
 
   field :name, :type => String, :default => ""
@@ -69,6 +75,14 @@ class User
   field :authentication_token, :type => String
 
   field :permissions, :type => Integer, :default => BROKER
+
+  def name_required?
+    true
+  end
+
+  def email_required?
+    true
+  end
 
   def password_required?
     return true if current_user == nil
