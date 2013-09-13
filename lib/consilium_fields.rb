@@ -6,7 +6,7 @@ module ConsiliumFields
 
   def strip_blacklisted_fields
     self.attributes.each do |key, val|
-      self.attributes.delete(key) if self.class.blacklisted_fields.include? key.to_sym
+      self.attributes.delete(key) if defined?(self.class.blacklisted_fields) && !self.class.blacklisted_fields.nil? && self.class.blacklisted_fields.include?(key.to_sym)
     end
   end
 
