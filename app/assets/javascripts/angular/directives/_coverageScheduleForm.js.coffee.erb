@@ -31,7 +31,7 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
             coverage.id = exist?.id || Util.generateGUID()
             coverage.category = exist?.category || {value: cat}
             coverage.type = exist?.type || {value: type}
-            collection.push(coverage)
+            collection.push(angular.copy(coverage))
 
       store.assign($scope, collection)
       $scope.clientForm.$setDirty()
@@ -47,12 +47,14 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
         if !coverageLookup[coverage.category.value]?[coverage.type.value]?
           $scope.addType(coverage.category.value, coverage.type.value)
 
-        (coverageSchedules[coverage.category.value] ||= {})[coverage.type.value] =
+        (coverageSchedules[coverage.category.value] ||= {})[coverage.type.value] = angular.copy(
           subtype: coverage.subtype,
           replacement_cost: coverage.replacement_cost,
           coinsurance: coverage.coinsurance,
           deductible: coverage.deductible,
           limit: coverage.limit
+          premium: coverage.premium
+        )
 
         if $scope.changedFields?[form]?[i]?.change
           ($scope.changedCoverages[coverage.category.value] ||= {})[coverage.type.value] =
@@ -100,7 +102,7 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
       if cat = coverageLookup[$scope.coverage?.category]?[$scope.coverage?.type]
         elem.find('input.ng-invalid').each -> $(@).val('')
         elem.find('.error-tooltip').each -> $(@).html('')
-        ($scope.writeNode ||= {}).curCoverage = angular.copy((coverageSchedules[$scope.coverage.category] ||= {})[$scope.coverage.type] ||= {})
+        ($scope.writeNode ||= {}).curCoverage = ((coverageSchedules[$scope.coverage.category] ||= {})[$scope.coverage.type] ||= {})
         $scope.curCoverageType = cat
         prevCov = angular.copy($scope.coverage)
 

@@ -564,6 +564,9 @@ label.changed {
     select {
       height: 350px;
     }
+    .error-tooltip {
+      bottom: -1em;
+    }
   }
 
   #clearCoverage {
