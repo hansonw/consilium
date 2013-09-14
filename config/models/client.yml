@@ -86,6 +86,7 @@
   :type: !ruby/class 'ClientContact'
   :modalPostPartial: templates/clients/sections/client_contacts_modal
   :formDirective: 'client-contacts-form'
+  :submitCallback: submitClientContacts()
 - :name: Business Ops
   :id: business_op
   :type:
