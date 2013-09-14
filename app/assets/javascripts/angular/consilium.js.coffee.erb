@@ -94,6 +94,10 @@ App.run ['$rootScope', '$location', '$timeout', 'Client', 'RecentClients', 'Offl
         name: 'Brokerage'
         link: '/brokerage/index'
       ])
+    $rootScope.menuItems.push(
+      name: 'My Account',
+      link: '/users/show/profile'
+    )
 
   $rootScope.updateMenu()
 

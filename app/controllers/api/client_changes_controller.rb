@@ -14,6 +14,9 @@ class Api::ClientChangesController < Api::ApiController
       authorize! :read, Client.find(params[:client_id])
       @client_changes = @client_changes.where('client_id' => params[:client_id])
     end
+    if params[:user_id]
+      @client_changes = @client_changes.where('user_id' => params[:user_id])
+    end
     @client_changes = @client_changes.desc(:created_at)
 
     if params[:short]

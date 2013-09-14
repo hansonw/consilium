@@ -6,7 +6,13 @@ class Api::UsersController < Api::ApiController
 
   # GET /api/users/1.json
   def show
-    render json: @user
+    if params[:id] == 'profile'
+      user = @current_user
+    else
+      user = User.find(params[:id])
+    end
+    authorize! :read, user
+    render json: get_json(user)
   end
 
   # POST /api/users/1.json

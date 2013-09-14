@@ -1,0 +1,84 @@
+<% paths = {
+     "Home" => "#/",
+     "{{ user.name }}" => "#/users/show/{{ userId }}",
+   }
+ %>
+
+<div data-ng-controller="UsersShowCtrl">
+  <div class="client-header" data-ng-class="{'active': menuShouldShow()}">
+    <div class="content header pure-u-1">
+      <h2 class="no-bottom-margin">
+        <i data-ng-show="loading" class="icon-spinner icon-spin"></i>
+        <span data-ng-show="!loading">Profile: {{ user.name }}</span>
+      </h2>
+      <%= render :partial => 'templates/breadcrumbs',
+                 :locals => { :paths => paths }
+      %>
+    </div>
+    <hr class="soften no-bottom-margin" />
+  </div>
+
+  <div id="main" class="client-show pure-form pure-u">
+    <div class="content has-header">
+      <div class="client-info no-top-margin pure-form pure-form-aligned well">
+        <div class="section" id="basicInfo">
+          <div class="client-buttons pull-right">
+            <a class="pure-button pure-button-primary pure-button-large"
+               data-click-href="#/clients/edit/{{ clientId }}">
+              <i class="icon-edit"></i><span class="desc"> Change Password</span>
+            </a>
+          </div>
+          <h3 class="no-top-margin">User Information</h3>
+        </div>
+
+        <div data-ng-show="loading">
+          <h3 class="no-top-margin"><i class="icon-spinner icon-spin icon-large"></i> Loading...</h3>
+        </div>
+        <div data-ng-show="!loading">
+          <div class="pure-control-group">
+            <label for="name">Name</label>
+            <span class="value">{{ user.name }}</span>
+          </div>
+          <div class="pure-control-group">
+            <label for="address">Email</label>
+            <span class="value">{{ user.email }}</span>
+          </div>
+          <div class="pure-control-group">
+            <label for="city_and_province">User Type</label>
+            <span class="value">{{ permissionNames[user.permissions] }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="client-docs well">
+        <div class="section" id="basicInfo">
+          <h3 class="no-top-margin">Recent Activity</h3>
+        </div>
+        <%= render :partial => 'templates/action_table',
+                   :locals => {
+                     :name => 'history',
+                     :model => 'history',
+                     :pagination => true,
+                     :rowHref => '{{ item.type == "template" ? "#/clients/templates/" + item.client_id + "?change=" + item.id : ' +
+                                 '"#/clients/edit/" + item.client_id + "?change=" + item.id }}',
+                     :fields => [
+                       {
+                         :name => 'Description',
+                         :id => 'description',
+                         :content => <<-END
+                           {{ item.description | ellipsize: 50:1 }}
+                           <div class="detail">
+                             in <a data-ng-href="#/clients/show/{{ item.client_id }}" eat-click>{{ item.client.company_name.value }}</a>
+                             <span class="except-desktops"><br /></span>
+                             on <span class="date">{{ item.updated_at*1000 | date: 'MMM d, y h:mm a' }}</span>
+                           </div>
+                         END
+                       }
+                     ],
+                     :actions => [:show],
+                   } %>
+        <div class="paginator" paginator="history"></div>
+      </div>
+    </div>
+  </div>
+</div>
