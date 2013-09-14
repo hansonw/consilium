@@ -110,8 +110,18 @@ class User
     end
   end
 
+  def generate_password_token
+    # Fuck Devise. Seriously. Fuck it to hell. They have a method to generate a
+    # token and send instructions on how to reset your password, but there's no
+    # method to just generate a token.
+    raw, enc = Devise.token_generator.generate(self.class, :reset_password_token)
+    self.reset_password_token = enc
+    self.reset_password_sent_at = Time.now.utc
+    self.save(:validate => false)
+  end
+
   def check_password
-    reset_password if valid? && (encrypted_password.blank? || password.blank?)
+    generate_password_token if valid? && (encrypted_password.blank? || password.blank?) && reset_password_token.nil?
   end
 
   def maybe_give_brokerage
@@ -128,10 +138,10 @@ class User
     Mailer.user_welcome({
       :to => self[:email],
       :variables => {
-        :activation_url => "#{site_host}/app#/auth/reset_password?id=#{self[:id]}&token=#{self.reset_password_token.to_s}&activate",
+        :activation_url => "#{site_host}/app#/auth/reset_password?id=#{self[:id]}&token=#{reset_password_token}&activate",
         :site_url => "#{site_host}/app#",
         :email => self[:email],
-        :token => self.reset_password_token,
+        :token => reset_password_token,
         :name => self[:name],
         :brokerage => self.brokerage[:name],
       },
@@ -142,7 +152,7 @@ class User
   private
 
   def reset_password
-    reset_password_token
+    generate_password_token
 
     Mailer.reset_password({
       :to => self[:email],
