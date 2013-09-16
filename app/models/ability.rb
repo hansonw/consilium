@@ -4,8 +4,8 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    can :manage, User, :id => user.id
     cannot :manage, User
+    can :manage, User, :id => user.id
 
     if user.permissions > User::CLIENT
       if user.permissions == User::ADMIN
@@ -24,11 +24,10 @@ class Ability
       end
       can :create, Document
     else
-      can :manage, Client do |client|
-        perm = UserPermission.where(:user => user, :client => client).first
-        perm && perm.can_manage
-      end
       cannot :manage, Client
+      can :manage, Client do |client|
+        user.client_contact.client == client
+      end
     end
 
     can :manage, RecentClients, :user => user
