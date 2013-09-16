@@ -45,7 +45,7 @@
 
             <div class="pure-form-fields">
               <% Brokerage::FIELDS.each do |field| %>
-                <% if fieldAsCollection(field).nil? %>
+                <% if fieldAsCollection(field).nil? && field[:edit] != false %>
                   <%= form_field field, 'brokerage', :syncable => false %>
                 <% end %>
               <% end %>

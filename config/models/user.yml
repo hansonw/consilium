@@ -17,3 +17,6 @@
   :name: Password
   :type: password
   :if: $!readonly
+- :id: permissions
+  :name: Permissions
+  :edit: false

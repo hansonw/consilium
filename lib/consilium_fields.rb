@@ -61,7 +61,7 @@ module ConsiliumFields
     def generate_permit_params(node = self::FIELDS)
       permitted = []
       expand_fields(node).each do |field|
-        if field[:id]
+        if field[:id] && field[:edit] != false
           permitted <<
             if field[:type].is_a? Class
               {field[:id] => generate_permit_params(field[:type]::FIELDS)}
@@ -90,7 +90,7 @@ module ConsiliumFields
     def generate_permit_params_wrapped(node = self::FIELDS)
       permitted = []
       expand_fields(node).each do |field|
-        if field[:id]
+        if field[:id] && field[:edit] != false
           if field[:type].is_a?(Class) && !field[:type].syncable?
             # Drop out of wrapped mode if a referenced class is not syncable.
             permitted << {field[:id] => generate_permit_params(field[:type]::FIELDS)}

@@ -31,7 +31,7 @@
             <% else %>
               <div class="pure-form-fields">
                 <% field[:type].each do |subfield| %>
-                  <% unless subfield[:type].is_a?(Class) %>
+                  <% unless subfield[:type].is_a?(Class) || subfield[:edit] == false %>
                     <%= form_field subfield, field[:id], {
                           :syncable => defined?(syncable) ? syncable : true,
                           :model_parent => local_assigns[:root],
