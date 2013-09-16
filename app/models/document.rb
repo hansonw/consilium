@@ -38,7 +38,7 @@ class Document
 
     fields = Client::FIELDS.dup
 
-    if brokerage = Brokerage.all.first
+    if brokerage = client.brokerage
       broker_data = {
         'company_short' => abbreviate(data['company_name']),
         'brokerage_short' => abbreviate(brokerage.name),
