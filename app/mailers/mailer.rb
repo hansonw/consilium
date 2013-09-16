@@ -18,7 +18,7 @@ class Mailer < PostageApp::Mailer
   private
     def simple_mail(template, params)
       postageapp_template template
-      postageapp_variables params[:variables]
+      postageapp_variables params[:variables].merge({:email => params[:to]})
 
       mail(
         :to => {
