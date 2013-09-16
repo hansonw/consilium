@@ -188,7 +188,7 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Hierarchy', 'Moda
 
     $scope.editInField = (index) ->
       objName = @node
-      node = Hierarchy.findWriteNode(objName)
+      node = Hierarchy.findWriteNode(objName) || @
       root = node.modelPath(true) || model
 
       parsed = $parse(root)
@@ -202,7 +202,7 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Hierarchy', 'Moda
 
     $scope.deleteFromField = (index) ->
       objName = @node
-      node = Hierarchy.findWriteNode(objName)
+      node = Hierarchy.findWriteNode(objName) || @
       root = node.modelPath(true) || model
       parsed = $parse(root)
       collection = parsed($scope)
