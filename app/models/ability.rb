@@ -20,13 +20,17 @@ class Ability
       can :create, Client
 
       can :manage, Document do |document|
-        document.client.brokerage == user.brokerage
+        document.client.brokerage.id == user.brokerage.id
       end
       can :create, Document
     else
+      can :manage, Document do |document|
+        document.client.id == user.client_contact.client.id
+      end
+
       cannot :manage, Client
       can :manage, Client do |client|
-        user.client_contact.client == client
+        client.id == user.client_contact.client.id
       end
     end
 

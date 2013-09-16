@@ -24,7 +24,6 @@ class User
   has_many :client_changes
   has_many :document_template_sections
   has_many :documents, dependent: :delete
-  has_many :user_permissions, dependent: :delete
   has_one :recent_clients, class_name: 'RecentClients', dependent: :delete
 
   validates :name, :uniqueness => {:scope => [:deleted_at, :brokerage_id]}, :if => :name_required?

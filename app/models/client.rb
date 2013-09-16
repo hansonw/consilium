@@ -23,7 +23,6 @@ class Client
   has_many :client_changes, dependent: :delete
   has_many :client_contacts, dependent: :delete
   has_many :documents, dependent: :delete
-  has_many :user_permissions, dependent: :delete
   has_many :document_template_sections, dependent: :delete
 
   field :editing_time, type: Integer, default: 0
