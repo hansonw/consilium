@@ -26,18 +26,21 @@ module ConsiliumFieldReferences
       assoc_class = assoc.to_s.camelize.singularize.constantize
       syncable = assoc_class.syncable?
 
-      if syncable
-        self[assoc] = {
-          :updated_at => 0,
-          :created_at => 0,
-          :value => [],
-        }
-      else
-        self[assoc] = []
-      end
-
       existing_assocs = self.send(assoc) || []
       existing_assocs = [existing_assocs] unless existing_assocs.is_a?(Array)
+
+      unless existing_assocs.empty?
+        if syncable
+          self[assoc] = {
+            :updated_at => 0,
+            :created_at => 0,
+            :value => [],
+          }
+        else
+          self[assoc] = []
+        end
+      end
+
       existing_assocs.each do |elem|
         elem = elem.serialize_references if defined? elem.serialize_references
         elem.strip_blacklisted_fields
