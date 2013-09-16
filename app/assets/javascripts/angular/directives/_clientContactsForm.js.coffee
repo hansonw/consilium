@@ -24,7 +24,7 @@ App.directive 'clientContactsForm', [ ->
           email: contact.email.value
       else if $scope.writeNode.client_contacts.user == false
         delete $scope.writeNode.client_contacts.user
-      else # Must be an object (an actual user)
+      else if $scope.writeNode.client_contacts.user? # Must be an object (an actual user)
         contact = $scope.writeNode.client_contacts
         # Propagate the contact's information to the user.
         $scope.writeNode.client_contacts.user.name = contact.name.value
