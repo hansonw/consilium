@@ -175,14 +175,39 @@
       :type: watch
       :watch: policy_infos.policy_start.value
       :expr: policy_infos.policy_start.value + 31557600.0
-  - :id: quote_required_by_asap
+- :name: Insurer Offerings
+  :id: insurer_offerings
+  :type:
+  - :name: Insurer
+    :id: insurer
+    :type: text
+    :required: true
+    :primary: true
+    :placeholder: Name of insurer
+  - :name: Policy Number
+    :id: policy_number
+    :type: text
+    :required: true
+    :primary: true
+  - :name: Umbrella Liability Premium
+    :id: umbrella_premium
+    :type: currency
+  - :name: Commercial Policy Premium
+    :id: commercial_premium
+    :type: currency
+  - :name: Total Premium Per Location
+    :id: total_premium
+    :required: true
+    :type: currency
+    :prefill:
+      :type: calc
+      # force convert to integer, or else it'll just concatenate
+      :expr: insurer_offerings.umbrella_premium.value*1 + insurer_offerings.commercial_premium.value*1
+  - :name: Chosen insurer
+    :id: chosen_insurer
     :type: checkbox
     :options:
-      'yes': 'Quote required ASAP'
-  - :name: Quote Required By
-    :id: quote_required_by
-    :type: date
-    :if: '!quote_required_by_asap.yes'
+      'yes': This offer will be accepted.
 - :name: Liability Info
   :id: liability_info
   :type:
@@ -2356,8 +2381,6 @@
     :type: text
   - :id: limit
     :type: currency
-  - :id: premium
-    :type: text
 - :name: Misc. Notes
   :id: misc_note
   :type:
@@ -2368,12 +2391,32 @@
 - :name: Declaration
   :id: declaration
   :type:
-  - :name: I have known this client since
-    :id: date_known
-    :type: date
-    :if: '!new_client.yes'
   - :name: ''
     :id: new_client
     :type: checkbox
     :options:
       'yes': This client is new to my office.
+  - :name: I have known this client since
+    :id: date_known
+    :type: date
+    :if: '!new_client.yes'
+  - :type: separator
+  - :name: Anticipated Policy Start
+    :id: policy_start
+    :type: date
+  - :name: Anticipated Policy End
+    :id: policy_end
+    :type: date
+    :prefill:
+      :type: watch
+      :watch: client.policy_start.value
+      :expr: client.policy_start.value + 31557600.0
+  - :type: separator
+  - :id: quote_required_by_asap
+    :type: checkbox
+    :options:
+      'yes': 'Quote required ASAP'
+  - :name: Quote Required By
+    :id: quote_required_by
+    :type: date
+    :if: '!quote_required_by_asap.yes'

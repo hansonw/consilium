@@ -54,7 +54,8 @@ App.directive 'prefillWatch', ['$parse', ($parse) ->
       try
         curVal = $parse(model)($scope)
         watchVal = $parse(watch)($scope)
-        $parse(model).assign($scope, $parse(expr)($scope)) if (!curVal? || curVal == '') && watchVal?
+        if (!curVal? || curVal == '') && (watchVal? && watchVal != '')
+          $parse(model).assign($scope, $parse(expr)($scope))
         $('[ng-model="' + watch + '"]').off('blur', watchBlurred)
         attached = false
       catch e

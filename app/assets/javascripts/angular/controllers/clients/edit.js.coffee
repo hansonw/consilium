@@ -106,7 +106,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       # TODO: change the id in the address bar? not too important for mobile
     else if data.status == 422
       error_str = ''
-      for name, errors of data.data
+      for name, errors of data.data[0]
         for error in errors
           error_str += ' - ' + name + ' ' + error + "\n"
       alert("Please fix the following errors:\n" + error_str)
