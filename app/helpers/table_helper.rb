@@ -17,7 +17,7 @@ module TableHelper
       primaryField = {
         :name => field[:name],
         :id => field[:id],
-        :content => "{{ #{value} }}"
+        :content => "{{ #{value} #{" | #{field[:filter]}" unless field[:filter].nil?} }}"
       }
       primaryField[:class] = field[:type] if field[:type] != 'text'
       primaryField[:content] = "{{ (#{value}) * 1000 | date: 'yyyy-MM-dd' }}" if field[:type] == 'date'

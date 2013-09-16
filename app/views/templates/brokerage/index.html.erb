@@ -71,18 +71,6 @@
                                 :field => field,
                                 :model => "brokerage." + field[:id],
                                 :rowClick => true,
-                                :fields => field[:id] != 'users' ? nil : [
-                                  {
-                                    :name => 'Name',
-                                    :id => 'name',
-                                    :content => '{{ item.name }}',
-                                  },
-                                  {
-                                    :name => 'Email',
-                                    :id => 'email',
-                                    :content => '<a ng-href="#/users/show/{{ item.id }}">{{ item.email }}</a>'
-                                  }
-                                ],
                                 :actions => [
                                  {
                                    :class => '{{ !readonly && "pure-button-primary" }}',

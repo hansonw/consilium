@@ -11,7 +11,6 @@
   :placeholder: Email (ex. john@consilium.ca)
   :type: email
   :required: true
-  :primary: true
   :unique: true
 - :name: Salutation
   :id: salutation
@@ -45,3 +44,8 @@
 - :name: User
   :id: user
   :type: !ruby/class 'User'
+- :name: Permissions
+  :id: user[0].permissions
+  :filter: permissions:false
+  :edit: false
+  :primary: true
