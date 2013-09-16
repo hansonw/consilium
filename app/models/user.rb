@@ -137,8 +137,8 @@ class User
     Mailer.user_welcome({
       :to => self[:email],
       :variables => {
-        :activation_url => "#{site_host}/app#/auth/reset_password?id=#{self[:id]}&token=#{reset_password_token}&activate",
-        :site_url => "#{site_host}/app#",
+        :activation_url => "#{site_host}/app#/auth/reset_password?id=#{self[:id]}&token=#{reset_password_token}&email=#{self[:email]}&activate",
+        :site_url => "#{site_host}/app#/auth/login?email=#{self[:email]}",
         :email => self[:email],
         :token => reset_password_token,
         :name => self[:name],
