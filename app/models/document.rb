@@ -36,7 +36,7 @@ class Document
   def generate(options = {})
     data = unwrap(self.client_change.client_data)
 
-    fields = Client::FIELDS.dup
+    fields = Client.expand_fields_with_references.dup
 
     if brokerage = client.brokerage
       broker_data = {

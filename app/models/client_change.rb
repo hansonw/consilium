@@ -208,7 +208,7 @@ class ClientChange
     if !last_change.nil? && last_change.user_id == user_id && Time.now - last_change.updated_at < SQUASH_TIME
       # Merge into previous if it's within a minute
       if last_change.description = get_change_description(client.attributes, changes.second && changes.second.client_data)
-        last_change.client_data = client.attributes
+        last_change.client_data = JSON.parse(client.serialize_references.to_json)
         last_change.save
       else
         last_change.delete # Changes got reverted
@@ -219,7 +219,7 @@ class ClientChange
           :user_id => user_id,
           :client_id => client.id,
           :type => 'client',
-          :client_data => client.attributes,
+          :client_data => JSON.parse(client.serialize_references.to_json),
           :description => desc,
         ).save
       end
