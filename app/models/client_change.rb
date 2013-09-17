@@ -232,7 +232,7 @@ class ClientChange
       # Merge into previous if it's within a minute
       if last_change.description = get_change_description(attrs, changes.second && changes.second.client_data)
         last_change.client_data = attrs
-        last_change.save
+        last_change.upsert
       else
         last_change.delete # Changes got reverted
       end
