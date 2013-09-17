@@ -12,30 +12,39 @@ module ConsiliumFields
 
   module ClassMethods
     def expand_fields(node = self::FIELDS)
+      return if node.nil?
+
       fields = node.map do |field|
         if field[:type].is_a?(Array) && !field[:id].ends_with?('s')
-          field[:type]
+          expand_fields(field[:type])
         else
           field
         end
       end
-      return fields.flatten
+      fields.flatten
     end
 
     def expand_fields_with_references(node = self::FIELDS)
-      node.map do |field|
+      return if node.nil?
+
+      fields = node.map do |field|
         if field[:type].is_a? Array
           f = field.dup
           f[:type] = expand_fields_with_references(f[:type])
-          f
+          if field[:id].ends_with?('s')
+            f
+          else
+            f[:type]
+          end
         elsif field[:type].is_a? Class
           f = field.dup
-          f[:type] = field[:type]::FIELDS
+          f[:type] = expand_fields_with_references(field[:type]::FIELDS)
           f
         else
           field
         end
       end
+      fields.flatten
     end
 
     def verify_unique_ids(fields = self::FIELDS)

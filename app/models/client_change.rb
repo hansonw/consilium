@@ -42,20 +42,19 @@ class ClientChange
     old_ids = Hash[old_arr.map { |x| [x['id'], x] }] if old_arr.is_a?(Array)
     new_ids = Hash[new_arr.map { |x| [x['id'], x] }]
 
-    primary_field = Client.expand_fields(fields).find { |f| f[:primary] && f[:type] == 'text' }.andand[:id]
+    primary_field = fields.andand.find { |f| f[:primary] && f[:type] == 'text' }.andand[:id]
 
     # Merge old array into new array; this way we can see deletions in the change view.
-    arr = new_arr.clone
     if old_arr.is_a?(Array)
       old_arr.each do |x|
         if !new_ids[x['id']]
-          arr << x
+          new_arr << x
         end
       end
-      arr.sort! { |x, y| x['id'] <=> y['id'] }
+      new_arr.sort! { |x, y| x['id'] <=> y['id'] }
     end
 
-    result = arr.map do |val|
+    result = new_arr.map do |val|
       old_val = old_ids[val['id']]
       if !new_ids[val['id']]
         {:type => :deleted}
@@ -114,7 +113,7 @@ class ClientChange
 
     field_map = {}
     if fields
-      Client.expand_fields(fields).each do |field|
+      Client.expand_fields_with_references(fields).each do |field|
         field_map[field[:id]] = field
       end
     end
@@ -154,7 +153,7 @@ class ClientChange
     changed = []
     added = []
     deleted = []
-    get_changed_fields(new_client, old_client).sort.each do |field_id, diff|
+    get_changed_fields(new_client.deep_dup, old_client).sort.each do |field_id, diff|
       if diff.is_a?(Array)
         diff.compact!
         if diff.length > 1

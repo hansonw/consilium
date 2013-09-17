@@ -21,23 +21,23 @@
                :name => 'data',
                :pagination => field[:pagination],
                :model => "#{root}.#{field[:id]}.value",
-               :rowClass => "changedFields.#{field[:id]}[$index].type",
+               :rowClass => "changedFields.#{field[:id]}[#{field[:pagination] ? 'pageGetIndex($index)' : '$index'}].type",
                :rowClick => field[:editCallback] ||
-                            !field[:editHref] && "editInField($index)",
+                            !field[:editHref] && "editInField(#{field[:pagination] ? 'pageGetIndex($index)' : '$index'})",
                :rowHref => field[:editHref],
                :actions => [
                  {
                    :class => '{{ !readonly && "pure-button-primary" }}',
                    :icon => '{{ readonly ? "icon-eye-open" : "icon-edit" }}',
                    :click => field[:editCallback] ||
-                             !field[:editHref] && "editInField($index)",
+                             !field[:editHref] && "editInField(#{field[:pagination] ? 'pageGetIndex($index)' : '$index'})",
                    :href => field[:editHref],
                  },
                  {
                    :class => 'pure-button-error',
                    :icon => 'icon-trash',
                    :click => field[:deleteCallback] ||
-                             "deleteFromField($index)",
+                             "deleteFromField(#{field[:pagination] ? 'pageGetIndex($index)' : '$index'})",
                    :attrs => "data-ng-show='!clientChangeId'"
                  },
                ],
