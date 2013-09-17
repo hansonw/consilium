@@ -75,19 +75,18 @@ class Api::ClientChangesController < Api::ApiController
       field_list = field_list.find { |f| f[:id] == 'locations' }[:type]
     end
 
-    changed_fields = ClientChange.get_changed_fields(cur_data, prev_data, field_list)
+    changed_fields = ClientChange.get_changed_fields(cur_data, prev_data,
+                                                     Client.expand_fields_with_references(field_list))
 
     changed_sections = Hash[changed_fields.keys.map { |field_id, val|
       section = 'basicInfo'
       field_list.each do |field|
-        if field[:type].is_a?(Array)
-          if field[:id] == field_id
-            section = field_id
-          elsif !field[:id].ends_with?('s')
-            field[:type].each do |subfield|
-              if subfield[:id] == field_id
-                section = field[:id]
-              end
+        if field[:id] == field_id
+          section = field_id
+        elsif !field[:id].ends_with?('s') && field[:type].is_a?(Array)
+          field[:type].each do |subfield|
+            if subfield[:id] == field_id
+              section = field[:id]
             end
           end
         end

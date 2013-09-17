@@ -57,7 +57,10 @@ class ClientChange
     result = new_arr.map do |val|
       old_val = old_ids[val['id']]
       if !new_ids[val['id']]
-        {:type => :deleted}
+        {
+          :name => primary_field && val[primary_field].andand['value'],
+          :type => :deleted
+        }
       elsif val != old_val
         ch = get_changed_fields(val, old_val, fields)
         ch.empty? ? nil : {
@@ -108,12 +111,12 @@ class ClientChange
     end
   end
 
-  def self.get_changed_fields(new_client, old_client, fields = Client::FIELDS)
+  def self.get_changed_fields(new_client, old_client, fields = Client.expand_fields_with_references)
     changed_fields = {}
 
     field_map = {}
     if fields
-      Client.expand_fields_with_references(fields).each do |field|
+      fields.each do |field|
         field_map[field[:id]] = field
       end
     end
@@ -201,24 +204,45 @@ class ClientChange
     res
   end
 
+  def self.process(data)
+    if data.is_a?(Hash)
+      out = {}
+      data.each do |k, v|
+        if k == '_id'
+          out['id'] = v
+        else
+          out[k] = process(v)
+        end
+      end
+      out
+    elsif data.is_a?(Array)
+      data.map do |d|
+        process(d)
+      end
+    else
+      data
+    end
+  end
+
   def self.update_client(client, user_id)
     changes = ClientChange.where('client_id' => client.id, 'type' => 'client').desc(:updated_at)
     last_change = changes.first
+    attrs = process(JSON.parse(client.serialize_references.attributes.to_json))
     if !last_change.nil? && last_change.user_id == user_id && Time.now - last_change.updated_at < SQUASH_TIME
       # Merge into previous if it's within a minute
-      if last_change.description = get_change_description(client.attributes, changes.second && changes.second.client_data)
-        last_change.client_data = JSON.parse(client.serialize_references.attributes.to_json)
+      if last_change.description = get_change_description(attrs, changes.second && changes.second.client_data)
+        last_change.client_data = attrs
         last_change.save
       else
         last_change.delete # Changes got reverted
       end
     else
-      if desc = get_change_description(client.attributes, last_change && last_change.client_data)
+      if desc = get_change_description(attrs, last_change && last_change.client_data)
         ClientChange.new(
           :user_id => user_id,
           :client_id => client.id,
           :type => 'client',
-          :client_data => JSON.parse(client.serialize_references.attributes.to_json),
+          :client_data => attrs,
           :description => desc,
         ).save
       end
