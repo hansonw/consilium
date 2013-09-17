@@ -29,16 +29,14 @@ module ConsiliumFieldReferences
       existing_assocs = self.send(assoc) || []
       existing_assocs = [existing_assocs] unless existing_assocs.is_a?(Array)
 
-      unless existing_assocs.empty?
-        if syncable
-          self[assoc] = {
-            :updated_at => 0,
-            :created_at => 0,
-            :value => [],
-          }
-        else
-          self[assoc] = []
-        end
+      if syncable
+        self[assoc] = {
+          :updated_at => 0,
+          :created_at => 0,
+          :value => [],
+        }
+      else
+        self[assoc] = []
       end
 
       existing_assocs.each do |elem|
