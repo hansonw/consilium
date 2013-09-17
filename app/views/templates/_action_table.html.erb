@@ -46,7 +46,7 @@
     </tr>
     <tr data-ng-repeat="item in <%= model %><%= ".slice(0, #{limit})" if !local_assigns[:limit].nil? -%>
         <%= " | orderBy:(#{model}Predicate + '.value || ' + #{model}Predicate):#{model}Reverse" if local_assigns[:sortable] && !sortable[:server_side] -%>
-        <%= " | startFrom:pagination['#{model}'].start | limitTo:pagination['#{model}'].limit" if local_assigns[:pagination] %>"
+        <%= " | startFrom:pagination.start | limitTo:pagination.limit" if local_assigns[:pagination] %>"
         <%= local_assigns[:rowHref] && raw("data-click-href='#{h rowHref}'") %>
         <%= local_assigns[:rowClick] && raw("data-ng-click='#{h rowClick}'") %>
         <%= local_assigns[:rowClass] && raw("data-ng-class='#{h rowClass}'") %> data-item-id="{{ item.id }}" >
@@ -68,3 +68,6 @@
     </tr>
   </tbody>
 </table>
+<% if local_assigns[:pagination] %>
+  <div class="paginator" paginator></div>
+<% end %>

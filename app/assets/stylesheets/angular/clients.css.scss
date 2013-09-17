@@ -432,15 +432,17 @@ label.changed {
       width: 100%;
       float: left;
     }
+  }
+}
 
-    .paginator {
-      text-align: right;
-      .pure-paginator {
-        margin-top: 20px;
-      }
-      .pure-button {
-        background-color: transparent;
-      }
+.well {
+  .paginator {
+    text-align: right;
+    .pure-paginator {
+      margin-top: 20px;
+    }
+    .pure-button {
+      background-color: transparent;
     }
   }
 }

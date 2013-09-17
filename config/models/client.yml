@@ -1246,8 +1246,9 @@
     :modalTitle: Coverage Schedules
     :createCallback: editCoverageSchedule()
     :submitCallback: saveCoverageSchedules()
-    :editCallback: editCoverageSchedule($index)
+    :editCallback: editCoverageSchedule(pageGetIndex($index))
     :modalPartial: templates/clients/sections/coverage_schedules
+    :pagination: true
     :type:
     - :name: Type
       :id: type
@@ -1797,6 +1798,7 @@
       :type:
       - :name: Misc. Wording
       - :name: Umbrella Liability
+        :limit: 10000000
     - :name: Machinery Breakdown
       :type:
       - :name: Business Interruption (Actual Loss)
@@ -2349,8 +2351,9 @@
   :modalTitle: Blanket Coverage Schedules
   :createCallback: editCoverageSchedule()
   :submitCallback: saveCoverageSchedules()
-  :editCallback: editCoverageSchedule($index)
+  :editCallback: editCoverageSchedule(pageGetIndex($index))
   :modalPartial: templates/clients/sections/coverage_schedules
+  :pagination: true
   :type:
   - :name: Type
     :id: type

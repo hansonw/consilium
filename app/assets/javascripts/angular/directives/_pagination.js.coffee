@@ -13,51 +13,50 @@ App.directive 'pagination', ['$parse', ($parse) ->
     model = attr.pagination
     limit = +attr.paginationLimit
 
-    pagination = ($scope.pagination ||= {})
-    pagination[model] =
+    $scope.pagination =
       start: 0,
       limit: limit,
       pages: 0
       curPage: 0
 
-    $scope.$watch model, ( ->
-      if obj = $parse(model)($scope)
-        pagination[model].pages = Math.ceil(obj.length / limit)
-    ), true
+    $scope.$watch model, (newVal, oldVal) ->
+      $scope.pagination.pages = Math.ceil(newVal?.length / limit)
+      if $scope.pagination.pages > 0 && $scope.pagination.curPage >= $scope.pagination.pages
+        $scope.gotoPage($scope.pagination.pages - 1)
+    , true
 
-    $scope.pageGetIndex = (model, index) ->
-      index + pagination[model].curPage * pagination[model].limit
+    $scope.pageGetIndex = (index) ->
+      index + $scope.pagination.curPage * $scope.pagination.limit
 
-    $scope.prevPage = (model) ->
-      if pagination[model].curPage
-        $scope.gotoPage(model, pagination[model].curPage - 1)
+    $scope.prevPage = ->
+      if $scope.pagination.curPage
+        $scope.gotoPage($scope.pagination.curPage - 1)
 
-    $scope.nextPage = (model) ->
-      if pagination[model].curPage + 1 < pagination[model].pages
-        $scope.gotoPage(model, pagination[model].curPage + 1)
+    $scope.nextPage = ->
+      if $scope.pagination.curPage + 1 < $scope.pagination.pages
+        $scope.gotoPage($scope.pagination.curPage + 1)
 
-    $scope.gotoPage = (model, index) ->
-      pagination[model].curPage = index
-      pagination[model].start = index * pagination[model].limit
+    $scope.gotoPage = (index) ->
+      $scope.pagination.curPage = index
+      $scope.pagination.start = index * $scope.pagination.limit
 ]
 
 App.directive 'paginator', ['$compile', ($compile) ->
   ($scope, $elem, attr) ->
-    model = attr.paginator
     $elem.html("""
-      <ul class="pure-paginator" data-ng-show="pagination['#{model}'].pages > 1">
+      <ul class="pure-paginator" data-ng-show="pagination.pages > 1">
         <li>
-          <a class="pure-button pure-button-xsmall" data-ng-click="prevPage('#{model}')">&lt;</a>
+          <a class="pure-button pure-button-xsmall" data-ng-click="prevPage()">&lt;</a>
         </li>
-        <li data-ng-repeat="item in (pagination['#{model}'].pages | range)">
+        <li data-ng-repeat="item in (pagination.pages | range)">
           <a class="pure-button pure-button-xsmall"
-             data-ng-class="$index == pagination['#{model}'].curPage && 'pure-button-active'"
-             data-ng-click="gotoPage('#{model}', $index)">
+             data-ng-class="$index == pagination.curPage && 'pure-button-active'"
+             data-ng-click="gotoPage($index)">
             {{ $index + 1 }}
           </a>
         </li>
         <li>
-          <a class="pure-button pure-button-xsmall" data-ng-click="nextPage('#{model}')">&gt;</a>
+          <a class="pure-button pure-button-xsmall" data-ng-click="nextPage()">&gt;</a>
         </li>
       </ul>
     """)

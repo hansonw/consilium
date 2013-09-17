@@ -120,8 +120,8 @@
                          :name => 'Description',
                          :id => 'description',
                          :content => <<-END
-                           <b>{{ pageGetIndex('history', $index) == 0 ? "Current revision: " : "" }}</b>
-                           {{ item.description | ellipsize: (pageGetIndex('history', $index) == 0 ? 30 : 50):1 }}
+                           <b>{{ pageGetIndex($index) == 0 ? "Current revision: " : "" }}</b>
+                           {{ item.description | ellipsize: (pageGetIndex($index) == 0 ? 30 : 50):1 }}
                            <div class="detail">
                              by <a data-ng-href="#/users/show/{{ item.user_id }}" eat-click>{{ item.user.email }}</a>
                              <span class="except-desktops"><br /></span>
@@ -132,7 +132,6 @@
                      ],
                      :actions => [:show],
                    } %>
-        <div class="paginator" paginator="history"></div>
       </div>
 
       <!-- <div class="client-docs well">

@@ -19,6 +19,7 @@
              :locals => {
                :field => field,
                :name => 'data',
+               :pagination => field[:pagination],
                :model => "#{root}.#{field[:id]}.value",
                :rowClass => "changedFields.#{field[:id]}[$index].type",
                :rowClick => field[:editCallback] ||
