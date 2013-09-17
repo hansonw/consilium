@@ -6,7 +6,6 @@
                    :field => field,
                    :page => 'Clients',
                    :page_url => '#/clients/',
-                   :page_title => '{{ title() }}',
                    :title => field[:modalTitle],
                    :submit_callback => field[:submitCallback] || "saveField()",
                    :delete_callback => "saveField(true)",
@@ -18,7 +17,7 @@
 
   <div class="client-header" data-ng-class="{'active': menuShouldShow()}">
     <div class="content header pure-u-1">
-      <h2 class="no-bottom-margin">{{ title() }}</h2>
+      <h2 class="no-bottom-margin">{{ headerTitle() }}</h2>
       <%= yield :breadcrumbs %>
     </div>
     <hr class="soften no-bottom-margin" />

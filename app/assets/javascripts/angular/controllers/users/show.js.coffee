@@ -10,10 +10,14 @@ App.controller 'UsersShowCtrl', ['$scope', '$location', '$routeParams', 'Auth', 
   $scope.loading = true
   $scope.historyLoading = true
   $scope.userId = $routeParams.userId
+  $scope.title.text = if $scope.userId == 'profile' then 'My Account' else 'User Profile'
 
   $scope.user = User.get({id: $scope.userId}, ->
     $scope.loading = false
-    $scope.userId = $scope.user.id # If we're retrieving /users/show/profile
+    if $scope.userId == 'profile'
+      $scope.userId = $scope.user.id
+    else
+      $scope.title.text = "#{$scope.user.name}"
     $scope.history = ClientChange.query({user_id: $scope.userId, short: true},
       (-> $scope.historyLoading = false),
       (->

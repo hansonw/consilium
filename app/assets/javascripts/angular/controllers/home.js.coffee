@@ -2,6 +2,7 @@ App.controller 'HomeCtrl', ['$scope', 'Client', 'ClientChange', 'Auth',\
                             ($scope, Client, ClientChange, Auth) ->
   Auth.checkLogin()
 
+  $scope.title.text = 'Home'
   if Auth.isBroker()
     $scope.isBroker = true
     $scope.historyLoading = true

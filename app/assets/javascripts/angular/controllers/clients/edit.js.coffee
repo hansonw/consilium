@@ -9,6 +9,9 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   $scope.inLocation = !!$location.path().match /\/location(\/.*)?$/
   $scope.locationId = $routeParams.locationId
 
+  prefix = if $scope.clientChangeId then 'History for' else 'Details for'
+  $scope.title.text = if $scope.clientId then "#{prefix} Client" else "New Client"
+
   $scope.readonly = !!$scope.clientChangeId
 
   # TODO: error should be modal
@@ -25,6 +28,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
               $location.url('/clients/notfound')
               $location.replace()
 
+            $scope.title.text = "#{prefix} #{$scope.client.company_name?.value}"
             $scope.changedFields = clientChange.changed_fields
             $scope.changedSections = clientChange.changed_sections
             $scope.prevChangeId = clientChange.prev_change_id
@@ -41,6 +45,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   else if $scope.clientId
     $scope.client = Client.get(id: $scope.clientId,
       (->
+        $scope.title.text = "#{prefix} #{$scope.client.company_name?.value}"
         if $scope.inLocation
           if !$scope.locationId? || $scope.locationId == ''
             (($scope.client.locations ||= {}).value ||= [])
@@ -139,10 +144,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       # Went to create new client, didn't enter anything. Just go back
       window.history.back()
 
-  $scope.clientCompany = ->
-    $parse('client.company_name.value')($scope)
-
-  $scope.title = ->
+  $scope.headerTitle = ->
     title = ''
     if $scope.inLocation
       if $scope.locationId
@@ -151,7 +153,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       else
         title = 'Location'
     else if $scope.clientChangeId || $scope.clientId
-      title = $scope.clientCompany() || 'Client'
+      title = $scope.client?.company_name?.value || 'Client'
     else
       title = 'Client'
 

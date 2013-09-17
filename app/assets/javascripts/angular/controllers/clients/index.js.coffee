@@ -7,6 +7,7 @@ App.controller 'ClientsIndexCtrl', ['$scope', '$location', 'Client', 'Auth',\
 
   results_per_page = 20
 
+  $scope.title.text = 'Clients'
   $scope.loading = false
   $scope.clientsError = false
   $scope.query = ''

@@ -2,6 +2,7 @@ App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', '
                                         ($scope, $location, $routeParams, $timeout, Auth, Client, ClientChange, Modal, RecentClients, DocumentTemplate) ->
   Auth.checkBroker()
 
+  $scope.title.text = 'Edit Templates'
   $scope.clientId = $routeParams.clientId
   $scope.clientChangeId = $location.search().change
   $scope.loading = if $scope.clientChangeId then 2 else 1
@@ -11,6 +12,7 @@ App.controller 'ClientsTemplatesCtrl', ['$scope', '$location', '$routeParams', '
   $scope.client = Client.get({id: $scope.clientId},
     (->
       $scope.loading -= 1
+      $scope.title.text = 'Edit Templates for ' + $scope.client.company_name.value
       RecentClients.logClientShow($scope.client)
       $scope.templates = DocumentTemplate.query({client_id: $scope.clientId},
         (-> $scope.templatesLoading = false),

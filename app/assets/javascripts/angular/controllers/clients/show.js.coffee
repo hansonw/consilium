@@ -3,12 +3,14 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
   Auth.checkLogin()
   $scope.isBroker = Auth.isBroker()
 
+  $scope.title.text = 'Client Profile'
   $scope.clientId = $routeParams.clientId
   $scope.loading = $scope.historyLoading = $scope.documentsLoading = true
   $scope.historyError = $scope.documentsError = false
   $scope.client = Client.get({id: $scope.clientId},
     (->
       $scope.loading = false
+      $scope.title.text = $scope.client.company_name.value
       RecentClients.logClientShow($scope.client)
       $scope.history = ClientChange.query({client_id: $scope.client.id, short: true},
         (-> $scope.historyLoading = false),

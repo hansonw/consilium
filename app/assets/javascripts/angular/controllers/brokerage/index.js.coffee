@@ -3,6 +3,7 @@ App.controller 'BrokerageIndexCtrl', ['$scope', 'Brokerage', 'Auth', 'Modal', 'U
   Auth.checkBroker()
   $scope.readonly = !Auth.isAdmin()
 
+  $scope.title.text = 'Brokerage'
   $scope.loading = true
   $scope.brokerage = Brokerage.get(
     -> $scope.loading = false

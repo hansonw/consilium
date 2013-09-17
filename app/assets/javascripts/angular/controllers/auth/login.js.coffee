@@ -1,5 +1,6 @@
 App.controller 'AuthLoginCtrl', ['$scope', '$http', '$location', '$rootScope', 'Auth', 'Flash',\
                                  ($scope, $http, $location, $rootScope, Auth, Flash) ->
+  $scope.title.text = 'Login'
   $scope.didResetPassword = Flash.get 'resetPassword'
   ($scope.loginData ||= {}).email = $location.search().email
 

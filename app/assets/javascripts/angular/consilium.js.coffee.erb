@@ -32,6 +32,9 @@ App.config ["$httpProvider", ($httpProvider) ->
 App.run ['$rootScope', '$location', '$timeout', 'Client', 'RecentClients', 'Offline', 'Auth',\
          ($rootScope, $location, $timeout, Client, RecentClients, Offline, Auth) ->
 
+  # Set up for use in child controllers.
+  $rootScope.title = {text: ''}
+
   # NOTE: This is for presentation purposes only. The flag indicating whether or not the user
   # is functionally logged in or not is in the Auth service.
   $rootScope.isLoggedIn = Auth.isLoggedIn()
