@@ -30,7 +30,7 @@ class Document
   end
 
   def abbreviate(str)
-    return str.split.map { |c| c[0].upcase }.join
+    return str && str.split.map { |c| c[0].upcase }.join
   end
 
   def generate(options = {})
