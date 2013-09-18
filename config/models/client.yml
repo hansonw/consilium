@@ -1939,12 +1939,12 @@
       :name: ''
       :type: checkbox
       :options:
-        'yes': Aisles free and clear of obstructions?
+        'yes': Hallways free and clear of obstructions?
     - :id: survey_stock_rooms
       :name: ''
       :type: checkbox
       :options:
-        'yes': Stock rooms organized and well lit?
+        'yes': Utility/tock rooms organized and well lit?
     - :id: survey_cross_doc
       :name: ''
       :type: checkbox
@@ -1959,7 +1959,7 @@
       :name: ''
       :type: checkbox
       :options:
-        'yes': Well lit retail / traffic area free of trip hazards?
+        'yes': Well lit area free of trip hazards?
     - :type: heading
       :text: Flammable or Combustible Storage
     - :id: survey_dispensing
