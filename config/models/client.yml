@@ -220,7 +220,8 @@
   :type:
   - :name: In Business Since
     :id: business_start_date
-    :type: date
+    :type: text
+    :placeholder: YYYY
   - :name: Full Time Employees
     :id: full_time_employees
     :placeholder: '#'
