@@ -62,7 +62,7 @@
           :placeholder => '(ex. 90%)',
           :prefill => {
             :type => 'calc',
-            :expr => 'curCoverageType.coinsurance || ""',
+            :expr => 'curCoverageType.coinsurance || "90%"',
           },
         }
       %>
@@ -88,6 +88,10 @@
           :id => 'limit',
           :type => 'currency',
           :placeholder => '$ CAN (ex. 111.11)',
+          :prefill => {
+            :type => 'calc',
+            :expr => 'curCoverageType.limit || ""',
+          },
         }
       %>
       <%= form_field limit, obj, :changed => "#{changedCoverage}.limit" %>
