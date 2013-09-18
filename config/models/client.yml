@@ -1450,7 +1450,7 @@
     :submitCallback: saveCoverageSchedules()
     :editCallback: editCoverageSchedule(pageGetIndex($index))
     :modalPartial: templates/clients/sections/coverage_schedules
-    :pagination: true
+    :pagination: 10
     :type:
     - :name: Type
       :id: type
@@ -2169,7 +2169,7 @@
   :submitCallback: saveCoverageSchedules()
   :editCallback: editCoverageSchedule(pageGetIndex($index))
   :modalPartial: templates/clients/sections/coverage_schedules
-  :pagination: true
+  :pagination: 10
   :type:
   - :name: Type
     :id: type

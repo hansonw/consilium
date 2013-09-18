@@ -58,7 +58,7 @@
                    :locals => {
                      :name => 'history',
                      :model => 'history',
-                     :pagination => true,
+                     :pagination => 5,
                      :rowHref => '{{ item.type == "template" ? "#/clients/templates/" + item.client_id + "?change=" + item.id : ' +
                                  '"#/clients/edit/" + item.client_id + "?change=" + item.id }}',
                      :fields => [
