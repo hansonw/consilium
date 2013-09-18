@@ -12,12 +12,12 @@
 
 <% content_for :sections do %>
   <ul class="step">
-    <li><a href="#/clients/edit/{{ clientId }}/location/{{ locationId }}">Location</a></li>
+    <li><a class="pretty" href="#/clients/edit/{{ clientId }}/location/{{ locationId }}">Location</a></li>
     <ul>
       <% fields.each_with_index do |field, index| %>
         <% if field = fieldAsCollection(field) %>
           <li data-ng-class="changedSections.<%= field[:id] %> && 'changed'">
-            <a href="" data-click-href="#<%= field[:id] %>" click-href-margin="145" click-href-condition="screen and (min-height: 768px)">
+            <a class="pretty" href="" data-click-href="#<%= field[:id] %>" click-href-margin="145" click-href-condition="screen and (min-height: 768px)">
               <span class="section-number"><%= getSectionId(index, fields) %>.</span> <%= field[:name] %>
             </a>
           </li>
