@@ -1182,6 +1182,11 @@
       :placeholder: Description (ex. clear)
       :type: textbox
       :if: '!exposures_clear.yes'
+    - :name: Front of Insured
+      :id: exposures_front
+      :placeholder: Description (ex. clear)
+      :type: textbox
+      :if: '!exposures_clear.yes'
   - :name: Buildings
     :id: buildings
     :type:
