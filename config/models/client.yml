@@ -136,6 +136,10 @@
     :type: text
     :intelligent: true
     :primary: true
+  - :name: Insurer Address
+    :id: insurer_address
+    :type: text
+    :intelligent: true
   - :name: Policy Type
     :id: policy_type
     :required: true
@@ -184,6 +188,9 @@
     :required: true
     :primary: true
     :placeholder: Name of insurer
+  - :name: Insurer Address
+    :id: insurer_address
+    :type: text
   - :name: Policy Number
     :id: policy_number
     :type: text

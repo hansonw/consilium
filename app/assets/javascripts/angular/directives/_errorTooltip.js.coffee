@@ -26,16 +26,18 @@ App.directive 'errorTooltip', ['$timeout', ($timeout) ->
       else
         domField.on('focus', -> elem.html '')
         eventType = 'blur'
-      domField.on(eventType, (event) ->
+      domField.on eventType, (event) ->
         if domField.is('select') && domField.val() == '' && domField.attr('required')
           elem.html 'Field is required'
+        else if domField.attr('intelligent')?
+          elem.html 'Field is required' if domField.val() == ''
         else if form[field] && form[field].$error && !form[field].$pristine
           errs = []
           for key, val of form[field].$error
             errs.push("Field is #{errors[key]}") if val
           elem.html errs.join('<br />')
         else
-          elem.html '')
+          elem.html ''
 
     # Wait until the field's controller loads.
     $timeout init, 0
