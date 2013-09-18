@@ -1,4 +1,7 @@
-<input type="text"
+<% types = ["email"] %>
+<% type = (types.include?(field[:type]) && field[:type]) || "text" %>
+
+<input type="<%= type %>"
   <%= standard_form_tags field, model %>
   <%= prefill_form_tags field %>
   <%= pattern(field[:pattern]) if field[:pattern] %>
