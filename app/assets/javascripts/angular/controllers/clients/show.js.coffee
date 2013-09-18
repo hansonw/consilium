@@ -24,11 +24,17 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
           $scope.documentsLoading = false
           $scope.documentsError = true)
       )
+      template_select = $('select[name=template]')
+      # Add a loading indicator in place of the select
+      template_select.hide()
+      template_loading = $('<i class="icon-large icon-spin icon-spinner"></i>')
+      template_select.parent().prepend(template_loading)
       $scope.templates = DocumentTemplate.query({client_id: $scope.client.id},
         (->
-          select = $('select[name=template]')
+          template_select.show()
+          template_loading.remove()
           for template in $scope.templates
-            select.append("<option>#{template.name}</option>")))
+            template_select.append("<option>#{template.name}</option>")))
     ),
     (data, header) ->
       RecentClients.removeClient($scope.clientId)
