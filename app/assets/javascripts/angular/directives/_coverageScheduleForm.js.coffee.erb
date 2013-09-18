@@ -48,8 +48,6 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
           $scope.addType(coverage.category.value, coverage.type.value)
 
         (coverageSchedules[coverage.category.value] ||= {})[coverage.type.value] = angular.copy(
-          subtype: coverage.subtype,
-          replacement_cost: coverage.replacement_cost,
           coinsurance: coverage.coinsurance,
           deductible: coverage.deductible,
           limit: coverage.limit

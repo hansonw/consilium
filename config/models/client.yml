@@ -1258,21 +1258,6 @@
     - :id: category
       :required: true
       :type: text
-    - :id: subtype
-      :type: radio
-      :options:
-        broad: Broad
-        named: Named
-        nameOfEmployee: Name
-        position: Position
-        robbery: Robbery
-        fourPoint: 4 Point
-        sevenPoint: 7 Point
-        limited: Limited
-        profit: Profit
-        nonProfit: Non-Profit
-    - :id: replacement_cost
-      :type: currency
     - :id: deductible
       :type: text
     - :id: coinsurance
@@ -1282,7 +1267,25 @@
     :coverages:
     - :name: Property
       :type:
-      - :name: Accounts Receivable (Broad)
+      - :name: Property of Every Description (POED)
+        :deductible: 1000
+      - :name: Contents of Every Description (COED)
+        :deductible: 1000
+        :coinsurance: 90%
+      - :name: Building
+        :deductible: 1000
+        :coinsurance: 90%
+      - :name: Equipment
+      - :name: Stock
+      - :name: Earthquake
+        :deductible: '25,000 or 3%'
+      - :name: Flood
+        :limit: 25,000 or 3%
+      - :name: Lightning
+        :deductible: '100,000 or 3%'
+      - :name: Sewer Back Up
+        :deductible: 2500
+      - :name: Accounts Receivable
         :deductible: 1000
         :limit: 50000
       - :name: Arson Reward
@@ -1292,30 +1295,10 @@
         :deductible: 1000
         :coinsurance: 90%
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Bailees’ Customers
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Brands and Labels
         :deductible: 1000
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
-      - :name: Builders Risk
-        :type:
-          broad: Broad Form
-          named: Named Perils
-      - :name: Building
-        :deductible: 1000
-        :coinsurance: 90%
-        :type:
-          broad: Broad Form
-          named: Named Perils
-        :replacement_cost: true
       - :name: Building Damage by Theft
         :deductible: 1000
         :coinsurance: 90%
@@ -1324,71 +1307,32 @@
         :deductible: 1000
         :coinsurance: 90%
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
-      - :name: Commercial Condominiums (Broad)
+      - :name: Commercial Condominiums
       - :name: Computers
         :deductible: 1000
         :coinsurance: 90%
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
-      - :name: Contents of Every Description (COED)
-        :deductible: 1000
-        :coinsurance: 90%
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Contents at Newly Acquired Location
         :deductible: 1000
         :coinsurance: 90%
         :limit: 500000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Contents at Non-Owned Locations
         :deductible: 1000
         :coinsurance: 90%
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Contractor’s Equipment Floater
         :deductible: 1000
         :coinsurance: 100%
         :limit: 30000
-        :type:
-          broad: Broad Form
-          named: Named Perils
         :coinsurance: 100%
+      - :name: Course of Construction
       - :name: Difference in Conditions
-        :type:
-          broad: Broad Form
-          named: Named Perils
-      - :name: Earthquake
-        :deductible: '100000 min 3%'
-      - :name: Electronic Data Processing Systems (Broad)
-      - :name: Equipment
-        :type:
-          broad: Broad Form
-          named: Named Perils
-        :replacement_cost: true
+      - :name: Electronic Data Processing Systems
       - :name: Equipment Dealer’s Equipment
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Equipment Dealer’s Stock
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Exhibition Floater
         :deductible: 1000
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Exterior Glass
         :deductible: 1000
         :limit: 10000
@@ -1397,287 +1341,126 @@
         :limit: 25000
       - :name: Extra Expense
         :limit: 50000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Fine Arts
         :deductible: 1000
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Fire Department Charges
         :deductible: 1000
         :coinsurance: 90%
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
-      - :name: Flood
-        :deductible: 25000
-        :limit: 0
-      - :name: Furriers Block (Broad)
-      - :name: Furriers Customers – Custody Rider (Broad)
-      - :name: Furriers Customers – Legal Liability Rider (Broad)
+      - :name: Furriers Block
+      - :name: Furriers Customers – Custody Rider
+      - :name: Furriers Customers – Legal Liability Rider
       - :name: Growing Plants, Tree, Shrubs or Flowers
         :deductible: 1000
         :coinsurance: 90%
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Heavy Equipment in Use
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Installation Floater
         :deductible: 1000
         :limit: 50000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Installment Sales Floater
-        :type:
-          broad: Broad Form
-          named: Named Perils
-      - :name: Jewelers Block (Broad)
+      - :name: Jewelers Block
       - :name: Leasehold Interest (Rents)
         :deductible: 1000
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
-      - :name: Lightning
-        :deductible: '100000 min 3%'
       - :name: Master Key
         :deductible: 1000
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Misc. Property Floater
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Motor Truck Cargo – Owner’s
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Motor Truck Cargo – Truckmen’s
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Newly Acquired Buildings
         :deductible: 1000
         :coinsurance: 90%
         :limit: 1000000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Newly Acquired Buildings and Contents
         :deductible: 1000
         :coinsurance: 90%
         :limit: 1500000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Off Premises Service Interruption
         :deductible: 1000
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Office Contents
         :deductible: 1000
         :coinsurance: 90%
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Other Bailees Floater
-        :type:
-          broad: Broad Form
-          named: Named Perils
-      - :name: Other Construction
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Other Misc. Floaters
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Other Sales Operations
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Other Transportation
         :deductible: 1000
         :coinsurance: 90%
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Parcel Post
         :deductible: 1000
         :coinsurance: 90%
         :limit: 2500
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Personal Property - Officers & Employ
         :deductible: 1000
         :coinsurance: 90%
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Pollution Clean Up and Removal
         :deductible: 1000
         :limit: 25000
       - :name: Professional Fees
         :deductible: 1000
         :limit: 50000
-        :type:
-          broad: Broad Form
-          named: Named Perils
-      - :name: Property of Every Description (POED)
-        :deductible: 1000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Property/Equipment Breakdown
         :deductible: 1000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Real Property
         :deductible: 1000
-        :type:
-          broad: Broad Form
-          named: Named Perils
-      - :name: Residential Condominiums (Broad)
+      - :name: Residential Condominiums
       - :name: Sales Representative
         :deductible: 1000
         :coinsurance: 90%
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
-      - :name: Sewer Back Up
-        :deductible: 2500
       - :name: Signs Floater
         :deductible: 1000
         :coinsurance: 90%
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Small Equipment in Use
-        :type:
-          broad: Broad Form
-          named: Named Perils
-      - :name: Stock
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Stock Spoilage
         :deductible: 1000
         :coinsurance: 90%
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Stock Spoilage Extended Form
         :deductible: 1000
         :coinsurance: 90%
         :limit: 25000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Temporary Locations
         :deductible: 1000
         :coinsurance: 90%
         :limit: 50000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Tool Floater
         :deductible: 1000
         :coinsurance: 90%
         :limit: 5000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Transportation Floater
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Valuable Papers and Records
         :deductible: 1000
         :limit: 50000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Warehouseman’s Legal Liability
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Windstorm/Hail
     - :name: Business Income
       :type:
+      - :name: Actual Loss Sustained
       - :name: Business Income
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Extended Business Income
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Extended Rental Income
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Extra Expense
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Rental Income
-        :type:
-          broad: Broad Form
-          named: Named Perils
     - :name: Business Interruption
       :type:
       - :name: Earnings – No Co-Insurance
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Extra Expense
-        :type:
-          broad: Broad Form
-          named: Named Perils
-      - :name: Gross Earnings–Manufacturing
-        :type:
-          broad: Broad Form
-          named: Named Perils
-      - :name: Gross Earnings–Mercantile or Non-Manufacturing
+      - :name: Gross Earnings – Manufacturing
+      - :name: Gross Earnings – Mercantile or Non-Manufacturing
       - :name: Gross Rentals
-        :type:
-          broad: Broad Form
-          named: Named Perils
-      - :name: Misc. Wording (Broad)
-      - :name: Misc. Wording (Named)
+      - :name: Misc. Wording
       - :name: Other Business Interruption
-        :type:
-          broad: Broad Form
-          named: Named Perils
-      - :name: Profits (Broad/Named)
-        :type:
-          broad: Broad Form
-          named: Named Perils
+      - :name: Profits
       - :name: Rent or Rental Value
-        :type:
-          broad: Broad Form
-          named: Named Perils
     - :name: Crime
       :type:
       - :name: Church Theft
@@ -1686,22 +1469,14 @@
       - :name: Depositors Forgery
       - :name: Employee Dishonesty (Individual)
       - :name: Employee Dishonesty (Scheduled - attach)
-        :type:
-          named: Named Perils
-          position: Position
       - :name: Misc. Wording
       - :name: Money & Securities
-        :type:
-          broad: Broad Form
-          robbery: Robbery
       - :name: Money Orders & Counterfeit Paper Currency
-      - :name: Office Burglary & Robbery
-        :type:
-          fourPoint: 4 Point
-          sevenPoint: 7 Point
+      - :name: Office Burglary & Robbery (Four Point)
+      - :name: Office Burglary & Robbery (Seven Point)
       - :name: Safe Burglary
       - :name: Safe Deposit Box Burglary & Robbery
-      - :name: Safe Deposit Box Securities (Broad)
+      - :name: Safe Deposit Box Securities
       - :name: Stock & Equipment Burglary
       - :name: Store Burglary & Robbery (Seven Point)
     - :name: Liability
@@ -1714,36 +1489,19 @@
       - :name: Bodily Injury/Property Damage
         :deductible: 5000
         :limit: 2000000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Bodily Injury/Property Damage - General Aggregate
         :limit: 5000000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Commercial General Liability
         :limit: 5000000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Commercial General Liability - Occurrence Form
       - :name: Comprehensive General Liability
-      - :name: Directors’ & Officers Liability
-        :type:
-          profit: Profit
-          nonProfit: Non profit
+      - :name: Directors’ & Officers Liability (For-profit)
+      - :name: Directors’ & Officers Liability (Non-profit)
       - :name: Employee Benefits - Aggregate
         :limit: 1000000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Employee Benefits - Each Claim
         :deductible: 1000
         :limit: 1000000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Employers’ Bodily Injury Liability
       - :name: Excess Liability
       - :name: Fungi or Spores
@@ -1751,46 +1509,25 @@
         :limit: 250000
       - :name: General Aggregate
         :limit: 5000000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Medical Payments - Per Person
         :limit: 10000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Misc. Wording
       - :name: Non-Owned Automobile Liability (SPF 6)
         :deductible: 500
         :limit: 2000000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Owned Automobile Liability
         :deductible: 500
         :limit: 2000000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Owners’, Landlords’, and Tenants’ Liability
       - :name: Personal Injury and Advertising Injury Liability
         :limit: 2000000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Pollution Liability
       - :name: Products & Completed Operations
         :limit: 2000000
-        :type:
-          broad: Broad Form
-          named: Named Perils
       - :name: Professional Liability
       - :name: Tenant’s Legal Liability
         :deductible: 1000
         :limit: 1000000
-        :type:
-          broad: Broad Form
-          limited: Limited
       - :name: Voluntary Compensation
       - :name: Worldwide Non-owned Automobile Liability
       - :name: Wrap-up Liability
@@ -2363,21 +2100,6 @@
   - :id: category
     :required: true
     :type: text
-  - :id: subtype
-    :type: radio
-    :options:
-      broad: Broad
-      named: Named
-      nameOfEmployee: Name
-      position: Position
-      robbery: Robbery
-      fourPoint: 4 Point
-      sevenPoint: 7 Point
-      limited: Limited
-      profit: Profit
-      nonProfit: Non-Profit
-  - :id: replacement_cost
-    :type: currency
   - :id: deductible
     :type: text
   - :id: coinsurance

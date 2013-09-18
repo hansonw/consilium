@@ -55,17 +55,6 @@
       </div>
 
       <%
-        replacement_cost = {
-          :name => 'Replacement cost',
-          :id => 'replacement_cost',
-          :type => 'currency',
-          :placeholder => '$ CAN (ex. 111.11)',
-          :if => '$curCoverageType.replacement_cost'
-        }
-      %>
-      <%= form_field replacement_cost, obj, :changed => "#{changedCoverage}.replacement_cost" %>
-
-      <%
         coinsurance = {
           :name => 'Coinsurance',
           :id => 'coinsurance',
@@ -99,10 +88,6 @@
           :id => 'limit',
           :type => 'currency',
           :placeholder => '$ CAN (ex. 111.11)',
-          :prefill => {
-            :type => 'calc',
-            :expr => 'writeNode.' + obj + '.replacement_cost.value || curCoverageType.limit || ""',
-          },
         }
       %>
       <%= form_field limit, obj, :changed => "#{changedCoverage}.limit" %>
