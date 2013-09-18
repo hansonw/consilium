@@ -23,6 +23,7 @@ App.directive 'datepicker', ['$parse', ($parse) ->
       buttonText: '<i class="icon-calendar"></i>',
       changeMonth: true,
       changeYear: true,
+      yearRange: 'c-50:c+10',
     .next()
 
     # XXX: Checking if the scope is readonly sucks, but the directive is not being passed
