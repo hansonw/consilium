@@ -17,6 +17,8 @@ App.directive 'clickHref', ['$location', '$parse', '$timeout', 'Scroll', ($locat
       else
         firstI = elem.find('i').first()
         if firstI.length
+          firstI.attr 'class', (pos, classes) ->
+            classes.replace /(?!icon-large|icon-small)icon\-\S+/g, ''
           firstI.addClass 'icon-spin icon-spinner'
         else
           elem.html '<i class="icon-spin icon-spinner"></i> ' + elem.html()
