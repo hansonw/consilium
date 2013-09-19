@@ -12,7 +12,7 @@ App.directive 'realtimeFilter', ['$parse', ($parse) ->
             text
         currency:
           apply: (text) ->
-            return '' if !text? || text.length? == 0
+            return '' if !text? || text == '' || text == '0' || !text || text.length == 0
             $parse("'#{text}' | currency")($scope)
           unapply: (text) ->
             Number(text.replace(/[^0-9\.]+/g,""))
