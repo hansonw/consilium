@@ -1529,7 +1529,6 @@
         :limit: 25000
         :coinsurance: 90%
         :default: broad
-      - :name: Bailees' Customers
       - :name: Brands and Labels
         :deductible: 1000
         :limit: 25000
@@ -1542,7 +1541,6 @@
       - :name: Commercial Condominium
         :deductible: 1000
         :limit: 25000
-      - :name: Commercial Condominiums
       - :name: Computers
         :coinsurance: 90%
         :deductible: 1000
@@ -1578,27 +1576,22 @@
       - :name: Equipment Dealer's Equipment
       - :name: Equipment Dealer's Stock
       - :name: Exhibition Floater
-        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
         :default: broad
       - :name: Exterior Glass
-        :coinsurance: 90%
         :deductible: 1000
         :limit: 10000
         :default: broad
       - :name: Exterior Signs
-        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
         :default: broad
       - :name: Extra Expense
-        :coinsurance: 90%
         :limit: 50000
         :deductible: 1000
         :default: broad
       - :name: Fine Arts
-        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
         :default: broad
@@ -1619,7 +1612,6 @@
       - :name: Heavy Equipment in Use
         :default: broad
       - :name: Installation Floater
-        :coinsurance: 90%
         :deductible: 1000
         :limit: 50000
         :default: broad
@@ -1629,7 +1621,6 @@
         :deductible: 1000
         :limit: 25000
       - :name: Master Key
-        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
         :default: broad
@@ -1647,7 +1638,6 @@
         :limit: 1500000
         :default: broad
       - :name: Off Premises Service Interruption
-        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
         :default: broad
@@ -1673,12 +1663,10 @@
         :limit: 25000
         :default: broad
       - :name: Pollution Clean Up and Removal
-        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
         :default: broad
       - :name: Professional Fees
-        :coinsurance: 90%
         :deductible: 1000
         :limit: 50000
         :default: broad
@@ -1719,7 +1707,6 @@
         :default: broad
       - :name: Transportation Floater
       - :name: Valuable Papers and Records
-        :coinsurance: 90%
         :deductible: 1000
         :limit: 50000
         :default: broad
