@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/DouglasSherk/ydocx.git
-  revision: b38d6f637c91b120720fab0dac99c10036c84315
+  revision: 4cbb570167395c4c419c4851cd7d3b9094efa076
   specs:
     ydocx (1.2.3)
       andand
@@ -14,7 +14,7 @@ GIT
 
 GIT
   remote: git://github.com/mongoid/mongoid.git
-  revision: b84b811d47778b9d9f1a6ebc5e084aac7b9c0b63
+  revision: b2381109a58b0b49fc0c06e9a425f39cf83bc19b
   specs:
     mongoid (4.0.0)
       activemodel (~> 4.0.0)

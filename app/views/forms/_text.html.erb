@@ -1,5 +1,7 @@
 <% types = ["email"] %>
 <% type = (types.include?(field[:type]) && field[:type]) || "text" %>
+<% filters = ["name"] %>
+<% filter = filters.include?(field[:type]) && field[:type] %>
 
 <input type="<%= type %>"
   <%= standard_form_tags field, model %>
@@ -7,4 +9,5 @@
   <%= pattern(field[:pattern]) if field[:pattern] %>
   <%= "intelligent" if field[:intelligent] %>
   <%= "title='#{field[:errorMessage]}'" if field[:errorMessage] %>
+  <%= raw "realtime-filter='#{filter}'" if filter %>
 />

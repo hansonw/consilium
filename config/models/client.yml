@@ -6,7 +6,7 @@
   - :name: Company Name
     :id: company_name
     :placeholder: Name of Company
-    :type: text
+    :type: name
     :required: true
     :primary: true
     :unique: true
@@ -39,7 +39,7 @@
   - :name: City
     :id: city
     :placeholder: City
-    :type: text
+    :type: name
   - :name: Province/State
     :id: province
     :type: dropdown
@@ -133,7 +133,7 @@
     :id: insurer
     :required: true
     :placeholder: Name
-    :type: text
+    :type: name
     :intelligent: true
     :primary: true
   - :name: Insurer Address
@@ -1859,7 +1859,7 @@
       :primary: true
     - :name: Name
       :id: name
-      :type: text
+      :type: name
       :placeholder: Firstname Lastname
       :primary: true
       :unique: true

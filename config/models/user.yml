@@ -3,7 +3,7 @@
   :name: Name
   :placeholder: Name
   :required: true
-  :type: text
+  :type: name
   :primary: true
   :unique: true
 - :id: email
