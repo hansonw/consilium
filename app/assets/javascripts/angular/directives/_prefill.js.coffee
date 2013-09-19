@@ -76,7 +76,6 @@ App.directive 'prefillSequence', ['$parse', ($parse) ->
   ($scope, $elem, attrs) ->
     return if prefillCheckIfElemValid($scope, $elem)
 
-    parentModel = $parse(attrs.prefillSequence)
     model = attrs.ngModel
     parsed = $parse(model)
     fields = model.split('.')
@@ -87,7 +86,7 @@ App.directive 'prefillSequence', ['$parse', ($parse) ->
     $("div#modal-" + container).on 'modal-toggle', ->
       value = parsed($scope)
       if !value? || value == ''
-        c = parentModel($scope)?[container]?.value
+        c = $parse($scope.root)($scope)?[container]?.value
         if c? && c.length > 0
           prevValue = $parse(fields.slice(1).join('.'))(c[c.length-1])
         else

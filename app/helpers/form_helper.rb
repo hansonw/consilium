@@ -114,9 +114,12 @@
   end
 
   def prefill_form_tags(field)
-    raw "#{field[:prefill] && field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
-    #{field[:prefill] && field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
-    #{field[:prefill] && field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}"
+    if field[:prefill]
+      raw "#{field[:prefill][:type] == 'static' && "prefill='#{field[:prefill][:text]}'"}
+      #{field[:prefill][:type] == 'calc' && "prefill-calc prefill-expr='#{field[:prefill][:expr]}'"}
+      #{field[:prefill][:type] == 'watch' && "prefill-watch='#{field[:prefill][:watch]}' prefill-expr='#{field[:prefill][:expr]}'"}
+      #{field[:prefill][:type] == 'sequence' && "prefill-sequence"}"
+    end
   end
 
   def ng_input(field, model, options)
