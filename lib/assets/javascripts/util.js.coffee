@@ -4,8 +4,9 @@ class window.Util
       str = '0' + str
     return str
 
-  @generateGUID: ->
-    Date.now().toString(16) + @_pad(Math.floor(Math.random() * 1e9).toString(16), 9)
+  @generateGUID: (rand) ->
+    rand ||= Math.floor(Math.random() * 1e9)
+    Date.now().toString(16) + @_pad(rand.toString(16), 9)
 
   @unixTimestamp: ->
     Math.floor(Date.now() / 1000)

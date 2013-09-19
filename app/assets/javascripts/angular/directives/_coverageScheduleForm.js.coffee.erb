@@ -16,6 +16,11 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
     obj = $parse(form)
     store = $parse(model)
 
+    # Convert human readable text into underscored id
+    # e.g. Leasehold Interest (Rents) -> leasehold_interest_rents
+    createId = (str) ->
+      str.replace(///\s///g, '_').replace(///[^a-zA-Z\._]///g, '').toLowerCase()
+
     root = $scope.rootController()
     root.saveCoverageSchedules = ->
       coverageSchedules = obj($scope) || {}
@@ -25,14 +30,19 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
         (existing[cov.category.value] ||= {})[cov.type.value] = cov
 
       collection = []
+      index = 0
       for cat, data of coverageSchedules
         for type, coverage of data
           if !angular.equals(coverage, {})
             exist = existing[cat]?[type]
-            coverage.id = exist?.id || Util.generateGUID()
+            coverage.id = exist?.id || createId(type + '.' + cat)
             coverage.category = exist?.category || {value: cat}
             coverage.type = exist?.type || {value: type}
             collection.push(angular.copy(coverage))
+
+      # IDs are chosen such that this is equivalent to an alphabetical sort
+      collection.sort (a, b) ->
+        a.id.localeCompare(b.id)
 
       store.assign($scope, collection)
       $scope.clientForm.$setDirty()
@@ -89,6 +99,33 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
       return $.isEmptyObject(coverageSchedules[category]) if !type?
       return $.isEmptyObject(coverageSchedules[category]?[type])
 
+    $scope.sumBuildings = ->
+      ret = 0
+      root = $parse($scope.root)($scope)
+      buildings = $parse('buildings.value')(root) || []
+      for building in buildings
+        if type = building.coverage_type?.value
+          value = building[type]?.value
+        else
+          value = building.replacement_cost?.value || building.actual_cash_value?.value
+        ret += parseInt(value) || 0
+      ret
+
+    $scope.sumEquipment = ->
+      ret = 0
+      root = $parse($scope.root)($scope)
+      equips = $parse('equipment_schedules.value')(root) || []
+      for equip in equips
+        ret += parseInt(equip.limit?.value) || 0
+      ret
+
+    $scope.sumCOED = ->
+      coverageSchedules = obj($scope) || {}
+      $scope.sumEquipment() + (parseInt(coverageSchedules['Property']?['Stock']?.limit?.value) || 0)
+
+    $scope.sumPOED = ->
+      $scope.sumCOED() + $scope.sumBuildings()
+
     prevCov = null
     $scope.switchCoverage = ->
       coverageSchedules = obj($scope) || {}
@@ -97,6 +134,17 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
         delete coverageSchedules[prevCov.category]?[prevCov.type]
 
       if cat = coverageLookup[$scope.coverage?.category]?[$scope.coverage?.type]
+        # Update building, equipment limits
+        if $scope.coverage.category == 'Property'
+          if $scope.coverage.type == 'Building'
+            cat.limit = $scope.sumBuildings()
+          else if $scope.coverage.type == 'Equipment'
+            cat.limit = $scope.sumEquipment()
+          else if $scope.coverage.type.match 'POED'
+            cat.limit = $scope.sumPOED()
+          else if $scope.coverage.type.match 'COED'
+            cat.limit = $scope.sumCOED()
+
         elem.find('input.ng-invalid').each -> $(@).val('')
         elem.find('.error-tooltip').each -> $(@).html('')
         ($scope.writeNode ||= {}).curCoverage = ((coverageSchedules[$scope.coverage.category] ||= {})[$scope.coverage.type] ||= {})
@@ -113,6 +161,11 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
 
     $scope.addDefaultCoverages = (policyType) ->
       coverageSchedules = obj($scope) || {}
+
+      # Precalculate building, equipment limits
+      coverageLookup['Property']['Building'].limit = $scope.sumBuildings()
+      coverageLookup['Property']['Equipment'].limit = $scope.sumEquipment()
+
       for cat, types of coverageLookup
         for type, data of types
           if data.default == 'all' || policyType == data.default
