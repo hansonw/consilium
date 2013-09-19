@@ -443,6 +443,8 @@ label.changed {
     }
     .pure-button {
       background-color: transparent;
+      // These are really glitchy in Chrome for some reason. Disable them
+      @include transition(none);
     }
   }
 }

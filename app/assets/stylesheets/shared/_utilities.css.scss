@@ -22,13 +22,12 @@ $break-tall: 768px;
   }
 }
 
-@mixin transition() {
-  $transition-duration: 0.4s;
-  -webkit-transition: all $transition-duration ease-out;
-  -moz-transition: all $transition-duration ease-out;
-  -ms-transition: all $transition-duration ease-out;
-  -o-transition: all $transition-duration ease-out;
-  transition: all $transition-duration ease-out;
+@mixin transition($transition: all 0.4s ease-out) {
+  -webkit-transition: $transition;
+  -moz-transition: $transition;
+  -ms-transition: $transition;
+  -o-transition: $transition;
+  transition: $transition;
 }
 
 @mixin transform($x, $y) {
