@@ -31,6 +31,7 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
 
       collection = []
       index = 0
+      $scope.updateOEDs()
       for cat, data of coverageSchedules
         for type, coverage of data
           if !angular.equals(coverage, {})
@@ -126,10 +127,23 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
     $scope.sumPOED = ->
       $scope.sumCOED() + $scope.sumBuildings()
 
+    coedType = 'Contents of Every Description (COED)'
+    poedType = 'Property of Every Description (POED)'
+    $scope.updateOEDs = ->
+      coverageSchedules = obj($scope) || {}
+      if $scope.sumBuildings()
+        if poed = coverageSchedules['Property']?[poedType]
+          poed.limit = {value: $scope.sumPOED()}
+      else
+        if coed = coverageSchedules['Property']?[coedType]
+          coed.limit = {value: $scope.sumPOED()}
+      obj.assign($scope, coverageSchedules)
+
     prevCov = null
     $scope.switchCoverage = ->
       coverageSchedules = obj($scope) || {}
 
+      $scope.updateOEDs()
       if prevCov? && $.isEmptyObject(coverageSchedules[prevCov.category]?[prevCov.type])
         delete coverageSchedules[prevCov.category]?[prevCov.type]
 
@@ -140,9 +154,9 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
             cat.limit = $scope.sumBuildings()
           else if $scope.coverage.type == 'Equipment'
             cat.limit = $scope.sumEquipment()
-          else if $scope.coverage.type.match 'POED'
+          else if $scope.coverage.type == poedType
             cat.limit = $scope.sumPOED()
-          else if $scope.coverage.type.match 'COED'
+          else if $scope.coverage.type == coedType
             cat.limit = $scope.sumCOED()
 
         elem.find('input.ng-invalid').each -> $(@).val('')
@@ -163,15 +177,33 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
       coverageSchedules = obj($scope) || {}
 
       # Precalculate building, equipment limits
-      coverageLookup['Property']['Building'].limit = $scope.sumBuildings()
-      coverageLookup['Property']['Equipment'].limit = $scope.sumEquipment()
+      building = coverageLookup['Property']['Building']
+      building.limit = $scope.sumBuildings()
+      building.default = if building.limit then 'all' else null
+
+      coverageSchedules['Property'] ||= {}
+      if building.limit
+        coverageSchedules['Property'][poedType] = {}
+        coverageLookup['Property'][poedType].default = 'all'
+        coverageLookup['Property'][coedType].default = null
+      else
+        coverageSchedules['Property'][coedType] = {}
+        coverageLookup['Property'][poedType].default = null
+        coverageLookup['Property'][coedType].default = 'all'
+
+      equipment = coverageLookup['Property']['Equipment']
+      equipment.limit = $scope.sumEquipment()
+      equipment.default = if equipment.limit then 'all' else null
+
+      $scope.updateOEDs()
 
       for cat, types of coverageLookup
         for type, data of types
           if data.default == 'all' || policyType == data.default
             cov = ((coverageSchedules[cat] ||= {})[type] ||= {})
             for key in coverageSubfields
-              cov[key] = {value: data[key] || ''}
+              cov[key] ||= {value: data[key] || ''}
+
       obj.assign($scope, coverageSchedules)
       $scope.showPrompt = false
 ]
