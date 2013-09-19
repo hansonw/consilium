@@ -1,4 +1,18 @@
-<div class="pure-g-r" id="coverageScheduleForm" coverage-schedule-form="<%= field[:id] %>" coverage-schedule-model="<%= local_assigns[:root] %>.<%= field[:id] %>.value">
+<aside id="coverage-schedule-prompt" data-ng-show="showPrompt">
+  No coverages have been entered yet. Would you like to add any standard coverages?<br />
+  <br />
+  <button type="button" ng-click="addDefaultCoverages('broad')" class="pure-button pure-button">
+    Add Broad Coverages
+  </button>
+  <button type="button" ng-click="addDefaultCoverages('named')" class="pure-button pure-button">
+    Add Named Coverages
+  </button>
+  <button type="button" ng-click="showPrompt = false" class="pure-button pure-button-error">
+    No thanks
+  </button>
+</aside>
+
+<div class="pure-g-r" id="coverage-schedule-form" coverage-schedule-form="<%= field[:id] %>" coverage-schedule-model="<%= local_assigns[:root] %>.<%= field[:id] %>.value">
   <div class="pure-u-1-5">
     <h3 class="no-top-margin">Category</h3>
     <select name="category" data-ng-model="coverage.category" size="2"
@@ -109,7 +123,7 @@
 
       <div class="pure-control-group">
         <label></label>
-        <button type="button" id="clearCoverage" data-ng-show="!readonly" data-ng-click="clearCoverage()"
+        <button type="button" id="clear-coverage" data-ng-show="!readonly" data-ng-click="clearCoverage()"
                 class="pull-right pure-button pure-button-error" eat-click>
           Clear Coverage
         </button>

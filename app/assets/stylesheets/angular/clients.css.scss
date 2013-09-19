@@ -526,7 +526,11 @@ label.changed {
   }
 }
 
-#coverageScheduleForm {
+#coverage-schedule-prompt {
+  margin-bottom: 10px;
+}
+
+#coverage-schedule-form {
   select {
     width: 100%;
   }
@@ -571,7 +575,7 @@ label.changed {
     }
   }
 
-  #clearCoverage {
+  #clear-coverage {
     margin-right: 0px;
   }
 

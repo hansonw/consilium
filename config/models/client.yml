@@ -1484,148 +1484,178 @@
       :type:
       - :name: Building
         :default: all
-        :deductible: 1000
+        :coinsurance: 90%
+        :deductible: 2500
       - :name: Equipment
         :default: all
+        :coinsurance: 90%
         :deductible: 2500
       - :name: Stock
+        :coinsurance: 90%
         :default: all
       - :name: Property of Every Description (POED)
-        :deductible: 1000
+        :coinsurance: 90%
+        :deductible: 2500
       - :name: Contents of Every Description (COED)
-        :deductible: 1000
+        :coinsurance: 90%
+        :deductible: 2500
       - :name: Earthquake
         :default: all
         :deductible: 25000 or 3%
+        :coinsurance: 90%
       - :name: Flood
         :default: all
+        :coinsurance: 90%
         :limit: 25000 or 3%
       - :name: Lightning
         :default: all
-        :deductible: 100000 or 3%
+        :coinsurance: 90%
+        :deductible: 25000 or 3%
       - :name: Sewer Back Up
         :default: all
+        :coinsurance: 90%
         :deductible: 2500
       - :name: Windstorm/Hail
       - :name: Accounts Receivable
         :deductible: 1000
         :limit: 50000
-        :default: all
+        :default: broad
       - :name: Arson Reward
         :deductible: 1000
         :limit: 10000
-        :default: all
+        :default: broad
       - :name: Automatic Fire Suppression System
         :deductible: 1000
         :limit: 25000
-        :default: all
+        :coinsurance: 90%
+        :default: broad
       - :name: Bailees' Customers
       - :name: Brands and Labels
         :deductible: 1000
         :limit: 25000
-        :default: all
+        :default: broad
       - :name: Building Damage by Theft
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 250000
-        :default: all
+        :default: broad
       - :name: Commercial Condominium
         :deductible: 1000
         :limit: 25000
       - :name: Commercial Condominiums
       - :name: Computers
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
-        :default: all
+        :default: broad
       - :name: Contents at Newly Acquired Location
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 500000
-        :default: all
+        :default: broad
       - :name: Contents at Non-Owned Locations
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
-        :default: all
+        :default: broad
       - :name: Contractor's Equipment Floater
         :deductible: 1000
         :coinsurance: 100%
         :limit: 30000
-        :default: all
+        :default: broad
       - :name: Course of Construction
         :limit: 25000
         :deductible: 1000
-        :default: all
+        :coinsurance: 90%
+        :default: broad
       - :name: Difference in Conditions
-        :default: all
+        :default: broad
       - :name: Electronic Data Processing Systems
-        :default: all
+        :coinsurance: 90%
+        :default: broad
         :limit: 50000
         :deductible: 1000
       - :name: Equipment Dealer's Equipment
       - :name: Equipment Dealer's Stock
       - :name: Exhibition Floater
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
-        :default: all
+        :default: broad
       - :name: Exterior Glass
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 10000
-        :default: all
+        :default: broad
       - :name: Exterior Signs
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
-        :default: all
+        :default: broad
       - :name: Extra Expense
+        :coinsurance: 90%
         :limit: 50000
         :deductible: 1000
-        :default: all
+        :default: broad
       - :name: Fine Arts
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
-        :default: all
+        :default: broad
       - :name: Fire Department Charges
-        :default: all
+        :coinsurance: 90%
+        :default: broad
         :deductible: 1000
         :limit: 25000
+        :coinsurance: 90%
       - :name: Furriers Block
       - :name: Furriers Customers – Custody Rider
       - :name: Furriers Customers – Legal Liability Rider
       - :name: Growing Plants, Tree, Shrubs or Flowers
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
-        :default: all
+        :default: broad
       - :name: Heavy Equipment in Use
-        :default: all
+        :default: broad
       - :name: Installation Floater
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 50000
-        :default: all
+        :default: broad
       - :name: Installment Sales Floater
       - :name: Jewelers Block
       - :name: Leasehold Interest (Rents)
         :deductible: 1000
         :limit: 25000
       - :name: Master Key
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
-        :default: all
+        :default: broad
       - :name: Misc. Property Floater
       - :name: Motor Truck Cargo – Owner's
       - :name: Motor Truck Cargo – Truckmen's
       - :name: Newly Acquired Buildings
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 1000000
-        :default: all
+        :default: broad
       - :name: Newly Acquired Buildings and Contents
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 1500000
-        :default: all
+        :default: broad
       - :name: Off Premises Service Interruption
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
-        :default: all
+        :default: broad
       - :name: Office Contents
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
-        :default: all
+        :default: broad
       - :name: Other Bailees Floater
       - :name: Other Misc. Floaters
       - :name: Other Sales Operations
@@ -1633,39 +1663,46 @@
         :deductible: 1000
         :limit: 25000
       - :name: Parcel Post
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 2500
-        :default: all
+        :default: broad
       - :name: Personal Property - Officers & Employ
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
-        :default: all
+        :default: broad
       - :name: Pollution Clean Up and Removal
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
-        :default: all
+        :default: broad
       - :name: Professional Fees
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 50000
-        :default: all
+        :default: broad
       - :name: Property/Equipment Breakdown
         :deductible: 1000
       - :name: Real Property
         :deductible: 1000
       - :name: Residential Condominiums
       - :name: Sales Representative
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
-        :default: all
+        :default: broad
       - :name: Signs Floater
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 25000
-        :default: all
+        :default: broad
       - :name: Small Equipment in Use
       - :name: Stock at Temporary Locations
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 10000
-        :default: all
+        :default: broad
       - :name: Stock Spoilage
         :deductible: 1000
         :limit: 25000
@@ -1676,14 +1713,16 @@
         :deductible: 1000
         :limit: 50000
       - :name: Tool Floater
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 5000
-        :default: all
+        :default: broad
       - :name: Transportation Floater
       - :name: Valuable Papers and Records
+        :coinsurance: 90%
         :deductible: 1000
         :limit: 50000
-        :default: all
+        :default: broad
       - :name: Warehouseman's Legal Liability
     - :name: Business Income
       :type:
@@ -1695,7 +1734,7 @@
     - :name: Business Interruption
       :type:
       - :name: Actual Loss Sustained
-        :default: all
+        :default: broad
       - :name: Earnings – No Co-Insurance
       - :name: Extra Expense
       - :name: Gross Earnings – Manufacturing
@@ -1711,19 +1750,19 @@
       - :name: Comprehensive 3 D
         :limit: 10000
         :deductible: 1000
-        :default: all
+        :default: broad
       - :name: Damage to Building by Burglary or Robbery
         :limit: 50000
         :deductible: 1000
-        :default: all
+        :default: broad
       - :name: Depositors Forgery
         :limit: 25000
         :deductible: 1000
-        :default: all
+        :default: broad
       - :name: Employee Dishonesty (Individual)
         :limit: 10000
         :deductible: 1000
-        :default: all
+        :default: broad
       - :name: Employee Dishonesty (Scheduled - attach)
       - :name: Misc. Wording
       - :name: Money & Securities
@@ -1745,15 +1784,15 @@
       - :name: Bodily Injury/Property Damage
         :deductible: 5000
         :limit: 2000000
-        :default: all
+        :default: broad
       - :name: Bodily Injury/Property Damage - General Aggregate
         :limit: 5000000
         :deductible: 2500
-        :default: all
+        :default: broad
       - :name: Commercial General Liability
         :limit: 5000000
         :deductible: 2500
-        :default: all
+        :default: broad
       - :name: Commercial General Liability - Occurrence Form
       - :name: Comprehensive General Liability
       - :name: Directors' & Officers Liability (For-profit)
@@ -1761,28 +1800,28 @@
       - :name: Employee Benefits - Aggregate
         :limit: 1000000
         :deductible: 2500
-        :default: all
+        :default: broad
       - :name: Employee Benefits - Each Claim
         :deductible: 1000
         :limit: 1000000
-        :default: all
+        :default: broad
       - :name: Employers' Bodily Injury Liability
         :limit: 1000000
         :deductible: 2500
-        :default: all
+        :default: broad
       - :name: Excess Liability
       - :name: Fungi or Spores
         :deductible: 1000
         :limit: 250000
-        :default: all
+        :default: broad
       - :name: General Aggregate
         :limit: 5000000
         :deductible: 2500
-        :default: all
+        :default: broad
       - :name: Medical Payments - Per Person
         :limit: 10000
         :deductible: 2500
-        :default: all
+        :default: broad
       - :name: Misc. Wording
       - :name: Non-Owned Automobile Liability (SPF 6)
         :deductible: 500
@@ -1790,39 +1829,39 @@
       - :name: Owned Automobile Liability
         :deductible: 500
         :limit: 2000000
-        :default: all
+        :default: broad
       - :name: Owners', Landlords', and Tenants' Liability
         :limit: 1000000
         :deductible: 2500
-        :default: all
+        :default: broad
       - :name: Personal Injury and Advertising Injury Liability
         :limit: 2000000
         :deductible: 2500
-        :default: all
+        :default: broad
       - :name: Pollution Liability
         :limit: 1000000
         :deductible: 2500
-        :default: all
+        :default: broad
       - :name: Products & Completed Operations
         :limit: 2000000
         :deductible: 2500
-        :default: all
+        :default: broad
       - :name: Professional Liability
       - :name: Tenant's Legal Liability
         :deductible: 1000
         :limit: 1000000
-        :default: all
+        :default: broad
       - :name: Voluntary Compensation
         :limit: 25000
         :deductible: 2500
-        :default: all
+        :default: broad
       - :name: Worldwide Non-owned Automobile Liability
       - :name: Wrap-up Liability
     - :name: Umbrella
       :type:
       - :name: Misc. Wording
       - :name: Umbrella Liability
-        :default: all
+        :default: broad
         :limit: 10000000
     - :name: Machinery Breakdown
       :type:
@@ -1832,21 +1871,21 @@
       - :name: Business Interruption (Loss of Profit)
       - :name: Business Interruption (Rent or Rental Value)
       - :name: Machinery Breakdown
-        :default: all
+        :default: broad
       - :name: Misc. Wording
     - :name: Other
       :type:
       - :name: Additional Insured
-        :default: all
+        :default: broad
       - :name: Blanket Machinery Breakdown
       - :name: Exclusion of Asbestos Related Claims
       - :name: Fees to Substantiate Loss
-        :default: all
+        :default: broad
         :limit: 25000
         :deductible: 1000
       - :name: Glass
       - :name: Misc. Wording
-        :default: all
+        :default: broad
   - :name: Drivers
     :id: drivers
     :type:

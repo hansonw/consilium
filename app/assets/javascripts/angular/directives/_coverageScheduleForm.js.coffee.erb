@@ -3,6 +3,7 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
     $scope.coverage = {}
     $scope.coverageCategories =
       <%= Client::FIELDS.find { |f| f[:id] == 'locations' }[:type].find { |f| f[:id] == 'coverage_schedules' }[:coverages].to_json %>
+    coverageSubfields = ['coinsurance', 'deductible', 'limit']
 
     coverageLookup = {}
     for category in $scope.coverageCategories
@@ -47,12 +48,9 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
         if !coverageLookup[coverage.category.value]?[coverage.type.value]?
           $scope.addType(coverage.category.value, coverage.type.value)
 
-        (coverageSchedules[coverage.category.value] ||= {})[coverage.type.value] = angular.copy(
-          coinsurance: coverage.coinsurance,
-          deductible: coverage.deductible,
-          limit: coverage.limit
-          premium: coverage.premium
-        )
+        cov = ((coverageSchedules[coverage.category.value] ||= {})[coverage.type.value] ||= {})
+        for field in coverageSubfields
+          cov[field] = angular.copy(coverage[field])
 
         if $scope.changedFields?[form]?[i]?.change
           ($scope.changedCoverages[coverage.category.value] ||= {})[coverage.type.value] =
@@ -64,6 +62,7 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
             type: coverage.type.value
 
       obj.assign($scope, coverageSchedules)
+      $scope.showPrompt = $scope.emptyCoverage() && form != 'blanket_coverages'
       $scope.switchCoverage()
       Modal.toggleModal(form)
 
@@ -86,8 +85,8 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
 
     $scope.emptyCoverage = (category, type) ->
       coverageSchedules = obj($scope) || {}
-      if !type?
-        return $.isEmptyObject(coverageSchedules[category])
+      return $.isEmptyObject(coverageSchedules) if !category?
+      return $.isEmptyObject(coverageSchedules[category]) if !type?
       return $.isEmptyObject(coverageSchedules[category]?[type])
 
     prevCov = null
@@ -111,4 +110,15 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
       delete coverageSchedules[$scope.coverage.category]?[$scope.coverage.type]
       obj.assign($scope, coverageSchedules)
       $scope.switchCoverage()
+
+    $scope.addDefaultCoverages = (policyType) ->
+      coverageSchedules = obj($scope) || {}
+      for cat, types of coverageLookup
+        for type, data of types
+          if data.default == 'all' || policyType == data.default
+            cov = ((coverageSchedules[cat] ||= {})[type] ||= {})
+            for key in coverageSubfields
+              cov[key] = {value: data[key] || ''}
+      obj.assign($scope, coverageSchedules)
+      $scope.showPrompt = false
 ]
