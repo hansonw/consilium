@@ -78,8 +78,10 @@ App.directive 'realtimeFilter', ['$parse', ($parse) ->
             e.preventDefault()
 
       skip = false
+      everHadValue = false
       $scope.$watch attrs.ngModel, (newVal, oldVal) ->
-        return if isEmpty(newVal) && isEmpty(oldVal)
+        return if isEmpty(newVal) && isEmpty(oldVal) && !everHadValue
+        everHadValue = true
 
         val = elem.val()
         filter = filters[attrs.realtimeFilter]
