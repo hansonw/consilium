@@ -2,6 +2,9 @@ App.directive 'realtimeFilter', ['$parse', ($parse) ->
   restrict: 'A',
   require: 'ngModel',
   link: ($scope, elem, attrs, ngModel) ->
+    isEmpty = (val) ->
+      !val? || val == '' || val == '0' || !val || val.length? == 0
+
     unless $scope.readonly
       filters =
         name:
@@ -12,10 +15,19 @@ App.directive 'realtimeFilter', ['$parse', ($parse) ->
             text
         currency:
           apply: (text) ->
-            return '' if !text? || text == '' || text == '0' || !text || text.length == 0
+            return '' if isEmpty(text)
             $parse("'#{text}' | currency")($scope)
           unapply: (text) ->
             Number(text.replace(/[^0-9\.]+/g,""))
+        postal_code:
+          apply: (text) ->
+            return '' if isEmpty(text)
+            text = text.toUpperCase()
+            if text?.length > 3 && text[3] != ' ' && !!text.match /.*[a-zA-Z]+.*/
+              text = text.slice(0, 3) + ' ' + text.slice(3)
+            text
+          unapply: (text) ->
+            text
 
       if attrs.realtimeFilter == 'currency'
         elem.on 'keydown', (e) ->
@@ -66,7 +78,9 @@ App.directive 'realtimeFilter', ['$parse', ($parse) ->
             e.preventDefault()
 
       skip = false
-      $scope.$watch attrs.ngModel, ->
+      $scope.$watch attrs.ngModel, (newVal, oldVal) ->
+        return if isEmpty(newVal) && isEmpty(oldVal)
+
         val = elem.val()
         filter = filters[attrs.realtimeFilter]
         elem.val(filter.apply(val))

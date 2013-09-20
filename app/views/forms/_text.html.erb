@@ -1,6 +1,6 @@
 <% types = ["email"] %>
 <% type = (types.include?(field[:type]) && field[:type]) || "text" %>
-<% filters = ["name"] %>
+<% filters = ["name", "postal_code"] %>
 <% filter = filters.include?(field[:type]) && field[:type] %>
 
 <input type="<%= type %>"

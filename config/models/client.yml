@@ -68,7 +68,7 @@
   - :name: Postal Code
     :id: postal_code
     :placeholder: e.g. A1B 2C3
-    :type: text
+    :type: postal_code
   - :name: Web Site
     :id: website
     :placeholder: Website (ex. www.consilium.com)
@@ -461,7 +461,7 @@
     - :name: Postal Code
       :id: location_postal_code
       :placeholder: (ex. A1A 1A1)
-      :type: text
+      :type: postal_code
   - :name: Risk Info
     :id: risk_info
     :type:
