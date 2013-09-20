@@ -29,7 +29,7 @@ App.directive 'errorTooltip', ['$timeout', ($timeout) ->
       domField.on eventType, (event) ->
         if domField.is('select') && domField.val() == '' && domField.attr('required')
           elem.html 'Field is required'
-        else if domField.attr('intelligent')?
+        else if domField.attr('intelligent')? && domField.attr('required')
           elem.html 'Field is required' if domField.val() == ''
         else if form[field] && form[field].$error && !form[field].$pristine
           errs = []
