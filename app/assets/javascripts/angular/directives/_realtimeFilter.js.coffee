@@ -77,7 +77,6 @@ App.directive 'realtimeFilter', ['$parse', ($parse) ->
             elem.caret({start: elem.caret().start + 1, end: elem.caret().end + 1})
             e.preventDefault()
 
-      skip = false
       everHadValue = false
       $scope.$watch attrs.ngModel, (newVal, oldVal) ->
         return if isEmpty(newVal) && isEmpty(oldVal) && !everHadValue
@@ -85,10 +84,8 @@ App.directive 'realtimeFilter', ['$parse', ($parse) ->
 
         val = elem.val()
         filter = filters[attrs.realtimeFilter]
-        elem.val(filter.apply(val))
-        if skip
-          skip = false
-          return
-        skip = true
+        val = filter.apply(filter.unapply(val))
+        elem.val(val)
         $parse(attrs.ngModel).assign($scope, filter.unapply(val))
+        console.log 'setting ' + filter.unapply(val)
 ]
