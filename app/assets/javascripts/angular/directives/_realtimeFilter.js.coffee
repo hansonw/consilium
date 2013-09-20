@@ -87,5 +87,4 @@ App.directive 'realtimeFilter', ['$parse', ($parse) ->
         val = filter.apply(filter.unapply(val))
         elem.val(val)
         $parse(attrs.ngModel).assign($scope, filter.unapply(val))
-        console.log 'setting ' + filter.unapply(val)
 ]
