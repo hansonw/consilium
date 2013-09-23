@@ -132,11 +132,11 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
     $scope.updateOEDs = ->
       coverageSchedules = obj($scope) || {}
       if $scope.sumBuildings()
-        if poed = coverageSchedules['Property']?[poedType]?.limit
-          poed.value = $scope.sumPOED()
+        if poed = coverageSchedules['Property']?[poedType]
+          poed.limit = {value: $scope.sumPOED()}
       else
-        if coed = coverageSchedules['Property']?[coedType]?.limit
-          coed.value = $scope.sumCOED()
+        if coed = coverageSchedules['Property']?[coedType]
+          coed.limit = {value: $scope.sumCOED()}
       obj.assign($scope, coverageSchedules)
 
     prevCov = null
