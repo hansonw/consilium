@@ -108,18 +108,17 @@
           },
         }
       %>
-      <%= form_field limit, obj, :changed => "#{changedCoverage}.limit" %>
+      <span data-ng-if="!curCoverageType.limit_expr">
+        <%= form_field limit, obj, :changed => "#{changedCoverage}.limit" %>
+      </span>
 
-      <%
-        premium = {
-          :name => 'Rate/Premium',
-          :id => 'premium',
-          :type => 'text',
-          :placeholder => '$ CAN or percentage',
-          :if => '$root == "client"'
-        }
-      %>
-      <% #form_field premium, obj, :changed => "#{changedCoverage}.premium" %>
+      <!-- For pre-calculated limits (i.e. building, equipment, POED, COED) -->
+      <div class="pure-control-group" data-ng-if="curCoverageType.limit_expr">
+        <label for="limit">Limit</label>
+        <node name="limit" field="">
+          <input type="text" name="limit" ng-model="curCoverageType.limit" placeholder="$ CAN (ex. 111.11)" ng-readonly="true" realtime-filter="currency">
+        </node>
+      </div>
 
       <div class="pure-control-group">
         <label></label>

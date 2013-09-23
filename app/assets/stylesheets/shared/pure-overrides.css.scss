@@ -495,7 +495,7 @@ body {
 }
 
 input[readonly], textarea[readonly], select[readonly] {
-  border: none !important;
+  border: 1px solid transparent !important;
 }
 
 select[readonly] {

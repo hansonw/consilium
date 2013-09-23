@@ -1486,19 +1486,23 @@
         :default: all
         :coinsurance: 90%
         :deductible: 2500
+        :limit_expr: sumBuildings()
       - :name: Equipment
         :default: all
         :coinsurance: 90%
         :deductible: 2500
+        :limit_expr: sumEquipment()
       - :name: Stock
         :coinsurance: 90%
         :default: all
       - :name: Property of Every Description (POED)
         :coinsurance: 90%
         :deductible: 2500
+        :limit_expr: sumPOED()
       - :name: Contents of Every Description (COED)
         :coinsurance: 90%
         :deductible: 2500
+        :limit_expr: sumCOED()
       - :name: Earthquake
         :default: all
         :deductible: 25000 or 3%
@@ -1506,7 +1510,7 @@
       - :name: Flood
         :default: all
         :coinsurance: 90%
-        :limit: 25000 or 3%
+        :deductible: 25000 or 3%
       - :name: Lightning
         :default: all
         :coinsurance: 90%
