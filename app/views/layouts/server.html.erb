@@ -18,19 +18,16 @@
     <div id="main" class="pure-u">
       <div class="pure-g-r">
         <div class="pure-u navbar">
-          <div class="content">
-            <span class="title pull-left"><%= link_to 'Consilium', root_path, :class => 'inherit-style' %></span>
-            <!--<span class="nav-sections">
-            
-            <a class="pure-button">ContactUs</a>-->
-            <%= link_to user_signed_in? ? 'Go to App' : 'Login', app_root_path, :class => 'pure-button pure-button-secondary' %>
+          <%= link_to (raw image_tag('/img/logo.png')), root_path, :class => 'title pull-left' %>
+          <div class="navbar-links">
+            <a class="active" href="#home">Home</a>
+            <a href="#features">Features</a>
+            <%= link_to user_signed_in? ? 'Go to App' : 'Login', app_root_path %>
           </div>
         </div>
       </div>
       <div id="layout">
-        <div class="content">
-          <%= yield %>
-        </div>
+        <%= yield %>
       </div>
     </div>
   </div>

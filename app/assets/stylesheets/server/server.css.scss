@@ -2,33 +2,96 @@
 @import '../shared/utilities';
 
 body {
+  overflow-x: hidden;
+
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
   .title {
     color: white;
-    font-size: 26px;
+    font-size: 32px;
     font-weight: 100;
   }
 
+  h1, h2, h3 {
+    margin: 0;
+  }
+
+  h1 {
+    font-size: 64px;
+    font-weight: 100;
+    margin-bottom: 0.25em;
+  }
+
+  h2 {
+    font-size: 32px;
+    font-weight: 200;
+  }
+
+  h3 {
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  .section {
+    width: 100%;
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    @mixin square($color) {
+      padding: 3em;
+      background: $color;
+      display: inline-block;
+    }
+
+    &.header-section {
+      background: url(../../img/header.jpg) no-repeat center center;
+    }
+
+    .hero-unit {
+      margin-left: 10%;
+      color: white;
+      @include square(rgba(0, 0, 0, 0.75));
+    }
+
+    .features {
+      float: right;
+      margin-right: 10%;
+      color: white;
+      @include square(rgba(255, 120, 0, 0.75));
+    }
+  }
+
   #layout {
-    padding: 50px 0;
   }
 
   #main {
     width: 100%;
   }
 
-  .content {
-    margin: auto;
-    width: 70%;
-  }
-
   .navbar {
-    $navbar-padding: 10px;
+    $navbar-padding: 20px;
+
+    @include transition();
 
     position: fixed;
     text-align: right;
-    padding: $navbar-padding 0;
-    background: #222;
+    padding: $navbar-padding;
     width: 100%;
+    z-index: 1001;
+
+    &.active {
+      background: rgba(0, 0, 0, 0.75);
+    }
 
     .nav-sections {
       margin: 0 20px;
@@ -36,5 +99,29 @@ body {
         margin: 0 20px;
       }
     }
+
+    .navbar-links {
+      line-height: 40px;
+      font-size: 18px;
+
+      a {
+        margin-left: 30px;
+
+        &, &:link, &:visited, &:hover, &:active {
+          @include transition();
+
+          text-transform: uppercase;
+          color: #ccc;
+
+          &.active, &:hover {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  .center {
+    text-align: center;
   }
 }
