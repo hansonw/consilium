@@ -51,7 +51,6 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Hierarchy', 'Moda
       lastModalToggle = lastEdit = Date.now()
 
     $scope.$watch 'readonly', (newVal, oldVal) ->
-      $('input, textarea, select').attr('readonly', newVal)
       # readonly isn't enough for checkboxes and selects
       $('input[type=checkbox]').attr('disabled', newVal)
       $('input[type=radio]').attr('disabled', newVal)

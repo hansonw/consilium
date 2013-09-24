@@ -505,6 +505,7 @@ select[readonly] {
 
   background: transparent !important;
   outline: none !important;
+  padding: 3px;
 
   // XXX: HACK HACK HACK! Prevent the dropdown arrow from showing up in Firefox and IE.
   width: 1000%;

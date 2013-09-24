@@ -105,7 +105,7 @@
     #{opts[:model] != false && "ng-model='#{model}'"}
     #{opts[:placeholder] != false && "placeholder='#{field[:placeholder] || opts[:placeholder]}'"}
     #{field[:required] && 'required'}
-    #{field[:readonly] && 'readonly'}
+    #{field[:readonly] && 'readonly' || 'ng-readonly="readonly"'}
     #{field[:unique] && 'unique'}
     #{field[:minlength] && "ng-minlength='#{field[:minlength]}'"}
     #{field[:maxlength] && "ng-maxlength='#{field[:maxlength]}'"}
@@ -133,7 +133,7 @@
                             #{field[:required] && 'required'}
                             #{field[:intelligent] && 'intelligent'}
                             #{field[:unique] && 'unique'}
-                            #{field[:readonly] && 'readonly'}>
+                            #{field[:readonly] && 'readonly' || 'ng-readonly="readonly"'}>
                           <option value=''>#{field[:placeholder]}</option>"
       field[:options].each do |option|
         dropdownString += "<option value='#{option}'>#{option}</option>"
@@ -145,7 +145,7 @@
                                 type='hidden'
                                 data-dropdown-other='#{model}' placeholder='#{field[:otherPlaceholder]}'
                                 #{field[:optionRequired] && 'required'}
-                                #{field[:readonly] && 'readonly'}
+                                #{field[:readonly] && 'readonly' || 'ng-readonly="readonly"'}
                               />
                             </div>"
       end
@@ -169,7 +169,7 @@
                                 value='#{key}'
                                 ng-checked=\"#{checked}\"
                                 #{field[:required] && 'required'}
-                                #{field[:readonly] && 'readonly'}
+                                #{field[:readonly] && 'readonly' || 'ng-readonly="readonly"'}
                                 #{field[:unique] && 'unique'}
                             />
                             <label for='#{field[:id]}' class='checkbox-label'>#{option}</label>

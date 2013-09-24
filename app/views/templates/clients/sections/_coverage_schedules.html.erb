@@ -113,12 +113,18 @@
       </span>
 
       <!-- For pre-calculated limits (i.e. building, equipment, POED, COED) -->
-      <div class="pure-control-group" data-ng-if="curCoverageType.limit_expr">
-        <label for="limit">Limit</label>
-        <node name="limit" field="">
-          <input type="text" name="limit" ng-model="curCoverageType.limit" placeholder="$ CAN (ex. 111.11)" ng-readonly="true" realtime-filter="currency">
-        </node>
-      </div>
+      <%
+        limit_expr = {
+          :name => 'Limit',
+          :id => 'limit',
+          :type => 'currency',
+          :readonly => true,
+          :if => '$curCoverageType.limit_expr',
+          :placeholder => '$ CAN (ex. 111.11)',
+        }
+      %>
+      <%= form_field limit_expr, 'curCoverageType', :changed => "#{changedCoverage}.limit",
+                                                    :syncable => false %>
 
       <div class="pure-control-group">
         <label></label>
