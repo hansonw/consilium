@@ -1,6 +1,8 @@
 @import '../shared/constants';
 @import '../shared/utilities';
 
+html body { font-size: 16px; }
+
 body {
   overflow-x: hidden;
 
@@ -8,12 +10,6 @@ body {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-  }
-
-  .title {
-    color: white;
-    font-size: 32px;
-    font-weight: 100;
   }
 
   h1, h2, h3 {
@@ -24,6 +20,7 @@ body {
     font-size: 64px;
     font-weight: 100;
     margin-bottom: 0.25em;
+    color: #3E94D1;
   }
 
   h2 {
@@ -32,8 +29,19 @@ body {
   }
 
   h3 {
-    font-size: 24px;
-    font-weight: 400;
+    font-size: 20px;
+    font-weight: 200;
+  }
+
+  .logo {
+    margin-top: 5px;
+  }
+
+  .button-sign-up {
+    text-transform: uppercase;
+    color: white;
+    background: #3E94D1;
+    width: 75%;
   }
 
   .section {
@@ -41,6 +49,9 @@ body {
     height: 100%;
     display: table-cell;
     vertical-align: middle;
+    position: relative;
+    clear: both;
+    padding: 75px 0;
 
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -53,12 +64,153 @@ body {
       display: inline-block;
     }
 
-    &.header-section {
-      background: url(../../img/header.jpg) no-repeat center center;
+    &#overview {
+      background: url(../../img/header.png) no-repeat center center;
+      background-size: cover;
+    }
+
+    &#features {
+      text-align: center;
+      background-color: #333;
+      color: #888;
+
+      img.wish {
+        position: absolute;
+        left: 5%;
+        top: 5%;
+      }
+
+      .pure-g {
+        margin-bottom: 20px;
+
+        div[class*="pure-u-"] {
+          display: inline-block;
+          padding: 20px 0 20px 20px;
+
+          h2 {
+            text-transform: uppercase;
+            font-size: 26px;
+            font-weight: 400;
+            color: #aaa;
+          }
+
+          p {
+            line-height: 20px;
+            text-align: justify;
+          }
+        }
+      }
+    }
+
+    &#mobile {
+      background-color: white;
+
+      h1 {
+        color: #3E94D1;
+        text-transform: uppercase;
+        font-weight: 400;
+        font-size: 30px;
+      }
+
+      h2 {
+        color: #555;
+        font-weight: 400;
+        font-size: 24px;
+      }
+
+      p {
+        color: #777;
+      }
+
+      div[class*="pure-u-"] {
+        padding-right: 60px;
+
+        &:last-child {
+          padding-right: 0;
+        }
+      }
+    }
+
+    &#pricing {
+      background-color: #ccc;
+
+      h1 {
+        color: #666;
+        text-transform: uppercase;
+        font-size: 40px;
+      }
+
+      .pure-g {
+        text-align: center;
+      }
+
+      div[class*="pure-u-"] {
+        margin: 25px;
+        background-color: white;
+        max-width: 450px;
+      }
+
+      .pricing-inner {
+        padding: 30px;
+      }
+
+      .title {
+        color: white;
+        text-transform: uppercase;
+        padding: 10px;
+
+        &.title-starter {
+          background-color: #ed6c4d;
+        }
+
+        &.title-monthly {
+          background-color: #3E94D1;
+        }
+      }
+
+      @mixin button($color) {
+        width: 100%;
+        margin-top: 10px;
+        padding: 20px 20px;
+        font-size: 20px;
+        background: $color;
+        color: white;
+        text-transform: uppercase;
+
+        &:hover {
+          background: lighten($color, 10%);
+        }
+      }
+
+      .button-starter {
+        @include button(#ed6c4d);
+      }
+
+      .button-monthly {
+        @include button(#3e94d1);
+      }
+
+      .price {
+        color: #444;
+        text-align: center;
+        font-size: 80px;
+      }
+
+      .renewal {
+        margin-bottom: 30px;
+        color: #666;
+        text-align: center;
+      }
+
+      p {
+        text-transform: uppercase;
+        color: #777;
+        font-size: 20px;
+      }
     }
 
     .hero-unit {
-      margin-left: 10%;
+      float: right;
       color: white;
       @include square(rgba(0, 0, 0, 0.75));
     }
@@ -68,6 +220,26 @@ body {
       margin-right: 10%;
       color: white;
       @include square(rgba(255, 120, 0, 0.75));
+    }
+
+    .caret {
+      position: absolute;
+      left: 50%;
+      bottom: 5%;
+      text-shadow: 1px 1px 3px black;
+
+      a {
+        &, &:link, &:visited, &:hover, &:active {
+          color: white;
+          text-decoration: none;
+        }
+      }
+    }
+
+    .caret-darken {
+      padding: 0 10px;
+      background-color: rgba(0, 0, 0, 0.75);
+      border-radius: 100px;
     }
   }
 
@@ -79,19 +251,14 @@ body {
   }
 
   .navbar {
-    $navbar-padding: 20px;
-
     @include transition();
 
     position: fixed;
     text-align: right;
-    padding: $navbar-padding;
+    padding: 20px 0;
     width: 100%;
     z-index: 1001;
-
-    &.active {
-      background: rgba(0, 0, 0, 0.75);
-    }
+    background: rgba(0, 0, 0, 0.75);
 
     .nav-sections {
       margin: 0 20px;
@@ -105,13 +272,18 @@ body {
       font-size: 18px;
 
       a {
-        margin-left: 30px;
+        margin-left: 50px;
+        text-shadow: 0 0 1px #666;
+
+        &.pure-button {
+          color: white !important;
+        }
 
         &, &:link, &:visited, &:hover, &:active {
           @include transition();
 
           text-transform: uppercase;
-          color: #ccc;
+          color: #999;
 
           &.active, &:hover {
             color: white;
@@ -121,7 +293,61 @@ body {
     }
   }
 
+  .content {
+    width: 85%;
+    margin: auto;
+    position: relative;
+  }
+
   .center {
     text-align: center;
+  }
+
+  .right {
+    text-align: right;
+  }
+
+  .left {
+    text-align: left;
+  }
+
+  footer {
+    padding: 50px 0;
+    background: #212121;
+    color: #999;
+
+    h3 {
+      font-size: 100%;
+      font-weight: 400;
+      text-transform: uppercase;
+      color: white;
+    }
+
+    a {
+      &, &:link, &:visited, &:hover, &:active {
+        color: #999;
+      }
+
+      &:hover {
+        color: #ccc;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin: 10px 0;
+      }
+    }
+
+    div[class*="pure-u-"] {
+      padding-right: 50px;
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
   }
 }

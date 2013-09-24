@@ -1,42 +1,137 @@
-<div id="home" class="section header-section">
-  <div class="hero-unit">
-    <h2>Make your brokerage <strong>paperless</strong>.</h2>
-    <ul>
-      <li><h3>Enter and track data easily.</h3></li>
-      <li><h3>Generate proposals and submissions in seconds.</h3></li>
-      <li><h3>Track your brokerage's cost savings.</h3></li>
-    </ul>
-    <br>
-    <div class="center">
-      <%= link_to 'Learn More', new_user_registration_path, :class => 'pure-button pure-button-primary pure-button-2x' %>
+<div id="overview" class="section expanded">
+  <div class="content">
+    <div class="hero-unit">
+      <h2>Make your brokerage <strong>paperless</strong>.</h2>
+      <ul>
+        <li><h3>Enter and track data easily.</h3></li>
+        <li><h3>Generate documents in seconds.</h3></li>
+        <li><h3>Track your brokerage's cost savings.</h3></li>
+      </ul>
+      <br>
+      <div class="center">
+        <%= link_to 'Sign Up', new_user_registration_path, :class => 'pure-button button-sign-up pure-button-2x' %>
+      </div>
     </div>
   </div>
-
-  <div class="features" style="display: none;">
-    <h3>We make data entry and management easy.</h3>
-    <h3>Automate your brokerage.</h3>
-    <h3>Update information easily.</h3>
-    <br>
-    <div class="center">
-      <%= link_to 'Sign Up', new_user_registration_path, :class => 'pure-button pure-button-primary pure-button-2x' %>
-    </div>
+  <div class="caret caret-darken">
+    <a href="#features"><i class="icon-angle-down icon-4x"></i></a>
   </div>
 </div>
 
 <div style="clear:both"></div>
 
 <div id="features" class="section">
-  you can do stuff and shit with this shit
+  <div class="content">
+    <%= image_tag '../../img/thought-bubble.png', :class => "wish pull-left" %>
+    <div class="pure-g">
+      <div class="pure-u-1-2 right">
+        <%= image_tag '../../img/icon-edit.png' %>
+      </div>
+      <div class="pure-u-1-2 left">
+        <h2>Manage data easily</h2>
+        <p>Instead of re-entering information every time you need it, write it once and be done with it. Clients and brokers can both
+        edit client information and keep it up to date. Changes made are automatically tracked for review.</p>
+      </div>
+    </div>
+    <div class="pure-g">
+      <div class="pure-u-1-2 right">
+        <%= image_tag '../../img/icon-new.png' %>
+      </div>
+      <div class="pure-u-1-2 left">
+        <h2>Automate your brokerage</h2>
+        <p>Effortlessly create contracts and files with the correct information already filled in. The created documents are beautiful,
+        professional, and customizable.</p>
+      </div>
+    </div>
+    <div class="pure-g">
+      <div class="pure-u-1-2 right">
+        <%= image_tag '../../img/icon-money.png' %>
+      </div>
+      <div class="pure-u-1-2 left">
+        <h2>Track cost savings</h2>
+        <p>Consilium emails you with a detailed report containing the exact amount of money you're saving each month by using it. You're
+        guaranteed to save time and money by using Consilium.</p>
+      </div>
+    </div>
+  </div>
 </div>
 
-<h1>Consilium</h1>
+<div style="clear:both"></div>
 
-<h3>We make data entry and management easy.</h3>
-<p>Instead of re-entering information each time a new system is used, enter it once and be done with it.</p>
+<div id="mobile" class="section">
+  <div class="content">
+    <div class="pure-g">
+      <div class="pure-u-2-5 right">
+        <%= image_tag '../../img/mobile.png' %>
+      </div>
+      <div class="pure-u-3-5">
+        <h1>Bring your office with you anywhere</h1>
+        <hr />
+        <br>
+        <h2>Work wherever you want to</h2>
+        <p>Consilium works on phones, tablets, and desktops/laptops. Work wherever is most comfortable for you,
+        and wherever you need to.</p>
+        <br>
+        <h2>No internet connection needed</h2>
+        <p>When mobile, you don't need to have an internet connection to use Consilium. As soon as you get back
+        to your office, any changes you've made will be synced with your brokerage.</p>
+        <br>
+        <h2>Never worry about lost data</h2>
+        <p>Consilium has clever syncing technology that ensures that no data is lost, even if multiple brokers
+        edit the same client. Never worry about lost data again.</p>
+        <br>
+        <h2>Same tools you know and love</h2>
+        <p>All the features of Consilium are available on every device. Create a contract and send it to both
+        an insurer and client with just a single click from your phone.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-<h3>Automate your brokerage.</h3>
-<p>Effortlessly generate contracts and files with the correct information already filled in.</p>
+<div style="clear:both"></div>
 
-<h3>Update information easily.</h3>
-<p>Add new contract templates and check each record’s history. When a piece of information is changed, the client or broker can easily update it for approval.</p>
-
+<div id="pricing" class="section">
+  <div class="content">
+    <h1 class="center">Try Consilium risk-free</h1>
+    <br>
+    <br>
+    <div class="pure-g">
+      <div class="pure-u-1-2">
+        <div class="title title-starter">
+          Starter Plan
+        </div>
+        <div class="pricing-inner">
+          <div class="price">
+            $0
+          </div>
+          <div class="renewal">
+            monthly
+          </div>
+          <hr />
+          <p>Free for one user</p>
+          <hr />
+          <p>All features available</p>
+          <%= link_to "Try for free", new_user_registration_path, :class => "pure-button button-starter"%>
+        </div>
+      </div>
+      <div class="pure-u-1-2">
+        <div class="title title-monthly">
+          Monthly Plan
+        </div>
+        <div class="pricing-inner">
+          <div class="price">
+            $30
+          </div>
+          <div class="renewal">
+            monthly per user
+          </div>
+          <hr />
+          <p>Unlimited users</p>
+          <hr />
+          <p>All features available</p>
+          <%= link_to "Get the monthly plan", new_user_registration_path, :class => "pure-button button-monthly"%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

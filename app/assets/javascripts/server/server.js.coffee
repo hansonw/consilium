@@ -1,15 +1,17 @@
 $(document).ready ->
   $('.section').css('width', $(window).width())
-  $('.section').css('height', $(window).height())
+  $('.section.expanded').css('height', $(window).height())
 
   findSectionById = (id) ->
     console.log id
     $(".navbar a[href='##{id}']")
 
-  $('.navbar-links a').click (e) ->
-    return false if !e.target?
+  $('a').click (e) ->
+    target = $(e.target)
+    target = target.parent() if e.target.tagName != 'A'
+    return if !e.target? || target.attr('href')[0] != '#'
     $('html, body').animate
-      scrollTop: $("#{$(e.target).attr('href')}").offset().top
+      scrollTop: $("#{target.attr('href')}").offset().top - 80
     , 500
     e.preventDefault()
 
