@@ -39,6 +39,10 @@
         <div <%= node_tag 'brokerage', :root => true, :writeNode => true, :syncable => false %>>
           <div class="well">
             <div class="section" id="basicInfo">
+              <a class="section-edit pure-button pure-button-primary"
+                 ng-href="#/brokerage/stats">
+                 <i class="icon-bar-chart"></i> Statistics
+               </a>
               <h3 class="no-top-margin no-bottom-margin">Office Info.</h3>
             </div>
 
@@ -58,7 +62,7 @@
 
                 <div class="well">
                   <div class="section">
-                    <a class="section-edit pull-right pure-button pure-button-success" modal-toggle="<%= field[:id] %>"
+                    <a class="section-edit pure-button pure-button-success" modal-toggle="<%= field[:id] %>"
                        data-ng-show="!readonly">
                       <i class="icon-plus"></i> <span class="only-desktops">Add <%= field[:name].singularize %></span>
                     </a>

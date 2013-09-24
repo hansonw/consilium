@@ -64,6 +64,7 @@ Consilium::Application.routes.draw do
 
       scope :brokerage do
         get 'index' => 'home#app', :as => 'app_brokerage'
+        get 'stats' => 'home#app', :as => 'app_brokerage_stats'
       end
 
       scope :users do
