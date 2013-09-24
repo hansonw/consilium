@@ -50,17 +50,23 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
     BROKER: 2,
     ADMIN:  3,
     isLoggedIn: -> @_isLoggedIn
+    tryAutoLogin: ->
+      $http.post(
+        '<%= angularApiPath('/api/auth/login') %>'
+      ).success((data) =>
+        AuthToken.set(JSON.stringify(data))
+        @_isLoggedIn = true
+        @_notifyWatches()
+        $location.url('/')
+      )
     login: (credentials) ->
-      self = @
       $http.post(
         '<%= angularApiPath('/api/auth/login') %>',
         credentials
-      ).success((data, status, headers, config) ->
-        data.email = credentials.email
+      ).success((data, status, headers, config) =>
         AuthToken.set(JSON.stringify(data))
-
-        self._isLoggedIn = true
-        self._notifyWatches()
+        @_isLoggedIn = true
+        @_notifyWatches()
       ).error((data, status, headers, config) ->
         if status == 403
           alert('Invalid email or password.')
@@ -92,15 +98,14 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
     getEmail: ->
       AuthToken.get().email
     logout: ->
-      self = @
       $http.get(
         '<%= angularApiPath('/api/auth/logout') %>',
         AuthToken.addAuthTokenToJSONRequest({}),
-      ).success((data, status, headers, config) ->
+      ).success((data, status, headers, config) =>
         AuthToken.remove()
 
-        self._isLoggedIn = false
-        self._notifyWatches()
+        @_isLoggedIn = false
+        @_notifyWatches()
       )
     watch: (fn) ->
       @_watches.push fn

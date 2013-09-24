@@ -8,20 +8,27 @@ class Api::AuthController < Api::ApiController
   # POST api/auth/login
   # params: username, password
   def login
-    email = params[:email]
-    resource = User.where(:email => email).first
-
-    if !resource.nil? && resource.valid_password?(params[:password])
-      sign_in(resource)
-      resource.ensure_authentication_token!
-      render json: {
-        :auth_token => resource.authentication_token,
-        :permissions => resource.permissions,
-        :expiry_ts => (Time.now + Devise.timeout_in).to_i
-      }
+    if params[:email]
+      email = params[:email]
+      resource = User.where(:email => email).first
+      if !resource.nil? && resource.valid_password?(params[:password])
+        sign_in(resource)
+      else
+        return head :forbidden
+      end
+    elsif current_user
+      resource = current_user
     else
-      render json: '', :status => :forbidden
+      return head :bad_request
     end
+
+    resource.ensure_authentication_token!
+    render json: {
+      :email => resource.email,
+      :auth_token => resource.authentication_token,
+      :permissions => resource.permissions,
+      :expiry_ts => (Time.now + Devise.timeout_in).to_i
+    }
   end
 
   # POST api/auth/logout

@@ -8,6 +8,8 @@ App.controller 'AuthLoginCtrl', ['$scope', '$http', '$location', '$rootScope', '
   if Auth.isLoggedIn()
     $location.url('/')
 
+  Auth.tryAutoLogin()
+
   $scope.login = ->
     Auth.login($scope.loginData)
 ]
