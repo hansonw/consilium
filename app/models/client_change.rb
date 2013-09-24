@@ -227,7 +227,7 @@ class ClientChange
   def self.update_client(client, user_id)
     changes = ClientChange.where('client_id' => client.id, 'type' => 'client').desc(:updated_at)
     last_change = changes.first
-    attrs = process(JSON.parse(client.serialize_references.attributes.to_json))
+    attrs = process(JSON.parse(client.finalize.serialize_references.attributes.to_json))
     if !last_change.nil? && last_change.user_id == user_id && Time.now - last_change.updated_at < SQUASH_TIME
       # Merge into previous if it's within a minute
       if last_change.description = get_change_description(attrs, changes.second && changes.second.client_data)

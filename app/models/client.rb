@@ -5,6 +5,7 @@ else
 end
 require 'consilium_field_references'
 require 'client_contact'
+require 'andand'
 
 class Client
   include Mongoid::Document
@@ -26,6 +27,71 @@ class Client
   has_many :document_template_sections, dependent: :delete
 
   field :editing_time, type: Integer, default: 0
+
+  def sum_buildings(location)
+    sum = 0
+    if buildings = location['buildings'].andand['value']
+      buildings.each do |b|
+        if type = b['coverage_type'].andand['value']
+          sum += b[type].andand['value'].to_i
+        else
+          sum += (b['replacement_cost'].andand['value'] || b['actual_cash_value'].andand['value']).to_i
+        end
+      end
+    end
+    sum
+  end
+
+  def sum_equipment(location)
+    sum = 0
+    if equipment = location['equipment_schedules'].andand['value']
+      equipment.each do |equip|
+        sum += equip['limit'].andand['value'].to_i
+      end
+    end
+    sum
+  end
+
+  # Post process some calculated data
+  def finalize
+    # Re-compute Building, Equipment, POED, COED sums in coverage schedules.
+    if locations = self['locations'].andand['value']
+      locations.each do |location|
+        if covs = location['coverage_schedules'].andand['value']
+          stock = 0
+          covs.each do |cov|
+            cat = cov['category'].andand['value']
+            type = cov['type'].andand['value']
+            if cat == 'Property' && type == 'Stock'
+              stock = cov['limit'].andand['value'].to_i
+            end
+          end
+
+          covs.each do |cov|
+            cat = cov['category'].andand['value']
+            type = cov['type'].andand['value']
+            if cat == 'Property' && cov['limit']
+              cov['limit']['value'] =
+               (case type
+                when 'Building'
+                  sum_buildings(location)
+                when 'Equipment'
+                  sum_equipment(location)
+                when /POED/
+                  sum_buildings(location) + sum_equipment(location) + stock
+                when /COED/
+                  sum_equipment(location) + stock
+                else
+                  cov['limit']['value']
+                end).to_s
+            end
+          end
+        end
+      end
+    end
+
+    self
+  end
 
   def validate_value(field_name, field_desc, value)
     if value.nil? || value == ''
