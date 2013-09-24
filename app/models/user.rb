@@ -28,8 +28,9 @@ class User
 
   validates :name, :uniqueness => {:scope => [:deleted_at, :brokerage_id]}, :if => :name_required?
   validates :email, :uniqueness => {:scope => :deleted_at}, :if => :email_required?
-  validates :password, :presence => true, :if => :password_required?, :length => {in: 8..20}, :allow_blank => true
-  validates :password_confirmation, :confirmation => true, :if => :password_required?
+  validates :password, :presence => true, :if => :password_required?
+  validates :password, :length => {in: 8..20}, :allow_blank => true
+  validates :password_confirmation, :confirmation => true
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

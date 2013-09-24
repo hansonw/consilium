@@ -38,11 +38,16 @@ App.controller 'UsersShowCtrl', ['$scope', '$location', '$routeParams', 'Auth', 
       $scope.user.password = data.password
       $scope.user.password_confirmation = data.password_confirmation
       $scope.user.$update (->
+        angular.copy({}, data)
         Modal.toggleModal()
       ), (data) ->
-        errorList = []
-        for key, errors of data.data
-          for error in errors
-            errorList.push("#{Util.humanize(key)} #{error}.")
-        alert(errorList.join("\n"))
+        if data.status == 422
+          errorList = []
+          for key, errors of data.data
+            for error in errors
+              errorList.push("#{Util.humanize(key)} #{error}.")
+          alert(errorList.join("\n"))
+        else
+          alert 'Could not change your password at the moment. Please try again later.'
+          Modal.toggleModal()
 ]

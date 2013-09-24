@@ -29,14 +29,17 @@ class Api::UsersController < Api::ApiController
 
   # PATCH/PUT /api/users/1.json
   def update
+    authorize! :manage, @user
+
     params = user_params
     if params[:password]
       res = @user.update_with_password(user_params)
     else
-      # res = @user.update(user_params)
+      res = @user.update(user_params)
     end
 
     if res
+      sign_in @user, :bypass => true # Don't log out after changing password
       head :no_content
     else
       render json: @user.errors, status: :unprocessable_entity
