@@ -5,6 +5,42 @@
  %>
 
 <div data-ng-controller="UsersShowCtrl">
+ <%= render :partial => 'templates/field_modal',
+            :locals => {
+              :field => {
+                :name => 'Change Password',
+                :id => 'change_password',
+                :formDirective => 'change-password',
+                :required => true,
+                :type => [
+                  {
+                    :name => 'Current Password',
+                    :id => 'current_password',
+                    :required => true,
+                    :type => 'password',
+                  },
+                  {
+                    :name => 'New Password',
+                    :id => 'password',
+                    :required => true,
+                    :type => 'password',
+                  },
+                  {
+                    :name => 'Confirm Password',
+                    :id => 'password_confirmation',
+                    :required => true,
+                    :type => 'password',
+                  },
+                ]
+              },
+              :page => 'My Account',
+              :page_url => '#/users/show/profile',
+              :syncable => false,
+              :title => 'Change Password',
+              :submit_callback => 'changePassword()',
+              :paths => paths
+            } %>
+
   <div class="client-header" data-ng-class="{'active': menuShouldShow()}">
     <div class="content header pure-u-1">
       <h2 class="no-bottom-margin">
@@ -24,7 +60,7 @@
         <div class="section" id="basicInfo">
           <div class="client-buttons pull-right">
             <a class="pure-button pure-button-primary pure-button-large"
-               data-click-href="#/clients/edit/{{ clientId }}">
+               modal-toggle="change_password" data-ng-show="myAccount">
               <i class="icon-edit"></i><span class="desc"> Change Password</span>
             </a>
           </div>

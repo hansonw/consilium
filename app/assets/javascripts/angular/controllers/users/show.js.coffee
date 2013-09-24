@@ -1,5 +1,5 @@
-App.controller 'UsersShowCtrl', ['$scope', '$location', '$routeParams', 'Auth', 'ClientChange', 'User',\
-                                 ($scope, $location, $routeParams, Auth, ClientChange, User) ->
+App.controller 'UsersShowCtrl', ['$scope', '$location', '$routeParams', 'Auth', 'ClientChange', 'Modal', 'User',\
+                                 ($scope, $location, $routeParams, Auth, ClientChange, Modal, User) ->
   Auth.checkLogin()
 
   $scope.permissionNames = {}
@@ -18,6 +18,9 @@ App.controller 'UsersShowCtrl', ['$scope', '$location', '$routeParams', 'Auth', 
       $scope.userId = $scope.user.id
     else
       $scope.title.text = "#{$scope.user.name}"
+    if $scope.user.email == Auth.getEmail()
+      $scope.title.text = 'My Account'
+      $scope.myAccount = true
     $scope.history = ClientChange.query({user_id: $scope.userId, short: true},
       (-> $scope.historyLoading = false),
       (->
@@ -25,4 +28,21 @@ App.controller 'UsersShowCtrl', ['$scope', '$location', '$routeParams', 'Auth', 
         $scope.historyError = true)
     )
   , -> $scope.loading = false)
+
+  $scope.changePassword = ->
+    data = @change_password
+    form = @change_passwordForm
+    if data.current_password && data.password && data.password_confirmation &&
+       data.password == data.password_confirmation
+      $scope.user.current_password = data.current_password
+      $scope.user.password = data.password
+      $scope.user.password_confirmation = data.password_confirmation
+      $scope.user.$update (->
+        Modal.toggleModal()
+      ), (data) ->
+        errorList = []
+        for key, errors of data.data
+          for error in errors
+            errorList.push("#{Util.humanize(key)} #{error}.")
+        alert(errorList.join("\n"))
 ]

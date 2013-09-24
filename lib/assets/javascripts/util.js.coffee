@@ -22,3 +22,8 @@ class window.Util
       return value.slice(0, index) + inc + value.slice(index + match.length)
     else
       return ''
+
+  @humanize: (value) ->
+    # Converts a_name_like_this to "A name like this"
+    value = value.replace ///_///g, ' '
+    value[0].toUpperCase() + value.substr(1)

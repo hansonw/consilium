@@ -10,15 +10,16 @@ App.directive 'errorTooltip', ['$timeout', ($timeout) ->
         $('div#modal-' + modal).on 'modal-toggle', -> elem.html ''
 
       errors = {
-        "minlength": "too short",
-        "maxlength": "too long",
-        "required": "required",
-        "phone": "not a valid phone number",
-        "email": "not a valid email",
-        "min": "too small",
-        "max": "too large",
-        "pattern": "in the wrong format",
-        "unique": "not unique",
+        "minlength": "is too short",
+        "maxlength": "is too long",
+        "required": "is required",
+        "phone": "is not a valid phone number",
+        "email": "is not a valid email",
+        "min": "is too small",
+        "max": "is too large",
+        "pattern": "is in the wrong format",
+        "unique": "is not unique",
+        "password_match": "does not match the entered password"
       }
 
       if domField.is('select')
@@ -34,7 +35,7 @@ App.directive 'errorTooltip', ['$timeout', ($timeout) ->
         else if form[field] && form[field].$error && !form[field].$pristine
           errs = []
           for key, val of form[field].$error
-            errs.push("Field is #{errors[key]}") if val
+            errs.push("Field #{errors[key]}") if val
           elem.html errs.join('<br />')
         else
           elem.html ''

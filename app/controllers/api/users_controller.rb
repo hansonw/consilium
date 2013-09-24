@@ -29,7 +29,14 @@ class Api::UsersController < Api::ApiController
 
   # PATCH/PUT /api/users/1.json
   def update
-    if @user.update(user_params)
+    params = user_params
+    if params[:password]
+      res = @user.update_with_password(user_params)
+    else
+      # res = @user.update(user_params)
+    end
+
+    if res
       head :no_content
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -44,6 +51,6 @@ class Api::UsersController < Api::ApiController
 
   private
     def user_params
-      params.permit User.generate_permit_params
+      params.permit User.generate_permit_params | [:current_password, :password_confirmation]
     end
 end

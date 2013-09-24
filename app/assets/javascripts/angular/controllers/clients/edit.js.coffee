@@ -113,7 +113,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
       error_str = ''
       for name, errors of data.data[0]
         for error in errors
-          error_str += ' - ' + name + ' ' + error + "\n"
+          error_str += ' - ' + Util.humanize(name) + ' ' + error + "\n"
       alert("Please fix the following errors:\n" + error_str)
 
   $scope.done = ->
