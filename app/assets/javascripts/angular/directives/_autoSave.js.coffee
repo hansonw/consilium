@@ -124,7 +124,7 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Hierarchy', 'Moda
       for key, val of error
         if val != false
           for err in val
-            error_str += " - #{err.$name} is #{errors[key]}\n"
+            error_str += " - #{Util.humanize(err.$name)} is #{errors[key]}\n"
       return error_str
 
     $scope.saveForm = (manual = true, successCallback)->
