@@ -167,4 +167,24 @@ module ConsiliumFieldReferences
       @autosynced_references
     end
   end
+
+  module UpdateOwners
+    def self.included(klass)
+      klass.class_eval do
+        after_save :update_owners
+        before_destroy :update_owners
+      end
+    end
+
+    def update_owners
+      puts self.class.name
+      self.class.reflect_on_all_associations(:belongs_to).map(&:name).each do |assoc|
+        puts self.send(assoc)
+        if parent = self.send(assoc)
+          parent.updated_at = Time.now.utc
+          parent.save # This should trigger update_owners on the parent, if applicable.
+        end
+      end
+    end
+  end
 end

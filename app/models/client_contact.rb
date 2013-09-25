@@ -8,6 +8,7 @@ class ClientContact
   include Mongoid::Attributes::Dynamic
   include ConsiliumFields
   include ConsiliumFieldReferences
+  include ConsiliumFieldReferences::UpdateOwners
 
   belongs_to :client
   has_one :user

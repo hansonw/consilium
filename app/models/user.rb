@@ -1,4 +1,5 @@
 require 'consilium_fields'
+require 'consilium_field_references'
 require 'proxy_current_user'
 require 'andand'
 
@@ -8,6 +9,7 @@ class User
   include Mongoid::Timestamps
   include ActionView::Helpers::HostHelper
   include ConsiliumFields
+  include ConsiliumFieldReferences::UpdateOwners
 
   CLIENT = 1
   BROKER = 2
