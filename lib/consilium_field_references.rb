@@ -87,9 +87,6 @@ module ConsiliumFieldReferences
       return retval
     end
 
-    p '@@@@@@@@@@@@@@@@@@@@@@'
-    p params
-
     assocs.each do |assoc|
       assoc_class = assoc.to_s.camelize.singularize.constantize
       syncable = self.class.syncable?
