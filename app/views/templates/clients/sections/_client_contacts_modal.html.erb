@@ -1,7 +1,9 @@
-<br>
-<aside ng-hide="client_contacts.user">
-  <a ng-click="toggleAccount()" class="pure-button pure-button-success" eat-click><span class="icon-stack"><i class="icon-user icon-stack-base"></i></span></a>&nbsp;&nbsp;Click here to allow {{ client_contacts.name.value || 'this contact' }} to manage {{ client.company_name.value }}. They will be sent an email with instructions.
-</aside>
-<aside ng-show="client_contacts.user">
-  <a ng-click="toggleAccount()" class="pure-button pure-button-error" eat-click><span class="icon-stack"><i class="icon-user"></i><i class="icon-ban-circle icon-stack-base text-error"></i></span></a>&nbsp;&nbsp;Click here to disallow {{ client_contacts.name.value || 'this contact' }} from managing {{ client.company_name.value }}.
-</aside>
+<div ng-hide="readonly">
+  <br>
+  <aside ng-hide="hasUser()">
+    <a ng-click="toggleAccount()" class="pure-button pure-button-success" eat-click><span class="icon-stack"><i class="icon-user icon-stack-base"></i></span></a>&nbsp;&nbsp;Click here to allow {{ client_contacts.name.value || 'this contact' }} to manage {{ client.company_name.value }}. They will be sent an email with instructions.
+  </aside>
+  <aside ng-show="hasUser()">
+    <a ng-click="toggleAccount()" class="pure-button pure-button-error" eat-click><span class="icon-stack"><i class="icon-user"></i><i class="icon-ban-circle icon-stack-base text-error"></i></span></a>&nbsp;&nbsp;Click here to disallow {{ client_contacts.name.value || 'this contact' }} from managing {{ client.company_name.value }}.
+  </aside>
+</div>

@@ -100,24 +100,25 @@ module ConsiliumFields
       permitted = []
       expand_fields(node).each do |field|
         if field[:id] && field[:edit] != false
-          if field[:type].is_a?(Class) && !field[:type].syncable?
-            # Drop out of wrapped mode if a referenced class is not syncable.
-            permitted << {field[:id] => generate_permit_params(field[:type]::FIELDS)}
-          else
-            permitted << {field[:id] => [:created_at, :updated_at,
-              if field[:type].is_a? Class
-                {:value => [:id, :created_at, :updated_at, generate_permit_params_wrapped(field[:type]::FIELDS)]}
-              elsif field[:type].is_a? Array
-                {:value => [:id, :created_at, :updated_at, generate_permit_params_wrapped(field[:type])]}
-              elsif field[:type] == 'checkbox'
-                {:value => field[:options].keys}
-              elsif field[:type] == 'units'
-                {:value => [:qty, :unit]}
-              else
-                :value
-              end
-            ]}
-          end
+          permitted << {field[:id] => [:created_at, :updated_at,
+            if field[:type].is_a? Class
+              {:value => [:id, :created_at, :updated_at,
+                if field[:type].syncable?
+                  generate_permit_params_wrapped(field[:type]::FIELDS)
+                else
+                  generate_permit_params(field[:type]::FIELDS)
+                end
+              ]}
+            elsif field[:type].is_a? Array
+              {:value => [:id, :created_at, :updated_at, generate_permit_params_wrapped(field[:type])]}
+            elsif field[:type] == 'checkbox'
+              {:value => field[:options].keys}
+            elsif field[:type] == 'units'
+              {:value => [:qty, :unit]}
+            else
+              :value
+            end
+          ]}
         end
       end
 

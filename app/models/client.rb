@@ -1,9 +1,10 @@
 if Rails.env == 'development'
   require_dependency 'consilium_fields'
+  require_dependency 'consilium_field_references'
 else
   require 'consilium_fields'
+  require 'consilium_field_references'
 end
-require 'consilium_field_references'
 require 'client_contact'
 require 'andand'
 

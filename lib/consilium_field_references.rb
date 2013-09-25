@@ -24,7 +24,7 @@ module ConsiliumFieldReferences
     assocs = self.class.autosynced_references
     assocs.each do |assoc|
       assoc_class = assoc.to_s.camelize.singularize.constantize
-      syncable = assoc_class.syncable?
+      syncable = self.class.syncable?
 
       existing_assocs = self.send(assoc) || []
       existing_assocs = [existing_assocs] unless existing_assocs.is_a?(Array)
@@ -87,9 +87,12 @@ module ConsiliumFieldReferences
       return retval
     end
 
+    p '@@@@@@@@@@@@@@@@@@@@@@'
+    p params
+
     assocs.each do |assoc|
       assoc_class = assoc.to_s.camelize.singularize.constantize
-      syncable = assoc_class.syncable?
+      syncable = self.class.syncable?
 
       params_assoc =
         if syncable
@@ -98,6 +101,9 @@ module ConsiliumFieldReferences
           params[assoc]
         end || []
       params_assoc = [params_assoc] unless params_assoc.is_a?(Array)
+
+      # TODO: This is wrong. The params could be not up to date; we have to check with
+      # the provided last_synced timestamp.
 
       # Check for elements that are on the saved model, but not on the params.
       # This means that the updated params must have included a deletion.

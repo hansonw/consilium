@@ -45,7 +45,7 @@
   :id: user
   :type: !ruby/class 'User'
 - :name: Permissions
-  :id: user[0].permissions
+  :id: user.value[0].permissions
   :filter: permissions:false
   :edit: false
   :primary: true
