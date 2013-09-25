@@ -42,7 +42,7 @@ class ClientChange
     old_ids = Hash[old_arr.map { |x| [x['id'], x] }] if old_arr.is_a?(Array)
     new_ids = Hash[new_arr.map { |x| [x['id'], x] }]
 
-    primary_field = fields.andand.find { |f| f[:primary] && f[:type] == 'text' }.andand[:id]
+    primary_field = fields.andand.find { |f| f[:primary] && f[:type][/text|name/] }.andand[:id]
 
     # Merge old array into new array; this way we can see deletions in the change view.
     if old_arr.is_a?(Array)
@@ -205,13 +205,15 @@ class ClientChange
   end
 
   def self.process(data)
-    if data.is_a?(Hash)
+    if data.is_a?(Mongoid::Document)
+      process(data.attributes)
+    elsif data.is_a?(Hash)
       out = {}
       data.each do |k, v|
         if k == '_id'
           out['id'] = v
         else
-          out[k] = process(v)
+          out[k.to_s] = process(v)
         end
       end
       out
@@ -227,7 +229,7 @@ class ClientChange
   def self.update_client(client, user_id)
     changes = ClientChange.where('client_id' => client.id, 'type' => 'client').desc(:updated_at)
     last_change = changes.first
-    attrs = process(JSON.parse(client.finalize.serialize_references.attributes.to_json))
+    attrs = process(client.finalize.serialize_references)
     if !last_change.nil? && last_change.user_id == user_id && Time.now - last_change.updated_at < SQUASH_TIME
       # Merge into previous if it's within a minute
       if last_change.description = get_change_description(attrs, changes.second && changes.second.client_data)
