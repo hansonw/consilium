@@ -24,9 +24,9 @@ gem 'modernizr-rails'
 gem 'jbuilder', '~> 1.2.0'
 
 # MongoDB object mapper.
-gem 'mongoid', github: 'mongoid/mongoid'
+gem 'mongoid', github: 'mongoid/mongoid', ref: 'f91feef'
 # Mongoid Paranoia addon for shallow deletion.
-gem 'mongoid-paranoia', github: 'simi/mongoid-paranoia' # before first release
+gem 'mongoid-paranoia', github: 'simi/mongoid-paranoia'
 
 # BSON extension for Mongoid.
 # gem 'bson_ext'
