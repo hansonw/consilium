@@ -53,8 +53,9 @@ class Api::BrokerageController < Api::ApiController
       data[:editing_time] = 0
       Client.where(:brokerage => @brokerage).each do |client|
         # Difference in editing time between the last change and the last change before 'since'
-        last_change = ClientChange.where(:client => client).desc(:created_at).last
-        prev_change = ClientChange.where(:client => client, :created_at.lt => since).desc(:created_at).last
+        last_change = ClientChange.where(:client => client, :type => 'client').desc(:created_at).first
+        prev_change = ClientChange.where(:client => client, :type => 'client', :created_at.lt => since)
+                                  .desc(:created_at).first
         data[:editing_time] += (last_change.andand.client_data.andand['editing_time'] || 0) -
                                (prev_change.andand.client_data.andand['editing_time'] || 0)
       end
