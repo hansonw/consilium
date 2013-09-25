@@ -18,3 +18,30 @@
 
   @include ng-scope-hover();
 }
+
+.brokerage-stats {
+  padding-top: 20px;
+
+  .stats-time-select {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    .pure-button {
+      font-size: 80%;
+    }
+  }
+
+  .disclaimer {
+    margin-top: 10px;
+    width: 100%;
+    text-align: right;
+
+    color: #999;
+    font-size: 85%;
+  }
+
+  .value {
+    vertical-align: middle;
+  }
+}

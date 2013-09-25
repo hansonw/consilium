@@ -26,6 +26,7 @@ Consilium::Application.routes.draw do
     resources :client_changes, :controller => 'api/client_changes'
 
     resource :brokerage, :controller => 'api/brokerage'
+    get 'brokerage/stats' => 'api/brokerage#stats'
 
     post 'auth/login' => 'api/auth#login'
     get 'auth/logout' => 'api/auth#logout'

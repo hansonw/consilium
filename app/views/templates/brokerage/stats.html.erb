@@ -1,0 +1,61 @@
+<% paths = {
+     "Home" => "#/",
+     "Brokerage" => "#/brokerage/index",
+     "Stats" => "#/brokerage/stats"
+   }
+ %>
+
+<div data-ng-controller="BrokerageStatsCtrl">
+  <div class="client-header" data-ng-class="{'active': menuShouldShow()}">
+    <div class="content header pure-u-1">
+      <h2 class="no-bottom-margin">Brokerage Statistics</h2>
+      <%= render :partial => 'templates/breadcrumbs',
+                 :locals => { :paths => paths }
+      %>
+    </div>
+    <hr class="soften no-bottom-margin" />
+  </div>
+
+  <div id="main" class="brokerage-stats pure-u">
+    <div class="content has-header" data-ng-show="loading">
+      <h3 class="no-top-margin"><i class="icon-spinner icon-spin icon-large"></i> Loading...</h3>
+    </div>
+
+    <div class="content has-header" data-ng-show="!loading">
+      <div class="pure-form pure-form-aligned well">
+        <div class="section">
+          <ul class="pure-paginator stats-time-select">
+            <li ng-repeat="range in timeRanges">
+              <a class="pure-button" ng-class="{'pure-button-primary': timeRange == range.id}"
+                 ng-click="setTimeRange(range.id)">
+                {{ range.name }}
+              </a>
+            </li>
+          </ul>
+          <h3 class="no-top-margin no-bottom-margin">Usage Statistics</h3>
+        </div>
+
+        <div class="pure-control-group">
+          <label>Clients created</label>
+          <span class="value">{{ stats[timeRange].clients_created }}</span>
+        </div>
+        <div class="pure-control-group">
+          <label>Editing time</label>
+          <span class="value">{{ stats[timeRange].editing_time | time }}</span>
+        </div>
+        <div class="pure-control-group">
+          <label>Docs. generated</label>
+          <span class="value">{{ stats[timeRange].documents_generated }}</span>
+        </div>
+        <div class="pure-control-group">
+          <label><b>Time saved*</b></label>
+          <span class="value">{{ stats[timeRange].time_saved | time }}</span>
+        </div>
+
+        <div class="disclaimer">
+          * Based on the estimated time taken to create the generated documents by hand.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
