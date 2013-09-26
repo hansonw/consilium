@@ -43,7 +43,7 @@ App.factory 'AuthResetPassword', ['$resource', ($resource) ->
 
 App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($http, $location, AuthToken, AuthSessionStatus) ->
   service =
-    _unauthorizedPaths: ['/auth/reset_password.*']
+    _unauthorizedPaths: ['/auth/(reset_password|login|sign_up).*']
     _isLoggedIn: AuthToken.get()?.email?.length
     _watches: []
     CLIENT: 1,
@@ -73,6 +73,13 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
         else
           alert('Could not connect to the Consilium servers. Please try again later.')
       )
+    signUp: (data, success, error) ->
+      res = $http.post(
+         '<%= angularApiPath('/api/auth/sign_up') %>',
+         data
+      )
+      res.success(success) if success
+      res.error(error) if error
     hasPermissions: (level) ->
       AuthToken.get()?.permissions >= level
     isBroker: ->

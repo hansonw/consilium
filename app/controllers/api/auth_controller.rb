@@ -3,7 +3,7 @@
 ##
 
 class Api::AuthController < Api::ApiController
-  skip_before_filter :json_authenticate, :only => [:login, :reset_password_valid, :reset_password]
+  skip_before_filter :json_authenticate, :only => [:login, :sign_up, :reset_password_valid, :reset_password]
 
   # POST api/auth/login
   # params: username, password
@@ -30,6 +30,18 @@ class Api::AuthController < Api::ApiController
       :permissions => resource.permissions,
       :expiry_ts => (Time.now + Devise.timeout_in).to_i
     }
+  end
+
+  # POST api/auth/sign_up
+  # params: name, email, password
+  def sign_up
+    @user = User.new(user_params)
+    if @user.save
+      sign_in(@user)
+      head :no_content
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
   end
 
   # POST api/auth/logout
@@ -64,4 +76,9 @@ class Api::AuthController < Api::ApiController
       render json: @user.errors, status: :unprocessable_entity
     end
   end
+
+  private
+    def user_params
+      params.permit [:name, :email, :password, :password_confirmation]
+    end
 end

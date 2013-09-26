@@ -45,7 +45,7 @@ App.run ['$rootScope', '$location', '$timeout', 'Client', 'RecentClients', 'Offl
       $rootScope.updateMenu()
     $location.url(if isLoggedIn then '/' else '/auth/login')
 
-  if $location.url() != '/auth/login' && !Auth.isLoggedIn() && !Auth.locationAllowedUnauthorized()
+  if !Auth.isLoggedIn() && !Auth.locationAllowedUnauthorized()
     $location.url('/auth/login')
 
   $rootScope.online_status = true
@@ -54,18 +54,19 @@ App.run ['$rootScope', '$location', '$timeout', 'Client', 'RecentClients', 'Offl
   offlineClasses = [Client, RecentClients]
   $rootScope.checkOnline = ->
     online = Offline.online()
-    if online != $rootScope.online_status && Auth.isLoggedIn()
-      if $rootScope.online_status = online
-        # User just came online, so we should sync everything now.
+    if Auth.isLoggedIn()
+      if online != $rootScope.online_status
+        if $rootScope.online_status = online
+          # User just came online, so we should sync everything now.
+          Offline.sync(offlineClasses,
+            (-> $rootScope.last_sync_success = true),
+            (-> $rootScope.last_sync_success = false)
+          )
+      else if !$rootScope.last_sync_success
         Offline.sync(offlineClasses,
           (-> $rootScope.last_sync_success = true),
           (-> $rootScope.last_sync_success = false)
         )
-    else if !$rootScope.last_sync_success
-      Offline.sync(offlineClasses,
-        (-> $rootScope.last_sync_success = true),
-        (-> $rootScope.last_sync_success = false)
-      )
     $timeout($rootScope.checkOnline, 2000)
     # $timeout returns a promise to the return value, creating a circular reference if it's returned here.
     # This causes a ridiculously massive memory leak

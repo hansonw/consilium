@@ -1,0 +1,29 @@
+<div class="content login pure-u" data-ng-controller="AuthSignUpCtrl">
+  <h1 class="center">Consilium - Sign Up</h1>
+  <hr class="soften" />
+  <div class="separator-small"></div>
+  <form name="signupForm" class="pure-form pure-form-aligned" data-ng-submit="signUp()">
+    <div class="pure-form-fields">
+      <div class="pure-control-group">
+        <%= label_tag 'name', 'Full Name' %>
+        <%= text_field_tag 'name', nil, :placeholder => 'Name', :required => true, :data => {:ng_model => 'userData.name', :realtime_filter => 'name'} %>
+      </div>
+      <div class="pure-control-group">
+        <%= label_tag 'email', 'Email Address' %>
+        <%= email_field_tag 'email', nil, :placeholder => 'Email address', :required => true, :data => {:ng_model => 'userData.email'} %>
+      </div>
+      <div class="pure-control-group">
+        <%= label_tag 'password', 'Password' %>
+        <%= password_field_tag 'password', nil, :placeholder => 'Password', :required => true, :pattern => ".{8,}", :title => 'Must be at least 8 characters long.', :data => {:ng_model => 'userData.password'} %>
+      </div>
+      <div class="pure-control-group">
+        <%= label_tag 'password_confirmation', 'Confirm Password' %>
+        <%= password_field_tag 'password_confirmation', nil, :placeholder => 'Confirm password', :required => true, :data => {:ng_model => 'userData.password_confirmation'} %>
+      </div>
+    </div>
+    <div class="login-buttons">
+      <button class="pure-button" data-click-href="#/auth/login">Back</button>
+      <button class="pure-button pure-button-secondary" type="submit">Sign Up</button>
+    </div>
+  </form>
+</div>

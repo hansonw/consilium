@@ -29,6 +29,7 @@ Consilium::Application.routes.draw do
     get 'brokerage/stats' => 'api/brokerage#stats'
 
     post 'auth/login' => 'api/auth#login'
+    post 'auth/sign_up' => 'api/auth#sign_up'
     get 'auth/logout' => 'api/auth#logout'
     get 'auth/:id/reset_password' => 'api/auth#reset_password_valid'
     put 'auth/:id/reset_password' => 'api/auth#reset_password'
@@ -59,6 +60,7 @@ Consilium::Application.routes.draw do
       scope :auth do
         get '' => 'home#app', :as => 'app_auth'
         get 'login' => 'home#app', :as => 'app_auth_login'
+        get 'sign_up' => 'home#app', :as => 'app_auth_sign_up'
         get 'forbidden' => 'home#app', :as => 'app_auth_forbidden'
         get 'reset_password' => 'home#app', :as => 'app_auth_reset_password'
       end
