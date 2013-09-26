@@ -1,6 +1,10 @@
 $(document).ready ->
-  $('.section').css('width', $(window).width())
-  $('.section.expanded').css('height', $(window).height())
+  adjustDimensions = ->
+    $('.section').css('width', $(window).width())
+    $('.section.expanded').css('height', $(window).height())
+
+  $(window).resize adjustDimensions
+  adjustDimensions()
 
   findSectionById = (id) ->
     console.log id

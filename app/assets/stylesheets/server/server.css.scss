@@ -74,10 +74,8 @@ body {
       background-color: #333;
       color: #888;
 
-      img.wish {
-        position: absolute;
-        left: 5%;
-        top: 5%;
+      .wish {
+        margin-right: 20px;
       }
 
       .pure-g {
@@ -99,6 +97,10 @@ body {
             text-align: justify;
           }
         }
+      }
+
+      .feature-img {
+        margin-right: 10px;
       }
     }
 
