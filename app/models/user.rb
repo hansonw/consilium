@@ -101,6 +101,19 @@ class User
     @ability ||= Ability.new(self)
   end
 
+  def reset_password
+    generate_password_token
+
+    Mailer.reset_password({
+      :to => self[:email],
+      :variables => {
+        :token => reset_password_token,
+        :name => self[:name],
+        :brokerage => self.brokerage[:name],
+      }
+    }).deliver
+  end
+
   protected
 
   def check_references
@@ -150,21 +163,6 @@ class User
         :brokerage => self.brokerage[:name],
       },
       :permissions => self[:permissions]
-    }).deliver
-  end
-
-  private
-
-  def reset_password
-    generate_password_token
-
-    Mailer.reset_password({
-      :to => self[:email],
-      :variables => {
-        :token => reset_password_token,
-        :name => self[:name],
-        :brokerage => self.brokerage[:name],
-      }
     }).deliver
   end
 

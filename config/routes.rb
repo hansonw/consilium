@@ -33,6 +33,7 @@ Consilium::Application.routes.draw do
     get 'auth/logout' => 'api/auth#logout'
     get 'auth/:id/reset_password' => 'api/auth#reset_password_valid'
     put 'auth/:id/reset_password' => 'api/auth#reset_password'
+    post 'auth/:id/reset_password' => 'api/auth#send_reset_password'
   end
 
   scope :app do
