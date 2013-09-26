@@ -111,33 +111,36 @@ class ClientChange
     end
   end
 
-  def self.get_changed_fields(new_client, old_client, fields = Client.expand_fields_with_references)
+  def self.get_changed_fields(new_client, old_client, fields = Client::FIELDS)
     changed_fields = {}
 
     field_map = {}
     if fields
-      fields.each do |field|
+      Client.expand_fields(fields).each do |field|
         field_map[field[:id]] = field
       end
     end
 
-    new_client.each do |key, val|
-      if val.is_a?(Hash) && val['value']
-        old_val = old_client.andand[key].andand['value']
-        if !value_equals(val['value'], old_val)
-          changed_fields[key] = value_diff(val['value'], old_val, field_map[key])
+    keys = new_client.keys | (old_client.andand.keys || [])
+
+    keys.each do |key|
+      if field_map[key].andand[:type].is_a?(Class)
+        if !field_map[key][:type].syncable?
+          next # Don't check non-syncable classes.
+        else
+          field_map[key] = field_map[key].dup
+          field_map[key][:type] = field_map[key][:type]::FIELDS
         end
       end
-    end
 
-    unless old_client.nil?
-      old_client.each do |key, val|
-        new_val = new_client.andand[key]
-        if !new_val.is_a?(Hash) || !new_val['value']
-          if val.is_a?(Hash) && val['value']
-            changed_fields[key] = value_diff(nil, val['value'], field_map[key])
-          end
-        end
+      val = new_client[key]
+      val = (val.is_a?(Hash) && val['value']) ? val['value'] : nil
+
+      old_val = old_client.andand[key]
+      old_val = (old_val.is_a?(Hash) && old_val['value']) ? old_val['value'] : nil
+
+      if !value_equals(val, old_val)
+        changed_fields[key] = value_diff(val, old_val, field_map[key])
       end
     end
 
