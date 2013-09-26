@@ -136,7 +136,12 @@
                             #{field[:readonly] && 'readonly' || 'ng-readonly="readonly"'}>
                           <option value=''>#{field[:placeholder]}</option>"
       field[:options].each do |option|
-        dropdownString += "<option value='#{option}'>#{option}</option>"
+        if field[:filter]
+          text = "{{ '#{option}' | #{field[:filter]} }}"
+        else
+          text = option
+        end
+        dropdownString += "<option value='#{option}'>#{text}</option>"
       end
       dropdownString += "</select>"
       if field[:otherPlaceholder] != ''

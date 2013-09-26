@@ -15,10 +15,16 @@
 - :id: password
   :name: Password
   :type: password
-  :if: $!readonly
+  :if: $!readonly && users.$index == null
 - :id: permissions
   :name: Permissions
-  :type: text
+  :type: dropdown
+  :placeholder: Select a user level...
   :filter: permissions:true
-  :edit: false
+  :options:
+  - 1
+  - 2
+  - 3
+  :required: true
   :primary: true
+  :if: $!readonly && users.id != myUserId

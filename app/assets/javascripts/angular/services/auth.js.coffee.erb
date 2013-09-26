@@ -3,7 +3,7 @@
 
 App.factory 'AuthToken', ['$resource', ($resource) ->
   get: ->
-    return {email: '', auth_token: '', permissions: 0} if not @_get()
+    return {id: '', email: '', auth_token: '', permissions: 0} if not @_get()
     $.parseJSON(@_get())
   set: (authToken) ->
     localStorage.setItem('authToken', authToken)
@@ -97,6 +97,8 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
       @checkPermissions(@ADMIN)
     getEmail: ->
       AuthToken.get().email
+    getUserId: ->
+      AuthToken.get().id
     logout: ->
       $http.get(
         '<%= angularApiPath('/api/auth/logout') %>',

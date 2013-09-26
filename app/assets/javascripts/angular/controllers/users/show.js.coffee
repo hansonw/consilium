@@ -18,7 +18,7 @@ App.controller 'UsersShowCtrl', ['$scope', '$location', '$routeParams', 'Auth', 
       $scope.userId = $scope.user.id
     else
       $scope.title.text = "#{$scope.user.name}"
-    if $scope.user.email == Auth.getEmail()
+    if $scope.user.id == Auth.getUserId()
       $scope.title.text = 'My Account'
       $scope.myAccount = true
     $scope.history = ClientChange.query({user_id: $scope.userId, short: true},

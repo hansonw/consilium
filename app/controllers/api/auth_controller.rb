@@ -24,6 +24,7 @@ class Api::AuthController < Api::ApiController
 
     resource.ensure_authentication_token!
     render json: {
+      :id => resource.id.to_s,
       :email => resource.email,
       :auth_token => resource.authentication_token,
       :permissions => resource.permissions,

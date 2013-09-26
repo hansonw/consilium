@@ -177,9 +177,7 @@ module ConsiliumFieldReferences
     end
 
     def update_owners
-      puts self.class.name
       self.class.reflect_on_all_associations(:belongs_to).map(&:name).each do |assoc|
-        puts self.send(assoc)
         if parent = self.send(assoc)
           parent.updated_at = Time.now.utc
           parent.save # This should trigger update_owners on the parent, if applicable.
