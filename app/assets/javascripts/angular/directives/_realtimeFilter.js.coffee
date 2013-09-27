@@ -28,6 +28,16 @@ App.directive 'realtimeFilter', ['$parse', ($parse) ->
             text
           unapply: (text) ->
             text
+        number:
+          apply: (text) ->
+            text.replace /[^0-9\.\-]/g, ''
+          unapply: (text) ->
+            text
+        integer:
+          apply: (text) ->
+            text.replace /[^0-9]/g, ''
+          unapply: (text) ->
+            text
 
       if attrs.realtimeFilter == 'currency'
         elem.on 'keydown', (e) ->

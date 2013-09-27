@@ -220,7 +220,7 @@
   :type:
   - :name: In Business Since
     :id: business_start_date
-    :type: text
+    :type: integer
     :placeholder: YYYY
   - :name: Full Time Employees
     :id: full_time_employees
@@ -323,7 +323,7 @@
       'yes': Subcontractor coverage required
   - :name: Limit required
     :id: solar_subcontractor_coverage_limit
-    :type: text
+    :type: currency
     :clientType: solar
     :placeholder: Limit required for subcontractors
     :if: solar_subcontractor_coverage.yes
@@ -370,15 +370,15 @@
   - :name: Canadian %
     :id: canadian_percent
     :placeholder: '% (ex. 11)'
-    :type: text
+    :type: number
   - :name: US. %
     :id: american_percent
     :placeholder: '% (ex. 11)'
-    :type: text
+    :type: number
   - :name: Foreign %
     :id: foreign_percent
     :placeholder: '% (ex. 11)'
-    :type: text
+    :type: number
   - :name: Annual Payroll
     :id: annual_payroll
     :placeholder: $ CAN (ex. 111.11)
@@ -605,7 +605,7 @@
       :if: solar_project_type == "Photovoltaic (PV)"
     - :name: Year Installed
       :id: pv_year_installed
-      :type: text
+      :type: integer
       :clientType: solar
       :if: solar_project_type == "Photovoltaic (PV)"
     - :name: Installer
@@ -736,18 +736,18 @@
     - :name: Limit
       :id: risk_info_limit
       :placeholder: Limit
-      :type: text
+      :type: currency
   - :name: Construction
     :id: construction
     :type:
     - :name: Stories
       :id: construction_stories
       :placeholder: '# of Floors'
-      :type: text
+      :type: integer
     - :name: Year Built
       :id: year_built
       :placeholder: '#'
-      :type: text
+      :type: integer
     - :name: Area
       :id: construction_area
       :placeholder: '# Only'
@@ -934,7 +934,7 @@
         'yes': Electrical
     - :name: Year of Renovation
       :id: renovations_electrical_year
-      :type: text
+      :type: integer
       :placeholder: '#'
       :if: renovations_electrical.yes
     - :name: ''
@@ -953,7 +953,7 @@
         'yes': Plumbing
     - :name: Year of Renovation
       :id: renovations_plumbing_year
-      :type: text
+      :type: integer
       :placeholder: '#'
       :if: renovations_plumbing.yes
     - :name: ''
@@ -972,7 +972,7 @@
         'yes': Heating
     - :name: Year of Renovation
       :id: renovations_heating_year
-      :type: text
+      :type: integer
       :placeholder: '#'
       :if: renovations_heating.yes
     - :name: ''
@@ -991,7 +991,7 @@
         'yes': Roof
     - :name: Year of Renovation
       :id: renovations_roof_year
-      :type: text
+      :type: integer
       :placeholder: '#'
       :if: renovations_roof.yes
     - :name: ''
@@ -1059,7 +1059,7 @@
     - :name: Coverage %
       :id: coverage_percent
       :placeholder: '%'
-      :type: text
+      :type: number
     - :id: standpipe
       :type: checkbox
       :options:
@@ -1289,7 +1289,7 @@
     - :name: Year
       :id: year
       :placeholder: '#'
-      :type: text
+      :type: integer
     - :name: Make
       :id: make
       :placeholder: (ex. Ford)
@@ -1372,7 +1372,7 @@
       :unique: true
     - :name: Year
       :id: year
-      :type: number
+      :type: integer
       :placeholder: yyyy
     - :name: Make
       :id: make
@@ -1398,7 +1398,7 @@
       :placeholder: Describe the item
     - :name: Limit
       :id: limit
-      :type: text
+      :type: currency
       :placeholder: ''
   - :name: Misc. Schedule
     :id: miscellaneous_schedules
@@ -1427,7 +1427,7 @@
       :unique: true
     - :name: Year
       :id: year
-      :type: number
+      :type: integer
       :placeholder: yyyy
     - :name: Make
       :id: make
@@ -1453,7 +1453,7 @@
       :placeholder: Describe the item
     - :name: Limit
       :id: limit
-      :type: text
+      :type: currency
       :placeholder: ''
   - :name: Coverage Sched.
     :id: coverage_schedules

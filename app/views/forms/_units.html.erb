@@ -3,7 +3,7 @@
     <div class="text-field"
          ng-class="{changed: changedFields.<%= field[:id] %>.qty}"
          title="{{ changedFields.<%= field[:id] %>.qty }}">
-      <input type="text"
+      <input type="text" realtime-filter="number"
         <%= standard_form_tags field, model + '.qty' %>
         <%= prefill_form_tags field %>
       />

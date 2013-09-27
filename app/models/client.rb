@@ -109,11 +109,18 @@ class Client
         if field_desc[:minlength] && value.length < field_desc[:minlength]
           errors[field_name] << 'is too short'
         end
-      when 'number'
+      when 'integer'
         begin
           value = Integer(value)
         rescue
           errors[field_name] << 'must be an integer'
+          return nil
+        end
+      when 'number'
+        begin
+          value = Float(value)
+        rescue
+          errors[field_name] << 'must be a number'
           return nil
         end
       when 'phone'
