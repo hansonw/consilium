@@ -12,7 +12,7 @@
   <br />
 
   <form id="templateUploader" action="/api/documents/templates/{{ clientId }}" method="post" enctype="multipart/form-data">
-    <input name="upload" type="file" class="hide" />
+    <input name="upload" type="file" class="hide" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
     <input name="template" type="hidden" value="{{ template.file }}" />
     <input name="section" type="hidden" value="{{ section.id }}" />
   </form>

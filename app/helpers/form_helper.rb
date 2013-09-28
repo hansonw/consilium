@@ -181,7 +181,7 @@
                           </div>"
       end
       r = "<div class='checkbox-container'>" + checkboxString + "</div>"
-    when 'textbox', 'currency', 'phone', 'date', 'units'
+    when 'textbox', 'currency', 'phone', 'date', 'units', 'file'
       r = render :partial => "forms/#{field[:type]}", :locals => {:field => field, :model => model}
     else
       # XXX: In the future, we shouldn't need to pass options. Instead, hierarchical scopes can be used for intelligence.

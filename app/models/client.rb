@@ -6,6 +6,7 @@ else
   require 'consilium_field_references'
 end
 require 'client_contact'
+require 'file_attachment'
 require 'andand'
 
 class Client
@@ -26,6 +27,7 @@ class Client
   has_many :client_contacts, dependent: :delete
   has_many :documents, dependent: :delete
   has_many :document_template_sections, dependent: :delete
+  has_many :file_attachments, dependent: :delete
 
   field :editing_time, type: Integer, default: 0
 

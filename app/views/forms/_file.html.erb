@@ -1,0 +1,5 @@
+<input type="file" file-uploader
+  data-ng-hide="readonly" model="<%= model %>"
+  <%= standard_form_tags field, model, :model => false %>
+  <%= field[:accept] && raw("accept='#{field[:accept]}'") %>
+/>
