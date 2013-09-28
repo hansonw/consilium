@@ -8,11 +8,18 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   $scope.clientChangeId = $location.search().change
   $scope.inLocation = !!$location.path().match /\/location(\/.*)?$/
   $scope.locationId = $routeParams.locationId
-
-  prefix = if $scope.clientChangeId then 'History for' else 'Details for'
-  $scope.title.text = if $scope.clientId then "#{prefix} Client" else "New Client"
-
   $scope.readonly = !!$scope.clientChangeId
+
+  setTitle = ->
+    prefix = if $scope.clientChangeId then 'History for' else 'Details for'
+    if $scope.locationId
+      if location_number = $parse('client.locations.value[locationId].location_number.value')($scope)
+        prefix += " location #{location_number} of"
+    company_name = $scope.client?.company_name?.value ||
+      (if $scope.clientId then 'Client' else 'New Client')
+    $scope.title.text = "#{prefix} #{company_name}"
+
+  setTitle()
 
   # TODO: error should be modal
   $scope.loading = true
@@ -28,7 +35,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
               $location.url('/clients/notfound')
               $location.replace()
 
-            $scope.title.text = "#{prefix} #{$scope.client.company_name?.value}"
+            setTitle()
             $scope.changedFields = clientChange.changed_fields
             $scope.changedSections = clientChange.changed_sections
             $scope.prevChangeId = clientChange.prev_change_id
@@ -45,7 +52,7 @@ App.controller 'ClientsEditCtrl', ['$scope', '$routeParams', '$timeout', '$locat
   else if $scope.clientId
     $scope.client = Client.get(id: $scope.clientId,
       (->
-        $scope.title.text = "#{prefix} #{$scope.client.company_name?.value}"
+        setTitle()
         if $scope.inLocation
           if !$scope.locationId? || $scope.locationId == ''
             (($scope.client.locations ||= {}).value ||= [])
