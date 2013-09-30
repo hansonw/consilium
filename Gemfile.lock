@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/DouglasSherk/impressionist.git
-  revision: 483ea9ea9cd8c07052b0779e18233c6750653490
-  specs:
-    impressionist (1.4.9)
-      httpclient (~> 2.2)
-      nokogiri (~> 1.6.0)
-
-GIT
   remote: git://github.com/DouglasSherk/ydocx.git
   revision: e90489d9223ae468a9a5767d8edfda09215a8e09
   specs:
@@ -19,6 +11,14 @@ GIT
       nokogiri
       roman-numerals
       rubyzip
+
+GIT
+  remote: git://github.com/charlotte-ruby/impressionist.git
+  revision: 13cda5c508761382db4b16e5ff51003ad003636e
+  specs:
+    impressionist (1.4.10)
+      httpclient (~> 2.2)
+      nokogiri (~> 1.6.0)
 
 GIT
   remote: git://github.com/mongoid/mongoid.git

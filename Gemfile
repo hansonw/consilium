@@ -57,7 +57,8 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'impressionist', github: 'DouglasSherk/impressionist'
+# Impressionist stats tracking back-end.
+gem 'impressionist', github: 'charlotte-ruby/impressionist'
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
