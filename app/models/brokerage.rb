@@ -7,6 +7,7 @@ class Brokerage
   include Mongoid::Paranoia
   include ConsiliumFields
   include ConsiliumFieldReferences
+  include Impressionist::IsImpressionable
 
   is_impressionable
 

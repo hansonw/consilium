@@ -10,6 +10,7 @@ class User
   include ActionView::Helpers::HostHelper
   include ConsiliumFields
   include ConsiliumFieldReferences::UpdateOwners
+  include Impressionist::IsImpressionable
 
   CLIENT = 1
   BROKER = 2
