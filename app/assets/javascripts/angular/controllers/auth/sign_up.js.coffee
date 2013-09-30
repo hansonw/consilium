@@ -1,9 +1,7 @@
-App.controller 'AuthSignUpCtrl', ['$scope', 'Auth', 'Flash',\
-                                  ($scope, Auth, Flash) ->
+App.controller 'AuthSignUpCtrl', ['$scope', '$location', 'Auth', 'Flash',\
+                                  ($scope, $location, Auth, Flash) ->
   $scope.title.text = 'Sign Up'
-
-  if Auth.isLoggedIn()
-    $location.url('/')
+  $scope.paid = $location.search().paid
 
   $scope.signUp = ->
     Auth.signUp($scope.userData, (->

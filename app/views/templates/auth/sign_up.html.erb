@@ -2,6 +2,8 @@
   <h1 class="center">Consilium - Sign Up</h1>
   <hr class="soften" />
   <div class="separator-small"></div>
+  <aside ng-show="paid">We currently aren't charging for Consilium, though this will change in the future. Use it as much as you like with all features until then!</aside>
+  <div class="separator-small" ng-show="paid"></div>
   <form name="signupForm" class="pure-form pure-form-aligned" data-ng-submit="signUp()">
     <div class="pure-form-fields">
       <div class="pure-control-group">
