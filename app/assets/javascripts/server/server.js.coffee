@@ -7,7 +7,6 @@ $(document).ready ->
   adjustDimensions()
 
   findSectionById = (id) ->
-    console.log id
     $(".navbar a[href='##{id}']")
 
   $('a').click (e) ->

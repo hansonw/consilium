@@ -117,7 +117,7 @@
           <p>Free for one user</p>
           <hr />
           <p>All features available</p>
-          <%= link_to "Try for free", new_user_registration_path, :class => "pure-button button-starter"%>
+          <%= link_to "Try for free", app_auth_sign_up_path.hash_path + '?paid=0', :class => "pure-button button-starter"%>
         </div>
       </div>
       <div class="pure-u-1-2">
@@ -135,7 +135,7 @@
           <p>Unlimited users</p>
           <hr />
           <p>All features available</p>
-          <%= link_to "Get the monthly plan", new_user_registration_path, :class => "pure-button button-monthly"%>
+          <%= link_to "Get the monthly plan", app_auth_sign_up_path.hash_path + '?paid=1', :class => "pure-button button-monthly"%>
         </div>
       </div>
     </div>

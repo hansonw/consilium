@@ -57,6 +57,8 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+gem 'impressionist', github: 'DouglasSherk/impressionist'
+
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 

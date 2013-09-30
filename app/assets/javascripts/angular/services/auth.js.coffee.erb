@@ -43,7 +43,7 @@ App.factory 'AuthResetPassword', ['$resource', ($resource) ->
 
 App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($http, $location, AuthToken, AuthSessionStatus) ->
   service =
-    _unauthorizedPaths: ['/auth/(reset_password|login|sign_up).*']
+    _unauthorizedPaths: ['/auth/(reset_password|login|sign_up)(.*)?']
     _isLoggedIn: AuthToken.get()?.email?.length
     _watches: []
     CLIENT: 1,
@@ -88,7 +88,7 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
       @hasPermissions(@ADMIN)
     checkLogin: () ->
       if !@isLoggedIn() && !@locationAllowedUnauthorized()
-        $location.url('/auth/login')
+        $location.path('/auth/login')
         return false
       return true
     checkPermissions: (level) ->
@@ -141,7 +141,7 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
         @_notifyWatches()
     locationAllowedUnauthorized: ->
       for unauthorizedPath in @_unauthorizedPaths
-        return true if !!$location.url().match(unauthorizedPath)
+        return true if !!$location.path().match(unauthorizedPath)
       false
     _notifyWatches: ->
       watch(@_isLoggedIn) for watch in @_watches

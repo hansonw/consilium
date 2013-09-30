@@ -46,7 +46,7 @@ App.run ['$rootScope', '$location', '$timeout', 'Client', 'RecentClients', 'Offl
     $location.url(if isLoggedIn then '/' else '/auth/login')
 
   if !Auth.isLoggedIn() && !Auth.locationAllowedUnauthorized()
-    $location.url('/auth/login')
+    $location.path('/auth/login')
 
   $rootScope.online_status = true
   $rootScope.last_sync_success = true

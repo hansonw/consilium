@@ -17,6 +17,8 @@ class Client
   include ConsiliumFields
   include ConsiliumFieldReferences
 
+  is_impressionable
+
   belongs_to :brokerage
 
   syncable

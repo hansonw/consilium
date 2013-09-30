@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/DouglasSherk/impressionist.git
+  revision: 483ea9ea9cd8c07052b0779e18233c6750653490
+  specs:
+    impressionist (1.4.9)
+      httpclient (~> 2.2)
+      nokogiri (~> 1.6.0)
+
+GIT
   remote: git://github.com/DouglasSherk/ydocx.git
   revision: e90489d9223ae468a9a5767d8edfda09215a8e09
   specs:
@@ -84,6 +92,7 @@ GEM
     execjs (2.0.2)
     hike (1.2.3)
     htmlentities (4.3.1)
+    httpclient (2.3.4.1)
     i18n (0.6.5)
     jbuilder (1.2.1)
       activesupport (>= 3.0.0)
@@ -178,6 +187,7 @@ DEPENDENCIES
   cancan
   coffee-rails (~> 4.0.0)
   devise
+  impressionist!
   jbuilder (~> 1.2.0)
   jquery-rails
   jquery-ui-rails

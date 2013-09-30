@@ -8,6 +8,8 @@ class Brokerage
   include ConsiliumFields
   include ConsiliumFieldReferences
 
+  is_impressionable
+
   autosync_references :users
 
   has_many :clients

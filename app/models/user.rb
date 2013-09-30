@@ -15,6 +15,8 @@ class User
   BROKER = 2
   ADMIN  = 3
 
+  is_impressionable
+
   before_validation :check_references
   before_save :check_password
   before_create :maybe_give_brokerage
