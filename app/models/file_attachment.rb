@@ -9,5 +9,6 @@ class FileAttachment
   belongs_to :client
 
   field :name, type: String
+  field :mime_type, type: String
   field :data, type: Moped::BSON::Binary
 end

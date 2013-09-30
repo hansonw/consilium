@@ -1,0 +1,59 @@
+<% environment.context_class.instance_eval { include ActionView::Helpers } %>
+<% environment.context_class.instance_eval { include HostHelper } %>
+
+App.directive 'fileUploader', ['$http', '$parse', ($http, $parse) ->
+  ($scope, elem, attrs) ->
+    form = elem.parents('form')
+    # HACK: angular doesn't recognize input type=file.
+    # Create a fake control for the purposes of form error checking.
+    ctrl = {$name: elem.attr('name')}
+    model = attrs.model
+    limit = parseInt(attrs.fileUploaderLimit)
+    uploadPath = '<%= angularApiPath('') %>' + attrs.fileUploader
+    statusElem = elem.parent().find('span.file-uploader-status')
+    ngForm = null # must be set after form loads
+
+    resetFileInput = ->
+      elem.val('') # reset uploader, so re-uploading the same file registers as a change
+      ngForm.$setValidity('required', false, ctrl)
+      ngForm.$setValidity('uploading', true, ctrl)
+
+    elem.on('change', (evt) ->
+      ngForm = $scope[$scope.node + 'Form']
+      if attrs.required
+        ngForm.$setValidity('required', evt.target.files.length == 1, ctrl)
+
+      if evt.target.files.length == 1
+        ngForm.$setValidity('uploading', false, ctrl)
+        if FileReader?
+          file = evt.target.files[0]
+          if limit && file.size > limit
+            limitStr = limit / 1024 / 1024
+            limitStr = Math.round(limitStr * 10) / 10
+            alert("File exceeds the size limit (#{limitStr} MB). Please try resizing or compressing the file.")
+            resetFileInput()
+            return
+
+          reader = new FileReader()
+          reader.onloadend = ->
+            statusElem.html('<i class="icon-fixed-width icon-spin icon-spinner"></i> Uploading...')
+            $http.post(uploadPath, {data: reader.result, name: file.name}).success((data) =>
+              ngForm.$setValidity('uploading', true, ctrl)
+              $parse(model).assign($scope, data.id)
+              statusElem.html('<i class="icon-fixed-width icon-check-sign"></i> Upload successful.')
+            ).error((data, status) ->
+              statusElem.html('<i class="icon-fixed-width icon-warning-sign"></i> Error uploading file. Please try again.')
+              resetFileInput()
+            )
+          reader.readAsDataURL(file)
+        else
+          alert('File uploads are not supported on your browser.')
+      else
+        $parse(model).assign($scope, '')
+    )
+
+    elem.parents('.modal').on 'modal-toggle', ->
+      ngForm = $scope[$scope.node + 'Form']
+      statusElem.html ''
+      resetFileInput()
+]

@@ -42,7 +42,9 @@ class ClientChange
     old_ids = Hash[old_arr.map { |x| [x['id'], x] }] if old_arr.is_a?(Array)
     new_ids = Hash[new_arr.map { |x| [x['id'], x] }]
 
-    primary_field = fields.andand.find { |f| f[:primary] && f[:type][/text|name/] }.andand[:id]
+    primary_field = Client.expand_fields(fields).andand.find { |f|
+      f[:primary] && f[:type][/text|name/]
+    }.andand[:id]
 
     # Merge old array into new array; this way we can see deletions in the change view.
     if old_arr.is_a?(Array)
@@ -97,6 +99,8 @@ class ClientChange
       }
     elsif val.is_a?(Hash)
       hash_diff(new_val || {}, old_val || {})
+    elsif type == 'file'
+      old_val.to_s
     else
       val = case type
             when 'date'

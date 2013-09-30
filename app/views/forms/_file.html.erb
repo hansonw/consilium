@@ -1,5 +1,27 @@
-<input type="file" file-uploader
+<% changed = options[:changed] || "changedFields.#{field[:id]}" %>
+<span data-ng-show="readonly">
+  <a class="pure-button pure-button-small pure-button-primary"
+     ng-href="<%= field[:upload_path] %>/{{ <%= changed %> }}"
+     data-ng-show="<%= changed %>">
+    <i class="icon-download-alt"></i> Download previous file
+  </a>
+  <a class="pure-button pure-button-small pure-button-primary"
+     ng-href="<%= field[:upload_path] %>/{{ <%= model %> }}"
+     data-ng-show="<%= model %>">
+    <i class="icon-download-alt"></i> Download new file
+  </a>
+</span>
+
+<a class="pure-button pure-button-small pure-button-primary"
+   ng-href="<%= field[:upload_path] %>/{{ <%= model %> }}"
+   data-ng-show="!readonly && <%= model %>">
+  <i class="icon-download-alt"></i> Download file
+</a>
+
+<input type="file" file-uploader="<%= field[:upload_path] %>"
   data-ng-hide="readonly" model="<%= model %>"
   <%= standard_form_tags field, model, :model => false %>
   <%= field[:accept] && raw("accept='#{field[:accept]}'") %>
+  <%= field[:limit] && raw("file-uploader-limit='#{field[:limit]}'") %>
 />
+<span class="file-uploader-status"></span>

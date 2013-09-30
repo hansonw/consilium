@@ -77,9 +77,17 @@
     end
 
     changed = options[:changed] || "changedFields.#{field[:id]}"
+    changed_title = case field[:type]
+                    when 'checkbox'
+                      'Highlighted fields were changed'
+                    when 'file'
+                      'This file was changed'
+                    else
+                      "{{ #{changed} }}"
+                    end
     change_attrs =
-      "data-ng-class='{changed: #{changed}}'
-       title='#{field[:type] == 'checkbox' ? 'Highlighted fields were changed' : "{{ #{changed} }}"}'"
+      "data-ng-class='{changed: #{changed} != null}'
+       title='#{changed_title}'"
 
     return raw\
       "<div class='pure-control-group'
@@ -182,7 +190,7 @@
       end
       r = "<div class='checkbox-container'>" + checkboxString + "</div>"
     when 'textbox', 'currency', 'phone', 'date', 'units', 'file'
-      r = render :partial => "forms/#{field[:type]}", :locals => {:field => field, :model => model}
+      r = render :partial => "forms/#{field[:type]}", :locals => {:field => field, :model => model, :options => options}
     else
       # XXX: In the future, we shouldn't need to pass options. Instead, hierarchical scopes can be used for intelligence.
       r = render :partial => 'forms/text', :locals => {:field => field, :model => model, :options => options}

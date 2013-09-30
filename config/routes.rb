@@ -12,6 +12,8 @@ Consilium::Application.routes.draw do
 
     resources :clients, :controller => 'api/clients'
     post 'clients/:id' => 'api/clients#create'
+    post 'clients/:id/attachments' => 'api/clients#upload_attachment'
+    get 'clients/:id/attachments/:attachment_id' => 'api/clients#get_attachment'
 
     resources :recent_clients, :controller => 'api/recent_clients'
     put 'recent_clients' => 'api/recent_clients#update'

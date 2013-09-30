@@ -75,8 +75,7 @@ class Api::ClientChangesController < Api::ApiController
       field_list = field_list.find { |f| f[:id] == 'locations' }[:type]
     end
 
-    changed_fields = ClientChange.get_changed_fields(cur_data, prev_data,
-                                                     Client.expand_fields_with_references(field_list))
+    changed_fields = ClientChange.get_changed_fields(cur_data, prev_data, field_list)
 
     changed_sections = Hash[changed_fields.keys.map { |field_id, val|
       section = 'basicInfo'

@@ -1,5 +1,5 @@
 class Api::ClientsController < Api::ApiController
-  load_and_authorize_resource :only => [:destroy]
+  load_and_authorize_resource :only => [:upload_attachment, :get_attachment, :destroy]
 
   # GET /clients
   # GET /clients.json
@@ -149,6 +149,41 @@ class Api::ClientsController < Api::ApiController
     else
       render json: @client.errors, status: :unprocessable_entity
     end
+  end
+
+  # POST /clients/:id/attachments
+  def upload_attachment
+    authorize! :manage, @client
+
+    # data URL format; data:<mime-type>;<charset etc>,<base64-encoded data>
+    header, data = params[:data].split(',')
+    mime_type = header.split(/[:;]/)[1]
+    if data.nil? || (data = Base64.decode64(data)).empty?
+      return head :unprocessable_entity
+    end
+
+    f = FileAttachment.new(
+      :name => params[:name],
+      :user => current_user,
+      :client => @client,
+      :mime_type => mime_type,
+      :data => Moped::BSON::Binary.new(:generic, data),
+    )
+    if f.save
+      render json: {:id => f.id.to_s}
+    else
+      head :internal_server_error
+    end
+  end
+
+  # GET /clients/:id/attachments/:attachment_id
+  def get_attachment
+    f = FileAttachment.find(params[:attachment_id])
+    if f.client_id != @client.id
+      return head :unauthorized
+    end
+
+    send_data f.data, :filename => f.name, :type => f.mime_type
   end
 
   # DELETE /clients/1
