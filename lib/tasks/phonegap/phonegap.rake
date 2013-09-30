@@ -46,7 +46,7 @@ namespace :phonegap do
     puts "* javascript assets"
     FileUtils.mkdir_p "#{project_path}/js"
     file = File.open("#{project_path}/js/application.js", "w")
-    file.write assets_path['application.js']
+    file.write assets_path['angular.js']
     file.close
 
     # Export css assets
