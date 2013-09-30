@@ -162,13 +162,23 @@ class Api::ClientsController < Api::ApiController
       return head :unprocessable_entity
     end
 
-    f = FileAttachment.new(
+    if data.length > 5*1024*1024
+      return head :unprocessable_entity
+    end
+
+    file_data = {
       :name => params[:name],
       :user => current_user,
       :client => @client,
       :mime_type => mime_type,
       :data => Moped::BSON::Binary.new(:generic, data),
-    )
+    }
+
+    f = FileAttachment.where(file_data).first
+    if f.nil?
+      f = FileAttachment.new(file_data)
+    end
+
     if f.save
       render json: {:id => f.id.to_s}
     else
