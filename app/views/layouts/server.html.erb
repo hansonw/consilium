@@ -25,16 +25,13 @@
               <a href="#features">Features</a>
               <a href="#mobile">Mobile</a>
               <a href="#pricing">Pricing</a>
-              <%= link_to user_signed_in? ? 'Go to App' : 'Sign Up',
-                          user_signed_in? ? app_root_path : new_user_registration_path,
-                          :class => 'pure-button pure-button-secondary' %>
+              <%= link_to user_signed_in? ? 'Go to App' : 'Log In',
+                          user_signed_in? ? app_root_path.hash_path : app_auth_login_path.hash_path, :class => 'pure-button pure-button-secondary' %>
             </div>
           </div>
         </div>
       </div>
-      <div id="layout">
-        <%= yield %>
-      </div>
+      <%= yield %>
     </div>
   </div>
   <footer>
@@ -50,8 +47,8 @@
                 <li><%= link_to 'Features', '#features' %></li>
                 <li><%= link_to 'Mobile', '#mobile' %></li>
                 <li><%= link_to 'Pricing', '#pricing' %></li>
-                <li><%= link_to 'Sign Up', new_user_registration_path unless user_signed_in? %></li>
-                <li><%= link_to user_signed_in? ? 'Log Out' : 'Log In', user_signed_in? ? destroy_user_session_path : new_user_session_path %></li>
+                <li><%= link_to 'Sign Up', app_auth_sign_up_path.hash_path unless user_signed_in? %></li>
+                <li><%= link_to user_signed_in? ? 'Log Out' : 'Log In', user_signed_in? ? destroy_user_session_path : app_auth_login_path.hash_path %></li>
               </ul>
             </div>
             <div class="pure-u-1-4">

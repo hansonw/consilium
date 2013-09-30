@@ -54,4 +54,11 @@ module AngularRoutingHelper
 
     scopes.include? endPath
   end
+
+  # Extend the String class to implement hash pathing.
+  class ::String
+    def hash_path
+      self.sub '/templates', '#'
+    end
+  end
 end
