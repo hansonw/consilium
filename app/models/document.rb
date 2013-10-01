@@ -1,5 +1,6 @@
 require 'ydocx/document'
 require 'tempfile'
+require 'andand'
 
 class Document
   include Mongoid::Document
@@ -13,17 +14,28 @@ class Document
 
   FIELDS = []
 
-  def unwrap(data)
-    if data.is_a?(Hash)
-      if data['value']
-        return unwrap(data['value'])
-      else
-        data.each do |k, v|
-          data[k] = unwrap(v)
+  def unwrap(data, fields)
+    if data.is_a?(Hash) && data['value']
+      return unwrap(data['value'], fields)
+    elsif fields.andand[:type] == 'file'
+      f = FileAttachment.where(:id => data)
+      return {
+        'name' => f.name,
+        'mime_type' => f.mime_type,
+        'data' => f.data,
+      }
+    elsif data.is_a?(Hash)
+      field_map = {}
+      if fields
+        fields.each do |field|
+          field_map[field[:id]] = field
         end
       end
+      data.each do |k, v|
+        data[k] = unwrap(v, field_map.andand[k])
+      end
     elsif data.is_a?(Array)
-      return data.map { |d| unwrap(d) }
+      return data.map { |d| unwrap(d, fields.andand[:type]) }
     end
 
     return data
@@ -34,9 +46,8 @@ class Document
   end
 
   def generate(options = {})
-    data = unwrap(self.client_change.client_data)
-
     fields = Client.expand_fields_with_references.dup
+    data = unwrap(self.client_change.client_data, fields)
 
     if brokerage = client.brokerage
       broker_data = {
