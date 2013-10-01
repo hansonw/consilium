@@ -1,6 +1,7 @@
 require 'ydocx/document'
 require 'tempfile'
 require 'andand'
+require 'rmagick'
 
 class Document
   include Mongoid::Document

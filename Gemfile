@@ -83,3 +83,5 @@ gem 'curb'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'rmagick'
