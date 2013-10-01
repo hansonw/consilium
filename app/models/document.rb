@@ -17,8 +17,8 @@ class Document
   def unwrap(data, fields)
     if data.is_a?(Hash) && data['value']
       return unwrap(data['value'], fields)
-    elsif fields.andand[:type] == 'file'
-      f = FileAttachment.where(:id => data)
+    elsif fields.is_a?(Hash) && fields.andand[:type] == 'file'
+      f = FileAttachment.where(:id => data).first
       return {
         'name' => f.name,
         'mime_type' => f.mime_type,
@@ -26,7 +26,7 @@ class Document
       }
     elsif data.is_a?(Hash)
       field_map = {}
-      if fields
+      if fields.andand.is_a?(Array)
         fields.each do |field|
           field_map[field[:id]] = field
         end
