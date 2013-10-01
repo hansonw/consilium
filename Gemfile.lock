@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/DouglasSherk/ydocx.git
-  revision: 270f48c76b1c399a8a7584367e1fa5a058ed6e27
+  revision: c6bbb84bf7dc9ce418fa6171a48da5f99ee18c96
   specs:
     ydocx (1.2.3)
       andand
@@ -9,6 +9,7 @@ GIT
       money
       murmurhash3
       nokogiri
+      rmagick
       roman-numerals
       rubyzip
 
@@ -146,6 +147,7 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    rmagick (2.13.2)
     roman-numerals (0.3.0)
     rubyzip (1.0.0)
     sass (3.2.11)
