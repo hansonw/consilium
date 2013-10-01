@@ -1,3 +1,6 @@
+<% environment.context_class.instance_eval { include ActionView::Helpers } %>
+<% environment.context_class.instance_eval { include HostHelper } %>
+
 App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filter', 'Client', 'ClientChange', 'Document', 'RecentClients', 'DocumentTemplate', 'Auth', 'Modal',\
                                    ($scope, $routeParams, $location, $filter, Client, ClientChange, Document, RecentClients, DocumentTemplate, Auth, Modal) ->
   Auth.checkLogin()
@@ -68,7 +71,7 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
     d.$save((data, header) ->
       $scope.documents.splice(0, 0, d)
       $scope.generating = false
-      window.location = "/api/documents/#{d.id}"
+      window.location = "<%= angularApiPath('/api/documents/#{d.id}') %>"
     , (data, header) ->
       $scope.generating = false
       alert('Error occurred generating document.')
