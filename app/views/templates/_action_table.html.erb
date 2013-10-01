@@ -20,7 +20,7 @@
   <thead>
     <tr>
       <% fields.each do |field| %>
-        <th class="<%= field[:id] %>"
+        <th class="<%= field[:id] %> <%= field[:class] || "" %>"
          <% if local_assigns[:sortable] %>
             data-ng-click="<%= model %>Reverse = <%= model %>Predicate == '<%= field[:id] %>' ? !<%= model %>Reverse : false;
               <%= model %>Predicate = '<%= field[:id] %>';
@@ -51,7 +51,7 @@
         <%= local_assigns[:rowClick] && raw("data-ng-click='#{h rowClick}'") %>
         <%= local_assigns[:rowClass] && raw("data-ng-class='#{h rowClass}'") %> data-item-id="{{ item.id }}" >
       <% fields.each do |field| %>
-        <td class="<%= field[:id] %>"><%= raw field[:content] %></td>
+        <td class="<%= field[:id] %> <%= field[:class] || "" %>"><%= raw field[:content] %></td>
       <% end %>
       <td class="actions align-right">
         <% actions.each do |action| %>
