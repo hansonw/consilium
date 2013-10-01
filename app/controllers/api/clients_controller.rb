@@ -190,7 +190,7 @@ class Api::ClientsController < Api::ApiController
   def get_attachment
     f = FileAttachment.find(params[:attachment_id])
     if f.client_id != @client.id
-      return head :unauthorized
+      return head :forbidden
     end
 
     send_data f.data, :filename => f.name, :type => f.mime_type
