@@ -22,7 +22,7 @@ class Document
       return {
         'name' => f.name,
         'mime_type' => f.mime_type,
-        'data' => f.data,
+        'data' => f.data.to_s,
       }
     elsif data.is_a?(Hash)
       field_map = {}
