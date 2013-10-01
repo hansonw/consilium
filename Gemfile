@@ -60,6 +60,9 @@ end
 # Impressionist stats tracking back-end.
 gem 'impressionist', github: 'charlotte-ruby/impressionist'
 
+# Curl library for Ruby
+gem 'curb'
+
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 

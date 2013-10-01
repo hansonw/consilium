@@ -21,6 +21,10 @@ end
 
 namespace :phonegap do
   desc "Export website as PhoneGap application."
+
+  assets_path = Rails.application.assets
+  project_path = Rails.root.join("phonegap")
+
   task :export => :environment do
     include PhonegapTemplateCachingHelper
 
@@ -33,9 +37,6 @@ namespace :phonegap do
       next
     end
 
-    assets_path = Rails.application.assets
-
-    project_path = Rails.root.join("phonegap")
     puts "Project path: #{project_path}"
 
     puts "* Clobbering project path"
@@ -84,5 +85,24 @@ namespace :phonegap do
     # Zip up the project
     puts "Zipping up project to: #{project_path}/consilium.zip"
     Zipper.zip(project_path, "#{project_path}/consilium.zip")
+  end
+
+  task :build => :environment do
+    auth_token = Rails.configuration.phonegap_config[:auth_token]
+    app_id = Rails.configuration.phonegap_config[:app_id]
+
+    Rake::Task["phonegap:export"].invoke
+    puts "Sending consilium.zip to PhoneGap Build service."
+    c = Curl::Easy.new("https://build.phonegap.com/api/v1/apps/#{app_id}?auth_token=#{auth_token}")
+    c.on_progress do |dl_total, dl_now, ul_total, ul_now|
+      print "\r* #{ul_now}/#{ul_total}"
+      true
+    end
+    c.on_complete do |c|
+      puts ""
+      puts "Done uploading. Check https://build.phonegap.com/apps/#{app_id}/builds for status."
+    end
+    puts "* Starting transfer..."
+    c.http_put(File.read("#{project_path}/consilium.zip"))
   end
 end
