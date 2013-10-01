@@ -90,19 +90,31 @@ namespace :phonegap do
   task :build => :environment do
     auth_token = Rails.configuration.phonegap_config[:auth_token]
     app_id = Rails.configuration.phonegap_config[:app_id]
+    url = "https://build.phonegap.com/api/v1/apps/#{app_id}?auth_token=#{auth_token}"
 
     Rake::Task["phonegap:export"].invoke
     puts "Sending consilium.zip to PhoneGap Build service."
-    c = Curl::Easy.new("https://build.phonegap.com/api/v1/apps/#{app_id}?auth_token=#{auth_token}")
+    c = Curl::Easy.new url
     c.on_progress do |dl_total, dl_now, ul_total, ul_now|
       print "\r* #{ul_now}/#{ul_total}"
       true
     end
     c.on_complete do |c|
       puts ""
-      puts "Done uploading. Check https://build.phonegap.com/apps/#{app_id}/builds for status."
+      puts "* Done uploading."
     end
     puts "* Starting transfer..."
     c.http_put(File.read("#{project_path}/consilium.zip"))
+    status = 'pending'
+    start_time = Time::now()
+    begin
+      c = Curl::Easy.perform url
+      app = JSON.parse(c.body_str)
+      status = app["status"]["android"]
+      print "\r* Building... (#{(Time::now() - start_time).round(1)}s)         "
+      sleep 1.seconds
+    end until status != 'pending'
+    puts ""
+    puts "Done building with status '#{status}'. Visit https://build.phonegap.com/apps/#{app_id}/builds."
   end
 end
