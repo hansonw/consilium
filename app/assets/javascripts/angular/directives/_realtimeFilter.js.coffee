@@ -96,9 +96,17 @@ App.directive 'realtimeFilter', ['$parse', ($parse) ->
         return if isEmpty(newVal) && isEmpty(oldVal) && !everHadValue
         everHadValue = true
 
-        val = elem.val()
+        val = newVal
         filter = filters[attrs.realtimeFilter]
         val = filter.apply(filter.unapply(val))
         elem.val(val)
+        if attrs.realtimeFilter == 'postal_code'
+          diffSpaces = val?.split(' ').length - oldVal?.split(' ').length
+          pos =
+            switch diffSpaces
+              when 1 then 5
+              when -1 then 3
+              else -1
+          elem.caret({start: pos, end: pos}) if pos != -1
         $parse(attrs.ngModel).assign($scope, filter.unapply(val))
 ]
