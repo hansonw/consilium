@@ -143,9 +143,10 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
     $scope.switchCoverage = ->
       coverageSchedules = obj($scope) || {}
 
-      $scope.updateOEDs()
       if prevCov? && $.isEmptyObject(coverageSchedules[prevCov.category]?[prevCov.type])
         delete coverageSchedules[prevCov.category]?[prevCov.type]
+
+      $scope.updateOEDs()
 
       if cat = coverageLookup[$scope.coverage?.category]?[$scope.coverage?.type]
         if cat.limit_expr
@@ -161,8 +162,8 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
     $scope.clearCoverage = ->
       coverageSchedules = obj($scope) || {}
       delete coverageSchedules[$scope.coverage.category]?[$scope.coverage.type]
+      ($scope.writeNode ||= {}).curCoverage = {}
       obj.assign($scope, coverageSchedules)
-      $scope.switchCoverage()
 
     $scope.addDefaultCoverages = (policyType) ->
       coverageSchedules = obj($scope) || {}

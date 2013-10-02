@@ -89,6 +89,10 @@ App.directive 'realtimeFilter', ['$parse', ($parse) ->
 
       everHadValue = false
       $scope.$watch attrs.ngModel, (newVal, oldVal) ->
+        # If the value was completely deleted, leave it.
+        if !newVal?
+          return
+
         return if isEmpty(newVal) && isEmpty(oldVal) && !everHadValue
         everHadValue = true
 
