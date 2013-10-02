@@ -201,7 +201,6 @@ DEPENDENCIES
   postageapp
   rack-cors
   rails (= 4.0.0)
-  rmagick
   sass-rails (~> 4.0.0)
   sdoc
   uglifier (>= 1.3.0)

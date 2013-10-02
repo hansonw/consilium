@@ -28,3 +28,22 @@
   :required: true
   :primary: true
   :if: $!readonly && users.id != myUserId
+- :id: title
+  :name: Title
+  :type: text
+  :placeholder: Position within company
+- :id: phone
+  :name: Phone
+  :type: phone
+  :placeholder: (Area code) - Number (ext.)
+- :id: description
+  :name: Description of role
+  :type: textbox
+- :type: separator
+  :if: $users.permissions != 1
+- :name: ''
+  :id: appear_on_documents
+  :type: checkbox
+  :options:
+    'yes': Appear on documents
+  :if: $users.permissions != 1

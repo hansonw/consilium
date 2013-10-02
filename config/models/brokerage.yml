@@ -19,33 +19,6 @@
   :name: Fax
   :placeholder: (Area Code) - Number
   :type: phone
-- :id: contacts
-  :name: Contacts
-  :type:
-  - :id: name
-    :name: Name
-    :placeholder: Name
-    :required: true
-    :type: name
-    :primary: true
-  - :id: title
-    :name: Title
-    :placeholder: e.g. Producer, Marketer, Customer Service
-    :required: true
-    :type: text
-    :primary: true
-  - :id: email
-    :name: Email
-    :placeholder: e.g. john@consilium.ca
-    :type: email
-  - :id: phone
-    :name: Phone
-    :placeholder: (Area Code) - Number (ext.)
-    :type: phone
-  - :id: description
-    :name: Description of role
-    :placeholder: Description of role in brokerage
-    :type: textbox
 - :id: users
   :name: Users
   :type: !ruby/class 'User'

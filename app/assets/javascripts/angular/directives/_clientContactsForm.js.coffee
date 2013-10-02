@@ -30,14 +30,19 @@ App.directive 'clientContactsForm', [ ->
           id: Util.generateGUID()
           name: contact.name.value
           email: contact.email.value
+          title: contact.position?.value
+          phone: contact.phone?.value
         ]}
       else if $scope.writeNode.client_contacts.user == false
         delete $scope.writeNode.client_contacts.user
       else if $scope.writeNode.client_contacts.user?.value?.length > 0 # Must be an object (an actual user)
         contact = $scope.writeNode.client_contacts
+        user = $scope.writeNode.client_contacts.user.value[0]
         # Propagate the contact's information to the user.
-        $scope.writeNode.client_contacts.user.value[0].name = contact.name.value
-        $scope.writeNode.client_contacts.user.value[0].email = contact.email.value
+        user.name = contact.name?.value
+        user.email = contact.email?.value
+        user.title = contact.position?.value
+        user.phone = contact.phone?.value
 
       $scope.saveField()
 ]

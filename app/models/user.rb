@@ -7,6 +7,7 @@ class User
   include Mongoid::Document
   include Mongoid::Paranoia
   include Mongoid::Timestamps
+  include Mongoid::Attributes::Dynamic
   include ActionView::Helpers::HostHelper
   include ConsiliumFields
   include ConsiliumFieldReferences::UpdateOwners
@@ -87,6 +88,11 @@ class User
   field :authentication_token, :type => String
 
   field :permissions, :type => Integer, :default => BROKER
+
+  field :title, :type => String, :default => ""
+  field :phone, :type => String, :default => ""
+
+  field :appear_on_documents, :type => Hash
 
   def name_required?
     true
