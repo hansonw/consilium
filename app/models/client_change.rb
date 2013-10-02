@@ -211,32 +211,10 @@ class ClientChange
     res
   end
 
-  def self.process(data)
-    if data.is_a?(Mongoid::Document)
-      process(data.attributes)
-    elsif data.is_a?(Hash)
-      out = {}
-      data.each do |k, v|
-        if k == '_id'
-          out['id'] = v
-        else
-          out[k.to_s] = process(v)
-        end
-      end
-      out
-    elsif data.is_a?(Array)
-      data.map do |d|
-        process(d)
-      end
-    else
-      data
-    end
-  end
-
   def self.update_client(client, user_id)
     changes = ClientChange.where('client_id' => client.id, 'type' => 'client').desc(:updated_at)
     last_change = changes.first
-    attrs = process(client.finalize.serialize_references)
+    attrs = client.finalize.serialize_references.to_hash
     if !last_change.nil? && last_change.user_id == user_id && Time.now - last_change.updated_at < SQUASH_TIME
       # Merge into previous if it's within a minute
       if last_change.description = get_change_description(attrs, changes.second && changes.second.client_data)

@@ -10,6 +10,28 @@ module ConsiliumFields
     end
   end
 
+  def to_hash(data = self)
+    if data.is_a?(Mongoid::Document)
+      to_hash(data.attributes)
+    elsif data.is_a?(Hash)
+      out = {}
+      data.each do |k, v|
+        if k == '_id'
+          out['id'] = v
+        else
+          out[k.to_s] = to_hash(v)
+        end
+      end
+      out
+    elsif data.is_a?(Array)
+      data.map do |d|
+        to_hash(d)
+      end
+    else
+      data
+    end
+  end
+
   module ClassMethods
     def expand_fields(node = self::FIELDS)
       return if node.nil?

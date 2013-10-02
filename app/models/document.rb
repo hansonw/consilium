@@ -50,10 +50,16 @@ class Document
     data = unwrap(self.client_change.client_data, fields)
 
     if brokerage = client.brokerage
+      brokerage = brokerage.serialize_references.to_hash
+      brokerage_users = brokerage['users'].andand.select { |u|
+        u['appear_on_documents'].andand['yes']
+      }
+
       broker_data = {
         'company_short' => abbreviate(data['company_name']),
-        'brokerage_short' => abbreviate(brokerage.name),
-        'brokerage' => brokerage.as_document,
+        'brokerage_short' => abbreviate(brokerage['name']),
+        'brokerage_users' => brokerage_users,
+        'brokerage' => brokerage,
       }
 
       data = data.merge(broker_data)
