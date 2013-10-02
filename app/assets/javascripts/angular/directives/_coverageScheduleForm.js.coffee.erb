@@ -73,7 +73,7 @@ App.directive 'coverageScheduleForm', ['$parse', 'Modal', ($parse, Modal) ->
             type: coverage.type.value
 
       obj.assign($scope, coverageSchedules)
-      $scope.showPrompt = $scope.emptyCoverage() && form != 'blanket_coverages'
+      $scope.showPrompt = $scope.emptyCoverage() && form != 'coverage_schedules'
       $scope.switchCoverage()
       Modal.toggleModal(form)
 
