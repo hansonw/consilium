@@ -106,22 +106,21 @@ class Api::ClientsController < Api::ApiController
   # PUT /clients/:id
   # PUT /clients/:id.json
   def update
-    # XXX: Trust the client to provide accurate updated_at and created_at
-    # timestamps for references.
     if @client = Client.where(:id => params[:id]).first
+      authorize! :update, @client
+      result = @client.attributes.deep_dup
+
+      # XXX: Trust the client to provide accurate updated_at and created_at
+      # timestamps for references.
       filtered_params = @client.update_with_references(client_params)
       if !filtered_params[:errors].empty?
         render json: filtered_params[:errors], status: :unprocessable_entity
         return
       end
-    end
 
-    if existing = Client.where(:id => params[:id]).first
-      # Sync all fields
-      authorize! :update, existing
-      result = existing.attributes
       sync_fields(result, @client.attributes, params[:last_synced].to_i)
       @client.assign_attributes(result)
+
       editing_time = params[:client][:editing_time].to_i
       if !@client.editing_time || editing_time >= @client.editing_time
         diff = editing_time - @client.editing_time
