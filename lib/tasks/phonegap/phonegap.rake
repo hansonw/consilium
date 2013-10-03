@@ -89,6 +89,10 @@ namespace :phonegap do
     puts "* copying spec/"
     FileUtils.cp_r File.dirname(__FILE__) + '/spec', project_path
 
+    # Delete the stray assets folder
+    puts "* Deleting stray assets folder"
+    FileUtils.rm_r "#{project_path}/assets"
+
     # Zip up the project
     puts "Zipping up project to: #{project_path}/consilium.zip"
     Zipper.zip(project_path, "#{project_path}/consilium.zip")
@@ -98,7 +102,7 @@ namespace :phonegap do
     Rake::Task["phonegap:export"].invoke
     puts "Compiling to PhoneGap application..."
     Dir.chdir project_path do
-      `phonegap compile android`
+      system "phonegap build android"
     end
     puts "Done compiling!"
   end
@@ -107,7 +111,7 @@ namespace :phonegap do
     Rake::Task["phonegap:compile"].invoke
     puts "Installing to device."
     Dir.chdir "#{project_path}/../platforms/android/bin" do
-      `adb install -r Consilium-debug.apk`
+      system "adb install -r Consilium-debug.apk"
     end
   end
 

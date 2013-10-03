@@ -16,5 +16,6 @@
 /tmp
 
 /phonegap/www
+/phonegap/platforms/android
 
 /public/assets
