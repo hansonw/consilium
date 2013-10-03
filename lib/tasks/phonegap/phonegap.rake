@@ -94,6 +94,23 @@ namespace :phonegap do
     Zipper.zip(project_path, "#{project_path}/consilium.zip")
   end
 
+  task :compile => :environment do
+    Rake::Task["phonegap:export"].invoke
+    puts "Compiling to PhoneGap application..."
+    Dir.chdir project_path do
+      `phonegap compile android`
+    end
+    puts "Done compiling!"
+  end
+
+  task :install => :environment do
+    Rake::Task["phonegap:compile"].invoke
+    puts "Installing to device."
+    Dir.chdir "#{project_path}/../platforms/android/bin" do
+      `adb install -r Consilium-debug.apk`
+    end
+  end
+
   task :build => :environment do
     auth_token = Rails.configuration.phonegap_config[:auth_token]
     app_id = Rails.configuration.phonegap_config[:app_id]
