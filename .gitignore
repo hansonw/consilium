@@ -15,6 +15,6 @@
 /log/*.log*
 /tmp
 
-/phonegap
+/phonegap/www
 
 /public/assets

@@ -23,7 +23,7 @@ namespace :phonegap do
   desc "Export website as PhoneGap application."
 
   assets_path = Rails.application.assets
-  project_path = Rails.root.join("phonegap")
+  project_path = Rails.root.join("phonegap", "www")
 
   task :export => :environment do
     include PhonegapTemplateCachingHelper
@@ -78,9 +78,16 @@ namespace :phonegap do
     file.write phonegapRenderRoot
     file.close
 
+    ### Copy needed files
     # Copy config file
     puts "* copying config.xml"
     FileUtils.cp File.dirname(__FILE__) + "/config.xml", project_path
+    # Copy res folder
+    puts "* copying res/"
+    FileUtils.cp_r File.dirname(__FILE__) + '/res', project_path
+    # Copy spec folder
+    puts "* copying spec/"
+    FileUtils.cp_r File.dirname(__FILE__) + '/spec', project_path
 
     # Zip up the project
     puts "Zipping up project to: #{project_path}/consilium.zip"
