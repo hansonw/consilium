@@ -97,10 +97,10 @@ class ClientChange
         :qty => value_diff(new_val.andand['qty'], old_val.andand['qty']),
         :unit => value_diff(new_val.andand['unit'], old_val.andand['unit']),
       }
+    elsif type == 'file'
+      old_val.andand['id'].to_s
     elsif val.is_a?(Hash)
       hash_diff(new_val || {}, old_val || {})
-    elsif type == 'file'
-      old_val.to_s
     else
       val = case type
             when 'date'
@@ -214,7 +214,7 @@ class ClientChange
   def self.update_client(client, user_id)
     changes = ClientChange.where('client_id' => client.id, 'type' => 'client').desc(:updated_at)
     last_change = changes.first
-    attrs = client.finalize.serialize_references.to_hash
+    attrs = client.serialize_references.to_hash
     if !last_change.nil? && last_change.user_id == user_id && Time.now - last_change.updated_at < SQUASH_TIME
       # Merge into previous if it's within a minute
       if last_change.description = get_change_description(attrs, changes.second && changes.second.client_data)

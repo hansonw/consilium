@@ -9,14 +9,11 @@ App.directive 'fileUploader', ['$http', '$parse', ($http, $parse) ->
     ctrl = {$name: elem.attr('name')}
     model = attrs.model
     limit = parseInt(attrs.fileUploaderLimit)
-    uploadPath = '<%= angularApiPath('') %>' + attrs.fileUploader
-    statusElem = elem.parent().find('span.file-uploader-status')
     ngForm = null # must be set after form loads
 
     resetFileInput = ->
       elem.val('') # reset uploader, so re-uploading the same file registers as a change
       ngForm.$setValidity('required', false, ctrl)
-      ngForm.$setValidity('uploading', true, ctrl)
 
     elem.on('change', (evt) ->
       ngForm = $scope[$scope.node + 'Form']
@@ -24,7 +21,6 @@ App.directive 'fileUploader', ['$http', '$parse', ($http, $parse) ->
         ngForm.$setValidity('required', evt.target.files.length == 1, ctrl)
 
       if evt.target.files.length == 1
-        ngForm.$setValidity('uploading', false, ctrl)
         if FileReader?
           file = evt.target.files[0]
           if limit && file.size > limit
@@ -36,15 +32,10 @@ App.directive 'fileUploader', ['$http', '$parse', ($http, $parse) ->
 
           reader = new FileReader()
           reader.onloadend = ->
-            statusElem.html('<i class="icon-fixed-width icon-spin icon-spinner"></i> Uploading...')
-            $http.post(uploadPath, {data: reader.result, name: file.name}).success((data) =>
-              ngForm.$setValidity('uploading', true, ctrl)
-              $parse(model).assign($scope, data.id)
-              statusElem.html('<i class="icon-fixed-width icon-check-sign"></i> Upload successful.')
-            ).error((data, status) ->
-              statusElem.html('<i class="icon-fixed-width icon-warning-sign"></i> Error uploading file. Please try again.')
-              resetFileInput()
-            )
+            $parse(model).assign($scope, {
+              name: file.name,
+              raw_data: reader.result,
+            })
           reader.readAsDataURL(file)
         else
           alert('File uploads are not supported on your browser.')
@@ -54,6 +45,5 @@ App.directive 'fileUploader', ['$http', '$parse', ($http, $parse) ->
 
     elem.parents('.modal').on 'modal-toggle', ->
       ngForm = $scope[$scope.node + 'Form']
-      statusElem.html ''
       resetFileInput()
 ]

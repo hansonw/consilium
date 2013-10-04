@@ -58,8 +58,77 @@ class Client
     sum
   end
 
+  def create_file(name, raw_data, limit)
+    # data URL format; data:<mime-type>;<charset etc>,<base64-encoded data>
+    header, data = raw_data.split(',')
+    mime_type = header.split(/[:;]/)[1]
+    if data.nil? || (data = Base64.decode64(data)).empty?
+      return nil
+    end
+
+    if !limit.nil? && data.length > limit
+      return nil
+    end
+
+    file_data = {
+      :name => name,
+      :user => ProxyCurrentUser.current_user,
+      :client => self,
+      :mime_type => mime_type,
+      :data => Moped::BSON::Binary.new(:generic, data),
+    }
+
+    f = FileAttachment.where(file_data).first
+    if !f
+      f = FileAttachment.new(file_data)
+    end
+
+    if f.save
+      return f
+    else
+      return nil
+    end
+  end
+
+  def finalize_scan(data, fields)
+    changed = false
+
+    if data.is_a?(Hash) && data['value']
+      changed = finalize_scan(data['value'], fields)
+      if changed
+        data['updated_at'] = Time.now.to_i
+      end
+    elsif fields.is_a?(Hash) && fields.andand[:type] == 'file'
+      # Create the file if it's a new upload.
+      if data['raw_data']
+        changed = true
+        if f = create_file(data['name'], data['raw_data'], fields.andand[:limit])
+          data['id'] = f.id.to_s
+        end
+        data.delete 'name'
+        data.delete 'raw_data'
+      end
+    elsif data.is_a?(Hash)
+      field_map = {}
+      if fields.andand.is_a?(Array)
+        fields.each do |field|
+          field_map[field[:id]] = field
+        end
+      end
+      data.each do |k, v|
+        changed |= finalize_scan(v, field_map.andand[k])
+      end
+    elsif data.is_a?(Array)
+      data.each { |d| changed |= finalize_scan(d, fields.andand[:type]) }
+    end
+
+    changed
+  end
+
   # Post process some calculated data
   def finalize
+    finalize_scan(self.attributes, Client.expand_fields_with_references)
+
     # Re-compute Building, Equipment, POED, COED sums in coverage schedules.
     if locations = self['locations'].andand['value']
       locations.each do |location|

@@ -102,6 +102,8 @@ module ConsiliumFields
               {field[:id] => field[:options].keys}
             elsif field[:type] == 'units'
               {field[:id] => [:qty, :unit]}
+            elsif field[:type] == 'file'
+              {field[:id] => [:id, :name, :raw_data]}
             else
               field[:id]
             end
@@ -137,6 +139,8 @@ module ConsiliumFields
               {:value => field[:options].keys}
             elsif field[:type] == 'units'
               {:value => [:qty, :unit]}
+            elsif field[:type] == 'file'
+              {:value => [:id, :name, :raw_data]}
             else
               :value
             end
