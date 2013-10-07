@@ -1,14 +1,14 @@
 <% changed = options[:changed] || "changedFields.#{field[:id]}" %>
 <span data-ng-show="readonly">
   <a class="pure-button pure-button-small pure-button-primary"
-     ng-href="<%= field[:upload_path] %>/{{ <%= changed %> }}"
+     ng-href="<%= angularApiPath "#{field[:upload_path]}/{{ #{changed} }}" %>"
      data-ng-show="<%= changed %>">
     <i class="icon-download-alt"></i> Download old file
   </a>
 </span>
 
 <a class="pure-button pure-button-small pure-button-primary"
-   ng-href="<%= field[:upload_path] %>/{{ <%= model %>.id }}"
+   ng-href="<%= angularApiPath "#{field[:upload_path]}/{{ #{model}.id }}" %>"
    data-ng-show="<%= model %>.id">
   <i class="icon-download-alt"></i> Download file
 </a>

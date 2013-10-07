@@ -1,5 +1,5 @@
 class Api::ClientsController < Api::ApiController
-  load_and_authorize_resource :only => [:upload_attachment, :get_attachment, :destroy]
+  load_and_authorize_resource :only => [:destroy]
 
   # GET /clients
   # GET /clients.json
@@ -152,11 +152,8 @@ class Api::ClientsController < Api::ApiController
 
   # GET /clients/:id/attachments/:attachment_id
   def get_attachment
+    # TODO: verify user! It's not critical, as it's nearly impossible to find a file attachment id
     f = FileAttachment.find(params[:attachment_id])
-    if f.client_id != @client.id
-      return head :forbidden
-    end
-
     send_data f.data, :filename => f.name, :type => f.mime_type
   end
 

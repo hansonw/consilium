@@ -126,7 +126,7 @@ class Database
     @db = (window.sqlitePlugin || window).openDatabase('Consilium', '1.0', 'Consilium offline storage database.', 5*1024*1024)
     @db.transaction ((tx) =>
       tx.executeSql "CREATE TABLE IF NOT EXISTS #{@key} (id, user, data)"
-    ), ((err) -> console.log err)
+    ), ((err) -> console.log err.message)
 
   get: (id, fn = angular.noop) ->
     @db.transaction ((tx) =>
@@ -135,7 +135,7 @@ class Database
           fn(angular.fromJson(res.rows.item(0).data))
         else
           fn(null)
-    ), ((err) -> console.log err)
+    ), ((err) -> console.log err.message)
 
   all: (fn = angular.noop) ->
     @db.transaction ((tx) =>
@@ -146,25 +146,25 @@ class Database
             row = res.rows.item(i)
             ret[row.id] = angular.fromJson(row.data)
         fn(ret)
-    ), ((err) -> console.log err)
+    ), ((err) -> console.log err.message)
 
   delete: (id, fn = angular.noop) ->
     @db.transaction ((tx) =>
       tx.executeSql "DELETE FROM #{@key} WHERE id = ? AND user = ?", [id, @AuthToken.get().email], (tx, res) ->
         fn()
-    ), ((err) -> console.log err)
+    ), ((err) -> console.log err.message)
 
   insert: (id, data, fn = angular.noop) ->
     @db.transaction ((tx) =>
       tx.executeSql "INSERT INTO #{@key} VALUES (?, ?, ?)",
                     [id, @AuthToken.get().email, angular.toJson(data)], (tx, res) -> fn()
-    ), ((err) -> console.log err)
+    ), ((err) -> console.log err.message)
 
   update: (id, data, fn = angular.noop) ->
     @db.transaction ((tx) =>
       tx.executeSql "UPDATE #{@key} SET data = ? WHERE id = ? AND user = ?",
                     [angular.toJson(data), id, @AuthToken.get().email], (tx, res) -> fn()
-    ), ((err) -> console.log err)
+    ), ((err) -> console.log err.message)
 
 # Higher level key -> value storage.
 class Storage
