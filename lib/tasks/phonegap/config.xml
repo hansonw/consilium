@@ -21,6 +21,7 @@
   <access origin="https://consilium.scigit.com" />
   <access origin="http://consilium-staging.scigit.com" />
   <access origin="https://consilium-staging.scigit.com" />
+  <access origin="data:*" />
 
   <feature name="http://api.phonegap.com/1.0/camera"/>
   <feature name="http://api.phonegap.com/1.0/file" />

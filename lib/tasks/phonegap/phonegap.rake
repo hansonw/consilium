@@ -90,8 +90,10 @@ namespace :phonegap do
     FileUtils.cp_r File.dirname(__FILE__) + '/spec', project_path
 
     # Delete the stray assets folder
-    puts "* Deleting stray assets folder"
-    FileUtils.rm_r "#{project_path}/assets"
+    if Dir.exists? "#{project_path}/assets"
+      puts "* Deleting stray assets folder"
+      FileUtils.rm_r "#{project_path}/assets"
+    end
 
     # Zip up the project
     puts "Zipping up project to: #{project_path}/consilium.zip"
