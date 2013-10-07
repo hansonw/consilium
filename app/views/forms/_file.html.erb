@@ -19,6 +19,12 @@
   <i class="icon-download-alt"></i> Download file
 </a>
 
+<a class="pure-button pure-button-small pure-button-primary"
+   ng-click="takePhoto()"
+   data-ng-show="canTakePhoto && !readonly">
+  <i class="icon-camera"></i>
+ </a>
+
 <input type="file" file-uploader="<%= field[:upload_path] %>"
   data-ng-hide="readonly" model="<%= model %>"
   <%= standard_form_tags field, model, :model => false %>

@@ -11,6 +11,7 @@ App.directive 'fileUploader', ['$http', '$parse', ($http, $parse) ->
     limit = parseInt(attrs.fileUploaderLimit)
     ngForm = null # must be set after form loads
     required = attrs.required
+    $scope.canTakePhoto = navigator.camera?.getPicture?
 
     resetFileInput = ->
       elem.val('') # reset uploader, so re-uploading the same file registers as a change
@@ -48,6 +49,26 @@ App.directive 'fileUploader', ['$http', '$parse', ($http, $parse) ->
       else
         $parse(model).assign($scope, '')
     )
+
+    $scope.takePhoto = ->
+      return if !navigator.camera?.getPicture?
+
+      success = (data) ->
+        dataURI = 'data:image/jpeg;base64,' + data
+        elem.val('')
+        ngForm.$setValidity('required', true, ctrl)
+        $parse(model).assign($scope, {
+          name: 'photo.jpg',
+          raw_data: dataURI,
+        })
+
+      error = (err) ->
+        console.log 'Error taking picture: ' + err
+
+      navigator.camera.getPicture success, error,
+        sourceType: 1,      # Camera.PhotoSourceType.CAMERA
+        destinationType: 0, # Camera.DestinationType.DATA_URI
+        quality: 90
 
     $scope.viewFile = (data) ->
       window.open(data, '_blank')

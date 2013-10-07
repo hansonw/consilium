@@ -643,15 +643,7 @@ label.changed {
   }
 }
 
-.file-uploader-status {
-  font-size: 90%;
-  vertical-align: middle;
-
-  .icon-check-sign {
-    color: limegreen;
-  }
-
-  .icon-warning-sign {
-    color: red;
-  }
+input[file-uploader] {
+  display: inline-block;
+  width: 250px;
 }
