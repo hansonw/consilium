@@ -18,7 +18,7 @@ class Document
     if data.is_a?(Hash) && data['value']
       return unwrap(data['value'], fields)
     elsif fields.is_a?(Hash) && fields.andand[:type] == 'file'
-      f = FileAttachment.where(:id => data).first
+      f = FileAttachment.where(:id => data['id']).first
       return {
         'name' => f.name,
         'mime_type' => f.mime_type,
