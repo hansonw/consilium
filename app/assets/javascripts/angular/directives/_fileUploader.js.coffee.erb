@@ -10,18 +10,23 @@ App.directive 'fileUploader', ['$http', '$parse', ($http, $parse) ->
     model = attrs.model
     limit = parseInt(attrs.fileUploaderLimit)
     ngForm = null # must be set after form loads
+    required = attrs.required
 
     resetFileInput = ->
       elem.val('') # reset uploader, so re-uploading the same file registers as a change
-      ngForm.$setValidity('required', false, ctrl)
+      ngForm.$setValidity('process', true, ctrl)
+      if required
+        ngForm.$setValidity('required', false, ctrl)
 
     elem.on('change', (evt) ->
       ngForm = $scope[$scope.node + 'Form']
-      if attrs.required
+      if required
+        elem.attr('required', true)
         ngForm.$setValidity('required', evt.target.files.length == 1, ctrl)
 
       if evt.target.files.length == 1
         if FileReader?
+          ngForm.$setValidity('process', false, ctrl)
           file = evt.target.files[0]
           if limit && file.size > limit
             limitStr = limit / 1024 / 1024
@@ -32,6 +37,7 @@ App.directive 'fileUploader', ['$http', '$parse', ($http, $parse) ->
 
           reader = new FileReader()
           reader.onloadend = ->
+            ngForm.$setValidity('process', true, ctrl)
             $parse(model).assign($scope, {
               name: file.name,
               raw_data: reader.result,
@@ -43,7 +49,15 @@ App.directive 'fileUploader', ['$http', '$parse', ($http, $parse) ->
         $parse(model).assign($scope, '')
     )
 
+    $scope.viewFile = (data) ->
+      window.open(data, '_blank')
+
     elem.parents('.modal').on 'modal-toggle', ->
       ngForm = $scope[$scope.node + 'Form']
       resetFileInput()
+
+      elem.attr('required', required)
+      if $parse(model)($scope)?
+        ngForm.$setValidity('required', true, ctrl)
+        elem.attr('required', false)
 ]

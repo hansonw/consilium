@@ -3,18 +3,19 @@
   <a class="pure-button pure-button-small pure-button-primary"
      ng-href="<%= field[:upload_path] %>/{{ <%= changed %> }}"
      data-ng-show="<%= changed %>">
-    <i class="icon-download-alt"></i> Download previous file
-  </a>
-  <a class="pure-button pure-button-small pure-button-primary"
-     ng-href="<%= field[:upload_path] %>/{{ <%= model %>.id }}"
-     data-ng-show="<%= model %>.id">
-    <i class="icon-download-alt"></i> Download new file
+    <i class="icon-download-alt"></i> Download old file
   </a>
 </span>
 
 <a class="pure-button pure-button-small pure-button-primary"
    ng-href="<%= field[:upload_path] %>/{{ <%= model %>.id }}"
-   data-ng-show="!readonly && <%= model %>.id">
+   data-ng-show="<%= model %>.id">
+  <i class="icon-download-alt"></i> Download file
+</a>
+
+<a class="pure-button pure-button-small pure-button-primary"
+   ng-click="viewFile(<%= model %>.raw_data)"
+   data-ng-show="<%= model %>.raw_data">
   <i class="icon-download-alt"></i> Download file
 </a>
 

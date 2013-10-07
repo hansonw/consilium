@@ -119,7 +119,7 @@ App.directive 'autoSave', ['$location', '$parse', '$timeout', 'Hierarchy', 'Moda
         "max": "too large",
         "pattern": "in the wrong format",
         "unique": "not unique",
-        "uploading": "still uploading. Please wait for it to finish.",
+        "process": "still processing. Please wait for it to finish.",
       }
       error_str = ''
       for key, val of error
