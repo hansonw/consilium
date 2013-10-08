@@ -1,7 +1,7 @@
 <% environment.context_class.instance_eval { include ActionView::Helpers } %>
 <% environment.context_class.instance_eval { include HostHelper } %>
 
-App.directive 'fileUploader', ['$http', '$parse', ($http, $parse) ->
+App.directive 'fileUploader', ['$http', '$parse', 'MimeType', ($http, $parse, MimeType) ->
   ($scope, elem, attrs) ->
     form = elem.parents('form')
     # HACK: angular doesn't recognize input type=file.
@@ -38,10 +38,15 @@ App.directive 'fileUploader', ['$http', '$parse', ($http, $parse) ->
 
           reader = new FileReader()
           reader.onloadend = ->
+            data = reader.result
+            # PhoneGap doesn't set mimetype.
+            if data.match /^data:base64/
+              data.replace 'data:base64', 'data:' + (MimeType.lookup(file.name) || 'application/octet-stream') + ';base64'
+
             ngForm.$setValidity('process', true, ctrl)
             $parse(model).assign($scope, {
               name: file.name,
-              raw_data: reader.result,
+              raw_data: data,
             })
           reader.readAsDataURL(file)
         else
