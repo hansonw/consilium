@@ -644,6 +644,6 @@ label.changed {
 }
 
 input[file-uploader] {
-  display: inline-block;
+  display: inline-block !important;
   width: 250px;
 }
