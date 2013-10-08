@@ -26,7 +26,10 @@
       <param name="android-package" value="org.apache.cordova.CameraLauncher" />
       <param name="ios-package" value="CDVCamera" />
   </feature>
-  <feature name="http://api.phonegap.com/1.0/file" />
+  <feature name="NetworkStatus">
+      <param name="android-package" value="org.apache.cordova.NetworkManager" />
+      <param name="ios-package" value="CDVConnection" />
+  </feature>
 
   <plugin name="SQLitePlugin" value="org.pgsqlite.SQLitePlugin"/>
 
