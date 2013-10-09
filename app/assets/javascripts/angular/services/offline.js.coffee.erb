@@ -190,16 +190,15 @@ class Storage
 
     need_update = false
     @db.get data.id, (existing) =>
-      if !overwrite && existing
-        if !existing.id? # deleted
-          return fn(existing)
-        need_update = @sync_fn(data, existing, @getLastSynced(data.id))
-      else
-        markChanges(data, existing)
-        angular.extend(resource, data)
-
       ret_fn = -> fn(if need_update then data else null)
       if existing
+        if !overwrite
+          if !existing.id? # deleted
+            return fn(existing)
+          need_update = @sync_fn(data, existing, @getLastSynced(data.id))
+        else
+          markChanges(data, existing)
+          angular.extend(resource, data)
         @db.update(data.id, data, ret_fn)
       else
         @db.insert(data.id, data, ret_fn)
@@ -219,6 +218,54 @@ class Storage
 
   getAll: (fn = angular.noop) ->
     @db.all(fn)
+
+# Fake storage for desktops, where we don't actually need to persistently store anything.
+class TempStorage
+  constructor: (@AuthToken, @key, @sync_fn) ->
+    @db = {}
+    @obj_last_synced = {}
+    @last_synced = 0
+
+  getLastSynced: (obj) ->
+    return (obj? && @obj_last_synced[obj]) || @last_synced
+
+  setLastSynced: (time, obj) ->
+    if obj?
+      @obj_last_synced[obj] = time
+    else
+      @last_synced = time
+
+  update: (resource, overwrite, fn = angular.noop) ->
+    data = getData(resource)
+
+    need_update = false
+    existing = angular.copy(@db[data.id])
+    if existing
+      if !overwrite
+        if !existing.id? # deleted
+          return fn(existing)
+        need_update = @sync_fn(data, existing, @getLastSynced(data.id))
+      else
+        markChanges(data, existing)
+        angular.extend(resource, data)
+
+    @db[data.id] = data
+    fn(if need_update then data else null)
+
+  delete: (id, permanent, fn = angular.noop) ->
+    if permanent
+      delete @db[id]
+    else
+      # Mark for deletion. Can't actually delete, or we won't be able to sync it
+      data = @db[id]
+      data.id = null
+      data.updated_at = Util.unixTimestamp()
+
+  get: (id, fn = angular.noop) ->
+    fn(angular.copy(@db[id]))
+
+  getAll: (fn = angular.noop) ->
+    fn(angular.copy(@db))
 
 # Wraps an angular HTTP resource with offline functionality.
 App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeout, AuthToken) -> {
@@ -253,7 +300,12 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
       'save': {method: 'PUT'},
       'create': {method: 'POST'}
     })
-    storage = new Storage(AuthToken, key, sync_fn)
+
+    if useOfflineStorage = (window.sqlitePlugin? || window.openDatabase?)
+      storage = new Storage(AuthToken, key, sync_fn)
+    else
+      storage = new TempStorage(AuthToken, key, sync_fn)
+
     class OfflineResource
       constructor: (data = {}) ->
         rsrc = new resource(data)
@@ -277,7 +329,7 @@ App.factory 'Offline', ['$resource', '$timeout', 'AuthToken', ($resource, $timeo
         getData(this)
 
       isNew: ->
-        @_isNew || @created_at > storage.getLastSynced(@id)
+        @_isNew || useOfflineStorage && @created_at > storage.getLastSynced(@id)
 
       $save: (success, error) ->
         storage.get @id, (existing) =>
