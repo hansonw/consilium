@@ -23,12 +23,20 @@
   <access origin="https://consilium-staging.scigit.com" />
 
   <feature name="Camera">
-      <param name="android-package" value="org.apache.cordova.CameraLauncher" />
-      <param name="ios-package" value="CDVCamera" />
+    <param name="android-package" value="org.apache.cordova.CameraLauncher" />
+    <param name="ios-package" value="CDVCamera" />
   </feature>
   <feature name="NetworkStatus">
-      <param name="android-package" value="org.apache.cordova.NetworkManager" />
-      <param name="ios-package" value="CDVConnection" />
+    <param name="android-package" value="org.apache.cordova.NetworkManager" />
+    <param name="ios-package" value="CDVConnection" />
+  </feature>
+  <feature name="File">
+    <param name="android-package" value="org.apache.cordova.FileUtils" />
+    <param name="ios-package" value="CDVFile" />
+  </feature>
+  <feature name="FileTransfer">
+    <param name="android-package" value="org.apache.cordova.FileTransfer" />
+    <param name="ios-package" value="CDVFileTransfer" />
   </feature>
 
   <plugin name="SQLitePlugin" value="org.pgsqlite.SQLitePlugin"/>
