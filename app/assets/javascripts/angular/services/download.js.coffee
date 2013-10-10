@@ -6,6 +6,7 @@ App.factory 'Download', [-> {
       window.location = url
   downloadDataURI: (data, name) ->
     if downloader?
+      downloader.get({data: data, name: name})
     else
       window.open(data, '_blank')
 }]

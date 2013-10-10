@@ -2,6 +2,8 @@ class Api::DocumentsController < Api::ApiController
   before_action :set_document, only: [:destroy]
   render_related_fields :user => [:email]
 
+  DOCX_MIME_TYPE = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+
   # GET /documents
   # GET /documents.json
   def index
@@ -29,7 +31,7 @@ class Api::DocumentsController < Api::ApiController
 
     authorize! :read, @document
 
-    send_data @document.generate, :filename => @document.description + '.docx'
+    send_data @document.generate, :filename => @document.description + '.docx', :type => DOCX_MIME_TYPE
   end
 
   # GET /documents/client/:id
@@ -63,7 +65,7 @@ class Api::DocumentsController < Api::ApiController
       existing = DocumentTemplateSection.unscoped.find(params[:version])
       if existing
         filename = existing.name.underscore.humanize + ' for ' + doc.description + '.docx'
-        send_data existing.data.to_s, :filename => filename
+        send_data existing.data.to_s, :filename => filename, :type => DOCX_MIME_TYPE
         return
       end
     elsif params[:section]
@@ -81,13 +83,13 @@ class Api::DocumentsController < Api::ApiController
         }).desc(:created_at).first
 
         if existing
-          send_data existing.data.to_s, :filename => filename
+          send_data existing.data.to_s, :filename => filename, :type => DOCX_MIME_TYPE
           return
         end
       end
     end
 
-    send_data doc.generate(options), :filename => filename
+    send_data doc.generate(options), :filename => filename, :type => DOCX_MIME_TYPE
   end
 
   # PUT /documents/:id

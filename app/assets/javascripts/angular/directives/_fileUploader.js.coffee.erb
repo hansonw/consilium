@@ -63,7 +63,7 @@ App.directive 'fileUploader', ['$http', '$parse', 'Auth', 'Download', 'MimeType'
         elem.val('')
         ngForm.$setValidity('required', true, ctrl)
         $parse(model).assign($scope, {
-          name: 'photo.jpg',
+          name: 'photo-' + Util.generateGUID().substr(0, 10) + '.jpg',
           raw_data: dataURI,
         })
 
