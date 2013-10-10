@@ -1,7 +1,7 @@
 <% environment.context_class.instance_eval { include ActionView::Helpers } %>
 <% environment.context_class.instance_eval { include HostHelper } %>
 
-App.directive 'fileUploader', ['$http', '$parse', 'MimeType', ($http, $parse, MimeType) ->
+App.directive 'fileUploader', ['$http', '$parse', 'Download', 'MimeType', ($http, $parse, Download, MimeType) ->
   ($scope, elem, attrs) ->
     form = elem.parents('form')
     # HACK: angular doesn't recognize input type=file.
@@ -75,8 +75,11 @@ App.directive 'fileUploader', ['$http', '$parse', 'MimeType', ($http, $parse, Mi
         destinationType: 0, # Camera.DestinationType.DATA_URI
         quality: 90
 
-    $scope.viewFile = (data) ->
-      window.open(data, '_blank')
+    $scope.downloadFile = (url, name) ->
+      Download.downloadURL(url, name)
+
+    $scope.saveFileData = (data, name) ->
+      Download.downloadDataURI(data, name)
 
     elem.parents('.modal').on 'modal-toggle', ->
       ngForm = $scope[$scope.node + 'Form']

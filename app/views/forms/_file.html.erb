@@ -1,20 +1,20 @@
 <% changed = options[:changed] || "changedFields.#{field[:id]}" %>
 <span data-ng-show="readonly">
   <a class="pure-button pure-button-small pure-button-primary"
-     ng-href="<%= angularApiPath "#{field[:upload_path]}/{{ #{changed} }}" %>"
+     ng-click="downloadFile('<%= angularApiPath field[:upload_path] %>/' + <%= changed %>.id, <%= changed %>.name)"
      data-ng-show="<%= changed %>">
     <i class="icon-download-alt"></i> Download old file
   </a>
 </span>
 
 <a class="pure-button pure-button-small pure-button-primary"
-   ng-href="<%= angularApiPath "#{field[:upload_path]}/{{ #{model}.id }}" %>"
+   ng-click="downloadFile('<%= angularApiPath field[:upload_path] %>/' + <%= model %>.id, <%= model %>.name)"
    data-ng-show="<%= model %>.id">
   <i class="icon-download-alt"></i> Download file
 </a>
 
 <a class="pure-button pure-button-small pure-button-primary"
-   ng-click="viewFile(<%= model %>.raw_data)"
+   ng-click="saveFileData(<%= model %>.raw_data, <%= model %>.name)"
    data-ng-show="<%= model %>.raw_data">
   <i class="icon-download-alt"></i> Download file
 </a>

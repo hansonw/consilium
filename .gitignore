@@ -18,5 +18,7 @@
 /phonegap/www
 /phonegap/platforms/android/**
 !/phonegap/platforms/android/src/
+!/phonegap/platforms/android/res/
+!/phonegap/platforms/android/libs/
 
 /public/assets

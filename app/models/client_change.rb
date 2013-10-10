@@ -98,7 +98,10 @@ class ClientChange
         :unit => value_diff(new_val.andand['unit'], old_val.andand['unit']),
       }
     elsif type == 'file'
-      old_val.andand['id'].to_s
+      return {
+        :id => old_val.andand['id'].to_s,
+        :name => old_val.andand['name']
+      }
     elsif val.is_a?(Hash)
       hash_diff(new_val || {}, old_val || {})
     else

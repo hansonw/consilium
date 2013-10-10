@@ -105,7 +105,6 @@ class Client
         if f = create_file(data['name'], data['raw_data'], fields.andand[:limit])
           data['id'] = f.id.to_s
         end
-        data.delete 'name'
         data.delete 'raw_data'
       end
     elsif data.is_a?(Hash)
