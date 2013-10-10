@@ -135,6 +135,9 @@ App.factory 'Auth', ['$http', '$location', 'AuthToken', 'AuthSessionStatus', ($h
       wrappedResource = resource
       authTokenWrapper(wrappedResource, action) for action in actions
       wrappedResource
+    wrapURL: (url) ->
+      query = "email=" + AuthToken.get().email + "&auth_token=" + AuthToken.get().auth_token
+      return url + (if url.indexOf('?') >= 0 then "&" else "?") + query
     sessionExpired: ->
       if @_isLoggedIn
         @_isLoggedIn = false

@@ -71,7 +71,7 @@ App.controller 'ClientsShowCtrl', ['$scope', '$routeParams', '$location', '$filt
     d.$save((data, header) ->
       $scope.documents.splice(0, 0, d)
       $scope.generating = false
-      Download.downloadURL("<%= angularApiPath('/api/documents/#{d.id}') %>", $scope.genDocument.description + '.docx')
+      Download.downloadURL(Auth.wrapURL("<%= angularApiPath('/api/documents/#{d.id}') %>"), d.description + '.docx')
     , (data, header) ->
       $scope.generating = false
       alert('Error occurred generating document.')
