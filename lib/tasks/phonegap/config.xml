@@ -31,7 +31,7 @@
     <param name="ios-package" value="CDVConnection" />
   </feature>
   <feature name="Downloader">
-    <param name="android-package" value="org.apache.cordova.Downloader" />
+    <param name="android-package" value="com.scigit.plugins.Downloader" />
   </feature>
 
   <plugin name="SQLitePlugin" value="org.pgsqlite.SQLitePlugin"/>

@@ -21,7 +21,7 @@
         <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
     </feature>
     <feature name="Downloader">
-        <param name="android-package" value="org.apache.cordova.downloader.Downloader" />
+        <param name="android-package" value="com.scigit.plugins.Downloader" />
     </feature>
     <access origin="http://consilium.scigit.com" />
     <access origin="https://consilium.scigit.com" />
