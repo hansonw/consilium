@@ -38,17 +38,37 @@ public class Downloader extends CordovaPlugin {
           try {
             JSONObject params = args.getJSONObject(0);
             String fileName = params.has("name") ? params.getString("name") : null;
-            if (params.has("url")) {
-              String fileUrl = params.getString("url");
-              if (fileName == null) {
+            String dirName = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Download/";
+            File dir = new File(dirName);
+            if (!dir.exists()) {
+              dir.mkdirs();
+            }
+
+            String fileUrl = params.has("url") ? params.getString("url") : null;
+            if (fileName == null) {
+              if (fileUrl != null) {
                 fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
-              }
-              downloadUrl(fileUrl, fileName, callbackContext);
-            } else {
-              if (fileName == null) {
+              } else {
                 fileName = "untitled";
               }
-              viewData(params.getString("data"), fileName, callbackContext);
+            }
+
+            // Find a unique filename
+            File file = new File(dirName, fileName);
+            if (file.exists()) {
+              int idx = fileName.lastIndexOf('.');
+              String name = idx >= 0 ? fileName.substring(0, idx) : fileName;
+              String ext = idx >= 0 ? fileName.substring(idx+1) : "";
+              for (int i = 1; file.exists(); i++) {
+                fileName = name + "-" + i + "." + ext;
+                file = new File(dirName, fileName);
+              }
+            }
+
+            if (fileUrl != null) {
+              downloadUrl(fileUrl, fileName, dirName, callbackContext);
+            } else {
+              downloadData(params.getString("data"), fileName, dirName, callbackContext);
             }
           } catch (JSONException e) {
             e.printStackTrace();
@@ -69,13 +89,16 @@ public class Downloader extends CordovaPlugin {
     }
   }
 
-  private void downloadUrl(String fileUrl, String fileName, CallbackContext callbackContext) {
+  private void downloadUrl(String fileUrl, String fileName, String dirName, CallbackContext callbackContext) {
     showToast("Download started.", "short");
 
     DownloadManager downloadManager = (DownloadManager)cordova.getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
     Request req = new Request(Uri.parse(fileUrl));
+    String appName = cordova.getActivity().getString(R.string.app_name);
     req.setNotificationVisibility(Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-       .setTitle(fileName);
+       .setTitle(fileName)
+       .setDestinationUri(Uri.fromFile(new File(dirName, fileName)))
+       .setDescription(appName);
     downloadManager.enqueue(req);
 
     cordova.getActivity().registerReceiver(new BroadcastReceiver() {
@@ -87,22 +110,8 @@ public class Downloader extends CordovaPlugin {
     callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
   }
 
-  private void viewData(String dataUri, String fileName, CallbackContext callbackContext) throws IOException {
-    String dirName = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Download/";
-    File dir = new File(dirName);
-    if (!dir.exists()) {
-      dir.mkdirs();
-    }
+  private void downloadData(String dataUri, String fileName, String dirName, CallbackContext callbackContext) throws IOException {
     File file = new File(dirName, fileName);
-    if (file.exists()) {
-      int idx = fileName.lastIndexOf('.');
-      String name = idx >= 0 ? fileName.substring(0, idx) : fileName;
-      String ext = idx >= 0 ? fileName.substring(idx+1) : "";
-      for (int i = 1; file.exists(); i++) {
-        fileName = name + "-" + i + "." + ext;
-        file = new File(dirName, fileName);
-      }
-    }
 
     String[] parts = dataUri.split(",");
     String base64 = parts[parts.length - 1];
