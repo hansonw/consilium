@@ -12,7 +12,6 @@ import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.scigit.consilium.R;
 
 import android.app.Activity;
 import android.app.DownloadManager;
@@ -94,11 +93,10 @@ public class Downloader extends CordovaPlugin {
 
     DownloadManager downloadManager = (DownloadManager)cordova.getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
     Request req = new Request(Uri.parse(fileUrl));
-    String appName = cordova.getActivity().getString(R.string.app_name);
     req.setNotificationVisibility(Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
        .setTitle(fileName)
        .setDestinationUri(Uri.fromFile(new File(dirName, fileName)))
-       .setDescription(appName);
+       .setDescription(getAppName());
     downloadManager.enqueue(req);
 
     cordova.getActivity().registerReceiver(new BroadcastReceiver() {
@@ -124,12 +122,16 @@ public class Downloader extends CordovaPlugin {
 
     String mimeType = URLConnection.guessContentTypeFromName(fileName);
 
-    String appName = cordova.getActivity().getString(R.string.app_name);
     DownloadManager downloadManager = (DownloadManager)cordova.getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
-    downloadManager.addCompletedDownload(fileName, appName, true, mimeType, file.getAbsolutePath(), data.length, true);
+    downloadManager.addCompletedDownload(fileName, getAppName(), true, mimeType, file.getAbsolutePath(), data.length, true);
 
     showToast("Download complete.", "short");
     callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
+  }
+
+  private String getAppName() {
+    int stringId = cordova.getActivity().getApplicationInfo().labelRes;
+    return cordova.getActivity().getString(stringId);
   }
 
   private void showToast(final String message, final String duration) {
