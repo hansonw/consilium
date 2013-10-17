@@ -104,7 +104,7 @@ namespace :phonegap do
     Rake::Task["phonegap:export"].invoke
     puts "Compiling to PhoneGap application..."
     Dir.chdir project_path do
-      system "phonegap build android"
+      system "phonegap local build android"
     end
     puts "Done compiling!"
   end

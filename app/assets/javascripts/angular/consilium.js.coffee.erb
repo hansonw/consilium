@@ -8,7 +8,8 @@ App.config ['$routeProvider', ($routeProvider) ->
     templateUrl: '<%= angularRouteFilePath(route) %>',
     reloadOnSearch: false,
     # HACK: 'defer' the route change so the loading indicator has a chance to appear.
-    <% if angularRouteAppPath(route)['/clients/edit'] %>
+    # XXX: Disable this for now. It seems to slow down the loading of this page.
+    <% if false && angularRouteAppPath(route)['/clients/edit'] %>
     resolve:
       defer: ['$q', ($q) ->
         defer = $q.defer()
