@@ -37,6 +37,12 @@
 <body data-ng-click="menuItemSelect(null)">
   <header>
   </header>
+  <!--[if lt IE 7]><div id="browser-version" class="lt-ie10 lt-ie7"></div><![endif]-->
+  <!--[if IE 7]><div id="browser-version" class="lt-ie10 ie7"></div><![endif]-->
+  <!--[if IE 8]><div id="browser-version" class="lt-ie10 ie8"></div><![endif]-->
+  <!--[if IE 9]><div id="browser-version" class="lt-ie10 ie9"></div><![endif]-->
+  <!--[if IE 10]><div id="browser-version" class="ie10"></div><![endif]-->
+  <!--[if gt IE 10]><div id="browser-version" class="gt-ie10"></div><![endif]-->
   <div class="pure-g-r" data-ng-class="{'active': menuShouldShow(), 'layout': isLoggedIn}">
     <a href="" id="mainMenuLink" class="pure-menu-link" data-ng-click="mainMenuLinkClick()"
        data-ng-class="{'active': menuShouldShow()}" data-ng-show="isLoggedIn">

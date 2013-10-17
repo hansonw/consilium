@@ -1,4 +1,7 @@
 $(document).ready ->
+  if $('#browser-version').hasClass('lt-ie9')
+    window.location.assign('/unsupported')
+
   adjustDimensions = ->
     $('.section').css('width', $(window).width())
     $('.section.expanded').css('height', $(window).height())

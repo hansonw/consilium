@@ -2,6 +2,7 @@ Consilium::Application.routes.draw do
   root 'home#index'
 
   get 'home/index' => 'home#index'
+  get 'unsupported' => 'home#unsupported'
 
   devise_for :users, :controllers => {:registrations => 'users/registrations'}
 

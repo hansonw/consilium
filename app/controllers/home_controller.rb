@@ -3,6 +3,10 @@ class HomeController < ApplicationController
     render :layout => 'server'
   end
 
+  def unsupported
+    render :layout => nil
+  end
+
   def app
     render 'index', :layout => 'angular'
   end
