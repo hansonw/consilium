@@ -49,7 +49,7 @@ class Document
     fields = Client.expand_fields_with_references.dup
     data = unwrap(self.client_change.client_data, fields)
 
-    if brokerage = client.brokerage
+    if brokerage = self.client_change.client.brokerage
       brokerage = brokerage.serialize_references.to_hash
       brokerage_users = brokerage['users'].andand.select { |u|
         u['appear_on_documents'].andand['yes']
